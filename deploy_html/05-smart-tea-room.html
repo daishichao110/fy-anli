@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>**智能茶空间</title>
+  <style>
+    /* ==========================================================================
+       设计系统 Token 规范 (新中式东方禅意 · 墨竹天青与紫砂雅木)
+       ========================================================================== */
+    :root {
+      --primary: #1B4D3E;          /* 天青墨竹绿 */
+      --primary-light: #EBF2EE;    /* 天青浅底 */
+      --primary-hover: #143A2F;    /* 幽篁深绿 */
+      --accent: #A67C52;           /* 紫砂木香 */
+      --accent-light: #F8F4EE;     /* 宣纸暖米 */
+      --bg-page: #F4F5F7;          /* 小程序页面玉灰底 */
+      --surface: #FFFFFF;          /* 高岭白卡片 */
+      --text-main: #192024;        /* 浓墨 */
+      --text-sub: #4B5563;         /* 淡墨 */
+      --text-muted: #8A92A0;       /* 烟灰提示 */
+      --border: #E5E7EB;           /* 素宣分割线 */
+      --border-light: #F3F4F6;     /* 微弱分隔 */
+      --success: #059669;          /* 翠芽绿 */
+      --warning: #D97706;          /* 琥珀黄 */
+      --danger: #DC2626;           /* 砂红 */
+      --shadow-sm: 0 1px 3px rgba(27, 77, 62, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 4px 14px rgba(27, 77, 62, 0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #E8EBE9;
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+      user-select: none;
+    }
+
+    /* ==========================================================================
+       微信小程序原生仿真外壳 (Phone Shell)
+       ========================================================================== */
+    .phone-container {
+      width: 390px;
+      height: 844px;
+      max-height: calc(100vh - 40px);
+      background-color: var(--bg-page);
+      border-radius: 46px;
+      border: 10px solid #1F2937;
+      box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 顶部灵动岛 */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 116px;
+      height: 28px;
+      background-color: #000000;
+      border-radius: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .island-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #111827;
+      border: 1px solid #1E293B;
+    }
+    .island-sensor {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #0B0F17;
+    }
+
+    /* 微信状态栏 */
+    .wechat-status-bar {
+      height: 44px;
+      padding: 12px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      z-index: 40;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--text-main);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 微信顶部导航与双胶囊 */
+    .wechat-nav-bar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      background-color: var(--bg-page);
+      z-index: 40;
+    }
+    .nav-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: 0.3px;
+    }
+    .capsule-btn {
+      width: 87px;
+      height: 32px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background-color: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 6px;
+    }
+    .capsule-dots {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+    .capsule-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #000;
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 16px;
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+    .capsule-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .capsule-circle-inner {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #000;
+    }
+
+    /* 小程序主体滚动视口 */
+    .mp-view-container {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 14px 76px;
+      position: relative;
+    }
+    .mp-view-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       底部微信原生 TabBar
+       ========================================================================== */
+    .wechat-tabbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background-color: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-bottom: 8px;
+      z-index: 40;
+    }
+    .tabbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      flex: 1;
+      height: 100%;
+    }
+    .tabbar-item.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .tabbar-svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+
+    /* ==========================================================================
+       通用卡片与微组件
+       ========================================================================== */
+    .card {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-primary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .badge-accent {
+      background-color: var(--accent-light);
+      color: var(--accent);
+    }
+    .badge-success {
+      background-color: #ECFDF5;
+      color: var(--success);
+    }
+    .badge-gray {
+      background-color: #F3F4F6;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+      padding: 9px 16px;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+    .btn-accent {
+      background-color: var(--accent);
+      color: #FFFFFF;
+    }
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+    }
+    .btn-light {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .btn-block {
+      width: 100%;
+    }
+
+    /* 矢量图标通用样式 */
+    .icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ==========================================================================
+       Tab 0: 空间预订 (Space Booking)
+       ========================================================================== */
+    .store-banner {
+      background: linear-gradient(135deg, #1B4D3E, #285E4E);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 18px rgba(27, 77, 62, 0.2);
+    }
+    .store-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .store-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .store-switch-btn {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .store-desc {
+      font-size: 11px;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    /* 日期选择胶囊条 */
+    .date-scroll {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .date-pill {
+      flex: 1;
+      min-width: 100px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 9px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .date-pill.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(27, 77, 62, 0.15);
+    }
+    .date-pill-week {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+    .date-pill-day {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* 包厢卡片 */
+    .room-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: transform 0.15s;
+    }
+    .room-img-box {
+      height: 120px;
+      position: relative;
+      background-color: #2D3748;
+      overflow: hidden;
+    }
+    .room-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+    .room-status-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+    }
+    .status-avail {
+      background-color: rgba(5, 150, 105, 0.9);
+      color: #FFF;
+    }
+    .status-busy {
+      background-color: rgba(75, 85, 99, 0.85);
+      color: #FFF;
+    }
+    .room-info {
+      padding: 14px;
+    }
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .room-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .room-capacity {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 6px;
+      font-weight: 400;
+    }
+    .room-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .room-price-unit {
+      font-size: 10px;
+      font-weight: normal;
+      color: var(--text-muted);
+    }
+    .room-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .room-tag {
+      font-size: 11px;
+      background-color: #F8FAF9;
+      color: #4A5568;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 2px 7px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .room-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+    }
+    .room-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       Tab 1: 在途智控 (IoT Console)
+       ========================================================================== */
+    .active-room-card {
+      background: linear-gradient(145deg, #1B4D3E, #163E32);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(27, 77, 62, 0.25);
+      position: relative;
+    }
+    .active-badge-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #34D399;
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.3);
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .countdown-box {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .countdown-item {
+      text-align: center;
+    }
+    .countdown-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-family: monospace;
+    }
+    .countdown-lbl {
+      font-size: 10px;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+
+    /* 动态门禁与一键开门 */
+    .door-pass-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+    .door-pass-num {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: #FDE68A;
+      font-family: monospace;
+    }
+    .door-pass-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .door-pass-btn {
+      background-color: rgba(255, 255, 255, 0.18);
+      border: none;
+      color: #FFF;
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .remote-open-btn {
+      width: 100%;
+      height: 48px;
+      background-color: #F59E0B;
+      color: #111827;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      transition: all 0.2s ease;
+    }
+    .remote-open-btn:active {
+      transform: scale(0.98);
+      background-color: #D97706;
+    }
+
+    /* IoT 空间智控矩阵 */
+    .iot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .iot-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .iot-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .iot-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .iot-scene-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+    .scene-btn {
+      border: 1px solid var(--border);
+      background-color: #FAFAFA;
+      border-radius: 6px;
+      padding: 8px 4px;
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .scene-btn.active {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .temp-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+    .stepper-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background-color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+    .stepper-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .switch-toggle {
+      width: 44px;
+      height: 24px;
+      background-color: #E2E8F0;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .switch-toggle.active {
+      background-color: var(--primary);
+    }
+    .switch-knob {
+      width: 20px;
+      height: 20px;
+      background-color: #FFF;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .switch-toggle.active .switch-knob {
+      transform: translateX(20px);
+    }
+
+    /* 快捷服务动作栏 */
+    .quick-service-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .quick-service-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color 0.15s;
+    }
+    .quick-service-card:active {
+      background-color: var(--primary-light);
+    }
+    .quick-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       Tab 2: 茗茶品鉴选购 (Tea Selection)
+       ========================================================================== */
+    .tea-cat-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+    }
+    .tea-cat-btn {
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tea-cat-btn.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .tea-item-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .tea-item-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-sm);
+      background-color: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .tea-item-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tea-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .tea-item-origin {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .tea-item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .tea-item-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .item-counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .counter-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background-color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+    .counter-num {
+      font-size: 12px;
+      font-weight: 600;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    /* 底部悬浮加购结算条 */
+    .cart-float-bar {
+      position: absolute;
+      bottom: 70px;
+      left: 14px;
+      right: 14px;
+      background-color: rgba(27, 77, 62, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      padding: 8px 14px 8px 18px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 20px rgba(27, 77, 62, 0.35);
+      z-index: 30;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ==========================================================================
+       Tab 3: 我的空间 (Member & Orders)
+       ========================================================================== */
+    .member-profile-card {
+      background: linear-gradient(135deg, #2B353E, #1A2128);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+    .member-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .member-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4AF37, #A67C52);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .member-nick {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .member-phone {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+    .member-badge-vip {
+      font-size: 10px;
+      background: rgba(212, 175, 55, 0.2);
+      color: #FDE68A;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .member-assets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+    }
+    .asset-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .asset-lbl {
+      font-size: 10px;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+
+    .order-tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .order-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+    }
+    .order-tab-btn.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .order-tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    .order-card {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .order-room-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .order-row {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+    .order-action-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* 菜单列表行 */
+    .menu-group {
+      background-color: var(--surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .menu-item {
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:active {
+      background-color: #FAFAFA;
+    }
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       通用底部抽屉 (ActionSheet / BottomSheet)
+       ========================================================================== */
+    .drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.55);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      backdrop-filter: blur(2px);
+    }
+    .drawer-overlay.active {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+    .drawer-panel {
+      width: 100%;
+      background-color: var(--surface);
+      border-radius: 20px 20px 0 0;
+      padding: 20px 16px 24px;
+      max-height: 80%;
+      overflow-y: auto;
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .drawer-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .drawer-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #F3F4F6;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    /* 时段网格 (Time Slot Selector) */
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 4px 0 12px;
+    }
+    .slot-pill {
+      font-size: 11px;
+      padding: 8px 2px;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid var(--border);
+      background-color: #FAFAFA;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .slot-pill.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .slot-pill.disabled {
+      background-color: #F1F5F9;
+      color: #CBD5E1;
+      border-color: #E2E8F0;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* 微信标准 Toast */
+    .wechat-toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(17, 24, 39, 0.88);
+      backdrop-filter: blur(10px);
+      color: #FFFFFF;
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 240px;
+    }
+    .wechat-toast.active {
+      display: flex;
+      animation: fadeIn 0.15s ease;
+    }
+    .wechat-toast-text {
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* 移动端全屏响应式适配 */
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        background-color: var(--bg-page);
+      }
+      .phone-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- 微信小程序原生外壳容器 -->
+  <div class="phone-container" id="app">
+    
+    <!-- 顶部灵动岛 -->
+    <div class="dynamic-island">
+      <div class="island-camera"></div>
+      <div class="island-sensor"></div>
+    </div>
+
+    <!-- 微信原生状态栏 (SVG 绘制) -->
+    <div class="wechat-status-bar">
+      <span>10:24</span>
+      <div class="status-icons">
+        <!-- 蜂窝信号 -->
+        <svg class="status-svg" viewBox="0 0 24 24"><path d="M2 20h2v-4H2v4zm4 0h2v-7H6v7zm4 0h2v-11h-2v11zm4 0h2V5h-2v15zm4 0h2V2h-2v18z"/></svg>
+        <!-- WiFi -->
+        <svg class="status-svg" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        <!-- 电池 -->
+        <svg class="status-svg" viewBox="0 0 24 24"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/><rect x="3" y="8" width="12" height="8" rx="1" ry="1" fill="currentColor"/></svg>
+      </div>
+    </div>
+
+    <!-- 微信原生导航栏与双圆胶囊 -->
+    <div class="wechat-nav-bar">
+      <div class="nav-title" id="page-title">**茶室·空间预订</div>
+      <div class="capsule-btn">
+        <div class="capsule-dots">
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-circle">
+          <div class="capsule-circle-inner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主体可滚动视口 -->
+    <div class="mp-view-container">
+
+      <!-- ======================================================================
+           Tab 0: 空间预订 (Space Booking)
+           ====================================================================== -->
+      <div id="tab-0" class="tab-content active">
+        
+        <!-- 门店信息横幅 -->
+        <div class="store-banner">
+          <div class="store-top">
+            <div class="store-name-row">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span id="current-store-name">高新·湖畔雅集馆</span>
+            </div>
+            <button class="store-switch-btn" onclick="openStoreDrawer()">
+              <span>切换门店</span>
+              <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+          <div class="store-desc">
+            <span>24小时自助</span>
+            <span>·</span>
+            <span>距您约 860m</span>
+            <span>·</span>
+            <span>支持车牌减免停车</span>
+          </div>
+        </div>
+
+        <!-- 预约日期切换条 -->
+        <div class="date-scroll">
+          <div class="date-pill active" onclick="switchDate(this, '今天 (09/03)')">
+            <div class="date-pill-week">今天</div>
+            <div class="date-pill-day">09/03</div>
+          </div>
+          <div class="date-pill" onclick="switchDate(this, '明天 (09/04)')">
+            <div class="date-pill-week">明天</div>
+            <div class="date-pill-day">09/04</div>
+          </div>
+          <div class="date-pill" onclick="switchDate(this, '后天 (09/05)')">
+            <div class="date-pill-week">后天</div>
+            <div class="date-pill-day">09/05</div>
+          </div>
+        </div>
+
+        <!-- 包厢列表 -->
+        <div id="rooms-container">
+          <!-- 动态渲染包厢卡片 -->
+        </div>
+
+      </div>
+
+      <!-- ======================================================================
+           Tab 1: 在途智控 (IoT Console)
+           ====================================================================== -->
+      <div id="tab-1" class="tab-content">
+        
+        <!-- 当前在途包厢卡片 -->
+        <div class="active-room-card">
+          <div class="active-badge-top">
+            <div style="font-size:12px;font-weight:600;display:flex;align-items:center;">
+              <span class="live-dot"></span>
+              <span>正在使用中 · 门禁已布防</span>
+            </div>
+            <span class="badge badge-accent" id="active-order-no">#MJ-20260903-8821</span>
+          </div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:12px;" id="active-room-title">云栖·商务洽谈包 (4人)</div>
+          
+          <!-- 倒计时进度 -->
+          <div class="countdown-box">
+            <div class="countdown-item">
+              <div class="countdown-val" id="count-hr">02</div>
+              <div class="countdown-lbl">剩余小时</div>
+            </div>
+            <div style="font-size:18px;font-weight:bold;color:rgba(255,255,255,0.4)">:</div>
+            <div class="countdown-item">
+              <div class="countdown-val" id="count-min">24</div>
+              <div class="countdown-lbl">剩余分钟</div>
+            </div>
+            <div style="font-size:18px;font-weight:bold;color:rgba(255,255,255,0.4)">:</div>
+            <div class="countdown-item">
+              <div class="countdown-val" id="count-sec">18</div>
+              <div class="countdown-lbl">秒</div>
+            </div>
+          </div>
+
+          <!-- 动态开门码 -->
+          <div class="door-pass-row">
+            <div>
+              <div style="font-size:10px;opacity:0.75;margin-bottom:2px;">智能门禁开锁密码</div>
+              <div class="door-pass-num" id="door-code-val">839210</div>
+            </div>
+            <div class="door-pass-actions">
+              <button class="door-pass-btn" onclick="copyDoorPass()">
+                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>复制</span>
+              </button>
+              <button class="door-pass-btn" onclick="refreshDoorPass()">
+                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span>刷新</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 一键开门交互按钮 -->
+          <button class="remote-open-btn" id="remote-open-trigger" onclick="triggerDoorOpen()">
+            <svg class="icon" style="width:20px;height:20px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            <span>一键远程开门</span>
+          </button>
+        </div>
+
+        <!-- 快捷会客动作 -->
+        <div class="quick-service-row">
+          <div class="quick-service-card" onclick="openExtendDrawer()">
+            <div class="quick-icon-wrap">
+              <svg class="icon" style="width:18px;height:18px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">加钟续时</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">支持 +30/60分钟</div>
+            </div>
+          </div>
+          <div class="quick-service-card" onclick="openServiceCallModal()">
+            <div class="quick-icon-wrap">
+              <svg class="icon" style="width:18px;height:18px;" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;">呼叫管家</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">山泉水/洁净茶具</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IoT 控制矩阵 -->
+        <div class="card-title" style="margin-bottom:8px;padding:0 4px;">
+          <span>包厢设备智控</span>
+          <span style="font-size:11px;color:var(--text-muted);font-weight:normal;">蓝牙/网关已连接</span>
+        </div>
+
+        <div class="iot-grid">
+          
+          <!-- 灯光情景模式 -->
+          <div class="iot-card" style="grid-column: span 2;">
+            <div class="iot-card-header">
+              <div class="iot-card-title">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <span>灯光情景</span>
+              </div>
+              <span class="badge badge-success" id="light-scene-status">品茗模式</span>
+            </div>
+            <div class="iot-scene-grid">
+              <div class="scene-btn" onclick="selectLightScene(this, '商务洽谈')">商务洽谈</div>
+              <div class="scene-btn active" onclick="selectLightScene(this, '沉浸品茗')">沉浸品茗</div>
+              <div class="scene-btn" onclick="selectLightScene(this, '静心阅读')">静心阅读</div>
+              <div class="scene-btn" onclick="selectLightScene(this, '微光私密')">微光私密</div>
+            </div>
+          </div>
+
+          <!-- 新风与温控 -->
+          <div class="iot-card">
+            <div class="iot-card-header">
+              <div class="iot-card-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                <span>室内恒温</span>
+              </div>
+              <span style="font-size:10px;color:var(--success)">制冷中</span>
+            </div>
+            <div class="temp-control-row">
+              <button class="stepper-btn" onclick="adjustTemp(-1)">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <span class="stepper-val" id="temp-display">24℃</span>
+              <button class="stepper-btn" onclick="adjustTemp(1)">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 功夫茶炉电源 -->
+          <div class="iot-card">
+            <div class="iot-card-header">
+              <div class="iot-card-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2c1 3 4 5 4 9a6 6 0 0 1-12 0c0-4 3-6 4-9z"/></svg>
+                <span>功夫茶炉</span>
+              </div>
+              <div class="switch-toggle active" id="stove-toggle" onclick="toggleStove()">
+                <div class="switch-knob"></div>
+              </div>
+            </div>
+            <div style="margin-top:10px;">
+              <div style="font-size:11px;color:var(--text-sub)" id="stove-status-text">已通电 · 烧水防干烧</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">离店自动断电保护</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================================
+           Tab 2: 茗茶品鉴选购 (Tea & Amenities)
+           ====================================================================== -->
+      <div id="tab-2" class="tab-content">
+        
+        <!-- 分类条 -->
+        <div class="tea-cat-bar">
+          <div class="tea-cat-btn active" onclick="filterTea(this, 'all')">全部甄选</div>
+          <div class="tea-cat-btn" onclick="filterTea(this, 'yancha')">岩茶名枞</div>
+          <div class="tea-cat-btn" onclick="filterTea(this, 'lvcha')">高山绿茶</div>
+          <div class="tea-cat-btn" onclick="filterTea(this, 'puer')">陈年熟普</div>
+          <div class="tea-cat-btn" onclick="filterTea(this, 'snack')">茶佐美点</div>
+        </div>
+
+        <!-- 商品列表 -->
+        <div id="tea-list-container">
+          <!-- 动态渲染茶品 -->
+        </div>
+
+        <!-- 悬浮购物车栏 -->
+        <div class="cart-float-bar" id="tea-cart-bar" style="display:none;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="position:relative;">
+              <svg class="icon" style="width:22px;height:22px;" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:700;" id="cart-total-price">¥0</div>
+              <div style="font-size:10px;opacity:0.8;" id="cart-count-text">已选 0 件商品</div>
+            </div>
+          </div>
+          <button class="btn btn-accent" style="padding:7px 14px;border-radius:20px;" onclick="checkoutTeaOrder()">
+            <span>送入当前包厢</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ======================================================================
+           Tab 3: 我的空间 (Member Space)
+           ====================================================================== -->
+      <div id="tab-3" class="tab-content">
+        
+        <!-- VIP 会员名片 -->
+        <div class="member-profile-card">
+          <div class="member-top">
+            <div class="member-avatar">客</div>
+            <div>
+              <div class="member-nick">茶友 8821</div>
+              <div class="member-phone">手机：138****8821</div>
+              <div class="member-badge-vip">金卡茶友 · 专属礼遇</div>
+            </div>
+          </div>
+          <div class="member-assets-grid">
+            <div onclick="showToast('当前茶席储值余额充足')">
+              <div class="asset-val">¥320.00</div>
+              <div class="asset-lbl">茶席余额</div>
+            </div>
+            <div onclick="showToast('已享有 3 张品茗优惠券')">
+              <div class="asset-val">3 张</div>
+              <div class="asset-lbl">卡券包</div>
+            </div>
+            <div onclick="showToast('当前茶友积分为 820 分')">
+              <div class="asset-val">820</div>
+              <div class="asset-lbl">茶道积分</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 订单筛选 Tab -->
+        <div class="card" style="padding:4px 10px;">
+          <div class="order-tab-bar">
+            <div class="order-tab-btn active" onclick="switchOrderFilter(this, 'all')">全部记录</div>
+            <div class="order-tab-btn" onclick="switchOrderFilter(this, 'using')">使用中</div>
+            <div class="order-tab-btn" onclick="switchOrderFilter(this, 'completed')">已完成</div>
+          </div>
+          <div id="orders-list-box">
+            <!-- 动态渲染订单列表 -->
+          </div>
+        </div>
+
+        <!-- 常用指引列表 -->
+        <div class="menu-group">
+          <div class="menu-item" onclick="openGuidelinesModal('parking')">
+            <div class="menu-left">
+              <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+              <span>入店及停车减免指引</span>
+            </div>
+            <svg class="icon" style="color:var(--text-muted)" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-item" onclick="openGuidelinesModal('rules')">
+            <div class="menu-left">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span>茶空间文明使用守则</span>
+            </div>
+            <svg class="icon" style="color:var(--text-muted)" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-item" onclick="openServiceCallModal()">
+            <div class="menu-left">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>联系专属茶室管家</span>
+            </div>
+            <span style="font-size:11px;color:var(--primary);font-weight:600;">24h 在线</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================================
+         底部微信原生四栏 TabBar
+         ====================================================================== -->
+    <div class="wechat-tabbar">
+      <div class="tabbar-item active" id="tab-btn-0" onclick="switchMainTab(0)">
+        <svg class="tabbar-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>空间预订</span>
+      </div>
+      <div class="tabbar-item" id="tab-btn-1" onclick="switchMainTab(1)">
+        <svg class="tabbar-svg" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        <span>在途智控</span>
+      </div>
+      <div class="tabbar-item" id="tab-btn-2" onclick="switchMainTab(2)">
+        <svg class="tabbar-svg" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        <span>茗茶品鉴</span>
+      </div>
+      <div class="tabbar-item" id="tab-btn-3" onclick="switchMainTab(3)">
+        <svg class="tabbar-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的空间</span>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         底部抽屉 1: 时段预约 (Time Slot Picker Drawer)
+         ====================================================================== -->
+    <div class="drawer-overlay" id="slot-drawer" onclick="if(event.target===this)closeSlotDrawer()">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-title" id="drawer-room-name">选择预约时段</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;" id="drawer-room-rate">计费：¥68 / 小时</div>
+          </div>
+          <button class="drawer-close" onclick="closeSlotDrawer()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--text-main);">选择可用时间段（半小时粒度）</div>
+        <div class="slots-grid" id="slots-picker-grid">
+          <!-- 动态渲染时间格子 -->
+        </div>
+
+        <div style="background:#F8FAF9;border-radius:var(--radius-sm);padding:10px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:11px;color:var(--text-muted);">已选时长</div>
+            <div style="font-size:14px;font-weight:700;color:var(--primary);" id="selected-duration-text">未选择</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:11px;color:var(--text-muted);">应付金额</div>
+            <div style="font-size:18px;font-weight:800;color:var(--accent);" id="selected-total-price">¥0</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" style="margin-top:14px;height:44px;font-size:14px;" onclick="confirmRoomBooking()">
+          <span>确认预约并锁定包厢</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         底部抽屉 2: 门店切换 (Store Switcher Drawer)
+         ====================================================================== -->
+    <div class="drawer-overlay" id="store-drawer" onclick="if(event.target===this)closeStoreDrawer()">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div class="drawer-title">切换茶室门店</div>
+          <button class="drawer-close" onclick="closeStoreDrawer()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="card" style="border:1.5px solid var(--primary);cursor:pointer;" onclick="selectStore('store-1')">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b style="font-size:14px;color:var(--text-main)">高新·湖畔雅集馆</b>
+            <span class="badge badge-primary">当前门店</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">高新科技园区天府大道 88 号 2 楼</div>
+          <div style="font-size:10px;color:var(--primary);margin-top:6px;">配有 6 间私密包间 · 24小时无人值守</div>
+        </div>
+
+        <div class="card" style="cursor:pointer;" onclick="selectStore('store-2')">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b style="font-size:14px;color:var(--text-main)">金融城·云端私享馆</b>
+            <span class="badge badge-gray">距您 2.4km</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">金融城核心商圈双子中心 A 座 16 楼</div>
+          <div style="font-size:10px;color:var(--text-sub);margin-top:6px;">配有高层观景套房 · 会客品茗首选</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         底部抽屉 3: 加钟续费 (Extend Drawer)
+         ====================================================================== -->
+    <div class="drawer-overlay" id="extend-drawer" onclick="if(event.target===this)closeExtendDrawer()">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-title">包厢加钟续时</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">当前包间后继暂无预约，可直接顺延</div>
+          </div>
+          <button class="drawer-close" onclick="closeExtendDrawer()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:16px;">
+          <div class="card" style="text-align:center;cursor:pointer;border:1px solid var(--border);" onclick="confirmExtend(30, 34)">
+            <b style="font-size:16px;color:var(--primary)">+30分钟</b>
+            <div style="font-size:12px;color:var(--accent);margin-top:4px;font-weight:700">¥34</div>
+            <div style="font-size:10px;color:var(--text-muted);margin-top:2px">轻度畅谈</div>
+          </div>
+          <div class="card" style="text-align:center;cursor:pointer;border:1.5px solid var(--primary);background:var(--primary-light)" onclick="confirmExtend(60, 68)">
+            <b style="font-size:16px;color:var(--primary)">+60分钟</b>
+            <div style="font-size:12px;color:var(--accent);margin-top:4px;font-weight:700">¥68</div>
+            <div style="font-size:10px;color:var(--primary);margin-top:2px">最受欢迎</div>
+          </div>
+          <div class="card" style="text-align:center;cursor:pointer;border:1px solid var(--border);" onclick="confirmExtend(120, 128)">
+            <b style="font-size:16px;color:var(--primary)">+120分钟</b>
+            <div style="font-size:12px;color:var(--accent);margin-top:4px;font-weight:700">¥128</div>
+            <div style="font-size:10px;color:var(--text-muted);margin-top:2px">深度商务</div>
+          </div>
+        </div>
+
+        <div style="font-size:11px;color:var(--text-muted);text-align:center;">加钟成功后门禁开锁有效时间将自动顺延，无需重新录入密码</div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         弹窗 4: 呼叫管家与服务 (Service Modal)
+         ====================================================================== -->
+    <div class="drawer-overlay" id="service-modal" onclick="if(event.target===this)closeServiceModal()">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div class="drawer-title">呼叫茶室专属管家</div>
+          <button class="drawer-close" onclick="closeServiceModal()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+          <div class="card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="requestService('补充 4L 桶装纯净山泉水')">
+            <div>
+              <b style="font-size:13px;color:var(--text-main)">补充 4L 桶装纯净山泉水</b>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">管家送至包间门口专用置物台</div>
+            </div>
+            <button class="btn btn-light" style="padding:4px 10px;font-size:11px;">呼叫</button>
+          </div>
+          <div class="card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="requestService('更换一套高温洁净功夫茶具')">
+            <div>
+              <b style="font-size:13px;color:var(--text-main)">更换一套高温洁净功夫茶具</b>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">一客一消毒紫砂盖碗公道杯</div>
+            </div>
+            <button class="btn btn-light" style="padding:4px 10px;font-size:11px;">呼叫</button>
+          </div>
+          <div class="card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="requestService('补给茶席纸巾与香氛')">
+            <div>
+              <b style="font-size:13px;color:var(--text-main)">补给茶席纸巾与香氛</b>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">沉香线香与原木纸巾</div>
+            </div>
+            <button class="btn btn-light" style="padding:4px 10px;font-size:11px;">呼叫</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         通用指南模态框 (Guidelines Modal)
+         ====================================================================== -->
+    <div class="drawer-overlay" id="guidelines-modal" onclick="if(event.target===this)closeGuidelinesModal()">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div class="drawer-title" id="guideline-title">入店指引</div>
+          <button class="drawer-close" onclick="closeGuidelinesModal()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div style="font-size:12px;color:var(--text-sub);line-height:1.7;" id="guideline-body">
+          <!-- 动态指引文字 -->
+        </div>
+        <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="closeGuidelinesModal()">我已知晓</button>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         微信原生 Toast 提示组件
+         ====================================================================== -->
+    <div class="wechat-toast" id="wechat-toast">
+      <svg class="icon" style="width:28px;height:28px;color:#34D399;" id="toast-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div class="wechat-toast-text" id="toast-text">提示内容</div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       前端响应式逻辑与真实交互状态机
+       ========================================================================== -->
+  <script>
+    // --- 内存全局状态 (AppState) ---
+    const AppState = {
+      activeTab: 0,
+      currentStore: 'store-1',
+      selectedDate: '今天 (09/03)',
+      selectedRoomId: null,
+      selectedSlots: [],
+      cart: {}, // { teaId: count }
+      
+      // 当前在途订单
+      activeBooking: {
+        orderNo: '#MJ-20260903-8821',
+        roomName: '云栖·商务洽谈包 (4人)',
+        storeName: '高新·湖畔雅集馆',
+        date: '今天 (09/03)',
+        timeRange: '14:00 - 17:00',
+        doorCode: '839210',
+        remainingSeconds: 2 * 3600 + 24 * 60 + 18,
+        price: 204
+      },
+
+      // IoT 设备状态
+      iot: {
+        lightScene: '沉浸品茗',
+        temp: 24,
+        stovePower: true,
+        fanMode: '标准'
+      },
+
+      // 包厢数据集 (全脱敏真实业务)
+      rooms: [
+        {
+          id: 'room-1',
+          name: '云栖·商务洽谈包',
+          capacity: '4人',
+          rate: 68,
+          status: 'avail',
+          statusText: '空闲可约',
+          tags: ['功夫茶具', '双层隔音', '智能投屏', '独立新风'],
+          imgBg: 'linear-gradient(135deg, #1B4D3E, #3D5A50)'
+        },
+        {
+          id: 'room-2',
+          name: '听竹·静心品茗包',
+          capacity: '2人',
+          rate: 48,
+          status: 'avail',
+          statusText: '空闲可约',
+          tags: ['潮汕功夫盖碗', '柔和暖光', '私密静音', '原木茶台'],
+          imgBg: 'linear-gradient(135deg, #2D4A3E, #5C6B64)'
+        },
+        {
+          id: 'room-3',
+          name: '松风·多功能尊享包',
+          capacity: '8-12人',
+          rate: 108,
+          status: 'busy',
+          statusText: '使用中 · 17:00空出',
+          tags: ['独立茶席及会议桌', '独立卫浴', '影音投屏', '管家专线'],
+          imgBg: 'linear-gradient(135deg, #2E3842, #475569)'
+        }
+      ],
+
+      // 茗茶商品库
+      teas: [
+        { id: 'tea-1', name: '武夷大红袍 (岩骨花香)', cat: 'yancha', origin: '武夷山原产 · 1泡配天然山泉', price: 38 },
+        { id: 'tea-2', name: '正山小种 (特级松烟香)', cat: 'yancha', origin: '桐木关核心产区 · 滋味醇厚', price: 32 },
+        { id: 'tea-3', name: '西湖明前龙井 (嫩香甘爽)', cat: 'lvcha', origin: '钱塘梅家坞核心产区 · 豆香怡人', price: 36 },
+        { id: 'tea-4', name: '勐海陈年熟普 (醇厚陈香)', cat: 'puer', origin: '布朗山原料干仓醇化 · 暖胃回甘', price: 35 },
+        { id: 'tea-5', name: '农夫山泉泡茶水 (4L整桶专供)', cat: 'all', origin: '天然低钠弱碱性好水 · 还原茶香', price: 12 },
+        { id: 'tea-6', name: '苏式绿豆糕与茶点双拼', cat: 'snack', origin: '手工低糖茶佐点心 · 配茶怡情', price: 28 }
+      ],
+
+      // 订单记录历史
+      orders: [
+        {
+          id: 'ord-101',
+          orderNo: '#MJ-20260903-8821',
+          room: '云栖·商务洽谈包 (4人)',
+          store: '高新·湖畔雅集馆',
+          time: '2026-09-03 14:00 - 17:00',
+          amount: '¥204.00',
+          status: 'using',
+          statusLabel: '使用中',
+          doorCode: '839210'
+        },
+        {
+          id: 'ord-100',
+          orderNo: '#MJ-20260901-4412',
+          room: '听竹·静心品茗包 (2人)',
+          store: '高新·湖畔雅集馆',
+          time: '2026-09-01 15:00 - 17:00',
+          amount: '¥96.00',
+          status: 'completed',
+          statusLabel: '已完成',
+          doorCode: '492011'
+        }
+      ]
+    };
+
+    // --- 初始化入口 ---
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRooms();
+      renderTeaList('all');
+      renderOrders('all');
+      startCountdown();
+    });
+
+    // --- Tab 切换 ---
+    function switchMainTab(idx) {
+      AppState.activeTab = idx;
+      document.querySelectorAll('.mp-view-container .tab-content').forEach((p, i) => {
+        p.classList.toggle('active', i === idx);
+      });
+      document.querySelectorAll('.wechat-tabbar .tabbar-item').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+
+      const titles = ['**茶室·空间预订', '在途智控', '茗茶品鉴', '我的空间'];
+      document.getElementById('page-title').innerText = titles[idx] || '**茶空间';
+    }
+
+    // --- 空间预订 Tab 渲染 ---
+    function renderRooms() {
+      const container = document.getElementById('rooms-container');
+      container.innerHTML = AppState.rooms.map(room => {
+        const isAvail = room.status === 'avail';
+        return `
+          <div class="room-card">
+            <div class="room-img-box" style="background: ${room.imgBg};">
+              <div class="room-status-badge ${isAvail ? 'status-avail' : 'status-busy'}">
+                ${room.statusText}
+              </div>
+              <div style="position:absolute;bottom:10px;left:14px;color:#FFF;font-size:12px;opacity:0.9;display:flex;align-items:center;gap:6px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>适宜 ${room.capacity}</span>
+              </div>
+            </div>
+            <div class="room-info">
+              <div class="room-header">
+                <div>
+                  <span class="room-name">${room.name}</span>
+                </div>
+                <div class="room-price">
+                  ¥${room.rate}<span class="room-price-unit"> / 小时</span>
+                </div>
+              </div>
+              <div class="room-tags">
+                ${room.tags.map(t => `<span class="room-tag">${t}</span>`).join('')}
+              </div>
+              <div class="room-action-row">
+                <span class="room-hint">通电自动开启茶炉与新风</span>
+                <button class="btn btn-primary" style="padding:6px 14px;font-size:12px;" onclick="openSlotDrawer('${room.id}')">
+                  <span>${isAvail ? '预约时段' : '查看排期'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 日期切换 ---
+    function switchDate(el, dateText) {
+      document.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      AppState.selectedDate = dateText;
+      showToast(`已切换至 ${dateText} 排期`);
+    }
+
+    // --- 时段预约抽屉逻辑 ---
+    function openSlotDrawer(roomId) {
+      AppState.selectedRoomId = roomId;
+      AppState.selectedSlots = [];
+      const room = AppState.rooms.find(r => r.id === roomId);
+      if (!room) return;
+
+      document.getElementById('drawer-room-name').innerText = `${room.name} (${room.capacity})`;
+      document.getElementById('drawer-room-rate').innerText = `单价：¥${room.rate} / 小时 · 起订 1 小时`;
+
+      // 渲染 24 个半小时时段
+      const slots = [
+        '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+        '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
+        '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
+        '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'
+      ];
+
+      const grid = document.getElementById('slots-picker-grid');
+      grid.innerHTML = slots.map((time, idx) => {
+        // 如果是已占用房间的部分时段设为 disabled
+        const isBusy = (room.id === 'room-3' && idx < 16);
+        return `
+          <div class="slot-pill ${isBusy ? 'disabled' : ''}" 
+               data-time="${time}" 
+               onclick="${isBusy ? '' : 'toggleTimeSlot(this)'}">
+            ${time}
+          </div>
+        `;
+      }).join('');
+
+      updateSlotSummary();
+      document.getElementById('slot-drawer').classList.add('active');
+    }
+
+    function closeSlotDrawer() {
+      document.getElementById('slot-drawer').classList.remove('active');
+    }
+
+    function toggleTimeSlot(el) {
+      const time = el.dataset.time;
+      if (el.classList.contains('active')) {
+        el.classList.remove('active');
+        AppState.selectedSlots = AppState.selectedSlots.filter(t => t !== time);
+      } else {
+        el.classList.add('active');
+        AppState.selectedSlots.push(time);
+      }
+      updateSlotSummary();
+    }
+
+    function updateSlotSummary() {
+      const room = AppState.rooms.find(r => r.id === AppState.selectedRoomId);
+      const rate = room ? room.rate : 68;
+      const count = AppState.selectedSlots.length;
+      const hours = count * 0.5;
+
+      if (count === 0) {
+        document.getElementById('selected-duration-text').innerText = '未选择时段';
+        document.getElementById('selected-total-price').innerText = '¥0';
+      } else {
+        const total = Math.round(hours * rate);
+        document.getElementById('selected-duration-text').innerText = `${hours} 小时 (${count} 个半小时时段)`;
+        document.getElementById('selected-total-price').innerText = `¥${total}`;
+      }
+    }
+
+    function confirmRoomBooking() {
+      if (AppState.selectedSlots.length === 0) {
+        showToast('请至少选择一个预约时段');
+        return;
+      }
+      const room = AppState.rooms.find(r => r.id === AppState.selectedRoomId);
+      const hours = AppState.selectedSlots.length * 0.5;
+      const total = Math.round(hours * room.rate);
+
+      // 同步到在途智控与历史
+      AppState.activeBooking = {
+        orderNo: `#MJ-${Date.now().toString().slice(-8)}`,
+        roomName: `${room.name} (${room.capacity})`,
+        storeName: document.getElementById('current-store-name').innerText,
+        date: AppState.selectedDate,
+        timeRange: `${AppState.selectedSlots[0]} 起 (${hours}小时)`,
+        doorCode: Math.floor(100000 + Math.random() * 900000).toString(),
+        remainingSeconds: Math.round(hours * 3600),
+        price: total
+      };
+
+      // 注入订单历史
+      AppState.orders.unshift({
+        id: `ord-${Date.now()}`,
+        orderNo: AppState.activeBooking.orderNo,
+        room: AppState.activeBooking.roomName,
+        store: AppState.activeBooking.storeName,
+        time: `${AppState.selectedDate} ${AppState.activeBooking.timeRange}`,
+        amount: `¥${total}.00`,
+        status: 'using',
+        statusLabel: '使用中',
+        doorCode: AppState.activeBooking.doorCode
+      });
+
+      // 更新智控卡片
+      document.getElementById('active-order-no').innerText = AppState.activeBooking.orderNo;
+      document.getElementById('active-room-title').innerText = AppState.activeBooking.roomName;
+      document.getElementById('door-code-val').innerText = AppState.activeBooking.doorCode;
+
+      closeSlotDrawer();
+      showToast('包厢已锁定，开锁密码已同步');
+
+      // 切换至在途智控 Tab
+      setTimeout(() => {
+        switchMainTab(1);
+        renderOrders('all');
+      }, 500);
+    }
+
+    // --- 门店切换抽屉 ---
+    function openStoreDrawer() {
+      document.getElementById('store-drawer').classList.add('active');
+    }
+    function closeStoreDrawer() {
+      document.getElementById('store-drawer').classList.remove('active');
+    }
+    function selectStore(storeId) {
+      AppState.currentStore = storeId;
+      const name = storeId === 'store-1' ? '高新·湖畔雅集馆' : '金融城·云端私享馆';
+      document.getElementById('current-store-name').innerText = name;
+      closeStoreDrawer();
+      showToast(`已切换至 ${name}`);
+    }
+
+    // --- 在途智控相关交互 ---
+    function copyDoorPass() {
+      const code = document.getElementById('door-code-val').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
+      showToast('门禁密码已复制至剪贴板');
+    }
+
+    function refreshDoorPass() {
+      const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+      document.getElementById('door-code-val').innerText = newCode;
+      AppState.activeBooking.doorCode = newCode;
+      showToast('已动态更新专属门禁密码');
+    }
+
+    function triggerDoorOpen() {
+      const btn = document.getElementById('remote-open-trigger');
+      btn.style.opacity = '0.75';
+      btn.innerHTML = `
+        <svg class="icon" style="width:20px;height:20px;animation:spin 1s linear infinite;" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <span>智能门禁指令下发中...</span>
+      `;
+
+      setTimeout(() => {
+        btn.style.opacity = '1';
+        btn.innerHTML = `
+          <svg class="icon" style="width:20px;height:20px;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>门禁已解锁 (门已开启)</span>
+        `;
+        showToast('智能门禁已解锁，欢迎入座');
+        setTimeout(() => {
+          btn.innerHTML = `
+            <svg class="icon" style="width:20px;height:20px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            <span>一键远程开门</span>
+          `;
+        }, 2200);
+      }, 700);
+    }
+
+    // 灯光情景切换
+    function selectLightScene(el, sceneName) {
+      document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      AppState.iot.lightScene = sceneName;
+      document.getElementById('light-scene-status').innerText = `${sceneName}模式`;
+      showToast(`灯光已调至【${sceneName}】`);
+    }
+
+    // 温度微调
+    function adjustTemp(delta) {
+      let t = AppState.iot.temp + delta;
+      if (t < 18) t = 18;
+      if (t > 28) t = 28;
+      AppState.iot.temp = t;
+      document.getElementById('temp-display').innerText = `${t}℃`;
+      showToast(`室内恒温设定为 ${t}℃`);
+    }
+
+    // 茶炉开关
+    function toggleStove() {
+      const toggle = document.getElementById('stove-toggle');
+      AppState.iot.stovePower = !AppState.iot.stovePower;
+      toggle.classList.toggle('active', AppState.iot.stovePower);
+
+      const statusText = document.getElementById('stove-status-text');
+      if (AppState.iot.stovePower) {
+        statusText.innerText = '已通电 · 烧水防干烧';
+        showToast('功夫茶炉电源已开启');
+      } else {
+        statusText.innerText = '断电保护中 · 待通电';
+        showToast('功夫茶炉电源已安全断开');
+      }
+    }
+
+    // 加钟续时
+    function openExtendDrawer() {
+      document.getElementById('extend-drawer').classList.add('active');
+    }
+    function closeExtendDrawer() {
+      document.getElementById('extend-drawer').classList.remove('active');
+    }
+    function confirmExtend(minutes, price) {
+      AppState.activeBooking.remainingSeconds += minutes * 60;
+      closeExtendDrawer();
+      showToast(`加钟成功！使用时间顺延 +${minutes} 分钟`);
+    }
+
+    // 服务呼叫
+    function openServiceCallModal() {
+      document.getElementById('service-modal').classList.add('active');
+    }
+    function closeServiceModal() {
+      document.getElementById('service-modal').classList.remove('active');
+    }
+    function requestService(serviceTitle) {
+      closeServiceModal();
+      showToast(`管家已接单：${serviceTitle}`);
+    }
+
+    // 倒计时刷新
+    function startCountdown() {
+      setInterval(() => {
+        if (AppState.activeBooking.remainingSeconds > 0) {
+          AppState.activeBooking.remainingSeconds--;
+          const sec = AppState.activeBooking.remainingSeconds;
+          const h = Math.floor(sec / 3600);
+          const m = Math.floor((sec % 3600) / 60);
+          const s = sec % 60;
+          document.getElementById('count-hr').innerText = h < 10 ? '0' + h : h;
+          document.getElementById('count-min').innerText = m < 10 ? '0' + m : m;
+          document.getElementById('count-sec').innerText = s < 10 ? '0' + s : s;
+        }
+      }, 1000);
+    }
+
+    // --- 茗茶品鉴选购 (Tab 2) ---
+    function renderTeaList(filterCat) {
+      const list = AppState.teas.filter(t => filterCat === 'all' || t.cat === filterCat || t.cat === 'all');
+      const container = document.getElementById('tea-list-container');
+      container.innerHTML = list.map(tea => {
+        const count = AppState.cart[tea.id] || 0;
+        return `
+          <div class="tea-item-card">
+            <div class="tea-item-thumb">
+              <svg class="icon" style="width:32px;height:32px;" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div class="tea-item-info">
+              <div>
+                <div class="tea-item-name">${tea.name}</div>
+                <div class="tea-item-origin">${tea.origin}</div>
+              </div>
+              <div class="tea-item-bottom">
+                <span class="tea-item-price">¥${tea.price}</span>
+                <div class="item-counter">
+                  ${count > 0 ? `
+                    <button class="counter-btn" onclick="updateTeaCount('${tea.id}', -1)">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <span class="counter-num">${count}</span>
+                  ` : ''}
+                  <button class="counter-btn" style="background:var(--primary);color:#FFF;border-color:var(--primary)" onclick="updateTeaCount('${tea.id}', 1)">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateCartBar();
+    }
+
+    function filterTea(el, cat) {
+      document.querySelectorAll('.tea-cat-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderTeaList(cat);
+    }
+
+    function updateTeaCount(teaId, delta) {
+      const current = AppState.cart[teaId] || 0;
+      const next = current + delta;
+      if (next <= 0) {
+        delete AppState.cart[teaId];
+      } else {
+        AppState.cart[teaId] = next;
+      }
+      
+      const activeCatBtn = document.querySelector('.tea-cat-btn.active');
+      const cat = activeCatBtn ? activeCatBtn.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
+      renderTeaList(cat);
+    }
+
+    function updateCartBar() {
+      let totalCount = 0;
+      let totalPrice = 0;
+
+      for (const [id, count] of Object.entries(AppState.cart)) {
+        const tea = AppState.teas.find(t => t.id === id);
+        if (tea) {
+          totalCount += count;
+          totalPrice += count * tea.price;
+        }
+      }
+
+      const bar = document.getElementById('tea-cart-bar');
+      if (totalCount > 0) {
+        bar.style.display = 'flex';
+        document.getElementById('cart-total-price').innerText = `¥${totalPrice}`;
+        document.getElementById('cart-count-text').innerText = `已选 ${totalCount} 件甄选茶品`;
+      } else {
+        bar.style.display = 'none';
+      }
+    }
+
+    function checkoutTeaOrder() {
+      AppState.cart = {};
+      updateCartBar();
+      showToast('茶品已下单，管家正为您配茶入厢');
+    }
+
+    // --- 我的空间与订单记录 (Tab 3) ---
+    function switchOrderFilter(el, filterStatus) {
+      document.querySelectorAll('.order-tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderOrders(filterStatus);
+    }
+
+    function renderOrders(filterStatus) {
+      const container = document.getElementById('orders-list-box');
+      const filtered = AppState.orders.filter(o => filterStatus === 'all' || o.status === filterStatus);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:12px;">暂无对应订单记录</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(order => `
+        <div class="order-card">
+          <div class="order-card-header">
+            <span style="color:var(--text-muted)">${order.orderNo}</span>
+            <span class="badge ${order.status === 'using' ? 'badge-success' : 'badge-gray'}">${order.statusLabel}</span>
+          </div>
+          <div class="order-room-name">${order.room}</div>
+          <div class="order-row">门店：${order.store}</div>
+          <div class="order-row">时段：${order.time}</div>
+          <div class="order-row">金额：<b style="color:var(--accent)">${order.amount}</b></div>
+          <div class="order-action-footer">
+            <button class="btn btn-outline" style="font-size:11px;padding:4px 10px;" onclick="showToast('门禁密码：${order.doorCode}')">查看密码</button>
+            <button class="btn btn-light" style="font-size:11px;padding:4px 10px;" onclick="showToast('发票申请已提交至预留邮箱')">申请开票</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // --- 指南弹窗 ---
+    function openGuidelinesModal(type) {
+      const title = document.getElementById('guideline-title');
+      const body = document.getElementById('guideline-body');
+
+      if (type === 'parking') {
+        title.innerText = '入店及停车减免指引';
+        body.innerHTML = `
+          <b>1. 导航与到达</b><br>
+          自驾茶友请导航至“高新科技园天府大道88号地下停车场”，电梯直达 2 楼即达茶室大堂。<br><br>
+          <b>2. 停车费减免政策</b><br>
+          凡进店消费满 1 小时，离场前联系专属管家或于个人中心提交车牌号，即可领取 2 小时免费停车抵扣券。<br><br>
+          <b>3. 门禁通行</b><br>
+          大楼首层与茶室大门已联动智能云门禁，凭订单动态密码触屏输入 #号键 即可入场。
+        `;
+      } else {
+        title.innerText = '茶空间文明使用守则';
+        body.innerHTML = `
+          <b>1. 静心品茗，轻声交谈</b><br>
+          茶室为独立私密交流空间，出入包间走廊请保持轻声，勿大声喧哗影响邻座茶友。<br><br>
+          <b>2. 严禁吸烟与明火</b><br>
+          全包厢配备高灵敏度新风烟感系统，全域严禁吸烟与使用非标大功率电器。<br><br>
+          <b>3. 爱护名贵茶器</b><br>
+          包厢内紫砂壶、景德镇盖碗均经高温消杀，使用完毕无需清洗，轻置于茶盘即可。
+        `;
+      }
+
+      document.getElementById('guidelines-modal').classList.add('active');
+    }
+
+    function closeGuidelinesModal() {
+      document.getElementById('guidelines-modal').classList.remove('active');
+    }
+
+    // --- 微信标准 Toast ---
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('wechat-toast');
+      document.getElementById('toast-text').innerText = msg;
+      toast.classList.add('active');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('active');
+      }, 1800);
+    }
+  </script>
+</body>
+</html>

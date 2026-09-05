@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>安洁到家 - 同城专业家政保洁小程序</title>
+  <style>
+    :root {
+      --color-primary: #0D9488;
+      --color-primary-hover: #0F766E;
+      --color-primary-light: #F0FDFA;
+      --color-primary-border: #CCFBF1;
+      --color-accent: #D97706;
+      --color-accent-light: #FFFBEB;
+      --color-accent-border: #FEF3C7;
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-danger: #EF4444;
+      --color-info: #0284C7;
+      --color-bg-page: #F8FAFC;
+      --color-bg-card: #FFFFFF;
+      --color-bg-muted: #F1F5F9;
+      --color-border-light: #F1F5F9;
+      --color-border-main: #E2E8F0;
+      --color-border-dark: #CBD5E1;
+      --color-text-title: #0F172A;
+      --color-text-body: #334155;
+      --color-text-sub: #64748B;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+      --shadow-card: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-float: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+      --font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: #E2E8F0;
+      color: var(--color-text-body);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+
+    .app-viewport {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 32px;
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    /* iPhone 390px Mini-Program Phone Shell */
+    .phone-frame {
+      width: 390px;
+      height: 780px;
+      background: var(--color-bg-page);
+      border-radius: 44px;
+      border: 11px solid #1E293B;
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 38px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      z-index: 20;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-title);
+    }
+
+    /* WeChat Mini-Program Header */
+    .mp-navbar {
+      height: 44px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--color-border-main);
+      z-index: 20;
+    }
+    .mp-brand {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mp-capsule {
+      background: rgba(15, 23, 42, 0.05);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 20px;
+      height: 30px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .mp-capsule-dots {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--color-text-title);
+    }
+    .mp-capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(15, 23, 42, 0.15);
+    }
+    .mp-capsule-circle {
+      width: 13px;
+      height: 13px;
+      border: 2px solid var(--color-text-title);
+      border-radius: 50%;
+      position: relative;
+    }
+    .mp-capsule-circle::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--color-text-title);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Content Area */
+    .mp-content-scroller {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 14px 70px 14px;
+      position: relative;
+    }
+    .mp-content-scroller::-webkit-scrollbar { width: 0; }
+
+    /* Views */
+    .view-pane {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .view-pane.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Card */
+    .card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-main);
+      box-shadow: var(--shadow-card);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    /* TabBar */
+    .mp-tabbar {
+      height: 56px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--color-border-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding-bottom: 4px;
+    }
+    .tabbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      gap: 3px;
+      transition: all 0.15s;
+      flex: 1;
+      height: 100%;
+    }
+    .tabbar-item svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      transition: transform 0.15s;
+    }
+    .tabbar-item.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .tabbar-item.active svg {
+      transform: translateY(-1px);
+    }
+
+    /* Badges & Tags */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-primary { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid var(--color-primary-border); }
+    .badge-accent { background: var(--color-accent-light); color: var(--color-accent); border: 1px solid var(--color-accent-border); }
+    .badge-muted { background: var(--color-bg-muted); color: var(--color-text-sub); }
+    .badge-success { background: #ECFDF5; color: var(--color-success); border: 1px solid #A7F3D0; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn:active { transform: scale(0.98); opacity: 0.92; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-outline { background: #FFFFFF; color: var(--color-text-title); border: 1px solid var(--color-border-main); }
+    .btn-outline-primary { background: #FFFFFF; color: var(--color-primary); border: 1px solid var(--color-primary); }
+    .btn-sm { padding: 5px 10px; font-size: 11px; border-radius: var(--radius-sm); }
+    .btn-block { width: 100%; }
+
+    /* Side Panel in Simulator */
+    .sim-info-panel {
+      flex: 1;
+      max-width: 420px;
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid var(--color-border-main);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      padding: 24px;
+    }
+    .sim-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .sim-desc {
+      font-size: 13px;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .sim-box {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-size: 12px;
+      color: var(--color-text-body);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .sim-box b { color: var(--color-primary); }
+    .feature-check-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--color-text-body);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .feature-check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .feature-check-list svg {
+      width: 16px;
+      height: 16px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Modals, Drawers & Toast */
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+      z-index: 100;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .modal-backdrop.show {
+      display: block;
+      opacity: 1;
+    }
+    .bottom-drawer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #FFFFFF;
+      border-radius: 20px 20px 0 0;
+      padding: 18px 16px 24px 16px;
+      z-index: 110;
+      transform: translateY(100%);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 82%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+    }
+    .bottom-drawer.show {
+      transform: translateY(0);
+    }
+    .drawer-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--color-border-main);
+      border-radius: 2px;
+      margin: 0 auto 12px auto;
+    }
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .drawer-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drawer-close {
+      cursor: pointer;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+    .drawer-body {
+      overflow-y: auto;
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .center-modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      background: #FFFFFF;
+      border-radius: 18px;
+      width: 320px;
+      padding: 20px;
+      z-index: 120;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    .center-modal.show {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .toast {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.88);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .toast.show { opacity: 1; }
+
+    /* SVG icon utility */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Service Grid */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .service-grid-item {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-main);
+      border-radius: var(--radius-md);
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .service-grid-item:hover, .service-grid-item:active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .service-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+    .service-icon-circle svg {
+      width: 22px;
+      height: 22px;
+    }
+    .service-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .service-sub {
+      font-size: 10px;
+      color: var(--color-text-sub);
+      margin-top: 2px;
+    }
+
+    /* Spec Selector Pills */
+    .spec-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .spec-pill {
+      border: 1.5px solid var(--color-border-main);
+      border-radius: var(--radius-md);
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: all 0.15s;
+    }
+    .spec-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .spec-pill-title { font-size: 12px; font-weight: 700; color: var(--color-text-title); }
+    .spec-pill-price { font-size: 14px; font-weight: 800; color: var(--color-primary); margin-top: 2px; }
+    .spec-pill-desc { font-size: 10px; color: var(--color-text-sub); margin-top: 2px; }
+
+    /* Time Slots */
+    .date-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .date-tab {
+      flex: 1;
+      padding: 8px 4px;
+      text-align: center;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-main);
+      font-size: 11px;
+      cursor: pointer;
+      background: #FFFFFF;
+    }
+    .date-tab.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .timeslot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .timeslot-item {
+      padding: 8px;
+      text-align: center;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-main);
+      font-size: 11px;
+      cursor: pointer;
+      background: #FFFFFF;
+      color: var(--color-text-body);
+    }
+    .timeslot-item.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* Note Tags */
+    .note-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .note-tag {
+      padding: 5px 10px;
+      border-radius: 16px;
+      background: var(--color-bg-muted);
+      color: var(--color-text-sub);
+      font-size: 11px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .note-tag.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* Order Status Tabs */
+    .order-status-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-main);
+      margin-bottom: 12px;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 0 4px;
+    }
+    .status-tab-item {
+      padding: 10px 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-sub);
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      flex: 1;
+    }
+    .status-tab-item.active {
+      color: var(--color-primary);
+      font-weight: 800;
+    }
+    .status-tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      right: 20%;
+      height: 2.5px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    /* Chat Messages in Drawer */
+    .chat-bubble-received {
+      background: var(--color-bg-muted);
+      color: var(--color-text-title);
+      padding: 10px 12px;
+      border-radius: 12px 12px 12px 2px;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      max-width: 85%;
+    }
+    .chat-bubble-sent {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      padding: 10px 12px;
+      border-radius: 12px 12px 2px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      margin-left: auto;
+      max-width: 85%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <div class="app-viewport">
+    
+    <!-- iPhone Shell Simulator -->
+    <div class="phone-frame">
+      
+      <header class="mp-top-header">
+        <!-- iOS Status Bar -->
+        <div class="status-bar">
+          <span id="system-time">10:24</span>
+          <div class="status-icons">
+            <!-- Signal -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 20V4"/></svg>
+            <!-- Wi-Fi -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <!-- Battery -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="12" x="2" y="6" rx="2"/><line x1="22" x2="22" y1="10" y2="14"/><rect width="12" height="8" x="4" y="8" fill="currentColor" stroke="none"/></svg>
+          </div>
+        </div>
+
+        <!-- WeChat Mini-Program Navigation Bar -->
+        <div class="mp-navbar">
+          <div class="mp-brand">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+            <span>安洁到家</span>
+            <span style="font-size:10px;background:var(--color-primary-light);color:var(--color-primary);padding:2px 6px;border-radius:10px;font-weight:700;">同城精选</span>
+          </div>
+          <!-- Standard WeChat Capsule Button -->
+          <div class="mp-capsule" onclick="showCapsuleMenu()">
+            <span class="mp-capsule-dots">•••</span>
+            <span class="mp-capsule-divider"></span>
+            <span class="mp-capsule-circle"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Scroll Area -->
+      <main class="mp-content-scroller" id="scroller">
+        
+        <!-- ================= TAB 0: 首页 (Home) ================= -->
+        <section id="view-0" class="view-pane active">
+          <h2 style="display:none;">同城家政保洁首页精选</h2>
+          
+          <!-- Top City Selector & Search Bar -->
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--color-text-title);cursor:pointer;background:#FFF;padding:6px 10px;border-radius:18px;border:1px solid var(--color-border-main);" onclick="openDrawer('drawer-city')">
+              <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span id="curr-city-name">某市 (海*区)</span>
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;gap:6px;background:#FFF;padding:6px 12px;border-radius:18px;border:1px solid var(--color-border-main);cursor:pointer;" onclick="openDrawer('drawer-search')">
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+              <span style="font-size:12px;color:var(--color-text-muted);" id="search-bar-placeholder">搜索日常保洁/擦玻璃/油烟机</span>
+            </div>
+          </div>
+
+          <!-- Service Commitment Banner -->
+          <div style="background:linear-gradient(135deg, #0D9488, #0F766E);border-radius:var(--radius-lg);padding:14px;color:#FFF;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openDrawer('drawer-guarantee')">
+            <div>
+              <div style="font-size:11px;opacity:0.9;display:flex;align-items:center;gap:4px;">
+                <span class="icon" style="color:#FFF;"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-8 9-8 9s-8-4-8-9V5l8-3 8 3z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                平台标准化履约承诺
+              </div>
+              <div style="font-size:16px;font-weight:900;margin-top:4px;">未服务随时退 · 损坏包赔</div>
+              <div style="font-size:10px;opacity:0.85;margin-top:2px;">实名背调 · 持健康证上岗 · 工具箱高温消杀</div>
+            </div>
+            <span class="btn btn-sm" style="background:rgba(255,255,255,0.22);color:#FFF;border:1px solid rgba(255,255,255,0.4);">查看细则</span>
+          </div>
+
+          <!-- 6-Category Grid -->
+          <div class="service-grid">
+            <div class="service-grid-item" onclick="quickSelectService('日常保洁', 98, 2)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="m3 3 3 3"/><path d="M14 8V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"/><path d="m18 11 4-4"/><path d="m14 15 7-7"/><path d="M12 20v-9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v9a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2Z"/></svg>
+              </div>
+              <span class="service-name">日常保洁</span>
+              <span class="service-sub">全屋表面除尘</span>
+            </div>
+            <div class="service-grid-item" onclick="quickSelectService('深度保洁', 142, 3)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+              </div>
+              <span class="service-name">深度保洁</span>
+              <span class="service-sub">全方位死角消杀</span>
+            </div>
+            <div class="service-grid-item" onclick="quickSelectService('油烟机拆洗', 158, 2)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3.5z"/></svg>
+              </div>
+              <span class="service-name">家电清洗</span>
+              <span class="service-sub">高温拆洗除重油</span>
+            </div>
+            <div class="service-grid-item" onclick="quickSelectService('双面精细擦窗', 128, 2)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="12" x2="12" y1="3" y2="21"/><line x1="3" x2="21" y1="12" y2="12"/></svg>
+              </div>
+              <span class="service-name">精细擦窗</span>
+              <span class="service-sub">窗框吸尘双面亮</span>
+            </div>
+            <div class="service-grid-item" onclick="quickSelectService('新居开荒保洁', 238, 4)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <span class="service-name">开荒保洁</span>
+              <span class="service-sub">装修后首度除胶</span>
+            </div>
+            <div class="service-grid-item" onclick="quickSelectService('全屋整理收纳', 138, 3)">
+              <div class="service-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg>
+              </div>
+              <span class="service-name">收纳整理</span>
+              <span class="service-sub">空间归类换季理</span>
+            </div>
+          </div>
+
+          <!-- Featured Hot Packages -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <b style="font-size:14px;color:var(--color-text-title);">特惠热门上门服务</b>
+            <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(2)">全部服务 ›</span>
+          </div>
+
+          <!-- Package Card 1 -->
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">日常保洁 · 2小时全屋基础除尘</div>
+                <div style="font-size:11px;color:var(--color-text-sub);margin-top:3px;">适合 50-80㎡ 居室日常维护 · 表面去尘与地面湿拖</div>
+                <div style="margin-top:6px;display:flex;gap:4px;">
+                  <span class="badge badge-primary">新客立减20</span>
+                  <span class="badge badge-muted">未服务随时退</span>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:17px;font-weight:900;color:var(--color-primary);">¥98<span style="font-size:11px;font-weight:normal;color:var(--color-text-muted);">起</span></div>
+                <div style="font-size:10px;color:var(--color-text-muted);text-decoration:line-through;">¥118</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:11px;color:var(--color-text-sub);">已累计服务 2,800+ 户家庭</span>
+              <button class="btn btn-primary btn-sm" onclick="quickSelectService('日常保洁 · 2小时全屋基础除尘', 98, 2)">
+                立即预约
+              </button>
+            </div>
+          </div>
+
+          <!-- Package Card 2 -->
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">深度保洁 · 3小时全方位除菌除垢</div>
+                <div style="font-size:11px;color:var(--color-text-sub);margin-top:3px;">厨房重油污除垢 + 卫浴水垢消杀 + 玻璃内外擦拭</div>
+                <div style="margin-top:6px;display:flex;gap:4px;">
+                  <span class="badge badge-accent">金牌技师专享</span>
+                  <span class="badge badge-muted">自备专业工具</span>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:17px;font-weight:900;color:var(--color-primary);">¥142<span style="font-size:11px;font-weight:normal;color:var(--color-text-muted);">起</span></div>
+                <div style="font-size:10px;color:var(--color-text-muted);text-decoration:line-through;">¥168</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:11px;color:var(--color-text-sub);">好评率 99.6%</span>
+              <button class="btn btn-primary btn-sm" onclick="quickSelectService('深度保洁 · 3小时全方位除菌除垢', 142, 3)">
+                立即预约
+              </button>
+            </div>
+          </div>
+
+          <!-- Verified Technicians Showcase -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;margin-bottom:8px;">
+            <b style="font-size:14px;color:var(--color-text-title);">今日排班金牌阿姨</b>
+            <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(1)">查看全部阿姨 ›</span>
+          </div>
+
+          <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;">
+            <!-- Tech Preview 1 -->
+            <div style="min-width:140px;background:#FFF;border:1px solid var(--color-border-main);border-radius:var(--radius-md);padding:12px;cursor:pointer;flex-shrink:0;" onclick="openTechDetail('tech-01')">
+              <div style="width:40px;height:40px;border-radius:50%;background:var(--color-primary);color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:6px;">张</div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">张*姐</div>
+              <div style="font-size:10px;color:var(--color-accent);font-weight:700;margin-top:2px;display:flex;align-items:center;">
+                <svg style="width:11px;height:11px;margin-right:2px;" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                4.98 分 · 5年工龄
+              </div>
+              <div style="font-size:10px;color:var(--color-text-sub);margin-top:4px;">实名背调 · 健康证验真</div>
+              <button class="btn btn-outline-primary btn-sm btn-block" style="margin-top:8px;">查看档案</button>
+            </div>
+            <!-- Tech Preview 2 -->
+            <div style="min-width:140px;background:#FFF;border:1px solid var(--color-border-main);border-radius:var(--radius-md);padding:12px;cursor:pointer;flex-shrink:0;" onclick="openTechDetail('tech-02')">
+              <div style="width:40px;height:40px;border-radius:50%;background:#0284C7;color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:6px;">李</div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">李*英</div>
+              <div style="font-size:10px;color:var(--color-accent);font-weight:700;margin-top:2px;display:flex;align-items:center;">
+                <svg style="width:11px;height:11px;margin-right:2px;" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                4.95 分 · 4年工龄
+              </div>
+              <div style="font-size:10px;color:var(--color-text-sub);margin-top:4px;">细心收纳 · 工具齐全</div>
+              <button class="btn btn-outline-primary btn-sm btn-block" style="margin-top:8px;">查看档案</button>
+            </div>
+            <!-- Tech Preview 3 -->
+            <div style="min-width:140px;background:#FFF;border:1px solid var(--color-border-main);border-radius:var(--radius-md);padding:12px;cursor:pointer;flex-shrink:0;" onclick="openTechDetail('tech-03')">
+              <div style="width:40px;height:40px;border-radius:50%;background:#059669;color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;margin-bottom:6px;">王</div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">王*琴</div>
+              <div style="font-size:10px;color:var(--color-accent);font-weight:700;margin-top:2px;display:flex;align-items:center;">
+                <svg style="width:11px;height:11px;margin-right:2px;" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                4.99 分 · 6年工龄
+              </div>
+              <div style="font-size:10px;color:var(--color-text-sub);margin-top:4px;">油烟拆洗 · 高温消毒</div>
+              <button class="btn btn-outline-primary btn-sm btn-block" style="margin-top:8px;">查看档案</button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 1: 选阿姨 / 技师库 (Technicians) ================= -->
+        <section id="view-1" class="view-pane">
+          <h2 style="display:none;">选阿姨与技师档案库</h2>
+          
+          <!-- Filter Tags -->
+          <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px;">
+            <div class="note-tag active" id="filter-tag-all" onclick="filterTechnicians('all')">全部阿姨</div>
+            <div class="note-tag" id="filter-tag-gold" onclick="filterTechnicians('gold')">金牌技师</div>
+            <div class="note-tag" id="filter-tag-years" onclick="filterTechnicians('years')">5年以上经验</div>
+            <div class="note-tag" id="filter-tag-rating" onclick="filterTechnicians('rating')">好评率99%+</div>
+            <div class="note-tag" id="filter-tag-today" onclick="filterTechnicians('today')">今日有空档</div>
+          </div>
+
+          <!-- Technicians List Container -->
+          <div id="technician-list-container">
+            <!-- Dynamically Rendered from Store -->
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 2: 立即预约 (Booking Flow) ================= -->
+        <section id="view-2" class="view-pane">
+          <h2 style="display:none;">立即预约与服务定制</h2>
+          
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <b style="font-size:14px;color:var(--color-text-title);">1. 选择服务规格与时长</b>
+              <span class="badge badge-primary">一口价透明无隐形费</span>
+            </div>
+            <div class="spec-pills">
+              <div class="spec-pill active" id="spec-pill-2" onclick="selectBookingSpec(2, 98, '日常保洁 · 2小时')">
+                <div class="spec-pill-title">2 小时日常</div>
+                <div class="spec-pill-price">¥98</div>
+                <div class="spec-pill-desc">约 50-80㎡</div>
+              </div>
+              <div class="spec-pill" id="spec-pill-3" onclick="selectBookingSpec(3, 142, '深度保洁 · 3小时')">
+                <div class="spec-pill-title">3 小时深度</div>
+                <div class="spec-pill-price">¥142</div>
+                <div class="spec-pill-desc">约 80-120㎡</div>
+              </div>
+              <div class="spec-pill" id="spec-pill-4" onclick="selectBookingSpec(4, 188, '全屋大扫除 · 4小时')">
+                <div class="spec-pill-title">4 小时开荒</div>
+                <div class="spec-pill-price">¥188</div>
+                <div class="spec-pill-desc">120㎡以上</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time & Date Picker -->
+          <div class="card">
+            <b style="font-size:14px;color:var(--color-text-title);">2. 预约上门时间</b>
+            <div class="date-tabs">
+              <div class="date-tab active" id="date-tab-today" onclick="selectBookingDate('今天 (9月4日)')">今天 (9月4日)</div>
+              <div class="date-tab" id="date-tab-tomorrow" onclick="selectBookingDate('明天 (9月5日)')">明天 (9月5日)</div>
+              <div class="date-tab" id="date-tab-after" onclick="selectBookingDate('后天 (9月6日)')">后天 (9月6日)</div>
+            </div>
+            <div class="timeslot-grid">
+              <div class="timeslot-item" id="slot-0" onclick="selectTimeSlot('08:30-10:30', 0)">08:30 - 10:30</div>
+              <div class="timeslot-item active" id="slot-1" onclick="selectTimeSlot('10:30-12:30', 1)">10:30 - 12:30 (推荐)</div>
+              <div class="timeslot-item" id="slot-2" onclick="selectTimeSlot('14:00-16:00', 2)">14:00 - 16:00</div>
+              <div class="timeslot-item" id="slot-3" onclick="selectTimeSlot('16:30-18:30', 3)">16:30 - 18:30</div>
+            </div>
+          </div>
+
+          <!-- Service Address -->
+          <div class="card" onclick="openDrawer('drawer-address')" style="cursor:pointer;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:14px;color:var(--color-text-title);">3. 服务上门地址</b>
+              <span style="font-size:11px;color:var(--color-primary);">切换地址 ›</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;margin-top:8px;">
+              <span class="icon" style="color:var(--color-primary);margin-top:2px;"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--color-text-title);" id="booking-display-addr">某市海*区中*路108号阳光**城3栋2单元***室</div>
+                <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;" id="booking-display-contact">陈**女士 · 138****5678 (默认地址)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assigned Technician -->
+          <div class="card" onclick="switchTab(1)" style="cursor:pointer;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:14px;color:var(--color-text-title);">4. 指定服务技师</b>
+              <span style="font-size:11px;color:var(--color-primary);">更换技师 ›</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--color-primary);color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;" id="booking-tech-avatar">张</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--color-text-title);" id="booking-tech-name">张*姐 (平台优选金牌保洁师)</div>
+                <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">5年工龄 · 1,420+服务单 · 已实名背调</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coupon Selection -->
+          <div class="card" onclick="openDrawer('drawer-coupon')" style="cursor:pointer;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="icon" style="color:var(--color-accent);"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg></span>
+                <b style="font-size:13px;color:var(--color-text-title);">优惠券抵扣</b>
+              </div>
+              <span style="font-size:12px;color:var(--color-accent);font-weight:700;" id="coupon-selected-text">-¥20 (新客专享券) ›</span>
+            </div>
+          </div>
+
+          <!-- Special Requirement Tags -->
+          <div class="card">
+            <b style="font-size:13px;color:var(--color-text-title);">特殊清洁需求 (可多选)</b>
+            <div class="note-tags">
+              <div class="note-tag active" onclick="toggleNoteTag(this)">家里有宠物</div>
+              <div class="note-tag active" onclick="toggleNoteTag(this)">厨房重油污需侧重</div>
+              <div class="note-tag" onclick="toggleNoteTag(this)">需携带专业鞋套</div>
+              <div class="note-tag" onclick="toggleNoteTag(this)">卫浴高温蒸汽除垢</div>
+              <div class="note-tag" onclick="toggleNoteTag(this)">无需按门铃</div>
+            </div>
+          </div>
+
+          <!-- Booking Summary & Submit Sticky Bar -->
+          <div style="background:#FFFFFF;border-top:1px solid var(--color-border-main);border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-card);margin-top:6px;">
+            <div>
+              <div style="font-size:11px;color:var(--color-text-sub);">已享受优惠券折抵 ¥20</div>
+              <div style="font-size:18px;font-weight:900;color:var(--color-primary);" id="booking-final-price">¥78 <span style="font-size:11px;color:var(--color-text-sub);font-weight:normal;text-decoration:line-through;" id="booking-origin-price">¥98</span></div>
+            </div>
+            <button class="btn btn-primary" style="padding:10px 22px;border-radius:22px;" onclick="submitBookingOrder()">
+              确认提交预约
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 3: 订单管理 (Orders) ================= -->
+        <section id="view-3" class="view-pane">
+          <h2 style="display:none;">服务订单与进度管理</h2>
+          
+          <!-- Order Status Bar -->
+          <div class="order-status-tabs">
+            <div class="status-tab-item active" id="order-tab-all" onclick="filterOrders('ALL')">全部</div>
+            <div class="status-tab-item" id="order-tab-pending" onclick="filterOrders('PENDING_VISIT')">待上门</div>
+            <div class="status-tab-item" id="order-tab-service" onclick="filterOrders('IN_SERVICE')">服务中</div>
+            <div class="status-tab-item" id="order-tab-review" onclick="filterOrders('PENDING_REVIEW')">待评价</div>
+            <div class="status-tab-item" id="order-tab-completed" onclick="filterOrders('COMPLETED')">已完成</div>
+          </div>
+
+          <!-- Order Cards Container -->
+          <div id="orders-list-container">
+            <!-- Dynamically Rendered -->
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 4: 个人中心 (Profile) ================= -->
+        <section id="view-4" class="view-pane">
+          <h2 style="display:none;">个人中心与服务保障</h2>
+          
+          <!-- User Profile Card -->
+          <div class="card" style="background:linear-gradient(135deg, #0D9488, #0F766E);color:#FFF;display:flex;align-items:center;gap:12px;padding:18px 16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:#FFF;color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;">
+              陈
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:800;">陈**女士</div>
+              <div style="font-size:11px;opacity:0.88;margin-top:2px;">手机：138****5678 · VIP 金卡会员</div>
+              <div style="font-size:10px;background:rgba(255,255,255,0.22);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:4px;">享有损坏包赔与专属快速派单特权</div>
+            </div>
+          </div>
+
+          <!-- Assets Summary -->
+          <div class="card" style="display:grid;grid-template-columns:repeat(3, 1fr);text-align:center;padding:12px 6px;">
+            <div style="cursor:pointer;" onclick="openDrawer('drawer-coupon')">
+              <div style="font-size:16px;font-weight:800;color:var(--color-primary);">2 张</div>
+              <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">优惠券包</div>
+            </div>
+            <div style="cursor:pointer;border-left:1px solid var(--color-border-light);border-right:1px solid var(--color-border-light);" onclick="showToast('已享受 3 次保洁洗护专属权益')">
+              <div style="font-size:16px;font-weight:800;color:var(--color-text-title);">3 次</div>
+              <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">保洁次卡剩余</div>
+            </div>
+            <div style="cursor:pointer;" onclick="showToast('当前平台账户余额：¥120.00')">
+              <div style="font-size:16px;font-weight:800;color:var(--color-text-title);">¥120.00</div>
+              <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">账户钱包余额</div>
+            </div>
+          </div>
+
+          <!-- Feature Action List -->
+          <div class="card" style="padding:4px 14px;">
+            <div style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openDrawer('drawer-address')">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-title);">
+                <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                <span>常用服务地址簿管理</span>
+              </div>
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+
+            <div style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openDrawer('drawer-guarantee')">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-title);">
+                <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-8 9-8 9s-8-4-8-9V5l8-3 8 3z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                <span>保洁验收规范与赔付手册</span>
+              </div>
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+
+            <div style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="showInvoiceDrawer()">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-title);">
+                <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
+                <span>电子发票与开票抬头</span>
+              </div>
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+
+            <div style="padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openDrawer('drawer-chat')">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-title);">
+                <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+                <span>24h 专属在线客服咨询</span>
+              </div>
+              <span class="icon" style="color:var(--color-text-muted);"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- Bottom TabBar (5 Items) -->
+      <nav class="mp-tabbar">
+        <div class="tabbar-item active" id="tab-btn-0" onclick="switchTab(0)">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+          <span>首页</span>
+        </div>
+        <div class="tabbar-item" id="tab-btn-1" onclick="switchTab(1)">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span>选阿姨</span>
+        </div>
+        <div class="tabbar-item" id="tab-btn-2" onclick="switchTab(2)">
+          <span class="icon"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><line x1="12" x2="12" y1="14" y2="18"/><line x1="10" x2="14" y1="16" y2="16"/></svg></span>
+          <span>立即约</span>
+        </div>
+        <div class="tabbar-item" id="tab-btn-3" onclick="switchTab(3)">
+          <span class="icon"><svg viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></span>
+          <span>服务单</span>
+        </div>
+        <div class="tabbar-item" id="tab-btn-4" onclick="switchTab(4)">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></span>
+          <span>我的</span>
+        </div>
+      </nav>
+
+      <!-- Backdrop -->
+      <div class="modal-backdrop" id="modal-backdrop" onclick="closeAllDrawers()"></div>
+
+      <!-- ================= DRAWERS & MODALS ================= -->
+
+      <!-- 1. City Switch Drawer -->
+      <div class="bottom-drawer" id="drawer-city">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            选择服务城市
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="font-size:11px;color:var(--color-text-sub);margin-bottom:8px;">当前已开通同城上门保洁服务城市：</div>
+          <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;">
+            <button class="btn btn-outline" onclick="selectCity('某市 (海*区)')">某市 (海*区 · 当前)</button>
+            <button class="btn btn-outline" onclick="selectCity('北*市 (朝*区)')">北*市 (朝*区)</button>
+            <button class="btn btn-outline" onclick="selectCity('上*市 (浦*区)')">上*市 (浦*区)</button>
+            <button class="btn btn-outline" onclick="selectCity('广*市 (天*区)')">广*市 (天*区)</button>
+            <button class="btn btn-outline" onclick="selectCity('深*市 (南*区)')">深*市 (南*区)</button>
+            <button class="btn btn-outline" onclick="selectCity('杭*市 (西*区)')">杭*市 (西*区)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Search Keywords Drawer -->
+      <div class="bottom-drawer" id="drawer-search">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+            家政保洁热门搜索
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="font-size:11px;color:var(--color-text-sub);margin-bottom:8px;">大家都在找的同城服务：</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <div class="note-tag" onclick="handleSearchTag('2小时日常保洁')">2小时日常保洁</div>
+            <div class="note-tag" onclick="handleSearchTag('油烟机高温拆洗')">油烟机高温拆洗</div>
+            <div class="note-tag" onclick="handleSearchTag('深度双面擦窗')">深度双面擦窗</div>
+            <div class="note-tag" onclick="handleSearchTag('新居开荒保洁')">新居开荒保洁</div>
+            <div class="note-tag" onclick="handleSearchTag('衣橱全屋收纳')">衣橱全屋收纳</div>
+            <div class="note-tag" onclick="handleSearchTag('空调滤网蒸汽消杀')">空调滤网消杀</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Technician Background Detail Drawer -->
+      <div class="bottom-drawer" id="drawer-tech-detail">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">技师背调与资质认证档案</span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body" id="tech-detail-body">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- 4. Address Book Drawer -->
+      <div class="bottom-drawer" id="drawer-address">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            常用服务地址管理
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="border:1.5px solid var(--color-primary);background:var(--color-primary-light);border-radius:var(--radius-md);padding:12px;margin-bottom:10px;cursor:pointer;" onclick="selectAddress('addr-01')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="badge badge-primary">家 · 默认</span>
+              <span style="font-size:11px;color:var(--color-primary);font-weight:700;">使用中</span>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-top:6px;">某市海*区中*路108号阳光**城3栋2单元***室</div>
+            <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">陈**女士 · 138****5678</div>
+          </div>
+
+          <div style="border:1px solid var(--color-border-main);background:#FFF;border-radius:var(--radius-md);padding:12px;margin-bottom:12px;cursor:pointer;" onclick="selectAddress('addr-02')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="badge badge-muted">父母家</span>
+              <span style="font-size:11px;color:var(--color-text-sub);">点击切换</span>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-top:6px;">某市朝*区建*路88号**国际花园1号楼***室</div>
+            <div style="font-size:11px;color:var(--color-text-sub);margin-top:2px;">陈**女士 · 138****5678</div>
+          </div>
+
+          <button class="btn btn-outline btn-block" onclick="mockAddNewAddress()">+ 新增服务地址</button>
+        </div>
+      </div>
+
+      <!-- 5. Coupon Drawer -->
+      <div class="bottom-drawer" id="drawer-coupon">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-accent);"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg></span>
+            我的可用优惠券
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="border:1.5px solid var(--color-accent);background:var(--color-accent-light);border-radius:var(--radius-md);padding:12px;margin-bottom:10px;cursor:pointer;" onclick="applyCoupon(20, '新客专享全场立减券')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:16px;color:var(--color-accent);">¥20 立减券</b>
+              <span class="badge badge-accent">已自动勾选</span>
+            </div>
+            <div style="font-size:12px;font-weight:700;color:var(--color-text-title);margin-top:4px;">全场保洁预约通用 · 满80可用</div>
+            <div style="font-size:10px;color:var(--color-text-sub);margin-top:2px;">有效期至 2026-09-30</div>
+          </div>
+
+          <div style="border:1px solid var(--color-border-main);background:#FFF;border-radius:var(--radius-md);padding:12px;margin-bottom:10px;cursor:pointer;" onclick="applyCoupon(15, '深度保洁满减专享券')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:16px;color:var(--color-text-title);">¥15 满减券</b>
+              <span style="font-size:11px;color:var(--color-primary);font-weight:700;">点击使用</span>
+            </div>
+            <div style="font-size:12px;font-weight:700;color:var(--color-text-title);margin-top:4px;">深度保洁与家电拆洗专用 · 满120可用</div>
+            <div style="font-size:10px;color:var(--color-text-sub);margin-top:2px;">有效期至 2026-10-15</div>
+          </div>
+
+          <button class="btn btn-outline btn-block" style="margin-top:6px;" onclick="applyCoupon(0, '不使用优惠券')">不使用优惠券</button>
+        </div>
+      </div>
+
+      <!-- 6. Guarantee Manual Drawer -->
+      <div class="bottom-drawer" id="drawer-guarantee">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-8 9-8 9s-8-4-8-9V5l8-3 8 3z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            保洁服务标准与赔付承诺手册
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="background:var(--color-primary-light);border:1px solid var(--color-primary-border);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;">
+            <b style="color:var(--color-primary);">三大服务承诺保障：</b>
+            <div style="font-size:12px;color:var(--color-text-body);margin-top:4px;line-height:1.5;">
+              1. <b>未服务随时退</b>：阿姨上门前因临时变化取消，100% 全额原路退还；<br>
+              2. <b>慢必赔·误工赔付</b>：阿姨迟到超过 15 分钟，平台自动补偿 30 元清洁券；<br>
+              3. <b>损坏包赔</b>：服务过程中若因作业造成物品损坏，平台联合保险提供最高 20,000 元先行赔付保障。
+            </div>
+          </div>
+          <b style="font-size:13px;color:var(--color-text-title);">标准化保洁 6 区作业范围：</b>
+          <div style="font-size:12px;color:var(--color-text-sub);margin-top:6px;line-height:1.6;">
+            • 客厅/卧室：地面吸尘除尘、家具表面除尘、踢脚线擦拭、物品规整；<br>
+            • 厨房：水槽龙头除垢、台面油污清洁、油烟机表面去油污、垃圾袋打包；<br>
+            • 卫生间：马桶内外消杀、洗手池水垢除净、镜面擦拭、淋浴房地面清洗；<br>
+            • 阳台：地面擦洗、洗衣机表面灰尘清理。
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Review Drawer -->
+      <div class="bottom-drawer" id="drawer-review">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">服务完工满意度评价</span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body">
+          <div style="text-align:center;padding:10px 0;">
+            <div style="font-size:13px;color:var(--color-text-sub);">为本次为您服务的技师打分</div>
+            <div style="display:flex;justify-content:center;gap:8px;margin:12px 0;">
+              <span class="icon" style="color:var(--color-accent);font-size:24px;cursor:pointer;"><svg style="width:28px;height:28px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+              <span class="icon" style="color:var(--color-accent);font-size:24px;cursor:pointer;"><svg style="width:28px;height:28px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+              <span class="icon" style="color:var(--color-accent);font-size:24px;cursor:pointer;"><svg style="width:28px;height:28px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+              <span class="icon" style="color:var(--color-accent);font-size:24px;cursor:pointer;"><svg style="width:28px;height:28px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+              <span class="icon" style="color:var(--color-accent);font-size:24px;cursor:pointer;"><svg style="width:28px;height:28px;" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+            </div>
+            <div style="font-size:12px;color:var(--color-accent);font-weight:700;">非常满意 · 5星好评</div>
+          </div>
+          <div class="note-tags" style="justify-content:center;margin-bottom:14px;">
+            <div class="note-tag active">准时到达</div>
+            <div class="note-tag active">擦拭非常细致</div>
+            <div class="note-tag active">自带鞋套工具专业</div>
+            <div class="note-tag">态度温和有礼貌</div>
+          </div>
+          <textarea id="review-comment-input" style="width:100%;height:70px;border:1px solid var(--color-border-main);border-radius:var(--radius-md);padding:8px;font-size:12px;font-family:inherit;margin-bottom:12px;resize:none;" placeholder="写几句评价鼓励一下阿姨吧..."></textarea>
+          <button class="btn btn-primary btn-block" onclick="submitReviewAction()">提交评价</button>
+        </div>
+      </div>
+
+      <!-- 8. Online Chat Customer Service Drawer -->
+      <div class="bottom-drawer" id="drawer-chat">
+        <div class="drawer-handle"></div>
+        <div class="drawer-header">
+          <span class="drawer-title">
+            <span class="icon" style="color:var(--color-primary);"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            在线客服咨询 (专属客服)
+          </span>
+          <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+        </div>
+        <div class="drawer-body" style="display:flex;flex-direction:column;height:320px;">
+          <div id="chat-messages-box" style="flex:1;overflow-y:auto;padding:8px 0;">
+            <div class="chat-bubble-received">
+              您好，陈女士！我是安洁到家客服专员小洁。请问有什么可以协助您的？
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;padding-bottom:4px;">
+            <button class="btn btn-sm btn-outline" onclick="sendQuickChatMessage('日常保洁包含抽油烟机吗？')">保洁含抽油烟机吗？</button>
+            <button class="btn btn-sm btn-outline" onclick="sendQuickChatMessage('临时有事怎么取消预约？')">怎么取消预约？</button>
+            <button class="btn btn-sm btn-outline" onclick="sendQuickChatMessage('如何开具电子发票？')">如何开具发票？</button>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <input type="text" id="chat-input" placeholder="输入您的问题..." style="flex:1;border:1px solid var(--color-border-main);border-radius:20px;padding:8px 14px;font-size:12px;outline:none;">
+            <button class="btn btn-primary btn-sm" onclick="sendChatMessage()">发送</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Modal: QR Verification Code -->
+      <div class="center-modal" id="modal-qrcode">
+        <div style="text-align:center;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <b style="font-size:15px;color:var(--color-text-title);">电子上门服务核销凭证</b>
+            <span class="drawer-close" onclick="closeAllDrawers()"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+          </div>
+          <!-- Mock QR SVG -->
+          <div style="background:#FFF;border:1px solid var(--color-border-main);border-radius:12px;padding:16px;display:inline-block;margin:6px 0;">
+            <svg width="130" height="130" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-primary);">
+              <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/>
+              <path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+            </svg>
+          </div>
+          <div style="font-size:22px;font-weight:900;letter-spacing:4px;color:var(--color-primary);margin-top:6px;" id="modal-verify-code">8294</div>
+          <div style="font-size:11px;color:var(--color-text-sub);margin-top:4px;">请在阿姨上门作业时出示核验</div>
+          <button class="btn btn-primary btn-block btn-sm" style="margin-top:14px;" onclick="closeAllDrawers()">我知道了</button>
+        </div>
+      </div>
+
+      <!-- Center Modal: Virtual Privacy Call -->
+      <div class="center-modal" id="modal-call">
+        <div style="text-align:center;">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 10px auto;">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          </div>
+          <b style="font-size:15px;color:var(--color-text-title);">平台隐私安全虚拟专线</b>
+          <div style="font-size:11px;color:var(--color-text-sub);margin-top:6px;line-height:1.5;">
+            为保障双方隐私安全，真实手机号已加密隐藏。<br>
+            呼叫技师虚拟专线：<b style="color:var(--color-primary);" id="modal-virtual-phone">400-8**-6699 转 801</b>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:16px;">
+            <button class="btn btn-outline" style="flex:1;" onclick="closeAllDrawers()">取消</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="simulateCallConnect()">模拟呼叫</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast Notification -->
+      <div class="toast" id="toast-msg">
+        <span class="icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span id="toast-text">操作成功</span>
+      </div>
+
+    </div>
+
+    <!-- Simulator Explanation Panel -->
+    <aside class="sim-info-panel">
+      <h1 class="sim-title">
+        <span class="icon"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
+        同城家政保洁小程序原型说明
+      </h1>
+      <div class="sim-desc">
+        深度还原一线主流家政小程序真实使用链路，采用温润纯净的家政生活化设计语言，严格杜绝 AI 渐变与 Emoji 表情，全量字段落实合规脱敏。
+      </div>
+
+      <div class="sim-box">
+        <b>交互自闭环亮点：</b><br>
+        • <b>全链路预约下单</b>：支持服务规格时长动态计算、时段日历选择、脱敏地址切换、优惠券实时折抵、特殊需求勾选，提交后自动生成真实工单；<br>
+        • <b>工单生命周期管理</b>：支持「查看动态核销码」、「虚拟专线联系阿姨」、「上门签到/确认验收」、「完工五星评价」及状态即时跃迁；<br>
+        • <b>严谨去 AI 味与脱敏</b>：全量采用 Lucide 矢量 SVG，无紫粉渐变，所有姓名、电话、地址、证件号全面掩码脱敏。
+      </div>
+
+      <ul class="feature-check-list">
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span><b>全按钮均可点击</b>：Tab 切换、时段日历、卡券、订单、电话、评价均能真实反馈</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span><b>零第三方依赖</b>：纯原生自包含单文件，跨平台离线秒开，无 CDN 中断风险</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span><b>微信规范细节</b>：包含标准胶囊菜单（••• ⊙）、状态栏与 5-Tab 底部安全区</span>
+        </li>
+      </ul>
+    </aside>
+
+  </div>
+
+  <script>
+    // ================= DATA STORE (In-Memory Reactive State) =================
+    const Store = {
+      app: {
+        activeTab: 0,
+        currentCity: '某市 (海*区)'
+      },
+      bookingDraft: {
+        serviceTitle: '日常保洁 · 2小时全屋基础除尘',
+        packageHours: 2,
+        basePrice: 98,
+        selectedDate: '明天 (9月5日)',
+        selectedTimeSlot: '10:30 - 12:30 (推荐)',
+        selectedTechnician: '张*姐',
+        selectedAddress: '某市海*区中*路108号阳光**城3栋2单元***室',
+        couponDiscount: 20,
+        couponName: '新客专享全场立减券',
+        specialNotes: ['家里有宠物', '厨房重油污需侧重']
+      },
+      technicians: [
+        {
+          id: 'tech-01',
+          name: '张*姐',
+          char: '张',
+          color: '#0D9488',
+          level: '金牌技师',
+          workYears: 5,
+          completedOrders: 1420,
+          rating: 4.98,
+          healthStatus: '健康证合格 (有效至 2027-03)',
+          idVerify: '公安系统背调通过 · 无不良记录',
+          tags: ['深度去油', '擦窗利落', '宠物洗美庭无敏'],
+          schedule: '今日 14:00 可约',
+          bio: '从事家政保洁 5 年，细心负责，熟练掌握 6 区 40 项标准化清洁流程，自备高温消杀工具箱。'
+        },
+        {
+          id: 'tech-02',
+          name: '李*英',
+          char: '李',
+          color: '#0284C7',
+          level: '资深收纳师',
+          workYears: 4,
+          completedOrders: 980,
+          rating: 4.95,
+          healthStatus: '健康证合格 (有效至 2026-11)',
+          idVerify: '公安系统背调通过 · 技能证书核验',
+          tags: ['细心收纳', '温和有礼', '死角除垢'],
+          schedule: '明日有档期',
+          bio: '擅长衣橱换季整理与厨房全方位去垢，曾获月度“零差评优质服务星”荣誉。'
+        },
+        {
+          id: 'tech-03',
+          name: '王*琴',
+          char: '王',
+          color: '#059669',
+          level: '家电清洗专家',
+          workYears: 6,
+          completedOrders: 1650,
+          rating: 4.99,
+          healthStatus: '健康证合格 (有效至 2027-01)',
+          idVerify: '公安系统背调通过 · 专业认证资质',
+          tags: ['油烟机拆洗', '空调消杀', '双面擦窗'],
+          schedule: '今日 16:30 可约',
+          bio: '精通油烟机、空调、洗衣机高温蒸汽拆洗，服务严谨，严格遵守不留污迹、不损漆面原则。'
+        },
+        {
+          id: 'tech-04',
+          name: '刘*霞',
+          char: '刘',
+          color: '#D97706',
+          level: '金牌大扫除师',
+          workYears: 5,
+          completedOrders: 1210,
+          rating: 4.96,
+          healthStatus: '健康证合格 (有效至 2026-12)',
+          idVerify: '公安系统背调通过 · 身份真实验核',
+          tags: ['新居开荒', '强力除胶', '木地板保养'],
+          schedule: '明日可约',
+          bio: '专注新房开荒与全屋深度除尘，擅长水泥点清除及各类型瓷砖缝隙除霉去垢。'
+        }
+      ],
+      orders: [
+        {
+          orderId: 'HJ-20260904-8891',
+          serviceName: '日常保洁 · 2小时全屋基础除尘',
+          technicianName: '张*姐',
+          technicianPhone: '400-8**-6699 转 801',
+          serviceAddress: '某市海*区中*路108号阳光**城3栋2单元***室',
+          scheduledTime: '2026-09-05 10:30-12:30',
+          amountPaid: 78,
+          status: 'PENDING_VISIT', // PENDING_VISIT, IN_SERVICE, PENDING_REVIEW, COMPLETED
+          verifyCode: '8294',
+          createTime: '2026-09-04 19:30'
+        },
+        {
+          orderId: 'HJ-20260830-5102',
+          serviceName: '深度保洁 · 3小时全方位除菌除垢',
+          technicianName: '王*琴',
+          technicianPhone: '400-8**-6699 转 803',
+          serviceAddress: '某市朝*区建*路88号**国际花园1号楼***室',
+          scheduledTime: '2026-08-30 14:00-17:00',
+          amountPaid: 142,
+          status: 'COMPLETED',
+          verifyCode: '3319',
+          userRating: 5,
+          reviewComment: '阿姨非常准时，窗台死角擦得特别透亮，油烟机亮堂堂的！',
+          createTime: '2026-08-29 11:20'
+        }
+      ]
+    };
+
+    // ================= INITIALIZATION =================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTechniciansList(Store.technicians);
+      renderOrdersList(Store.orders);
+      updateBookingPriceDisplay();
+      
+      // Real-time time display
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const timeElem = document.getElementById('system-time');
+      if (timeElem) timeElem.textContent = `${h}:${m}`;
+    });
+
+    // ================= TAB NAVIGATION =================
+    function switchTab(tabIndex) {
+      Store.app.activeTab = tabIndex;
+      
+      document.querySelectorAll('.mp-content-scroller .view-pane').forEach((el, idx) => {
+        el.classList.toggle('active', idx === tabIndex);
+      });
+
+      document.querySelectorAll('.mp-tabbar .tabbar-item').forEach((el, idx) => {
+        el.classList.toggle('active', idx === tabIndex);
+      });
+
+      const scroller = document.getElementById('scroller');
+      if (scroller) scroller.scrollTop = 0;
+    }
+
+    // ================= QUICK SELECT FROM HOME =================
+    function quickSelectService(name, basePrice, hours) {
+      selectBookingSpec(hours, basePrice, name);
+      switchTab(2);
+      showToast(`已为您选择：${name}`);
+    }
+
+    // ================= TECHNICIAN RENDERING & FILTER =================
+    function renderTechniciansList(techList) {
+      const container = document.getElementById('technician-list-container');
+      if (!container) return;
+
+      container.innerHTML = techList.map(tech => `
+        <div class="card" style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:48px;height:48px;border-radius:50%;background:${tech.color};color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0;">
+            ${tech.char}
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <b style="font-size:15px;color:var(--color-text-title);">${tech.name}</b>
+                <span class="badge badge-accent" style="margin-left:4px;">${tech.level}</span>
+              </div>
+              <div style="display:flex;align-items:center;font-size:11px;color:var(--color-primary);font-weight:700;">
+                <svg style="width:12px;height:12px;margin-right:2px;color:var(--color-accent);" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                ${tech.rating} 分
+              </div>
+            </div>
+            
+            <div style="font-size:11px;color:var(--color-text-sub);margin-top:4px;">
+              工龄 ${tech.workYears} 年 · 服务 ${tech.completedOrders}+ 户 · ${tech.schedule}
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">
+              ${tech.tags.map(t => `<span class="badge badge-muted">${t}</span>`).join('')}
+            </div>
+
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border-light);display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openTechDetail('${tech.id}')">查看档案</button>
+              <button class="btn btn-primary btn-sm" style="flex:1;" onclick="assignTechnicianToBooking('${tech.name}', '${tech.char}', '${tech.color}')">指定该阿姨</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterTechnicians(type) {
+      document.querySelectorAll('#view-1 .note-tag').forEach(tag => tag.classList.remove('active'));
+      const activeTag = document.getElementById('filter-tag-' + type);
+      if (activeTag) activeTag.classList.add('active');
+
+      let filtered = Store.technicians;
+      if (type === 'gold') {
+        filtered = Store.technicians.filter(t => t.level.includes('金牌'));
+      } else if (type === 'years') {
+        filtered = Store.technicians.filter(t => t.workYears >= 5);
+      } else if (type === 'rating') {
+        filtered = Store.technicians.filter(t => t.rating >= 4.97);
+      } else if (type === 'today') {
+        filtered = Store.technicians.filter(t => t.schedule.includes('今日'));
+      }
+      renderTechniciansList(filtered);
+    }
+
+    function openTechDetail(techId) {
+      const tech = Store.technicians.find(t => t.id === techId);
+      if (!tech) return;
+
+      const body = document.getElementById('tech-detail-body');
+      body.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:${tech.color};color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;">
+            ${tech.char}
+          </div>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--color-text-title);">${tech.name} · ${tech.level}</div>
+            <div style="font-size:12px;color:var(--color-text-sub);margin-top:2px;">好评率 99.8% · 累计已服务 ${tech.completedOrders}+ 户</div>
+          </div>
+        </div>
+
+        <div style="background:var(--color-primary-light);border:1px solid var(--color-primary-border);border-radius:var(--radius-md);padding:12px;margin-bottom:12px;">
+          <div style="font-size:12px;font-weight:800;color:var(--color-primary);margin-bottom:6px;">官方背调及健康认证</div>
+          <div style="font-size:11px;color:var(--color-text-body);line-height:1.8;">
+            <div style="display:flex;align-items:center;gap:4px;"><svg style="width:13px;height:13px;color:var(--color-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ${tech.idVerify}</div>
+            <div style="display:flex;align-items:center;gap:4px;"><svg style="width:13px;height:13px;color:var(--color-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ${tech.healthStatus}</div>
+            <div style="display:flex;align-items:center;gap:4px;"><svg style="width:13px;height:13px;color:var(--color-primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 工具箱符合高温消杀作业规范</div>
+          </div>
+        </div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-bottom:4px;">服务特长与履历介绍</div>
+        <div style="font-size:12px;color:var(--color-text-sub);line-height:1.6;margin-bottom:12px;">
+          ${tech.bio}
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="assignTechnicianToBooking('${tech.name}', '${tech.char}', '${tech.color}');closeAllDrawers();">
+          指定 ${tech.name} 立即预约
+        </button>
+      `;
+      openDrawer('drawer-tech-detail');
+    }
+
+    function assignTechnicianToBooking(name, char, color) {
+      Store.bookingDraft.selectedTechnician = name;
+      document.getElementById('booking-tech-name').textContent = `${name} (指定技师)`;
+      document.getElementById('booking-tech-avatar').textContent = char;
+      document.getElementById('booking-tech-avatar').style.background = color;
+      switchTab(2);
+      showToast(`已指定技师：${name}`);
+    }
+
+    // ================= BOOKING CUSTOMIZATION =================
+    function selectBookingSpec(hours, price, title) {
+      Store.bookingDraft.packageHours = hours;
+      Store.bookingDraft.basePrice = price;
+      Store.bookingDraft.serviceTitle = title;
+
+      [2, 3, 4].forEach(h => {
+        const pill = document.getElementById(`spec-pill-${h}`);
+        if (pill) pill.classList.toggle('active', h === hours);
+      });
+
+      updateBookingPriceDisplay();
+    }
+
+    function selectBookingDate(dateStr) {
+      Store.bookingDraft.selectedDate = dateStr;
+      document.getElementById('date-tab-today').classList.toggle('active', dateStr.includes('今天'));
+      document.getElementById('date-tab-tomorrow').classList.toggle('active', dateStr.includes('明天'));
+      document.getElementById('date-tab-after').classList.toggle('active', dateStr.includes('后天'));
+    }
+
+    function selectTimeSlot(slotStr, index) {
+      Store.bookingDraft.selectedTimeSlot = slotStr;
+      [0, 1, 2, 3].forEach(i => {
+        const el = document.getElementById(`slot-${i}`);
+        if (el) el.classList.toggle('active', i === index);
+      });
+    }
+
+    function toggleNoteTag(elem) {
+      elem.classList.toggle('active');
+    }
+
+    function applyCoupon(amount, couponName) {
+      Store.bookingDraft.couponDiscount = amount;
+      Store.bookingDraft.couponName = couponName;
+      const textElem = document.getElementById('coupon-selected-text');
+      if (amount > 0) {
+        textElem.textContent = `-¥${amount} (${couponName}) ›`;
+      } else {
+        textElem.textContent = '未使用优惠券 ›';
+      }
+      updateBookingPriceDisplay();
+      closeAllDrawers();
+      showToast(amount > 0 ? `已选用：${couponName}` : '已取消使用优惠券');
+    }
+
+    function updateBookingPriceDisplay() {
+      const base = Store.bookingDraft.basePrice;
+      const discount = Store.bookingDraft.couponDiscount;
+      const finalPrice = Math.max(0, base - discount);
+
+      document.getElementById('booking-final-price').innerHTML = `¥${finalPrice} <span style="font-size:11px;color:var(--color-text-sub);font-weight:normal;text-decoration:line-through;">¥${base}</span>`;
+      document.getElementById('booking-origin-price').textContent = `¥${base}`;
+    }
+
+    function submitBookingOrder() {
+      const draft = Store.bookingDraft;
+      const finalPrice = Math.max(0, draft.basePrice - draft.couponDiscount);
+      const newOrder = {
+        orderId: 'HJ-20260904-' + Math.floor(1000 + Math.random() * 9000),
+        serviceName: draft.serviceTitle,
+        technicianName: draft.selectedTechnician,
+        technicianPhone: '400-8**-6699 转 801',
+        serviceAddress: draft.selectedAddress,
+        scheduledTime: `${draft.selectedDate} ${draft.selectedTimeSlot}`,
+        amountPaid: finalPrice,
+        status: 'PENDING_VISIT',
+        verifyCode: String(Math.floor(1000 + Math.random() * 9000)),
+        createTime: '刚刚'
+      };
+
+      Store.orders.unshift(newOrder);
+      renderOrdersList(Store.orders);
+      
+      showToast('预约提交成功！平台已为您安排金牌技师');
+      setTimeout(() => {
+        switchTab(3);
+        filterOrders('PENDING_VISIT');
+      }, 400);
+    }
+
+    // ================= ORDER LIST & LIFECYCLE =================
+    function renderOrdersList(ordersList) {
+      const container = document.getElementById('orders-list-container');
+      if (!container) return;
+
+      if (ordersList.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px 10px;color:var(--color-text-muted);">
+            <span class="icon" style="font-size:36px;color:var(--color-border-dark);margin-bottom:8px;"><svg style="width:40px;height:40px;" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></span>
+            <div style="font-size:13px;">暂无对应状态的服务订单</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = ordersList.map(order => {
+        let statusBadge = '';
+        let actionButtons = '';
+
+        if (order.status === 'PENDING_VISIT') {
+          statusBadge = '<span class="badge badge-primary">待上门服务</span>';
+          actionButtons = `
+            <button class="btn btn-outline btn-sm" onclick="openQrModal('${order.verifyCode}')">查看核销码</button>
+            <button class="btn btn-outline btn-sm" onclick="openCallModal('${order.technicianPhone}')">联系阿姨</button>
+            <button class="btn btn-primary btn-sm" onclick="advanceOrderStatus('${order.orderId}', 'IN_SERVICE')">模拟阿姨签到</button>
+          `;
+        } else if (order.status === 'IN_SERVICE') {
+          statusBadge = '<span class="badge badge-accent">保洁作业中</span>';
+          actionButtons = `
+            <button class="btn btn-outline btn-sm" onclick="openCallModal('${order.technicianPhone}')">虚拟电话</button>
+            <button class="btn btn-primary btn-sm" onclick="advanceOrderStatus('${order.orderId}', 'PENDING_REVIEW')">确认验收完毕</button>
+          `;
+        } else if (order.status === 'PENDING_REVIEW') {
+          statusBadge = '<span class="badge badge-warning">待满意度评价</span>';
+          actionButtons = `
+            <button class="btn btn-outline btn-sm" onclick="openDrawer('drawer-guarantee')">售后保障</button>
+            <button class="btn btn-primary btn-sm" onclick="openReviewDrawer('${order.orderId}')">去评价</button>
+          `;
+        } else {
+          statusBadge = '<span class="badge badge-success">已完成服务</span>';
+          actionButtons = `
+            <button class="btn btn-outline btn-sm" onclick="showToast('已为您再次加入常用预约单')">再次预约</button>
+            <button class="btn btn-outline btn-sm" onclick="showInvoiceDrawer()">申请发票</button>
+          `;
+        }
+
+        return `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span style="font-size:11px;color:var(--color-text-sub);">工单号：${order.orderId}</span>
+              ${statusBadge}
+            </div>
+
+            <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">${order.serviceName}</div>
+            
+            <div style="font-size:11px;color:var(--color-text-body);margin-top:6px;line-height:1.6;background:var(--color-bg-page);padding:8px 10px;border-radius:var(--radius-md);">
+              预约时间：${order.scheduledTime}<br>
+              服务技师：${order.technicianName} (平台背调认证)<br>
+              服务地址：${order.serviceAddress}
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--color-border-light);">
+              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">实付款：¥${order.amountPaid}</div>
+              <div style="display:flex;gap:6px;">
+                ${actionButtons}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterOrders(statusType) {
+      document.querySelectorAll('.order-status-tabs .status-tab-item').forEach(el => el.classList.remove('active'));
+      
+      const tabMap = {
+        'ALL': 'order-tab-all',
+        'PENDING_VISIT': 'order-tab-pending',
+        'IN_SERVICE': 'order-tab-service',
+        'PENDING_REVIEW': 'order-tab-review',
+        'COMPLETED': 'order-tab-completed'
+      };
+      const curTab = document.getElementById(tabMap[statusType]);
+      if (curTab) curTab.classList.add('active');
+
+      if (statusType === 'ALL') {
+        renderOrdersList(Store.orders);
+      } else {
+        const filtered = Store.orders.filter(o => o.status === statusType);
+        renderOrdersList(filtered);
+      }
+    }
+
+    function advanceOrderStatus(orderId, nextStatus) {
+      const order = Store.orders.find(o => o.orderId === orderId);
+      if (!order) return;
+      order.status = nextStatus;
+      renderOrdersList(Store.orders);
+      if (nextStatus === 'IN_SERVICE') {
+        showToast('阿姨已完成上门打卡，正在进行保洁作业');
+      } else if (nextStatus === 'PENDING_REVIEW') {
+        showToast('服务已验收完毕，欢迎给阿姨留下好评');
+      }
+    }
+
+    // ================= REVIEW WORKFLOW =================
+    let currentReviewingOrderId = null;
+    function openReviewDrawer(orderId) {
+      currentReviewingOrderId = orderId;
+      openDrawer('drawer-review');
+    }
+
+    function submitReviewAction() {
+      if (currentReviewingOrderId) {
+        const order = Store.orders.find(o => o.orderId === currentReviewingOrderId);
+        if (order) {
+          order.status = 'COMPLETED';
+          renderOrdersList(Store.orders);
+        }
+      }
+      closeAllDrawers();
+      showToast('评价提交成功！感谢您对金牌阿姨的认可');
+    }
+
+    // ================= ADDRESS MANAGEMENT =================
+    function selectAddress(addrId) {
+      if (addrId === 'addr-01') {
+        Store.bookingDraft.selectedAddress = '某市海*区中*路108号阳光**城3栋2单元***室';
+        document.getElementById('booking-display-addr').textContent = '某市海*区中*路108号阳光**城3栋2单元***室';
+        document.getElementById('booking-display-contact').textContent = '陈**女士 · 138****5678 (默认地址)';
+      } else {
+        Store.bookingDraft.selectedAddress = '某市朝*区建*路88号**国际花园1号楼***室';
+        document.getElementById('booking-display-addr').textContent = '某市朝*区建*路88号**国际花园1号楼***室';
+        document.getElementById('booking-display-contact').textContent = '陈**女士 · 138****5678 (父母家)';
+      }
+      closeAllDrawers();
+      showToast('已更新服务上门地址');
+    }
+
+    function mockAddNewAddress() {
+      showToast('已模拟录入新地址：某市海*区科*园5号院');
+      closeAllDrawers();
+    }
+
+    // ================= CITY SWITCH =================
+    function selectCity(cityName) {
+      Store.app.currentCity = cityName;
+      document.getElementById('curr-city-name').textContent = cityName;
+      closeAllDrawers();
+      showToast(`已切换当前定位城市至：${cityName}`);
+    }
+
+    // ================= SEARCH TAG CLICK =================
+    function handleSearchTag(kw) {
+      document.getElementById('search-bar-placeholder').textContent = kw;
+      closeAllDrawers();
+      showToast(`已匹配搜索项目：${kw}`);
+      switchTab(1);
+    }
+
+    // ================= INVOICE & CAPSULE MENUS =================
+    function showInvoiceDrawer() {
+      showToast('已为您开通电子发票服务，开票明细已发送至绑定邮箱');
+    }
+
+    function showCapsuleMenu() {
+      showToast('微信小程序选项：已复制页面链接');
+    }
+
+    // ================= QR & CALL MODALS =================
+    function openQrModal(code) {
+      document.getElementById('modal-verify-code').textContent = code;
+      openCenterModal('modal-qrcode');
+    }
+
+    function openCallModal(phone) {
+      document.getElementById('modal-virtual-phone').textContent = phone;
+      openCenterModal('modal-call');
+    }
+
+    function simulateCallConnect() {
+      closeAllDrawers();
+      showToast('正在通过平台安全专线呼叫技师阿姨...');
+    }
+
+    // ================= ONLINE CHAT CUSTOMER SERVICE =================
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendChatMessage(text, 'sent');
+      input.value = '';
+
+      setTimeout(() => {
+        let reply = '收到您的咨询。平台保洁阿姨均经过实名背调与健康认证，服务如遇任何问题均支持未服务随时退与满意后再付款。';
+        if (text.includes('油烟机')) {
+          reply = '日常保洁不含油烟机内部拆洗；若需深度除重油，可在首页选择“油烟机拆洗”独立专享服务。';
+        } else if (text.includes('取消')) {
+          reply = '阿姨上门前因临时日程变动，您可以在订单详情中直接点击取消，已付款项将即刻原路全额退还。';
+        } else if (text.includes('发票')) {
+          reply = '服务完成后，可在个人中心-电子发票抬头管理中一键开具增值税电子普通发票。';
+        }
+        appendChatMessage(reply, 'received');
+      }, 500);
+    }
+
+    function sendQuickChatMessage(txt) {
+      appendChatMessage(txt, 'sent');
+      setTimeout(() => {
+        sendChatMessageReplyFor(txt);
+      }, 400);
+    }
+
+    function sendChatMessageReplyFor(text) {
+      let reply = '感谢您的咨询！安洁到家为您提供 100% 平台标准化履约保障。';
+      if (text.includes('油烟机')) {
+        reply = '日常保洁包含油烟机表面油垢擦拭；如需叶轮内部高温深度清洗，建议选择“家电清洗-油烟机深度拆洗”。';
+      } else if (text.includes('取消')) {
+        reply = '阿姨上门前支持一键随时免费取消，未服务立返账户，无任何手续费扣减。';
+      } else if (text.includes('发票')) {
+        reply = '支持开具电子普通发票，支持个人或公司抬头，完工后 1 个工作日内推送至邮箱。';
+      }
+      appendChatMessage(reply, 'received');
+    }
+
+    function appendChatMessage(msg, type) {
+      const box = document.getElementById('chat-messages-box');
+      const div = document.createElement('div');
+      div.className = type === 'sent' ? 'chat-bubble-sent' : 'chat-bubble-received';
+      div.textContent = msg;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // ================= GENERIC MODAL & DRAWER CONTROLLER =================
+    function openDrawer(drawerId) {
+      document.getElementById('modal-backdrop').classList.add('show');
+      const drawer = document.getElementById(drawerId);
+      if (drawer) drawer.classList.add('show');
+    }
+
+    function openCenterModal(modalId) {
+      document.getElementById('modal-backdrop').classList.add('show');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('show');
+    }
+
+    function closeAllDrawers() {
+      document.getElementById('modal-backdrop').classList.remove('show');
+      document.querySelectorAll('.bottom-drawer').forEach(d => d.classList.remove('show'));
+      document.querySelectorAll('.center-modal').forEach(m => m.classList.remove('show'));
+    }
+
+    // ================= TOAST SYSTEM =================
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast-msg');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+
+      text.textContent = msg;
+      toast.classList.add('show');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>**科创中心少儿科创中心</title>
+  <style>
+    :root {
+      --color-primary: #2563EB;
+      --color-primary-dark: #1D4ED8;
+      --color-primary-light: #EFF6FF;
+      --color-primary-edge: #BFDBFE;
+      --color-accent: #F59E0B;
+      --color-accent-light: #FEF3C7;
+      --color-accent-dark: #D97706;
+      --color-bg-body: #CBD5E1;
+      --color-bg-page: #F8FAFC;
+      --color-bg-card: #FFFFFF;
+      --color-pure-white: #FFFFFF;
+      --color-dark-surface: #1E293B;
+      --color-text-main: #0F172A;
+      --color-text-sub: #475569;
+      --color-text-muted: #94A3B8;
+      --color-border: #E2E8F0;
+      --color-border-light: #F1F5F9;
+      --color-success: #10B981;
+      --color-success-light: #ECFDF5;
+      --color-danger: #EF4444;
+      --color-danger-light: #FEF2F2;
+      --color-scratch-orange: #FFAB19;
+      --color-scratch-blue: #4C97FF;
+      --color-scratch-cyan: #5CB1D6;
+      --color-scratch-purple: #9966FF;
+      --color-hardware-bg: #134E4A;
+      --color-hardware-teal: #0D9488;
+      --color-hardware-green: #059669;
+      --color-code-bg: #0F172A;
+      --color-code-cyan: #38BDF8;
+
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      --shadow-card: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-float: 0 8px 20px -4px rgba(37, 99, 235, 0.12);
+      --shadow-drawer: 0 -8px 24px rgba(15, 23, 42, 0.12);
+      --shadow-modal: 0 20px 25px -5px rgba(15, 23, 42, 0.16);
+
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--color-bg-body);
+      color: var(--color-text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* WeChat Mini Program Viewport Shell */
+    .mp-container {
+      width: 100%;
+      max-width: 414px;
+      height: 100vh;
+      max-height: 844px;
+      background: var(--color-bg-page);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+    }
+
+    @media (min-width: 480px) {
+      .mp-container {
+        border-radius: 40px;
+        border: 10px solid #1E293B;
+        height: 844px;
+      }
+    }
+
+    /* iOS Status Bar */
+    .status-bar {
+      height: 40px;
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .status-bar-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Mini Program Header Bar */
+    .mp-header {
+      height: 46px;
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .header-capsule {
+      height: 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 10px;
+    }
+    .capsule-dots {
+      display: flex;
+      gap: 2.5px;
+    }
+    .capsule-dot {
+      width: 3.5px;
+      height: 3.5px;
+      border-radius: 50%;
+      background: var(--color-bg-card);
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .capsule-circle {
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid #FFFFFF;
+      border-radius: 50%;
+      position: relative;
+    }
+    .capsule-circle::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      background: var(--color-bg-card);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+    }
+
+    /* Main Scroll Area */
+    .mp-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      padding: 12px 14px;
+      animation: tabFadeIn 0.2s ease-out;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+    }
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-edge);
+    }
+    .badge-accent {
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+    }
+    .badge-success {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+
+    /* Top Campus Notification Bar */
+    .campus-bar {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .campus-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+    .campus-route-btn {
+      color: var(--color-primary);
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      background: var(--color-primary-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-primary-edge);
+    }
+
+    /* Age Bracket Grid (4-Grid) */
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .age-pill {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 10px 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .age-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .age-pill-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .age-pill.active .age-pill-title {
+      color: var(--color-primary);
+    }
+    .age-pill-desc {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .age-pill.active .age-pill-desc {
+      color: var(--color-primary-dark);
+    }
+
+    /* Course Items */
+    .course-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .course-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .course-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .course-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .course-tag {
+      font-size: 10px;
+      color: var(--color-text-sub);
+      background: var(--color-bg-page);
+      padding: 2px 6px;
+      border-radius: var(--radius-xs);
+    }
+    .course-desc {
+      font-size: 12px;
+      color: var(--color-text-sub);
+      line-height: 1.5;
+      margin: 8px 0;
+    }
+    .course-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border-light);
+      padding-top: 10px;
+      margin-top: 6px;
+    }
+    .course-highlight {
+      font-size: 11px;
+      color: var(--color-primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s;
+    }
+    .btn-primary:active {
+      background: var(--color-primary-dark);
+    }
+    .btn-outline {
+      background: var(--color-bg-card);
+      color: var(--color-text-main);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-outline:active {
+      background: var(--color-bg-page);
+    }
+
+    /* Tab 1: Work Showcase */
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .filter-btn {
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg-card);
+      color: var(--color-text-sub);
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border-color: var(--color-primary);
+    }
+    .work-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .work-preview {
+      height: 120px;
+      background: var(--color-dark-surface);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-pure-white);
+      padding: 16px;
+    }
+    .work-diagram {
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .work-diagram-node {
+      font-size: 11px;
+      background: var(--color-primary);
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      font-weight: 600;
+    }
+    .work-diagram-arrow {
+      color: var(--color-accent);
+      font-size: 12px;
+    }
+    .work-info {
+      padding: 12px 14px;
+    }
+    .work-author-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .work-author {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+    .work-likes-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--color-text-sub);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      border-radius: var(--radius-full);
+      transition: all 0.15s;
+    }
+    .work-likes-btn.liked {
+      color: var(--color-danger);
+      background: var(--color-danger-light);
+    }
+    .work-action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    /* Tab 2: Schedule & Growth */
+    .week-strip {
+      display: flex;
+      justify-content: space-between;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 8px 6px;
+      margin-bottom: 12px;
+    }
+    .week-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 4px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      width: 13%;
+    }
+    .week-day.active {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+    }
+    .week-day-title {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .week-day.active .week-day-title {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .week-day-num {
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .week-day-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      margin-top: 3px;
+    }
+    .week-day.active .week-day-dot {
+      background: var(--color-bg-card);
+    }
+
+    .timetable-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .timetable-time {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 6px;
+    }
+    .timetable-meta {
+      font-size: 12px;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+    }
+    .timetable-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    /* Radar Canvas Container */
+    .radar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .radar-svg {
+      width: 260px;
+      height: 200px;
+    }
+
+    /* Tab 3: Student & Parent Profile */
+    .profile-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .child-switcher {
+      display: flex;
+      background: var(--color-bg-page);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+    .child-tab {
+      flex: 1;
+      text-align: center;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-sub);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .child-tab.active {
+      background: var(--color-bg-card);
+      color: var(--color-primary);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .profile-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary-light);
+      border: 2px solid var(--color-primary-edge);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .profile-text-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .profile-text-desc {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border-light);
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+    .stat-label {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* Menu List */
+    .menu-group {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .menu-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--color-text-main);
+    }
+    .menu-row:last-child {
+      border-bottom: none;
+    }
+    .menu-row:active {
+      background: var(--color-bg-page);
+    }
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* WeChat Mini Program Bottom TabBar */
+    .mp-tabbar {
+      height: 60px;
+      background: var(--color-bg-card);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      gap: 3px;
+      padding: 6px 0;
+      position: relative;
+    }
+    .tab-item.active {
+      color: var(--color-primary);
+    }
+    .tab-item svg {
+      transition: transform 0.15s;
+    }
+    .tab-item:active svg {
+      transform: scale(0.92);
+    }
+
+    /* Modals, Drawers & Overlays */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 100;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Bottom Drawer */
+    .drawer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 18px 16px 28px 16px;
+      z-index: 110;
+      box-shadow: var(--shadow-drawer);
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 85%;
+      overflow-y: auto;
+    }
+    .drawer.active {
+      transform: translateY(0);
+    }
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .drawer-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    /* Center Modal */
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      width: 90%;
+      max-width: 360px;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      z-index: 120;
+      box-shadow: var(--shadow-modal);
+      display: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+    .modal.active {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-sub);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .option-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .option-chip {
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background: var(--color-bg-page);
+      font-size: 12px;
+      color: var(--color-text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .option-chip.selected {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* Toast */
+    .toast {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--color-pure-white);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      white-space: nowrap;
+    }
+    .toast.active {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Scratch Code Block Simulation */
+    .scratch-block {
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--color-pure-white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+    .block-event { background: var(--color-scratch-orange); }
+    .block-control { background: var(--color-scratch-orange); }
+    .block-motion { background: var(--color-scratch-blue); }
+    .block-sensing { background: var(--color-scratch-cyan); }
+    .block-looks { background: var(--color-scratch-purple); }
+
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- WeChat Mini Program Container -->
+  <div class="mp-container">
+
+    <!-- Top Status Bar -->
+    <div class="status-bar">
+      <span>10:24</span>
+      <div class="status-bar-icons">
+        <!-- Wifi Icon -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <!-- Battery Icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- Mini Program Header Bar with Native Capsule -->
+    <div class="mp-header">
+      <div class="header-brand">
+        <!-- Bot Icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+        <span>**科创中心科创中心</span>
+      </div>
+      <div class="header-capsule">
+        <div class="capsule-dots">
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-circle"></div>
+      </div>
+    </div>
+
+    <!-- Scrollable Content Body -->
+    <div class="mp-content">
+
+      <!-- ================= TAB 0: 课程试听 ================= -->
+      <div id="pane-0" class="tab-pane active">
+        
+        <!-- Campus & Navigation Bar -->
+        <div class="campus-bar">
+          <div class="campus-info">
+            <!-- MapPin Icon -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>高新科创总校区 · 营业中</span>
+          </div>
+          <div class="campus-route-btn" onclick="openDrawer('drawer-campus')">
+            <span>到校指引</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+        <!-- 4-Stage Age Filter Grid -->
+        <div class="age-grid">
+          <div class="age-pill active" onclick="filterAgeGroup('all', this)">
+            <div class="age-pill-title">全部体系</div>
+            <div class="age-pill-desc">4-16岁</div>
+          </div>
+          <div class="age-pill" onclick="filterAgeGroup('lego', this)">
+            <div class="age-pill-title">机械搭建</div>
+            <div class="age-pill-desc">4-6岁</div>
+          </div>
+          <div class="age-pill" onclick="filterAgeGroup('scratch', this)">
+            <div class="age-pill-title">图形化编程</div>
+            <div class="age-pill-desc">7-9岁</div>
+          </div>
+          <div class="age-pill" onclick="filterAgeGroup('hardware', this)">
+            <div class="age-pill-title">Python创客</div>
+            <div class="age-pill-desc">10-12岁</div>
+          </div>
+        </div>
+
+        <!-- Courses List -->
+        <div id="course-list">
+          
+          <!-- Course Card 1 -->
+          <div class="course-card" data-category="lego">
+            <div class="course-header">
+              <div>
+                <div class="course-name">乐高大颗粒机械启蒙 · 动力齿轮探秘</div>
+                <div class="course-tags">
+                  <span class="course-tag">适龄 4-6 岁</span>
+                  <span class="course-tag">双师小班制 (4-6人)</span>
+                </div>
+              </div>
+              <span class="badge badge-accent">热门试听</span>
+            </div>
+            <div class="course-desc">
+              基于乐高STEAM教育教具，围绕杠杆原理、齿轮传动比与空间连杆机构开展趣味实操，启蒙三维空间思维与精细动作能力。
+            </div>
+            <div class="course-meta">
+              <div class="course-highlight">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>体验时长 90 分钟 · 赠搭建模型</span>
+              </div>
+              <button class="btn-primary" onclick="openBookingDrawer('乐高大颗粒机械启蒙 · 动力齿轮探秘', '4-6岁')">
+                <span>预约试听</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Course Card 2 -->
+          <div class="course-card" data-category="scratch">
+            <div class="course-header">
+              <div>
+                <div class="course-name">少儿 Scratch 创意游戏工坊 · 逻辑探索</div>
+                <div class="course-tags">
+                  <span class="course-tag">适龄 7-9 岁</span>
+                  <span class="course-tag">计算机逻辑思维</span>
+                </div>
+              </div>
+              <span class="badge badge-primary">旗舰课程</span>
+            </div>
+            <div class="course-desc">
+              通过图形化积木指令学习顺序、分支判断、事件监听与循环结构。每堂课完成一款可玩度高的小游戏，建立扎实编程直觉。
+            </div>
+            <div class="course-meta">
+              <div class="course-highlight">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>独立完成 1 款益智星际逃生游戏</span>
+              </div>
+              <button class="btn-primary" onclick="openBookingDrawer('少儿 Scratch 创意游戏工坊 · 逻辑探索', '7-9岁')">
+                <span>预约试听</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Course Card 3 -->
+          <div class="course-card" data-category="hardware">
+            <div class="course-header">
+              <div>
+                <div class="course-name">Python 软硬件创客 · 智能机器人避障</div>
+                <div class="course-tags">
+                  <span class="course-tag">适龄 10-12 岁</span>
+                  <span class="course-tag">软硬件结合</span>
+                </div>
+              </div>
+              <span class="badge badge-success">考级赛项</span>
+            </div>
+            <div class="course-desc">
+              结合 Micro:bit 与开源主板，学习超声波避障、红外巡线及电机PID控制算法，衔接全国青少年等级考试与人工智能赛事。
+            </div>
+            <div class="course-meta">
+              <div class="course-highlight">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                <span>对标全国青少年等级考试考纲</span>
+              </div>
+              <button class="btn-primary" onclick="openBookingDrawer('Python 软硬件创客 · 智能机器人避障', '10-12岁')">
+                <span>预约试听</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Institute Feature Card -->
+        <div class="card" style="background: var(--color-primary-light); border-color: var(--color-primary-edge);">
+          <div class="card-title-row">
+            <div class="card-title" style="color: var(--color-primary-dark);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>中心教学保障体系</span>
+            </div>
+            <span class="badge badge-primary" onclick="openDrawer('drawer-guarantee')" style="cursor:pointer;">查看资质详情</span>
+          </div>
+          <div style="font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
+            • 授课师资：100% 计算机/自动化理工背景，持高级编程教师认证<br>
+            • 教学环境：新风恒温无尘搭建室，标准 STEAM 赛事级调试场地<br>
+            • 教学随堂：课后 1v1 随堂报告与成长雷达图深度剖析
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= TAB 1: 作品展厅 ================= -->
+      <div id="pane-1" class="tab-pane">
+        
+        <!-- Filter Pills -->
+        <div class="filter-pills">
+          <button class="filter-btn active" onclick="filterWorks('all', this)">全部精选</button>
+          <button class="filter-btn" onclick="filterWorks('lego', this)">乐高机械结构</button>
+          <button class="filter-btn" onclick="filterWorks('scratch', this)">Scratch创意游戏</button>
+          <button class="filter-btn" onclick="filterWorks('hardware', this)">智能硬件创客</button>
+        </div>
+
+        <!-- Work Item 1 -->
+        <div class="work-card" data-type="lego">
+          <div class="work-preview">
+            <div class="work-diagram">
+              <span class="work-diagram-node">超声波传感器</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node">双电机差速转向</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node">自动避障巡线</span>
+            </div>
+            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">实物教具运行图解 · 距离识别反馈小于 0.05 秒</div>
+          </div>
+          <div class="work-info">
+            <div class="work-author-row">
+              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能双轨避障巡线小车</div>
+              <button class="work-likes-btn" id="like-btn-1" onclick="toggleWorkLike(1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span id="like-cnt-1">128</span>
+              </button>
+            </div>
+            <div class="work-author">作者：乐*小朋友 (7岁) · 指导教练：张*博</div>
+            <div class="work-action-row">
+              <span class="badge badge-accent">机械结构 + 红外传感</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn-outline" onclick="openPrincipleModal('lego1')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <span>编程原理</span>
+                </button>
+                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  <span>分享</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work Item 2 -->
+        <div class="work-card" data-type="scratch">
+          <div class="work-preview" style="background: var(--color-code-bg);">
+            <div class="work-diagram">
+              <span class="work-diagram-node" style="background: var(--color-scratch-purple);">碰撞检测事件</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node" style="background: var(--color-scratch-orange);">得分计数器++</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node" style="background: var(--color-scratch-blue);">动态音效播放</span>
+            </div>
+            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Scratch 3.0 积木脚本 · 独立逻辑构建</div>
+          </div>
+          <div class="work-info">
+            <div class="work-author-row">
+              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">太空陨石防御战 · 互动游戏</div>
+              <button class="work-likes-btn" id="like-btn-2" onclick="toggleWorkLike(2)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span id="like-cnt-2">214</span>
+              </button>
+            </div>
+            <div class="work-author">作者：晨*小朋友 (8岁) · 指导主管：林*婷</div>
+            <div class="work-action-row">
+              <span class="badge badge-primary">图形化编程 · 循环与分支</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn-outline" onclick="openPrincipleModal('scratch1')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  <span>积木指令</span>
+                </button>
+                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  <span>分享</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work Item 3 -->
+        <div class="work-card" data-type="hardware">
+          <div class="work-preview" style="background: var(--color-hardware-bg);">
+            <div class="work-diagram">
+              <span class="work-diagram-node" style="background: var(--color-hardware-teal);">土壤湿度检测</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node" style="background: var(--color-hardware-green);">阈值中断触发</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <span class="work-diagram-node" style="background: var(--color-hardware-teal);">微型水泵启闭</span>
+            </div>
+            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Micro:bit 智慧农业系统 · Python 脚本控制</div>
+          </div>
+          <div class="work-info">
+            <div class="work-author-row">
+              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能自动浇灌生态微农场</div>
+              <button class="work-likes-btn" id="like-btn-3" onclick="toggleWorkLike(3)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span id="like-cnt-3">186</span>
+              </button>
+            </div>
+            <div class="work-author">作者：昊*小朋友 (10岁) · 指导教练：周*宇</div>
+            <div class="work-action-row">
+              <span class="badge badge-success">智能物联网与Python代码</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn-outline" onclick="openPrincipleModal('hardware1')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                  <span>硬件逻辑</span>
+                </button>
+                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  <span>分享</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= TAB 2: 学习课表 ================= -->
+      <div id="pane-2" class="tab-pane">
+        
+        <!-- Week Strip -->
+        <div class="week-strip">
+          <div class="week-day" onclick="selectWeekDay(0, this)"><span class="week-day-title">周一</span><span class="week-day-num">01</span></div>
+          <div class="week-day" onclick="selectWeekDay(1, this)"><span class="week-day-title">周二</span><span class="week-day-num">02</span></div>
+          <div class="week-day" onclick="selectWeekDay(2, this)"><span class="week-day-title">周三</span><span class="week-day-num">03</span></div>
+          <div class="week-day" onclick="selectWeekDay(3, this)"><span class="week-day-title">周四</span><span class="week-day-num">04</span></div>
+          <div class="week-day" onclick="selectWeekDay(4, this)"><span class="week-day-title">周五</span><span class="week-day-num">05</span></div>
+          <div class="week-day active" onclick="selectWeekDay(5, this)"><span class="week-day-title">周六</span><span class="week-day-num">06</span><div class="week-day-dot"></div></div>
+          <div class="week-day" onclick="selectWeekDay(6, this)"><span class="week-day-title">周日</span><span class="week-day-num">07</span><div class="week-day-dot"></div></div>
+        </div>
+
+        <!-- Timetable Item -->
+        <div class="timetable-card">
+          <div class="card-title-row" style="margin-bottom: 4px;">
+            <div class="timetable-time">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>周六 10:00 - 11:30</span>
+            </div>
+            <span class="badge badge-primary" id="schedule-status-badge">正常上课</span>
+          </div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main); margin-bottom: 4px;">
+            Scratch趣味进阶 · 第8讲《多角色碰撞与坐标变换》
+          </div>
+          <div class="timetable-meta">
+            • 授课校区：高新科创总校区 B203 创客实验室<br>
+            • 主讲教练：林*婷 教研主管 (国家中级软件工程师)<br>
+            • 上课学员：<b id="schedule-student-name">乐* (7岁)</b> · 消耗 1 课时
+          </div>
+          <div class="timetable-actions">
+            <button class="btn-outline" onclick="openDrawer('drawer-reschedule')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              <span>申请调课</span>
+            </button>
+            <button class="btn-outline" onclick="openDrawer('drawer-leave')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>请假登记</span>
+            </button>
+            <button class="btn-outline" onclick="showToast('已完成到校核销签到')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>到校签到</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Growth Report Card with 5-Dim Radar Chart -->
+        <div class="card">
+          <div class="card-title-row">
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              <span>随堂成长测评报告 (上周随堂)</span>
+            </div>
+            <span class="badge badge-success">测评优秀</span>
+          </div>
+
+          <div class="radar-container">
+            <svg class="radar-svg" viewBox="0 0 300 220">
+              <!-- Radar Background Polygons -->
+              <polygon points="150,30 250,75 210,185 90,185 50,75" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+              <polygon points="150,60 215,90 190,160 110,160 85,90" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+              <polygon points="150,90 180,105 170,140 130,140 120,105" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+              <!-- Axis lines -->
+              <line x1="150" y1="120" x2="150" y2="30" stroke="#E2E8F0" stroke-width="1"/>
+              <line x1="150" y1="120" x2="250" y2="75" stroke="#E2E8F0" stroke-width="1"/>
+              <line x1="150" y1="120" x2="210" y2="185" stroke="#E2E8F0" stroke-width="1"/>
+              <line x1="150" y1="120" x2="90" y2="185" stroke="#E2E8F0" stroke-width="1"/>
+              <line x1="150" y1="120" x2="50" y2="75" stroke="#E2E8F0" stroke-width="1"/>
+              <!-- Student Data Shape -->
+              <polygon points="150,42 238,82 198,172 102,175 62,80" fill="rgba(37, 99, 235, 0.22)" stroke="#2563EB" stroke-width="2"/>
+              <!-- Points -->
+              <circle cx="150" cy="42" r="3.5" fill="#2563EB"/>
+              <circle cx="238" cy="82" r="3.5" fill="#2563EB"/>
+              <circle cx="198" cy="172" r="3.5" fill="#2563EB"/>
+              <circle cx="102" cy="175" r="3.5" fill="#2563EB"/>
+              <circle cx="62" cy="80" r="3.5" fill="#2563EB"/>
+              <!-- Labels -->
+              <text x="150" y="20" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">逻辑思维 (92)</text>
+              <text x="260" y="80" text-anchor="start" font-size="11" font-weight="600" fill="#0F172A">空间构型 (88)</text>
+              <text x="210" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">动手搭建 (90)</text>
+              <text x="90" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">算法理解 (86)</text>
+              <text x="40" y="80" text-anchor="end" font-size="11" font-weight="600" fill="#0F172A">专注耐心 (95)</text>
+            </svg>
+          </div>
+
+          <div style="background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
+            <b>主讲教练随堂点评：</b><br>
+            孩子在第7讲针对复杂坐标系与事件嵌套掌握非常扎实。在遇到障碍物碰撞反弹逻辑时，能够自主利用“如果...那么...”积木完成闭环调试，专注度与探究耐心尤为突出！
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= TAB 3: 学员中心 ================= -->
+      <div id="pane-3" class="tab-pane">
+        
+        <!-- Multi-Child Switcher -->
+        <div class="profile-card">
+          <div class="child-switcher">
+            <div class="child-tab active" id="child-tab-0" onclick="switchChild(0)">
+              大宝 · 乐* (7岁)
+            </div>
+            <div class="child-tab" id="child-tab-1" onclick="switchChild(1)">
+              二宝 · 诺* (5岁)
+            </div>
+          </div>
+
+          <div class="profile-header">
+            <div class="profile-avatar" id="child-avatar">乐</div>
+            <div>
+              <div class="profile-text-name" id="child-profile-name">乐*小朋友 (小学二年级)</div>
+              <div class="profile-text-desc" id="child-profile-desc">主修：Scratch 图形化创意编程进阶班</div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div>
+              <div class="stat-num" id="stat-remain">24</div>
+              <div class="stat-label">剩余课时</div>
+            </div>
+            <div>
+              <div class="stat-num" id="stat-done">24</div>
+              <div class="stat-label">已消课时</div>
+            </div>
+            <div>
+              <div class="stat-num" id="stat-works">6</div>
+              <div class="stat-label">产出作品</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Booking / Appointment Slip -->
+        <div class="card" style="border-left: 4px solid var(--color-accent);">
+          <div class="card-title-row">
+            <div class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>预约到校试听凭证</span>
+            </div>
+            <span class="badge badge-accent" id="booking-badge">待到校</span>
+          </div>
+          <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6;" id="booking-info-text">
+            单号：#BK-339021<br>
+            项目：少儿 Scratch 创意工坊 · 逻辑探索体验课<br>
+            时间：2026-09-06 (周六) 14:30 - 16:00<br>
+            校区：高新科创总校区 · 创客接待厅
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="openModal('modal-qrcode')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>出示核销二维码</span>
+            </button>
+            <button class="btn-outline" onclick="cancelBooking()">
+              <span>取消预约</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Service Menu -->
+        <div class="menu-group">
+          <div class="menu-row" onclick="openDrawer('drawer-competition')">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              <span>全国等级考试与白名单赛事直通</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-row" onclick="openDrawer('drawer-advisor')">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>专属课程顾问咨询服务 (脱敏专线)</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-row" onclick="openDrawer('drawer-campus')">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>所有校区分布与接送停车指引</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- WeChat Mini Program Bottom 4-Tab Navigation -->
+    <div class="mp-tabbar">
+      <div class="tab-item active" id="tab-btn-0" onclick="switchTab(0)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>课程试听</span>
+      </div>
+      <div class="tab-item" id="tab-btn-1" onclick="switchTab(1)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>作品展厅</span>
+      </div>
+      <div class="tab-item" id="tab-btn-2" onclick="switchTab(2)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>学习课表</span>
+      </div>
+      <div class="tab-item" id="tab-btn-3" onclick="switchTab(3)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>学员中心</span>
+      </div>
+    </div>
+
+    <!-- ================= MODALS & DRAWERS ================= -->
+
+    <!-- Global Mask Overlay -->
+    <div id="overlay" class="overlay" onclick="closeAllDrawersAndModals()"></div>
+
+    <!-- Drawer 1: Trial Class Booking -->
+    <div id="drawer-booking" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">预约到校试听体验课</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-booking')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">试听课程项</label>
+        <input type="text" id="booking-course-input" readonly style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-main); font-weight: 600;">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">选择参与试听的孩子</label>
+        <div class="option-chips" id="booking-child-chips">
+          <div class="option-chip selected" onclick="selectChip(this)">大宝 · 乐* (7岁)</div>
+          <div class="option-chip" onclick="selectChip(this)">二宝 · 诺* (5岁)</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">选择意向就近校区</label>
+        <div class="option-chips" id="booking-campus-chips">
+          <div class="option-chip selected" onclick="selectChip(this)">高新科创总校区</div>
+          <div class="option-chip" onclick="selectChip(this)">奥体中心校区</div>
+          <div class="option-chip" onclick="selectChip(this)">天府软件园校区</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">选择试听预约时段</label>
+        <div class="option-chips" id="booking-slot-chips">
+          <div class="option-chip selected" onclick="selectChip(this)">周六 10:00 - 11:30</div>
+          <div class="option-chip" onclick="selectChip(this)">周六 14:30 - 16:00</div>
+          <div class="option-chip" onclick="selectChip(this)">周日 10:00 - 11:30</div>
+          <div class="option-chip" onclick="selectChip(this)">周日 15:00 - 16:30</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">家长联系方式 (已脱敏保护)</label>
+        <input type="text" value="138****8890 (陈*女士)" readonly style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-sub);">
+      </div>
+
+      <button class="btn-primary" style="width: 100%; padding: 12px; font-size: 14px; justify-content: center; margin-top: 10px;" onclick="confirmBooking()">
+        <span>确认预约 · 获取体验凭单</span>
+      </button>
+    </div>
+
+    <!-- Drawer 2: Campus Guide & Parking -->
+    <div id="drawer-campus" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">校区交通与停车指引</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-campus')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+        <b style="color: var(--color-text-main); font-size: 13px;">1. 高新科创总校区 (旗舰基地)</b><br>
+        • 地址：**市高新区科创大道**号天府软件园D座2楼<br>
+        • 地铁：1号线天府三街站 A 出口步行 350 米<br>
+        • 停车：地下车库提供 2 小时免费停车券 (可至前台扫码领取)<br>
+        <br>
+        <b style="color: var(--color-text-main); font-size: 13px;">2. 奥体中心校区</b><br>
+        • 地址：**市奥体南路**号体育中心少儿科创城3层<br>
+        • 专线咨询：400-***-6818
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 16px;" onclick="closeDrawer('drawer-campus'); showToast('已将校区导航指引发送至微信服务通知')">
+        <span>获取短信导航指引</span>
+      </button>
+    </div>
+
+    <!-- Drawer 3: Reschedule Timetable -->
+    <div id="drawer-reschedule" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">申请调整上课时段</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-reschedule')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">当前待改课程</label>
+        <div style="font-size: 12px; color: var(--color-text-main); background: var(--color-bg-page); padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+          Scratch趣味进阶 · 第8讲 (原周六 10:00)
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">选择拟改约时段</label>
+        <div class="option-chips">
+          <div class="option-chip selected" onclick="selectChip(this)">下周三 18:30 - 20:00 (B班)</div>
+          <div class="option-chip" onclick="selectChip(this)">下周日 10:00 - 11:30 (C班)</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">调课事由</label>
+        <div class="option-chips">
+          <div class="option-chip selected" onclick="selectChip(this)">学校校内活动冲突</div>
+          <div class="option-chip" onclick="selectChip(this)">家庭外出日程</div>
+          <div class="option-chip" onclick="selectChip(this)">身体不适休养</div>
+        </div>
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;" onclick="confirmReschedule()">
+        <span>提交调课申请</span>
+      </button>
+    </div>
+
+    <!-- Drawer 4: Leave Application -->
+    <div id="drawer-leave" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">请假登记与补课预留</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-leave')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6; margin-bottom: 12px;">
+        根据中心教务规范，开课前 2 小时完成请假登记不扣减课时，并自动生成 1 次专属补课额度。
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center;" onclick="confirmLeave()">
+        <span>确认完成请假登记</span>
+      </button>
+    </div>
+
+    <!-- Drawer 5: Competition & Certification Guide -->
+    <div id="drawer-competition" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">白名单赛事与等级考级指南</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-competition')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+        <b style="color: var(--color-text-main);">1. 全国青少年软件编程等级考试 (中国电子学会)</b><br>
+        • 适用级别：Scratch 1-4级 / Python 1-6级<br>
+        • 考期安排：每年 3月、6月、9月、12月，本中心为官方指定考点。<br>
+        <br>
+        <b style="color: var(--color-text-main);">2. 蓝桥杯全国软件和信息技术专业人才大赛 (青少组)</b><br>
+        • 赛项设置：计算思维、Scratch创意设计、Python编程。<br>
+        <br>
+        <b style="color: var(--color-text-main);">3. 世界机器人大赛 (WRC) / FLL 挑战赛</b><br>
+        • 本中心历年集训队累计获国家级一等奖 28 项。
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;" onclick="closeDrawer('drawer-competition'); showToast('已登记考级备赛咨询，专属老师将稍后联络')">
+        <span>登记考级集训规划咨询</span>
+      </button>
+    </div>
+
+    <!-- Drawer 6: Advisor Inquiry -->
+    <div id="drawer-advisor" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">专属课程顾问咨询</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-advisor')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: var(--color-bg-page); padding: 10px; border-radius: var(--radius-md);">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: 700;">苏</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">苏*晴 (金牌课程学业规划师)</div>
+          <div style="font-size: 11px; color: var(--color-text-muted);">服务学员 420+ · 答复时长 < 5分钟</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">快速留言咨询</label>
+        <input type="text" id="advisor-msg-input" placeholder="请输入您的咨询问题，如孩子阶段规划..." style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; margin-bottom: 8px;">
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="sendAdvisorMsg()">
+          <span>发送在线咨询留言</span>
+        </button>
+        <button class="btn-outline" onclick="showToast('已拨打服务专线: 400-***-6818')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>致电热线</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Drawer 7: Guarantee Details -->
+    <div id="drawer-guarantee" class="drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">中心办学资质与教研保障</div>
+        <button class="drawer-close" onclick="closeDrawer('drawer-guarantee')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+        • 具备正规少儿科技类校外培训机构办学许可证编号：教培科创-2024-**号<br>
+        • 中国电子学会全国青少年软件编程等级考试官方指定服务网点<br>
+        • 乐高教育官方器材与自主研发生态教具认证合作机构<br>
+        • 学员消课透明：支持随时在线查阅每一次上课打卡与导师评测报告
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;" onclick="closeDrawer('drawer-guarantee')">
+        <span>了解完毕</span>
+      </button>
+    </div>
+
+    <!-- Modal: Verification QR Code -->
+    <div id="modal-qrcode" class="modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main);">试听到校核销电子码</div>
+        <button class="drawer-close" onclick="closeModal('modal-qrcode')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; padding: 10px 0;">
+        <!-- Mock QR Code SVG -->
+        <svg width="150" height="150" viewBox="0 0 100 100" fill="#0F172A">
+          <rect x="5" y="5" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
+          <rect x="11" y="11" width="13" height="13"/>
+          <rect x="70" y="5" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
+          <rect x="76" y="11" width="13" height="13"/>
+          <rect x="5" y="70" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
+          <rect x="11" y="76" width="13" height="13"/>
+          <rect x="40" y="10" width="6" height="6"/>
+          <rect x="52" y="10" width="6" height="6"/>
+          <rect x="40" y="24" width="6" height="6"/>
+          <rect x="45" y="45" width="10" height="10" fill="#2563EB"/>
+          <rect x="10" y="40" width="6" height="6"/>
+          <rect x="24" y="52" width="6" height="6"/>
+          <rect x="70" y="40" width="6" height="6"/>
+          <rect x="84" y="52" width="6" height="6"/>
+          <rect x="40" y="70" width="6" height="6"/>
+          <rect x="52" y="84" width="6" height="6"/>
+          <rect x="70" y="70" width="6" height="6"/>
+          <rect x="80" y="80" width="6" height="6"/>
+        </svg>
+        <div style="font-size: 14px; font-weight: 800; color: var(--color-primary); letter-spacing: 2px; margin-top: 10px;">
+          8821 - 9902
+        </div>
+        <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">
+          到校请出示给前台接待老师扫描核销
+        </div>
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;" onclick="closeModal('modal-qrcode'); showToast('核销码已刷新')">
+        <span>刷新电子码</span>
+      </button>
+    </div>
+
+    <!-- Modal: Scratch & LEGO Code Principle -->
+    <div id="modal-principle" class="modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main);" id="principle-modal-title">作品编程与机械逻辑解析</div>
+        <button class="drawer-close" onclick="closeModal('modal-principle')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="principle-modal-content" style="max-height: 280px; overflow-y: auto; font-size: 11px; line-height: 1.6;">
+        <!-- Dynamically injected blocks -->
+      </div>
+      <button class="btn-primary" style="width: 100%; padding: 8px; justify-content: center; margin-top: 12px;" onclick="closeModal('modal-principle')">
+        <span>完成研读</span>
+      </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-text">操作已完成</span>
+    </div>
+
+  </div>
+
+  <script>
+    // App State Management
+    const AppState = {
+      activeTab: 0,
+      activeChild: 0, // 0: 乐*, 1: 诺*
+      childrenData: [
+        {
+          name: "乐*小朋友 (小学二年级)",
+          shortName: "乐",
+          ageDesc: "主修：Scratch 图形化创意编程进阶班",
+          remainLessons: 24,
+          doneLessons: 24,
+          worksCount: 6,
+          currentCourse: "Scratch趣味进阶 · 第8讲《多角色碰撞与坐标变换》"
+        },
+        {
+          name: "诺*小朋友 (幼儿园大班)",
+          shortName: "诺",
+          ageDesc: "主修：乐高大颗粒机械探索启蒙班",
+          remainLessons: 12,
+          doneLessons: 6,
+          worksCount: 3,
+          currentCourse: "乐高机械结构 · 第3讲《杠杆的奥秘与投石器》"
+        }
+      ],
+      likes: { 1: 128, 2: 214, 3: 186 },
+      likedState: { 1: false, 2: false, 3: false },
+      hasActiveBooking: true
+    };
+
+    // Tab Switching
+    function switchTab(tabIndex) {
+      AppState.activeTab = tabIndex;
+      document.querySelectorAll('.mp-content .tab-pane').forEach((p, idx) => {
+        p.classList.toggle('active', idx === tabIndex);
+      });
+      document.querySelectorAll('.mp-tabbar .tab-item').forEach((b, idx) => {
+        b.classList.toggle('active', idx === tabIndex);
+      });
+    }
+
+    // Age Category Filtering
+    function filterAgeGroup(category, pillElement) {
+      document.querySelectorAll('.age-pill').forEach(p => p.classList.remove('active'));
+      pillElement.classList.add('active');
+
+      const cards = document.querySelectorAll('#course-list .course-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      showToast('已切换课程阶段展示');
+    }
+
+    // Work Category Filtering
+    function filterWorks(type, btnElement) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const cards = document.querySelectorAll('.work-card');
+      cards.forEach(card => {
+        if (type === 'all' || card.getAttribute('data-type') === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      showToast('已筛选精选作品');
+    }
+
+    // Likes Toggle
+    function toggleWorkLike(workId) {
+      const isLiked = AppState.likedState[workId];
+      const countEl = document.getElementById('like-cnt-' + workId);
+      const btnEl = document.getElementById('like-btn-' + workId);
+      
+      if (isLiked) {
+        AppState.likes[workId]--;
+        AppState.likedState[workId] = false;
+        btnEl.classList.remove('liked');
+      } else {
+        AppState.likes[workId]++;
+        AppState.likedState[workId] = true;
+        btnEl.classList.add('liked');
+        showToast('点赞鼓励成功');
+      }
+      countEl.innerText = AppState.likes[workId];
+    }
+
+    // Multi-Child Switching
+    function switchChild(childIndex) {
+      AppState.activeChild = childIndex;
+      const data = AppState.childrenData[childIndex];
+
+      document.getElementById('child-tab-0').classList.toggle('active', childIndex === 0);
+      document.getElementById('child-tab-1').classList.toggle('active', childIndex === 1);
+
+      document.getElementById('child-avatar').innerText = data.shortName;
+      document.getElementById('child-profile-name').innerText = data.name;
+      document.getElementById('child-profile-desc').innerText = data.ageDesc;
+      document.getElementById('stat-remain').innerText = data.remainLessons;
+      document.getElementById('stat-done').innerText = data.doneLessons;
+      document.getElementById('stat-works').innerText = data.worksCount;
+
+      document.getElementById('schedule-student-name').innerText = (childIndex === 0 ? "乐* (7岁)" : "诺* (5岁)");
+
+      showToast('已切换档案为：' + (childIndex === 0 ? "乐*" : "诺*"));
+    }
+
+    // Week Day Selection
+    function selectWeekDay(idx, el) {
+      document.querySelectorAll('.week-day').forEach(d => d.classList.remove('active'));
+      el.classList.add('active');
+      showToast('已加载选中日期的排课');
+    }
+
+    // Chips Select
+    function selectChip(el) {
+      const siblings = el.parentElement.querySelectorAll('.option-chip');
+      siblings.forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Open Booking Drawer
+    function openBookingDrawer(courseName, ageRange) {
+      document.getElementById('booking-course-input').value = courseName + ' (' + ageRange + ')';
+      openDrawer('drawer-booking');
+    }
+
+    // Confirm Booking
+    function confirmBooking() {
+      closeDrawer('drawer-booking');
+      AppState.hasActiveBooking = true;
+      document.getElementById('booking-badge').innerText = '待到校';
+      document.getElementById('booking-badge').className = 'badge badge-accent';
+      showToast('试听预约提交成功，到校凭单已生成');
+      switchTab(3); // Go to parent center to view slip
+    }
+
+    // Cancel Booking
+    function cancelBooking() {
+      if (confirm('确认取消当前的试听预约吗？')) {
+        document.getElementById('booking-badge').innerText = '已取消';
+        document.getElementById('booking-badge').className = 'badge';
+        document.getElementById('booking-badge').style.background = '#F1F5F9';
+        document.getElementById('booking-badge').style.color = '#94A3B8';
+        showToast('已成功取消预约');
+      }
+    }
+
+    // Confirm Reschedule
+    function confirmReschedule() {
+      closeDrawer('drawer-reschedule');
+      const badge = document.getElementById('schedule-status-badge');
+      badge.innerText = '已申请调课 (受理中)';
+      badge.className = 'badge badge-accent';
+      showToast('调课申请已受理，教务老师将跟进确认');
+    }
+
+    // Confirm Leave
+    function confirmLeave() {
+      closeDrawer('drawer-leave');
+      const badge = document.getElementById('schedule-status-badge');
+      badge.innerText = '已请假 (保留补课额度)';
+      badge.className = 'badge';
+      badge.style.background = '#F1F5F9';
+      badge.style.color = '#64748B';
+      showToast('请假已登记，补课额度已自动存入个人中心');
+    }
+
+    // Send Advisor Message
+    function sendAdvisorMsg() {
+      const input = document.getElementById('advisor-msg-input');
+      if (!input.value.trim()) {
+        showToast('请输入您想咨询的问题');
+        return;
+      }
+      input.value = '';
+      closeDrawer('drawer-advisor');
+      showToast('咨询已送达，课程顾问将通过微信消息及时回复');
+    }
+
+    // Code & Principle Modal Data
+    const PrincipleData = {
+      lego1: {
+        title: "智能双轨避障小车 · 机械传动原理",
+        html: `
+          <div style="color: var(--color-text-main); font-weight: 600; margin-bottom: 6px;">搭建与物理学构型：</div>
+          <div style="color: var(--color-text-sub); margin-bottom: 10px;">
+            利用 24 齿主动齿轮驱动 8 齿从动齿轮实现 3:1 加速比；前轮配备双万向轮，后轴采用独立双直流减速电机。
+          </div>
+          <div style="color: var(--color-text-main); font-weight: 600; margin-bottom: 6px;">控制算法积木指令：</div>
+          <div class="scratch-block block-event">当 程序启动 执行</div>
+          <div class="scratch-block block-control">重复执行</div>
+          <div class="scratch-block block-sensing">&nbsp;&nbsp;如果 [超声波探测距离] < 15 厘米 那么</div>
+          <div class="scratch-block block-motion">&nbsp;&nbsp;&nbsp;&nbsp;左轮电机速度设为 -50 (倒退差速)</div>
+          <div class="scratch-block block-motion">&nbsp;&nbsp;&nbsp;&nbsp;右轮电机速度设为 +50 (右转避障)</div>
+          <div class="scratch-block block-control">&nbsp;&nbsp;否则</div>
+          <div class="scratch-block block-motion">&nbsp;&nbsp;&nbsp;&nbsp;双轮全速前行 (循黑线传感器纠偏)</div>
+        `
+      },
+      scratch1: {
+        title: "太空陨石防御战 · 积木逻辑架构",
+        html: `
+          <div style="color: var(--color-text-main); font-weight: 600; margin-bottom: 6px;">核心积木代码流：</div>
+          <div class="scratch-block block-event">当 绿旗 被点击</div>
+          <div class="scratch-block block-looks">将 [生命值] 设为 3，[得分] 设为 0</div>
+          <div class="scratch-block block-control">重复执行 (克隆 [陨石] 角色)</div>
+          <div class="scratch-block block-event">当 作为克隆体启动时</div>
+          <div class="scratch-block block-motion">&nbsp;&nbsp;移到 x: 在 -200 到 200 间随机选一个 y: 180</div>
+          <div class="scratch-block block-control">&nbsp;&nbsp;重复执行直到 [碰到 飞船 或 y坐标 < -170]</div>
+          <div class="scratch-block block-motion">&nbsp;&nbsp;&nbsp;&nbsp;将 y坐标 增加 -5</div>
+          <div class="scratch-block block-control">&nbsp;&nbsp;如果 [碰到 激光子弹] 那么</div>
+          <div class="scratch-block block-looks">&nbsp;&nbsp;&nbsp;&nbsp;改变 [得分] 增加 10，删除此克隆体</div>
+        `
+      },
+      hardware1: {
+        title: "智慧农业系统 · Python 控制原理",
+        html: `
+          <div style="color: var(--color-text-main); font-weight: 600; margin-bottom: 6px;">硬件架构逻辑：</div>
+          <div style="color: var(--color-text-sub); margin-bottom: 10px;">
+            Micro:bit 主板 Pin 0 引脚读取模拟量电阻式土壤湿度探头，Pin 1 控制继电器模块驱动 5V 微型潜水泵。
+          </div>
+          <div style="background: var(--color-code-bg); color: var(--color-code-cyan); padding: 8px 10px; border-radius: 6px; font-family: monospace; font-size: 10px; line-height: 1.5;">
+            from microbit import *<br><br>
+            while True:<br>
+            &nbsp;&nbsp;moisture = pin0.read_analog()<br>
+            &nbsp;&nbsp;if moisture &lt; 350:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;pin1.write_digital(1) # 开启水泵<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.SAD)<br>
+            &nbsp;&nbsp;else:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;pin1.write_digital(0) # 停止浇灌<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.HAPPY)<br>
+            &nbsp;&nbsp;sleep(1000)
+          </div>
+        `
+      }
+    };
+
+    function openPrincipleModal(key) {
+      const info = PrincipleData[key];
+      if (!info) return;
+      document.getElementById('principle-modal-title').innerText = info.title;
+      document.getElementById('principle-modal-content').innerHTML = info.html;
+      openModal('modal-principle');
+    }
+
+    // Drawer & Modal Engine
+    function openDrawer(drawerId) {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById(drawerId).classList.add('active');
+    }
+    function closeDrawer(drawerId) {
+      document.getElementById(drawerId).classList.remove('active');
+      checkOverlay();
+    }
+    function openModal(modalId) {
+      document.getElementById('overlay').classList.add('active');
+      document.getElementById(modalId).classList.add('active');
+    }
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      checkOverlay();
+    }
+    function closeAllDrawersAndModals() {
+      document.querySelectorAll('.drawer').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+      document.getElementById('overlay').classList.remove('active');
+    }
+    function checkOverlay() {
+      const hasActive = document.querySelector('.drawer.active, .modal.active');
+      if (!hasActive) {
+        document.getElementById('overlay').classList.remove('active');
+      }
+    }
+
+    // Toast
+    let toastTimer = null;
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.innerText = text;
+      toast.classList.add('active');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('active');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

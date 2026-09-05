@@ -1,0 +1,2872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>2026**科技与产业智能大会 - 参会与电子门票</title>
+  <style>
+    /* ==========================================================================
+       CSS Design Tokens (国际高端科技会展商务视觉体系)
+       ========================================================================== */
+    :root {
+      /* 品牌主色系: 深邃理性科技商务蓝 */
+      --conf-primary: #1E3A8A;
+      --conf-primary-hover: #172554;
+      --conf-primary-light: #EFF6FF;
+      --conf-primary-subtle: #F8FAFC;
+      --conf-accent: #2563EB;
+      --conf-accent-glow: rgba(37, 99, 235, 0.18);
+
+      /* 辅助与状态色 */
+      --conf-gold: #D97706;
+      --conf-gold-light: #FEF3C7;
+      --conf-gold-bd: #FDE68A;
+      --conf-success: #059669;
+      --conf-success-light: #ECFDF5;
+      --conf-success-bd: #A7F3D0;
+      --conf-warning: #EA580C;
+      --conf-danger: #DC2626;
+
+      /* 界面背景体系 */
+      --conf-bg-outer: #0B0F19;
+      --conf-bg-app: #F8FAFC;
+      --conf-bg-surface: #FFFFFF;
+      --conf-bg-subtle: #F1F5F9;
+      --conf-bg-elevated: #FFFFFF;
+      --conf-bg-ticket: #0F172A;
+
+      /* 文字层级颜色 */
+      --conf-text-title: #0F172A;
+      --conf-text-body: #334155;
+      --conf-text-muted: #64748B;
+      --conf-text-faint: #94A3B8;
+      --conf-text-inverse: #FFFFFF;
+
+      /* 边框体系 */
+      --conf-border-light: #E2E8F0;
+      --conf-border-subtle: #CBD5E1;
+      --conf-border-focus: #2563EB;
+
+      /* 圆角规范 */
+      --conf-radius-xs: 4px;
+      --conf-radius-sm: 8px;
+      --conf-radius-md: 12px;
+      --conf-radius-lg: 18px;
+      --conf-radius-xl: 24px;
+      --conf-radius-full: 9999px;
+
+      /* 阴影规范 */
+      --conf-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --conf-shadow-card: 0 4px 14px -2px rgba(15, 23, 42, 0.06);
+      --conf-shadow-sheet: 0 -10px 35px rgba(15, 23, 42, 0.22);
+      --conf-shadow-device: 0 28px 70px -15px rgba(0, 0, 0, 0.65), 0 0 0 12px #1E293B, 0 0 0 14px #334155;
+
+      /* 动效 */
+      --conf-transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 基础重置 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--conf-bg-outer);
+      color: var(--conf-text-body);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 12px;
+      overflow-x: hidden;
+    }
+
+    /* 矢量 SVG 图标通用类 */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       iPhone 15 Pro 微信小程序真机外壳
+       ========================================================================== */
+    .device-shell {
+      width: 393px;
+      height: 844px;
+      background: var(--conf-bg-app);
+      border-radius: 48px;
+      position: relative;
+      box-shadow: var(--conf-shadow-device);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* 手机顶部灵动岛与系统状态栏 */
+    .status-bar {
+      height: 44px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--conf-text-title);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      z-index: 50;
+      background: var(--conf-bg-surface);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      flex-shrink: 0;
+    }
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 116px;
+      height: 28px;
+      background: var(--conf-black);
+      border-radius: 20px;
+      z-index: 60;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 微信小程序顶栏与官方胶囊 */
+    .mp-header {
+      height: 44px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--conf-bg-surface);
+      border-bottom: 1px solid var(--conf-border-light);
+      position: relative;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+    .mp-title-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mp-logo-badge {
+      width: 26px;
+      height: 26px;
+      background: var(--conf-primary);
+      color: var(--conf-text-inverse);
+      border-radius: var(--conf-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .mp-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+      letter-spacing: -0.2px;
+    }
+    .wx-capsule {
+      height: 30px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--conf-transition);
+    }
+    .wx-capsule:hover {
+      background: rgba(15, 23, 42, 0.08);
+    }
+    .wx-capsule-dots {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .wx-dot {
+      width: 3.5px;
+      height: 3.5px;
+      border-radius: 50%;
+      background: var(--conf-text-title);
+    }
+    .wx-capsule-sep {
+      width: 1px;
+      height: 12px;
+      background: rgba(15, 23, 42, 0.18);
+    }
+    .wx-capsule-circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--conf-text-title);
+    }
+
+    /* 主内容滚动区域 */
+    .mp-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+      scroll-behavior: smooth;
+    }
+    .mp-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Tab 页面容器 */
+    .view-pane {
+      display: none;
+      animation: fadeInView 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .view-pane.active {
+      display: block;
+    }
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       Tab 0: 大会主页 (Home View)
+       ========================================================================== */
+    .hero-banner {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 65%, #2563EB 100%);
+      color: var(--conf-text-inverse);
+      padding: 20px 18px 24px;
+      position: relative;
+      overflow: hidden;
+      border-bottom-left-radius: var(--conf-radius-xl);
+      border-bottom-right-radius: var(--conf-radius-xl);
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.3);
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 3px 9px;
+      border-radius: var(--conf-radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      backdrop-filter: blur(8px);
+    }
+    .hero-countdown {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--conf-gold-text);
+      font-weight: 700;
+      background: rgba(15, 23, 42, 0.35);
+      padding: 3px 8px;
+      border-radius: var(--conf-radius-full);
+    }
+    .hero-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-size: 12px;
+      opacity: 0.88;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--conf-radius-md);
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 0.95;
+    }
+
+    /* 快捷金刚区入口 (Quick Nav) */
+    .quick-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 16px 14px 10px;
+    }
+    .quick-nav-btn {
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-lg);
+      padding: 12px 6px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--conf-transition);
+      box-shadow: var(--conf-shadow-sm);
+    }
+    .quick-nav-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--conf-border-focus);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+    .quick-nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--conf-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quick-nav-btn:nth-child(1) .quick-nav-icon { background: var(--conf-primary-light); color: var(--conf-primary); }
+    .quick-nav-btn:nth-child(2) .quick-nav-icon { background: var(--conf-indigo-light); color: var(--conf-indigo); }
+    .quick-nav-btn:nth-child(3) .quick-nav-icon { background: var(--conf-success-light); color: var(--conf-success); }
+    .quick-nav-btn:nth-child(4) .quick-nav-icon { background: var(--conf-gold-subtle); color: var(--conf-gold); }
+    .quick-nav-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+    }
+
+    /* 票券直达快捷卡 (Ticket Fast Card) */
+    .ticket-fast-card {
+      margin: 6px 14px 14px;
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      border-radius: var(--conf-radius-lg);
+      padding: 14px 16px;
+      color: var(--conf-text-inverse);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--conf-shadow-card);
+    }
+    .tfc-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tfc-info p {
+      font-size: 11px;
+      color: var(--conf-text-faint);
+      margin-top: 3px;
+    }
+    .tfc-action-btn {
+      background: var(--conf-accent);
+      color: var(--conf-text-inverse);
+      border: none;
+      padding: 8px 14px;
+      border-radius: var(--conf-radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--conf-transition);
+    }
+    .tfc-action-btn:hover {
+      background: var(--conf-accent-hover);
+    }
+
+    /* 区块通用结构 */
+    .section-box {
+      padding: 8px 14px 16px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--conf-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-title::before {
+      content: '';
+      width: 3.5px;
+      height: 14px;
+      background: var(--conf-accent);
+      border-radius: 2px;
+    }
+    .section-link {
+      font-size: 12px;
+      color: var(--conf-accent);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* 专家学者走廊 (Speaker Gallery) */
+    .speaker-scroll-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x mandatory;
+    }
+    .speaker-scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+    .speaker-card {
+      flex: 0 0 148px;
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-md);
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--conf-transition);
+      box-shadow: var(--conf-shadow-sm);
+      scroll-snap-align: start;
+    }
+    .speaker-card:hover {
+      border-color: var(--conf-border-focus);
+      transform: translateY(-2px);
+    }
+    .speaker-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--conf-bg-subtle);
+      border: 2px solid var(--conf-blue-pill);
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--conf-primary);
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .speaker-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+      margin-bottom: 2px;
+    }
+    .speaker-title {
+      font-size: 10.5px;
+      color: var(--conf-text-muted);
+      line-height: 1.3;
+      height: 28px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .speaker-topic-tag {
+      margin-top: 6px;
+      background: var(--conf-primary-light);
+      color: var(--conf-accent-hover);
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: var(--conf-radius-xs);
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    /* 精选分论坛卡片 (Forum Highlights) */
+    .forum-card {
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-lg);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--conf-shadow-sm);
+      transition: var(--conf-transition);
+      cursor: pointer;
+    }
+    .forum-card:hover {
+      border-color: var(--conf-border-focus);
+    }
+    .forum-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .forum-track-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--conf-radius-xs);
+      background: var(--conf-primary-light);
+      color: var(--conf-primary);
+    }
+    .forum-time {
+      font-size: 11px;
+      color: var(--conf-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .forum-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .forum-venue {
+      font-size: 11.5px;
+      color: var(--conf-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .forum-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--conf-border-light);
+      padding-top: 10px;
+    }
+    .forum-capacity {
+      font-size: 11px;
+      color: var(--conf-success);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .forum-btn-book {
+      padding: 5px 12px;
+      background: var(--conf-primary-light);
+      color: var(--conf-primary);
+      border: 1px solid var(--conf-blue-pill);
+      border-radius: var(--conf-radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--conf-transition);
+    }
+    .forum-btn-book:hover {
+      background: var(--conf-primary);
+      color: var(--conf-text-inverse);
+    }
+
+    /* ==========================================================================
+       Tab 1: 会议日程 (Schedule View)
+       ========================================================================== */
+    .schedule-header {
+      background: var(--conf-bg-surface);
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid var(--conf-border-light);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .day-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .day-tab-btn {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: var(--conf-radius-md);
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      text-align: center;
+      cursor: pointer;
+      transition: var(--conf-transition);
+    }
+    .day-tab-btn.active {
+      background: var(--conf-primary);
+      color: var(--conf-text-inverse);
+      border-color: var(--conf-primary);
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+    }
+    .day-tab-date {
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .day-tab-sub {
+      font-size: 10px;
+      opacity: 0.82;
+      margin-top: 1px;
+    }
+    .schedule-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--conf-text-muted);
+      padding-top: 4px;
+    }
+    .filter-pill-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-full);
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--conf-text-body);
+      font-weight: 600;
+    }
+    .filter-pill-btn.active {
+      background: var(--conf-primary-light);
+      color: var(--conf-accent);
+      border-color: var(--conf-blue-border);
+    }
+
+    /* 时间轴议程卡片列表 */
+    .timeline-container {
+      padding: 12px 14px;
+      position: relative;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .timeline-time-col {
+      width: 58px;
+      flex-shrink: 0;
+      text-align: right;
+      padding-top: 2px;
+    }
+    .timeline-time-start {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--conf-text-title);
+    }
+    .timeline-time-end {
+      font-size: 10px;
+      color: var(--conf-text-muted);
+    }
+    .timeline-axis {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--conf-accent);
+      border: 2px solid var(--conf-text-inverse);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+      z-index: 2;
+    }
+    .timeline-line {
+      flex: 1;
+      width: 2px;
+      background: var(--conf-border-light);
+      margin-top: 4px;
+      margin-bottom: -14px;
+    }
+    .timeline-card {
+      flex: 1;
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-md);
+      padding: 12px;
+      box-shadow: var(--conf-shadow-sm);
+      transition: var(--conf-transition);
+    }
+    .timeline-card:hover {
+      border-color: var(--conf-border-focus);
+    }
+    .timeline-head-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+      line-height: 1.4;
+    }
+    .btn-bookmark {
+      background: transparent;
+      border: none;
+      color: var(--conf-text-faint);
+      cursor: pointer;
+      padding: 2px;
+      transition: var(--conf-transition);
+    }
+    .btn-bookmark:hover {
+      color: var(--conf-gold);
+    }
+    .btn-bookmark.bookmarked {
+      color: var(--conf-gold);
+    }
+    .timeline-speaker-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--conf-text-muted);
+    }
+    .timeline-speaker-name {
+      font-weight: 600;
+      color: var(--conf-text-body);
+    }
+    .timeline-venue-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 8px;
+      background: var(--conf-bg-subtle);
+      color: var(--conf-text-muted);
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: var(--conf-radius-xs);
+    }
+
+    /* ==========================================================================
+       Tab 2: 电子门票与票夹 (Digital Ticket View)
+       ========================================================================== */
+    .ticket-container {
+      padding: 14px;
+    }
+    .ticket-mode-toggle {
+      display: flex;
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-full);
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+    .ticket-toggle-btn {
+      flex: 1;
+      padding: 7px 0;
+      border: none;
+      background: transparent;
+      border-radius: var(--conf-radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--conf-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--conf-transition);
+    }
+    .ticket-toggle-btn.active {
+      background: var(--conf-bg-surface);
+      color: var(--conf-primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    /* 航空打孔锯齿电子门票卡片 */
+    .boarding-pass-card {
+      background: var(--conf-text-title);
+      color: var(--conf-text-inverse);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.4);
+      position: relative;
+      border: 1px solid var(--conf-bg-ticket-border);
+    }
+    .pass-header {
+      background: linear-gradient(135deg, #1E3A8A, #2563EB);
+      padding: 16px 18px;
+      position: relative;
+    }
+    .pass-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .pass-tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--conf-gold);
+      color: var(--conf-text-inverse);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: var(--conf-radius-full);
+      letter-spacing: 0.5px;
+    }
+    .pass-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+    .pass-conf-title {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    /* 打孔与撕裂中轴线 (Perforation Divider) */
+    .pass-perforation {
+      height: 24px;
+      background: var(--conf-text-title);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .notch-left, .notch-right {
+      width: 16px;
+      height: 24px;
+      background: var(--conf-bg-app);
+      position: absolute;
+      top: 0;
+    }
+    .notch-left {
+      left: 0;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    .notch-right {
+      right: 0;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+    .dash-line {
+      width: calc(100% - 44px);
+      margin: 0 auto;
+      border-top: 1.5px dashed rgba(255, 255, 255, 0.22);
+    }
+
+    /* 票券核验主体 */
+    .pass-body {
+      padding: 16px 18px 20px;
+      background: var(--conf-text-title);
+      position: relative;
+    }
+    .pass-user-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #1E293B;
+    }
+    .info-label {
+      font-size: 10.5px;
+      color: var(--conf-text-faint);
+      margin-bottom: 2px;
+    }
+    .info-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--conf-text-slate);
+    }
+
+    /* 动态核销二维码容器 */
+    .qr-container {
+      background: var(--conf-bg-surface);
+      border-radius: var(--conf-radius-md);
+      padding: 16px 12px 14px;
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      cursor: pointer;
+    }
+    .qr-code-box {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 8px;
+      background: var(--conf-bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .qr-code-svg {
+      width: 100%;
+      height: 100%;
+    }
+    .qr-refresh-hint {
+      font-size: 10.5px;
+      color: var(--conf-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* 核销印章 (Verified Stamp) */
+    .verified-stamp {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-14deg);
+      border: 3.5px double var(--conf-danger);
+      color: var(--conf-danger);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.35);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .verified-stamp.show {
+      display: block;
+      animation: stampIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    @keyframes stampIn {
+      from { transform: translate(-50%, -50%) scale(2) rotate(-35deg); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1) rotate(-14deg); opacity: 1; }
+    }
+
+    /* 闸机仿真按钮 */
+    .gate-checkin-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #059669, #10B981);
+      color: var(--conf-text-inverse);
+      border: none;
+      padding: 12px;
+      border-radius: var(--conf-radius-md);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+      transition: var(--conf-transition);
+    }
+    .gate-checkin-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+    .gate-checkin-btn.checked {
+      background: var(--conf-bg-ticket-border);
+      box-shadow: none;
+      color: var(--conf-text-faint);
+    }
+
+    /* 电子胸卡视图 (Badge View) */
+    .badge-card {
+      display: none;
+      background: var(--conf-bg-surface);
+      border-radius: 20px;
+      box-shadow: var(--conf-shadow-card);
+      border: 1px solid var(--conf-border-light);
+      padding: 24px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .badge-lanyard-hole {
+      width: 48px;
+      height: 10px;
+      background: var(--conf-border-light);
+      border-radius: 5px;
+      margin: 0 auto 18px;
+      border: 1px solid var(--conf-border-hover);
+    }
+    .badge-avatar-frame {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--conf-primary-light);
+      border: 3px solid #BFDBFE;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--conf-primary);
+    }
+    .badge-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--conf-text-title);
+      margin-bottom: 4px;
+    }
+    .badge-company {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--conf-text-body);
+      margin-bottom: 2px;
+    }
+    .badge-title-txt {
+      font-size: 11.5px;
+      color: var(--conf-text-muted);
+      margin-bottom: 16px;
+    }
+    .badge-status-bar {
+      background: var(--conf-gold-light);
+      border: 1px solid var(--conf-gold-bd);
+      color: var(--conf-gold-hover);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 12px;
+      border-radius: var(--conf-radius-md);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .barcode-box {
+      font-family: monospace;
+      letter-spacing: 4px;
+      font-size: 11px;
+      color: var(--conf-text-title);
+      background: var(--conf-bg-subtle);
+      padding: 10px;
+      border-radius: var(--conf-radius-sm);
+    }
+
+    /* ==========================================================================
+       Tab 3: 展商与导览 (Exhibitors & Info View)
+       ========================================================================== */
+    .exhibitor-search-box {
+      padding: 12px 14px 8px;
+      background: var(--conf-bg-surface);
+      border-bottom: 1px solid var(--conf-border-light);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      color: var(--conf-text-faint);
+    }
+    .search-input {
+      width: 100%;
+      height: 38px;
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-full);
+      padding: 0 14px 0 36px;
+      font-size: 12.5px;
+      color: var(--conf-text-title);
+      outline: none;
+      transition: var(--conf-transition);
+    }
+    .search-input:focus {
+      border-color: var(--conf-border-focus);
+      background: var(--conf-bg-surface);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+    .category-pills {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .category-pills::-webkit-scrollbar {
+      display: none;
+    }
+    .cat-btn {
+      padding: 4px 10px;
+      border-radius: var(--conf-radius-full);
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      font-size: 11px;
+      color: var(--conf-text-body);
+      white-space: nowrap;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--conf-transition);
+    }
+    .cat-btn.active {
+      background: var(--conf-primary);
+      color: var(--conf-text-inverse);
+      border-color: var(--conf-primary);
+    }
+
+    /* 展商卡片列表 */
+    .exhibitor-list {
+      padding: 12px 14px;
+    }
+    .exhibitor-card {
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--conf-shadow-sm);
+      cursor: pointer;
+      transition: var(--conf-transition);
+    }
+    .exhibitor-card:hover {
+      border-color: var(--conf-border-focus);
+      transform: translateY(-1px);
+    }
+    .ex-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .ex-booth-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 11px;
+      font-weight: 800;
+      background: var(--conf-primary-light);
+      color: var(--conf-accent);
+      padding: 2px 7px;
+      border-radius: var(--conf-radius-xs);
+      border: 1px solid var(--conf-blue-pill);
+    }
+    .ex-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+    }
+    .ex-desc {
+      font-size: 11.5px;
+      color: var(--conf-text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .ex-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .ex-tag {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: var(--conf-radius-xs);
+      background: var(--conf-bg-subtle);
+      color: var(--conf-text-muted);
+    }
+
+    /* 展馆楼层平面矢量图卡片 */
+    .floor-plan-card {
+      background: var(--conf-bg-surface);
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-lg);
+      padding: 14px;
+      margin: 12px 14px;
+      box-shadow: var(--conf-shadow-sm);
+    }
+    .floor-svg-box {
+      width: 100%;
+      height: 140px;
+      background: var(--conf-bg-app);
+      border: 1px solid #E2E8F0;
+      border-radius: var(--conf-radius-md);
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       底部微信小程序原生 Tabbar
+       ========================================================================== */
+    .bottom-tabbar {
+      height: 60px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--conf-border-light);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 40;
+      padding-bottom: 4px;
+    }
+    .tabbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--conf-text-faint);
+      font-size: 10.5px;
+      font-weight: 600;
+      transition: var(--conf-transition);
+      position: relative;
+      flex: 1;
+      height: 100%;
+    }
+    .tabbar-item.active {
+      color: var(--conf-primary);
+      font-weight: 800;
+    }
+    .tabbar-badge-dot {
+      position: absolute;
+      top: 6px;
+      right: calc(50% - 14px);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--conf-danger);
+    }
+
+    /* ==========================================================================
+       全局抽屉与模态浮层体系 (Drawer Sheets & Modals)
+       ========================================================================== */
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      transition: var(--conf-transition);
+    }
+    .modal-backdrop.active {
+      display: flex;
+      animation: fadeInBackdrop 0.2s ease;
+    }
+    @keyframes fadeInBackdrop {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* 底部滑动抽屉 */
+    .bottom-sheet {
+      width: 100%;
+      background: var(--conf-bg-surface);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      padding: 18px 18px 24px;
+      max-height: 85%;
+      overflow-y: auto;
+      box-shadow: var(--conf-shadow-sheet);
+      animation: slideUpSheet 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUpSheet {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--conf-border-light);
+    }
+    .sheet-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--conf-text-title);
+    }
+    .sheet-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--conf-bg-subtle);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--conf-text-muted);
+      transition: var(--conf-transition);
+    }
+    .sheet-close-btn:hover {
+      background: var(--conf-border-light);
+      color: var(--conf-text-title);
+    }
+
+    /* 票种选购卡片列表 */
+    .ticket-tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .ticket-tier-card {
+      border: 1.5px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: var(--conf-transition);
+      background: var(--conf-bg-surface);
+    }
+    .ticket-tier-card:hover {
+      border-color: var(--conf-border-focus);
+    }
+    .ticket-tier-card.selected {
+      border-color: var(--conf-primary);
+      background: var(--conf-bg-app);
+      box-shadow: 0 0 0 1px var(--conf-primary);
+    }
+    .tier-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .tier-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--conf-text-title);
+    }
+    .tier-price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .tier-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--conf-accent);
+    }
+    .tier-origin-price {
+      font-size: 11px;
+      color: var(--conf-text-faint);
+      text-decoration: line-through;
+    }
+    .tier-feature-list {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--conf-border-light);
+      font-size: 11px;
+      color: var(--conf-text-muted);
+      line-height: 1.5;
+    }
+    .tier-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* 票量计数器 */
+    .count-stepper-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-top: 1px solid var(--conf-border-light);
+      border-bottom: 1px solid var(--conf-border-light);
+      margin-bottom: 16px;
+    }
+    .stepper-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stepper-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--conf-radius-xs);
+      background: var(--conf-bg-subtle);
+      border: 1px solid var(--conf-border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--conf-text-title);
+      transition: var(--conf-transition);
+    }
+    .stepper-btn:hover {
+      background: var(--conf-border-light);
+    }
+    .stepper-val {
+      font-size: 14px;
+      font-weight: 700;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* 实名表单控件 */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--conf-text-body);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--conf-border-light);
+      border-radius: var(--conf-radius-sm);
+      padding: 0 12px;
+      font-size: 12.5px;
+      color: var(--conf-text-title);
+      outline: none;
+      background: var(--conf-bg-surface);
+      transition: var(--conf-transition);
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--conf-border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    /* 快捷填入辅助按钮 */
+    .quick-fill-btn {
+      font-size: 11px;
+      color: var(--conf-accent);
+      background: var(--conf-primary-light);
+      border: 1px solid var(--conf-blue-pill);
+      padding: 2px 8px;
+      border-radius: var(--conf-radius-full);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--conf-transition);
+    }
+    .quick-fill-btn:hover {
+      background: var(--conf-blue-pill);
+    }
+
+    /* 抽屉底部操作条 */
+    .sheet-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--conf-border-light);
+    }
+    .sheet-total-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .sheet-total-label {
+      font-size: 10px;
+      color: var(--conf-text-muted);
+    }
+    .sheet-total-amount {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--conf-accent);
+    }
+    .sheet-submit-btn {
+      flex: 1;
+      height: 42px;
+      background: var(--conf-primary);
+      color: var(--conf-text-inverse);
+      border: none;
+      border-radius: var(--conf-radius-md);
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--conf-transition);
+    }
+    .sheet-submit-btn:hover {
+      background: var(--conf-primary-hover);
+    }
+
+    /* 居中对话框 (Centered Dialog) */
+    .center-dialog {
+      width: 320px;
+      background: var(--conf-bg-surface);
+      border-radius: var(--conf-radius-xl);
+      padding: 20px;
+      box-shadow: var(--conf-shadow-card);
+      animation: zoomInDialog 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: auto;
+      margin-top: auto;
+    }
+    @keyframes zoomInDialog {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* 微信轻量 Toast 提示 */
+    .toast-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.88);
+      color: var(--conf-text-inverse);
+      padding: 10px 18px;
+      border-radius: var(--conf-radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      z-index: 200;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      pointer-events: none;
+      backdrop-filter: blur(6px);
+    }
+    .toast-box.show {
+      display: flex;
+      animation: fadeInToast 0.2s ease;
+    }
+    @keyframes fadeInToast {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- iPhone 15 Pro 微信小程序真机外壳 -->
+  <div class="device-shell">
+    
+    <!-- 顶部系统状态栏与灵动岛 -->
+    <div class="status-bar">
+      <span id="current-sys-time">10:24</span>
+      <div class="dynamic-island"></div>
+      <div class="status-icons">
+        <!-- 信号图标 -->
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M2 20h20L12 4z" fill="currentColor"/></svg>
+        <!-- WiFi 图标 -->
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 13a10 10 0 0 1 14 0"/><path d="M1.5 9.5a15 15 0 0 1 21 0"/></svg>
+        <!-- 电池图标 -->
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- 微信小程序顶栏与官方胶囊按键 -->
+    <div class="mp-header">
+      <div class="mp-title-box">
+        <div class="mp-logo-badge">**</div>
+        <span class="mp-title">**数字科技大会</span>
+      </div>
+      <!-- 微信标准胶囊 -->
+      <div class="wx-capsule" onclick="showMiniProgramMenu()">
+        <div class="wx-capsule-dots">
+          <div class="wx-dot"></div>
+          <div class="wx-dot"></div>
+          <div class="wx-dot"></div>
+        </div>
+        <div class="wx-capsule-sep"></div>
+        <div class="wx-capsule-circle"></div>
+      </div>
+    </div>
+
+    <!-- 小程序主要滚动视口 -->
+    <div class="mp-content">
+      
+      <!-- ====================================================================
+           Tab 0: 大会主页 (Home Pane)
+           ==================================================================== -->
+      <div id="view-home" class="view-pane active">
+        
+        <!-- 大会主视觉海报 -->
+        <div class="hero-banner">
+          <div class="hero-badge-row">
+            <span class="hero-tag">
+              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              国家级产业科技峰会
+            </span>
+            <span class="hero-countdown">
+              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              距开幕仅剩 14 天
+            </span>
+          </div>
+          <h1 class="hero-title">2026**科技与产业智能大会</h1>
+          <p class="hero-subtitle">汇聚全球顶尖学者、产业领军者与硬核科技展商，共筑下一代智能工业新高地。</p>
+          
+          <div class="hero-meta-grid">
+            <div class="hero-meta-item">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>2026年9月18日 - 9月20日 (为期3天)</span>
+            </div>
+            <div class="hero-meta-item">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>**博览中心 · 1-4号综合馆</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 快捷金刚区入口 (Quick Nav) -->
+        <div class="quick-nav-grid">
+          <div class="quick-nav-btn" onclick="openTicketSheet()">
+            <div class="quick-nav-icon">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+            </div>
+            <span class="quick-nav-label">立即参会</span>
+          </div>
+          <div class="quick-nav-btn" onclick="switchTab('schedule')">
+            <div class="quick-nav-icon">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <span class="quick-nav-label">大会日程</span>
+          </div>
+          <div class="quick-nav-btn" onclick="switchTab('exhibitor')">
+            <div class="quick-nav-icon">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+            </div>
+            <span class="quick-nav-label">展位导览</span>
+          </div>
+          <div class="quick-nav-btn" onclick="openGuideModal()">
+            <div class="quick-nav-icon">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <span class="quick-nav-label">参会指南</span>
+          </div>
+        </div>
+
+        <!-- 票券快速直达卡片 -->
+        <div class="ticket-fast-card">
+          <div class="tfc-info">
+            <h4>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" style="color:var(--conf-gold-accent);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              专业观众通票与研讨名额
+            </h4>
+            <p>早鸟免费名额已开放 · VIP嘉宾闭门晚宴同步预约</p>
+          </div>
+          <button class="tfc-action-btn" onclick="openTicketSheet()">
+            <span>选票报名</span>
+            <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- 特邀学者阵容 (Keynote Speakers) -->
+        <div class="section-box">
+          <div class="section-head">
+            <span class="section-title">特邀院士与专家学者</span>
+            <span class="section-link" onclick="openSpeakerModal('lu')">
+              详情
+              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </div>
+          
+          <div class="speaker-scroll-row">
+            <!-- 嘉宾 1 -->
+            <div class="speaker-card" onclick="openSpeakerModal('lu')">
+              <div class="speaker-avatar">陆</div>
+              <div class="speaker-name">陆承宇 院士</div>
+              <div class="speaker-title">国家重点实验室首席科学家</div>
+              <span class="speaker-topic-tag">开幕主旨报告</span>
+            </div>
+            <!-- 嘉宾 2 -->
+            <div class="speaker-card" onclick="openSpeakerModal('su')">
+              <div class="speaker-avatar">苏</div>
+              <div class="speaker-name">苏若微 教授</div>
+              <div class="speaker-title">产业智能前沿研究院院长</div>
+              <span class="speaker-topic-tag">大模型与具身智能</span>
+            </div>
+            <!-- 嘉宾 3 -->
+            <div class="speaker-card" onclick="openSpeakerModal('lin')">
+              <div class="speaker-avatar">林</div>
+              <div class="speaker-name">林启明 博士</div>
+              <div class="speaker-title">全球数字化标准工作组总架构师</div>
+              <span class="speaker-topic-tag">工业物联协议</span>
+            </div>
+            <!-- 嘉宾 4 -->
+            <div class="speaker-card" onclick="openSpeakerModal('zhao')">
+              <div class="speaker-avatar">赵</div>
+              <div class="speaker-name">赵一鸣 顾问</div>
+              <div class="speaker-title">智算网络产业联盟技术委员会主任</div>
+              <span class="speaker-topic-tag">算力调度协同</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 精选特色分论坛推荐 -->
+        <div class="section-box">
+          <div class="section-head">
+            <span class="section-title">重磅分论坛与专题研讨</span>
+            <span class="section-link" onclick="switchTab('schedule')">
+              查看全部日程
+              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </div>
+
+          <!-- 论坛卡片 1 -->
+          <div class="forum-card" onclick="openForumDetail(1)">
+            <div class="forum-badge-row">
+              <span class="forum-track-tag">产业前沿论坛</span>
+              <span class="forum-time">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                9月18日 14:00 - 17:30
+              </span>
+            </div>
+            <h3 class="forum-name">全球工业大模型应用落地与边缘计算协同峰会</h3>
+            <div class="forum-venue">
+              <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              **会议中心三层 · **大宴会厅
+            </div>
+            <div class="forum-action-row">
+              <span class="forum-capacity">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                席位尚余 42 席
+              </span>
+              <button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
+            </div>
+          </div>
+
+          <!-- 论坛卡片 2 -->
+          <div class="forum-card" onclick="openForumDetail(2)">
+            <div class="forum-badge-row">
+              <span class="forum-track-tag" style="background:var(--conf-success-light); color:var(--conf-success);">智能制造专场</span>
+              <span class="forum-time">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                9月19日 09:30 - 12:00
+              </span>
+            </div>
+            <h3 class="forum-name">下一代智能机器人集群控制与具身智能实践研讨</h3>
+            <div class="forum-venue">
+              <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              **会议中心二层 · 阶梯研讨厅 A
+            </div>
+            <div class="forum-action-row">
+              <span class="forum-capacity">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                席位尚余 18 席
+              </span>
+              <button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           Tab 1: 会议日程 (Schedule Pane)
+           ==================================================================== -->
+      <div id="view-schedule" class="view-pane">
+        
+        <div class="schedule-header">
+          <div class="day-tabs">
+            <div class="day-tab-btn active" onclick="switchDay(1)">
+              <div class="day-tab-date">9月18日</div>
+              <div class="day-tab-sub">全体大会</div>
+            </div>
+            <div class="day-tab-btn" onclick="switchDay(2)">
+              <div class="day-tab-date">9月19日</div>
+              <div class="day-tab-sub">产业分论坛</div>
+            </div>
+            <div class="day-tab-btn" onclick="switchDay(3)">
+              <div class="day-tab-date">9月20日</div>
+              <div class="day-tab-sub">闭门研讨会</div>
+            </div>
+          </div>
+
+          <div class="schedule-filter-bar">
+            <span>日程安排以现场实际调度为准</span>
+            <button id="filter-bookmarked-btn" class="filter-pill-btn" onclick="toggleBookmarkedFilter()">
+              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+              <span>仅看我关注的</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline-container" id="timeline-list">
+          <!-- 日程项由 JS 响应式动态渲染与过滤 -->
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           Tab 2: 电子门票与票夹 (Ticket Wallet Pane)
+           ==================================================================== -->
+      <div id="view-ticket" class="view-pane">
+        <div class="ticket-container">
+          
+          <!-- 门票与胸卡双视图切换 -->
+          <div class="ticket-mode-toggle">
+            <button id="btn-toggle-ticket" class="ticket-toggle-btn active" onclick="switchTicketView('ticket')">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+              <span>电子门票凭证</span>
+            </button>
+            <button id="btn-toggle-badge" class="ticket-toggle-btn" onclick="switchTicketView('badge')">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M7 20v-1a5 5 0 0 1 10 0v1"/></svg>
+              <span>参会胸卡预览</span>
+            </button>
+          </div>
+
+          <!-- 模式 1: 航空打孔撕边防伪电子门票 -->
+          <div id="ticket-pass-card" class="boarding-pass-card">
+            
+            <div class="pass-header">
+              <div class="pass-header-top">
+                <span class="pass-tier-badge" id="pass-tier-name">VIP 尊享贵宾票</span>
+                <span class="pass-code" id="pass-serial-no">**-2026-T8829-VIP</span>
+              </div>
+              <h2 class="pass-conf-title">2026**科技与产业智能大会</h2>
+            </div>
+
+            <!-- 打孔分界线 -->
+            <div class="pass-perforation">
+              <div class="notch-left"></div>
+              <div class="dash-line"></div>
+              <div class="notch-right"></div>
+            </div>
+
+            <div class="pass-body">
+              <div class="pass-user-info">
+                <div>
+                  <div class="info-label">参会嘉宾</div>
+                  <div class="info-val" id="pass-user-name">周维</div>
+                </div>
+                <div>
+                  <div class="info-label">登记单位</div>
+                  <div class="info-val" id="pass-user-company">华智未来数字科技</div>
+                </div>
+                <div>
+                  <div class="info-label">参会日期</div>
+                  <div class="info-val">2026.09.18 - 09.20</div>
+                </div>
+                <div>
+                  <div class="info-label">入场通道</div>
+                  <div class="info-val">A区 VIP 闸机专属通道</div>
+                </div>
+              </div>
+
+              <!-- 动态入场二维码卡 -->
+              <div class="qr-container" onclick="showFullQrCode()">
+                <!-- 已核销鲜红防伪印章 -->
+                <div id="verified-stamp-seal" class="verified-stamp">已核销 · 入场有效</div>
+                
+                <div class="qr-code-box" id="qr-display-box">
+                  <!-- 纯前端矢量动态二维码 -->
+                  <svg class="qr-code-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#FFFFFF"/>
+                    <!-- 四角定位标 -->
+                    <rect x="10" y="10" width="24" height="24" rx="3" fill="#0F172A"/>
+                    <rect x="14" y="14" width="16" height="16" rx="2" fill="#FFFFFF"/>
+                    <rect x="18" y="18" width="8" height="8" rx="1" fill="#1E3A8A"/>
+                    
+                    <rect x="66" y="10" width="24" height="24" rx="3" fill="#0F172A"/>
+                    <rect x="70" y="14" width="16" height="16" rx="2" fill="#FFFFFF"/>
+                    <rect x="74" y="18" width="8" height="8" rx="1" fill="#1E3A8A"/>
+
+                    <rect x="10" y="66" width="24" height="24" rx="3" fill="#0F172A"/>
+                    <rect x="14" y="70" width="16" height="16" rx="2" fill="#FFFFFF"/>
+                    <rect x="18" y="74" width="8" height="8" rx="1" fill="#1E3A8A"/>
+
+                    <!-- 仿真编码矩阵点块 -->
+                    <rect x="40" y="12" width="6" height="6" fill="#0F172A"/>
+                    <rect x="52" y="12" width="6" height="6" fill="#0F172A"/>
+                    <rect x="44" y="24" width="8" height="6" fill="#1E3A8A"/>
+                    <rect x="14" y="44" width="6" height="8" fill="#0F172A"/>
+                    <rect x="26" y="40" width="6" height="6" fill="#0F172A"/>
+                    <rect x="40" y="40" width="20" height="20" rx="3" fill="#0F172A"/>
+                    <rect x="44" y="44" width="12" height="12" rx="2" fill="#2563EB"/>
+                    <rect x="66" y="42" width="8" height="6" fill="#0F172A"/>
+                    <rect x="78" y="48" width="8" height="6" fill="#0F172A"/>
+                    <rect x="44" y="68" width="6" height="6" fill="#0F172A"/>
+                    <rect x="56" y="64" width="8" height="6" fill="#0F172A"/>
+                    <rect x="68" y="72" width="6" height="8" fill="#0F172A"/>
+                    <rect x="80" y="68" width="8" height="8" fill="#1E3A8A"/>
+                    <rect x="44" y="80" width="8" height="6" fill="#0F172A"/>
+                    <rect x="60" y="82" width="6" height="6" fill="#0F172A"/>
+                  </svg>
+                </div>
+                
+                <div class="qr-refresh-hint">
+                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                  <span id="qr-countdown-txt">动态防伪已激活 · 点击放大出示</span>
+                </div>
+              </div>
+
+              <!-- 现场闸机仿真扫码核销按钮 -->
+              <button id="gate-action-btn" class="gate-checkin-btn" onclick="simulateGateCheckin()">
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                <span id="gate-btn-txt">模拟现场电子闸机扫码核销</span>
+              </button>
+
+              <div style="display:flex; gap:8px; margin-top:10px;">
+                <button style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="copyTicketNumber()">
+                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span>复制票券编号</span>
+                </button>
+                <button style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="downloadPassCertificate()">
+                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>保存离线凭证</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 模式 2: 垂直工牌式参会胸卡 (Badge View) -->
+          <div id="badge-pass-card" class="badge-card">
+            <div class="badge-lanyard-hole"></div>
+            <div class="badge-avatar-frame">
+              <svg class="icon" width="38" height="38" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3 class="badge-name" id="badge-name-txt">周维</h3>
+            <div class="badge-company" id="badge-company-txt">华智未来数字科技集团</div>
+            <div class="badge-title-txt" id="badge-title-txt">技术研发总监</div>
+            
+            <div class="badge-status-bar">
+              <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>VIP GUEST · 全会场贵宾通行</span>
+            </div>
+
+            <div class="barcode-box">
+              ||| | |||| | ||||| || | |||| ||
+              <div style="font-size:10px; margin-top:4px; letter-spacing:1px; color:var(--conf-text-muted);">2026-**-VIP-8829</div>
+            </div>
+            
+            <button style="margin-top:16px; width:100%; padding:10px; border-radius:var(--conf-radius-md); background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); font-size:12px; font-weight:700; color:var(--conf-primary); cursor:pointer;" onclick="switchTicketView('ticket')">
+              返回门票条码视图
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           Tab 3: 展商与导览 (Exhibitors & Map Pane)
+           ==================================================================== -->
+      <div id="view-exhibitor" class="view-pane">
+        
+        <!-- 搜索与类别 -->
+        <div class="exhibitor-search-box">
+          <div class="search-input-wrapper">
+            <svg class="icon search-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="exhibitor-search-input" class="search-input" placeholder="搜索展商名称、展位号或主要展品..." oninput="handleExhibitorSearch(this.value)">
+          </div>
+          
+          <div class="category-pills">
+            <button class="cat-btn active" onclick="filterExhibitorCat('all', this)">全部展商</button>
+            <button class="cat-btn" onclick="filterExhibitorCat('chip', this)">智算芯片</button>
+            <button class="cat-btn" onclick="filterExhibitorCat('iot', this)">工业物联</button>
+            <button class="cat-btn" onclick="filterExhibitorCat('robot', this)">智能装备</button>
+            <button class="cat-btn" onclick="filterExhibitorCat('cloud', this)">行业云平台</button>
+          </div>
+        </div>
+
+        <!-- 展商列表 -->
+        <div class="exhibitor-list" id="exhibitors-container">
+          <!-- JS 动态渲染展商项 -->
+        </div>
+
+        <!-- 脱敏展馆楼层平面矢量图导览 -->
+        <div class="floor-plan-card">
+          <div class="section-head" style="margin-bottom:6px;">
+            <span class="section-title">展馆楼层展位平面示意</span>
+            <span style="font-size:11px; color:var(--conf-text-muted);">**博览中心 1-4号馆</span>
+          </div>
+          <div class="floor-svg-box">
+            <!-- 矢量绘制场馆平面分布 -->
+            <svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="65" height="100" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
+              <text x="42" y="55" font-size="11" font-weight="700" fill="#1E40AF" text-anchor="middle">1号馆</text>
+              <text x="42" y="70" font-size="9" fill="#64748B" text-anchor="middle">算力与芯片</text>
+
+              <rect x="85" y="10" width="65" height="100" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
+              <text x="117" y="55" font-size="11" font-weight="700" fill="#1E40AF" text-anchor="middle">2号馆</text>
+              <text x="117" y="70" font-size="9" fill="#64748B" text-anchor="middle">工业物联</text>
+
+              <rect x="160" y="10" width="70" height="100" rx="6" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5"/>
+              <text x="195" y="55" font-size="11" font-weight="700" fill="#065F46" text-anchor="middle">3号馆</text>
+              <text x="195" y="70" font-size="9" fill="#64748B" text-anchor="middle">机器人装备</text>
+
+              <rect x="240" y="10" width="70" height="100" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5"/>
+              <text x="275" y="50" font-size="11" font-weight="700" fill="#92400E" text-anchor="middle">4号主馆</text>
+              <text x="275" y="65" font-size="9" fill="#64748B" text-anchor="middle">主旨会议厅</text>
+              <text x="275" y="80" font-size="9" font-weight="600" fill="#D97706" text-anchor="middle">VIP报到处</text>
+
+              <!-- 闸机入口指引线 -->
+              <line x1="10" y1="115" x2="310" y2="115" stroke="#CBD5E1" stroke-dasharray="3 3"/>
+              <circle cx="160" cy="115" r="3" fill="#2563EB"/>
+            </svg>
+          </div>
+          <div style="margin-top:8px; font-size:11px; color:var(--conf-text-muted); display:flex; justify-content:space-between;">
+            <span>观众南门入场 · 设立40通道快速智能闸机</span>
+            <span style="color:var(--conf-accent); font-weight:600; cursor:pointer;" onclick="showToast('已更新场馆指引')">查看路线</span>
+          </div>
+        </div>
+
+        <!-- 交通与会务指引卡片 -->
+        <div class="section-box" style="padding-top:0;">
+          <div class="forum-card">
+            <h4 style="font-size:13px; font-weight:700; color:var(--conf-text-title); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+              <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              大会交通与入场须知
+            </h4>
+            <p style="font-size:11.5px; color:var(--conf-text-body); line-height:1.6;">
+              • 地铁推荐：乘坐X号线至“**站”B口直通主登机登录大厅。<br>
+              • 自驾停车：展馆地下停车场 P1/P2 开放，出示大会电子门票享全天停车优惠。<br>
+              • 签到开放时间：每日 08:30 - 16:30，请提前打开小程序电子票夹准备扫码。
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 底部微信小程序原生 Tabbar 导航 -->
+    <div class="bottom-tabbar">
+      <div id="tab-home" class="tabbar-item active" onclick="switchTab('home')">
+        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>首页</span>
+      </div>
+      <div id="tab-schedule" class="tabbar-item" onclick="switchTab('schedule')">
+        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>日程</span>
+      </div>
+      <div id="tab-ticket" class="tabbar-item" onclick="switchTab('ticket')">
+        <div class="tabbar-badge-dot" id="ticket-badge-dot" style="display:none;"></div>
+        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+        <span>票夹</span>
+      </div>
+      <div id="tab-exhibitor" class="tabbar-item" onclick="switchTab('exhibitor')">
+        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+        <span>展商</span>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         模态浮层与抽屉容器 (Modals & Drawers)
+         ====================================================================== -->
+
+    <!-- 1. 票种选购与实名报名底抽屉 (Ticket Selector Sheet) -->
+    <div id="modal-ticket-sheet" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-ticket-sheet')">
+      <div class="bottom-sheet" onclick="event.stopPropagation()">
+        
+        <div class="sheet-header">
+          <div>
+            <div class="sheet-title">选择参会门票与登记</div>
+            <div style="font-size:11px; color:var(--conf-text-muted); margin-top:2px;">实名制审核 · 提交后即刻生成专属电子凭证</div>
+          </div>
+          <button class="sheet-close-btn" onclick="closeTicketSheet()">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- 票种列表 -->
+        <div class="ticket-tier-list">
+          
+          <!-- 早鸟票 -->
+          <div class="ticket-tier-card" id="tier-early" onclick="selectTicketTier('early', 0)">
+            <div class="tier-card-head">
+              <span class="tier-name">早鸟观众票</span>
+              <div class="tier-price-box">
+                <span class="tier-price">免费</span>
+                <span class="tier-origin-price">¥199</span>
+              </div>
+            </div>
+            <div class="tier-feature-list">
+              <div class="tier-feature-item">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-success);"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>1-4号主展区全通权限，现场体验各展商最新技术</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 标准研讨票 -->
+          <div class="ticket-tier-card" id="tier-standard" onclick="selectTicketTier('standard', 499)">
+            <div class="tier-card-head">
+              <span class="tier-name">专业研讨通票</span>
+              <div class="tier-price-box">
+                <span class="tier-price">¥499</span>
+                <span class="tier-origin-price">¥699</span>
+              </div>
+            </div>
+            <div class="tier-feature-list">
+              <div class="tier-feature-item">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-success);"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>全展区 + 全部主题分论坛席位 + 官方电子论文集</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIP 贵宾票 -->
+          <div class="ticket-tier-card selected" id="tier-vip" onclick="selectTicketTier('vip', 1299)">
+            <div class="tier-card-head">
+              <span class="tier-name" style="color:var(--conf-gold-hover); font-weight:800;">VIP 尊享贵宾通票</span>
+              <div class="tier-price-box">
+                <span class="tier-price" style="color:var(--conf-gold-hover);">¥1,299</span>
+                <span class="tier-origin-price">¥1,699</span>
+              </div>
+            </div>
+            <div class="tier-feature-list">
+              <div class="tier-feature-item">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>前排贵宾专属坐席 + 闭门交流晚宴 + 定制电子胸卡</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 购票数量加减 -->
+        <div class="count-stepper-row">
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--conf-text-title);">参会名额数量</div>
+            <div style="font-size:11px; color:var(--conf-text-muted);">单次最多可登记 5 位参会人</div>
+          </div>
+          <div class="stepper-box">
+            <button class="stepper-btn" onclick="changeTicketCount(-1)">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <span class="stepper-val" id="ticket-count-val">1</span>
+            <button class="stepper-btn" onclick="changeTicketCount(1)">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 实名报名信息表单 -->
+        <div style="margin-bottom:14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-size:13px; font-weight:800; color:var(--conf-text-title);">参会人实名登记</span>
+            <button class="quick-fill-btn" onclick="quickFillForm()">一键快捷填入合规信息</button>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <span>姓名</span>
+              <span style="font-size:10px; color:var(--conf-danger);">* 实名入场必填</span>
+            </div>
+            <input type="text" id="reg-name" class="form-input" placeholder="请输入参会嘉宾真实姓名" value="周维">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">所属单位 / 企业机构</div>
+            <input type="text" id="reg-company" class="form-input" placeholder="请输入企业或科研机构名称" value="华智未来数字科技集团">
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <div class="form-label">现任职务</div>
+              <input type="text" id="reg-title" class="form-input" placeholder="职务头衔" value="技术研发总监">
+            </div>
+            <div class="form-group">
+              <div class="form-label">所属行业</div>
+              <select id="reg-industry" class="form-select">
+                <option value="ai">人工智能 / 智算芯片</option>
+                <option value="iot">工业互联网 / 智能制造</option>
+                <option value="robot">人形机器人 / 具身智能</option>
+                <option value="finance">产业金融 / 创投机构</option>
+                <option value="academic">高校院所 / 科研机构</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">联系手机号码 (接收出票凭证)</div>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="11位手机号码" value="138****6820">
+          </div>
+        </div>
+
+        <!-- 抽屉结算底栏 -->
+        <div class="sheet-footer">
+          <div class="sheet-total-box">
+            <span class="sheet-total-label">应付总额 (展示模拟免付)</span>
+            <span class="sheet-total-amount" id="sheet-total-price">¥1,299</span>
+          </div>
+          <button class="sheet-submit-btn" onclick="submitRegistration()">
+            <span>确认报名并出票</span>
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. 学者与嘉宾详细弹窗 -->
+    <div id="modal-speaker" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-speaker')">
+      <div class="center-dialog" onclick="event.stopPropagation()">
+        <div style="text-align:center; margin-bottom:14px;">
+          <div id="dialog-speaker-avatar" class="speaker-avatar" style="width:64px; height:64px; font-size:20px;">陆</div>
+          <h3 id="dialog-speaker-name" style="font-size:16px; font-weight:800; color:var(--conf-text-title); margin-bottom:4px;">陆承宇 院士</h3>
+          <div id="dialog-speaker-title" style="font-size:12px; color:var(--conf-text-muted);">国家重点实验室首席科学家 · 中国工程院院士</div>
+        </div>
+        <div style="background:var(--conf-bg-subtle); padding:12px; border-radius:var(--conf-radius-md); font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:16px;">
+          <b style="color:var(--conf-text-title); display:block; margin-bottom:4px;">主讲议程与方向:</b>
+          <span id="dialog-speaker-desc">将在全体大会发表《新一代工业大模型体系演进与产业自主化范式》主题报告，重点解析面向智能制造的毫秒级高精度实时控制系统。</span>
+        </div>
+        <button style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="closeModal('modal-speaker')">
+          已知晓
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. 展商详细弹窗 -->
+    <div id="modal-exhibitor" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-exhibitor')">
+      <div class="center-dialog" onclick="event.stopPropagation()">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+          <div>
+            <span id="dialog-ex-booth" class="ex-booth-badge">展位 Hall 1-A08</span>
+            <h3 id="dialog-ex-name" style="font-size:15px; font-weight:800; color:var(--conf-text-title); margin-top:6px;">智枢微芯智能科技</h3>
+          </div>
+          <button class="sheet-close-btn" onclick="closeModal('modal-exhibitor')">
+            <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        
+        <p id="dialog-ex-desc" style="font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:12px; background:var(--conf-bg-subtle); padding:10px; border-radius:var(--conf-radius-sm);">
+          专注于高能效边缘智算推理芯片设计，本次展会将实机动态展示千亿级参数端侧工业质检加速模组。
+        </p>
+
+        <div style="font-size:11.5px; color:var(--conf-text-muted); line-height:1.8; margin-bottom:16px;">
+          <div>• 展品类别：端侧算力模组 / 视觉加速卡</div>
+          <div>• 商务联络：张**（展位现场提供样片测试）</div>
+          <div>• 展位地点：**博览中心 1号馆 A区中央岛台</div>
+        </div>
+
+        <button style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="showToast('已复制展位号并保存名片')">
+          保存展位信息
+        </button>
+      </div>
+    </div>
+
+    <!-- 4. 微信小程序菜单弹窗 (WeChat Action Sheet) -->
+    <div id="modal-wx-menu" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-wx-menu')">
+      <div class="center-dialog" style="text-align:center;" onclick="event.stopPropagation()">
+        <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">微信小程序快捷面板</h4>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-bottom:16px;">
+          <div style="cursor:pointer;" onclick="showToast('已生成大会分享海报')">
+            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-primary-light); color:var(--conf-primary); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <span style="font-size:11px;">转发好友</span>
+          </div>
+          <div style="cursor:pointer;" onclick="showToast('已添加到微信收藏夹')">
+            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-gold-light); color:var(--conf-gold); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span style="font-size:11px;">添加到收藏</span>
+          </div>
+          <div style="cursor:pointer;" onclick="showToast('已重置并刷新会务数据')">
+            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-success-light); color:var(--conf-success); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </div>
+            <span style="font-size:11px;">重新进入</span>
+          </div>
+        </div>
+        <button style="width:100%; height:36px; background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); border-radius:var(--conf-radius-md); font-size:12px; font-weight:700; color:var(--conf-text-muted); cursor:pointer;" onclick="closeModal('modal-wx-menu')">
+          取消
+        </button>
+      </div>
+    </div>
+
+    <!-- 5. 参会指南弹窗 (Conference Guide) -->
+    <div id="modal-guide" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-guide')">
+      <div class="bottom-sheet" onclick="event.stopPropagation()">
+        <div class="sheet-header">
+          <div class="sheet-title">参会观众与嘉宾指南</div>
+          <button class="sheet-close-btn" onclick="closeModal('modal-guide')">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div style="font-size:12.5px; color:var(--conf-text-body); line-height:1.7;">
+          <p><b>一、实名入场与门票核验</b><br>
+          大会实行全员实名制通行。到达**博览中心南大厅后，请提前在微信小程序中打开【电子票夹】，将动态入场二维码对准智能闸机扫码区即可秒级验票通行。</p>
+          <br>
+          <p><b>二、电子胸卡佩戴</b><br>
+          在票夹上方点击“参会胸卡预览”可随时调出带头像与企业信息的电子胸卡，进入分会场及晚宴时由安保人员核对身份后入内。</p>
+          <br>
+          <p><b>三、日程订阅与同声传译</b><br>
+          可在“大会日程”中点击星标关注议程，开幕前将接收日程提醒。各主会场服务台凭身份证件可免费借用双语同传耳机。</p>
+        </div>
+        <button style="margin-top:16px; width:100%; height:40px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="closeModal('modal-guide')">
+          我知道了
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. 微信轻量 Toast 提示 -->
+    <div id="global-toast" class="toast-box">
+      <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+      <span id="toast-text">已为您添加关注</span>
+    </div>
+
+  </div>
+
+  <!-- ========================================================================
+       前端交互状态机与事件引擎 (Vanilla JS)
+       ======================================================================== -->
+  <script>
+    /* 全局脱敏数据仓库与应用状态 */
+    const AppData = {
+      activeTab: 'home',
+      activeDay: 1,
+      onlyBookmarked: false,
+      bookmarkedIds: new Set([101, 103]), // 默认关注前两项便于立即演示
+      ticketView: 'ticket',
+      
+      // 当前订购配置
+      selectedTier: 'vip',
+      unitPrice: 1299,
+      ticketCount: 1,
+
+      // 用户真实出票凭证状态
+      ticketState: {
+        isValid: true,
+        isCheckedIn: false,
+        code: '**-2026-T8829-VIP',
+        tierName: 'VIP 尊享贵宾通票',
+        userName: '周维',
+        company: '华智未来数字科技集团',
+        title: '技术研发总监',
+        phone: '138****6820'
+      },
+
+      // 3天会期结构化议程
+      schedules: [
+        // Day 1
+        { id: 101, day: 1, timeStart: '09:00', timeEnd: '10:00', title: '大会开幕式与全球数智前沿倡议发布', venue: '1号大宴会厅', speaker: '大会联合主席团', tag: '全体大会' },
+        { id: 102, day: 1, timeStart: '10:00', timeEnd: '11:15', title: '特邀主旨演讲：新一代工业大模型体系演进与产业自主化', venue: '1号大宴会厅', speaker: '陆承宇 院士', tag: '主旨报告' },
+        { id: 103, day: 1, timeStart: '11:15', timeEnd: '12:00', title: '学术报告：具身智能集群在严苛工业场景下的感知与协同', venue: '1号大宴会厅', speaker: '苏若微 教授', tag: '学术前沿' },
+        { id: 104, day: 1, timeStart: '14:00', timeEnd: '17:30', title: '专题峰会：全球工业算力调度与下一代互联协议论坛', venue: '2号多功能厅', speaker: '林启明 博士等', tag: '分论坛' },
+
+        // Day 2
+        { id: 201, day: 2, timeStart: '09:30', timeEnd: '11:30', title: '智能机器人高自由度关节控制与灵巧手工艺实践', venue: '3号展厅会议区', speaker: '赵一鸣 专家', tag: '机器人' },
+        { id: 202, day: 2, timeStart: '14:00', timeEnd: '16:30', title: '数智供应链韧性升级与双碳能耗精细化管理闭门研讨', venue: '阶梯研讨厅 A', speaker: '产业领军嘉宾', tag: '智造专场' },
+
+        // Day 3
+        { id: 301, day: 3, timeStart: '09:30', timeEnd: '12:00', title: '前沿项目产业对接会与创新科技成果路演', venue: '国际交易洽谈厅', speaker: '创投机构代表', tag: '项目对接' },
+        { id: 302, day: 3, timeStart: '14:00', timeEnd: '16:00', title: '大会闭幕总结与2027科技创新蓝皮书发布会', venue: '1号主会场', speaker: '专家组委会', tag: '闭幕式' }
+      ],
+
+      // 脱敏参展商名录
+      exhibitors: [
+        { id: 1, name: '智枢微芯智能科技', booth: 'Hall 1-A08', cat: 'chip', desc: '专注于高能效端侧芯片研发，实机演示千亿级参数实时工业质检单元。', tags: ['端侧算力', '神经网络加速'] },
+        { id: 2, name: '磐石高端智能装备', booth: 'Hall 3-C12', cat: 'robot', desc: '重载自主移动机器人(AMR)与微米级激光导航集群控制方案提供商。', tags: ['智能搬运', '工业底盘'] },
+        { id: 3, name: '极光工业物联网络', booth: 'Hall 2-B05', cat: 'iot', desc: '新一代无线低时延工业级 TSN 网关与现场级实时总线架构。', tags: ['TSN网关', '工业网络'] },
+        { id: 4, name: '衡泰云原生数智计算', booth: 'Hall 1-D18', cat: 'cloud', desc: '面向智能制造的分布式边缘微云平台与实时数字孪生渲染引擎。', tags: ['数字孪生', '边缘微云'] },
+        { id: 5, name: '灵犀机器视觉传感', booth: 'Hall 3-B22', cat: 'robot', desc: '高帧率三维工业相机与微型光谱测量传感器，助力精密装配质量控制。', tags: ['3D视觉', '光学检测'] }
+      ]
+    };
+
+    /* 初始化运行 */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderScheduleTimeline();
+      renderExhibitorList(AppData.exhibitors);
+      updateClock();
+      setInterval(updateClock, 30000);
+    });
+
+    /* 更新状态栏时钟 */
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const clockEl = document.getElementById('current-sys-time');
+      if (clockEl) clockEl.textContent = `${h}:${m}`;
+    }
+
+    /* 切换底部 Tab */
+    function switchTab(tabKey) {
+      AppData.activeTab = tabKey;
+      
+      // 更新导航项状态
+      document.querySelectorAll('.tabbar-item').forEach(el => el.classList.remove('active'));
+      const activeNav = document.getElementById(`tab-${tabKey}`);
+      if (activeNav) activeNav.classList.add('active');
+
+      // 更新视图显隐
+      document.querySelectorAll('.view-pane').forEach(el => el.classList.remove('active'));
+      const activePane = document.getElementById(`view-${tabKey}`);
+      if (activePane) activePane.classList.add('active');
+
+      // 滚动置顶
+      const content = document.querySelector('.mp-content');
+      if (content) content.scrollTop = 0;
+    }
+
+    /* 渲染日程时间轴 */
+    function renderScheduleTimeline() {
+      const container = document.getElementById('timeline-list');
+      if (!container) return;
+
+      // 根据天数及收藏过滤
+      let items = AppData.schedules.filter(item => item.day === AppData.activeDay);
+      if (AppData.onlyBookmarked) {
+        items = items.filter(item => AppData.bookmarkedIds.has(item.id));
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px 10px; color:var(--conf-text-muted);">
+            <svg class="icon" width="32" height="32" viewBox="0 0 24 24" style="color:var(--conf-text-faint); margin-bottom:8px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div style="font-size:13px; font-weight:700;">暂无匹配的日程安排</div>
+            <div style="font-size:11px; margin-top:4px;">可关闭“仅看我关注的”或切换其他参会日期</div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      items.forEach((item, index) => {
+        const isBookmarked = AppData.bookmarkedIds.has(item.id);
+        const isLast = index === items.length - 1;
+        
+        html += `
+          <div class="timeline-item">
+            <div class="timeline-time-col">
+              <div class="timeline-time-start">${item.timeStart}</div>
+              <div class="timeline-time-end">${item.timeEnd}</div>
+            </div>
+            
+            <div class="timeline-axis">
+              <div class="timeline-dot"></div>
+              ${!isLast ? '<div class="timeline-line"></div>' : ''}
+            </div>
+
+            <div class="timeline-card" onclick="showToast('已查看《${item.title.substring(0, 10)}...》详细简介')">
+              <div class="timeline-head-row">
+                <span class="timeline-title">${item.title}</span>
+                <button class="btn-bookmark ${isBookmarked ? 'bookmarked' : ''}" onclick="event.stopPropagation(); toggleBookmark(${item.id})">
+                  <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="${isBookmarked ? 'currentColor' : 'none'}"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                </button>
+              </div>
+              <div class="timeline-speaker-row">
+                <span style="background:var(--conf-primary-light); color:var(--conf-primary); padding:1px 5px; border-radius:3px; font-size:10px; font-weight:700;">${item.tag}</span>
+                <span class="timeline-speaker-name">${item.speaker}</span>
+              </div>
+              <div class="timeline-venue-badge">
+                <svg class="icon" width="11" height="11" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>${item.venue}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    /* 切换日程日期 */
+    function switchDay(dayIndex) {
+      AppData.activeDay = dayIndex;
+      const btns = document.querySelectorAll('.day-tab-btn');
+      btns.forEach((btn, idx) => {
+        if (idx === dayIndex - 1) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      renderScheduleTimeline();
+    }
+
+    /* 仅看已关注日程开关 */
+    function toggleBookmarkedFilter() {
+      AppData.onlyBookmarked = !AppData.onlyBookmarked;
+      const btn = document.getElementById('filter-bookmarked-btn');
+      if (btn) {
+        if (AppData.onlyBookmarked) {
+          btn.classList.add('active');
+          showToast('已开启仅看关注日程');
+        } else {
+          btn.classList.remove('active');
+          showToast('已展示全部日程');
+        }
+      }
+      renderScheduleTimeline();
+    }
+
+    /* 关注/取消关注日程 */
+    function toggleBookmark(id) {
+      if (AppData.bookmarkedIds.has(id)) {
+        AppData.bookmarkedIds.delete(id);
+        showToast('已移出我的日程');
+      } else {
+        AppData.bookmarkedIds.add(id);
+        showToast('已加入我的日程');
+      }
+      renderScheduleTimeline();
+    }
+
+    /* 门票视图与电子胸卡切换 */
+    function switchTicketView(viewMode) {
+      AppData.ticketView = viewMode;
+      const ticketCard = document.getElementById('ticket-pass-card');
+      const badgeCard = document.getElementById('badge-pass-card');
+      const btnTicket = document.getElementById('btn-toggle-ticket');
+      const btnBadge = document.getElementById('btn-toggle-badge');
+
+      if (viewMode === 'ticket') {
+        ticketCard.style.display = 'block';
+        badgeCard.style.display = 'none';
+        btnTicket.classList.add('active');
+        btnBadge.classList.remove('active');
+      } else {
+        ticketCard.style.display = 'none';
+        badgeCard.style.display = 'block';
+        btnBadge.classList.add('active');
+        btnTicket.classList.remove('active');
+      }
+    }
+
+    /* 现场闸机核销仿真 */
+    function simulateGateCheckin() {
+      const stamp = document.getElementById('verified-stamp-seal');
+      const qrBox = document.getElementById('qr-display-box');
+      const btn = document.getElementById('gate-action-btn');
+      const btnTxt = document.getElementById('gate-btn-txt');
+      const countdownTxt = document.getElementById('qr-countdown-txt');
+
+      if (!AppData.ticketState.isCheckedIn) {
+        // 执行核销成功流程
+        AppData.ticketState.isCheckedIn = true;
+        stamp.classList.add('show');
+        qrBox.style.opacity = '0.35';
+        btn.classList.add('checked');
+        btnTxt.textContent = '已核销 · 再次点击重置为待核销';
+        countdownTxt.textContent = '凭证已于闸机通道成功核验入场';
+        showToast('现场闸机验票通过，欢迎参会！');
+      } else {
+        // 重置为待核销，方便反复测试
+        AppData.ticketState.isCheckedIn = false;
+        stamp.classList.remove('show');
+        qrBox.style.opacity = '1';
+        btn.classList.remove('checked');
+        btnTxt.textContent = '模拟现场电子闸机扫码核销';
+        countdownTxt.textContent = '动态防伪已激活 · 点击放大出示';
+        showToast('已重置门票为待入场状态');
+      }
+    }
+
+    /* 复制门票号 */
+    function copyTicketNumber() {
+      showToast(`已复制编号: ${AppData.ticketState.code}`);
+    }
+
+    /* 下载离线凭证 */
+    function downloadPassCertificate() {
+      showToast('已离线保存至会务电子凭证卡包');
+    }
+
+    /* 放大查看二维码 */
+    function showFullQrCode() {
+      showToast('已将入场二维码调至最大亮度');
+    }
+
+    /* 展商列表渲染 */
+    function renderExhibitorList(list) {
+      const container = document.getElementById('exhibitors-container');
+      if (!container) return;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:30px; color:var(--conf-text-muted);">
+            <div style="font-size:13px; font-weight:700;">未找到相关展商信息</div>
+            <div style="font-size:11px; margin-top:4px;">可输入芯片、机器人等关键词检索</div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      list.forEach(ex => {
+        html += `
+          <div class="exhibitor-card" onclick="openExhibitorDetail(${ex.id})">
+            <div class="ex-card-head">
+              <span class="ex-name">${ex.name}</span>
+              <span class="ex-booth-badge">${ex.booth}</span>
+            </div>
+            <div class="ex-desc">${ex.desc}</div>
+            <div class="ex-tags">
+              ${ex.tags.map(t => `<span class="ex-tag">${t}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    /* 展商分类过滤 */
+    function filterExhibitorCat(catKey, btnEl) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const keyword = (document.getElementById('exhibitor-search-input').value || '').trim().toLowerCase();
+      let filtered = AppData.exhibitors;
+      if (catKey !== 'all') {
+        filtered = filtered.filter(ex => ex.cat === catKey);
+      }
+      if (keyword) {
+        filtered = filtered.filter(ex => 
+          ex.name.toLowerCase().includes(keyword) || 
+          ex.booth.toLowerCase().includes(keyword) ||
+          ex.desc.toLowerCase().includes(keyword)
+        );
+      }
+      renderExhibitorList(filtered);
+    }
+
+    /* 展商搜索输入 */
+    function handleExhibitorSearch(keyword) {
+      const kw = keyword.trim().toLowerCase();
+      const activeCatBtn = document.querySelector('.cat-btn.active');
+      const filtered = AppData.exhibitors.filter(ex => {
+        return ex.name.toLowerCase().includes(kw) || 
+               ex.booth.toLowerCase().includes(kw) ||
+               ex.desc.toLowerCase().includes(kw);
+      });
+      renderExhibitorList(filtered);
+    }
+
+    /* 票种选购抽屉逻辑 */
+    function openTicketSheet() {
+      const modal = document.getElementById('modal-ticket-sheet');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeTicketSheet() {
+      const modal = document.getElementById('modal-ticket-sheet');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function selectTicketTier(tierKey, price) {
+      AppData.selectedTier = tierKey;
+      AppData.unitPrice = price;
+
+      document.querySelectorAll('.ticket-tier-card').forEach(c => c.classList.remove('selected'));
+      const activeCard = document.getElementById(`tier-${tierKey}`);
+      if (activeCard) activeCard.classList.add('selected');
+
+      updateTotalPrice();
+    }
+
+    function changeTicketCount(delta) {
+      const nextCount = AppData.ticketCount + delta;
+      if (nextCount >= 1 && nextCount <= 5) {
+        AppData.ticketCount = nextCount;
+        document.getElementById('ticket-count-val').textContent = nextCount;
+        updateTotalPrice();
+      } else if (nextCount > 5) {
+        showToast('单个账号单次限购 5 张');
+      }
+    }
+
+    function updateTotalPrice() {
+      const total = AppData.unitPrice * AppData.ticketCount;
+      const totalEl = document.getElementById('sheet-total-price');
+      if (totalEl) {
+        totalEl.textContent = total === 0 ? '免费' : `¥${total.toLocaleString()}`;
+      }
+    }
+
+    /* 一键快捷填入合规信息 */
+    function quickFillForm() {
+      document.getElementById('reg-name').value = '周维';
+      document.getElementById('reg-company').value = '华智未来数字科技集团';
+      document.getElementById('reg-title').value = '技术研发总监';
+      document.getElementById('reg-phone').value = '138****6820';
+      showToast('已快捷填入参会示范信息');
+    }
+
+    /* 提交报名并无感出票 */
+    function submitRegistration() {
+      const name = document.getElementById('reg-name').value.trim();
+      const company = document.getElementById('reg-company').value.trim();
+      const title = document.getElementById('reg-title').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+
+      if (!name) {
+        showToast('请填写参会人真实姓名');
+        return;
+      }
+
+      // 更新全局票据信息
+      AppData.ticketState.userName = name;
+      AppData.ticketState.company = company || '全球数智产业机构';
+      AppData.ticketState.title = title || '特邀参会代表';
+      AppData.ticketState.phone = phone || '138****6820';
+      AppData.ticketState.isCheckedIn = false; // 新出的票待核销
+
+      // 同步票种
+      if (AppData.selectedTier === 'vip') {
+        AppData.ticketState.tierName = 'VIP 尊享贵宾通票';
+        AppData.ticketState.code = '**-2026-T8829-VIP';
+      } else if (AppData.selectedTier === 'standard') {
+        AppData.ticketState.tierName = '专业研讨通票';
+        AppData.ticketState.code = '**-2026-T5210-PRO';
+      } else {
+        AppData.ticketState.tierName = '早鸟观众通票';
+        AppData.ticketState.code = '**-2026-T1032-STD';
+      }
+
+      // 同步页面渲染
+      document.getElementById('pass-user-name').textContent = AppData.ticketState.userName;
+      document.getElementById('pass-user-company').textContent = AppData.ticketState.company;
+      document.getElementById('pass-tier-name').textContent = AppData.ticketState.tierName;
+      document.getElementById('pass-serial-no').textContent = AppData.ticketState.code;
+
+      document.getElementById('badge-name-txt').textContent = AppData.ticketState.userName;
+      document.getElementById('badge-company-txt').textContent = AppData.ticketState.company;
+      document.getElementById('badge-title-txt').textContent = AppData.ticketState.title;
+
+      // 重置核销印章
+      document.getElementById('verified-stamp-seal').classList.remove('show');
+      document.getElementById('qr-display-box').style.opacity = '1';
+      document.getElementById('gate-action-btn').classList.remove('checked');
+      document.getElementById('gate-btn-txt').textContent = '模拟现场电子闸机扫码核销';
+
+      closeTicketSheet();
+      showToast('报名成功！已为您生成专属电子门票');
+
+      // 切换至票夹 Tab
+      setTimeout(() => {
+        switchTab('ticket');
+      }, 400);
+    }
+
+    /* 弹窗控制逻辑 */
+    function openSpeakerModal(speakerKey) {
+      const modal = document.getElementById('modal-speaker');
+      const avatarEl = document.getElementById('dialog-speaker-avatar');
+      const nameEl = document.getElementById('dialog-speaker-name');
+      const titleEl = document.getElementById('dialog-speaker-title');
+      const descEl = document.getElementById('dialog-speaker-desc');
+
+      if (speakerKey === 'lu') {
+        avatarEl.textContent = '陆';
+        nameEl.textContent = '陆承宇 院士';
+        titleEl.textContent = '国家重点实验室首席科学家 · 中国工程院院士';
+        descEl.textContent = '在全体大会开幕主旨环节发表专题报告，深度解析大规模智能制造的端边云协同架构与毫秒级高确定性工业控制标准。';
+      } else if (speakerKey === 'su') {
+        avatarEl.textContent = '苏';
+        nameEl.textContent = '苏若微 教授';
+        titleEl.textContent = '产业智能前沿研究院院长 · 博士生导师';
+        descEl.textContent = '长期从事工业具身智能与大模型交叉创新，本次主讲多模态大模型在重工业缺陷自动识别中的高鲁棒性泛化算法。';
+      } else if (speakerKey === 'lin') {
+        avatarEl.textContent = '林';
+        nameEl.textContent = '林启明 博士';
+        titleEl.textContent = '全球数字化标准工作组总架构师';
+        descEl.textContent = '主导制定跨厂商工业物联 TSN 核心互操作协议，将在分论坛发布最新白皮书与开源验证工具栈。';
+      } else {
+        avatarEl.textContent = '赵';
+        nameEl.textContent = '赵一鸣 顾问';
+        titleEl.textContent = '智算网络产业联盟技术委员会主任';
+        descEl.textContent = '深入剖析万卡智算集群在混合部署环境下的通信瓶颈及算网一体化调度实践。';
+      }
+
+      if (modal) modal.classList.add('active');
+    }
+
+    function openExhibitorDetail(exId) {
+      const ex = AppData.exhibitors.find(e => e.id === exId);
+      if (!ex) return;
+
+      document.getElementById('dialog-ex-name').textContent = ex.name;
+      document.getElementById('dialog-ex-booth').textContent = `展位 ${ex.booth}`;
+      document.getElementById('dialog-ex-desc').textContent = ex.desc;
+
+      const modal = document.getElementById('modal-exhibitor');
+      if (modal) modal.classList.add('active');
+    }
+
+    function openForumDetail(forumId) {
+      showToast('正在打开论坛议程...');
+      switchTab('schedule');
+    }
+
+    function openGuideModal() {
+      const modal = document.getElementById('modal-guide');
+      if (modal) modal.classList.add('active');
+    }
+
+    function showMiniProgramMenu() {
+      const modal = document.getElementById('modal-wx-menu');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('active');
+    }
+
+    function handleBackdropClick(event, modalId) {
+      if (event.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
+    /* 微信原生轻量 Toast 提示系统 */
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('global-toast');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+
+      text.textContent = msg;
+      toast.classList.add('show');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1900);
+    }
+  </script>
+
+</body>
+</html>

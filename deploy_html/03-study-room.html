@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XX自习室 · 共享办公卡座 - 微信小程序</title>
+  <style>
+    /* CSS Reset & Base Design Tokens */
+    :root {
+      --color-primary: #1A4D2E;
+      --color-primary-dark: #123720;
+      --color-primary-light: #E8F5E9;
+      --color-primary-border: #A3D9A5;
+      
+      --color-accent: #D97706;
+      --color-accent-dark: #B45309;
+      --color-accent-light: #FEF3C7;
+      --color-blue: #2563EB;
+      --color-blue-light: #EFF6FF;
+      --color-purple: #7C3AED;
+      --color-purple-light: #F3E8FF;
+      --color-emerald: #059669;
+      --color-emerald-light: #ECFDF5;
+      --color-emerald-border: #A7F3D0;
+      --color-green-glow: #4ADE80;
+      
+      --color-bg-dark: #0B1120;
+      --color-bg-host: #0F172A;
+      --color-bg-host-btn: #1E293B;
+      --color-bg-host-btn-hover: #334155;
+      --color-bg-island: #000000;
+      
+      --color-text-white: #FFFFFF;
+      --color-text-light: #CBD5E1;
+      
+      --color-accent-border: #FCD34D;
+      --color-accent-badge-text: #92400E;
+      --color-accent-badge-border: #FDE68A;
+      
+      --color-status-occupied-bg: #FFFBEB;
+      --color-status-danger-bg: #FEE2E2;
+      --color-status-danger-border: #FCA5A5;
+      
+      --color-border-host: #1E293B;
+      --color-border-host-btn: #334155;
+      --color-border-host-hover: #475569;
+      
+      --color-lens: #0A0A23;
+      --color-lens-border: #1A1A3A;
+      --color-sensor: #111111;
+      
+      --color-bg-page: #F8FAFC;
+      --color-bg-card: #FFFFFF;
+      --color-bg-elevated: #F1F5F9;
+      --color-bg-dark: #0F172A;
+      
+      --color-text-title: #0F172A;
+      --color-text-body: #334155;
+      --color-text-secondary: #64748B;
+      --color-text-muted: #94A3B8;
+      
+      --color-status-free: #10B981;
+      --color-status-occupied: #F59E0B;
+      --color-status-reserved: #94A3B8;
+      --color-status-danger: #EF4444;
+      
+      --color-border: #E2E8F0;
+      --color-border-dark: #CBD5E1;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(26, 77, 46, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      background: var(--color-bg-dark);
+      color: var(--color-text-body);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Top Navigation bar for Host demo */
+    .host-header {
+      width: 100%;
+      background: var(--color-bg-host);
+      border-bottom: 1px solid var(--color-border-host);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--color-bg-page);
+      z-index: 100;
+    }
+    .host-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .host-badge {
+      font-size: 11px;
+      background: rgba(26, 77, 46, 0.4);
+      color: var(--color-green-glow);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      font-weight: 600;
+    }
+    .host-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .host-btn {
+      background: var(--color-bg-host-btn);
+      color: var(--color-text-light);
+      border: 1px solid var(--color-border-host-btn);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .host-btn:hover {
+      background: var(--color-bg-host-btn-hover);
+      color: var(--color-text-white);
+      border-color: var(--color-border-host-hover);
+    }
+
+    /* Simulator Container */
+    .simulator-wrapper {
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1200px;
+      gap: 28px;
+    }
+
+    /* Phone Shell (iPhone 15 Pro spec) */
+    .phone-shell {
+      width: 390px;
+      height: 800px;
+      background: var(--color-bg-page);
+      border-radius: 46px;
+      border: 11px solid var(--color-border-host);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--color-border-host-btn);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Dynamic Island / Status Bar */
+    .phone-status-bar {
+      height: 44px;
+      background: var(--color-bg-card);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 24px 8px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      z-index: 30;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+    .island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 24px;
+      background: var(--color-bg-island);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+    .island-lens {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-lens);
+      border: 1px solid var(--color-lens-border);
+    }
+    .island-sensor {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-sensor);
+    }
+
+    /* WeChat Mini-Program Navigation Header */
+    .mp-header {
+      height: 44px;
+      background: var(--color-bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--color-border);
+      z-index: 20;
+    }
+    .mp-title-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mp-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .mp-capsule {
+      display: flex;
+      align-items: center;
+      height: 28px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: 0 8px;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .capsule-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-text-title);
+    }
+    .capsule-ring {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-text-title);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .capsule-ring-inner {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--color-text-title);
+    }
+
+    /* Content Scroll Area */
+    .mp-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+      background: var(--color-bg-page);
+    }
+    .mp-content::-webkit-scrollbar { display: none; }
+
+    /* Bottom Tab Bar */
+    .mp-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 40;
+      padding-bottom: 6px;
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      gap: 3px;
+      padding: 6px 0;
+      transition: color 0.15s ease;
+      position: relative;
+    }
+    .tab-item.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .tab-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tab-label {
+      font-size: 11px;
+      letter-spacing: -0.2px;
+    }
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    /* SVG Icon Container */
+    .svg-icon {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: tabFadeIn 0.2s ease forwards;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card & Section Styles */
+    .section-box {
+      padding: 14px 14px 0 14px;
+    }
+    .card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 12px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-sub {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      box-shadow: 0 2px 8px rgba(26, 77, 46, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+    }
+    .btn-accent {
+      background: var(--color-accent);
+      color: var(--color-text-white);
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+    }
+    .btn-accent:hover {
+      background: var(--color-accent-dark);
+    }
+    .btn-secondary {
+      background: var(--color-bg-elevated);
+      color: var(--color-text-body);
+      border: 1px solid var(--color-border);
+    }
+    .btn-secondary:hover {
+      background: var(--color-border);
+    }
+    .btn-outline-primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: var(--radius-sm);
+    }
+    .btn-block {
+      width: 100%;
+    }
+
+    /* Tab 1: Home Specific */
+    .store-hero-card {
+      background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
+      color: var(--color-text-white);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .store-hero-card::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .store-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .store-tag {
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .store-name {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .store-address {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .store-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
+      gap: 4px;
+      text-align: center;
+    }
+    .metric-item b {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-white);
+    }
+    .metric-item span {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Notice Marquee */
+    .notice-bar {
+      background: var(--color-accent-light);
+      border: 1px solid var(--color-accent-badge-border);
+      color: var(--color-accent-dark);
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* Kingkong Grid (5 shortcuts) */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 14px 6px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .quick-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: var(--color-text-body);
+      transition: transform 0.15s;
+    }
+    .quick-item:active {
+      transform: scale(0.92);
+    }
+    .quick-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quick-item:nth-child(2) .quick-icon-wrap {
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+    }
+    .quick-item:nth-child(3) .quick-icon-wrap {
+      background: var(--color-blue-light);
+      color: var(--color-blue);
+    }
+    .quick-item:nth-child(4) .quick-icon-wrap {
+      background: var(--color-purple-light);
+      color: var(--color-purple);
+    }
+    .quick-item:nth-child(5) .quick-icon-wrap {
+      background: var(--color-emerald-light);
+      color: var(--color-emerald);
+    }
+    .quick-label {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Package Cards */
+    .package-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--color-border);
+    }
+    .package-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .package-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .package-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .package-desc {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+    .package-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .package-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-accent);
+    }
+    .package-orig-price {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+    }
+
+    /* Amenities Grid */
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .amenity-chip {
+      background: var(--color-bg-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-body);
+    }
+
+    /* Tab 2: Seat Selection Floorplan */
+    .filter-tabs-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+    .filter-tabs-row::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      white-space: nowrap;
+      padding: 6px 12px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-chip.active {
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      border-color: var(--color-primary);
+      box-shadow: 0 2px 6px rgba(26, 77, 46, 0.2);
+    }
+
+    /* Seat Floorplan Layout */
+    .floorplan-box {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .floorplan-header-legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+    .legend-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--color-text-secondary);
+      font-size: 10px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+    .legend-dot.free { background: var(--color-bg-card); border: 1.5px solid var(--color-primary); }
+    .legend-dot.occupied { background: var(--color-accent-badge-border); border: 1.5px solid var(--color-accent); }
+    .legend-dot.reserved { background: var(--color-border); border: 1.5px solid #CBD5E1; }
+    .legend-dot.selected { background: var(--color-primary); }
+
+    .floorplan-door-bar {
+      height: 24px;
+      background: var(--color-bg-elevated);
+      border: 1px dashed var(--color-border-dark);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .seat-grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .seat-cell {
+      background: var(--color-bg-card);
+      border: 1.5px solid var(--color-primary-border);
+      border-radius: var(--radius-md);
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .seat-cell:active {
+      transform: scale(0.95);
+    }
+    .seat-cell.occupied {
+      background: var(--color-status-occupied-bg);
+      border-color: var(--color-accent-border);
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+    .seat-cell.reserved {
+      background: var(--color-bg-page);
+      border-color: var(--color-border);
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .seat-cell.selected {
+      background: var(--color-primary);
+      border-color: var(--color-primary-dark);
+      color: var(--color-text-white) !important;
+      box-shadow: 0 0 0 2px rgba(26, 77, 46, 0.35);
+      transform: translateY(-2px);
+    }
+    .seat-code {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+    .seat-cell.selected .seat-code {
+      color: var(--color-text-white);
+    }
+    .seat-sub {
+      font-size: 9px;
+      color: var(--color-text-muted);
+    }
+    .seat-cell.selected .seat-sub {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .seat-amenities-icons {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 1px;
+    }
+    .seat-amenities-icons svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* Selected Seat Drawer (Bottom Sheet) */
+    .seat-drawer {
+      background: var(--color-bg-card);
+      border: 1.5px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: var(--shadow-lg);
+      margin-top: 10px;
+      animation: tabFadeIn 0.25s ease;
+    }
+
+    /* Tab 3: Console (In-Session) */
+    .session-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0 rgba(26, 77, 46, 0.7);
+      animation: pulseAnim 1.6s infinite;
+    }
+    @keyframes pulseAnim {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(26, 77, 46, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(26, 77, 46, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(26, 77, 46, 0); }
+    }
+
+    /* Timer Dial Box */
+    .timer-card {
+      background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
+      color: var(--color-text-white);
+      border-radius: var(--radius-xl);
+      padding: 22px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .timer-seat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .timer-digits {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: var(--color-text-white);
+      margin-bottom: 4px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .timer-progress-track {
+      width: 80%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-full);
+      margin: 10px auto 6px auto;
+      overflow: hidden;
+    }
+    .timer-progress-bar {
+      height: 100%;
+      width: 68%;
+      background: var(--color-green-glow);
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease;
+    }
+    .timer-meta-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 8px;
+    }
+
+    /* Hardware Control Matrix */
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .control-btn-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s;
+    }
+    .control-btn-card:active {
+      transform: scale(0.97);
+    }
+    .control-icon-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .control-btn-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .control-btn-sub {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+
+    /* Tab 4: Mine / User Profile */
+    .user-profile-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .user-avatar-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      border: 2px solid var(--color-primary-light);
+    }
+    .user-info-meta {
+      flex: 1;
+    }
+    .user-name-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .user-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text-title);
+    }
+    .user-tag-badge {
+      font-size: 10px;
+      background: var(--color-accent-light);
+      color: var(--color-accent-dark);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      border: 1px solid var(--color-accent-badge-border);
+    }
+    .user-credit-line {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Focus Stats 3-Column */
+    .focus-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .stat-card-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 6px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-num {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    /* Menu List */
+    .menu-group {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--color-border);
+      cursor: pointer;
+      color: var(--color-text-body);
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:active {
+      background: var(--color-bg-elevated);
+    }
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .menu-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+      font-size: 11px;
+    }
+
+    /* Toast Notification Layer */
+    .toast-container {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(8px);
+      color: var(--color-text-white);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .toast-container.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(6px);
+      pointer-events: auto;
+    }
+
+    /* Modal System */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-sheet {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-height: 85%;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transform: scale(0.94);
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+    .modal-overlay.active .modal-sheet {
+      transform: scale(1);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--color-bg-elevated);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-title);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-body {
+      font-size: 13px;
+      color: var(--color-text-body);
+      line-height: 1.6;
+    }
+
+    /* Responsive Adaptation for Real Mobile Screens */
+    @media (max-width: 480px) {
+      body {
+        background: var(--color-bg-page);
+      }
+      .host-header { display: none; }
+      .simulator-wrapper { padding: 0; width: 100%; height: 100vh; }
+      .phone-shell {
+        width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      .phone-status-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- Host Top Demo Bar -->
+  
+
+  <div class="simulator-wrapper">
+    
+    <!-- Phone Simulator Shell -->
+    <main class="phone-shell" id="phoneContainer">
+      
+      <!-- Top Status Bar & Island -->
+      <div class="phone-status-bar">
+        <span id="liveClock">10:24</span>
+        <div class="island">
+          <div class="island-lens"></div>
+          <div class="island-sensor"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <!-- WiFi SVG -->
+          <svg class="svg-icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          <!-- Battery SVG -->
+          <svg class="svg-icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/></svg>
+        </div>
+      </div>
+
+      <!-- Mini-Program Navigation Bar -->
+      <div class="mp-header">
+        <div class="mp-title-box">
+          <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+          <span class="mp-title" id="pageTitle">自习大厅</span>
+        </div>
+        <div class="mp-capsule" onclick="openModal('modalAbout')">
+          <span class="capsule-dot"></span>
+          <span class="capsule-dot"></span>
+          <span class="capsule-dot"></span>
+          <div style="width:1px;height:12px;background:var(--color-border-dark);"></div>
+          <div class="capsule-ring"><div class="capsule-ring-inner"></div></div>
+        </div>
+      </div>
+
+      <!-- Scrollable Main Content -->
+      <div class="mp-content" id="mpContent">
+        
+        <!-- ================= TAB 1: 自习大厅 ================= -->
+        <section id="pane-home" class="tab-pane active section-box">
+          
+          <!-- Store Hero Card -->
+          <div class="store-hero-card">
+            <div class="store-badge-row">
+              <span class="store-tag">
+                <svg class="svg-icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                24小时营业 · 自助入座
+              </span>
+              <button class="btn btn-sm btn-outline-primary" style="color:var(--color-text-white);border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.15);" onclick="openModal('modalStoreDetails')">
+                门店详情
+              </button>
+            </div>
+            <div class="store-name">XX自习室 · XX旗舰店</div>
+            <div class="store-address">
+              <svg class="svg-icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>XX区XX大厦X层 · 距您 350m (XX站X口)</span>
+            </div>
+            <div class="store-metrics">
+              <div class="metric-item">
+                <b id="storeFreeCount">18 / 48</b>
+                <span>实时空余卡座</span>
+              </div>
+              <div class="metric-item">
+                <b>23.5℃</b>
+                <span>恒温新风</span>
+              </div>
+              <div class="metric-item">
+                <b>31 dB</b>
+                <span>静音指数(极静)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notice Bar -->
+          <div class="notice-bar">
+            <svg class="svg-icon" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <marquee scrollamount="4" style="flex:1;">考研冲刺倒计时 82 天，通宵夜间卡现已支持预约；全店紫外线杀菌已完成，请保持安静。</marquee>
+          </div>
+
+          <!-- 5 Kingkong Action Grid -->
+          <div class="quick-grid">
+            <div class="quick-item" onclick="switchTab('seat')">
+              <div class="quick-icon-wrap">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <span class="quick-label">预约选座</span>
+            </div>
+            <div class="quick-item" onclick="triggerDoorOpen('大门门禁')">
+              <div class="quick-icon-wrap">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+              </div>
+              <span class="quick-label">一键开门</span>
+            </div>
+            <div class="quick-item" onclick="openModal('modalCards')">
+              <div class="quick-icon-wrap">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <span class="quick-label">自习卡包</span>
+            </div>
+            <div class="quick-item" onclick="openModal('modalLocker')">
+              <div class="quick-icon-wrap">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              </div>
+              <span class="quick-label">智能存包</span>
+            </div>
+            <div class="quick-item" onclick="openModal('modalRules')">
+              <div class="quick-icon-wrap">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="quick-label">自习公约</span>
+            </div>
+          </div>
+
+          <!-- Hot Study Packages -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"/></svg>
+                热门专注卡包套餐
+              </span>
+              <span class="card-sub">即买即用 · 自动结转</span>
+            </div>
+
+            <div class="package-item">
+              <div class="package-left">
+                <div class="package-title">4小时单人沉浸专注卡</div>
+                <div class="package-desc">全区域通用 · 独立插座与台灯 · 赠现磨咖啡</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="package-price-wrap">
+                  <span class="package-price">¥26.8</span>
+                  <span class="package-orig-price">¥40.0</span>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="buyPackage('4小时单人沉浸专注卡', 26.8, 4)">立即开卡</button>
+              </div>
+            </div>
+
+            <div class="package-item">
+              <div class="package-left">
+                <div class="package-title">全天通宵畅学卡 (24H)</div>
+                <div class="package-desc">跨夜专属 · 考研/冲刺必备 · 智能门禁无限次出入</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="package-price-wrap">
+                  <span class="package-price">¥59.0</span>
+                  <span class="package-orig-price">¥88.0</span>
+                </div>
+                <button class="btn btn-sm btn-accent" onclick="buyPackage('全天通宵畅学卡 (24H)', 59.0, 24)">立即开卡</button>
+              </div>
+            </div>
+
+            <div class="package-item">
+              <div class="package-left">
+                <div class="package-title">30天考研深度伴学月卡</div>
+                <div class="package-desc">锁定专属卡座 · 赠送专属储物柜 · 信用积分加倍</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="package-price-wrap">
+                  <span class="package-price">¥499</span>
+                  <span class="package-orig-price">¥680</span>
+                </div>
+                <button class="btn btn-sm btn-secondary" onclick="buyPackage('30天考研深度伴学月卡', 499, 720)">立即预订</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Study Amenities -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                自习空间配套设施
+              </span>
+              <span class="card-sub">全自助智能管控</span>
+            </div>
+            <div class="amenities-grid">
+              <div class="amenity-chip" onclick="copyWifiInfo()">
+                <svg class="svg-icon" style="color:var(--color-blue);" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                <div>
+                  <div>千兆极速WiFi</div>
+                  <div style="font-size:9px;color:var(--color-text-muted);">点击复制密码</div>
+                </div>
+              </div>
+              <div class="amenity-chip" onclick="showToast('每个卡座均配备 220V 独享插座及双 USB 快充口')">
+                <svg class="svg-icon" style="color:var(--color-accent);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <div>
+                  <div>独享智能电源</div>
+                  <div style="font-size:9px;color:var(--color-text-muted);">220V/10A+USB</div>
+                </div>
+              </div>
+              <div class="amenity-chip" onclick="showToast('人体工学腰靠与高弹透气网椅，久坐不疲劳')">
+                <svg class="svg-icon" style="color:var(--color-status-free);" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
+                <div>
+                  <div>人体工学座椅</div>
+                  <div style="font-size:9px;color:var(--color-text-muted);">高弹透气护腰</div>
+                </div>
+              </div>
+              <div class="amenity-chip" onclick="showToast('茶水间免费提供现磨咖啡、花茶与微波炉加热')">
+                <svg class="svg-icon" style="color:var(--color-purple);" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>
+                <div>
+                  <div>静音茶水补给</div>
+                  <div style="font-size:9px;color:var(--color-text-muted);">现磨咖啡/直饮水</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 2: 平面选座 ================= -->
+        <section id="pane-seat" class="tab-pane section-box">
+          
+          <!-- Area Filters -->
+          <div class="filter-tabs-row" id="areaFilterRow">
+            <div class="filter-chip active" onclick="filterArea('全部', this)">全部区域 (24)</div>
+            <div class="filter-chip" onclick="filterArea('沉浸暗光区', this)">沉浸暗光区</div>
+            <div class="filter-chip" onclick="filterArea('阳光卡座区', this)">阳光卡座区</div>
+            <div class="filter-chip" onclick="filterArea('考研静音区', this)">考研静音区</div>
+            <div class="filter-chip" onclick="filterArea('独立电话间', this)">独立电话间</div>
+          </div>
+
+          <!-- Visual Floorplan Card -->
+          <div class="floorplan-box">
+            <div class="floorplan-header-legend">
+              <span style="font-weight:700;color:var(--color-text-title);">工位实时状态</span>
+              <div class="legend-group">
+                <div class="legend-item"><span class="legend-dot free"></span><span>空闲</span></div>
+                <div class="legend-item"><span class="legend-dot occupied"></span><span>使用中</span></div>
+                <div class="legend-item"><span class="legend-dot reserved"></span><span>已预约</span></div>
+                <div class="legend-item"><span class="legend-dot selected"></span><span>已选</span></div>
+              </div>
+            </div>
+
+            <!-- Door Entry Representation -->
+            <div class="floorplan-door-bar">
+              <svg class="svg-icon" style="width:12px;height:12px;margin-right:4px;" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+              <span>自习区门禁入口 · 静音软垫走廊</span>
+            </div>
+
+            <!-- Grid of 24 Seats -->
+            <div class="seat-grid-container" id="seatGridContainer">
+              <!-- Dynamically rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Bottom Seat Details / Reservation Drawer -->
+          <div class="seat-drawer" id="seatDetailDrawer" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <b style="font-size:16px;color:var(--color-primary);" id="drawerSeatCode">B-06</b>
+                  <span class="user-tag-badge" id="drawerSeatArea">沉浸暗光区</span>
+                </div>
+                <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;" id="drawerSeatFeatures">
+                  配备 220V独立电源 · 无极护眼台灯 · 静音隔音挡板
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <span style="font-size:17px;font-weight:800;color:var(--color-accent);" id="drawerSeatPrice">¥28.00</span>
+                <div style="font-size:10px;color:var(--color-text-muted);">预计抵扣 4.0 课时</div>
+              </div>
+            </div>
+
+            <!-- Hours Selection Buttons -->
+            <div style="display:flex;gap:6px;margin:10px 0;">
+              <button class="btn btn-sm btn-secondary flex-1" onclick="setBookingDuration(2, 15, this)">2小时</button>
+              <button class="btn btn-sm btn-outline-primary flex-1" onclick="setBookingDuration(4, 28, this)">4小时(推荐)</button>
+              <button class="btn btn-sm btn-secondary flex-1" onclick="setBookingDuration(8, 52, this)">8小时</button>
+              <button class="btn btn-sm btn-secondary flex-1" onclick="setBookingDuration(24, 68, this)">全天卡</button>
+            </div>
+
+            <button class="btn btn-primary btn-block" onclick="confirmSeatBooking()">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>立即确认选座并入座</span>
+            </button>
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 3: 正在自习中控台 ================= -->
+        <section id="pane-console" class="tab-pane section-box">
+          
+          <!-- Live Session Header Badge -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div class="session-status-badge">
+              <span class="pulse-dot"></span>
+              <span id="sessionStatusText">正在自习中 · 220V通电</span>
+            </div>
+            <button class="btn btn-sm btn-secondary" onclick="openModal('modalSwitchSeat')">
+              更换座位
+            </button>
+          </div>
+
+          <!-- Focus Countdown Dial Card -->
+          <div class="timer-card">
+            <div class="timer-seat-label" id="consoleSeatLabel">当前卡座: B-06 (沉浸暗光区)</div>
+            <div class="timer-digits" id="countdownDisplay">02:45:18</div>
+            <div class="timer-progress-track">
+              <div class="timer-progress-bar" id="countdownProgressBar"></div>
+            </div>
+            <div class="timer-meta-row">
+              <span>入座时间: <b id="sessionStartTime">10:15</b></span>
+              <span>计划离座: <b id="sessionEndTime">14:15</b></span>
+              <span>累计专注: <b>01h 45m</b></span>
+            </div>
+          </div>
+
+          <!-- Hardware Control Matrix (IoT Simulator) -->
+          <div class="control-grid">
+            
+            <!-- Power Control -->
+            <div class="control-btn-card" id="cardPowerControl" onclick="togglePower()">
+              <div class="control-icon-circle" style="background:var(--color-primary-light);color:var(--color-primary);" id="powerIconCircle">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div>
+                <div class="control-btn-title" id="powerStatusTitle">卡座电源: 供电中</div>
+                <div class="control-btn-sub" id="powerStatusSub">220V/10A 正常运行 · 点击断电</div>
+              </div>
+            </div>
+
+            <!-- Door Access Unlock -->
+            <div class="control-btn-card" onclick="triggerDoorOpen('自习区大门')">
+              <div class="control-icon-circle" style="background:var(--color-accent-light);color:var(--color-accent);">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+              </div>
+              <div>
+                <div class="control-btn-title">大门门禁开锁</div>
+                <div class="control-btn-sub">智能继电器联动 · 点击开门</div>
+              </div>
+            </div>
+
+            <!-- Temporary Leave -->
+            <div class="control-btn-card" id="cardTempLeave" onclick="toggleTempLeave()">
+              <div class="control-icon-circle" style="background:var(--color-blue-light);color:var(--color-blue);" id="tempLeaveIconCircle">
+                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="control-btn-title" id="tempLeaveTitle">临时离开 (保留30分)</div>
+                <div class="control-btn-sub" id="tempLeaveSub">锁定工位 · 电源低功耗待机</div>
+              </div>
+            </div>
+
+            <!-- Smart Locker -->
+            <div class="control-btn-card" onclick="openModal('modalLocker')">
+              <div class="control-icon-circle" style="background:var(--color-purple-light);color:var(--color-purple);">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M12 22V12"/></svg>
+              </div>
+              <div>
+                <div class="control-btn-title">我的储物柜 #16</div>
+                <div class="control-btn-sub">动态开箱码: 882091</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- White Noise & WiFi Bar -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                专注伴读白噪音
+              </span>
+              <span class="card-sub" id="whiteNoiseState">当前: 沉静森林雨</span>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline-primary flex-1" onclick="switchNoise('森林雨声', this)">森林雨声</button>
+              <button class="btn btn-sm btn-secondary flex-1" onclick="switchNoise('暖炉柴火', this)">暖炉柴火</button>
+              <button class="btn btn-sm btn-secondary flex-1" onclick="switchNoise('静音专注', this)">纯静音</button>
+            </div>
+          </div>
+
+          <!-- End Study Button -->
+          <button class="btn btn-secondary btn-block" style="border-color:var(--color-status-danger-border);color:var(--color-status-danger);margin-top:6px;" onclick="promptFinishStudy()">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>提前结束自习 · 退座并切断电源</span>
+          </button>
+
+        </section>
+
+        <!-- ================= TAB 4: 个人中心 ================= -->
+        <section id="pane-mine" class="tab-pane section-box">
+          
+          <!-- User Profile Card -->
+          <div class="user-profile-card">
+            <div class="user-avatar-circle">X</div>
+            <div class="user-info-meta">
+              <div class="user-name-line">
+                <span class="user-name">自律专注者 · XX同学</span>
+                <span class="user-tag-badge">金牌会员 Lv.3</span>
+              </div>
+              <div class="user-credit-line">
+                <svg class="svg-icon" style="width:13px;height:13px;color:var(--color-status-free);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>信用分: <b>790</b> (履约极好 · 享免押金免卡座等待)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Focus Stats 3-Col -->
+          <div class="focus-stats-row">
+            <div class="stat-card-item">
+              <div class="stat-num" id="statTodayHours">4.5h</div>
+              <div class="stat-label">今日专注</div>
+            </div>
+            <div class="stat-card-item">
+              <div class="stat-num">19天</div>
+              <div class="stat-label">本月打卡</div>
+            </div>
+            <div class="stat-card-item">
+              <div class="stat-num">168h</div>
+              <div class="stat-label">累计专注</div>
+            </div>
+          </div>
+
+          <!-- My Assets Card -->
+          <div class="card" style="padding:12px 14px;">
+            <div class="card-header">
+              <span class="card-title">我的自习资产</span>
+              <button class="btn btn-sm btn-outline-primary" onclick="openModal('modalCards')">充值/续费</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:6px;">
+              <div style="background:var(--color-bg-elevated);border-radius:var(--radius-md);padding:8px 4px;">
+                <b style="font-size:14px;color:var(--color-text-title);" id="userAssetHours">12.5 h</b>
+                <div style="font-size:10px;color:var(--color-text-secondary);margin-top:2px;">剩余时长</div>
+              </div>
+              <div style="background:var(--color-bg-elevated);border-radius:var(--radius-md);padding:8px 4px;">
+                <b style="font-size:14px;color:var(--color-text-title);" id="userAssetPasses">3 张</b>
+                <div style="font-size:10px;color:var(--color-text-secondary);margin-top:2px;">次卡抵扣券</div>
+              </div>
+              <div style="background:var(--color-bg-elevated);border-radius:var(--radius-md);padding:8px 4px;">
+                <b style="font-size:14px;color:var(--color-accent);">¥ 128.5</b>
+                <div style="font-size:10px;color:var(--color-text-secondary);margin-top:2px;">储值余额</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Orders and Service Menus -->
+          <div class="menu-group">
+            <div class="menu-item" onclick="openModal('modalOrders')">
+              <div class="menu-left">
+                <svg class="svg-icon" style="color:var(--color-blue);" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>我的预约订单明细</span>
+              </div>
+              <div class="menu-right">
+                <span>1笔进行中</span>
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <div class="menu-item" onclick="openModal('modalLocker')">
+              <div class="menu-left">
+                <svg class="svg-icon" style="color:var(--color-purple);" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M12 22V12"/></svg>
+                <span>专属智能储物柜分配</span>
+              </div>
+              <div class="menu-right">
+                <span>Locker #16</span>
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <div class="menu-item" onclick="copyWifiInfo()">
+              <div class="menu-left">
+                <svg class="svg-icon" style="color:var(--color-emerald);" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                <span>自习室高速专网配置</span>
+              </div>
+              <div class="menu-right">
+                <span>点击复制</span>
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <div class="menu-item" onclick="openModal('modalRules')">
+              <div class="menu-left">
+                <svg class="svg-icon" style="color:var(--color-accent);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>自习室文明守则与公约</span>
+              </div>
+              <div class="menu-right">
+                <span>已签署遵守</span>
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <div class="menu-item" onclick="openModal('modalFeedback')">
+              <div class="menu-left">
+                <svg class="svg-icon" style="color:var(--color-text-secondary);" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>保洁呼叫与设备报修</span>
+              </div>
+              <div class="menu-right">
+                <span>3分钟快速响应</span>
+                <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- WeChat Bottom Tab Bar -->
+      <nav class="mp-tab-bar">
+        <div class="tab-item active" id="tabNav-home" onclick="switchTab('home')">
+          <div class="tab-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <span class="tab-label">自习大厅</span>
+        </div>
+
+        <div class="tab-item" id="tabNav-seat" onclick="switchTab('seat')">
+          <div class="tab-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <span class="tab-label">平面选座</span>
+        </div>
+
+        <div class="tab-item" id="tabNav-console" onclick="switchTab('console')">
+          <div class="tab-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span class="tab-label">正在自习</span>
+        </div>
+
+        <div class="tab-item" id="tabNav-mine" onclick="switchTab('mine')">
+          <div class="tab-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="tab-label">个人中心</span>
+        </div>
+      </nav>
+
+      <!-- Global Toast Container -->
+      <div class="toast-container" id="globalToast">
+        <svg class="svg-icon" style="width:14px;height:14px;color:var(--color-green-glow);" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="toastMessage">操作成功</span>
+      </div>
+
+      <!-- ================= MODALS ================= -->
+
+      <!-- Modal 1: Door Access Opening Simulator -->
+      <div class="modal-overlay" id="modalDoorUnlock">
+        <div class="modal-sheet" style="text-align:center;">
+          <div style="width:54px;height:54px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);margin:0 auto 12px auto;display:flex;align-items:center;justify-content:center;">
+            <svg class="svg-icon" style="width:28px;height:28px;" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+          </div>
+          <div class="modal-title" style="justify-content:center;" id="doorModalTitle">门禁继电器响应中</div>
+          <div class="modal-body" id="doorModalBody">
+            正在与自习室门禁无线主板建立安全加密连接...
+          </div>
+          <div style="margin-top:16px;">
+            <button class="btn btn-primary btn-block" onclick="closeModal('modalDoorUnlock')">我知道了</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 2: Smart Locker Details -->
+      <div class="modal-overlay" id="modalLocker">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalLocker')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M12 22V12"/></svg>
+            <span>智能储物柜取件凭证</span>
+          </div>
+          <div class="modal-body">
+            <div style="background:var(--color-bg-elevated);border-radius:var(--radius-lg);padding:14px;text-align:center;margin-bottom:12px;">
+              <div style="font-size:12px;color:var(--color-text-secondary);">分配柜号</div>
+              <div style="font-size:24px;font-weight:900;color:var(--color-primary);margin:4px 0;">Locker #16</div>
+              <div style="font-size:11px;color:var(--color-text-muted);">位于前台服务区右侧储物区</div>
+            </div>
+
+            <div style="background:var(--color-accent-light);border:1px dashed var(--color-accent);border-radius:var(--radius-md);padding:10px;text-align:center;margin-bottom:14px;">
+              <div style="font-size:11px;color:var(--color-accent-badge-text);">动态开箱密码 (每60秒自动刷新)</div>
+              <div style="font-size:26px;font-weight:900;color:var(--color-accent-dark);letter-spacing:4px;margin:4px 0;" id="lockerCodeVal">882091</div>
+              <div style="font-size:10px;color:var(--color-accent-badge-text);">请在柜机小键盘输入密码或点击下方直接开箱</div>
+            </div>
+
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-secondary flex-1" onclick="refreshLockerCode()">刷新动态码</button>
+              <button class="btn btn-primary flex-1" onclick="remotePopLocker()">远程弹开柜门</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 3: Study Rules / Policy -->
+      <div class="modal-overlay" id="modalRules">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalRules')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>自习室沉浸空间守则</span>
+          </div>
+          <div class="modal-body" style="font-size:12px;display:flex;flex-direction:column;gap:8px;">
+            <p><b>1. 静音规范：</b>全室请将手机保持静音或振动；接打电话请移步独立电话间。</p>
+            <p><b>2. 键盘鼠标：</b>暗光沉浸区严禁青轴等机械发声键盘，如需打字请移步阳光卡座区。</p>
+            <p><b>3. 离开保留：</b>如需就餐或短暂离开，请在中控台开启“临时离开保留”，单次最长保留30分钟。</p>
+            <p><b>4. 电源自控：</b>结束自习离店前，请点击“结束自习”，系统将自动断电并释放工位。</p>
+            <button class="btn btn-primary btn-block" style="margin-top:10px;" onclick="closeModal('modalRules')">我已充分阅读并遵守</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 4: Study Completion Report (战报) -->
+      <div class="modal-overlay" id="modalReport">
+        <div class="modal-sheet" style="text-align:center;">
+          <div style="width:50px;height:50px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);margin:0 auto 10px auto;display:flex;align-items:center;justify-content:center;">
+            <svg class="svg-icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          </div>
+          <div class="modal-title" style="justify-content:center;">自习专注战报总结</div>
+          <div class="modal-body">
+            <div style="background:var(--color-bg-elevated);border-radius:var(--radius-lg);padding:14px;margin-bottom:12px;">
+              <div style="font-size:11px;color:var(--color-text-secondary);">本次专注学习时长</div>
+              <div style="font-size:28px;font-weight:900;color:var(--color-primary);margin:4px 0;" id="reportDuration">02h 45m</div>
+              <div style="font-size:11px;color:var(--color-accent);font-weight:700;">超越了全店 92% 的自律研友！</div>
+            </div>
+            <div style="display:flex;justify-content:space-around;font-size:11px;color:var(--color-text-secondary);margin-bottom:14px;">
+              <div>消耗课时: <b>4.0 h</b></div>
+              <div>获得积分: <b>+28 积分</b></div>
+              <div>工位电源: <b>已安全断电</b></div>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="finishReportAndGoHome()">返回大厅</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 5: Order Records -->
+      <div class="modal-overlay" id="modalOrders">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalOrders')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>自习预约订单记录</span>
+          </div>
+          <div class="modal-body">
+            
+            <div class="card" style="margin-bottom:8px;border-left:3px solid var(--color-primary);">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <b style="font-size:13px;">B-06 沉浸暗光卡座 (4小时)</b>
+                <span class="user-tag-badge" style="background:var(--color-emerald-light);color:var(--color-emerald);border-color:var(--color-emerald-border);">进行中</span>
+              </div>
+              <div style="font-size:11px;color:var(--color-text-secondary);">单号: ORD-20260903-8812 · 消费: ¥28.00</div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">预约时段: 10:15 - 14:15 · 独立插座已通电</div>
+            </div>
+
+            <div class="card" style="margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <b style="font-size:13px;">A-02 阳光卡座区 (2小时)</b>
+                <span class="user-tag-badge" style="background:var(--color-bg-elevated);color:var(--color-text-secondary);border-color:var(--color-border);">已完结</span>
+              </div>
+              <div style="font-size:11px;color:var(--color-text-secondary);">单号: ORD-20260902-1409 · 消费: ¥15.00</div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">昨天 14:00 - 16:00 · 专注时长 2.0h</div>
+            </div>
+
+            <div class="card" style="margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <b style="font-size:13px;">全天通宵畅学卡 (24H)</b>
+                <span class="user-tag-badge" style="background:var(--color-bg-elevated);color:var(--color-text-secondary);border-color:var(--color-border);">已完结</span>
+              </div>
+              <div style="font-size:11px;color:var(--color-text-secondary);">单号: ORD-20260828-9931 · 消费: ¥59.00</div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">08月28日 · 跨夜专注打卡成功</div>
+            </div>
+
+            <button class="btn btn-secondary btn-block" style="margin-top:8px;" onclick="closeModal('modalOrders')">关闭</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 6: Card Packages Management -->
+      <div class="modal-overlay" id="modalCards">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalCards')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>我的自习卡包与充值</span>
+          </div>
+          <div class="modal-body">
+            <div style="background:linear-gradient(135deg,var(--color-bg-host-btn),var(--color-bg-host));color:var(--color-text-white);border-radius:var(--radius-lg);padding:14px;margin-bottom:12px;">
+              <div style="font-size:11px;opacity:0.8;">自习专属储值账户</div>
+              <div style="font-size:22px;font-weight:900;margin:4px 0;">¥ 128.50</div>
+              <div style="font-size:10px;opacity:0.7;">当前时长余额: 12.5 小时 · 次卡: 3张</div>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <button class="btn btn-primary flex-1" onclick="addMockBalance(50)">模拟充值 ¥50</button>
+              <button class="btn btn-accent flex-1" onclick="addMockBalance(100)">模拟充值 ¥100</button>
+            </div>
+
+            <button class="btn btn-secondary btn-block" onclick="closeModal('modalCards')">返回</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 7: Store Details -->
+      <div class="modal-overlay" id="modalStoreDetails">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalStoreDetails')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>门店实况与到店指引</span>
+          </div>
+          <div class="modal-body" style="font-size:12px;line-height:1.7;">
+            <p><b>门店全称：</b>XX自习室 · XX旗舰店</p>
+            <p><b>营业时间：</b>00:00 - 24:00 (全年无休 · 智能门禁随时通行)</p>
+            <p><b>门店地址：</b>XX市XX区XX南路XX号XX大厦X层XXX室</p>
+            <p><b>交通指引：</b>地铁X号线 / X号线【XX站】X出口，步行200米即达。</p>
+            <p><b>前台客服电话：</b>0XX-XXXXXXXX</p>
+            <div style="display:flex;gap:8px;margin-top:14px;">
+              <button class="btn btn-outline-primary flex-1" onclick="showToast('已复制门店详细导航路线')">复制路线</button>
+              <button class="btn btn-primary flex-1" onclick="showToast('正在模拟拨打自习室前台: 0XX-XXXXXXXX')">模拟呼叫</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 8: Clean & Repair Feedback -->
+      <div class="modal-overlay" id="modalFeedback">
+        <div class="modal-sheet">
+          <button class="modal-close-btn" onclick="closeModal('modalFeedback')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="modal-title">
+            <svg class="svg-icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>服务呼叫与设备报修</span>
+          </div>
+          <div class="modal-body">
+            <div style="margin-bottom:10px;">
+              <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);display:block;margin-bottom:4px;">服务类型</label>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-sm btn-outline-primary flex-1" onclick="selectFeedbackType(this)">呼叫桌面保洁</button>
+                <button class="btn btn-sm btn-secondary flex-1" onclick="selectFeedbackType(this)">插座/台灯报修</button>
+                <button class="btn btn-sm btn-secondary flex-1" onclick="selectFeedbackType(this)">环境噪音提醒</button>
+              </div>
+            </div>
+            <label for="feedbackDesc" style="font-size:11px;font-weight:700;color:var(--color-text-secondary);display:block;margin-bottom:4px;">详情描述</label>
+            <textarea id="feedbackDesc" name="feedbackDesc" style="width:100%;height:70px;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:8px;font-size:12px;resize:none;margin-bottom:10px;font-family:inherit;" placeholder="请简单描述情况，值班管家将在3分钟内为您处理..."></textarea>
+            <button class="btn btn-primary btn-block" onclick="submitFeedback()">提交并通知值班管家</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal 9: About Capsule -->
+      <div class="modal-overlay" id="modalAbout">
+        <div class="modal-sheet" style="text-align:center;">
+          <button class="modal-close-btn" onclick="closeModal('modalAbout')">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--color-primary);color:var(--color-text-white);margin:0 auto 10px auto;display:flex;align-items:center;justify-content:center;">
+            <svg class="svg-icon" style="width:24px;height:24px;" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+          </div>
+          <div class="modal-title" style="justify-content:center;">XX自习室小程序</div>
+          <div class="modal-body" style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;">
+            <p>微信小程序仿真演示系统 v2.4</p>
+            <p>严格对标【行业商业标准】行业标杆工业级标准</p>
+            <p>100% 零 Emoji · 全矢量 SVG · 纯原生前端</p>
+            <div style="margin-top:14px;">
+              <button class="btn btn-primary btn-block" onclick="closeModal('modalAbout')">继续体验</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- JavaScript Logic & State Machine -->
+  <script>
+    // State Store
+    const AppState = {
+      activeTab: 'home',
+      currentFilterArea: '全部',
+      selectedSeat: null,
+      selectedDuration: 4,
+      selectedPrice: 28,
+      
+      // Active Session State (Console)
+      session: {
+        isActive: true,
+        seatCode: 'B-06',
+        seatArea: '沉浸暗光区',
+        seatDesc: '配备 220V独立电源 · 无极调光台灯 · 静音隔板',
+        startTime: '10:15',
+        endTime: '14:15',
+        totalSeconds: 4 * 3600,
+        remainingSeconds: 2 * 3600 + 45 * 60 + 18, // 02:45:18
+        isPowered: true,
+        isTempLeave: false,
+        tempLeaveSeconds: 30 * 60, // 30 min
+        lockerCode: '882091'
+      },
+
+      // User Assets
+      user: {
+        balanceHours: 12.5,
+        passesCount: 3,
+        cashBalance: 128.5
+      },
+
+      // 24 Seats mock data
+      seats: [
+        { id: 1, code: 'A-01', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
+        { id: 2, code: 'A-02', area: '沉浸暗光区', status: 'occupied', socket: true, lamp: true },
+        { id: 3, code: 'A-03', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
+        { id: 4, code: 'A-04', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
+        { id: 5, code: 'A-05', area: '沉浸暗光区', status: 'reserved', socket: true, lamp: true },
+        { id: 6, code: 'A-06', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
+        { id: 7, code: 'A-07', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
+        { id: 8, code: 'A-08', area: '沉浸暗光区', status: 'occupied', socket: true, lamp: true },
+        
+        { id: 9, code: 'B-01', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
+        { id: 10, code: 'B-02', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
+        { id: 11, code: 'B-03', area: '阳光卡座区', status: 'occupied', socket: true, lamp: true },
+        { id: 12, code: 'B-04', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
+        { id: 13, code: 'B-05', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
+        { id: 14, code: 'B-06', area: '阳光卡座区', status: 'occupied', socket: true, lamp: true }, // Current Session
+        { id: 15, code: 'B-07', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
+        { id: 16, code: 'B-08', area: '阳光卡座区', status: 'reserved', socket: true, lamp: true },
+
+        { id: 17, code: 'C-01', area: '考研静音区', status: 'idle', socket: true, lamp: true },
+        { id: 18, code: 'C-02', area: '考研静音区', status: 'idle', socket: true, lamp: true },
+        { id: 19, code: 'C-03', area: '考研静音区', status: 'occupied', socket: true, lamp: true },
+        { id: 20, code: 'C-04', area: '考研静音区', status: 'idle', socket: true, lamp: true },
+        { id: 21, code: 'C-05', area: '考研静音区', status: 'idle', socket: true, lamp: true },
+        { id: 22, code: 'C-06', area: '考研静音区', status: 'reserved', socket: true, lamp: true },
+
+        { id: 23, code: 'D-01', area: '独立电话间', status: 'idle', socket: true, lamp: true },
+        { id: 24, code: 'D-02', area: '独立电话间', status: 'idle', socket: true, lamp: true }
+      ]
+    };
+
+    // Tab Switcher
+    function switchTab(tabId) {
+      AppState.activeTab = tabId;
+
+      // Update Nav Buttons
+      document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+      const activeNav = document.getElementById('tabNav-' + tabId);
+      if (activeNav) activeNav.classList.add('active');
+
+      // Update Panes
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      const activePane = document.getElementById('pane-' + tabId);
+      if (activePane) activePane.classList.add('active');
+
+      // Update Header Title
+      const titles = {
+        home: '自习大厅',
+        seat: '平面选座',
+        console: '正在自习中控台',
+        mine: '个人中心'
+      };
+      document.getElementById('pageTitle').textContent = titles[tabId] || '自习空间';
+
+      // Scroll top
+      document.getElementById('mpContent').scrollTop = 0;
+
+      // Refresh Floorplan when tab is seat
+      if (tabId === 'seat') {
+        renderSeatGrid();
+      }
+    }
+
+    // Render Seat Grid
+    function renderSeatGrid() {
+      const container = document.getElementById('seatGridContainer');
+      container.innerHTML = '';
+
+      const filtered = AppState.currentFilterArea === '全部' 
+        ? AppState.seats 
+        : AppState.seats.filter(s => s.area === AppState.currentFilterArea);
+
+      filtered.forEach(seat => {
+        const cell = document.createElement('div');
+        cell.className = 'seat-cell ' + seat.status;
+        if (AppState.selectedSeat && AppState.selectedSeat.id === seat.id) {
+          cell.classList.add('selected');
+        }
+
+        cell.onclick = () => onSelectSeat(seat);
+
+        // Status text
+        const statusMap = {
+          idle: '空闲',
+          occupied: '在座',
+          reserved: '已约'
+        };
+
+        cell.innerHTML = `
+          <div class="seat-code">${seat.code}</div>
+          <div class="seat-sub">${statusMap[seat.status] || ''}</div>
+          <div class="seat-amenities-icons">
+            <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>
+          </div>
+        `;
+        container.appendChild(cell);
+      });
+    }
+
+    // Filter Area
+    function filterArea(areaName, chipElement) {
+      AppState.currentFilterArea = areaName;
+      document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+      chipElement.classList.add('active');
+      renderSeatGrid();
+    }
+
+    // Seat Click Action
+    function onSelectSeat(seat) {
+      if (seat.status === 'occupied') {
+        showToast('工位 ' + seat.code + ' 正在自习中，请选择绿色空闲工位');
+        return;
+      }
+      if (seat.status === 'reserved') {
+        showToast('工位 ' + seat.code + ' 已被他人预约，请选择其他工位');
+        return;
+      }
+
+      AppState.selectedSeat = seat;
+      renderSeatGrid();
+
+      // Show bottom drawer
+      const drawer = document.getElementById('seatDetailDrawer');
+      drawer.style.display = 'block';
+      document.getElementById('drawerSeatCode').textContent = seat.code;
+      document.getElementById('drawerSeatArea').textContent = seat.area;
+      document.getElementById('drawerSeatPrice').textContent = '¥' + AppState.selectedPrice.toFixed(2);
+      
+      // Auto scroll down to drawer
+      drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Booking Duration Changer
+    function setBookingDuration(hours, price, btn) {
+      AppState.selectedDuration = hours;
+      AppState.selectedPrice = price;
+      
+      btn.parentElement.querySelectorAll('button').forEach(b => {
+        b.className = 'btn btn-sm btn-secondary flex-1';
+      });
+      btn.className = 'btn btn-sm btn-outline-primary flex-1';
+
+      document.getElementById('drawerSeatPrice').textContent = '¥' + price.toFixed(2);
+    }
+
+    // Confirm Booking
+    function confirmSeatBooking() {
+      if (!AppState.selectedSeat) return;
+
+      const seat = AppState.selectedSeat;
+      seat.status = 'occupied';
+
+      // Update session state
+      AppState.session.seatCode = seat.code;
+      AppState.session.seatArea = seat.area;
+      AppState.session.remainingSeconds = AppState.selectedDuration * 3600;
+      AppState.session.totalSeconds = AppState.selectedDuration * 3600;
+      AppState.session.isPowered = true;
+      AppState.session.isTempLeave = false;
+
+      // Deduct mock asset
+      AppState.user.balanceHours = Math.max(0, AppState.user.balanceHours - AppState.selectedDuration);
+      document.getElementById('userAssetHours').textContent = AppState.user.balanceHours.toFixed(1) + ' h';
+
+      // Hide Drawer
+      document.getElementById('seatDetailDrawer').style.display = 'none';
+
+      showToast('选座成功！已为您点亮并连通 ' + seat.code + ' 独享电源');
+
+      // Update Console labels
+      document.getElementById('consoleSeatLabel').textContent = '当前卡座: ' + seat.code + ' (' + seat.area + ')';
+
+      // Jump to console tab
+      setTimeout(() => {
+        switchTab('console');
+      }, 500);
+    }
+
+    // Toast Function
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('globalToast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.add('show');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    // Modal Handlers
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('active');
+    }
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('active');
+    }
+
+    // IoT Control: Power Toggle
+    function togglePower() {
+      AppState.session.isPowered = !AppState.session.isPowered;
+      const isPowered = AppState.session.isPowered;
+      
+      const title = document.getElementById('powerStatusTitle');
+      const sub = document.getElementById('powerStatusSub');
+      const iconWrap = document.getElementById('powerIconCircle');
+      const sessionBadge = document.getElementById('sessionStatusText');
+
+      if (isPowered) {
+        title.textContent = '卡座电源: 供电中';
+        sub.textContent = '220V/10A 正常运行 · 点击断电';
+        iconWrap.style.background = 'var(--color-primary-light)';
+        iconWrap.style.color = 'var(--color-primary)';
+        sessionBadge.textContent = '正在自习中 · 220V通电';
+        showToast('继电器闭合，卡座 220V 电源已开启通电');
+      } else {
+        title.textContent = '卡座电源: 已断电';
+        sub.textContent = '插座已安全切断 · 点击通电';
+        iconWrap.style.background = 'var(--color-status-danger-bg)';
+        iconWrap.style.color = 'var(--color-status-danger)';
+        sessionBadge.textContent = '正在自习中 · 电源切断';
+        showToast('插座已切断供电，符合自习安全低碳规范');
+      }
+    }
+
+    // IoT Control: Door Open Simulator
+    function triggerDoorOpen(doorName) {
+      openModal('modalDoorUnlock');
+      document.getElementById('doorModalTitle').textContent = '智能门禁开锁中...';
+      document.getElementById('doorModalBody').textContent = '正在向【' + doorName + '】智能门禁下发无线开锁加密指令...';
+
+      setTimeout(() => {
+        document.getElementById('doorModalTitle').textContent = '门禁已开启，请通行！';
+        document.getElementById('doorModalBody').textContent = '门磁已吸合解锁，有效开门时间 10 秒，随手关门保持室内静音。';
+      }, 1000);
+    }
+
+    // IoT Control: Temporary Leave Toggle
+    function toggleTempLeave() {
+      AppState.session.isTempLeave = !AppState.session.isTempLeave;
+      const isLeave = AppState.session.isTempLeave;
+
+      const title = document.getElementById('tempLeaveTitle');
+      const sub = document.getElementById('tempLeaveSub');
+      const iconWrap = document.getElementById('tempLeaveIconCircle');
+
+      if (isLeave) {
+        title.textContent = '离开保留中 (30:00)';
+        sub.textContent = '工位保留中 · 点击恢复在座';
+        iconWrap.style.background = 'var(--color-accent-light)';
+        iconWrap.style.color = 'var(--color-accent)';
+        showToast('已进入临时离开模式，卡座为您保留30分钟');
+      } else {
+        title.textContent = '临时离开 (保留30分)';
+        sub.textContent = '锁定工位 · 电源低功耗待机';
+        iconWrap.style.background = 'var(--color-blue-light)';
+        iconWrap.style.color = 'var(--color-blue)';
+        showToast('欢迎归座！已恢复正常专注模式');
+      }
+    }
+
+    // End Study & Finish Session
+    function promptFinishStudy() {
+      if (confirm('确认提前结束自习并退座吗？系统将自动断开卡座电源并结算课时。')) {
+        AppState.session.isPowered = false;
+        togglePower();
+        
+        // Show Report Modal
+        openModal('modalReport');
+      }
+    }
+
+    function finishReportAndGoHome() {
+      closeModal('modalReport');
+      switchTab('home');
+      showToast('本次自习已完结结算，期待下次与您相遇！');
+    }
+
+    // Package Purchase Simulator
+    function buyPackage(pkgName, price, hours) {
+      AppState.user.balanceHours += hours;
+      document.getElementById('userAssetHours').textContent = AppState.user.balanceHours.toFixed(1) + ' h';
+      showToast('开卡成功！已充入 ' + hours + ' 课时 (' + pkgName + ')');
+    }
+
+    function addMockBalance(amount) {
+      AppState.user.cashBalance += amount;
+      showToast('充值成功！储值卡到账 ¥' + amount);
+      closeModal('modalCards');
+    }
+
+    // White Noise Selector
+    function switchNoise(name, btn) {
+      btn.parentElement.querySelectorAll('button').forEach(b => {
+        b.className = 'btn btn-sm btn-secondary flex-1';
+      });
+      btn.className = 'btn btn-sm btn-outline-primary flex-1';
+      document.getElementById('whiteNoiseState').textContent = '当前: ' + name;
+      showToast('已切换至【' + name + '】环境白噪音');
+    }
+
+    // WiFi Copy
+    function copyWifiInfo() {
+      showToast('Wi-Fi: XX_Study_5G | 密码 study2026 已复制到剪贴板');
+    }
+
+    // Locker Code Refresh
+    function refreshLockerCode() {
+      const newCode = Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('lockerCodeVal').textContent = newCode;
+      showToast('动态开箱码已更新: ' + newCode);
+    }
+    function remotePopLocker() {
+      showToast('已远程触发智能柜 Locker #16 自动弹开！');
+      closeModal('modalLocker');
+    }
+
+    // Service Feedback
+    function selectFeedbackType(btn) {
+      btn.parentElement.querySelectorAll('button').forEach(b => {
+        b.className = 'btn btn-sm btn-secondary flex-1';
+      });
+      btn.className = 'btn btn-sm btn-outline-primary flex-1';
+    }
+    function submitFeedback() {
+      showToast('服务需求已派发至值班管家微信，将在3分钟内到达处理！');
+      closeModal('modalFeedback');
+    }
+
+    // Reset Data
+    function resetAllData() {
+      AppState.session.remainingSeconds = 2 * 3600 + 45 * 60 + 18;
+      AppState.session.isPowered = true;
+      AppState.session.isTempLeave = false;
+      AppState.user.balanceHours = 12.5;
+      AppState.user.passesCount = 3;
+      AppState.user.cashBalance = 128.5;
+      
+      document.getElementById('userAssetHours').textContent = '12.5 h';
+      document.getElementById('countdownProgressBar').style.width = '68%';
+      showToast('演示状态与数据已重置到初始状态');
+      switchTab('home');
+    }
+
+    // Clock and Timer Ticking Engine
+    function startTimerEngine() {
+      setInterval(() => {
+        // System Clock
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('liveClock').textContent = `${hrs}:${mins}`;
+
+        // Focus Session Countdown
+        if (AppState.session.isActive) {
+          if (AppState.session.isTempLeave) {
+            // Temporary Leave Countdown
+            if (AppState.session.tempLeaveSeconds > 0) {
+              AppState.session.tempLeaveSeconds--;
+              const m = Math.floor(AppState.session.tempLeaveSeconds / 60);
+              const s = AppState.session.tempLeaveSeconds % 60;
+              document.getElementById('tempLeaveTitle').textContent = `离开保留中 (${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')})`;
+            } else {
+              // Temp leave expired
+              AppState.session.isTempLeave = false;
+              toggleTempLeave();
+            }
+          } else {
+            // Regular countdown
+            if (AppState.session.remainingSeconds > 0) {
+              AppState.session.remainingSeconds--;
+              const h = Math.floor(AppState.session.remainingSeconds / 3600);
+              const m = Math.floor((AppState.session.remainingSeconds % 3600) / 60);
+              const s = AppState.session.remainingSeconds % 60;
+              
+              const hStr = String(h).padStart(2, '0');
+              const mStr = String(m).padStart(2, '0');
+              const sStr = String(s).padStart(2, '0');
+              
+              document.getElementById('countdownDisplay').textContent = `${hStr}:${mStr}:${sStr}`;
+
+              // Progress Bar
+              const pct = (AppState.session.remainingSeconds / AppState.session.totalSeconds) * 100;
+              document.getElementById('countdownProgressBar').style.width = `${Math.max(5, pct)}%`;
+            }
+          }
+        }
+      }, 1000);
+    }
+
+    // Initialize on DOM Ready
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSeatGrid();
+      startTimerEngine();
+    });
+  </script>
+</body>
+</html>

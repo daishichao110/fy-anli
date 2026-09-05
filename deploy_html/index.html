@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>热门场景商业级案例大厅 - 独立高保真系统展示</title>
+  <style>
+    :root {
+      --bg-body: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-card: #E2E8F0;
+      --border-hover: #6366F1;
+      
+      --text-main: #0F172A;
+      --text-body: #334155;
+      --text-muted: #64748B;
+      --text-subtle: #94A3B8;
+      
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --primary-light: #EEF2FF;
+      
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
+      --shadow-hover: 0 12px 24px -4px rgba(79, 70, 229, 0.12);
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-body);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Hero Header Area (Light Modern) */
+    .hero-section {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-card);
+      padding: 38px 24px 28px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid rgba(79, 70, 229, 0.2);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* Search & Category Filter Section */
+    .filter-container {
+      max-width: 1240px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    /* Primary Level Category Tabs (小程序 vs 网站) */
+    .primary-tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .primary-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-card);
+      background: #FFFFFF;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .primary-tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .primary-tab-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .count-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.25);
+      color: inherit;
+    }
+
+    .primary-tab-btn:not(.active) .count-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .primary-tab-btn:not(.active) .count-empty {
+      background: #F1F5F9;
+      color: #64748B;
+    }
+
+    /* Search Bar */
+    .search-bar-wrapper {
+      max-width: 520px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 11px 20px 11px 42px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-card);
+      background: #FFFFFF;
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-weight: 500;
+      outline: none;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* Secondary Category Filter Tabs (小程序二级分类) */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      padding: 6px 15px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-card);
+      background: #FFFFFF;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+    }
+
+    /* Main Grid Layout */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Scenario Card Component */
+    .scenario-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .scenario-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .cat-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    
+    .badge-indigo { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; }
+    .badge-emerald { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+    .badge-amber { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+    .badge-sky { background: #F0F9FF; color: #0284C7; border: 1px solid #BAE6FD; }
+    .badge-purple { background: #FAF5FF; color: #9333EA; border: 1px solid #E9D5FF; }
+    .badge-rose { background: #FFF1F2; color: #E11D48; border: 1px solid #FECDD3; }
+
+    .card-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-subtle);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .card-footer-info {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-subtle);
+      margin-bottom: 12px;
+    }
+
+    .open-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      color: var(--primary);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid #E2E8F0;
+    }
+
+    .open-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    /* Empty States */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      background: #FFFFFF;
+      border: 1.5px dashed var(--border-card);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      display: none;
+    }
+
+    /* Website Empty Panel Styling */
+    .website-empty-container {
+      max-width: 860px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+    }
+
+    .website-empty-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 50px 30px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .empty-icon-box {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .empty-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .empty-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+
+    .empty-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .tag-item {
+      padding: 5px 14px;
+      background: #F1F5F9;
+      color: #475569;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .empty-status-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #EEF2FF;
+      color: #4F46E5;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 9999px;
+      border: 1px dashed rgba(79, 70, 229, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero-section">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      独立商业级系统案例大厅
+    </div>
+    <h1 class="hero-title">高保真商业解决方案体验馆</h1>
+    <p class="hero-subtitle">全面覆盖无人自助、美业健康、宠物经济、上门服务、亲子教育、定制零售与企业服务全场景</p>
+  </header>
+
+  <!-- Filter & Tab Navigation Area -->
+  <section class="filter-container">
+    
+    <!-- Primary Level Tabs (一级分类: 小程序 vs 网站) -->
+    <div class="primary-tabs-wrapper">
+      <button class="primary-tab-btn active" id="pTabMini" onclick="switchPrimaryTab('miniprogram', this)">
+        <span class="tab-icon">📱</span>
+        <span>小程序商业案例</span>
+        <span class="count-badge">29</span>
+      </button>
+      <button class="primary-tab-btn" id="pTabWeb" onclick="switchPrimaryTab('website', this)">
+        <span class="tab-icon">🌐</span>
+        <span>网站与SaaS系统</span>
+        <span class="count-badge count-empty">待更新</span>
+      </button>
+    </div>
+
+    <!-- Search Input Bar -->
+    <div class="search-bar-wrapper" id="searchBarWrapper">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="输入关键字检索案例（如：洗车、茶室、美发、寄养...）" oninput="handleFilter()">
+    </div>
+
+    <!-- Secondary Category Filter Tabs (小程序二级分类) -->
+    <div class="category-tabs" id="subCatBar">
+      <button class="tab-btn active" onclick="filterCategory('all', this)">全部 (29)</button>
+      <button class="tab-btn" onclick="filterCategory('无人自助与设备', this)">无人自助</button>
+      <button class="tab-btn" onclick="filterCategory('美业与大健康', this)">美业健康</button>
+      <button class="tab-btn" onclick="filterCategory('宠物经济与养宠', this)">宠物经济</button>
+      <button class="tab-btn" onclick="filterCategory('上门服务与本地生活', this)">上门服务</button>
+      <button class="tab-btn" onclick="filterCategory('兴趣教育与亲子成长', this)">亲子教育</button>
+      <button class="tab-btn" onclick="filterCategory('定制零售与特色', this)">定制零售</button>
+      <button class="tab-btn" onclick="filterCategory('企业服务与工具', this)">企业服务</button>
+    </div>
+  </section>
+
+  <!-- Scenario Cards Grid (Mini Programs Container) -->
+  <main class="grid-layout" id="scenarioGrid">
+    <div class="scenario-card" data-title="自助洗车吧" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#01</span>
+        </div>
+        <h3 class="card-title">自助洗车吧</h3>
+        <p class="card-desc">全屏 LBS 洗车工位地图定位、扫码出水/泡沫/水蜡、工位水电低液实时预警大盘！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="01-car-wash.html" class="open-btn">📱 打开【自助洗车吧】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="自助共享台球厅" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#02</span>
+        </div>
+        <h3 class="card-title">自助共享台球厅</h3>
+        <p class="card-desc">12张台球桌矩阵灯控控电、扫码开台加时、助教陪练接单派单！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="02-billiards-pingpong.html" class="open-btn">📱 打开【自助共享台球厅】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="共享自习室" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#03</span>
+        </div>
+        <h3 class="card-title">共享自习室</h3>
+        <p class="card-desc">沉浸式平面图选座、防霸座计时签到、沉浸式学霸打卡排行榜！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="03-study-room.html" class="open-btn">📱 打开【共享自习室】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="智能共享茶室" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#04</span>
+        </div>
+        <h3 class="card-title">智能共享茶室</h3>
+        <p class="card-desc">商务私密包厢在线预订、动态开门码、保洁师傅一键抢单清场！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="05-smart-tea-room.html" class="open-btn">📱 打开【智能共享茶室】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="24小时自助健身房" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#05</span>
+        </div>
+        <h3 class="card-title">24小时自助健身房</h3>
+        <p class="card-desc">按月订阅零门槛、动态二维码入场、场馆实时拥挤度仪表盘！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="06-24h-gym.html" class="open-btn">📱 打开【24小时自助健身房】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="汉服礼服租赁工坊" data-cat="无人自助与设备">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-indigo">无人自助与设备</span>
+          <span class="card-num">#06</span>
+        </div>
+        <h3 class="card-title">汉服礼服租赁工坊</h3>
+        <p class="card-desc">服装 SKU 尺码管理、在线锁定使用档期、干洗消毒工单跟踪！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="10-costume-rental.html" class="open-btn">📱 打开【汉服礼服租赁工坊】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="美甲美睫工作室" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#07</span>
+        </div>
+        <h3 class="card-title">美甲美睫工作室</h3>
+        <p class="card-desc">法式猫眼款式画廊、资深美甲师排班看板、定金锁档期防爽约！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="11-nail-eyelash-salon.html" class="open-btn">📱 打开【美甲美睫工作室】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="BarberShop理发店" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#08</span>
+        </div>
+        <h3 class="card-title">BarberShop理发店</h3>
+        <p class="card-desc">发型试戴选款、发型师作品集、到店精准时间段预约不排队！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="12-barbershop.html" class="open-btn">📱 打开【BarberShop理发店】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="私立齿科诊所" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#09</span>
+        </div>
+        <h3 class="card-title">私立齿科诊所</h3>
+        <p class="card-desc">正畸种植医生档期预约、电子病历 EMR 归档、智能复诊日历提醒！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="13-dental-clinic.html" class="open-btn">📱 打开【私立齿科诊所】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="产后康复与小儿推拿" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#10</span>
+        </div>
+        <h3 class="card-title">产后康复与小儿推拿</h3>
+        <p class="card-desc">宝妈健康成长档案、专属调理师预约、疗程卡消课透明展示！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="14-postpartum-pediatric-massage.html" class="open-btn">📱 打开【产后康复与小儿推拿】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="轻医美皮肤管理" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#11</span>
+        </div>
+        <h3 class="card-title">轻医美皮肤管理</h3>
+        <p class="card-desc">项目防伪验真码、皮肤检测对比报告、术后注意事项智能关怀！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="15-skin-management.html" class="open-btn">📱 打开【轻医美皮肤管理】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="心理咨询工作室" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#12</span>
+        </div>
+        <h3 class="card-title">心理咨询工作室</h3>
+        <p class="card-desc">匿名心理测评量表、咨询师流派筛选、加密音视频预约！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="16-psychological-counseling.html" class="open-btn">📱 打开【心理咨询工作室】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="普拉提大器械馆" data-cat="美业与大健康">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-emerald">美业与大健康</span>
+          <span class="card-num">#13</span>
+        </div>
+        <h3 class="card-title">普拉提大器械馆</h3>
+        <p class="card-desc">普拉提大器械床位精准预约、团课候补队列自动进补、教练消课！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="17-yoga-pilates.html" class="open-btn">📱 打开【普拉提大器械馆】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="宠物洗美与寄养" data-cat="宠物经济与养宠">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-amber">宠物经济与养宠</span>
+          <span class="card-num">#14</span>
+        </div>
+        <h3 class="card-title">宠物洗美与寄养</h3>
+        <p class="card-desc">爱宠 ID 档案、阳光猫舍包房预订、看护员每日健康打卡照片！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="19-pet-grooming-boarding.html" class="open-btn">📱 打开【宠物洗美与寄养】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="宠物医院" data-cat="宠物经济与养宠">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-amber">宠物经济与养宠</span>
+          <span class="card-num">#15</span>
+        </div>
+        <h3 class="card-title">宠物医院</h3>
+        <p class="card-desc">兽医专家挂号、电子免疫证驱虫日历、疫苗到期智能提醒！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="20-pet-hospital-vaccine.html" class="open-btn">📱 打开【宠物医院】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="上门喂猫遛狗平台" data-cat="宠物经济与养宠">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-amber">宠物经济与养宠</span>
+          <span class="card-num">#16</span>
+        </div>
+        <h3 class="card-title">上门喂猫遛狗平台</h3>
+        <p class="card-desc">宠托师入户打卡、全程拍照视频存证、钥匙交接安全监控！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="21-pet-sitting-walking.html" class="open-btn">📱 打开【上门喂猫遛狗平台】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="宠物相亲领养平台" data-cat="宠物经济与养宠">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-amber">宠物经济与养宠</span>
+          <span class="card-num">#17</span>
+        </div>
+        <h3 class="card-title">宠物相亲领养平台</h3>
+        <p class="card-desc">品种宠物相亲配对、免费领养问卷审核、线上领养协议签署！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="22-pet-mating-adoption.html" class="open-btn">📱 打开【宠物相亲领养平台】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="私人宴会厨师上门" data-cat="上门服务与本地生活">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-sky">上门服务与本地生活</span>
+          <span class="card-num">#18</span>
+        </div>
+        <h3 class="card-title">私人宴会厨师上门</h3>
+        <p class="card-desc">私厨菜系菜单定制、食材代买预算评估、按人头一口价结算！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="29-private-chef-catering.html" class="open-btn">📱 打开【私人宴会厨师上门】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="成人画室陶艺工坊" data-cat="兴趣教育与亲子成长">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
+          <span class="card-num">#19</span>
+        </div>
+        <h3 class="card-title">成人画室陶艺工坊</h3>
+        <p class="card-desc">单次体验课预约、作品烧制进度查询、成品快递一键寄送到家！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="31-art-pottery-workshop.html" class="open-btn">📱 打开【成人画室陶艺工坊】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="少儿编程机器人中心" data-cat="兴趣教育与亲子成长">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
+          <span class="card-num">#20</span>
+        </div>
+        <h3 class="card-title">少儿编程机器人中心</h3>
+        <p class="card-desc">学生编程代码作品墙、试听课转化线索、赛事在线报名！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="33-kids-coding-robotics.html" class="open-btn">📱 打开【少儿编程机器人中心】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="亲子农场果树认养" data-cat="兴趣教育与亲子成长">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
+          <span class="card-num">#21</span>
+        </div>
+        <h3 class="card-title">亲子农场果树认养</h3>
+        <p class="card-desc">果树/菜地线上认养、农作物长势照片更新、成熟果蔬直邮！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="34-family-farm-harvest.html" class="open-btn">📱 打开【亲子农场果树认养】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="定制西服旗袍工坊" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#22</span>
+        </div>
+        <h3 class="card-title">定制西服旗袍工坊</h3>
+        <p class="card-desc">上门量体预约、面料领型 BOM 选配、工厂生产 5 节点进度！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="36-tailored-suits-cheongsam.html" class="open-btn">📱 打开【定制西服旗袍工坊】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="鲜花订阅与绿植租摆" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#23</span>
+        </div>
+        <h3 class="card-title">鲜花订阅与绿植租摆</h3>
+        <p class="card-desc">每周一花定期订阅、休假暂停配送、企业绿植租摆养护！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="37-flower-subscription-plants.html" class="open-btn">📱 打开【鲜花订阅与绿植租摆】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="烘焙蛋糕私房定制" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#24</span>
+        </div>
+        <h3 class="card-title">烘焙蛋糕私房定制</h3>
+        <p class="card-desc">蛋糕造型夹心定制、冷链配送精准半小时、生日自动提醒！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="38-bakery-cake-custom.html" class="open-btn">📱 打开【烘焙蛋糕私房定制】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="露营营地民宿预订" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#25</span>
+        </div>
+        <h3 class="card-title">露营营地民宿预订</h3>
+        <p class="card-desc">营位房态日历防重房、烧烤装备加购、扫码电子入住登记！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="39-campsite-homestay-booking.html" class="open-btn">📱 打开【露营营地民宿预订】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="二手奢侈品寄卖回收" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#26</span>
+        </div>
+        <h3 class="card-title">二手奢侈品寄卖回收</h3>
+        <p class="card-desc">在线上传估价、顺丰包邮寄卖、专业电子鉴定报告！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="40-luxury-consignment-recycle.html" class="open-btn">📱 打开【二手奢侈品寄卖回收】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="绘本玩具租赁周转馆" data-cat="定制零售与特色">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-rose">定制零售与特色</span>
+          <span class="card-num">#27</span>
+        </div>
+        <h3 class="card-title">绘本玩具租赁周转馆</h3>
+        <p class="card-desc">消毒批次可追溯、快递上门一键取还、无限次借阅卡！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="41-toy-picture-book-rental.html" class="open-btn">📱 打开【绘本玩具租赁周转馆】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="展会电子门票" data-cat="企业服务与工具">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-sky">企业服务与工具</span>
+          <span class="card-num">#28</span>
+        </div>
+        <h3 class="card-title">展会电子门票</h3>
+        <p class="card-desc">展商名录与展位地图、电子门票秒级核销、名片线上交换！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="43-expo-conference-tickets.html" class="open-btn">📱 打开【展会电子门票】独立系统</a>
+      </div>
+    </div>
+    <div class="scenario-card" data-title="商会校友通讯录" data-cat="企业服务与工具">
+      <div>
+        <div class="card-top-row">
+          <span class="cat-badge badge-sky">企业服务与工具</span>
+          <span class="card-num">#29</span>
+        </div>
+        <h3 class="card-title">商会校友通讯录</h3>
+        <p class="card-desc">电子名片夹、企业供需大厅、会费在线缴纳与活动签到！</p>
+      </div>
+      <div>
+        <div class="card-footer-info">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>定位: 行业高保真商业解决方案</span>
+        </div>
+        <a href="45-alumni-chamber-directory.html" class="open-btn">📱 打开【商会校友通讯录】独立系统</a>
+      </div>
+    </div>
+    <div class="empty-state" id="emptyState">
+      <div style="font-size:32px;margin-bottom:8px;">🔍</div>
+      <div style="font-size:15px;font-weight:700;color:var(--text-main);">未找到相关小程序案例</div>
+      <div style="font-size:13px;margin-top:4px;">请尝试更换搜索关键词或切换二级分类</div>
+    </div>
+  </main>
+
+  <!-- Website Cases Reserved Container (网站类暂空 state) -->
+  <div class="website-empty-container" id="websiteEmptyState" style="display: none;">
+    <div class="website-empty-card">
+      <div class="empty-icon-box">💻</div>
+      <h3 class="empty-title">全端网站与SaaS系统案例库整理中</h3>
+      <p class="empty-subtitle">包含高保真响应式官网、企业级SaaS管理后台、数据大屏看板等高保真Web商业解决方案，即将陆续生成上线。</p>
+      <div class="empty-tags">
+        <span class="tag-item">响应式官网</span>
+        <span class="tag-item">SaaS管理后台</span>
+        <span class="tag-item">数据可视化大屏</span>
+        <span class="tag-item">Web API看板</span>
+      </div>
+      <div class="empty-status-badge">🚀 网站类案例等待生成录入中...</div>
+    </div>
+  </div>
+
+  <script>
+    let activePrimaryTab = 'miniprogram';
+    let activeCat = 'all';
+
+    function switchPrimaryTab(tabType, btn) {
+      activePrimaryTab = tabType;
+      
+      // Update primary tab button active styling
+      document.querySelectorAll('.primary-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const scenarioGrid = document.getElementById('scenarioGrid');
+      const websiteEmptyState = document.getElementById('websiteEmptyState');
+      const subCatBar = document.getElementById('subCatBar');
+      const searchBarWrapper = document.getElementById('searchBarWrapper');
+
+      if (tabType === 'miniprogram') {
+        scenarioGrid.style.display = 'grid';
+        subCatBar.style.display = 'flex';
+        searchBarWrapper.style.display = 'block';
+        websiteEmptyState.style.display = 'none';
+        handleFilter();
+      } else if (tabType === 'website') {
+        scenarioGrid.style.display = 'none';
+        subCatBar.style.display = 'none';
+        searchBarWrapper.style.display = 'none';
+        websiteEmptyState.style.display = 'block';
+      }
+    }
+
+    function handleFilter() {
+      if (activePrimaryTab !== 'miniprogram') return;
+
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.scenario-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const cat = card.getAttribute('data-cat');
+        
+        const matchSearch = !q || title.includes(q);
+        const matchCat = activeCat === 'all' || cat === activeCat;
+
+        if (matchSearch && matchCat) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('emptyState').style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+
+    function filterCategory(cat, btn) {
+      activeCat = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      handleFilter();
+    }
+  </script>
+</body>
+</html>

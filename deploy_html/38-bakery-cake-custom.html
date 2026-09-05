@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>**私房烘焙 · 私房烘焙定制</title>
+  <style>
+    /* ==========================================================================
+       CSS Design Tokens (法式暖奶油与燕麦焦糖私房美学)
+       ========================================================================== */
+    :root {
+      /* 品牌核心主色系 */
+      --studio-primary: #8C6239;
+      --studio-primary-hover: #75512D;
+      --studio-primary-light: #F6EDE4;
+      --studio-primary-subtle: #FDF9F5;
+      --studio-secondary: #C5A880;
+      --studio-secondary-light: #FAF4EB;
+      --studio-accent-rose: #C07D6D;
+      --studio-success: #52805A;
+      --studio-success-bg: #EBF4ED;
+
+      /* 背景与表面底色 */
+      --studio-bg-outer: #ECE8E1;
+      --studio-bg-app: #FAF7F2;
+      --studio-bg-surface: #FFFFFF;
+      --studio-bg-subtle: #F5EFE9;
+      --studio-bg-dark: #241E1A;
+      --studio-bg-card-hover: #FDFBF8;
+
+      /* 文字排版层级色 */
+      --studio-text-main: #2C241F;
+      --studio-text-muted: #6E6157;
+      --studio-text-faint: #A4978C;
+      --studio-text-inverse: #FFFFFF;
+
+      /* 边框与分割 */
+      --studio-border-light: #EFE8DF;
+      --studio-border-focus: #8C6239;
+      --studio-border-card: #F0ECE4;
+
+      /* 圆角体系 */
+      --studio-radius-xs: 4px;
+      --studio-radius-sm: 8px;
+      --studio-radius-md: 12px;
+      --studio-radius-lg: 18px;
+      --studio-radius-xl: 24px;
+      --studio-radius-full: 9999px;
+
+      /* 柔光质感阴影 */
+      --studio-shadow-sm: 0 2px 6px rgba(140, 98, 57, 0.04);
+      --studio-shadow-card: 0 4px 18px rgba(140, 98, 57, 0.06);
+      --studio-shadow-drawer: 0 -8px 32px rgba(36, 30, 26, 0.16);
+      --studio-shadow-btn: 0 4px 14px rgba(140, 98, 57, 0.24);
+      --studio-shadow-phone: 0 28px 60px -16px rgba(44, 36, 31, 0.35);
+
+      /* 动画曲线 */
+      --studio-transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 基础重置 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--studio-bg-outer);
+      color: var(--studio-text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+      overflow-x: hidden;
+    }
+
+    /* SVG 矢量图标基础类 */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==========================================================================
+       iPhone 15 Pro 微信小程序真机外壳
+       ========================================================================== */
+    .device-shell {
+      width: 393px;
+      height: 844px;
+      background: var(--studio-bg-app);
+      border-radius: 46px;
+      border: 11px solid var(--studio-phone-border);
+      box-shadow: var(--studio-shadow-phone);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      contain: paint;
+    }
+
+    /* iOS 顶部状态栏与灵动岛 */
+    .ios-status-bar {
+      height: 44px;
+      background: var(--studio-bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--studio-text-main);
+      position: relative;
+      z-index: 40;
+      border-bottom: 1px solid rgba(239, 232, 223, 0.4);
+    }
+
+    .dynamic-island {
+      position: absolute;
+      left: 50%;
+      top: 9px;
+      transform: translateX(-50%);
+      width: 112px;
+      height: 28px;
+      background: var(--studio-island-bg);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .dynamic-island .camera-lens {
+      width: 10px;
+      height: 10px;
+      background: var(--studio-lens-bg);
+      border-radius: 50%;
+      border: 1px solid var(--studio-lens-border);
+    }
+
+    .dynamic-island .sensor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--studio-sensor-dot);
+      border-radius: 50%;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 微信小程序顶部导航条 */
+    .mp-nav-bar {
+      height: 44px;
+      background: var(--studio-bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--studio-border-light);
+      position: relative;
+      z-index: 30;
+    }
+
+    .mp-brand-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--studio-radius-full);
+      transition: var(--studio-transition);
+    }
+    .mp-brand-selector:active {
+      background: var(--studio-bg-subtle);
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .store-status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--studio-success);
+      border-radius: 50%;
+    }
+
+    /* 原生微信胶囊按钮 */
+    .wechat-capsule {
+      height: 30px;
+      background: rgba(245, 239, 233, 0.85);
+      border: 1px solid rgba(220, 210, 200, 0.7);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: var(--studio-transition);
+    }
+    .wechat-capsule:active {
+      background: rgba(220, 210, 200, 0.95);
+      transform: scale(0.96);
+    }
+
+    .capsule-dots {
+      display: flex;
+      align-items: center;
+      gap: 2.5px;
+    }
+    .capsule-dot {
+      width: 3.5px;
+      height: 3.5px;
+      background: var(--studio-text-main);
+      border-radius: 50%;
+    }
+
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(164, 151, 140, 0.35);
+    }
+
+    .capsule-circle {
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid var(--studio-text-main);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .capsule-circle-inner {
+      width: 4px;
+      height: 4px;
+      background: var(--studio-text-main);
+      border-radius: 50%;
+    }
+
+    /* ==========================================================================
+       主内容区域与滚动容器
+       ========================================================================== */
+    .mp-viewport {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+      background: var(--studio-bg-app);
+      scroll-behavior: smooth;
+    }
+    .mp-viewport::-webkit-scrollbar {
+      width: 3px;
+    }
+    .mp-viewport::-webkit-scrollbar-thumb {
+      background: rgba(140, 98, 57, 0.15);
+      border-radius: 4px;
+    }
+
+    .tab-view {
+      display: none;
+      animation: viewFadeIn 0.22s ease-out;
+    }
+    .tab-view.active {
+      display: block;
+    }
+    @keyframes viewFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 通用卡片样式 */
+    .studio-card {
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-lg);
+      border: 1px solid var(--studio-border-card);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--studio-shadow-card);
+    }
+
+    /* ==========================================================================
+       Tab 0: 首页 (Home)
+       ========================================================================== */
+    .home-header-banner {
+      background: linear-gradient(180deg, var(--studio-bg-surface) 0%, var(--studio-bg-app) 100%);
+      padding: 14px 14px 6px;
+    }
+
+    .store-info-pill {
+      background: var(--studio-bg-surface);
+      border: 1px solid var(--studio-border-light);
+      border-radius: var(--studio-radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      box-shadow: var(--studio-shadow-sm);
+    }
+
+    .store-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .store-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--studio-radius-sm);
+      background: var(--studio-primary-light);
+      color: var(--studio-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .store-hours {
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .store-switch-btn {
+      font-size: 11px;
+      color: var(--studio-primary);
+      background: var(--studio-primary-light);
+      border: none;
+      padding: 4px 10px;
+      border-radius: var(--studio-radius-full);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .store-switch-btn:active {
+      opacity: 0.8;
+    }
+
+    /* 轮播画报 */
+    .carousel-container {
+      position: relative;
+      border-radius: var(--studio-radius-lg);
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: var(--studio-shadow-card);
+      aspect-ratio: 16 / 9;
+      background: var(--studio-carousel-bg);
+    }
+
+    .carousel-slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.4s ease;
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(44, 36, 31, 0.1) 0%, rgba(36, 30, 26, 0.8) 100%);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: var(--studio-text-inverse);
+    }
+
+    .carousel-badge {
+      align-self: flex-start;
+      background: rgba(197, 168, 128, 0.9);
+      color: var(--studio-bg-dark);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--studio-radius-xs);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .carousel-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .carousel-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 3px;
+    }
+
+    .carousel-action-btn {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      background: var(--studio-bg-surface);
+      color: var(--studio-text-main);
+      border: none;
+      padding: 6px 14px;
+      border-radius: var(--studio-radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: var(--studio-transition);
+    }
+    .carousel-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      display: flex;
+      gap: 5px;
+    }
+    .carousel-indicator {
+      width: 16px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: var(--studio-transition);
+    }
+    .carousel-indicator.active {
+      width: 26px;
+      background: var(--studio-bg-surface);
+    }
+
+    /* 私房定制4步指南 */
+    .steps-card {
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-lg);
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid var(--studio-border-card);
+      box-shadow: var(--studio-shadow-card);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-mark {
+      width: 3px;
+      height: 14px;
+      background: var(--studio-primary);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+    }
+    .section-link {
+      font-size: 11px;
+      color: var(--studio-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .step-item {
+      background: var(--studio-bg-app);
+      border-radius: var(--studio-radius-md);
+      padding: 10px 4px;
+      cursor: pointer;
+      transition: var(--studio-transition);
+      border: 1px solid transparent;
+    }
+    .step-item:active {
+      background: var(--studio-primary-light);
+      border-color: var(--studio-secondary);
+      transform: scale(0.96);
+    }
+
+    .step-num {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--studio-secondary);
+      letter-spacing: 0.5px;
+    }
+    .step-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+      margin-top: 4px;
+    }
+    .step-desc {
+      font-size: 10px;
+      color: var(--studio-text-muted);
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+
+    /* 当季精选商品单列卡片 */
+    .featured-item {
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-lg);
+      border: 1px solid var(--studio-border-card);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--studio-shadow-card);
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .featured-thumb {
+      width: 108px;
+      height: 108px;
+      border-radius: var(--studio-radius-md);
+      object-fit: cover;
+      background: var(--studio-thumb-bg);
+      flex-shrink: 0;
+    }
+
+    .featured-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .featured-tag {
+      align-self: flex-start;
+      font-size: 10px;
+      color: var(--studio-primary);
+      background: var(--studio-primary-light);
+      padding: 2px 7px;
+      border-radius: var(--studio-radius-xs);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .featured-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .featured-ingredients {
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      margin-top: 3px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .featured-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .featured-price {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--studio-primary);
+    }
+    .featured-price small {
+      font-size: 10px;
+      font-weight: normal;
+      color: var(--studio-text-muted);
+      margin-left: 1px;
+    }
+
+    .btn-custom-pill {
+      background: var(--studio-primary);
+      color: var(--studio-text-inverse);
+      border: none;
+      padding: 6px 14px;
+      border-radius: var(--studio-radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: var(--studio-shadow-btn);
+      transition: var(--studio-transition);
+    }
+    .btn-custom-pill:active {
+      background: var(--studio-primary-hover);
+      transform: scale(0.95);
+    }
+
+    /* 食材溯源背书 */
+    .pledge-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pledge-card {
+      background: var(--studio-secondary-light);
+      border: 1px solid rgba(197, 168, 128, 0.35);
+      border-radius: var(--studio-radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .pledge-card:active {
+      opacity: 0.85;
+    }
+    .pledge-icon-wrap {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--studio-bg-surface);
+      color: var(--studio-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pledge-text-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+    }
+    .pledge-text-sub {
+      font-size: 10px;
+      color: var(--studio-text-muted);
+    }
+
+    /* ==========================================================================
+       Tab 1: 定制选购 (Bespoke Menu)
+       ========================================================================== */
+    .menu-layout {
+      display: flex;
+      height: calc(844px - 44px - 44px - 58px);
+      overflow: hidden;
+    }
+
+    /* 左侧分类垂直导航 */
+    .menu-sidebar {
+      width: 86px;
+      background: var(--studio-bg-app);
+      border-right: 1px solid var(--studio-border-light);
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .category-nav-btn {
+      width: 100%;
+      padding: 14px 6px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: var(--studio-transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+    }
+    .category-nav-btn.active {
+      background: var(--studio-bg-surface);
+      color: var(--studio-primary);
+      font-weight: 700;
+    }
+    .category-nav-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      bottom: 14px;
+      width: 3.5px;
+      background: var(--studio-primary);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* 右侧商品列表容器 */
+    .menu-catalog-wrap {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 10px 80px;
+      background: var(--studio-bg-surface);
+    }
+
+    .catalog-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--studio-text-muted);
+      padding: 6px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .catalog-item-card {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      border-radius: var(--studio-radius-md);
+      border: 1px solid var(--studio-border-card);
+      margin-bottom: 10px;
+      background: var(--studio-bg-surface);
+      box-shadow: var(--studio-shadow-sm);
+      cursor: pointer;
+      transition: var(--studio-transition);
+    }
+    .catalog-item-card:hover {
+      background: var(--studio-bg-card-hover);
+    }
+    .catalog-item-card:active {
+      transform: scale(0.985);
+    }
+
+    .catalog-img {
+      width: 82px;
+      height: 82px;
+      border-radius: var(--studio-radius-sm);
+      object-fit: cover;
+      background: var(--studio-catalog-thumb-bg);
+      flex-shrink: 0;
+    }
+
+    .catalog-detail {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .catalog-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+      line-height: 1.3;
+    }
+
+    .catalog-spec-summary {
+      font-size: 10px;
+      color: var(--studio-text-muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .catalog-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .catalog-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--studio-primary);
+    }
+    .catalog-price span {
+      font-size: 10px;
+      font-weight: normal;
+      color: var(--studio-text-muted);
+    }
+
+    .btn-select-spec {
+      background: var(--studio-primary);
+      color: var(--studio-text-inverse);
+      border: none;
+      padding: 4px 10px;
+      border-radius: var(--studio-radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      transition: var(--studio-transition);
+    }
+    .btn-select-spec:active {
+      transform: scale(0.93);
+    }
+
+    /* ==========================================================================
+       Tab 2: 履约订单 (Fulfillment Orders)
+       ========================================================================== */
+    .orders-wrapper {
+      padding: 12px 14px;
+    }
+
+    /* 状态筛选胶囊栏 */
+    .order-status-tabs {
+      display: flex;
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-full);
+      padding: 3px;
+      margin-bottom: 14px;
+      border: 1px solid var(--studio-border-light);
+      box-shadow: var(--studio-shadow-sm);
+    }
+
+    .status-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--studio-text-muted);
+      border: none;
+      background: transparent;
+      border-radius: var(--studio-radius-full);
+      cursor: pointer;
+      transition: var(--studio-transition);
+    }
+    .status-tab-btn.active {
+      background: var(--studio-primary);
+      color: var(--studio-text-inverse);
+      box-shadow: 0 2px 8px rgba(140, 98, 57, 0.25);
+    }
+
+    /* 订单卡片 */
+    .order-card {
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-lg);
+      border: 1px solid var(--studio-border-card);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--studio-shadow-card);
+    }
+
+    .order-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--studio-border-light);
+      font-size: 11px;
+    }
+
+    .order-sn {
+      font-weight: 700;
+      color: var(--studio-text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .order-badge-delivering {
+      background: var(--studio-delivering-bg);
+      color: var(--studio-delivering-text);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--studio-radius-full);
+    }
+    .order-badge-producing {
+      background: var(--studio-producing-bg);
+      color: var(--studio-producing-text);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--studio-radius-full);
+    }
+    .order-badge-done {
+      background: var(--studio-bg-subtle);
+      color: var(--studio-text-muted);
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--studio-radius-full);
+    }
+
+    .order-body-row {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      align-items: center;
+    }
+
+    .order-cake-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--studio-radius-md);
+      object-fit: cover;
+      background: var(--studio-order-thumb-bg);
+      flex-shrink: 0;
+    }
+
+    .order-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-prod-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+    }
+
+    .order-specs-text {
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .order-timeline-preview {
+      background: var(--studio-bg-app);
+      border-radius: var(--studio-radius-md);
+      padding: 10px 12px;
+      margin: 8px 0;
+      font-size: 11px;
+      color: var(--studio-text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .order-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--studio-border-light);
+    }
+
+    .btn-order-outline {
+      background: transparent;
+      border: 1px solid var(--studio-border-focus);
+      color: var(--studio-primary);
+      padding: 5px 12px;
+      border-radius: var(--studio-radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      transition: var(--studio-transition);
+    }
+    .btn-order-outline:active {
+      background: var(--studio-primary-light);
+      transform: scale(0.95);
+    }
+
+    .btn-order-solid {
+      background: var(--studio-primary);
+      border: 1px solid var(--studio-primary);
+      color: var(--studio-text-inverse);
+      padding: 5px 14px;
+      border-radius: var(--studio-radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: var(--studio-shadow-sm);
+      transition: var(--studio-transition);
+    }
+    .btn-order-solid:active {
+      background: var(--studio-primary-hover);
+      transform: scale(0.95);
+    }
+
+    /* ==========================================================================
+       Tab 3: 我的私享 (Studio Club & Profile)
+       ========================================================================== */
+    .profile-wrap {
+      padding: 14px;
+    }
+
+    /* VIP 黑金品鉴卡 */
+    .vip-card-banner {
+      background: linear-gradient(135deg, var(--studio-vip-card-start) 0%, var(--studio-vip-card-end) 100%);
+      border-radius: var(--studio-radius-xl);
+      padding: 18px;
+      color: var(--studio-text-inverse);
+      box-shadow: 0 10px 24px rgba(36, 30, 26, 0.25);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+      border: 1px solid rgba(197, 168, 128, 0.25);
+    }
+
+    .vip-card-banner::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      width: 140px;
+      height: 140px;
+      border: 2px solid rgba(197, 168, 128, 0.08);
+      border-radius: 50%;
+    }
+
+    .vip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .vip-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .vip-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--studio-secondary) 0%, var(--studio-primary) 100%);
+      color: var(--studio-text-inverse);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .vip-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .vip-tier-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(197, 168, 128, 0.22);
+      color: var(--studio-secondary);
+      border: 1px solid rgba(197, 168, 128, 0.4);
+      padding: 2px 8px;
+      border-radius: var(--studio-radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .vip-stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .vip-stat-item {
+      cursor: pointer;
+    }
+    .vip-stat-label {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .vip-stat-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--studio-secondary);
+      margin-top: 2px;
+    }
+
+    /* 功能列表卡片 */
+    .menu-group-card {
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-lg);
+      border: 1px solid var(--studio-border-card);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--studio-shadow-card);
+    }
+
+    .menu-row-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--studio-text-main);
+      cursor: pointer;
+      transition: var(--studio-transition);
+      border-bottom: 1px solid var(--studio-border-light);
+    }
+    .menu-row-btn:last-child {
+      border-bottom: none;
+    }
+    .menu-row-btn:active {
+      background: var(--studio-bg-subtle);
+    }
+
+    .menu-row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .menu-row-icon {
+      color: var(--studio-primary);
+    }
+
+    .menu-row-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--studio-text-muted);
+    }
+
+    /* ==========================================================================
+       底部原生 TabBar
+       ========================================================================== */
+    .mp-tab-bar {
+      height: 58px;
+      background: var(--studio-bg-surface);
+      border-top: 1px solid var(--studio-border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 35;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: var(--studio-text-faint);
+      cursor: pointer;
+      transition: var(--studio-transition);
+      position: relative;
+      gap: 3px;
+    }
+
+    .tab-btn.active {
+      color: var(--studio-primary);
+    }
+
+    .tab-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .tab-badge {
+      position: absolute;
+      top: 6px;
+      right: calc(50% - 16px);
+      background: var(--studio-accent-rose);
+      color: var(--studio-text-inverse);
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 10px;
+      border: 1.5px solid var(--studio-bg-surface);
+    }
+
+    /* ==========================================================================
+       通用模态抽屉与弹层 (ActionSheet / Drawer / Toast)
+       ========================================================================== */
+    .drawer-mask {
+      position: absolute;
+      inset: 0;
+      background: rgba(36, 30, 26, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .drawer-mask.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--studio-bg-surface);
+      border-radius: var(--studio-radius-xl) var(--studio-radius-xl) 0 0;
+      padding: 18px 16px 24px;
+      z-index: 70;
+      box-shadow: var(--studio-shadow-drawer);
+      transform: translateY(100%);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 84%;
+      overflow-y: auto;
+    }
+    .drawer-sheet.show {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--studio-border-light);
+    }
+
+    .drawer-prod-summary {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .drawer-prod-img {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--studio-radius-md);
+      object-fit: cover;
+      background: var(--studio-thumb-bg);
+    }
+
+    .drawer-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--studio-bg-subtle);
+      border: none;
+      color: var(--studio-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--studio-transition);
+    }
+    .drawer-close-btn:active {
+      background: var(--studio-border-light);
+    }
+
+    /* 抽屉各选项组 */
+    .spec-group {
+      margin-bottom: 14px;
+    }
+    .spec-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .spec-options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .spec-opt-btn {
+      background: var(--studio-bg-subtle);
+      border: 1px solid transparent;
+      border-radius: var(--studio-radius-md);
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--studio-text-main);
+      cursor: pointer;
+      transition: var(--studio-transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .spec-opt-btn.active {
+      background: var(--studio-primary-light);
+      border-color: var(--studio-primary);
+      color: var(--studio-primary);
+      font-weight: 700;
+    }
+
+    .spec-opt-sub {
+      font-size: 9px;
+      color: var(--studio-text-muted);
+    }
+
+    /* 手写祝福牌输入 */
+    .plaque-input-wrap {
+      background: var(--studio-bg-subtle);
+      border: 1px solid var(--studio-border-light);
+      border-radius: var(--studio-radius-md);
+      padding: 8px 12px;
+      margin-bottom: 8px;
+    }
+    .plaque-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      color: var(--studio-text-main);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .quick-plaque-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip-btn {
+      background: var(--studio-bg-surface);
+      border: 1px solid var(--studio-border-light);
+      border-radius: var(--studio-radius-full);
+      padding: 3px 8px;
+      font-size: 10px;
+      color: var(--studio-text-muted);
+      cursor: pointer;
+      transition: var(--studio-transition);
+    }
+    .chip-btn:active {
+      border-color: var(--studio-primary);
+      color: var(--studio-primary);
+      background: var(--studio-primary-light);
+    }
+
+    /* 数量步进器 */
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-top: 1px solid var(--studio-border-light);
+      margin-top: 10px;
+    }
+    .stepper-control {
+      display: flex;
+      align-items: center;
+      background: var(--studio-bg-subtle);
+      border-radius: var(--studio-radius-full);
+      padding: 2px;
+    }
+    .stepper-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--studio-bg-surface);
+      border: none;
+      color: var(--studio-text-main);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .stepper-btn:active {
+      background: var(--studio-bg-subtle);
+    }
+    .stepper-val {
+      min-width: 32px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--studio-text-main);
+    }
+
+    /* 抽屉底部操作双按钮 */
+    .drawer-actions-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .drawer-btn-cart {
+      flex: 1;
+      background: var(--studio-primary-light);
+      border: 1px solid var(--studio-primary);
+      color: var(--studio-primary);
+      border-radius: var(--studio-radius-full);
+      padding: 12px 0;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: var(--studio-transition);
+    }
+    .drawer-btn-cart:active {
+      transform: scale(0.97);
+    }
+
+    .drawer-btn-book {
+      flex: 1.2;
+      background: var(--studio-primary);
+      border: none;
+      color: var(--studio-text-inverse);
+      border-radius: var(--studio-radius-full);
+      padding: 12px 0;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: var(--studio-shadow-btn);
+      transition: var(--studio-transition);
+    }
+    .drawer-btn-book:active {
+      background: var(--studio-primary-hover);
+      transform: scale(0.97);
+    }
+
+    /* 微信胶囊 Toast 提示浮层 */
+    .wechat-toast {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      background: rgba(32, 26, 22, 0.92);
+      color: var(--studio-text-inverse);
+      padding: 12px 20px;
+      border-radius: var(--studio-radius-lg);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      max-width: 80%;
+    }
+    .wechat-toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* 时间轴列表 */
+    .timeline-list {
+      padding: 6px 0;
+    }
+    .timeline-node {
+      position: relative;
+      padding-left: 24px;
+      padding-bottom: 18px;
+    }
+    .timeline-node:last-child {
+      padding-bottom: 0;
+    }
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: -6px;
+      width: 1.5px;
+      background: var(--studio-border-light);
+    }
+    .timeline-node:last-child::before {
+      display: none;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 2px;
+      top: 4px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--studio-primary);
+      border: 2px solid var(--studio-primary-light);
+    }
+    .timeline-dot.done {
+      background: var(--studio-success);
+      border-color: var(--studio-success-bg);
+    }
+    .timeline-time {
+      font-size: 10px;
+      color: var(--studio-text-muted);
+      font-weight: 600;
+    }
+    .timeline-content {
+      font-size: 12px;
+      color: var(--studio-text-main);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- ==========================================================================
+       微信小程序真机模型视窗
+       ========================================================================== -->
+  <div class="device-shell" id="app">
+
+    <!-- iOS 顶部状态栏与灵动岛 -->
+    <header class="ios-status-bar" role="banner">
+      <span>09:41</span>
+      <div class="dynamic-island" aria-hidden="true">
+        <div class="sensor-dot"></div>
+        <div class="camera-lens"></div>
+      </div>
+      <div class="status-icons">
+        <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M2 20h2"/><path d="M7 16h2"/><path d="M12 12h2"/><path d="M17 8h2"/><path d="M22 4h2"/></svg>
+        <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M1.5 9.288a15 15 0 0 1 21 0"/></svg>
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </header>
+
+    <!-- 微信小程序自定义导航头 -->
+    <nav class="mp-nav-bar" role="navigation" aria-label="工坊导航">
+      <div class="mp-brand-selector" onclick="triggerToast('当前门店：**私房烘焙 · **工坊 (支持自提与冷链专送)')">
+        <span class="store-status-dot"></span>
+        <h1 class="brand-title">**私房烘焙 · **工坊</h1>
+        <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+
+      <!-- 原生胶囊控制区 -->
+      <div class="wechat-capsule" onclick="openStudioMasterModal()" aria-label="小程序操作胶囊">
+        <div class="capsule-dots">
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-circle">
+          <div class="capsule-circle-inner"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 主视口滚动容器 -->
+    <main class="mp-viewport" role="main">
+
+      <!-- ====================================================================
+           TAB 0: 首页 (Home)
+           ==================================================================== -->
+      <div id="tab-0" class="tab-view active">
+        <section class="home-header-banner" aria-label="门店排期与当季画报">
+          
+          <!-- 门店排期状态卡片 -->
+          <div class="store-info-pill">
+            <div class="store-meta-left">
+              <div class="store-avatar">麦</div>
+              <div>
+                <h2 style="font-size:13px;font-weight:700;">今日手作排期接单中</h2>
+                <div class="store-hours">
+                  <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>工坊营业 09:00 - 21:00 · 快递冷链同城专送</span>
+                </div>
+              </div>
+            </div>
+            <button class="store-switch-btn" onclick="openAddressModal()">
+              <span>切换地址</span>
+              <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <!-- 当季主打轮播画报 -->
+          <div class="carousel-container">
+            <img id="hero-carousel-img" class="carousel-slide" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&auto=format&fit=crop&q=80" alt="春见白桃香缇生乳戚风">
+            <div class="carousel-dots">
+              <div class="carousel-indicator active" onclick="switchCarousel(0)"></div>
+              <div class="carousel-indicator" onclick="switchCarousel(1)"></div>
+              <div class="carousel-indicator" onclick="switchCarousel(2)"></div>
+            </div>
+            <div class="carousel-overlay">
+              <div class="carousel-badge" id="hero-carousel-badge">当季限定 · 春季首发</div>
+              <h2 class="carousel-title" id="hero-carousel-title">春见白桃香缇生乳戚风</h2>
+              <div class="carousel-desc" id="hero-carousel-desc">日本日清紫罗兰粉 · 法国铁塔天然动物淡奶油 · 减糖35%</div>
+              <button class="carousel-action-btn" onclick="openCustomDrawerById('cake-1')">
+                <span>立即定制</span>
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 私房手作定制 4 步指南 -->
+          <section class="steps-card" aria-label="定制流程指南">
+            <div class="section-header">
+              <div class="section-title-wrap">
+                <div class="section-mark"></div>
+                <h3 class="section-title">私房手作定制流程</h3>
+              </div>
+              <div class="section-link" onclick="triggerToast('所有订单均由师傅当日凌晨现烤，冷链恒温派送')">
+                <span>订购须知</span>
+                <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+            <div class="steps-grid">
+              <div class="step-item" onclick="triggerToast('步骤 1：在选购列表挑选款式与设计灵感')">
+                <div class="step-num">01</div>
+                <div class="step-name">灵感选款</div>
+                <div class="step-desc">精选造型规格</div>
+              </div>
+              <div class="step-item" onclick="triggerToast('步骤 2：选择磅数尺寸、胚体口味与手写祝福牌')">
+                <div class="step-num">02</div>
+                <div class="step-name">专属定制</div>
+                <div class="step-desc">口味夹心微调</div>
+              </div>
+              <div class="step-item" onclick="triggerToast('步骤 3：烘焙师根据预约档期新鲜现烤与抹面')">
+                <div class="step-num">03</div>
+                <div class="step-name">师傅现烤</div>
+                <div class="step-desc">当日手工制作</div>
+              </div>
+              <div class="step-item" onclick="triggerToast('步骤 4：快递同城专车恒温冷藏，准时送达')">
+                <div class="step-num">04</div>
+                <div class="step-name">冷链直达</div>
+                <div class="step-desc">恒温专车配送</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 食材严选背书 -->
+          <section class="pledge-row" aria-label="食材溯源承诺">
+            <div class="pledge-card" onclick="triggerToast('坚持100%法国铁塔纯天然乳脂，0人造植物反式脂肪酸')">
+              <div class="pledge-icon-wrap">
+                <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h4 class="pledge-text-title">100% 动物淡奶油</h4>
+                <div class="pledge-text-sub">拒绝人造植物脂</div>
+              </div>
+            </div>
+            <div class="pledge-card" onclick="triggerToast('选用日本日清紫罗兰低筋粉，口感如云朵般轻盈细腻')">
+              <div class="pledge-icon-wrap">
+                <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.78.77L12 20.66l7.65-7.66.78-.77a5.4 5.4 0 0 0 0-7.65z"/></svg>
+              </div>
+              <div>
+                <h4 class="pledge-text-title">轻盈减糖配方</h4>
+                <div class="pledge-text-sub">减糖30%更健康</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 当季手作精选推荐列表 -->
+          <section aria-label="当季手作人气推荐">
+            <div class="section-header" style="margin-top:4px;">
+              <div class="section-title-wrap">
+                <div class="section-mark"></div>
+                <h3 class="section-title">当季手作人气推荐</h3>
+              </div>
+              <div class="section-link" onclick="switchMpTab(1)">
+                <span>全部作品</span>
+                <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+            <!-- 精选商品 1 -->
+            <article class="featured-item">
+              <img class="featured-thumb" src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=400&auto=format&fit=crop&q=80" alt="极浓开心果流心巴斯克">
+              <div class="featured-content">
+                <div>
+                  <div class="featured-tag">人气招牌</div>
+                  <h4 class="featured-title">极浓开心果流心巴斯克</h4>
+                  <div class="featured-ingredients">意大利原产开心果酱 · Kiri奶油芝士 · 低温慢烤微焦表层</div>
+                </div>
+                <div class="featured-foot">
+                  <div class="featured-price">¥168<small>起</small></div>
+                  <button class="btn-custom-pill" onclick="openCustomDrawerById('cake-2')">
+                    <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>定制规格</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- 精选商品 2 -->
+            <article class="featured-item">
+              <img class="featured-thumb" src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&auto=format&fit=crop&q=80" alt="法芙娜海盐焦糖脆脆定制蛋糕">
+              <div class="featured-content">
+                <div>
+                  <div class="featured-tag">主理人特调</div>
+                  <h4 class="featured-title">法芙娜海盐焦糖脆脆蛋糕</h4>
+                  <div class="featured-ingredients">法国法芙娜可可 · 慢熬海盐焦糖酱 · 琥珀核桃薄脆</div>
+                </div>
+                <div class="featured-foot">
+                  <div class="featured-price">¥238<small>起</small></div>
+                  <button class="btn-custom-pill" onclick="openCustomDrawerById('cake-3')">
+                    <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>定制规格</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </section>
+
+        </section>
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: 定制选购工坊 (Bespoke Menu)
+           ==================================================================== -->
+      <div id="tab-1" class="tab-view">
+        <section class="menu-layout" aria-label="多维蛋糕定制选购区">
+          
+          <!-- 左侧分类侧边栏 -->
+          <aside class="menu-sidebar" role="complementary" aria-label="蛋糕分类导航">
+            <button class="category-nav-btn active" id="cat-btn-0" onclick="switchCategory(0, 'custom')">
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 5v6"/><path d="M17 8v3"/></svg>
+              <span>招牌定制</span>
+            </button>
+            <button class="category-nav-btn" id="cat-btn-1" onclick="switchCategory(1, 'slice')">
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              <span>法式切块</span>
+            </button>
+            <button class="category-nav-btn" id="cat-btn-2" onclick="switchCategory(2, 'chiffon')">
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+              <span>轻盈戚风</span>
+            </button>
+            <button class="category-nav-btn" id="cat-btn-3" onclick="switchCategory(3, 'gift')">
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              <span>常温伴手</span>
+            </button>
+          </aside>
+
+          <!-- 右侧商品列表 -->
+          <section class="menu-catalog-wrap" id="catalog-content-box" aria-label="蛋糕商品列表">
+            <!-- 动态渲染商品列表 -->
+          </section>
+
+        </section>
+      </div>
+
+      <!-- ====================================================================
+           TAB 2: 履约订单 (Fulfillment Orders)
+           ==================================================================== -->
+      <div id="tab-2" class="tab-view">
+        <section class="orders-wrapper" aria-label="履约订单状态与追踪">
+          <h2 class="visually-hidden">订单履约中心</h2>
+
+          <!-- 状态过滤胶囊栏 -->
+          <nav class="order-status-tabs" aria-label="订单状态过滤">
+            <button class="status-tab-btn active" id="order-tab-all" onclick="filterOrders('all')">全部 (3)</button>
+            <button class="status-tab-btn" id="order-tab-delivering" onclick="filterOrders('delivering')">配送中 (1)</button>
+            <button class="status-tab-btn" id="order-tab-producing" onclick="filterOrders('producing')">制作中 (1)</button>
+            <button class="status-tab-btn" id="order-tab-completed" onclick="filterOrders('completed')">已完成 (1)</button>
+          </nav>
+
+          <!-- 订单卡片容器 -->
+          <div id="orders-list-box">
+            <!-- 动态注入订单 -->
+          </div>
+
+        </section>
+      </div>
+
+      <!-- ====================================================================
+           TAB 3: 我的私享 (Studio Club / Profile)
+           ==================================================================== -->
+      <div id="tab-3" class="tab-view">
+        <section class="profile-wrap" aria-label="会员专属特权与中心">
+          <h2 class="visually-hidden">会员私享中心</h2>
+
+          <!-- VIP 黑金品鉴会员卡 -->
+          <div class="vip-card-banner">
+            <div class="vip-header">
+              <div class="vip-user-info">
+                <div class="vip-avatar">夕</div>
+                <div>
+                  <h3 class="vip-name">林夕 (VIP客户)</h3>
+                  <div class="vip-tier-tag">
+                    <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+                    <span>黑金品鉴会员 · 享92折</span>
+                  </div>
+                </div>
+              </div>
+              <div style="font-size:10px;opacity:0.6;font-family:monospace;">#VIP-6688</div>
+            </div>
+
+            <div class="vip-stats-row">
+              <div class="vip-stat-item" onclick="triggerToast('储值卡余额：¥320.00 (充值赠券活动进行中)')">
+                <div class="vip-stat-label">储值卡余额</div>
+                <div class="vip-stat-val">¥320.00</div>
+              </div>
+              <div class="vip-stat-item" onclick="triggerToast('当前私享积分：1,280 分 (可兑换常温伴手礼)')">
+                <div class="vip-stat-label">私享积分</div>
+                <div class="vip-stat-val">1,280 <span style="font-size:11px;font-weight:normal;">分</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 快捷资产入口 -->
+          <div class="menu-group-card">
+            <button class="menu-row-btn" onclick="openCouponsModal()">
+              <div class="menu-row-left">
+                <svg class="icon menu-row-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                <span>私房赏味礼券</span>
+              </div>
+              <div class="menu-row-right">
+                <span style="color:var(--studio-accent-rose);font-weight:700;">3 张可用</span>
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="menu-row-btn" onclick="openAnniversaryModal()">
+              <div class="menu-row-left">
+                <svg class="icon menu-row-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>生日与重要纪念日档案</span>
+              </div>
+              <div class="menu-row-right">
+                <span>2 个已登记</span>
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+
+          <!-- 服务与地址设置 -->
+          <div class="menu-group-card">
+            <button class="menu-row-btn" onclick="openAddressModal()">
+              <div class="menu-row-left">
+                <svg class="icon menu-row-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>常用冷链配送地址簿</span>
+              </div>
+              <div class="menu-row-right">
+                <span id="current-address-tag">静安区枫林路</span>
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="menu-row-btn" onclick="openStudioMasterModal()">
+              <div class="menu-row-left">
+                <svg class="icon menu-row-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>联系专属主理人微信</span>
+              </div>
+              <div class="menu-row-right">
+                <span style="color:var(--studio-success);">在线 (08:30-22:00)</span>
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="menu-row-btn" onclick="triggerToast('**私房烘焙秉持：纯动物淡奶油，零防腐剂，手写心意巧克力牌')">
+              <div class="menu-row-left">
+                <svg class="icon menu-row-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>食材与手作工艺承诺</span>
+              </div>
+              <div class="menu-row-right">
+                <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+
+        </section>
+      </div>
+
+    </main>
+
+    <!-- ====================================================================
+         原生微信 4-Tab 底部导航栏
+         ==================================================================== -->
+    <footer class="mp-tab-bar" role="contentinfo">
+      <button class="tab-btn active" id="tab-nav-0" onclick="switchMpTab(0)" aria-label="首页灵感">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="tab-label">首页灵感</span>
+      </button>
+
+      <button class="tab-btn" id="tab-nav-1" onclick="switchMpTab(1)" aria-label="定制选购">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 5v6"/><path d="M17 8v3"/></svg>
+        <span class="tab-label">定制选购</span>
+      </button>
+
+      <button class="tab-btn" id="tab-nav-2" onclick="switchMpTab(2)" aria-label="履约订单">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <span class="tab-label">履约订单</span>
+        <span class="tab-badge" id="order-badge-count">2</span>
+      </button>
+
+      <button class="tab-btn" id="tab-nav-3" onclick="switchMpTab(3)" aria-label="我的私享">
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="tab-label">我的私享</span>
+      </button>
+    </footer>
+
+    <!-- ====================================================================
+         模态抽屉: 蛋糕规格定制面板 (ActionSheet Drawer)
+         ==================================================================== -->
+    <div class="drawer-mask" id="custom-drawer-mask" onclick="closeCustomDrawer()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="custom-drawer-sheet" role="dialog" aria-label="蛋糕定制面板">
+      
+      <div class="drawer-header">
+        <div class="drawer-prod-summary">
+          <img id="drawer-thumb" class="drawer-prod-img" src="" alt="预览">
+          <div>
+            <h3 id="drawer-title" style="font-size:14px;font-weight:700;color:var(--studio-text-main);">蛋糕定制</h3>
+            <div style="font-size:17px;font-weight:800;color:var(--studio-primary);margin-top:2px;">
+              <span id="drawer-price">¥238</span>
+              <span style="font-size:10px;font-weight:normal;color:var(--studio-text-muted);">已选配方</span>
+            </div>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeCustomDrawer()" aria-label="关闭定制面板">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- 规格 1: 磅数与适宜人数 -->
+      <div class="spec-group">
+        <div class="spec-group-title">
+          <span>1. 尺寸磅数</span>
+          <span style="font-size:10px;color:var(--studio-text-muted);">按聚会人数按需选择</span>
+        </div>
+        <div class="spec-options-grid">
+          <button class="spec-opt-btn" id="size-opt-0" onclick="selectSize('4寸', 168, 0)">
+            <span style="font-weight:700;">4寸 单人尝鲜</span>
+            <span class="spec-opt-sub">适合 1-2 人食</span>
+          </button>
+          <button class="spec-opt-btn active" id="size-opt-1" onclick="selectSize('6寸', 238, 1)">
+            <span style="font-weight:700;">6寸 欢聚分享</span>
+            <span class="spec-opt-sub">适合 3-5 人 (推荐)</span>
+          </button>
+          <button class="spec-opt-btn" id="size-opt-2" onclick="selectSize('8寸', 328, 2)">
+            <span style="font-weight:700;">8寸 派对庆典</span>
+            <span class="spec-opt-sub">适合 6-10 人食</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 规格 2: 蛋糕胚体工艺 -->
+      <div class="spec-group">
+        <div class="spec-group-title">
+          <span>2. 胚体底质</span>
+          <span style="font-size:10px;color:var(--studio-text-muted);">当日凌晨新鲜烘焙</span>
+        </div>
+        <div class="spec-options-grid">
+          <button class="spec-opt-btn active" id="base-opt-0" onclick="selectBase('海盐伯爵红茶', 0)">
+            <span style="font-weight:700;">海盐伯爵红茶</span>
+            <span class="spec-opt-sub">经典茶香减糖</span>
+          </button>
+          <button class="spec-opt-btn" id="base-opt-1" onclick="selectBase('日式香草戚风', 1)">
+            <span style="font-weight:700;">日式香草戚风</span>
+            <span class="spec-opt-sub">原味纯香云朵感</span>
+          </button>
+          <button class="spec-opt-btn" id="base-opt-2" onclick="selectBase('法芙娜生巧胚', 2)">
+            <span style="font-weight:700;">法芙娜生巧胚</span>
+            <span class="spec-opt-sub">浓郁微苦可可</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 规格 3: 时令新鲜夹芯 -->
+      <div class="spec-group">
+        <div class="spec-group-title">
+          <span>3. 新鲜果馅夹芯</span>
+          <span style="font-size:10px;color:var(--studio-text-muted);">双层丰富口感</span>
+        </div>
+        <div class="spec-options-grid">
+          <button class="spec-opt-btn active" id="fill-opt-0" onclick="selectFilling('当季新鲜芒果', 0)">
+            <span style="font-weight:700;">当季新鲜芒果</span>
+            <span class="spec-opt-sub">果肉饱满多汁</span>
+          </button>
+          <button class="spec-opt-btn" id="fill-opt-1" onclick="selectFilling('手作低糖香芋泥', 1)">
+            <span style="font-weight:700;">手作低糖香芋泥</span>
+            <span class="spec-opt-sub">绵密软糯微甜</span>
+          </button>
+          <button class="spec-opt-btn" id="fill-opt-2" onclick="selectFilling('白桃乌龙果茸', 2)">
+            <span style="font-weight:700;">白桃乌龙果茸</span>
+            <span class="spec-opt-sub">清甜粉嫩果香</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 规格 4: 手写巧克力牌祝福语 -->
+      <div class="spec-group">
+        <div class="spec-group-title">
+          <span>4. 手写巧克力祝福牌内容 (免费)</span>
+          <span style="font-size:10px;color:var(--studio-text-muted);">主理人手写心意</span>
+        </div>
+        <div class="plaque-input-wrap">
+          <input type="text" id="plaque-text-input" class="plaque-input" placeholder="输入手写祝福语 (限12字内)" value="Happy Birthday" maxlength="12">
+        </div>
+        <div class="quick-plaque-chips">
+          <button class="chip-btn" onclick="setQuickPlaque('Happy Birthday')">Happy Birthday</button>
+          <button class="chip-btn" onclick="setQuickPlaque('岁岁常欢愉')">岁岁常欢愉</button>
+          <button class="chip-btn" onclick="setQuickPlaque('年年皆胜意')">年年皆胜意</button>
+          <button class="chip-btn" onclick="setQuickPlaque('暴富暴美')">暴富暴美</button>
+          <button class="chip-btn" onclick="setQuickPlaque('平安喜乐')">平安喜乐</button>
+        </div>
+      </div>
+
+      <!-- 数量步进器 -->
+      <div class="stepper-row">
+        <div style="font-size:12px;font-weight:700;color:var(--studio-text-main);">定制套数</div>
+        <div class="stepper-control">
+          <button class="stepper-btn" onclick="changeQty(-1)" aria-label="减少">-</button>
+          <div class="stepper-val" id="drawer-qty">1</div>
+          <button class="stepper-btn" onclick="changeQty(1)" aria-label="增加">+</button>
+        </div>
+      </div>
+
+      <!-- 抽屉底部操作栏 -->
+      <div class="drawer-actions-row">
+        <button class="drawer-btn-cart" onclick="confirmAddToBag()">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>加入定制袋</span>
+        </button>
+        <button class="drawer-btn-book" onclick="confirmInstantBooking()">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>立即预约定制</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ====================================================================
+         模态抽屉: 履约轨迹详情 (Order Timeline Drawer)
+         ==================================================================== -->
+    <div class="drawer-mask" id="timeline-drawer-mask" onclick="closeTimelineDrawer()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="timeline-drawer-sheet" role="dialog" aria-label="订单履约全流程轨迹">
+      <div class="drawer-header">
+        <div>
+          <h3 style="font-size:14px;font-weight:700;color:var(--studio-text-main);">订单履约全流程追踪</h3>
+          <div style="font-size:11px;color:var(--studio-text-muted);margin-top:2px;">单号：#MY-20260904-8921 · 快递冷链同城专送</div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeTimelineDrawer()" aria-label="关闭轨迹">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="timeline-list">
+        <div class="timeline-node">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">预计今日 15:45 送达</div>
+          <div class="timeline-content">快递同城冷链专员正在骑行派送中，距您 1.2km，保温箱恒温 2-4℃</div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot done"></div>
+          <div class="timeline-time">14:50</div>
+          <div class="timeline-content">骑手已到达工坊完成安全封箱取件，开启温度追踪器</div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot done"></div>
+          <div class="timeline-time">14:20</div>
+          <div class="timeline-content">蛋糕完成抹面与鲜果裱花，手写巧克力牌已安放，完成品控质检</div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot done"></div>
+          <div class="timeline-time">11:30</div>
+          <div class="timeline-content">伯爵红茶海绵蛋糕胚出炉，置于恒温架分层冷却</div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot done"></div>
+          <div class="timeline-time">10:15</div>
+          <div class="timeline-content">**私房烘焙工坊已接单并安排主理人排单生产</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:10px;">
+        <button class="drawer-btn-cart" style="flex:1;" onclick="triggerToast('已为您接通快递冷链骑手：158****1290')">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>致电专车骑手</span>
+        </button>
+        <button class="drawer-btn-book" style="flex:1;" onclick="triggerToast('加急提醒已送达，专员将优先派送您的订单')">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>加急催单提醒</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         模态抽屉: 主理人微信名片 (Studio Master Modal)
+         ==================================================================== -->
+    <div class="drawer-mask" id="master-drawer-mask" onclick="closeStudioMasterModal()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="master-drawer-sheet" role="dialog" aria-label="联系主理人微信名片">
+      <div class="drawer-header">
+        <h3 style="font-size:14px;font-weight:700;color:var(--studio-text-main);">联系专属主理人 (微信号)</h3>
+        <button class="drawer-close-btn" onclick="closeStudioMasterModal()" aria-label="关闭名片">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div style="text-align:center;padding:12px 0;">
+        <div style="width:72px;height:72px;background:var(--studio-primary-light);border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;color:var(--studio-primary);">
+          <svg class="icon" width="36" height="36" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h4 style="font-size:15px;font-weight:700;color:var(--studio-text-main);">**私房烘焙 · 蛋糕设计主理人</h4>
+        <div style="font-size:11px;color:var(--studio-text-muted);margin-top:4px;">一对一沟通蛋糕款式 · 支持客图定制与企业茶歇</div>
+        
+        <div style="background:var(--studio-bg-app);border-radius:var(--studio-radius-md);padding:12px;margin:16px auto;max-width:240px;border:1px dashed var(--studio-secondary);">
+          <div style="font-size:11px;color:var(--studio-text-muted);">主理人官方微信号</div>
+          <div style="font-size:16px;font-weight:800;color:var(--studio-primary);letter-spacing:1px;margin-top:2px;" id="wechat-id-val">MaiYu_Cake_Studio</div>
+        </div>
+
+        <button class="btn-order-solid" style="width:100%;padding:12px;font-size:13px;justify-content:center;" onclick="copyWechatId()">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span>一键复制微信号</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         模态抽屉: 赏味优惠券列表 (Coupons Modal)
+         ==================================================================== -->
+    <div class="drawer-mask" id="coupons-drawer-mask" onclick="closeCouponsModal()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="coupons-drawer-sheet" role="dialog" aria-label="私房赏味礼券">
+      <div class="drawer-header">
+        <h3 style="font-size:14px;font-weight:700;color:var(--studio-text-main);">我的私房赏味礼券 (3张)</h3>
+        <button class="drawer-close-btn" onclick="closeCouponsModal()" aria-label="关闭礼券">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <article style="background:var(--studio-bg-app);border:1px solid var(--studio-border-light);border-radius:var(--studio-radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h4 style="font-size:13px;font-weight:700;color:var(--studio-text-main);">私房定制专享立减券</h4>
+            <div style="font-size:10px;color:var(--studio-text-muted);margin-top:2px;">满 ¥198 可用 · 全系列通用</div>
+            <div style="font-size:9px;color:var(--studio-secondary);margin-top:2px;">有效期至 2026-10-31</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:800;color:var(--studio-accent-rose);">¥30</div>
+            <button class="btn-order-solid" style="padding:3px 10px;font-size:10px;margin-top:4px;" onclick="applyCoupon('满198减30')">去使用</button>
+          </div>
+        </article>
+
+        <article style="background:var(--studio-bg-app);border:1px solid var(--studio-border-light);border-radius:var(--studio-radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h4 style="font-size:13px;font-weight:700;color:var(--studio-text-main);">生日当月冷链免运费券</h4>
+            <div style="font-size:10px;color:var(--studio-text-muted);margin-top:2px;">无门槛 · 快递同城专送免配送费</div>
+            <div style="font-size:9px;color:var(--studio-secondary);margin-top:2px;">会员专属礼券</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:16px;font-weight:800;color:var(--studio-accent-rose);">包邮</div>
+            <button class="btn-order-solid" style="padding:3px 10px;font-size:10px;margin-top:4px;" onclick="applyCoupon('同城冷链免邮券')">去使用</button>
+          </div>
+        </article>
+
+        <article style="background:var(--studio-bg-app);border:1px solid var(--studio-border-light);border-radius:var(--studio-radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h4 style="font-size:13px;font-weight:700;color:var(--studio-text-main);">常温伴手礼体验券</h4>
+            <div style="font-size:10px;color:var(--studio-text-muted);margin-top:2px;">玛德琳/费南雪单盒立减</div>
+            <div style="font-size:9px;color:var(--studio-secondary);margin-top:2px;">有效期至 2026-11-15</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:18px;font-weight:800;color:var(--studio-accent-rose);">¥15</div>
+            <button class="btn-order-solid" style="padding:3px 10px;font-size:10px;margin-top:4px;" onclick="applyCoupon('伴手礼15元券')">去使用</button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         模态抽屉: 生日纪念档案 (Anniversary Modal)
+         ==================================================================== -->
+    <div class="drawer-mask" id="anniversary-drawer-mask" onclick="closeAnniversaryModal()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="anniversary-drawer-sheet" role="dialog" aria-label="生日纪念日档案簿">
+      <div class="drawer-header">
+        <h3 style="font-size:14px;font-weight:700;color:var(--studio-text-main);">生日与纪念日档案簿</h3>
+        <button class="drawer-close-btn" onclick="closeAnniversaryModal()" aria-label="关闭档案">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <article style="background:var(--studio-bg-app);border-radius:var(--studio-radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h4 style="font-size:13px;font-weight:700;color:var(--studio-text-main);">林先生 (家人)</h4>
+            <div style="font-size:11px;color:var(--studio-text-muted);margin-top:2px;">每年 09月18日 · 偏好海盐伯爵与芒果</div>
+          </div>
+          <button class="btn-order-outline" style="font-size:10px;" onclick="quickBookForBirthday('林先生 生日')">一键选款</button>
+        </article>
+
+        <article style="background:var(--studio-bg-app);border-radius:var(--studio-radius-md);padding:12px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h4 style="font-size:13px;font-weight:700;color:var(--studio-text-main);">结婚纪念日 (浪漫定制)</h4>
+            <div style="font-size:11px;color:var(--studio-text-muted);margin-top:2px;">每年 10月02日 · 偏好开心果巴斯克</div>
+          </div>
+          <button class="btn-order-outline" style="font-size:10px;" onclick="quickBookForBirthday('结婚纪念日')">一键选款</button>
+        </article>
+
+        <button class="btn-order-solid" style="width:100%;margin-top:8px;padding:10px;justify-content:center;" onclick="triggerToast('新增纪念日成功，主理人将在节前3天提醒您')">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>添加新纪念日提醒</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         模态抽屉: 常用地址切换 (Address Modal)
+         ==================================================================== -->
+    <div class="drawer-mask" id="address-drawer-mask" onclick="closeAddressModal()" aria-hidden="true"></div>
+    <div class="drawer-sheet" id="address-drawer-sheet" role="dialog" aria-label="常用配送地址簿">
+      <div class="drawer-header">
+        <h3 style="font-size:14px;font-weight:700;color:var(--studio-text-main);">选择常用冷链配送地址</h3>
+        <button class="drawer-close-btn" onclick="closeAddressModal()" aria-label="关闭地址簿">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <article id="addr-card-0" style="background:var(--studio-primary-light);border:1px solid var(--studio-primary);border-radius:var(--studio-radius-md);padding:12px;cursor:pointer;" onclick="selectAddress(0, '静安区枫林路88号云锦苑3栋802室')">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <b style="font-size:13px;color:var(--studio-text-main);">林女士 · 138****5210</b>
+            <span style="font-size:10px;background:var(--studio-primary);color:var(--studio-text-inverse);padding:2px 6px;border-radius:4px;">默认</span>
+          </div>
+          <div style="font-size:11px;color:var(--studio-text-muted);margin-top:4px;">上海市静安区枫林路88号云锦苑3栋802室</div>
+        </article>
+
+        <article id="addr-card-1" style="background:var(--studio-bg-app);border:1px solid var(--studio-border-light);border-radius:var(--studio-radius-md);padding:12px;cursor:pointer;" onclick="selectAddress(1, '浦东新区世纪大道66号国金二期21F')">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <b style="font-size:13px;color:var(--studio-text-main);">林女士 (公司) · 138****5210</b>
+            <span style="font-size:10px;background:var(--studio-bg-subtle);color:var(--studio-text-muted);padding:2px 6px;border-radius:4px;">工作日</span>
+          </div>
+          <div style="font-size:11px;color:var(--studio-text-muted);margin-top:4px;">上海市浦东新区世纪大道66号国金中心二期21楼</div>
+        </article>
+
+        <button class="btn-order-outline" style="width:100%;margin-top:6px;padding:10px;justify-content:center;" onclick="triggerToast('已进入地址录入流程，已为您保存新地址')">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>新增冷链收货地址</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 微信原生居中 Toast 轻量提示 -->
+    <div class="wechat-toast" id="global-toast" role="alert" aria-live="polite">
+      <svg class="icon" width="22" height="22" viewBox="0 0 24 24" id="toast-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span id="toast-msg">提示信息</span>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       前端纯数据与事件控制器 (Vanilla JavaScript ES6)
+       ========================================================================== */
+  <script>
+    /* --------------------------------------------------------------------------
+       数据字典与模拟产品库 (完全脱敏)
+       -------------------------------------------------------------------------- */
+    const PRODUCTS = {
+      custom: [
+        {
+          id: 'cake-1',
+          name: '春见白桃香缇生乳戚风',
+          price: 238,
+          tag: '当季首发',
+          desc: '日清紫罗兰粉 · 鲜摘白桃果肉 · 减糖35%',
+          thumb: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'cake-2',
+          name: '极浓开心果流心巴斯克',
+          price: 168,
+          tag: '主理人招牌',
+          desc: '意大利开心果酱 · Kiri奶油芝士 · 低温慢烤',
+          thumb: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'cake-3',
+          name: '法芙娜海盐焦糖脆脆蛋糕',
+          price: 238,
+          tag: '浓郁经典',
+          desc: '法国法芙娜黑巧 · 手作焦糖酱 · 琥珀核桃',
+          thumb: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'cake-4',
+          name: '宇治五十铃抹茶生乳裸蛋糕',
+          price: 218,
+          tag: '微苦清雅',
+          desc: '宇治五十铃抹茶 · 低糖手作芋泥 · 柔和甘苦',
+          thumb: 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=300&auto=format&fit=crop&q=80'
+        }
+      ],
+      slice: [
+        {
+          id: 'slice-1',
+          name: '经典法式开心果树莓切块',
+          price: 48,
+          tag: '下午茶精选',
+          desc: '层层酥脆饼干底 · 树莓果茸夹芯',
+          thumb: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'slice-2',
+          name: '西西里柠檬凝乳切块',
+          price: 42,
+          tag: '清爽酸甜',
+          desc: '新鲜现榨柠檬汁 · 天然香草籽',
+          thumb: 'https://images.unsplash.com/photo-1519869325930-281384150729?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'slice-3',
+          name: '法式栗子蒙布朗切块',
+          price: 52,
+          tag: '秋冬限定',
+          desc: '法国萨芭提栗子泥 · 朗姆酒香草提味',
+          thumb: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=300&auto=format&fit=crop&q=80'
+        }
+      ],
+      chiffon: [
+        {
+          id: 'chiffon-1',
+          name: '伯爵红茶云朵生乳卷',
+          price: 88,
+          tag: '低糖轻食',
+          desc: '整条装 (4切) · 现萃伯爵茶汤胚体',
+          thumb: 'https://images.unsplash.com/photo-1505976378723-9726b54e9bb9?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'chiffon-2',
+          name: '日式原味香草纯乳卷',
+          price: 78,
+          tag: '奶香醇厚',
+          desc: '法国铁塔乳脂 · 马达加斯加香草荚',
+          thumb: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=300&auto=format&fit=crop&q=80'
+        }
+      ],
+      gift: [
+        {
+          id: 'gift-1',
+          name: '法式手作玛德琳礼盒 (8枚入)',
+          price: 118,
+          tag: '常温伴手礼',
+          desc: '焦香黄油 · 经典贝壳造型 · 优雅礼袋装',
+          thumb: 'https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=300&auto=format&fit=crop&q=80'
+        },
+        {
+          id: 'gift-2',
+          name: '金牌费南雪烘焙礼盒 (6枚入)',
+          price: 98,
+          tag: '手作酥点',
+          desc: '特浓榛果焦香黄油 · 原味与黑巧双拼',
+          thumb: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=300&auto=format&fit=crop&q=80'
+        }
+      ]
+    };
+
+    // 轮播图配置
+    const CAROUSEL_DATA = [
+      {
+        img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&auto=format&fit=crop&q=80',
+        badge: '当季限定 · 春季首发',
+        title: '春见白桃香缇生乳戚风',
+        desc: '日本日清紫罗兰粉 · 法国铁塔天然动物淡奶油 · 减糖35%',
+        prodId: 'cake-1'
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=700&auto=format&fit=crop&q=80',
+        badge: '主理人招牌 · 烘烤巴斯克',
+        title: '极浓开心果流心巴斯克',
+        desc: '意大利开心果酱 · Kiri奶油芝士 · 低温慢烤焦糖微苦',
+        prodId: 'cake-2'
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=700&auto=format&fit=crop&q=80',
+        badge: '经典法芙娜可可',
+        title: '法芙娜海盐焦糖脆脆蛋糕',
+        desc: '法国法芙娜黑巧 · 慢熬海盐焦糖酱 · 琥珀核桃薄脆',
+        prodId: 'cake-3'
+      }
+    ];
+
+    // 订单数据仓库 (脱敏真实业务)
+    let ORDERS_DATA = [
+      {
+        id: 'MY-20260904-8921',
+        title: '6寸 · 春见白桃香缇生乳戚风',
+        status: 'delivering',
+        statusText: '快递同城冷链配送中',
+        badgeClass: 'order-badge-delivering',
+        specs: '海盐伯爵胚 + 当季新鲜芒果 + 祝福牌: Happy Birthday',
+        deliveryTime: '今日 15:30 - 16:00 (预约送达)',
+        price: 238,
+        thumb: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'MY-20260904-9104',
+        title: '4寸 · 极浓开心果流心巴斯克',
+        status: 'producing',
+        statusText: '烘焙师傅手作制作中',
+        badgeClass: 'order-badge-producing',
+        specs: '经典慢烤流心芝士 + 祝福牌: 岁岁常欢愉',
+        deliveryTime: '今日 17:30 - 18:00 (工坊自提)',
+        price: 168,
+        thumb: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=200&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'MY-20260828-3312',
+        title: '6寸 · 法芙娜海盐焦糖脆脆蛋糕',
+        status: 'completed',
+        statusText: '已签收',
+        badgeClass: 'order-badge-done',
+        specs: '法芙娜生巧胚 + 焦糖脆脆 + 金字蜡烛',
+        deliveryTime: '2026-08-28 14:30 顺利签收',
+        price: 238,
+        thumb: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&auto=format&fit=crop&q=80'
+      }
+    ];
+
+    /* --------------------------------------------------------------------------
+       当前交互状态机
+       -------------------------------------------------------------------------- */
+    let currentTab = 0;
+    let currentCategoryKey = 'custom';
+    let currentCarouselIndex = 0;
+    let currentOrderFilter = 'all';
+
+    // 定制规格选中状态
+    let customState = {
+      productId: 'cake-1',
+      productName: '春见白桃香缇生乳戚风',
+      sizeName: '6寸',
+      basePrice: 238,
+      baseName: '海盐伯爵红茶',
+      fillingName: '当季新鲜芒果',
+      plaqueText: 'Happy Birthday',
+      qty: 1
+    };
+
+    /* --------------------------------------------------------------------------
+       初始化
+       -------------------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCatalog('custom');
+      renderOrders('all');
+    });
+
+    /* --------------------------------------------------------------------------
+       Tab 切换
+       -------------------------------------------------------------------------- */
+    function switchMpTab(tabIdx) {
+      currentTab = tabIdx;
+      
+      // 更新导航高亮
+      for (let i = 0; i <= 3; i++) {
+        const tabEl = document.getElementById('tab-' + i);
+        const navEl = document.getElementById('tab-nav-' + i);
+        if (tabEl) tabEl.classList.toggle('active', i === tabIdx);
+        if (navEl) navEl.classList.toggle('active', i === tabIdx);
+      }
+
+      // 滚动回到顶端
+      const viewport = document.querySelector('.mp-viewport');
+      if (viewport) viewport.scrollTop = 0;
+    }
+
+    /* --------------------------------------------------------------------------
+       首页轮播控制器
+       -------------------------------------------------------------------------- */
+    function switchCarousel(idx) {
+      currentCarouselIndex = idx;
+      const data = CAROUSEL_DATA[idx];
+      const imgEl = document.getElementById('hero-carousel-img');
+      const badgeEl = document.getElementById('hero-carousel-badge');
+      const titleEl = document.getElementById('hero-carousel-title');
+      const descEl = document.getElementById('hero-carousel-desc');
+
+      if (imgEl) imgEl.src = data.img;
+      if (badgeEl) badgeEl.innerText = data.badge;
+      if (titleEl) titleEl.innerText = data.title;
+      if (descEl) descEl.innerText = data.desc;
+
+      document.querySelectorAll('.carousel-indicator').forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+    }
+
+    /* --------------------------------------------------------------------------
+       分类选购控制器
+       -------------------------------------------------------------------------- */
+    function switchCategory(btnIdx, catKey) {
+      currentCategoryKey = catKey;
+      for (let i = 0; i <= 3; i++) {
+        const btn = document.getElementById('cat-btn-' + i);
+        if (btn) btn.classList.toggle('active', i === btnIdx);
+      }
+      renderCatalog(catKey);
+    }
+
+    function renderCatalog(catKey) {
+      const box = document.getElementById('catalog-content-box');
+      if (!box) return;
+
+      const items = PRODUCTS[catKey] || [];
+      let catNames = {
+        custom: '招牌私房定制蛋糕',
+        slice: '精致法式切块下午茶',
+        chiffon: '低糖轻盈生乳戚风',
+        gift: '常温法式点心伴手礼'
+      };
+
+      let html = `<div class="catalog-group-title">
+                    <span>${catNames[catKey]}</span>
+                    <span style="font-size:10px;color:var(--studio-secondary);">${items.length} 款手作精选</span>
+                  </div>`;
+
+      items.forEach(item => {
+        html += `
+          <article class="catalog-item-card" onclick="openCustomDrawerById('${item.id}')">
+            <img class="catalog-img" src="${item.thumb}" alt="${item.name}">
+            <div class="catalog-detail">
+              <div>
+                <h4 class="catalog-name">${item.name}</h4>
+                <div class="catalog-spec-summary">${item.desc}</div>
+              </div>
+              <div class="catalog-bottom">
+                <div class="catalog-price">¥${item.price}<span>起</span></div>
+                <button class="btn-select-spec" onclick="event.stopPropagation(); openCustomDrawerById('${item.id}');">
+                  <svg class="icon" width="10" height="10" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+                  <span>选规格</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      box.innerHTML = html;
+    }
+
+    /* --------------------------------------------------------------------------
+       定制规格抽屉控制器
+       -------------------------------------------------------------------------- */
+    function openCustomDrawerById(prodId) {
+      let found = null;
+      for (let key in PRODUCTS) {
+        let hit = PRODUCTS[key].find(p => p.id === prodId);
+        if (hit) { found = hit; break; }
+      }
+      if (!found) {
+        found = PRODUCTS.custom[0];
+      }
+
+      customState.productId = found.id;
+      customState.productName = found.name;
+      customState.basePrice = found.price;
+      customState.qty = 1;
+
+      document.getElementById('drawer-thumb').src = found.thumb;
+      document.getElementById('drawer-title').innerText = found.name;
+      updateDrawerTotal();
+
+      document.getElementById('custom-drawer-mask').classList.add('show');
+      document.getElementById('custom-drawer-sheet').classList.add('show');
+    }
+
+    function closeCustomDrawer() {
+      document.getElementById('custom-drawer-mask').classList.remove('show');
+      document.getElementById('custom-drawer-sheet').classList.remove('show');
+    }
+
+    function selectSize(sizeName, price, optIdx) {
+      customState.sizeName = sizeName;
+      customState.basePrice = price;
+      for (let i = 0; i <= 2; i++) {
+        const btn = document.getElementById('size-opt-' + i);
+        if (btn) btn.classList.toggle('active', i === optIdx);
+      }
+      updateDrawerTotal();
+    }
+
+    function selectBase(baseName, optIdx) {
+      customState.baseName = baseName;
+      for (let i = 0; i <= 2; i++) {
+        const btn = document.getElementById('base-opt-' + i);
+        if (btn) btn.classList.toggle('active', i === optIdx);
+      }
+    }
+
+    function selectFilling(fillingName, optIdx) {
+      customState.fillingName = fillingName;
+      for (let i = 0; i <= 2; i++) {
+        const btn = document.getElementById('fill-opt-' + i);
+        if (btn) btn.classList.toggle('active', i === optIdx);
+      }
+    }
+
+    function setQuickPlaque(text) {
+      const input = document.getElementById('plaque-text-input');
+      if (input) {
+        input.value = text;
+        customState.plaqueText = text;
+        triggerToast('已填入：' + text);
+      }
+    }
+
+    function changeQty(delta) {
+      let newQty = customState.qty + delta;
+      if (newQty < 1) newQty = 1;
+      if (newQty > 10) newQty = 10;
+      customState.qty = newQty;
+      document.getElementById('drawer-qty').innerText = newQty;
+      updateDrawerTotal();
+    }
+
+    function updateDrawerTotal() {
+      const total = customState.basePrice * customState.qty;
+      const el = document.getElementById('drawer-price');
+      if (el) el.innerText = '¥' + total;
+    }
+
+    // 加入定制袋
+    function confirmAddToBag() {
+      closeCustomDrawer();
+      triggerToast('已加入您的专属定制清单');
+    }
+
+    // 立即预约定制
+    function confirmInstantBooking() {
+      const input = document.getElementById('plaque-text-input');
+      const plaque = input ? input.value : 'Happy Birthday';
+      
+      const newOrder = {
+        id: 'MY-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(1000 + Math.random() * 9000),
+        title: `${customState.sizeName} · ${customState.productName}`,
+        status: 'producing',
+        statusText: '烘焙师傅已接单排产',
+        badgeClass: 'order-badge-producing',
+        specs: `${customState.baseName} + ${customState.fillingName} + 祝福牌: ${plaque}`,
+        deliveryTime: '今日 18:00 - 18:30 (快递冷链专送)',
+        price: customState.basePrice * customState.qty,
+        thumb: document.getElementById('drawer-thumb').src
+      };
+
+      ORDERS_DATA.unshift(newOrder);
+      closeCustomDrawer();
+      triggerToast('预约成功！已为您转至订单履约看板');
+      
+      // 更新徽标并切到订单 Tab
+      const badge = document.getElementById('order-badge-count');
+      if (badge) badge.innerText = ORDERS_DATA.length;
+
+      setTimeout(() => {
+        switchMpTab(2);
+        filterOrders('all');
+      }, 350);
+    }
+
+    /* --------------------------------------------------------------------------
+       订单状态过滤与卡片渲染
+       -------------------------------------------------------------------------- */
+    function filterOrders(filterKey) {
+      currentOrderFilter = filterKey;
+      ['all', 'delivering', 'producing', 'completed'].forEach(k => {
+        const btn = document.getElementById('order-tab-' + k);
+        if (btn) btn.classList.toggle('active', k === filterKey);
+      });
+      renderOrders(filterKey);
+    }
+
+    function renderOrders(filterKey) {
+      const box = document.getElementById('orders-list-box');
+      if (!box) return;
+
+      let list = ORDERS_DATA;
+      if (filterKey !== 'all') {
+        list = ORDERS_DATA.filter(o => o.status === filterKey);
+      }
+
+      if (list.length === 0) {
+        box.innerHTML = `
+          <div style="text-align:center;padding:40px 0;color:var(--studio-text-muted);">
+            <div style="font-size:13px;font-weight:600;">暂无此类订单</div>
+            <button class="btn-order-outline" style="margin:12px auto 0;" onclick="switchMpTab(1)">前往选购定制</button>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      list.forEach(item => {
+        html += `
+          <article class="order-card">
+            <div class="order-card-header">
+              <div class="order-sn">
+                <span>#${item.id}</span>
+              </div>
+              <div class="${item.badgeClass}">${item.statusText}</div>
+            </div>
+
+            <div class="order-body-row">
+              <img class="order-cake-thumb" src="${item.thumb}" alt="${item.title}">
+              <div class="order-info">
+                <h4 class="order-prod-title">${item.title}</h4>
+                <div class="order-specs-text">${item.specs}</div>
+                <div style="font-size:11px;color:var(--studio-primary);font-weight:700;margin-top:4px;">
+                  实付 ¥${item.price}
+                </div>
+              </div>
+            </div>
+
+            <div class="order-timeline-preview">
+              <svg class="icon" width="13" height="13" viewBox="0 0 24 24" style="color:var(--studio-primary);margin-top:1px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>${item.deliveryTime}</span>
+            </div>
+
+            <div class="order-action-bar">
+              <button class="btn-order-outline" onclick="openTimelineDrawer()">
+                <svg class="icon" width="11" height="11" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 10"/></svg>
+                <span>查看轨迹</span>
+              </button>
+              <button class="btn-order-outline" onclick="triggerToast('已向配送专员与主理人发送加急提醒')">
+                <span>催单提醒</span>
+              </button>
+              <button class="btn-order-solid" onclick="triggerToast('已复制此订单定制参数，可在选购页面修改重订')">
+                <span>再来一单</span>
+              </button>
+            </div>
+          </article>
+        `;
+      });
+
+      box.innerHTML = html;
+    }
+
+    /* --------------------------------------------------------------------------
+       模态抽屉：履约时间轴
+       -------------------------------------------------------------------------- */
+    function openTimelineDrawer() {
+      document.getElementById('timeline-drawer-mask').classList.add('show');
+      document.getElementById('timeline-drawer-sheet').classList.add('show');
+    }
+    function closeTimelineDrawer() {
+      document.getElementById('timeline-drawer-mask').classList.remove('show');
+      document.getElementById('timeline-drawer-sheet').classList.remove('show');
+    }
+
+    /* --------------------------------------------------------------------------
+       模态抽屉：主理人微信名片
+       -------------------------------------------------------------------------- */
+    function openStudioMasterModal() {
+      document.getElementById('master-drawer-mask').classList.add('show');
+      document.getElementById('master-drawer-sheet').classList.add('show');
+    }
+    function closeStudioMasterModal() {
+      document.getElementById('master-drawer-mask').classList.remove('show');
+      document.getElementById('master-drawer-sheet').classList.remove('show');
+    }
+    function copyWechatId() {
+      const wechatId = 'MaiYu_Cake_Studio';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(wechatId).then(() => {
+          triggerToast('微信号已复制到剪贴板！');
+        }).catch(() => {
+          triggerToast('微信号已复制：' + wechatId);
+        });
+      } else {
+        triggerToast('微信号已复制：' + wechatId);
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       模态抽屉：优惠券
+       -------------------------------------------------------------------------- */
+    function openCouponsModal() {
+      document.getElementById('coupons-drawer-mask').classList.add('show');
+      document.getElementById('coupons-drawer-sheet').classList.add('show');
+    }
+    function closeCouponsModal() {
+      document.getElementById('coupons-drawer-mask').classList.remove('show');
+      document.getElementById('coupons-drawer-sheet').classList.remove('show');
+    }
+    function applyCoupon(couponName) {
+      closeCouponsModal();
+      triggerToast('已应用优惠券：' + couponName);
+      setTimeout(() => switchMpTab(1), 300);
+    }
+
+    /* --------------------------------------------------------------------------
+       模态抽屉：纪念日档案
+       -------------------------------------------------------------------------- */
+    function openAnniversaryModal() {
+      document.getElementById('anniversary-drawer-mask').classList.add('show');
+      document.getElementById('anniversary-drawer-sheet').classList.add('show');
+    }
+    function closeAnniversaryModal() {
+      document.getElementById('anniversary-drawer-mask').classList.remove('show');
+      document.getElementById('anniversary-drawer-sheet').classList.remove('show');
+    }
+    function quickBookForBirthday(desc) {
+      closeAnniversaryModal();
+      triggerToast('已定位至适合 [' + desc + '] 的专属定制款式');
+      setTimeout(() => switchMpTab(1), 300);
+    }
+
+    /* --------------------------------------------------------------------------
+       模态抽屉：地址选择
+       -------------------------------------------------------------------------- */
+    function openAddressModal() {
+      document.getElementById('address-drawer-mask').classList.add('show');
+      document.getElementById('address-drawer-sheet').classList.add('show');
+    }
+    function closeAddressModal() {
+      document.getElementById('address-drawer-mask').classList.remove('show');
+      document.getElementById('address-drawer-sheet').classList.remove('show');
+    }
+    function selectAddress(idx, addrStr) {
+      document.getElementById('addr-card-0').style.background = idx === 0 ? 'var(--studio-primary-light)' : 'var(--studio-bg-app)';
+      document.getElementById('addr-card-0').style.borderColor = idx === 0 ? 'var(--studio-primary)' : 'var(--studio-border-light)';
+      document.getElementById('addr-card-1').style.background = idx === 1 ? 'var(--studio-primary-light)' : 'var(--studio-bg-app)';
+      document.getElementById('addr-card-1').style.borderColor = idx === 1 ? 'var(--studio-primary)' : 'var(--studio-border-light)';
+
+      const tagEl = document.getElementById('current-address-tag');
+      if (tagEl) {
+        tagEl.innerText = idx === 0 ? '静安区枫林路' : '浦东国金二期';
+      }
+
+      closeAddressModal();
+      triggerToast('默认收货地址已切换');
+    }
+
+    /* --------------------------------------------------------------------------
+       微信原生风格 Toast 浮层提示控制器
+       -------------------------------------------------------------------------- */
+    let toastTimer = null;
+    function triggerToast(message) {
+      const toastEl = document.getElementById('global-toast');
+      const msgEl = document.getElementById('toast-msg');
+      if (!toastEl || !msgEl) return;
+
+      msgEl.innerText = message;
+      toastEl.classList.add('show');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.remove('show');
+      }, 1600);
+    }
+  </script>
+</body>
+</html>

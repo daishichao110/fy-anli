@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="icon-library" content="lucide">
+  <title>**上门喂宠 - 上门喂猫·代遛狗微信小程序</title>
+  <style>
+    :root {
+      --color-primary: #EA580C;
+      --color-primary-hover: #C2410C;
+      --color-primary-light: #FFEDD5;
+      --color-primary-subtle: #FFF7ED;
+      --color-primary-10: rgba(234, 88, 12, 0.1);
+      --color-primary-20: rgba(234, 88, 12, 0.2);
+      --color-primary-30: rgba(234, 88, 12, 0.3);
+
+      --color-success: #16A34A;
+      --color-success-hover: #15803D;
+      --color-success-light: #DCFCE7;
+      --color-success-subtle: #F0FDF4;
+      --color-success-10: rgba(22, 163, 74, 0.1);
+
+      --color-warning: #D97706;
+      --color-warning-light: #FEF3C7;
+      --color-warning-10: rgba(217, 119, 6, 0.1);
+
+      --color-info: #0284C7;
+      --color-info-light: #E0F2FE;
+      --color-info-10: rgba(2, 132, 199, 0.1);
+
+      --color-danger: #EF4444;
+      --color-danger-light: #FEE2E2;
+
+      --color-bg-page: #F8FAFC;
+      --color-bg-card: #FFFFFF;
+      --color-bg-card-muted: #F8FAFC;
+      --color-bg-subtle: #F1F5F9;
+      --color-bg-shell: #0F172A;
+      --color-bg-status: #FFFFFF;
+      
+      --color-border: #E2E8F0;
+      --color-border-light: #F1F5F9;
+      --color-border-subtle: #CBD5E1;
+
+      --color-text-title: #0F172A;
+      --color-text-body: #334155;
+      --color-text-muted: #64748B;
+      --color-text-light: #94A3B8;
+      --color-text-white: #FFFFFF;
+
+      --color-overlay: rgba(15, 23, 42, 0.65);
+      --color-capsule-bg: rgba(15, 23, 42, 0.05);
+      --color-capsule-border: rgba(15, 23, 42, 0.15);
+      --color-capsule-divider: rgba(15, 23, 42, 0.15);
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 2px 10px -1px rgba(15, 23, 42, 0.06), 0 1px 4px -1px rgba(15, 23, 42, 0.03);
+      --shadow-primary: 0 4px 14px 0 rgba(234, 88, 12, 0.3);
+      --shadow-toast: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      background-color: var(--color-bg-page);
+      color: var(--color-text-body);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Mini Program Simulator Shell */
+    .simulator-wrapper {
+      width: 100%;
+      max-width: 414px;
+      height: 100vh;
+      max-height: 896px;
+      background-color: var(--color-bg-page);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+    }
+
+    @media (min-width: 480px) {
+      body {
+        background-color: var(--color-bg-subtle);
+        padding: 20px 0;
+      }
+      .simulator-wrapper {
+        border-radius: 40px;
+        border: 10px solid var(--color-bg-shell);
+        height: 860px;
+      }
+    }
+
+    /* iOS Native Status Bar */
+    .status-bar {
+      height: 44px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      background-color: var(--color-bg-status);
+      z-index: 50;
+      user-select: none;
+    }
+    .status-bar-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* WeChat Navigation Header */
+    .wechat-nav-header {
+      height: 44px;
+      background-color: var(--color-bg-card);
+      border-bottom: 1px solid var(--color-border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: relative;
+      z-index: 50;
+    }
+    .location-selector {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s;
+    }
+    .location-selector:active {
+      background-color: var(--color-bg-subtle);
+    }
+    .location-subtag {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: normal;
+    }
+
+    /* WeChat Official Capsule Button */
+    .wechat-capsule {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      background-color: var(--color-capsule-bg);
+      border: 1px solid var(--color-capsule-border);
+      border-radius: var(--radius-pill);
+      padding: 0 3px;
+      gap: 2px;
+    }
+    .capsule-btn {
+      width: 38px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-title);
+      cursor: pointer;
+      border-radius: var(--radius-pill);
+      transition: background-color 0.2s;
+    }
+    .capsule-btn:active {
+      background-color: var(--color-border);
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 18px;
+      background-color: var(--color-capsule-divider);
+    }
+
+    /* Main Scrollable Viewport Body */
+    .viewport-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 74px;
+      background-color: var(--color-bg-page);
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: fadeInView 0.25s ease-out forwards;
+      padding: 12px;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Card Styles */
+    .card-block {
+      background-color: var(--color-bg-card);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border-light);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-extra {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* Notification Ribbon */
+    .notice-bar {
+      background-color: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary-20);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .notice-bar:active {
+      background-color: var(--color-primary-light);
+    }
+    .notice-text {
+      font-size: 12px;
+      color: var(--color-primary-hover);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--color-primary), #C2410C);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: var(--color-text-white);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-primary);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .hero-title {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .hero-desc {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* Category 4-Grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .category-item {
+      background-color: var(--color-bg-card);
+      border-radius: var(--radius-md);
+      padding: 12px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .category-item:active {
+      transform: scale(0.96);
+      background-color: var(--color-primary-subtle);
+      border-color: var(--color-primary-30);
+    }
+    .category-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-primary-subtle);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+    .category-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      margin-bottom: 2px;
+    }
+    .category-subtext {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+
+    /* SOP 6-Steps Container */
+    .sop-flow-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .sop-flow-card {
+      background-color: var(--color-bg-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border: 1px solid var(--color-border);
+    }
+    .sop-flow-card:active {
+      background-color: var(--color-primary-light);
+      border-color: var(--color-primary-30);
+    }
+    .sop-step-number {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+    }
+    .sop-step-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      margin-bottom: 2px;
+    }
+    .sop-step-detail {
+      font-size: 9px;
+      color: var(--color-text-muted);
+      line-height: 1.3;
+    }
+
+    /* Staff Card */
+    .staff-card-group {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .staff-card-group::-webkit-scrollbar { display: none; }
+    .staff-card {
+      flex: 0 0 200px;
+      background-color: var(--color-bg-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+    }
+    .staff-card:active {
+      border-color: var(--color-primary);
+    }
+    .staff-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .staff-avatar-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .staff-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .staff-badge {
+      font-size: 10px;
+      color: var(--color-success);
+      background-color: var(--color-success-light);
+      padding: 1px 6px;
+      border-radius: var(--radius-xs);
+      font-weight: 600;
+    }
+    .staff-desc {
+      font-size: 11px;
+      color: var(--color-text-body);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    /* Service List Items */
+    .service-row {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      background-color: var(--color-bg-card);
+      transition: border-color 0.2s;
+    }
+    .service-row:hover {
+      border-color: var(--color-primary-30);
+    }
+    .service-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .service-row-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .service-row-desc {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+    .service-tags-box {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+    .service-tag {
+      font-size: 10px;
+      background-color: var(--color-bg-subtle);
+      color: var(--color-text-body);
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--color-border-light);
+    }
+    .service-row-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--color-border-light);
+    }
+    .price-value {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+    .price-unit {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: normal;
+    }
+    .btn-action-sm {
+      background-color: var(--color-primary);
+      color: var(--color-text-white);
+      border: none;
+      padding: 7px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 8px var(--color-primary-30);
+      transition: all 0.2s;
+    }
+    .btn-action-sm:active {
+      background-color: var(--color-primary-hover);
+      transform: scale(0.96);
+    }
+
+    /* Tab 2: Booking Form Components */
+    .segment-picker {
+      display: flex;
+      background-color: var(--color-bg-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      margin-bottom: 14px;
+      gap: 2px;
+    }
+    .segment-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border-radius: var(--radius-xs);
+      transition: all 0.2s;
+    }
+    .segment-btn.active {
+      background-color: var(--color-bg-card);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pet-picker-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+    .pet-chip {
+      flex: 0 0 auto;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background-color: var(--color-bg-card);
+      transition: all 0.2s;
+    }
+    .pet-chip.active {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-subtle);
+    }
+    .pet-chip-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .pet-chip-sub {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+
+    .capsule-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .capsule-item {
+      padding: 7px 12px;
+      background-color: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-body);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .capsule-item.active {
+      background-color: var(--color-primary-subtle);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    .key-method-card {
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--color-bg-card);
+      transition: all 0.2s;
+    }
+    .key-method-card.active {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-subtle);
+    }
+    .key-method-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .key-method-desc {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .addon-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+    }
+    .addon-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .addon-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-title);
+    }
+    .addon-sub {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .addon-price {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: var(--radius-xs);
+      border: 1.5px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-white);
+      transition: all 0.2s;
+    }
+    .addon-item.checked .custom-checkbox {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    /* Fixed Bottom Checkout Bar in Tab 2 */
+    .checkout-footer-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--color-bg-card);
+      border-top: 1px solid var(--color-border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 12px -12px -12px -12px;
+      box-shadow: 0 -4px 12px rgba(15, 23, 42, 0.05);
+      z-index: 20;
+    }
+    .checkout-total-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .checkout-total-label {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .checkout-total-price {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+    .btn-submit-main {
+      background-color: var(--color-primary);
+      color: var(--color-text-white);
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-primary);
+      transition: all 0.2s;
+    }
+    .btn-submit-main:active {
+      transform: scale(0.97);
+      background-color: var(--color-primary-hover);
+    }
+
+    /* Tab 3: Timeline & Tracker */
+    .timeline-container {
+      position: relative;
+      padding-left: 24px;
+      margin: 14px 0;
+    }
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background-color: var(--color-border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -24px;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--color-bg-card);
+      border: 2px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-white);
+      transition: all 0.2s;
+    }
+    .timeline-item.done .timeline-dot {
+      background-color: var(--color-success);
+      border-color: var(--color-success);
+    }
+    .timeline-item.current .timeline-dot {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px var(--color-primary-20);
+    }
+    .timeline-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+    .timeline-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .timeline-time {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+    .timeline-desc {
+      font-size: 11px;
+      color: var(--color-text-body);
+      line-height: 1.4;
+    }
+    .timeline-photo-tag {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--color-info);
+      background-color: var(--color-info-light);
+      padding: 2px 8px;
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+    }
+
+    /* Dog Walking Stats Card */
+    .walk-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .walk-metric-cell {
+      background-color: var(--color-bg-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 6px;
+    }
+    .walk-metric-val {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--color-primary);
+    }
+    .walk-metric-lbl {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* Tab 4: Profile & Orders */
+    .user-profile-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .user-avatar-large {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-20));
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      border: 2px solid var(--color-bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+    .user-name-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-title);
+    }
+    .user-phone-sub {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .order-status-tabs {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid var(--color-border-light);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .order-status-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      transition: all 0.2s;
+    }
+    .order-status-btn.active {
+      color: var(--color-primary);
+      font-weight: 800;
+      background-color: var(--color-primary-subtle);
+    }
+
+    .menu-action-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+      color: var(--color-text-title);
+      font-size: 13px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .menu-action-row:last-child {
+      border-bottom: none;
+    }
+    .menu-action-row:active {
+      opacity: 0.7;
+    }
+    .menu-action-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Fixed Bottom TabBar */
+    .bottom-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background-color: var(--color-bg-card);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.04);
+    }
+    .tab-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      gap: 3px;
+      transition: color 0.15s;
+    }
+    .tab-nav-btn.active {
+      color: var(--color-primary);
+      font-weight: 800;
+    }
+
+    /* WeChat Style Overlays & Toast */
+    .wechat-toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(15, 23, 42, 0.9);
+      color: var(--color-text-white);
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 999;
+      pointer-events: none;
+      box-shadow: var(--shadow-toast);
+      max-width: 220px;
+      text-align: center;
+    }
+    .wechat-toast.show {
+      display: flex;
+      animation: popToast 0.2s ease-out;
+    }
+    @keyframes popToast {
+      from { opacity: 0; transform: translate(-50%, -46%) scale(0.92); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Modal / Bottom Sheet Drawer */
+    .wechat-modal-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--color-overlay);
+      z-index: 500;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .wechat-modal-mask.show {
+      display: flex;
+      animation: fadeInMask 0.2s ease-out;
+    }
+    @keyframes fadeInMask {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .wechat-bottom-sheet {
+      width: 100%;
+      max-height: 80vh;
+      background-color: var(--color-bg-card);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 18px;
+      overflow-y: auto;
+      animation: slideUpSheet 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUpSheet {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .sheet-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text-title);
+    }
+    .sheet-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--color-bg-subtle);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-muted);
+    }
+
+    /* Service Report Fullscreen View */
+    .report-badge-stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1.5px solid var(--color-success);
+      color: var(--color-success);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 800;
+      transform: rotate(-3deg);
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <div class="simulator-wrapper">
+
+    <!-- iOS Native Status Bar -->
+    <div class="status-bar">
+      <span>10:24</span>
+      <div class="status-bar-icons">
+        <!-- Lucide: Wifi -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <!-- Lucide: Battery -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- WeChat Mini Program Navigation Header -->
+    <header class="wechat-nav-header">
+      <div class="location-selector" onclick="openCityModal()">
+        <!-- Lucide: MapPin -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="current-location-text">北京·朝阳区</span>
+        <!-- Lucide: ChevronDown -->
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+
+      <div class="wechat-capsule">
+        <div class="capsule-btn" onclick="openWechatMenuModal()" title="小程序菜单">
+          <!-- More dots -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-btn" onclick="triggerMiniProgramExit()" title="退出小程序">
+          <!-- Circle target -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Viewport Body -->
+    <main class="viewport-body" id="viewport-scroll">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: 甄选首页 (HOME) -->
+      <!-- ============================================== -->
+      <section id="tab-0" class="tab-pane active">
+
+        <!-- Ongoing Service Floating Notice -->
+        <div class="notice-bar" onclick="switchMpTab(2)">
+          <!-- Lucide: BellRing -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/><path d="M22 2c1.2 1.7 2 3.7 2 6"/></svg>
+          <div class="notice-text">履约动态：张护理师已到达门前，正在进行紫外消毒</div>
+          <!-- Lucide: ChevronRight -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-tag">
+            <!-- Lucide: ShieldCheck -->
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>金牌宠托 · 全程无感安全照料</span>
+          </div>
+          <div class="hero-title">原生家庭环境定制照护</div>
+          <div class="hero-desc">实名认证宠托师上门 · 全流程规范打卡 · 水电门窗闭环检查</div>
+        </div>
+
+        <!-- Category 4-Grid -->
+        <div class="category-grid">
+          <div class="category-item" onclick="quickSelectCategory('cat')">
+            <div class="category-icon-box">
+              <!-- Lucide: Cat -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
+            </div>
+            <span class="category-name">上门喂猫</span>
+            <span class="category-subtext">换水换粮/铲砂</span>
+          </div>
+
+          <div class="category-item" onclick="quickSelectCategory('dog')">
+            <div class="category-icon-box">
+              <!-- Lucide: Dog -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>
+            </div>
+            <span class="category-name">专业代遛狗</span>
+            <span class="category-subtext">运动轨迹/防挣脱</span>
+          </div>
+
+          <div class="category-item" onclick="quickSelectCategory('multi')">
+            <div class="category-icon-box">
+              <!-- Lucide: Users -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span class="category-name">多宠特惠</span>
+            <span class="category-subtext">双宠/多猫加护</span>
+          </div>
+
+          <div class="category-item" onclick="quickSelectCategory('care')">
+            <div class="category-icon-box">
+              <!-- Lucide: Sparkles -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            </div>
+            <span class="category-name">基础护理</span>
+            <span class="category-subtext">剪指甲/眼耳清洁</span>
+          </div>
+        </div>
+
+        <!-- 6-Steps Standard SOP -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: CheckCircle2 -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>6 重标准履约保障 SOP</span>
+            </div>
+            <div class="card-extra" onclick="showSopDetailModal()">查看标准规范 &rsaquo;</div>
+          </div>
+
+          <div class="sop-flow-list">
+            <div class="sop-flow-card" onclick="showToast('已核验宠托师无犯罪记录与实名档案', 'info')">
+              <div class="sop-step-number">01</div>
+              <div class="sop-step-name">实名背调</div>
+              <div class="sop-step-detail">健康持证考核</div>
+            </div>
+            <div class="sop-flow-card" onclick="showToast('自备医用手套与紫外消毒箱', 'info')">
+              <div class="sop-step-number">02</div>
+              <div class="sop-step-name">进门消杀</div>
+              <div class="sop-step-detail">穿戴鞋套手套</div>
+            </div>
+            <div class="sop-flow-card" onclick="showToast('彻底清洗食盆水碗并称重喂养', 'info')">
+              <div class="sop-step-number">03</div>
+              <div class="sop-step-name">纯净换粮</div>
+              <div class="sop-step-detail">洗碗换新纯水</div>
+            </div>
+            <div class="sop-flow-card" onclick="showToast('清理猫砂盆并喷洒生物除臭剂', 'info')">
+              <div class="sop-step-number">04</div>
+              <div class="sop-step-name">铲砂清洁</div>
+              <div class="sop-step-detail">散落砂尘清理</div>
+            </div>
+            <div class="sop-flow-card" onclick="showToast('抚摸梳毛与逗猫棒互动不少于10分钟', 'info')">
+              <div class="sop-step-number">05</div>
+              <div class="sop-step-name">陪伴互动</div>
+              <div class="sop-step-detail">情绪观察安抚</div>
+            </div>
+            <div class="sop-flow-card" onclick="showToast('门窗水电气确认关闭并拍照留档', 'info')">
+              <div class="sop-step-number">06</div>
+              <div class="sop-step-name">双重锁检</div>
+              <div class="sop-step-detail">门窗安全复核</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified Staff Recommendation -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: Award -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+              <span>严选金牌宠托师团队</span>
+            </div>
+            <div class="card-extra" onclick="showToast('全员已缴纳履约保证金并持有健康认证', 'info')">认证背调保障</div>
+          </div>
+
+          <div class="staff-card-group">
+            <div class="staff-card" onclick="openStaffProfile('zhang')">
+              <div class="staff-header">
+                <div class="staff-avatar-box">张</div>
+                <div>
+                  <div class="staff-name">张护理师</div>
+                  <span class="staff-badge">高级认证 · 420+次上门</span>
+                </div>
+              </div>
+              <div class="staff-desc">擅长胆小猫咪情绪疏导、多猫家庭定时定量投喂与长毛梳理。</div>
+              <button class="btn-action-sm" style="width:100%;justify-content:center;">查看持证档案</button>
+            </div>
+
+            <div class="staff-card" onclick="openStaffProfile('li')">
+              <div class="staff-header">
+                <div class="staff-avatar-box">李</div>
+                <div>
+                  <div class="staff-name">李师傅</div>
+                  <span class="staff-badge">专业遛犬 · 310+次上门</span>
+                </div>
+              </div>
+              <div class="staff-desc">国家认证中级训犬师，熟练中大型犬户外牵引防挣脱控犬。</div>
+              <button class="btn-action-sm" style="width:100%;justify-content:center;">查看持证档案</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Service Packages -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: PackageCheck -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              <span>热门预约服务</span>
+            </div>
+          </div>
+
+          <!-- Service 1 -->
+          <div class="service-row">
+            <div class="service-row-header">
+              <div>
+                <div class="service-row-title">标准上门喂猫·30分钟全项照料</div>
+                <div class="service-row-desc">清洗猫碗、换纯净水、精准称重加粮、铲除猫砂、梳毛互动</div>
+              </div>
+            </div>
+            <div class="service-tags-box">
+              <span class="service-tag">无菌鞋套</span>
+              <span class="service-tag">视频打卡</span>
+              <span class="service-tag">门窗双检</span>
+            </div>
+            <div class="service-row-footer">
+              <div>
+                <span class="price-value">¥58</span>
+                <span class="price-unit">/次 起</span>
+              </div>
+              <button class="btn-action-sm" onclick="startBooking('cat-std', 58)">立即预约</button>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="service-row">
+            <div class="service-row-header">
+              <div>
+                <div class="service-row-title">专业代遛狗·45分钟活力户外运动</div>
+                <div class="service-row-desc">双重防挣脱卡扣、排泄清理消臭、步数与轨迹记录、回门擦爪</div>
+              </div>
+            </div>
+            <div class="service-tags-box">
+              <span class="service-tag">轨迹可视</span>
+              <span class="service-tag">清理便便</span>
+              <span class="service-tag">洗爪擦拭</span>
+            </div>
+            <div class="service-row-footer">
+              <div>
+                <span class="price-value">¥68</span>
+                <span class="price-unit">/次 起</span>
+              </div>
+              <button class="btn-action-sm" onclick="startBooking('dog-std', 68)">立即预约</button>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="service-row">
+            <div class="service-row-header">
+              <div>
+                <div class="service-row-title">多宠家庭专属特护·60分钟定制</div>
+                <div class="service-row-desc">专为2只及以上犬猫家庭设计，分区分群精准照护与陪伴加时</div>
+              </div>
+            </div>
+            <div class="service-tags-box">
+              <span class="service-tag">多盆清理</span>
+              <span class="service-tag">按需喂药</span>
+              <span class="service-tag">加时陪伴</span>
+            </div>
+            <div class="service-row-footer">
+              <div>
+                <span class="price-value">¥98</span>
+                <span class="price-unit">/次 起</span>
+              </div>
+              <button class="btn-action-sm" onclick="startBooking('multi-std', 98)">立即预约</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: 预约定制 (BOOKING) -->
+      <!-- ============================================== -->
+      <section id="tab-1" class="tab-pane">
+
+        <!-- Category Picker -->
+        <div class="segment-picker">
+          <div class="segment-btn active" id="seg-cat" onclick="switchBookingType('cat')">上门喂猫</div>
+          <div class="segment-btn" id="seg-dog" onclick="switchBookingType('dog')">户外代遛</div>
+          <div class="segment-btn" id="seg-multi" onclick="switchBookingType('multi')">多宠专享</div>
+        </div>
+
+        <!-- Selected Pet Profile Card -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: HeartHandshake -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.414 0l6.586-6.586a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L14 11"/><path d="m13 14 2 2a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L14 10"/><path d="m14 12-1.5-1.5a1 1 0 0 0-1.414 0L4.586 17a1 1 0 0 0 0 1.414l2 2a1 1 0 0 0 1.414 0l6-6Z"/></svg>
+              <span>选择照护的爱宠</span>
+            </div>
+            <div class="card-extra" onclick="openAddPetModal()">+ 登记新宠物</div>
+          </div>
+
+          <div class="pet-picker-row" id="pet-chip-container">
+            <div class="pet-chip active" id="chip-pet-1" onclick="selectBookingPet('pet-1')">
+              <!-- Lucide: Cat -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/></svg>
+              <div>
+                <div class="pet-chip-name">布丁</div>
+                <div class="pet-chip-sub">英短蓝猫 · 2岁</div>
+              </div>
+            </div>
+
+            <div class="pet-chip" id="chip-pet-2" onclick="selectBookingPet('pet-2')">
+              <!-- Lucide: Dog -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/></svg>
+              <div>
+                <div class="pet-chip-name">豆豆</div>
+                <div class="pet-chip-sub">柯基犬 · 1岁半</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:8px 10px;font-size:11px;color:var(--color-text-body);" id="pet-memo-preview">
+            照护重点：猫粮在玄关柜第二层，每次倒满一平勺约50g，胆小怕生，请轻推房门。
+          </div>
+        </div>
+
+        <!-- Service Date & Time Slot -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: Calendar -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              <span>预约上门服务时段</span>
+            </div>
+          </div>
+
+          <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:6px;">服务日期</div>
+          <div class="capsule-group" id="date-capsules">
+            <div class="capsule-item" onclick="selectDate(this, '今天 (09-04)')">今天 (09-04)</div>
+            <div class="capsule-item active" onclick="selectDate(this, '明天 (09-05)')">明天 (09-05)</div>
+            <div class="capsule-item" onclick="selectDate(this, '后天 (09-06)')">后天 (09-06)</div>
+            <div class="capsule-item" onclick="selectDate(this, '大后天 (09-07)')">09-07 (周末)</div>
+          </div>
+
+          <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:6px;">服务时段</div>
+          <div class="capsule-group" id="slot-capsules">
+            <div class="capsule-item" onclick="selectSlot(this, '09:00 - 11:30 (上午)')">09:00 - 11:30 (上午)</div>
+            <div class="capsule-item active" onclick="selectSlot(this, '14:00 - 16:30 (下午)')">14:00 - 16:30 (下午)</div>
+            <div class="capsule-item" onclick="selectSlot(this, '18:00 - 20:30 (晚间)')">18:00 - 20:30 (晚间)</div>
+          </div>
+        </div>
+
+        <!-- Key Handover Methods -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: KeyRound -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z"/><circle cx="16.5" cy="7.5" r=".5"/></svg>
+              <span>钥匙交接与安全进出机制</span>
+            </div>
+          </div>
+
+          <div class="key-method-card active" id="key-method-1" onclick="selectKeyMethod(1)">
+            <div>
+              <div class="key-method-title">
+                <!-- Lucide: Lock -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>智能门锁临时密码 (推荐)</span>
+              </div>
+              <div class="key-method-desc">进门前由平台加密发送一次性临时密码，离门后即失效</div>
+            </div>
+            <!-- Lucide: CheckCircle2 -->
+            <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+
+          <div class="key-method-card" id="key-method-2" onclick="selectKeyMethod(2)">
+            <div>
+              <div class="key-method-title">
+                <!-- Lucide: Building2 -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                <span>物业管家前台暂存</span>
+              </div>
+              <div class="key-method-desc">宠托师佩戴工作证前往物业前台，凭授权取件码领取钥匙并在服务后归还</div>
+            </div>
+          </div>
+
+          <div class="key-method-card" id="key-method-3" onclick="selectKeyMethod(3)">
+            <div>
+              <div class="key-method-title">
+                <!-- Lucide: Box -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                <span>门把手密码钥匙盒</span>
+              </div>
+              <div class="key-method-desc">放置于入户门把手专用密码锁盒，由宠托师开锁取钥匙</div>
+            </div>
+          </div>
+
+          <div class="key-method-card" id="key-method-4" onclick="selectKeyMethod(4)">
+            <div>
+              <div class="key-method-title">
+                <!-- Lucide: UserCheck -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                <span>当面交接 / 家中有人</span>
+              </div>
+              <div class="key-method-desc">服务师上门敲门，由常住家庭成员当面开门指引</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add-on Services Checklist -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: PlusCircle -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+              <span>增值便民服务选配</span>
+            </div>
+          </div>
+
+          <div class="addon-item checked" onclick="toggleAddon(this, 0)">
+            <div class="addon-left">
+              <div class="custom-checkbox">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="addon-name">顺手浇花浇绿植</div>
+                <div class="addon-sub">帮室内绿植盆栽适量补水</div>
+              </div>
+            </div>
+            <div class="addon-price">免费</div>
+          </div>
+
+          <div class="addon-item checked" onclick="toggleAddon(this, 0)">
+            <div class="addon-left">
+              <div class="custom-checkbox">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="addon-name">门口快递/外卖入户暂存</div>
+                <div class="addon-sub">避免快递件在楼道积压堆放</div>
+              </div>
+            </div>
+            <div class="addon-price">免费</div>
+          </div>
+
+          <div class="addon-item" onclick="toggleAddon(this, 15)">
+            <div class="addon-left">
+              <div class="custom-checkbox">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="addon-name">梳毛陪玩加时 15 分钟</div>
+                <div class="addon-sub">长毛深层梳理与逗弄陪伴</div>
+              </div>
+            </div>
+            <div class="addon-price">+¥15</div>
+          </div>
+        </div>
+
+        <!-- Bottom Checkout Bar in Tab 2 -->
+        <div class="checkout-footer-bar">
+          <div class="checkout-total-box">
+            <span class="checkout-total-label">预计实付 (已抵扣新客券¥10)</span>
+            <div>
+              <span class="checkout-total-price" id="checkout-price-display">¥48</span>
+              <span style="font-size:11px;color:var(--color-text-muted);text-decoration:line-through;margin-left:4px;">¥78</span>
+            </div>
+          </div>
+          <button class="btn-submit-main" onclick="submitBookingOrder()">
+            <!-- Lucide: Check -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>立即预约并派单</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: 履约打卡追踪与交付报告 (TRACKING) -->
+      <!-- ============================================== -->
+      <section id="tab-2" class="tab-pane">
+
+        <!-- Active Order Status Card -->
+        <div class="card-block" style="border:1.5px solid var(--color-primary);">
+          <div class="card-header">
+            <div>
+              <div style="font-size:11px;color:var(--color-text-muted);" id="track-order-no">单号：NO.CX-20260904-7721</div>
+              <div class="card-title" style="margin-top:2px;" id="track-order-title">标准上门喂猫·30分钟全项照料</div>
+            </div>
+            <div style="background-color:var(--color-primary-light);color:var(--color-primary);font-size:11px;font-weight:800;padding:3px 8px;border-radius:var(--radius-pill);" id="track-status-badge">
+              ● 服务进行中
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;margin:8px 0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="staff-avatar-box" style="width:36px;height:36px;font-size:12px;">张</div>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--color-text-title);" id="track-staff-name">张护理师 (高级持证宠托师)</div>
+                <div style="font-size:10px;color:var(--color-text-muted);">已完成 420+ 户上门 · 实名认证编号 #CX-8802</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-action-sm" style="padding:5px 10px;" onclick="showToast('正在接通张护理师虚拟加密通话...', 'info')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>呼叫</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="font-size:11px;color:var(--color-text-muted);display:flex;align-items:center;gap:4px;margin-top:6px;">
+            <!-- Lucide: MapPin -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>服务地址：XX市XX区XX社区XX号楼***室</span>
+          </div>
+        </div>
+
+        <!-- 8-Steps SOP Timeline Tracking -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: Clock -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>实时打卡进度跟踪 (8 步 SOP)</span>
+            </div>
+            <button class="btn-action-sm" style="padding:4px 10px;font-size:11px;" onclick="advanceTimelineStep()">推进下一节点</button>
+          </div>
+
+          <div class="timeline-container" id="sop-timeline-box">
+            <!-- Step 1 -->
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">1. 金牌宠托师已接单并排期</div>
+                <div class="timeline-time">13:30</div>
+              </div>
+              <div class="timeline-desc">已由张护理师确认接单，并核验服务注意事项与爱宠档案。</div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">2. 宠托师出发中</div>
+                <div class="timeline-time">13:45</div>
+              </div>
+              <div class="timeline-desc">携带专业护理消杀箱正前往服务小区，距离约 2.3 公里。</div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">3. 到达门前已穿戴防护消杀</div>
+                <div class="timeline-time">13:58</div>
+              </div>
+              <div class="timeline-desc">自备无菌医用鞋套、一次性乳胶手套，工具包完成紫外线消毒。</div>
+              <div class="timeline-photo-tag" onclick="showPhotoProof('到达门前防护消杀打卡照')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <span>查看门前消杀打卡照</span>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">4. 入门安全确认与健康巡视</div>
+                <div class="timeline-time">14:02</div>
+              </div>
+              <div class="timeline-desc">轻开房门避免宠物受惊，布丁在沙发旁观望，精神状态良好。</div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="timeline-item current">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">5. 清洗餐具与纯净水换粮</div>
+                <div class="timeline-time">14:12</div>
+              </div>
+              <div class="timeline-desc">正在清洗双碗并擦干，准备更换新鲜纯净水与投喂 50g 蓝猫干粮。</div>
+              <div class="timeline-photo-tag" onclick="showPhotoProof('洗碗换粮对比打卡照')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                <span>查看清洗换水过程照</span>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">6. 铲砂清洁与生物除臭</div>
+                <div class="timeline-time">待执行</div>
+              </div>
+              <div class="timeline-desc">清理猫砂盆结团并观察排便健康，喷洒宠物专用生物除臭剂。</div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">7. 互动梳毛陪伴放松</div>
+                <div class="timeline-time">待执行</div>
+              </div>
+              <div class="timeline-desc">使用逗猫棒互动玩耍，梳理脱落浮毛，拍摄活动视频。</div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title-row">
+                <div class="timeline-title">8. 水电门窗三检与锁门离场</div>
+                <div class="timeline-time">待执行</div>
+              </div>
+              <div class="timeline-desc">复查窗户锁扣、水阀电器关闭状态，入户门二次反锁确认。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action to View Full Service Report -->
+        <div class="card-block" style="text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-bottom:4px;">服务已生成电子履约交付报告</div>
+          <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">包含进食克数、排便健康观察、门窗三道安全检查表</div>
+          <button class="btn-submit-main" style="width:100%;justify-content:center;" onclick="openServiceReportModal()">
+            <!-- Lucide: FileText -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+            <span>查看完整服务交付报告单</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 4: 个人与爱宠中心 (PROFILE) -->
+      <!-- ============================================== -->
+      <section id="tab-3" class="tab-pane">
+
+        <!-- User Profile Card -->
+        <div class="card-block">
+          <div class="user-profile-header">
+            <div class="user-avatar-large">客</div>
+            <div>
+              <div class="user-name-title">爱宠的阿林</div>
+              <div class="user-phone-sub">绑定手机：138****5678 | 金卡会员</div>
+              <div style="margin-top:6px;display:inline-flex;align-items:center;gap:4px;background-color:var(--color-primary-light);color:var(--color-primary);font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-pill);">
+                <!-- Lucide: ShieldCheck -->
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>尊享节假日优先派单特权</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Lifecycle 5-Grid -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: ClipboardList -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+              <span>服务订单中心</span>
+            </div>
+            <div class="card-extra" onclick="filterOrderTab('all')">全部订单 &rsaquo;</div>
+          </div>
+
+          <div class="order-status-tabs">
+            <div class="order-status-btn active" id="ost-all" onclick="filterOrderTab('all')">全部 (3)</div>
+            <div class="order-status-btn" id="ost-active" onclick="filterOrderTab('active')">进行中 (1)</div>
+            <div class="order-status-btn" id="ost-pending" onclick="filterOrderTab('pending')">待服务 (1)</div>
+            <div class="order-status-btn" id="ost-done" onclick="filterOrderTab('done')">已完成 (1)</div>
+          </div>
+
+          <div id="order-list-render">
+            <!-- Order item 1 -->
+            <div class="order-item-card" style="background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;border:1px solid var(--color-border);" data-status="active">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--color-text-muted);margin-bottom:4px;">
+                <span>NO.CX-20260904-7721</span>
+                <span style="color:var(--color-primary);font-weight:700;">服务进行中</span>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">标准上门喂猫·30分钟全项照料 (布丁)</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+                <span style="font-size:13px;font-weight:800;color:var(--color-primary);">¥48.00</span>
+                <button class="btn-action-sm" style="padding:4px 12px;font-size:11px;" onclick="switchMpTab(2)">实时打卡追踪</button>
+              </div>
+            </div>
+
+            <!-- Order item 2 -->
+            <div class="order-item-card" style="background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;border:1px solid var(--color-border);" data-status="done">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--color-text-muted);margin-bottom:4px;">
+                <span>NO.CX-20260901-5510</span>
+                <span style="color:var(--color-success);font-weight:700;">已顺利完成</span>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">专业户外代遛狗·45分钟 (豆豆)</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+                <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">¥68.00</span>
+                <button class="btn-action-sm" style="padding:4px 12px;font-size:11px;background-color:var(--color-bg-card);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="openServiceReportModal()">查看往期报告</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pet Archive Card -->
+        <div class="card-block">
+          <div class="card-header">
+            <div class="card-title">
+              <!-- Lucide: PawPrint -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.8A3.5 3.5 0 0 1 5.5 10Z"/></svg>
+              <span>我的爱宠健康档案</span>
+            </div>
+            <div class="card-extra" onclick="openAddPetModal()">+ 添加档案</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;" id="pet-archive-list">
+            <div style="display:flex;align-items:center;justify-content:space-between;background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="staff-avatar-box" style="width:36px;height:36px;">猫</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">布丁 (英国短毛蓝猫)</div>
+                  <div style="font-size:10px;color:var(--color-text-muted);">2岁3个月 · 疫苗已齐 · 粮食在玄关柜</div>
+                </div>
+              </div>
+              <button class="btn-action-sm" style="padding:4px 10px;font-size:10px;background-color:var(--color-bg-card);color:var(--color-text-body);border:1px solid var(--color-border);" onclick="showToast('已载入布丁最新健康档案', 'info')">修改</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="staff-avatar-box" style="width:36px;height:36px;">犬</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">豆豆 (彭布罗克柯基)</div>
+                  <div style="font-size:10px;color:var(--color-text-muted);">1岁6个月 · 定期驱虫 · 性格活泼好动</div>
+                </div>
+              </div>
+              <button class="btn-action-sm" style="padding:4px 10px;font-size:10px;background-color:var(--color-bg-card);color:var(--color-text-body);border:1px solid var(--color-border);" onclick="showToast('已载入豆豆最新健康档案', 'info')">修改</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Functional Menus -->
+        <div class="card-block">
+          <div class="menu-action-list">
+            <div class="menu-action-row" onclick="openAddressModal()">
+              <div class="menu-action-left">
+                <!-- Lucide: MapPin -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>常用上门服务地址簿</span>
+              </div>
+              <span style="font-size:12px;color:var(--color-text-muted);">1个默认地址 &rsaquo;</span>
+            </div>
+
+            <div class="menu-action-row" onclick="openCouponModal()">
+              <div class="menu-action-left">
+                <!-- Lucide: Ticket -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                <span>专属卡券包</span>
+              </div>
+              <span style="font-size:12px;color:var(--color-primary);font-weight:700;">2张可用 &rsaquo;</span>
+            </div>
+
+            <div class="menu-action-row" onclick="openChatModal()">
+              <div class="menu-action-left">
+                <!-- Lucide: Headphones -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+                <span>24h 官方在线专属管家</span>
+              </div>
+              <span style="font-size:12px;color:var(--color-text-muted);">即时回复 &rsaquo;</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Bottom Native TabBar -->
+    <nav class="bottom-tab-bar">
+      <div class="tab-nav-btn active" id="nav-btn-0" onclick="switchMpTab(0)">
+        <!-- Lucide: Home -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>甄选首页</span>
+      </div>
+
+      <div class="tab-nav-btn" id="nav-btn-1" onclick="switchMpTab(1)">
+        <!-- Lucide: CalendarCheck -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+        <span>预约定制</span>
+      </div>
+
+      <div class="tab-nav-btn" id="nav-btn-2" onclick="switchMpTab(2)">
+        <!-- Lucide: ShieldCheck -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>履约追踪</span>
+      </div>
+
+      <div class="tab-nav-btn" id="nav-btn-3" onclick="switchMpTab(3)">
+        <!-- Lucide: User -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的中心</span>
+      </div>
+    </nav>
+
+    <!-- Native Style Toast Layer -->
+    <div class="wechat-toast" id="global-toast">
+      <div id="toast-icon-box">
+        <!-- Default Success Check -->
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <div id="toast-message-text">操作已完成</div>
+    </div>
+
+    <!-- Generic Bottom Sheet Modal -->
+    <div class="wechat-modal-mask" id="general-modal-mask" onclick="handleMaskClick(event)">
+      <div class="wechat-bottom-sheet" id="general-bottom-sheet">
+        <div class="sheet-header">
+          <div class="sheet-title" id="sheet-title-text">标题</div>
+          <button class="sheet-close-btn" onclick="closeSheetModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div id="sheet-content-body">
+          <!-- Dynamic injected content -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Global State Container
+    const AppState = {
+      activeTab: 0,
+      currentLocation: '北京·朝阳区',
+      booking: {
+        category: 'cat',
+        basePrice: 58,
+        selectedPet: '布丁 (英短蓝猫)',
+        date: '明天 (09-05)',
+        slot: '14:00 - 16:30 (下午)',
+        keyMethod: '智能门锁临时密码',
+        addons: ['植物浇水', '快递入户'],
+        addonFee: 0,
+        couponDiscount: 10
+      },
+      currentStep: 4 // index in 8-step SOP
+    };
+
+    // Tab Switcher
+    function switchMpTab(tabIdx) {
+      AppState.activeTab = tabIdx;
+      document.querySelectorAll('.tab-pane').forEach((p, idx) => {
+        p.classList.toggle('active', idx === tabIdx);
+      });
+      document.querySelectorAll('.tab-nav-btn').forEach((b, idx) => {
+        b.classList.toggle('active', idx === tabIdx);
+      });
+      document.getElementById('viewport-scroll').scrollTop = 0;
+    }
+
+    // Quick Select from Category Grid
+    function quickSelectCategory(type) {
+      switchBookingType(type);
+      switchMpTab(1);
+    }
+
+    // Booking Segment Switcher
+    function switchBookingType(type) {
+      AppState.booking.category = type;
+      document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('seg-' + type);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (type === 'cat') {
+        AppState.booking.basePrice = 58;
+        selectBookingPet('pet-1');
+      } else if (type === 'dog') {
+        AppState.booking.basePrice = 68;
+        selectBookingPet('pet-2');
+      } else {
+        AppState.booking.basePrice = 98;
+      }
+      updateBookingPriceDisplay();
+    }
+
+    function selectBookingPet(petId) {
+      document.querySelectorAll('.pet-chip').forEach(c => c.classList.remove('active'));
+      const chip = document.getElementById('chip-' + petId);
+      if (chip) chip.classList.add('active');
+
+      const memo = document.getElementById('pet-memo-preview');
+      if (petId === 'pet-1') {
+        AppState.booking.selectedPet = '布丁 (英短蓝猫)';
+        memo.innerText = '照护重点：猫粮在玄关柜第二层，每次倒满一平勺约50g，胆小怕生，请轻推房门。';
+      } else {
+        AppState.booking.selectedPet = '豆豆 (柯基犬)';
+        memo.innerText = '照护重点：户外牵引请扣双安全环，遇其他大型犬只注意收绳防冲撞，回屋擦拭四爪。';
+      }
+    }
+
+    function selectDate(el, dateText) {
+      document.querySelectorAll('#date-capsules .capsule-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      AppState.booking.date = dateText;
+    }
+
+    function selectSlot(el, slotText) {
+      document.querySelectorAll('#slot-capsules .capsule-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      AppState.booking.slot = slotText;
+    }
+
+    function selectKeyMethod(idx) {
+      document.querySelectorAll('.key-method-card').forEach(k => k.classList.remove('active'));
+      const card = document.getElementById('key-method-' + idx);
+      if (card) card.classList.add('active');
+
+      const methods = ['', '智能门锁临时密码', '物业管家前台暂存', '门把手密码钥匙盒', '当面交接/家中有人'];
+      AppState.booking.keyMethod = methods[idx];
+      showToast('已选定钥匙托管：' + methods[idx], 'info');
+    }
+
+    function toggleAddon(el, fee) {
+      el.classList.toggle('checked');
+      recalculateAddonFees();
+    }
+
+    function recalculateAddonFees() {
+      let fee = 0;
+      document.querySelectorAll('.addon-item.checked').forEach(item => {
+        const text = item.querySelector('.addon-price').innerText;
+        if (text.includes('15')) fee += 15;
+      });
+      AppState.booking.addonFee = fee;
+      updateBookingPriceDisplay();
+    }
+
+    function updateBookingPriceDisplay() {
+      const finalPrice = Math.max(0, AppState.booking.basePrice + AppState.booking.addonFee - AppState.booking.couponDiscount);
+      document.getElementById('checkout-price-display').innerText = '¥' + finalPrice;
+    }
+
+    function startBooking(serviceCode, price) {
+      if (serviceCode.startsWith('cat')) switchBookingType('cat');
+      else if (serviceCode.startsWith('dog')) switchBookingType('dog');
+      else switchBookingType('multi');
+      switchMpTab(1);
+    }
+
+    function submitBookingOrder() {
+      showToast('正在调起微信支付...', 'loading');
+      setTimeout(() => {
+        showToast('预约支付成功！已为您派单', 'success');
+        document.getElementById('track-order-title').innerText = '上门照料服务 (' + AppState.booking.selectedPet + ')';
+        setTimeout(() => {
+          switchMpTab(2);
+        }, 800);
+      }, 700);
+    }
+
+    // Timeline Step Advancer
+    function advanceTimelineStep() {
+      const items = document.querySelectorAll('#sop-timeline-box .timeline-item');
+      if (AppState.currentStep < items.length - 1) {
+        items[AppState.currentStep].classList.remove('current');
+        items[AppState.currentStep].classList.add('done');
+        items[AppState.currentStep].querySelector('.timeline-dot').innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        
+        AppState.currentStep++;
+        items[AppState.currentStep].classList.add('current');
+        showToast('已推进至下一履约节点', 'success');
+      } else {
+        showToast('已完成全部8步标准化履约节点！', 'success');
+        document.getElementById('track-status-badge').innerText = '● 服务已完成';
+        document.getElementById('track-status-badge').style.backgroundColor = 'var(--color-success-light)';
+        document.getElementById('track-status-badge').style.color = 'var(--color-success)';
+      }
+    }
+
+    // Order Filter
+    function filterOrderTab(type) {
+      document.querySelectorAll('.order-status-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('ost-' + type);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const orders = document.querySelectorAll('#order-list-render .order-item-card');
+      orders.forEach(card => {
+        const cardStatus = card.getAttribute('data-status');
+        if (type === 'all' || cardStatus === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      showToast('已筛选显示订单', 'info');
+    }
+
+    // WeChat Modals & ActionSheets
+    function openCityModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="padding:10px 12px;border-radius:var(--radius-sm);background-color:var(--color-primary-subtle);color:var(--color-primary);font-weight:700;cursor:pointer;" onclick="selectCity('北京·朝阳区')">
+            北京市·朝阳区 (已覆盖全部金牌服务商圈)
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius-sm);background-color:var(--color-bg-subtle);cursor:pointer;" onclick="selectCity('北京·海淀区')">
+            北京市·海淀区
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius-sm);background-color:var(--color-bg-subtle);cursor:pointer;" onclick="selectCity('北京·望京商圈')">
+            XX市XX区核心社区
+          </div>
+          <div style="padding:10px 12px;border-radius:var(--radius-sm);background-color:var(--color-bg-subtle);cursor:pointer;" onclick="selectCity('北京·通州区')">
+            XX市XX区社区
+          </div>
+        </div>
+      `;
+      openSheetModal('选择服务覆盖城市区域', html);
+    }
+
+    function selectCity(name) {
+      AppState.currentLocation = name;
+      document.getElementById('current-location-text').innerText = name;
+      closeSheetModal();
+      showToast('已切换至：' + name, 'success');
+    }
+
+    function openWechatMenuModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button class="btn-action-sm" style="width:100%;justify-content:center;background-color:var(--color-bg-subtle);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="closeSheetModal();showToast('已复制小程序链接至剪贴板', 'success')">转发给微信好友</button>
+          <button class="btn-action-sm" style="width:100%;justify-content:center;background-color:var(--color-bg-subtle);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="closeSheetModal();showToast('已添加到微信收藏夹', 'success')">添加到我的小程序</button>
+          <button class="btn-action-sm" style="width:100%;justify-content:center;background-color:var(--color-bg-subtle);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="closeSheetModal();showToast('**上门喂宠 v2.4.0 官方正版', 'info')">关于**上门喂宠</button>
+        </div>
+      `;
+      openSheetModal('微信小程序功能菜单', html);
+    }
+
+    function triggerMiniProgramExit() {
+      showToast('已退出当前小程序会话', 'info');
+    }
+
+    function showSopDetailModal() {
+      const html = `
+        <div style="font-size:12px;line-height:1.6;color:var(--color-text-body);">
+          <div style="margin-bottom:8px;"><b>1. 实名资质背调</b>：所有上岗宠托师均具备养宠经验2年以上，通过身份背景审查与健康证明核验。</div>
+          <div style="margin-bottom:8px;"><b>2. 无菌消杀上门</b>：自备医用鞋套与一次性手套，现场紫外线消毒工具箱方可入户。</div>
+          <div style="margin-bottom:8px;"><b>3. 餐具高温擦拭与换纯水</b>：彻底清洁旧碗油脂污渍，注入洁净纯净水，称重定量加粮。</div>
+          <div style="margin-bottom:8px;"><b>4. 铲砂除臭与散砂清理</b>：细致筛出排泄块，清理砂盆边沿飞溅散砂，喷洒宠物无毒生物除臭剂。</div>
+          <div style="margin-bottom:8px;"><b>5. 陪伴梳毛与视频留档</b>：使用逗猫棒互动抚慰情绪，记录活动视频并向宠主汇报。</div>
+          <div><b>6. 水电门窗闭环检查</b>：离开前逐一确认窗户紧闭、水龙头关闭、电磁炉断电，大门双重反锁并拍照打卡。</div>
+        </div>
+      `;
+      openSheetModal('6 重履约保障标准细则', html);
+    }
+
+    function openStaffProfile(code) {
+      const html = `
+        <div style="font-size:12px;line-height:1.6;color:var(--color-text-body);">
+          <div style="background-color:var(--color-primary-subtle);border-radius:var(--radius-sm);padding:10px;margin-bottom:10px;">
+            <b style="color:var(--color-primary);">实名认证编号</b>：CERT-BJ-202608<br>
+            <b>健康证明核验</b>：有效期至 2027-08 (合格)<br>
+            <b>上门履约记录</b>：服务 420+ 户零投诉 · 好评率 99.8%
+          </div>
+          <div>已投保单人单笔最高 200,000 元家庭财产与宠物人身意外责任险。</div>
+        </div>
+      `;
+      openSheetModal('宠托师持证背景档案', html);
+    }
+
+    function showPhotoProof(title) {
+      const html = `
+        <div style="text-align:center;padding:12px 0;">
+          <div style="width:100%;height:160px;background-color:var(--color-bg-subtle);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;border:1px dashed var(--color-border);margin-bottom:10px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--color-text-muted);">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              <span style="font-size:11px;">[已加密拍摄实时打卡照片] 时间戳：14:02:15</span>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--color-text-body);">照片已完成自动防伪加水印：拍摄于XX市XX区天通苑*区</div>
+        </div>
+      `;
+      openSheetModal(title, html);
+    }
+
+    function openServiceReportModal() {
+      const html = `
+        <div style="font-size:12px;color:var(--color-text-body);line-height:1.6;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--color-border-light);">
+            <div>
+              <div style="font-weight:800;font-size:13px;color:var(--color-text-title);">服务完成质检验收单</div>
+              <div style="font-size:10px;color:var(--color-text-muted);">单号：NO.CX-20260904-7721</div>
+            </div>
+            <div class="report-badge-stamp">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>品质履约验收合格</span>
+            </div>
+          </div>
+
+          <div style="background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px;margin-bottom:10px;">
+            <div><b>受护爱宠</b>：布丁 (英短蓝猫)</div>
+            <div><b>进食统计</b>：加粮 50g，已进食约 42g (进食状态正常)</div>
+            <div><b>饮水统计</b>：洗净水碗并注入纯净水 200ml</div>
+            <div><b>排泄状态</b>：猫砂团 2 个，成型排便 1 块 (健康无软便)</div>
+            <div><b>精神活跃</b>：良好，主动蹭手并玩耍逗猫棒 12 分钟</div>
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <b style="color:var(--color-text-title);">三道防线安全复核记录：</b>
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:6px;margin-top:6px;text-align:center;font-size:10px;">
+              <div style="background-color:var(--color-success-light);color:var(--color-success);padding:6px;border-radius:var(--radius-xs);font-weight:700;">水电气关闭 (已确认)</div>
+              <div style="background-color:var(--color-success-light);color:var(--color-success);padding:6px;border-radius:var(--radius-xs);font-weight:700;">门窗紧锁 (已确认)</div>
+              <div style="background-color:var(--color-success-light);color:var(--color-success);padding:6px;border-radius:var(--radius-xs);font-weight:700;">防盗门反锁 (已确认)</div>
+            </div>
+          </div>
+
+          <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">宠托师留言：布丁今天非常乖巧，进食正常，走前垃圾已顺手带至楼下分类垃圾站。</div>
+          <button class="btn-submit-main" style="width:100%;justify-content:center;" onclick="closeSheetModal();showToast('服务报告已下载保存至本地相册', 'success')">保存完整报告至手机</button>
+        </div>
+      `;
+      openSheetModal('电子服务交付验收报告', html);
+    }
+
+    function openAddPetModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:4px;">爱宠昵称</div>
+            <input type="text" id="new-pet-name" placeholder="例如：雪球" style="width:100%;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;">
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:4px;">宠物类型与品种</div>
+            <input type="text" id="new-pet-breed" placeholder="例如：布偶猫 / 金毛犬" style="width:100%;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;">
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:4px;">特殊照护叮嘱</div>
+            <input type="text" id="new-pet-note" placeholder="例如：怕生、粮食在阳台等" style="width:100%;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;">
+          </div>
+          <button class="btn-submit-main" style="width:100%;justify-content:center;margin-top:6px;" onclick="saveNewPetArchive()">确认保存爱宠档案</button>
+        </div>
+      `;
+      openSheetModal('登记新爱宠健康档案', html);
+    }
+
+    function saveNewPetArchive() {
+      const name = document.getElementById('new-pet-name').value.trim() || '新爱宠';
+      const breed = document.getElementById('new-pet-breed').value.trim() || '未指定品类';
+      
+      const newPetItem = document.createElement('div');
+      newPetItem.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;';
+      newPetItem.innerHTML = `
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="staff-avatar-box" style="width:36px;height:36px;">宠</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">${name} (${breed})</div>
+            <div style="font-size:10px;color:var(--color-text-muted);">已完成健康建档 · 随时可约</div>
+          </div>
+        </div>
+        <button class="btn-action-sm" style="padding:4px 10px;font-size:10px;background-color:var(--color-bg-card);color:var(--color-text-body);border:1px solid var(--color-border);" onclick="showToast('已更新档案', 'info')">修改</button>
+      `;
+      document.getElementById('pet-archive-list').prepend(newPetItem);
+      closeSheetModal();
+      showToast('成功录入新宠物：' + name, 'success');
+    }
+
+    function openAddressModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="border:1.5px solid var(--color-primary);background-color:var(--color-primary-subtle);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--color-text-title);">
+              <span>XX市XX区XX社区XX号楼***室</span>
+              <span style="color:var(--color-primary);font-size:10px;background-color:var(--color-bg-card);padding:2px 6px;border-radius:var(--radius-xs);">默认地址</span>
+            </div>
+            <div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">联系人：林女士 (138****5678)</div>
+          </div>
+          <button class="btn-action-sm" style="width:100%;justify-content:center;background-color:var(--color-bg-subtle);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="showToast('已进入地址新增流程', 'info')">+ 添加新服务地址</button>
+        </div>
+      `;
+      openSheetModal('常用上门服务地址簿', html);
+    }
+
+    function openCouponModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="border:1px solid var(--color-border);background-color:var(--color-primary-subtle);border-radius:var(--radius-sm);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">¥10 新客立减券</div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">无门槛全品类上门服务通用 · 有效期至月底</div>
+            </div>
+            <button class="btn-action-sm" style="padding:4px 10px;font-size:11px;" onclick="closeSheetModal();switchMpTab(1);showToast('已应用新客券抵扣', 'success')">立即使用</button>
+          </div>
+          <div style="border:1px solid var(--color-border);background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">¥15 假日出游特惠券</div>
+              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">满98元可用 · 支持多宠特护套餐抵扣</div>
+            </div>
+            <button class="btn-action-sm" style="padding:4px 10px;font-size:11px;background-color:var(--color-bg-card);color:var(--color-text-title);border:1px solid var(--color-border);" onclick="closeSheetModal();switchMpTab(1);showToast('已应用满减券抵扣', 'success')">立即使用</button>
+          </div>
+        </div>
+      `;
+      openSheetModal('我的专属卡券包', html);
+    }
+
+    function openChatModal() {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background-color:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;color:var(--color-text-body);">
+            <b>**上门喂宠官方管家</b>：您好！很高兴为您服务。出差旅游期间如有任何特殊钥匙托管或宠物照料疑问，随时在此留言。
+          </div>
+          <div style="display:flex;gap:6px;">
+            <input type="text" placeholder="输入您的问题..." style="flex:1;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:12px;">
+            <button class="btn-action-sm" onclick="showToast('留言已同步专属客服管家', 'success')">发送</button>
+          </div>
+        </div>
+      `;
+      openSheetModal('24h 官方在线专属管家', html);
+    }
+
+    // Modal Helpers
+    function openSheetModal(title, contentHtml) {
+      document.getElementById('sheet-title-text').innerText = title;
+      document.getElementById('sheet-content-body').innerHTML = contentHtml;
+      document.getElementById('general-modal-mask').classList.add('show');
+    }
+
+    function closeSheetModal() {
+      document.getElementById('general-modal-mask').classList.remove('show');
+    }
+
+    function handleMaskClick(e) {
+      if (e.target.id === 'general-modal-mask') {
+        closeSheetModal();
+      }
+    }
+
+    // Toast Engine
+    let toastTimer = null;
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('global-toast');
+      const text = document.getElementById('toast-message-text');
+      const iconBox = document.getElementById('toast-icon-box');
+
+      text.innerText = message;
+      if (type === 'success') {
+        iconBox.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>';
+      } else if (type === 'loading') {
+        iconBox.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg><style>@keyframes spin{to{transform:rotate(360deg);}}</style>';
+      } else {
+        iconBox.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      }
+
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

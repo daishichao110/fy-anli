@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>**生态农庄·家庭亲子生态农庄</title>
+  <style>
+    :root {
+      --primary: #1F7A48;
+      --primary-dark: #165B35;
+      --primary-light: #E8F5EC;
+      --accent: #D97706;
+      --accent-light: #FEF3C7;
+      --bg-app: #F4F6F4;
+      --bg-card: #FFFFFF;
+      --text-main: #1A2E20;
+      --text-sub: #4A5E50;
+      --text-muted: #8C9E91;
+      --border-color: #E3E9E4;
+      --danger: #DC2626;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 14px rgba(31,122,72,0.06), 0 1px 3px rgba(0,0,0,0.03);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #1A221E;
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    /* 桌面端外壳与移动端自适应 */
+    .app-viewport {
+      width: 390px;
+      height: 844px;
+      background-color: var(--bg-app);
+      border-radius: 46px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 0 10px #2D3732, 0 0 0 12px #1F2622;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0;
+        background: var(--bg-app);
+      }
+      .app-viewport {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* 顶部系统状态栏 */
+    .status-bar {
+      height: 44px;
+      padding: 12px 24px 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      z-index: 50;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 小程序原生顶部导航栏 */
+    .mp-navbar {
+      height: 44px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .mp-title-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mp-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.2px;
+    }
+    .mp-verified-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* 微信标准右侧胶囊按钮 */
+    .wx-capsule {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      padding: 3px 10px;
+      gap: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .capsule-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0F172A;
+      padding: 2px;
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background-color: #E2E8F0;
+    }
+
+    /* 主体内容滚动区 */
+    .mp-main {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 14px 76px 14px;
+      scroll-behavior: smooth;
+    }
+    .mp-main::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Tab 面板动效 */
+    .tab-panel {
+      display: none;
+      animation: tabFadeIn 0.22s ease-out;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 通用卡片规范 */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 顶部农庄生态徽章与环境指标条 */
+    .farm-hero-banner {
+      background: linear-gradient(135deg, #1F7A48 0%, #288C54 100%);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(31, 122, 72, 0.2);
+    }
+    .farm-hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .farm-cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3px 8px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .farm-hero-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+    .farm-hero-sub {
+      font-size: 11px;
+      opacity: 0.9;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .farm-sensors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 8px 6px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .sensor-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .sensor-lbl {
+      font-size: 9px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* 筛选芯片栏 */
+    .filter-chips-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+    .filter-chips-row::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .filter-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(31, 122, 72, 0.25);
+    }
+
+    /* 认养卡片 */
+    .adopt-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .adopt-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .adopt-item-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .adopt-item-price {
+      text-align: right;
+    }
+    .adopt-price-num {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .adopt-price-unit {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+    .adopt-meta-line {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .adopt-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px 0;
+    }
+    .adopt-tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 4px;
+    }
+    .adopt-progress-box {
+      background: #F8FAF9;
+      border: 1px solid #EAEFEA;
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin-bottom: 10px;
+    }
+    .progress-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .progress-bar-bg {
+      height: 6px;
+      background: #E2E8F0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2A9D5C, #1F7A48);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .adopt-action-row {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-secondary {
+      flex: 1;
+      padding: 8px 0;
+      background: #FFFFFF;
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover {
+      background: #F8FAF8;
+    }
+    .btn-primary {
+      flex: 2;
+      padding: 8px 0;
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(31, 122, 72, 0.25);
+      transition: all 0.15s;
+    }
+    .btn-primary:active {
+      background: var(--primary-dark);
+      transform: scale(0.99);
+    }
+
+    /* Tab 2: 时令采摘 */
+    .picking-season-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 2px;
+    }
+    .season-card {
+      flex: 0 0 110px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .season-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .season-crop-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .season-crop-stage {
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .notice-card {
+      background: var(--accent-light);
+      border: 1px solid #FDE68A;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .notice-text {
+      font-size: 11px;
+      color: #92400E;
+      line-height: 1.5;
+    }
+
+    .ticket-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .ticket-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .ticket-price {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .ticket-mkt-price {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-left: 4px;
+      font-weight: normal;
+    }
+    .ticket-rights {
+      background: #F8FAF8;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin: 8px 0 12px 0;
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+    .ticket-rights-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Tab 3: 物联网慢直播与日志 */
+    .live-stream-box {
+      background: #111814;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid #233328;
+      position: relative;
+    }
+    .live-video-screen {
+      height: 180px;
+      background: #19241E;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .camera-watermark {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.65);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #FFF;
+      font-size: 10px;
+      font-family: monospace;
+      z-index: 5;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: #EF4444;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .camera-time {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #FFF;
+      font-size: 10px;
+      font-family: monospace;
+    }
+    .cam-view-backdrop {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7BA287;
+      text-align: center;
+      transition: opacity 0.3s;
+    }
+    .cam-ctrl-row {
+      display: flex;
+      background: #17211B;
+      padding: 6px;
+      gap: 6px;
+    }
+    .cam-btn {
+      flex: 1;
+      padding: 6px 4px;
+      background: #202D25;
+      border: 1px solid #2D3E33;
+      border-radius: 6px;
+      color: #B4C7BB;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .cam-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFF;
+      font-weight: 700;
+    }
+
+    /* 农事日志时间线 */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: #E2E8F0;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -20px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid #FFF;
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+    .timeline-date {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+    .timeline-body {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      background: #F8FAF9;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #EAEFEA;
+    }
+    .timeline-author {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Tab 4: 我的农场 */
+    .user-profile-card {
+      background: linear-gradient(135deg, #1F7A48, #2E8E58);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    .user-name {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .user-sub {
+      font-size: 11px;
+      opacity: 0.9;
+      margin-top: 3px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 14px 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .my-adopt-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .my-ticket-item {
+      background: #FFFFFF;
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #F1F5F9;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 底部标准微信 TabBar */
+    .wx-tabbar {
+      height: 56px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .tabbar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      transition: color 0.15s;
+      position: relative;
+    }
+    .tabbar-item.active {
+      color: var(--primary);
+    }
+    .tabbar-badge {
+      position: absolute;
+      top: 2px;
+      right: 24%;
+      width: 7px;
+      height: 7px;
+      background: var(--danger);
+      border-radius: 50%;
+    }
+
+    /* 底部抽屉与通用模态层 (Modal/Drawer) */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .drawer-content {
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 20px 20px 0 0;
+      padding: 18px 16px 24px 16px;
+      transform: translateY(100%);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 85%;
+      overflow-y: auto;
+    }
+    .modal-overlay.active .drawer-content {
+      transform: translateY(0);
+    }
+
+    .center-modal-content {
+      width: 88%;
+      max-width: 320px;
+      margin: auto;
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.25s ease;
+    }
+    .modal-overlay.active .center-modal-content {
+      transform: scale(1);
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .drawer-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-input:focus {
+      border-color: var(--primary);
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .option-btn {
+      padding: 10px 8px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .option-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* 原生仿微信 Toast */
+    .wx-toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(17, 24, 20, 0.92);
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .wx-toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* FAQ 手风琴 */
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 10px 12px;
+      background: #F8FAF9;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .faq-a {
+      padding: 10px 12px;
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      display: none;
+      background: #FFFFFF;
+      border-top: 1px solid #F1F5F9;
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    /* 聊天消息流 */
+    .chat-container {
+      height: 240px;
+      overflow-y: auto;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chat-bubble {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .chat-bubble.steward {
+      align-self: flex-start;
+      background: #F1F5F9;
+      color: var(--text-main);
+      border-bottom-left-radius: 2px;
+    }
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: #FFFFFF;
+      border-bottom-right-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- 纯净微信小程序视窗 -->
+  <div class="app-viewport">
+
+    <!-- 顶部系统状态栏 -->
+    <div class="status-bar">
+      <span>10:24</span>
+      <div class="status-icons">
+        <!-- 信号 SVG -->
+        <svg width="15" height="11" viewBox="0 0 17 11" fill="currentColor">
+          <rect x="0" y="7.5" width="2.5" height="3.5" rx="0.5"/>
+          <rect x="4.5" y="5" width="2.5" height="6" rx="0.5"/>
+          <rect x="9" y="2.5" width="2.5" height="8.5" rx="0.5"/>
+          <rect x="13.5" y="0" width="2.5" height="11" rx="0.5"/>
+        </svg>
+        <!-- 5G 文本 -->
+        <span style="font-size:10px;font-weight:700;">5G</span>
+        <!-- 电池 SVG -->
+        <svg width="22" height="11" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="1" width="19" height="10" rx="3"/>
+          <rect x="3" y="3" width="13" height="6" rx="1.5" fill="currentColor"/>
+          <path d="M22 4.5v3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 小程序标题栏与微信胶囊 -->
+    <header class="mp-navbar">
+      <div class="mp-title-group">
+        <span class="mp-title" id="page-title">**生态农庄·亲子农庄</span>
+        <span class="mp-verified-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          认证基地
+        </span>
+      </div>
+      <!-- 微信标准胶囊按钮 -->
+      <div class="wx-capsule">
+        <button class="capsule-btn" title="更多操作" onclick="openShareSheet()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>
+        </button>
+        <div class="capsule-divider"></div>
+        <button class="capsule-btn" title="后台运行" onclick="minimizeApp()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 小程序主体可滚动页面 -->
+    <main class="mp-main" id="mp-main-scroll">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: 认养中心                                -->
+      <!-- ============================================== -->
+      <section id="tab-pane-0" class="tab-panel active">
+        <!-- 农庄生态头图与环境指标卡 -->
+        <div class="farm-hero-banner">
+          <div class="farm-hero-top">
+            <span class="farm-cert-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              苏认审字[2026]第***号
+            </span>
+            <span style="font-size:11px;opacity:0.9;">华东现代农业示范园</span>
+          </div>
+          <div class="farm-hero-title">自然认养 · 与作物共同成长</div>
+          <div class="farm-hero-sub">一树一码全程溯源 · 专属挂牌 · 24h物联网监控 · 保底收成直寄</div>
+
+          <!-- 物联网传感器数据 -->
+          <div class="farm-sensors-grid">
+            <div>
+              <div class="sensor-val" id="sensor-temp">24.5℃</div>
+              <div class="sensor-lbl">棚内气温</div>
+            </div>
+            <div>
+              <div class="sensor-val" id="sensor-hum">65%</div>
+              <div class="sensor-lbl">相对湿度</div>
+            </div>
+            <div>
+              <div class="sensor-val">优良</div>
+              <div class="sensor-lbl">土壤墒情</div>
+            </div>
+            <div>
+              <div class="sensor-val">18.5k</div>
+              <div class="sensor-lbl">光照Lux</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类过滤筛选芯片 -->
+        <div class="filter-chips-row">
+          <button class="filter-chip active" onclick="filterAdoption('all', this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            全部 (4)
+          </button>
+          <button class="filter-chip" onclick="filterAdoption('fruit', this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a9 9 0 0 1 9 9c0 5-9 11-9 11S3 16 3 11a9 9 0 0 1 9-9z"/><path d="M12 6v4"/></svg>
+            招牌果树 (2)
+          </button>
+          <button class="filter-chip" onclick="filterAdoption('veg', this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 22h20M7 18v-4a5 5 0 0 1 10 0v4M12 6V2"/></svg>
+            有机菜垄 (1)
+          </button>
+          <button class="filter-chip" onclick="filterAdoption('pet', this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+            亲子农舍 (1)
+          </button>
+        </div>
+
+        <!-- 认养卡片列表 -->
+        <div id="adopt-list-container">
+
+          <!-- 卡片 1: 苹果树 -->
+          <div class="adopt-card" data-category="fruit">
+            <div class="adopt-card-header">
+              <div>
+                <div class="adopt-item-name">烟台红富士苹果树专属认养</div>
+                <div class="adopt-meta-line">
+                  <span>编号：#A-08-16</span>
+                  <span>·</span>
+                  <span>5年生壮果期丰产树</span>
+                </div>
+              </div>
+              <div class="adopt-item-price">
+                <span class="adopt-price-num">¥399</span>
+                <span class="adopt-price-unit">/年</span>
+              </div>
+            </div>
+
+            <div class="adopt-tags">
+              <span class="adopt-tag">保底25kg鲜果产出</span>
+              <span class="adopt-tag">专属实木雕刻牌</span>
+              <span class="adopt-tag">家庭全年无限次入园</span>
+            </div>
+
+            <div class="adopt-progress-box">
+              <div class="progress-desc">
+                <span>当前阶段：膨大转色期</span>
+                <span style="font-weight:700;color:var(--primary);">预计10月中旬采摘</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 72%;"></div>
+              </div>
+            </div>
+
+            <div class="adopt-action-row">
+              <button class="btn-secondary" onclick="viewAdoptionDetail('红富士苹果树')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                档案详情
+              </button>
+              <button class="btn-primary" onclick="openAdoptionModal('红富士苹果树', 399, '烟台红富士', 'A-08-16')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                定制牌名并认养
+              </button>
+            </div>
+          </div>
+
+          <!-- 卡片 2: 草莓垄 -->
+          <div class="adopt-card" data-category="fruit">
+            <div class="adopt-card-header">
+              <div>
+                <div class="adopt-item-name">日本红颜有机草莓垄专属认养</div>
+                <div class="adopt-meta-line">
+                  <span>编号：#ST-01-04</span>
+                  <span>·</span>
+                  <span>恒温智能温室 10米标准垄</span>
+                </div>
+              </div>
+              <div class="adopt-item-price">
+                <span class="adopt-price-num">¥268</span>
+                <span class="adopt-price-unit">/季</span>
+              </div>
+            </div>
+
+            <div class="adopt-tags">
+              <span class="adopt-tag">保底8斤特级红颜果</span>
+              <span class="adopt-tag">蜜蜂自然授粉</span>
+              <span class="adopt-tag">每周快递冷链鲜采直寄</span>
+            </div>
+
+            <div class="adopt-progress-box">
+              <div class="progress-desc">
+                <span>当前阶段：定植开花期</span>
+                <span style="font-weight:700;color:var(--primary);">预计11月下旬首批成熟</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 45%;"></div>
+              </div>
+            </div>
+
+            <div class="adopt-action-row">
+              <button class="btn-secondary" onclick="viewAdoptionDetail('红颜草莓垄')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                档案详情
+              </button>
+              <button class="btn-primary" onclick="openAdoptionModal('红颜草莓垄', 268, '日本红颜', 'ST-01-04')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                定制牌名并认养
+              </button>
+            </div>
+          </div>
+
+          <!-- 卡片 3: 菜地 -->
+          <div class="adopt-card" data-category="veg">
+            <div class="adopt-card-header">
+              <div>
+                <div class="adopt-item-name">高山时令蔬菜自留地专属垄</div>
+                <div class="adopt-meta-line">
+                  <span>编号：#VG-C-12</span>
+                  <span>·</span>
+                  <span>约8平方米时令菜畦</span>
+                </div>
+              </div>
+              <div class="adopt-item-price">
+                <span class="adopt-price-num">¥199</span>
+                <span class="adopt-price-unit">/季</span>
+              </div>
+            </div>
+
+            <div class="adopt-tags">
+              <span class="adopt-tag">自选6种时令菜品</span>
+              <span class="adopt-tag">老农艺师代耕代浇</span>
+              <span class="adopt-tag">周周产地配送净菜篮</span>
+            </div>
+
+            <div class="adopt-progress-box">
+              <div class="progress-desc">
+                <span>当前阶段：秋茬出苗旺盛期</span>
+                <span style="font-weight:700;color:var(--primary);">随时可入园打理自摘</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <div class="adopt-action-row">
+              <button class="btn-secondary" onclick="viewAdoptionDetail('高山菜垄')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                档案详情
+              </button>
+              <button class="btn-primary" onclick="openAdoptionModal('高山菜垄', 199, '时令蔬菜', 'VG-C-12')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                定制牌名并认养
+              </button>
+            </div>
+          </div>
+
+          <!-- 卡片 4: 萌宠 -->
+          <div class="adopt-card" data-category="pet">
+            <div class="adopt-card-header">
+              <div>
+                <div class="adopt-item-name">亲子林下农舍小羊与萌兔认养</div>
+                <div class="adopt-meta-line">
+                  <span>编号：#PET-B-03</span>
+                  <span>·</span>
+                  <span>湖羊幼崽/垂耳兔</span>
+                </div>
+              </div>
+              <div class="adopt-item-price">
+                <span class="adopt-price-num">¥288</span>
+                <span class="adopt-price-unit">/年</span>
+              </div>
+            </div>
+
+            <div class="adopt-tags">
+              <span class="adopt-tag">专属成长铭牌</span>
+              <span class="adopt-tag">全年无限次免费喂养包</span>
+              <span class="adopt-tag">兽医健康档案</span>
+            </div>
+
+            <div class="adopt-progress-box">
+              <div class="progress-desc">
+                <span>当前状态：已完成防疫接种</span>
+                <span style="font-weight:700;color:var(--primary);">活泼健康 · 欢迎探望</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+
+            <div class="adopt-action-row">
+              <button class="btn-secondary" onclick="viewAdoptionDetail('亲子萌宠')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                档案详情
+              </button>
+              <button class="btn-primary" onclick="openAdoptionModal('亲子萌宠', 288, '小羊萌兔', 'PET-B-03')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                定制牌名并认养
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: 时令采摘                                -->
+      <!-- ============================================== -->
+      <section id="tab-pane-1" class="tab-panel">
+        <!-- 9月时令采摘轮播条 -->
+        <div class="section-title" style="margin-top:0;">
+          <span>9月金秋时令采摘日历</span>
+          <span style="font-size:11px;color:var(--primary);font-weight:normal;">糖度达标即采</span>
+        </div>
+        <div class="picking-season-row">
+          <div class="season-card active" onclick="selectCropTab(this, '阳光玫瑰葡萄', '18.5°')">
+            <div class="season-crop-name">阳光玫瑰葡萄</div>
+            <div class="season-crop-stage">最佳丰产期</div>
+          </div>
+          <div class="season-card" onclick="selectCropTab(this, '红颜草莓', '14.2°')">
+            <div class="season-crop-name">红颜草莓</div>
+            <div class="season-crop-stage">头茬试摘中</div>
+          </div>
+          <div class="season-card" onclick="selectCropTab(this, '水果水果玉米', '15.0°')">
+            <div class="season-crop-name">水果玉米</div>
+            <div class="season-crop-stage">清甜多汁</div>
+          </div>
+          <div class="season-card" onclick="selectCropTab(this, '板栗南瓜', '粉糯香甜')">
+            <div class="season-crop-name">板栗南瓜</div>
+            <div class="season-crop-stage">老熟采摘期</div>
+          </div>
+        </div>
+
+        <!-- 采摘须知透明告示 -->
+        <div class="notice-card">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="notice-text">
+            <b>入园采摘须知：</b>门票已包含规定斤数自采免费带走额度，园内可免费试吃品尝。超出自采部分按当日田园农友特惠价称重结算，赠专用保鲜礼盒。
+          </div>
+        </div>
+
+        <!-- 采摘门票套餐列表 -->
+        <div class="section-title">入园门票与预约时段</div>
+
+        <!-- 套餐 1: 亲子儿童单人探索票 -->
+        <div class="ticket-card">
+          <div class="ticket-header">
+            <span class="ticket-name">亲子儿童单人采摘探索票</span>
+            <div>
+              <span class="ticket-price">¥38</span>
+              <span class="ticket-mkt-price">¥48</span>
+            </div>
+          </div>
+          <div class="ticket-rights">
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>含儿童专用防滑手套 + 安全圆头采摘剪1套</span>
+            </div>
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>含 1 斤时令果蔬自采免称配额 (带走不另收费)</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;padding:10px 0;" onclick="openBookingSheet('亲子儿童单人采摘探索票', 38, '单人1位')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            选择时段并预约入园
+          </button>
+        </div>
+
+        <!-- 套餐 2: 亲子欢乐 1大1小 套票 -->
+        <div class="ticket-card" style="border:1.5px solid var(--primary);">
+          <div class="ticket-header">
+            <span class="ticket-name">亲子欢乐 1大1小 采摘套票</span>
+            <div>
+              <span class="ticket-price">¥68</span>
+              <span class="ticket-mkt-price">¥88</span>
+            </div>
+          </div>
+          <div class="ticket-rights">
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>成人门票1张 + 儿童门票1张 + 亲子农夫围裙1件</span>
+            </div>
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>含 2 斤时令自采免称配额 + 萌宠喂养鲜胡萝卜1份</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;padding:10px 0;" onclick="openBookingSheet('亲子欢乐 1大1小 采摘套票', 68, '成人1位+儿童1位')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            选择时段并预约入园
+          </button>
+        </div>
+
+        <!-- 套餐 3: 家庭全家欢 2大1小 套票 -->
+        <div class="ticket-card">
+          <div class="ticket-header">
+            <span class="ticket-name">全家畅游 2大1小 家庭套票</span>
+            <div>
+              <span class="ticket-price">¥118</span>
+              <span class="ticket-mkt-price">¥148</span>
+            </div>
+          </div>
+          <div class="ticket-rights">
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>全家3人入园 + 专属竹编采摘篮2个 + 鲜榨果汁3杯</span>
+            </div>
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>含 3 斤时令自采免称配额 + 田园草坪休憩营位</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;padding:10px 0;" onclick="openBookingSheet('全家畅游 2大1小 家庭套票', 118, '成人2位+儿童1位')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            选择时段并预约入园
+          </button>
+        </div>
+
+        <!-- 套餐 4: 农耕研学手作营 -->
+        <div class="ticket-card">
+          <div class="ticket-header">
+            <span class="ticket-name">自然食农研学手作手艺工坊</span>
+            <div>
+              <span class="ticket-price">¥158</span>
+              <span class="ticket-mkt-price">¥198</span>
+            </div>
+          </div>
+          <div class="ticket-rights">
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>资深农艺师带队植物科普 (40分钟) + 植物拓染手作</span>
+            </div>
+            <div class="ticket-rights-item">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>现场手工古法熬制草莓果酱1瓶 (可带走)</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;padding:10px 0;" onclick="openBookingSheet('自然食农研学手作工坊', 158, '亲子家庭组')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            选择时段并预约入园
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: 田园慢动态 (慢直播与农事日志)             -->
+      <!-- ============================================== -->
+      <section id="tab-pane-2" class="tab-panel">
+        <div class="section-title" style="margin-top:0;">
+          <span>24小时田园物联网慢直播</span>
+          <span style="font-size:11px;color:var(--text-muted);">实时码流传输中</span>
+        </div>
+
+        <!-- 慢直播视窗模拟器 -->
+        <div class="live-stream-box">
+          <div class="live-video-screen">
+            <div class="camera-watermark">
+              <div class="live-dot"></div>
+              <span id="cam-tag-name">CAM-01 草莓智能大棚</span>
+              <span>· 1080P</span>
+            </div>
+            <div class="camera-time" id="cam-clock">2026-09-04 10:24:38</div>
+
+            <!-- 机位模拟画面内容 -->
+            <div class="cam-view-backdrop" id="cam-display">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              <div style="font-size:12px;margin-top:6px;font-weight:600;" id="cam-caption">恒温水肥一体滴灌运行中 · 适合草莓花芽分化</div>
+              <div style="font-size:10px;opacity:0.8;margin-top:2px;" id="cam-env-sub">棚内环境：24.8℃ / 湿度 66% / 优良光照</div>
+            </div>
+          </div>
+
+          <!-- 机位切换控制器 -->
+          <div class="cam-ctrl-row">
+            <button class="cam-btn active" onclick="switchLiveCam(1, 'CAM-01 草莓智能大棚', '恒温水肥一体滴灌运行中 · 适合草莓花芽分化', '棚内环境：24.8℃ / 湿度 66% / 优良光照', this)">
+              01号机: 草莓大棚
+            </button>
+            <button class="cam-btn" onclick="switchLiveCam(2, 'CAM-02 阳光**果树认养林', '阳光玫瑰葡萄避雨棚 · 自然透光通风良好', '林间环境：25.2℃ / 湿度 58% / 微风拂叶', this)">
+              02号机: **果树认养林
+            </button>
+            <button class="cam-btn" onclick="switchLiveCam(3, 'CAM-03 亲子林下萌宠园', '小山羊与垂耳兔活动中 · 户外阳光草坪', '户外环境：26.0℃ / 湿度 54% / 适宜嬉戏', this)">
+              03号机: 萌宠乐园
+            </button>
+          </div>
+        </div>
+
+        <!-- 农艺师田间巡检日志 -->
+        <div class="card">
+          <div class="section-title" style="margin-top:0;">
+            <span>农艺师田间日志</span>
+            <span style="font-size:11px;color:var(--primary);cursor:pointer;" onclick="showToast('已同步获取最新田间巡检记录')">刷新同步</span>
+          </div>
+
+          <div class="timeline">
+            <!-- 节点 1 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2026-09-03 · 昨日巡检</div>
+              <div class="timeline-body">
+                对 1 号草莓智能大棚全面完成微喷滴灌与益生菌水肥补充，检查苗株花蕾形态，株苗健壮无病虫害。
+                <div class="timeline-author">记录人：老陈师傅 (高级农艺师)</div>
+              </div>
+            </div>
+
+            <!-- 节点 2 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2026-08-28 · 果林农事</div>
+              <div class="timeline-body">
+                阳光玫瑰葡萄避雨长廊全面巡查防鸟网与纸袋透气度，抽测可溶性固形物（糖度）已达到 17.8 度。
+                <div class="timeline-author">记录人：林管家 (采收质量督导)</div>
+              </div>
+            </div>
+
+            <!-- 节点 3 -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2026-08-20 · 土壤有机改良</div>
+              <div class="timeline-body">
+                时令蔬菜地完成秋茬深翻土壤，全田施入高温腐熟羊粪有机肥，羽衣甘蓝与水果萝卜已破土齐苗。
+                <div class="timeline-author">记录人：老陈师傅 (高级农艺师)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 农友采摘互动墙 -->
+        <div class="card">
+          <div class="section-title" style="margin-top:0;">
+            <span>农友采摘风采</span>
+            <span style="font-size:11px;color:var(--text-muted);">真实田园反馈</span>
+          </div>
+
+          <div style="background:#F8FAF8;border-radius:var(--radius-sm);padding:10px;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:12px;font-weight:700;">苏*晴 (家庭2大1小)</span>
+              <span style="font-size:10px;color:var(--text-muted);">2天前入园</span>
+            </div>
+            <div style="font-size:11px;color:var(--text-sub);line-height:1.4;">
+              “带孩子来摘葡萄和玉米，小朋友亲手剪下来特别有成就感！阳光玫瑰很甜很新鲜，农庄洗手间和洗果台也很干净。”
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:6px;">
+              <button class="btn-secondary" style="flex:none;padding:4px 10px;border-radius:14px;font-size:11px;" onclick="likeFeedback(this)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                点赞 <span class="like-cnt">42</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 4: 我的农场                                -->
+      <!-- ============================================== -->
+      <section id="tab-pane-3" class="tab-panel">
+        <!-- 用户名片 -->
+        <div class="user-profile-card">
+          <div class="user-avatar">张</div>
+          <div style="flex:1;">
+            <div class="user-name">张*远</div>
+            <div class="user-sub">138****6821 · 金牌家庭农友</div>
+            <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.22);padding:2px 8px;border-radius:10px;font-size:10px;margin-top:4px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              已完成实名认证
+            </div>
+          </div>
+          <button style="background:rgba(255,255,255,0.25);border:none;color:#FFF;padding:6px 12px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;" onclick="openAddressModal()">
+            收件地址
+          </button>
+        </div>
+
+        <!-- 我的认养地块资产看板 -->
+        <div class="card">
+          <div class="section-title" style="margin-top:0;">
+            <span>我的认养资产</span>
+            <span style="font-size:11px;color:var(--primary);cursor:pointer;" onclick="switchTab(0)">+ 认养新地块</span>
+          </div>
+
+          <div id="my-adoption-list">
+            <!-- 初始已有项目 -->
+            <div class="my-adopt-item">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <b style="font-size:13px;color:var(--text-main);">烟台红富士苹果树 #A-08-16</b>
+                <span style="font-size:10px;background:var(--primary-light);color:var(--primary);padding:2px 6px;border-radius:4px;font-weight:700;">认养履约中</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-sub);line-height:1.6;">
+                木牌铭刻：<b style="color:var(--accent);" id="wood-sign-text">张*远全家福果树</b><br>
+                认养周期：2026年年度标准期 (保底 25kg)<br>
+                预计采摘：距开园采收约 35 天
+              </div>
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <button class="btn-secondary" style="padding:5px 0;font-size:11px;" onclick="viewAdoptionDetail('红富士苹果树')">
+                  查看生长监控
+                </button>
+                <button class="btn-secondary" style="padding:5px 0;font-size:11px;" onclick="modifySignPrompt()">
+                  修改挂牌寄语
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 我的预约入园门票 -->
+        <div class="card">
+          <div class="section-title" style="margin-top:0;">
+            <span>我的入园门票</span>
+            <span style="font-size:11px;color:var(--text-muted);" id="ticket-cnt-lbl">1 张待核销</span>
+          </div>
+
+          <div id="my-ticket-list">
+            <!-- 默认已有门票卡片 -->
+            <div class="my-ticket-item" id="ticket-card-8921">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                  <b style="font-size:13px;color:var(--text-main);" id="ticket-title-display">亲子欢乐 1大1小 采摘套票</b>
+                  <div style="font-size:11px;color:var(--text-sub);margin-top:2px;" id="ticket-date-display">预约时段：明天 (2026-09-05) 上午场 09:00-11:30</div>
+                </div>
+                <span id="ticket-badge" style="font-size:10px;background:#DCFCE7;color:#15803D;padding:3px 8px;border-radius:10px;font-weight:700;">待入园核销</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">
+                凭证号：TKT-20260904-****82 (含2斤果蔬自采免称)
+              </div>
+              <button class="btn-primary" style="width:100%;margin-top:10px;padding:8px 0;" onclick="showQrModal('TKT-20260904-****82', '亲子欢乐 1大1小 采摘套票', '明天 上午场 09:00-11:30')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                出示电子核销二维码
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 农庄服务与管家工具 -->
+        <div class="card" style="padding:4px 14px;">
+          <div class="menu-item" onclick="openChatModal()">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>专属田园农事管家 (在线咨询)</span>
+            </div>
+            <span style="font-size:11px;color:var(--primary);font-weight:600;">老陈师傅在线 ›</span>
+          </div>
+
+          <div class="menu-item" onclick="openAddressModal()">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>收件人与果品直寄地址管理</span>
+            </div>
+            <span style="color:var(--text-muted);">›</span>
+          </div>
+
+          <div class="menu-item" onclick="showToast('已申请开具近郊农事体验增值税电子发票')">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>电子发票与农产品抵扣凭证</span>
+            </div>
+            <span style="color:var(--text-muted);">›</span>
+          </div>
+        </div>
+
+        <!-- 采摘常见问答 FAQ 手风琴 -->
+        <div class="card">
+          <div class="section-title" style="margin-top:0;">
+            <span>入园采摘常见问答 (FAQ)</span>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>Q: 下雨天农场是否正常开放采摘？</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a">
+              农庄草莓馆与阳光玫瑰长廊均为现代化避雨高棚设施，雨天脚下铺设防滑木质步道，雨天可正常采摘游玩，不受天气影响。
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>Q: 认养的果实如果不便到场怎么收货？</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a">
+              **果树认养包含保底采摘快递冷链包邮配送权益。在果实成熟前，农事管家会主动电话与您确认采摘批次并分箱快递直寄到家。
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>Q: 采摘超出免称配额怎么收费？</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-a">
+              门票已赠送基础免称自采额度。超出部分按当天园内公示特惠称重结算（草莓约38元/斤，阳光玫瑰约28元/斤），附送礼品篮。
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 底部标准微信 4-Tab TabBar -->
+    <nav class="wx-tabbar">
+      <div class="tabbar-item active" id="tab-nav-0" onclick="switchTab(0)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>认养中心</span>
+      </div>
+      <div class="tabbar-item" id="tab-nav-1" onclick="switchTab(1)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>时令采摘</span>
+      </div>
+      <div class="tabbar-item" id="tab-nav-2" onclick="switchTab(2)">
+        <div class="tabbar-badge"></div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        <span>田园动态</span>
+      </div>
+      <div class="tabbar-item" id="tab-nav-3" onclick="switchTab(3)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的农场</span>
+      </div>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- 交互抽屉 1: 认养办理抽屉                        -->
+    <!-- ============================================== -->
+    <div class="modal-overlay" id="adoption-drawer" onclick="closeDrawerOnOutside(event, 'adoption-drawer')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <span class="drawer-title" id="adopt-drawer-title">定制专属木牌并认养</span>
+          <button class="drawer-close" onclick="closeDrawer('adoption-drawer')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="background:var(--primary-light);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <b style="color:var(--primary);font-size:13px;" id="adopt-drawer-crop">烟台红富士苹果树</b>
+            <div style="font-size:10px;color:var(--text-sub);margin-top:2px;">编号：<span id="adopt-drawer-code">A-08-16</span> · 享有专属采摘保障</div>
+          </div>
+          <b style="color:var(--primary);font-size:16px;" id="adopt-drawer-price">¥399/年</b>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">实木雕刻牌署名 (镌刻于果树/菜垄前端)</label>
+          <input type="text" class="form-input" id="sign-name-input" value="张*远全家福果树" maxlength="15" placeholder="例如：悦悦的开心果树">
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">支持激光雕刻铭文，免费寄送同款微缩纪念木牌</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">认养服务周期</label>
+          <div class="option-grid">
+            <button class="option-btn active" id="term-opt-1" onclick="selectOption('term', 1)">年度标准期 (全周期管护)</button>
+            <button class="option-btn" id="term-opt-2" onclick="selectOption('term', 2)">半年度体验期 (试种试收)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">收获果实履约方式</label>
+          <div class="option-grid">
+            <button class="option-btn active" id="delivery-opt-1" onclick="selectOption('delivery', 1)">成熟期快递冷链直寄</button>
+            <button class="option-btn" id="delivery-opt-2" onclick="selectOption('delivery', 2)">全家亲临现场自采自提</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;padding:12px 0;font-size:14px;margin-top:10px;" onclick="confirmAdoptionAction()">
+          确认认养并生成专属地块
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 交互抽屉 2: 分时预约采摘出票抽屉                -->
+    <!-- ============================================== -->
+    <div class="modal-overlay" id="booking-drawer" onclick="closeDrawerOnOutside(event, 'booking-drawer')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <span class="drawer-title">分时预约入园</span>
+          <button class="drawer-close" onclick="closeDrawer('booking-drawer')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="background:#F8FAF8;border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;border:1px solid var(--border-color);">
+          <div style="display:flex;justify-content:space-between;">
+            <b style="font-size:13px;color:var(--text-main);" id="bk-ticket-title">亲子欢乐 1大1小 采摘套票</b>
+            <b style="color:var(--accent);font-size:15px;" id="bk-ticket-price">¥68</b>
+          </div>
+          <div style="font-size:10px;color:var(--text-sub);margin-top:4px;" id="bk-ticket-spec">规格：成人1位+儿童1位 · 免称自采2斤</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">预约入园日期</label>
+          <div class="option-grid" style="grid-template-columns:repeat(3, 1fr);">
+            <button class="option-btn" id="date-opt-0" onclick="selectDate(0, '今天 09-04')">今天 09-04</button>
+            <button class="option-btn active" id="date-opt-1" onclick="selectDate(1, '明天 09-05 (周末)')">明天 09-05<br><span style="font-size:9px;color:var(--accent);">周末</span></button>
+            <button class="option-btn" id="date-opt-2" onclick="selectDate(2, '后天 09-06 (周末)')">后天 09-06<br><span style="font-size:9px;color:var(--accent);">周末</span></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">预约入园时段 (限流保证采摘体验)</label>
+          <div class="option-grid">
+            <button class="option-btn active" id="slot-opt-1" onclick="selectSlot(1, '上午场 09:00-11:30')">上午场 09:00-11:30<br><span style="font-size:9px;color:var(--primary);">舒适采摘时段</span></button>
+            <button class="option-btn" id="slot-opt-2" onclick="selectSlot(2, '下午场 14:00-17:00')">下午场 14:00-17:00<br><span style="font-size:9px;color:var(--primary);">夕阳田园光景</span></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">入园联系人</label>
+          <input type="text" class="form-input" value="张*远 (138****6821)" readonly style="background:#F8FAF8;color:var(--text-sub);">
+        </div>
+
+        <button class="btn-primary" style="width:100%;padding:12px 0;font-size:14px;margin-top:10px;" onclick="confirmBookingAction()">
+          确认预约出票
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 模态框 3: 电子核销二维码浮层                     -->
+    <!-- ============================================== -->
+    <div class="modal-overlay" id="qr-modal" style="align-items:center;" onclick="closeDrawerOnOutside(event, 'qr-modal')">
+      <div class="center-modal-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <b style="font-size:14px;color:var(--text-main);">入园电子核销码</b>
+          <button class="drawer-close" onclick="closeDrawer('qr-modal')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div style="font-size:12px;font-weight:700;color:var(--primary);" id="qr-modal-title">亲子欢乐 1大1小 采摘套票</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;" id="qr-modal-time">明天 (2026-09-05) 上午场</div>
+
+        <!-- 模拟动态条形码 -->
+        <div style="margin:14px auto 8px auto;background:#F8FAF8;padding:8px;border-radius:6px;border:1px dashed #CBD5E1;">
+          <div style="font-family:monospace;font-size:12px;letter-spacing:4px;color:#1E293B;font-weight:700;" id="qr-code-seq">8921 4402 9918</div>
+          <!-- 条形码装饰线条 -->
+          <div style="display:flex;justify-content:center;gap:2px;height:36px;margin-top:6px;align-items:stretch;">
+            <div style="width:2px;background:#000;"></div><div style="width:4px;background:#000;"></div><div style="width:1px;background:#000;"></div>
+            <div style="width:3px;background:#000;"></div><div style="width:1px;background:#000;"></div><div style="width:4px;background:#000;"></div>
+            <div style="width:2px;background:#000;"></div><div style="width:1px;background:#000;"></div><div style="width:3px;background:#000;"></div>
+            <div style="width:2px;background:#000;"></div><div style="width:4px;background:#000;"></div><div style="width:1px;background:#000;"></div>
+            <div style="width:3px;background:#000;"></div><div style="width:2px;background:#000;"></div><div style="width:4px;background:#000;"></div>
+          </div>
+        </div>
+
+        <!-- 模拟高清二维码与防伪扫光 -->
+        <div style="width:140px;height:140px;margin:10px auto;border:3px solid var(--primary);border-radius:10px;padding:6px;background:#FFF;position:relative;display:flex;align-items:center;justify-content:center;">
+          <!-- SVG 矩阵模拟 QR Code -->
+          <svg width="120" height="120" viewBox="0 0 100 100" fill="#1A2E20">
+            <!-- 四角探测方块 -->
+            <rect x="0" y="0" width="28" height="28" fill="#1F7A48" rx="3"/>
+            <rect x="5" y="5" width="18" height="18" fill="#FFF" rx="1"/>
+            <rect x="9" y="9" width="10" height="10" fill="#1F7A48" rx="1"/>
+
+            <rect x="72" y="0" width="28" height="28" fill="#1F7A48" rx="3"/>
+            <rect x="77" y="5" width="18" height="18" fill="#FFF" rx="1"/>
+            <rect x="81" y="9" width="10" height="10" fill="#1F7A48" rx="1"/>
+
+            <rect x="0" y="72" width="28" height="28" fill="#1F7A48" rx="3"/>
+            <rect x="5" y="77" width="18" height="18" fill="#FFF" rx="1"/>
+            <rect x="9" y="81" width="10" height="10" fill="#1F7A48" rx="1"/>
+
+            <!-- 数据点阵 -->
+            <rect x="36" y="8" width="6" height="6"/><rect x="48" y="14" width="6" height="6"/><rect x="60" y="8" width="6" height="6"/>
+            <rect x="8" y="36" width="6" height="6"/><rect x="20" y="44" width="6" height="6"/><rect x="8" y="54" width="6" height="6"/>
+            <rect x="36" y="36" width="28" height="28" fill="#E8F5EC" rx="2"/>
+            <circle cx="50" cy="50" r="8" fill="#1F7A48"/>
+            <rect x="72" y="36" width="6" height="6"/><rect x="84" y="44" width="6" height="6"/><rect x="72" y="54" width="6" height="6"/>
+            <rect x="36" y="72" width="6" height="6"/><rect x="48" y="84" width="6" height="6"/><rect x="60" y="78" width="6" height="6"/>
+            <rect x="80" y="76" width="12" height="12"/>
+          </svg>
+        </div>
+
+        <div style="font-size:11px;color:var(--text-sub);margin-top:6px;">请在农庄入口游客中心出示此码核销</div>
+
+        <!-- 模拟现场核销按钮 -->
+        <button class="btn-secondary" style="width:100%;margin-top:12px;padding:8px 0;" onclick="mockStaffVerify()">
+          模拟工作人员扫码核销
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 交互抽屉 4: 收件地址管理抽屉                    -->
+    <!-- ============================================== -->
+    <div class="modal-overlay" id="address-drawer" onclick="closeDrawerOnOutside(event, 'address-drawer')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <span class="drawer-title">常用果蔬配送地址</span>
+          <button class="drawer-close" onclick="closeDrawer('address-drawer')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div id="address-list">
+          <!-- 地址 1 -->
+          <div style="border:1.5px solid var(--primary);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;background:#F8FAF8;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:13px;color:var(--text-main);">张*远 · 138****6821</b>
+              <span style="font-size:10px;background:var(--primary);color:#FFF;padding:1px 6px;border-radius:4px;">默认地址</span>
+            </div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:4px;line-height:1.4;">
+              华东现代农业示范区北麓生态园林场大道 88 号
+            </div>
+          </div>
+          <!-- 地址 2 -->
+          <div style="border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:13px;color:var(--text-main);">张*远 (父母家) · 139****1120</b>
+              <button style="background:none;border:none;font-size:10px;color:var(--primary);cursor:pointer;" onclick="showToast('已切换为默认收件地址')">设为默认</button>
+            </div>
+            <div style="font-size:11px;color:var(--text-sub);margin-top:4px;line-height:1.4;">
+              近郊新城水岸晴川小区 3 幢 602 室
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;margin-top:10px;padding:10px 0;" onclick="addNewAddressPrompt()">
+          + 添加新配送收件地址
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 模态框 5: 农庄管家在线聊天模拟弹窗              -->
+    <!-- ============================================== -->
+    <div class="modal-overlay" id="chat-modal" style="align-items:center;" onclick="closeDrawerOnOutside(event, 'chat-modal')">
+      <div class="center-modal-content" style="max-width:340px;text-align:left;padding:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid #F1F5F9;padding-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary);color:#FFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">老</div>
+            <div>
+              <b style="font-size:13px;color:var(--text-main);">老陈师傅 (农庄高级管家)</b>
+              <div style="font-size:9px;color:var(--primary);">● 种植团队在线答疑</div>
+            </div>
+          </div>
+          <button class="drawer-close" onclick="closeDrawer('chat-modal')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- 聊天流 -->
+        <div class="chat-container" id="chat-bubble-stream">
+          <div class="chat-bubble steward">
+            张先生您好！我是农庄种植管家老陈，请问您想咨询认养果树长势，还是周末入园采摘的路线与时段呢？
+          </div>
+        </div>
+
+        <!-- 快捷问题选择器 -->
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;">
+          <button class="btn-secondary" style="font-size:11px;padding:6px 8px;text-align:left;justify-content:flex-start;gap:6px;" onclick="sendQuickChat('我想问一下苹果树预计几月份成熟可以来采摘？')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>苹果树预计几月份成熟可以采摘？</span>
+          </button>
+          <button class="btn-secondary" style="font-size:11px;padding:6px 8px;text-align:left;justify-content:flex-start;gap:6px;" onclick="sendQuickChat('采摘需要自备剪刀和小篮子吗？')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>采摘需要自备剪刀和小篮子吗？</span>
+          </button>
+          <button class="btn-secondary" style="font-size:11px;padding:6px 8px;text-align:left;justify-content:flex-start;gap:6px;" onclick="sendQuickChat('下雨天红颜草莓大棚开放采摘吗？')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>下雨天红颜草莓大棚开放采摘吗？</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 原生仿微信 Toast 提示组件 -->
+    <div class="wx-toast" id="wx-toast-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="wx-toast-text">操作已完成</span>
+    </div>
+
+  </div>
+
+  <script>
+    /* =========================================================
+       **生态农庄·家庭亲子生态农庄 小程序前端交互引擎
+       ========================================================= */
+
+    // 页面状态数据
+    const AppState = {
+      activeTab: 0,
+      selectedDate: '明天 09-05 (周末)',
+      selectedSlot: '上午场 09:00-11:30',
+      currentAdoptionTarget: { name: '烟台红富士苹果树', price: 399, crop: '烟台红富士', code: 'A-08-16' },
+      currentBookingTarget: { title: '亲子欢乐 1大1小 采摘套票', price: 68, spec: '成人1位+儿童1位' },
+      isTicketVerified: false
+    };
+
+    // 1. Tab 切换逻辑
+    function switchTab(index) {
+      AppState.activeTab = index;
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tabbar-item').forEach(n => n.classList.remove('active'));
+
+      const targetPane = document.getElementById('tab-pane-' + index);
+      const targetNav = document.getElementById('tab-nav-' + index);
+      const titleEl = document.getElementById('page-title');
+
+      if (targetPane) targetPane.classList.add('active');
+      if (targetNav) targetNav.classList.add('active');
+
+      const titles = ['**生态农庄·亲子农庄', '时令果蔬采摘预约', '田园24h慢动态', '我的农场个人中心'];
+      if (titleEl) titleEl.innerText = titles[index];
+
+      // 回滚到顶部
+      const scrollEl = document.getElementById('mp-main-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
+    }
+
+    // 2. 微信胶囊交互
+    function openShareSheet() {
+      showToast('已生成农庄专属分享卡片');
+    }
+    function minimizeApp() {
+      showToast('小程序已置于微信浮窗');
+    }
+
+    // 3. Tab 1 分类过滤
+    function filterAdoption(category, btn) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('#adopt-list-container .adopt-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 4. 查看档案详情反馈
+    function viewAdoptionDetail(cropName) {
+      showToast('已加载 ' + cropName + ' 完整农事档案');
+    }
+
+    // 5. 认养抽屉
+    function openAdoptionModal(name, price, crop, code) {
+      AppState.currentAdoptionTarget = { name, price, crop, code };
+      document.getElementById('adopt-drawer-title').innerText = '定制【' + name + '】专属挂牌';
+      document.getElementById('adopt-drawer-crop').innerText = name;
+      document.getElementById('adopt-drawer-code').innerText = code;
+      document.getElementById('adopt-drawer-price').innerText = '¥' + price + (crop.includes('草莓') || crop.includes('蔬菜') ? '/季' : '/年');
+      openDrawer('adoption-drawer');
+    }
+
+    function selectOption(type, idx) {
+      if (type === 'term') {
+        document.getElementById('term-opt-1').classList.toggle('active', idx === 1);
+        document.getElementById('term-opt-2').classList.toggle('active', idx === 2);
+      } else if (type === 'delivery') {
+        document.getElementById('delivery-opt-1').classList.toggle('active', idx === 1);
+        document.getElementById('delivery-opt-2').classList.toggle('active', idx === 2);
+      }
+    }
+
+    function confirmAdoptionAction() {
+      const signName = document.getElementById('sign-name-input').value.trim() || '张*远全家福果树';
+      closeDrawer('adoption-drawer');
+      showToast('认养成功！已为您生成专属地块');
+
+      // 动态向 Tab 4 追加新资产
+      const adoptList = document.getElementById('my-adoption-list');
+      const item = document.createElement('div');
+      item.className = 'my-adopt-item';
+      item.style.border = '1.5px solid var(--primary)';
+      item.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <b style="font-size:13px;color:var(--text-main);">${AppState.currentAdoptionTarget.name} #${AppState.currentAdoptionTarget.code}</b>
+          <span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:2px 6px;border-radius:4px;font-weight:700;">新认养成功</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-sub);line-height:1.6;">
+          木牌铭刻：<b style="color:var(--accent);">${signName}</b><br>
+          服务类型：自采与快递冷链双重保障<br>
+          专属管家：老陈师傅已接管地块养护
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <button class="btn-secondary" style="padding:5px 0;font-size:11px;" onclick="viewAdoptionDetail('${AppState.currentAdoptionTarget.crop}')">查看实时监控</button>
+        </div>
+      `;
+      adoptList.prepend(item);
+
+      // 自动跳转至 Tab 4 让用户查验成果
+      setTimeout(() => {
+        switchTab(3);
+      }, 700);
+    }
+
+    function modifySignPrompt() {
+      const cur = document.getElementById('wood-sign-text').innerText;
+      const next = prompt('请输入新木牌挂牌铭文：', cur);
+      if (next && next.trim()) {
+        document.getElementById('wood-sign-text').innerText = next.trim();
+        showToast('挂牌铭文已更新并同步激光雕刻');
+      }
+    }
+
+    // 6. 采摘时令切换
+    function selectCropTab(el, crop, sweetness) {
+      document.querySelectorAll('.season-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      showToast(crop + ' 当前糖度：' + sweetness);
+    }
+
+    // 7. 分时预约抽屉
+    function openBookingSheet(title, price, spec) {
+      AppState.currentBookingTarget = { title, price, spec };
+      document.getElementById('bk-ticket-title').innerText = title;
+      document.getElementById('bk-ticket-price').innerText = '¥' + price;
+      document.getElementById('bk-ticket-spec').innerText = '规格：' + spec;
+      openDrawer('booking-drawer');
+    }
+
+    function selectDate(idx, dateStr) {
+      AppState.selectedDate = dateStr;
+      [0, 1, 2].forEach(i => {
+        const btn = document.getElementById('date-opt-' + i);
+        if (btn) btn.classList.toggle('active', i === idx);
+      });
+    }
+
+    function selectSlot(idx, slotStr) {
+      AppState.selectedSlot = slotStr;
+      document.getElementById('slot-opt-1').classList.toggle('active', idx === 1);
+      document.getElementById('slot-opt-2').classList.toggle('active', idx === 2);
+    }
+
+    function confirmBookingAction() {
+      closeDrawer('booking-drawer');
+      showToast('预约成功！入园门票已出票');
+
+      // 更新 Tab 4 上的门票展示
+      document.getElementById('ticket-title-display').innerText = AppState.currentBookingTarget.title;
+      document.getElementById('ticket-date-display').innerText = '预约时段：' + AppState.selectedDate + ' ' + AppState.selectedSlot;
+      document.getElementById('ticket-badge').innerText = '待入园核销';
+      document.getElementById('ticket-badge').style.background = '#DCFCE7';
+      document.getElementById('ticket-badge').style.color = '#15803D';
+      AppState.isTicketVerified = false;
+
+      // 弹窗展示该门票二维码
+      setTimeout(() => {
+        showQrModal('TKT-20260904-****82', AppState.currentBookingTarget.title, AppState.selectedDate + ' ' + AppState.selectedSlot);
+      }, 500);
+    }
+
+    // 8. 电子核销二维码浮层
+    function showQrModal(code, title, time) {
+      document.getElementById('qr-modal-title').innerText = title;
+      document.getElementById('qr-modal-time').innerText = time;
+      openDrawer('qr-modal');
+    }
+
+    function mockStaffVerify() {
+      AppState.isTicketVerified = true;
+      document.getElementById('ticket-badge').innerText = '已现场核销入园';
+      document.getElementById('ticket-badge').style.background = '#E2E8F0';
+      document.getElementById('ticket-badge').style.color = '#475569';
+      closeDrawer('qr-modal');
+      showToast('核销成功！祝您和孩子采摘愉快');
+      switchTab(3);
+    }
+
+    // 9. 物联网慢直播机位切换
+    function switchLiveCam(camNum, tag, caption, env, btn) {
+      document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const camTag = document.getElementById('cam-tag-name');
+      const camDisplay = document.getElementById('cam-display');
+      const camCaption = document.getElementById('cam-caption');
+      const camEnv = document.getElementById('cam-env-sub');
+
+      camDisplay.style.opacity = '0.3';
+      setTimeout(() => {
+        camTag.innerText = tag;
+        camCaption.innerText = caption;
+        camEnv.innerText = env;
+        camDisplay.style.opacity = '1';
+        showToast('已无缝接入 ' + tag);
+      }, 150);
+    }
+
+    // 慢直播时间戳自增刷新
+    setInterval(() => {
+      const clockEl = document.getElementById('cam-clock');
+      if (clockEl) {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        clockEl.innerText = `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+      }
+    }, 1000);
+
+    // 10. 农友反馈点赞
+    function likeFeedback(btn) {
+      const cntEl = btn.querySelector('.like-cnt');
+      let val = parseInt(cntEl.innerText, 10);
+      cntEl.innerText = val + 1;
+      btn.style.color = '#EF4444';
+      btn.style.borderColor = '#FCA5A5';
+      showToast('点赞成功 +1');
+    }
+
+    // 11. FAQ 手风琴展开/收起
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // 12. 常用地址抽屉
+    function openAddressModal() {
+      openDrawer('address-drawer');
+    }
+    function addNewAddressPrompt() {
+      const newAddr = prompt('请输入新增配送地址（如：示范区香缇半岛12幢）：');
+      if (newAddr && newAddr.trim()) {
+        const list = document.getElementById('address-list');
+        const box = document.createElement('div');
+        box.style.cssText = 'border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;background:#FFF;';
+        box.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b style="font-size:13px;color:var(--text-main);">张*远 · 138****6821</b>
+            <span style="font-size:10px;color:var(--text-muted);">新增备用</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-sub);margin-top:4px;line-height:1.4;">${newAddr.trim()}</div>
+        `;
+        list.appendChild(box);
+        showToast('已新增果蔬收件地址');
+      }
+    }
+
+    // 13. 管家在线聊天模拟
+    function openChatModal() {
+      openDrawer('chat-modal');
+    }
+
+    function sendQuickChat(question) {
+      const stream = document.getElementById('chat-bubble-stream');
+
+      // 追加用户发言
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.innerText = question;
+      stream.appendChild(userBubble);
+      stream.scrollTop = stream.scrollHeight;
+
+      // 1秒后管家拟真回复
+      setTimeout(() => {
+        const replies = {
+          '我想问一下苹果树预计几月份成熟可以来采摘？': '张先生，咱们的烟台红富士苹果树目前处于着色转甜的关键期，预计10月中旬即可全家入园采摘，果实糖度可达15度以上，皮薄多汁！',
+          '采摘需要自备剪刀和小篮子吗？': '不需要自备的！农庄在入园检票处为每个家庭免费配发经过紫外线消毒的儿童安全剪刀、防刺小手套及轻巧竹编采摘篮。',
+          '下雨天红颜草莓大棚开放采摘吗？': '正常开放的！草莓全在双层智能避雨保温连栋大棚内，棚内铺设了干燥木质防滑通道，完全不沾泥巴，雨天采摘也很舒适！'
+        };
+
+        const ans = replies[question] || '感谢您的咨询！老陈已经记录好您的需求，若有需要也可以在田间直接找挂牌管家为您协助。';
+        const stewardBubble = document.createElement('div');
+        stewardBubble.className = 'chat-bubble steward';
+        stewardBubble.innerText = ans;
+        stream.appendChild(stewardBubble);
+        stream.scrollTop = stream.scrollHeight;
+      }, 700);
+    }
+
+    // 通用抽屉与模态框开启/关闭
+    function openDrawer(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('active');
+    }
+    function closeDrawer(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('active');
+    }
+    function closeDrawerOnOutside(e, id) {
+      if (e.target.id === id) {
+        closeDrawer(id);
+      }
+    }
+
+    // 原生微信风格 Toast 显示
+    let toastTimer = null;
+    function showToast(text) {
+      const toast = document.getElementById('wx-toast-box');
+      const textEl = document.getElementById('wx-toast-text');
+      if (!toast || !textEl) return;
+
+      textEl.innerText = text;
+      toast.classList.add('show');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1600);
+    }
+  </script>
+</body>
+</html>

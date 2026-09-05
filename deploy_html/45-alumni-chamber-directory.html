@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>校友会·行业协会商会服务云讯录</title>
+  <style>
+    :root {
+      --color-primary: #1E3A8A;
+      --color-primary-dark: #172554;
+      --color-primary-hover: #1D4ED8;
+      --color-primary-soft: #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-primary-tag: #DBEAFE;
+      --color-gold: #B45309;
+      --color-gold-bg: #FEF3C7;
+      --color-gold-border: #FDE68A;
+      --color-success: #059669;
+      --color-success-bg: #ECFDF5;
+      --color-success-border: #A7F3D0;
+      --color-success-light: #34D399;
+      --color-danger: #EF4444;
+      --color-danger-bg: #FEF2F2;
+      --color-tag-blue: #DBEAFE;
+      --color-tag-green: #D1FAE5;
+      --color-tag-text: #475569;
+      --color-bg-desktop: #0F172A;
+      --color-bg-app: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-surface-soft: #F1F5F9;
+      --color-switch-off: #CBD5E1;
+      --color-chassis: #1E293B;
+      --color-white: #FFFFFF;
+      --color-text-main: #0F172A;
+      --color-text-sub: #334155;
+      --color-text-muted: #64748B;
+      --color-text-tertiary: #94A3B8;
+      --color-border: #E2E8F0;
+      --color-border-subtle: #F1F5F9;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-bg-desktop);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-main);
+      padding: 20px 0;
+    }
+
+    /* 模拟器外壳 - 居中沉浸式微信小程序机模 */
+    .mp-container {
+      width: 390px;
+      height: 844px;
+      background: var(--color-bg-app);
+      border-radius: 46px;
+      border: 10px solid var(--color-chassis);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 0;
+        background-color: var(--color-bg-app);
+      }
+      .mp-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    /* 微信小程序状态栏 */
+    .status-bar {
+      height: 44px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .status-bar-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 微信小程序官方自定义导航头 */
+    .mp-navbar {
+      height: 44px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: relative;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .nav-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    /* 微信官方双胶囊按钮 */
+    .wechat-capsule {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 16px;
+      padding: 0 10px;
+      gap: 10px;
+    }
+
+    .capsule-dots {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .capsule-dot {
+      width: 3.5px;
+      height: 3.5px;
+      background-color: var(--color-white);
+      border-radius: 50%;
+    }
+
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .capsule-circle {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .capsule-inner-dot {
+      width: 4px;
+      height: 4px;
+      background-color: var(--color-white);
+      border-radius: 50%;
+    }
+
+    /* 小程序滚动主体区 */
+    .mp-body {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      background: var(--color-bg-app);
+      padding-bottom: 74px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mp-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 基础卡片与组件通用样式 */
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin: 10px 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 图标封装 */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    /* =================== TAB 0: 首页 (Home) =================== */
+    .home-hero {
+      background: linear-gradient(145deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      padding: 20px 16px 24px;
+      color: var(--color-white);
+      position: relative;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 16px rgba(30, 58, 138, 0.25);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-primary-border);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      line-height: 1.35;
+    }
+
+    .hero-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 通知栏 */
+    .notice-bar {
+      margin: -12px 12px 10px;
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    .notice-bar:active {
+      background-color: var(--color-bg-app);
+    }
+
+    .notice-icon-box {
+      width: 26px;
+      height: 26px;
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notice-text {
+      flex: 1;
+      font-size: 12px;
+      color: var(--color-text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    /* 4金刚区导航 */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 12px 12px;
+    }
+
+    .quick-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quick-item:active {
+      transform: scale(0.96);
+      background: var(--color-primary-soft);
+    }
+
+    .quick-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      background: var(--color-primary-soft);
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .quick-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 16px 14px 8px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: block;
+      width: 3px;
+      height: 13px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    .section-more {
+      font-size: 11px;
+      color: var(--color-primary);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* 横滑特色校友理事卡片流 */
+    .horizontal-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 0 12px 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .council-card {
+      min-width: 140px;
+      max-width: 140px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .council-card:active {
+      transform: scale(0.97);
+      border-color: var(--color-primary);
+    }
+
+    .avatar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.2);
+    }
+
+    .council-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .council-title {
+      font-size: 10px;
+      color: var(--color-gold);
+      background: var(--color-gold-bg);
+      border: 1px solid var(--color-gold-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      display: inline-block;
+      margin: 4px 0 2px;
+      font-weight: 600;
+    }
+
+    .council-corp {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    /* 近期沙龙动态卡片 */
+    .event-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      margin: 8px 12px;
+      border: 1px solid var(--color-border);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .event-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .event-type-badge {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-primary);
+      background: var(--color-primary-soft);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .event-status {
+      font-size: 11px;
+      color: var(--color-success);
+      font-weight: 600;
+    }
+
+    .event-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .event-info-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    .event-btn {
+      width: 100%;
+      margin-top: 12px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .event-btn:active {
+      background: var(--color-primary-hover);
+    }
+
+    .event-btn.signed {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      border: 1px solid var(--color-success-border);
+    }
+
+    /* =================== TAB 1: 通讯录名录 (Directory) =================== */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg-app);
+      padding: 10px 12px 6px;
+      z-index: 10;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .search-box {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      height: 38px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--color-primary);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 12px;
+      color: var(--color-text-main);
+      margin-left: 8px;
+      background: transparent;
+    }
+
+    .search-input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    .search-clear-btn {
+      display: none;
+      cursor: pointer;
+      color: var(--color-text-muted);
+    }
+
+    /* 筛选标签水平滚动条 */
+    .filter-tags-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-top: 8px;
+      padding-bottom: 4px;
+    }
+
+    .filter-tags-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-sub);
+      white-space: nowrap;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .filter-pill.active {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* 通讯录统计 */
+    .directory-count-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* 会员卡片 */
+    .contact-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      margin: 8px 12px;
+      border: 1px solid var(--color-border);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.15s ease;
+    }
+
+    .contact-card:hover {
+      border-color: var(--color-primary-border);
+    }
+
+    .contact-top-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .contact-main-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .name-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .contact-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .duty-badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .duty-gold {
+      background: var(--color-gold-bg);
+      color: var(--color-gold);
+      border: 1px solid var(--color-gold-border);
+    }
+
+    .duty-blue {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .duty-gray {
+      background: var(--color-surface-soft);
+      color: var(--color-text-sub);
+      border: 1px solid var(--color-border);
+    }
+
+    .contact-corp-row {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-sub);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-edu-row {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .contact-tags-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .tag-item {
+      font-size: 10px;
+      background: var(--color-surface-soft);
+      color: var(--color-tag-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .contact-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      border-top: 1px solid var(--color-border-subtle);
+      padding-top: 8px;
+      margin-top: 2px;
+    }
+
+    .btn-sm-outline {
+      font-size: 11px;
+      color: var(--color-text-sub);
+      border: 1px solid var(--color-border);
+      background: var(--color-white);
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+    }
+
+    .btn-sm-outline:active {
+      background: var(--color-surface-soft);
+    }
+
+    .btn-sm-primary {
+      font-size: 11px;
+      color: var(--color-white);
+      border: none;
+      background: var(--color-primary);
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    .btn-sm-primary:active {
+      background: var(--color-primary-hover);
+    }
+
+    .btn-sm-primary.exchanged {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      border: 1px solid var(--color-success-border);
+    }
+
+    /* =================== TAB 2: 供需集市 (Marketplace) =================== */
+    .segmented-control {
+      display: flex;
+      background: var(--color-border);
+      border-radius: 8px;
+      padding: 2px;
+      margin: 10px 12px 4px;
+    }
+
+    .segment-tab {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      padding: 6px 0;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .segment-tab.active {
+      background: var(--color-white);
+      color: var(--color-primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .demand-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      margin: 8px 12px;
+      border: 1px solid var(--color-border);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .demand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .demand-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .demand-badge.type-need {
+      background: var(--color-primary-soft);
+      color: var(--color-primary-hover);
+      border: 1px solid var(--color-primary-border);
+    }
+
+    .demand-badge.type-offer {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      border: 1px solid var(--color-success-border);
+    }
+
+    .demand-date {
+      font-size: 10px;
+      color: var(--color-text-tertiary);
+    }
+
+    .demand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .demand-desc {
+      font-size: 12px;
+      color: var(--color-text-sub);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .demand-author-box {
+      background: var(--color-bg-app);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    .author-name-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-sub);
+    }
+
+    .connect-action-btn {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .connect-action-btn:active {
+      background: var(--color-primary-hover);
+    }
+
+    /* 悬浮发布按钮 (FAB) */
+    .fab-post-btn {
+      position: absolute;
+      right: 18px;
+      bottom: 74px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(30, 58, 138, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 15;
+      transition: transform 0.15s ease;
+    }
+
+    .fab-post-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* =================== TAB 3: 个人中心 (Mine) =================== */
+    .mine-profile-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      padding: 24px 18px 20px;
+      color: var(--color-white);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 16px rgba(30, 58, 138, 0.25);
+    }
+
+    .profile-card-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .my-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--color-white);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    .my-name {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .my-duty-tag {
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .my-corp-info {
+      font-size: 11px;
+      color: var(--color-primary-border);
+      margin-top: 4px;
+    }
+
+    /* 4格指标统计看板 */
+    .stats-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      margin: -14px 12px 10px;
+      border: 1px solid var(--color-border);
+      padding: 12px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-box {
+      border-right: 1px solid var(--color-border-subtle);
+    }
+
+    .stat-box:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* WeUI 列表组 */
+    .weui-cell-group {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      margin: 10px 12px;
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .weui-cell {
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-subtle);
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--color-text-main);
+      transition: background 0.15s ease;
+    }
+
+    .weui-cell:last-child {
+      border-bottom: none;
+    }
+
+    .weui-cell:active {
+      background-color: var(--color-bg-app);
+    }
+
+    .cell-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .cell-icon-wrap {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      background: var(--color-primary-soft);
+    }
+
+    .cell-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-tertiary);
+      font-size: 12px;
+    }
+
+    .cell-badge-dot {
+      background: var(--color-danger);
+      color: var(--color-white);
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* iOS 风格 Switch 开关 */
+    .switch-ui {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch-ui input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--color-switch-off);
+      transition: .25s;
+      border-radius: 22px;
+    }
+
+    .switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .25s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    input:checked + .switch-slider {
+      background-color: var(--color-primary);
+    }
+
+    input:checked + .switch-slider:before {
+      transform: translateX(18px);
+    }
+
+    /* =================== 原生微信底部 TabBar =================== */
+    .bottom-tabbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 20;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.03);
+      user-select: none;
+    }
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      gap: 3px;
+      position: relative;
+      transition: color 0.15s ease;
+    }
+
+    .tab-item.active {
+      color: var(--color-primary);
+    }
+
+    .tab-label {
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .tab-badge {
+      position: absolute;
+      top: 6px;
+      right: 24px;
+      width: 7px;
+      height: 7px;
+      background: var(--color-danger);
+      border-radius: 50%;
+      border: 1px solid var(--color-white);
+    }
+
+    /* =================== 全局弹窗 (Modals & Drawers) =================== */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(2px);
+      z-index: 50;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--color-white);
+      width: 100%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      max-height: 85%;
+      overflow-y: auto;
+      padding: 18px 16px 24px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .modal-sheet-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .modal-close-icon {
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* 名片详情抽屉卡片 */
+    .card-detail-box {
+      background: var(--color-bg-app);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .card-detail-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .card-detail-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .card-info-item {
+      display: flex;
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .card-info-label {
+      width: 76px;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+
+    .card-info-val {
+      color: var(--color-text-main);
+      font-weight: 500;
+      flex: 1;
+    }
+
+    /* 微信原生 Toast */
+    .mp-toast {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.88);
+      color: var(--color-white);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .mp-toast.show {
+      display: flex;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- 小程序视口机模 -->
+  <div class="mp-container">
+    
+    <!-- 顶部状态栏 -->
+    <div class="status-bar">
+      <span>10:24</span>
+      <div class="status-bar-icons">
+        <!-- WiFi SVG -->
+        <span class="icon" style="width:14px;height:14px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
+        </span>
+        <!-- Battery SVG -->
+        <span class="icon" style="width:16px;height:16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
+            <line x1="22" y1="11" x2="22" y2="13"/>
+            <rect x="5" y="10" width="10" height="4" fill="currentColor"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- 自定义微信小程序导航头 -->
+    <div class="mp-navbar">
+      <span class="nav-title" id="mpNavTitle">校友会·商会服务云讯录</span>
+      <!-- 微信官方双胶囊 -->
+      <div class="wechat-capsule">
+        <div class="capsule-dots" onclick="showToast('已调起小程序分享菜单')">
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-circle" onclick="showToast('当前处于展示版首页')">
+          <div class="capsule-inner-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 滚动内容区 -->
+    <div class="mp-body" id="mpBody">
+      
+      <!-- =================== TAB 0: 首页 (Home) =================== -->
+      <div id="pane-0" class="tab-pane active">
+        <!-- 组织风采头图 -->
+        <div class="home-hero">
+          <div class="hero-meta">
+            <span class="icon" style="width:13px;height:13px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </span>
+            <span>官方登记备案 · 数字化会员中心</span>
+          </div>
+          <div class="hero-title">**校友会<br>**商会</div>
+          <div class="hero-tags">
+            <span class="hero-tag">活跃会员 5,200+</span>
+            <span class="hero-tag">覆盖分会 16 个</span>
+            <span class="hero-tag">供需撮合 840+</span>
+          </div>
+        </div>
+
+        <!-- 滚动通知 -->
+        <div class="notice-bar" onclick="openNoticeModal()">
+          <div class="notice-icon-box">
+            <span class="icon" style="width:14px;height:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5 6 9H2v6h4l5 4V5Z"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+            </span>
+          </div>
+          <div class="notice-text">【公告】关于举办2026半导体创新产业闭门沙龙的通知</div>
+          <span class="icon" style="width:12px;height:12px;color:var(--color-text-tertiary);">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </span>
+        </div>
+
+        <!-- 金刚区 4 宫格 -->
+        <div class="quick-grid">
+          <div class="quick-item" onclick="switchTab(1)">
+            <div class="quick-icon-wrap">
+              <span class="icon" style="width:18px;height:18px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="5" rx="2"/>
+                  <line x1="2" x2="22" y1="10" y2="10"/>
+                </svg>
+              </span>
+            </div>
+            <span class="quick-label">校友名录</span>
+          </div>
+          <div class="quick-item" onclick="switchTab(2)">
+            <div class="quick-icon-wrap">
+              <span class="icon" style="width:18px;height:18px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
+                  <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
+                </svg>
+              </span>
+            </div>
+            <span class="quick-label">供需集市</span>
+          </div>
+          <div class="quick-item" onclick="scrollToSalon()">
+            <div class="quick-icon-wrap">
+              <span class="icon" style="width:18px;height:18px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+                  <path d="M9 22v-4h6v4"/>
+                  <path d="M8 6h.01"/>
+                  <path d="M16 6h.01"/>
+                  <path d="M8 10h.01"/>
+                  <path d="M16 10h.01"/>
+                </svg>
+              </span>
+            </div>
+            <span class="quick-label">会长走访</span>
+          </div>
+          <div class="quick-item" onclick="openCertModal()">
+            <div class="quick-icon-wrap">
+              <span class="icon" style="width:18px;height:18px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+            </div>
+            <span class="quick-label">入会认证</span>
+          </div>
+        </div>
+
+        <!-- 轮值会长与优秀理事卡片流 -->
+        <div class="section-header">
+          <span class="section-title">本期轮值理事会成员</span>
+          <span class="section-more" onclick="switchTab(1)">
+            全部名录
+            <span class="icon" style="width:11px;height:11px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div class="horizontal-scroll" id="homeCouncilList">
+          <!-- JS 动态渲染理事 -->
+        </div>
+
+        <!-- 近期活动与沙龙 -->
+        <div class="section-header" id="salonSectionAnchor">
+          <span class="section-title">近期分会沙龙与走访</span>
+          <span class="section-more" onclick="showToast('已刷新最新活动排期')">刷新日程</span>
+        </div>
+
+        <!-- 活动 1 -->
+        <div class="event-card">
+          <div class="event-badge-row">
+            <span class="event-type-badge">会长企业走访</span>
+            <span class="event-status">报名中 (限30席)</span>
+          </div>
+          <div class="event-name">走进某半导体科技集团：车规芯片产线深度交流研讨会</div>
+          <div class="event-info-line">
+            <span class="icon" style="width:13px;height:13px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </span>
+            <span>2026年9月18日 14:00 - 17:30</span>
+          </div>
+          <div class="event-info-line">
+            <span class="icon" style="width:13px;height:13px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            <span>上海·张江集成电路创新园区某栋会议厅</span>
+          </div>
+          <button class="event-btn" id="eventBtn-1" onclick="toggleEventSignup(1, '走进某半导体科技集团')">
+            <span class="icon" style="width:14px;height:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <line x1="19" y1="8" x2="19" y2="14"/>
+                <line x1="22" y1="11" x2="16" y2="11"/>
+              </svg>
+            </span>
+            <span>立即预约席位</span>
+          </button>
+        </div>
+
+        <!-- 活动 2 -->
+        <div class="event-card">
+          <div class="event-badge-row">
+            <span class="event-type-badge">校友学术与投融资论坛</span>
+            <span class="event-status">名额充裕</span>
+          </div>
+          <div class="event-name">2026新材料与智能制造产业发展峰会（秋季闭门会）</div>
+          <div class="event-info-line">
+            <span class="icon" style="width:13px;height:13px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </span>
+            <span>2026年9月26日 09:30 - 16:30</span>
+          </div>
+          <div class="event-info-line">
+            <span class="icon" style="width:13px;height:13px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            <span>母校大礼堂国际报告厅 / 线上同步</span>
+          </div>
+          <button class="event-btn" id="eventBtn-2" onclick="toggleEventSignup(2, '新材料与智能制造产业峰会')">
+            <span class="icon" style="width:14px;height:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <line x1="19" y1="8" x2="19" y2="14"/>
+                <line x1="22" y1="11" x2="16" y2="11"/>
+              </svg>
+            </span>
+            <span>立即预约席位</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- =================== TAB 1: 通讯录 (Directory) =================== -->
+      <div id="pane-1" class="tab-pane">
+        <!-- 搜索与多维筛选吸顶区 -->
+        <div class="sticky-header">
+          <div class="search-box">
+            <span class="icon" style="width:14px;height:14px;color:var(--color-text-muted);">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="search-input" id="directorySearchInput" placeholder="输入姓名、企业、专业或业务关键词..." oninput="handleSearchInput(this.value)">
+            <span class="search-clear-btn" id="searchClearBtn" onclick="clearSearchInput()">
+              <span class="icon" style="width:14px;height:14px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </span>
+            </span>
+          </div>
+
+          <!-- 分会筛选胶囊 -->
+          <div class="filter-tags-scroll" id="branchFilterBar">
+            <span class="filter-pill active" onclick="setBranchFilter('all', this)">全部分会</span>
+            <span class="filter-pill" onclick="setBranchFilter('北京分会', this)">北京分会</span>
+            <span class="filter-pill" onclick="setBranchFilter('上海分会', this)">上海分会</span>
+            <span class="filter-pill" onclick="setBranchFilter('大湾区联络处', this)">大湾区联络处</span>
+            <span class="filter-pill" onclick="setBranchFilter('智能制造专委会', this)">智能制造专委会</span>
+          </div>
+
+          <!-- 行业筛选胶囊 -->
+          <div class="filter-tags-scroll" id="industryFilterBar">
+            <span class="filter-pill active" onclick="setIndustryFilter('all', this)">全部行业</span>
+            <span class="filter-pill" onclick="setIndustryFilter('新一代信息技术', this)">新一代信息技术</span>
+            <span class="filter-pill" onclick="setIndustryFilter('高端智能装备', this)">高端智能装备</span>
+            <span class="filter-pill" onclick="setIndustryFilter('生物医药与健康', this)">生物医药与健康</span>
+            <span class="filter-pill" onclick="setIndustryFilter('新能源与新材料', this)">新能源与新材料</span>
+            <span class="filter-pill" onclick="setIndustryFilter('现代金融投资', this)">现代金融投资</span>
+          </div>
+        </div>
+
+        <div class="directory-count-bar">
+          <span id="filteredCountText">显示 10 位脱敏会员</span>
+          <span style="color:var(--color-primary);cursor:pointer;" onclick="resetDirectoryFilters()">重置筛选</span>
+        </div>
+
+        <!-- 真实脱敏会员卡片列表 -->
+        <div id="contactsListContainer">
+          <!-- JS 动态循环渲染 -->
+        </div>
+      </div>
+
+      <!-- =================== TAB 2: 供需集市 (Marketplace) =================== -->
+      <div id="pane-2" class="tab-pane">
+        <!-- 分段选择器 -->
+        <div class="segmented-control">
+          <div class="segment-tab active" id="segTabAll" onclick="setDemandTab('all')">全部供需</div>
+          <div class="segment-tab" id="segTabDemand" onclick="setDemandTab('demand')">找合作 · 提需求</div>
+          <div class="segment-tab" id="segTabSupply" onclick="setDemandTab('supply')">资源库 · 找服务</div>
+        </div>
+
+        <div class="section-header" style="margin-top:10px;">
+          <span class="section-title">组织内部商业与技术对接</span>
+          <span class="section-more" onclick="showToast('已刷新最新供需信息')">实时更新</span>
+        </div>
+
+        <!-- 供需列表容器 -->
+        <div id="demandsListContainer">
+          <!-- JS 动态渲染供需列表 -->
+        </div>
+
+        <!-- 悬浮发供需按钮 (FAB) -->
+        <button class="fab-post-btn" onclick="openPostDemandModal()">
+          <span class="icon" style="width:14px;height:14px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+          <span>发布供需</span>
+        </button>
+      </div>
+
+      <!-- =================== TAB 3: 个人中心 (Mine) =================== -->
+      <div id="pane-3" class="tab-pane">
+        <!-- 会员身份名片大卡 -->
+        <div class="mine-profile-header">
+          <div class="profile-card-top">
+            <div class="my-avatar">李</div>
+            <div>
+              <div class="my-name">李*明</div>
+              <div class="my-duty-tag">常务理事 · 2004级校友</div>
+              <div class="my-corp-info">某产业投资控股集团 · 董事总经理</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4格统计看板 -->
+        <div class="stats-card">
+          <div class="stat-box" onclick="showToast('名片互换累计 18 位校友')">
+            <div class="stat-num" id="statExchangeCount">18</div>
+            <div class="stat-label">名片互换</div>
+          </div>
+          <div class="stat-box" onclick="showToast('已录入名录 42 位成员')">
+            <div class="stat-num">42</div>
+            <div class="stat-label">已录名册</div>
+          </div>
+          <div class="stat-box" onclick="showToast('当前发布供需 3 条')">
+            <div class="stat-num" id="statDemandCount">3</div>
+            <div class="stat-label">我的供需</div>
+          </div>
+          <div class="stat-box" onclick="showToast('参与协会活动 5 场')">
+            <div class="stat-num" id="statEventCount">5</div>
+            <div class="stat-label">参与沙龙</div>
+          </div>
+        </div>
+
+        <!-- 会员功能列表组 -->
+        <div class="weui-cell-group">
+          <!-- 收到名片申请 -->
+          <div class="weui-cell" onclick="openCardRequestsModal()">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="5" rx="2"/>
+                    <line x1="2" x2="22" y1="10" y2="10"/>
+                  </svg>
+                </span>
+              </div>
+              <span>收到的名片互换申请</span>
+            </div>
+            <div class="cell-right">
+              <span class="cell-badge-dot" id="pendingCardBadge">2条待处理</span>
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 我的签到码凭证 -->
+          <div class="weui-cell" onclick="openQrCheckinModal()">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="5" height="5" x="3" y="3" rx="1"/>
+                    <rect width="5" height="5" x="16" y="3" rx="1"/>
+                    <rect width="5" height="5" x="3" y="16" rx="1"/>
+                    <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
+                    <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+                    <path d="M16 12h1"/>
+                  </svg>
+                </span>
+              </div>
+              <span>活动电子签到核销凭证</span>
+            </div>
+            <div class="cell-right">
+              <span>出示凭证</span>
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 隐私与展示控制组 -->
+        <div class="weui-cell-group">
+          <div class="weui-cell" style="cursor:default;">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">手机号码脱敏保护</div>
+                <div style="font-size:10px;color:var(--color-text-muted);">仅向已互换名片成员展示真实号码</div>
+              </div>
+            </div>
+            <div class="cell-right">
+              <label class="switch-ui">
+                <input type="checkbox" id="switchMaskPhone" checked onchange="handlePrivacyToggle('maskPhone', this.checked)">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="weui-cell" style="cursor:default;">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">仅向实名认证会员公开</div>
+                <div style="font-size:10px;color:var(--color-text-muted);">防止非本会成员检索您的名片履历</div>
+              </div>
+            </div>
+            <div class="cell-right">
+              <label class="switch-ui">
+                <input type="checkbox" id="switchVerifiedOnly" checked onchange="handlePrivacyToggle('verifiedOnly', this.checked)">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="weui-cell" style="cursor:default;">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
+                    <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">接收产业供需精准匹配</div>
+                <div style="font-size:10px;color:var(--color-text-muted);">根据您的主营业务自动推荐上下游资源</div>
+              </div>
+            </div>
+            <div class="cell-right">
+              <label class="switch-ui">
+                <input type="checkbox" id="switchBusinessMatch" checked onchange="handlePrivacyToggle('businessMatch', this.checked)">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 组织说明与章程 -->
+        <div class="weui-cell-group">
+          <div class="weui-cell" onclick="openCharterModal()">
+            <div class="cell-left">
+              <div class="cell-icon-wrap">
+                <span class="icon" style="width:16px;height:16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </span>
+              </div>
+              <span>关于本会章程与数字化管理说明</span>
+            </div>
+            <div class="cell-right">
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 底部原生 TabBar -->
+    <div class="bottom-tabbar">
+      <div class="tab-item active" id="tabItem-0" onclick="switchTab(0)">
+        <span class="icon" style="width:20px;height:20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </span>
+        <span class="tab-label">首页动态</span>
+      </div>
+      <div class="tab-item" id="tabItem-1" onclick="switchTab(1)">
+        <span class="icon" style="width:20px;height:20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="14" x="2" y="5" rx="2"/>
+            <line x1="2" x2="22" y1="10" y2="10"/>
+          </svg>
+        </span>
+        <span class="tab-label">通讯名录</span>
+      </div>
+      <div class="tab-item" id="tabItem-2" onclick="switchTab(2)">
+        <span class="icon" style="width:20px;height:20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
+            <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
+          </svg>
+        </span>
+        <span class="tab-label">供需集市</span>
+      </div>
+      <div class="tab-item" id="tabItem-3" onclick="switchTab(3)">
+        <div class="tab-badge" id="tabBadgeMine"></div>
+        <span class="icon" style="width:20px;height:20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <span class="tab-label">个人中心</span>
+      </div>
+    </div>
+
+    <!-- =================== 全局弹窗层 =================== -->
+
+    <!-- 弹窗 1: 会员电子名片详情抽屉 -->
+    <div class="modal-overlay" id="contactDetailModal" onclick="closeModalOnOverlay(event, 'contactDetailModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">会员电子名片</span>
+          <span class="modal-close-icon" onclick="closeModal('contactDetailModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div id="contactDetailBody">
+          <!-- 动态装填名片内容 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 2: 发布供需模态框 -->
+    <div class="modal-overlay" id="postDemandModal" onclick="closeModalOnOverlay(event, 'postDemandModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">发布商机与供需</span>
+          <span class="modal-close-icon" onclick="closeModal('postDemandModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div style="font-size:12px;margin-bottom:12px;">
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">供需类型</label>
+          <div style="display:flex;gap:10px;margin-bottom:12px;">
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="postType" value="demand" checked> 寻找需求 / 采购找人
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+              <input type="radio" name="postType" value="supply"> 提供资源 / 产品服务
+            </label>
+          </div>
+
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">需求标题</label>
+          <input type="text" id="postTitleInput" placeholder="例如：寻找某工业视觉检测项目合作方..." style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;">
+
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">所属行业</label>
+          <select id="postIndustrySelect" style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;background:var(--color-white);">
+            <option value="新一代信息技术">新一代信息技术</option>
+            <option value="高端智能装备">高端智能装备</option>
+            <option value="生物医药与健康">生物医药与健康</option>
+            <option value="新能源与新材料">新能源与新材料</option>
+            <option value="现代金融投资">现代金融投资</option>
+          </select>
+
+          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">详细描述与合作诉求</label>
+          <textarea id="postDescInput" rows="3" placeholder="请详细阐述您的合作方向、技术参数或交付周期..." style="width:100%;border:1px solid var(--color-border);border-radius:6px;padding:8px 10px;font-size:12px;outline:none;margin-bottom:16px;"></textarea>
+
+          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;" onclick="submitNewDemand()">
+            确认提交发布
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 3: 待处理名片申请列表 -->
+    <div class="modal-overlay" id="cardRequestsModal" onclick="closeModalOnOverlay(event, 'cardRequestsModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">收到的名片申请</span>
+          <span class="modal-close-icon" onclick="closeModal('cardRequestsModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div id="cardRequestsList">
+          <!-- 动态渲染待处理请求 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 4: 电子签到核销凭证码 -->
+    <div class="modal-overlay" id="qrCheckinModal" onclick="closeModalOnOverlay(event, 'qrCheckinModal')">
+      <div class="modal-sheet" style="text-align:center;">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">沙龙电子签到凭证</span>
+          <span class="modal-close-icon" onclick="closeModal('qrCheckinModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div style="padding:10px 0;">
+          <div style="font-size:14px;font-weight:800;color:var(--color-primary);">走进某半导体科技集团·会长企业研讨会</div>
+          <div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">参会人：李*明 (常务理事) · 席位 #08</div>
+
+          <!-- 模拟矢量二维码 -->
+          <div style="width:180px;height:180px;margin:16px auto;background:var(--color-white);border:2px solid var(--color-primary);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;box-shadow:var(--shadow-md);">
+            <div class="icon" style="width:140px;height:140px;color:var(--color-primary);">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="5" height="5" x="3" y="3" rx="1"/>
+                <rect width="5" height="5" x="16" y="3" rx="1"/>
+                <rect width="5" height="5" x="3" y="16" rx="1"/>
+                <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
+                <path d="M21 21v.01"/>
+                <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+                <path d="M3 12h.01"/>
+                <path d="M12 3h.01"/>
+                <path d="M12 16v.01"/>
+                <path d="M16 12h1"/>
+                <path d="M21 12v.01"/>
+                <path d="M12 21v-1"/>
+              </svg>
+            </div>
+          </div>
+
+          <div style="font-family:monospace;font-size:13px;font-weight:700;color:var(--color-text-sub);letter-spacing:2px;">
+            CHK-2026-9810-8842
+          </div>
+          <div style="font-size:10px;color:var(--color-text-muted);margin-top:6px;">
+            请在现场签到台向工作人员出示核销 · 动态防伪已生效
+          </div>
+
+          <button style="margin-top:16px;background:var(--color-primary-soft);color:var(--color-primary);border:1px solid var(--color-primary-border);padding:8px 24px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;" onclick="showToast('签到二维码已刷新')">
+            刷新二维码
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 5: 公告详情 -->
+    <div class="modal-overlay" id="noticeModal" onclick="closeModalOnOverlay(event, 'noticeModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">协会要闻公告</span>
+          <span class="modal-close-icon" onclick="closeModal('noticeModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
+          <b style="font-size:14px;color:var(--color-text-main);display:block;margin-bottom:6px;">
+            关于举办2026半导体创新产业闭门沙龙的通知
+          </b>
+          <p style="margin-bottom:8px;color:var(--color-text-muted);">发布日期：2026年9月03日 · 秘书处</p>
+          <p style="margin-bottom:8px;">各位理事、常务理事及校友同仁：</p>
+          <p style="margin-bottom:8px;">为促进产业链校友企业互助合作与产学研协同创新，商会联合高校校友总会定于9月18日组织走访会长单位某半导体科技集团，实地考察车规芯片测试产线并举办专题研讨。</p>
+          <p style="margin-bottom:12px;">席位有限，请登录小程序进入“近期沙龙”栏目完成实名登记。</p>
+          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('noticeModal');showToast('已确认阅读公告')">
+            已知悉
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 6: 入会认证表单 -->
+    <div class="modal-overlay" id="certModal" onclick="closeModalOnOverlay(event, 'certModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">校友/商会会员实名认证</span>
+          <span class="modal-close-icon" onclick="closeModal('certModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div style="font-size:12px;color:var(--color-text-sub);">
+          <p style="margin-bottom:10px;color:var(--color-text-muted);">当前账号已通过常务理事资格认证，如需更新单位信息或申报新增专委会职务，请核对以下资料：</p>
+          
+          <div style="margin-bottom:10px;">
+            <label style="display:block;font-weight:600;margin-bottom:3px;">认证姓名</label>
+            <input type="text" value="李*明" disabled style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;">
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <label style="display:block;font-weight:600;margin-bottom:3px;">所属学院 / 入学年份</label>
+            <input type="text" value="经济管理学院 · 2004级" disabled style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;">
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-weight:600;margin-bottom:3px;">现任企业及职位</label>
+            <input type="text" value="某产业投资控股集团 · 董事总经理" style="width:100%;height:34px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;">
+          </div>
+
+          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('certModal');showToast('信息已向秘书处提交更新')">
+            保存认证信息
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗 7: 章程与数字化说明 -->
+    <div class="modal-overlay" id="charterModal" onclick="closeModalOnOverlay(event, 'charterModal')">
+      <div class="modal-sheet">
+        <div class="modal-header-row">
+          <span class="modal-sheet-title">协会章程与数字化管理说明</span>
+          <span class="modal-close-icon" onclick="closeModal('charterModal')">
+            <span class="icon" style="width:16px;height:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
+          <p style="margin-bottom:8px;"><b>第一条</b> 本通讯录仅供本会认证校友与商会会员内部联络互助使用，未经许可严禁用于任何外部商业骚扰或非授权用途。</p>
+          <p style="margin-bottom:8px;"><b>第二条</b> 系统严格执行个人隐私脱敏保护规则，默认对非名片互换成员掩码联系方式。</p>
+          <p style="margin-bottom:12px;"><b>第三条</b> 供需集市信息发布需经秘书处合规核验，严禁发布违规及虚假投融资信息。</p>
+          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('charterModal')">
+            返回
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 全局微信 Toast 气泡 -->
+    <div class="mp-toast" id="mpToast">
+      <span class="icon" style="width:18px;height:18px;color:var(--color-success-light);">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </span>
+      <span id="mpToastMsg">操作成功</span>
+    </div>
+
+  </div>
+
+  <!-- JavaScript 交互闭环逻辑 -->
+  <script>
+    // =================== 全局脱敏真实数据 ===================
+    const contactsData = [
+      {
+        id: "c-101",
+        name: "张*峰",
+        duty: "常务理事",
+        isCouncil: true,
+        dutyType: "duty-gold",
+        edu: "2006级 计算机系 硕*班",
+        corp: "某半导体科技集团",
+        position: "董事长 & CEO",
+        branch: "上海分会",
+        industry: "新一代信息技术",
+        phone: "138****8890",
+        wechat: "zf_chi****2006",
+        tags: ["车规芯片", "半导体制造", "天使投资"],
+        supply: "可提供车规级MCU算力模组采购对接及技术咨询",
+        demand: "寻求新能源主机厂Tier1供应商深度合作",
+        exchanged: false
+      },
+      {
+        id: "c-102",
+        name: "李*清",
+        duty: "常务理事",
+        isCouncil: true,
+        dutyType: "duty-gold",
+        edu: "2002级 金融学院 本科",
+        corp: "某创投合伙企业(有限合伙)",
+        position: "创始合伙人",
+        branch: "北京分会",
+        industry: "现代金融投资",
+        phone: "139****1266",
+        wechat: "lq_inv****2002",
+        tags: ["硬科技投资", "产业基金", "IPO辅导"],
+        supply: "专注于硬科技与智能制造早期及成长轮股权投资",
+        demand: "征集中早期高成长校友创业项目BP",
+        exchanged: false
+      },
+      {
+        id: "c-103",
+        name: "陈*宇",
+        duty: "副会长单位",
+        isCouncil: true,
+        dutyType: "duty-gold",
+        edu: "2005级 机械工程学院 博士",
+        corp: "某高端装备制造集团",
+        position: "副总裁兼CTO",
+        branch: "智能制造专委会",
+        industry: "高端智能装备",
+        phone: "186****9921",
+        wechat: "cy_rob****2005",
+        tags: ["五轴数控", "工业机器人", "专精特新"],
+        supply: "可协同开放长三角工业互联网测试示范基地",
+        demand: "寻找具备自主可控能力的数控系统核心零部件伙伴",
+        exchanged: false
+      },
+      {
+        id: "c-104",
+        name: "林*欣",
+        duty: "理事",
+        isCouncil: true,
+        dutyType: "duty-blue",
+        edu: "2008级 化学与化工学院 硕士",
+        corp: "某新能源实业股份有限公司",
+        position: "新材料研发中心总监",
+        branch: "大湾区联络处",
+        industry: "新能源与新材料",
+        phone: "137****5534",
+        wechat: "lx_bat****2008",
+        tags: ["固态电池", "新材料", "绿色低碳"],
+        supply: "提供固态电解质改性技术方案与中试验证产线",
+        demand: "对接高能量密度储能系统整机厂商",
+        exchanged: false
+      },
+      {
+        id: "c-105",
+        name: "王*民",
+        duty: "理事",
+        isCouncil: false,
+        dutyType: "duty-blue",
+        edu: "2010级 生命科学与医学部 硕*班",
+        corp: "某生物医药创新中心",
+        position: "联合创始人",
+        branch: "上海分会",
+        industry: "生物医药与健康",
+        phone: "159****3342",
+        wechat: "wm_bio****2010",
+        tags: ["靶向抗体", "CXO服务", "临床申报"],
+        supply: "提供创新抗体药物早期发现与偶联技术CXO支持",
+        demand: "寻求GLP毒理试验与临床一期CRO合作单位",
+        exchanged: false
+      },
+      {
+        id: "c-106",
+        name: "赵*磊",
+        duty: "会员校友",
+        isCouncil: false,
+        dutyType: "duty-gray",
+        edu: "2012级 电子信息工程 本科",
+        corp: "某工业互联网技术研究院",
+        position: "解决方案架构总监",
+        branch: "北京分会",
+        industry: "新一代信息技术",
+        phone: "185****7710",
+        wechat: "zl_iot****2012",
+        tags: ["工业网关", "数字孪生", "边缘计算"],
+        supply: "提供工厂数字化转型顶层设计与边缘采集套件",
+        demand: "开拓汽车制造与装备行业试点标杆客户",
+        exchanged: false
+      },
+      {
+        id: "c-107",
+        name: "周*霞",
+        duty: "会员校友",
+        isCouncil: false,
+        dutyType: "duty-gray",
+        edu: "2014级 经济与管理学院 本科",
+        corp: "某律师事务所(特殊普通合伙)",
+        position: "高级合伙人",
+        branch: "大湾区联络处",
+        industry: "现代金融投资",
+        phone: "135****4498",
+        wechat: "zx_law****2014",
+        tags: ["知识产权", "商事仲裁", "海外合规"],
+        supply: "为会员企业出海及专利维权提供专属法律顾问服务",
+        demand: "对接有涉外合规与并购需求的科技企业",
+        exchanged: false
+      },
+      {
+        id: "c-108",
+        name: "黄*明",
+        duty: "理事",
+        isCouncil: false,
+        dutyType: "duty-blue",
+        edu: "2007级 自动化系 硕士",
+        corp: "某智能伺服驱动系统公司",
+        position: "总经理",
+        branch: "智能制造专委会",
+        industry: "高端智能装备",
+        phone: "136****8812",
+        wechat: "hm_srv****2007",
+        tags: ["精密伺服", "电机控制", "智能传感"],
+        supply: "提供高性能总线型伺服驱动器与驱控一体化定制",
+        demand: "寻求协作机器人与光伏加工设备厂商联合研发",
+        exchanged: false
+      },
+      {
+        id: "c-109",
+        name: "孙*峰",
+        duty: "会员校友",
+        isCouncil: false,
+        dutyType: "duty-gray",
+        edu: "2016级 软件学院 硕士",
+        corp: "某企业级AI大模型工作室",
+        position: "技术负责人",
+        branch: "北京分会",
+        industry: "新一代信息技术",
+        phone: "177****6621",
+        wechat: "sf_nlp****2016",
+        tags: ["私有化大模型", "企业知识库", "智能客服"],
+        supply: "提供高安全企业本地化知识问答系统搭建",
+        demand: "寻求行业协会定制会员智能问答系统试点",
+        exchanged: false
+      },
+      {
+        id: "c-110",
+        name: "郑*洋",
+        duty: "副会长单位",
+        isCouncil: true,
+        dutyType: "duty-gold",
+        edu: "1998级 精密仪器系 硕士",
+        corp: "某光学精密仪器集团",
+        position: "董事长",
+        branch: "上海分会",
+        industry: "高端智能装备",
+        phone: "138****0033",
+        wechat: "zy_opt****1998",
+        tags: ["工业显微", "晶圆检测", "激光干涉"],
+        supply: "提供半导体前道缺陷检测光学模组与整机装备",
+        demand: "寻求超精密机械构件加工配套企业",
+        exchanged: false
+      }
+    ];
+
+    let demandsData = [
+      {
+        id: "d-201",
+        type: "demand",
+        typeBadge: "type-need",
+        typeName: "寻找需求",
+        title: "寻找高精度五轴机床伺服驱动总线合作商",
+        publisher: "陈*宇",
+        corp: "某高端装备制造集团",
+        industry: "高端智能装备",
+        date: "2026-09-04",
+        desc: "我司长三角新建高端装备柔性制造线，需采购30套兼容 EtherCAT 总线的高响应伺服驱动系统，优先对接校友及商会会员单位。",
+        tags: ["高端装备", "机床核心件", "集中采购"]
+      },
+      {
+        id: "d-202",
+        type: "supply",
+        typeBadge: "type-offer",
+        typeName: "提供资源",
+        title: "开放车规级算力芯片批量样品中试与算力测试环境",
+        publisher: "张*峰",
+        corp: "某半导体科技集团",
+        industry: "新一代信息技术",
+        date: "2026-09-03",
+        desc: "可为会员企业提供基于RISC-V架构的车载智能座舱与网关芯片样品及开发板，并提供原厂工程师技术支持。",
+        tags: ["车规芯片", "样品测试", "生态共建"]
+      },
+      {
+        id: "d-203",
+        type: "demand",
+        typeBadge: "type-need",
+        typeName: "寻找需求",
+        title: "征集新能源固态电池PACK结构仿真与热管理方案",
+        publisher: "林*欣",
+        corp: "某新能源实业股份有限公司",
+        industry: "新能源与新材料",
+        date: "2026-09-02",
+        desc: "拟与具备 CAE 热流道分析经验的高校科研团队或会员企业联合攻关下一代商用车固态电池包冷却系统。",
+        tags: ["热管理", "产学研合作", "联合申报"]
+      },
+      {
+        id: "d-204",
+        type: "supply",
+        typeBadge: "type-offer",
+        typeName: "提供资源",
+        title: "某知名创投设立5亿元长三角校友硬科技天使专项基金",
+        publisher: "李*清",
+        corp: "某创投合伙企业(有限合伙)",
+        industry: "现代金融投资",
+        date: "2026-09-01",
+        desc: "重点投向新能源、芯片半导体、高端数控、工业软件等赛道的早中期校友优质科技创新项目，单笔支持500万-2000万元。",
+        tags: ["股权投资", "天使基金", "路演对接"]
+      },
+      {
+        id: "d-205",
+        type: "supply",
+        typeBadge: "type-offer",
+        typeName: "提供资源",
+        title: "为会员企业提供知识产权海外确权与诉讼防范公益咨询",
+        publisher: "周*霞",
+        corp: "某律师事务所(特殊普通合伙)",
+        industry: "现代金融投资",
+        date: "2026-08-30",
+        desc: "每月设立2天为商会会员日，免费为具备出海业务的企业梳理欧美及东南亚专利合规风险排查清单。",
+        tags: ["海外维权", "涉外合规", "法务支持"]
+      }
+    ];
+
+    let cardRequestsData = [
+      {
+        id: "req-1",
+        name: "吴*浩",
+        duty: "2010级 经管系",
+        corp: "某智能物流仓储技术有限公司 · 副总经理",
+        reason: "李理事您好，我司近期在筹备B轮融资，希望能向您当面请教硬科技赛道投资策略，特申请交换名片。",
+        time: "昨天 16:30"
+      },
+      {
+        id: "req-2",
+        name: "方*婷",
+        duty: "2015级 软件学院",
+        corp: "某供应链工业软件开发中心 · 业务总监",
+        reason: "李总您好，我们专注离散制造MES系统开发，看到您发布的投资与产业撮合诉求，申请互换名片建立联络。",
+        time: "3天前"
+      }
+    ];
+
+    // 当前筛选状态
+    let currentBranch = "all";
+    let currentIndustry = "all";
+    let searchKeyword = "";
+    let currentDemandFilter = "all";
+
+    // =================== 核心初始化与渲染 ===================
+    window.addEventListener("DOMContentLoaded", () => {
+      renderHomeCouncil();
+      renderDirectoryList();
+      renderDemandsList();
+      renderCardRequests();
+    });
+
+    // 渲染首页理事横滑
+    function renderHomeCouncil() {
+      const container = document.getElementById("homeCouncilList");
+      const councilMembers = contactsData.filter(c => c.isCouncil);
+      
+      container.innerHTML = councilMembers.map(c => `
+        <div class="council-card" onclick="openContactDetail('${c.id}')">
+          <div class="avatar-circle">${c.name.charAt(0)}</div>
+          <div class="council-name">${c.name}</div>
+          <div class="council-title">${c.duty}</div>
+          <div class="council-corp">${c.corp}</div>
+        </div>
+      `).join("");
+    }
+
+    // 渲染通讯录列表
+    function renderDirectoryList() {
+      const container = document.getElementById("contactsListContainer");
+      const filtered = contactsData.filter(c => {
+        const matchBranch = (currentBranch === "all") || (c.branch === currentBranch);
+        const matchIndustry = (currentIndustry === "all") || (c.industry === currentIndustry);
+        const matchKeyword = !searchKeyword || 
+          c.name.includes(searchKeyword) || 
+          c.corp.includes(searchKeyword) || 
+          c.position.includes(searchKeyword) ||
+          c.edu.includes(searchKeyword) ||
+          c.tags.some(t => t.includes(searchKeyword));
+        return matchBranch && matchIndustry && matchKeyword;
+      });
+
+      document.getElementById("filteredCountText").innerText = `显示 ${filtered.length} 位脱敏会员`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px 20px;color:var(--color-text-muted);font-size:12px;">
+            <div class="icon" style="width:36px;height:36px;margin:0 auto 10px;color:var(--color-text-tertiary);">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            未找到匹配的校友或会员，请尝试调整筛选标签
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(c => `
+        <div class="contact-card">
+          <div class="contact-top-row">
+            <div class="contact-avatar">${c.name.charAt(0)}</div>
+            <div class="contact-main-info">
+              <div class="name-badge-row">
+                <span class="contact-name">${c.name}</span>
+                <span class="duty-badge ${c.dutyType}">${c.duty}</span>
+              </div>
+              <div class="contact-corp-row">${c.corp} · ${c.position}</div>
+              <div class="contact-edu-row">${c.edu} · ${c.branch}</div>
+              <div class="contact-tags-row">
+                ${c.tags.map(t => `<span class="tag-item">${t}</span>`).join("")}
+              </div>
+            </div>
+          </div>
+          <div class="contact-action-row">
+            <button class="btn-sm-outline" onclick="openContactDetail('${c.id}')">
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="5" rx="2"/>
+                  <line x1="2" x2="22" y1="10" y2="10"/>
+                </svg>
+              </span>
+              <span>查看名片</span>
+            </button>
+            <button class="btn-sm-primary ${c.exchanged ? 'exchanged' : ''}" id="exchangeBtn-${c.id}" onclick="exchangeContactCard('${c.id}')">
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  ${c.exchanged 
+                    ? '<polyline points="20 6 9 17 4 12"/>' 
+                    : '<path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>'}
+                </svg>
+              </span>
+              <span>${c.exchanged ? '已递名片' : '递名片'}</span>
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // 渲染供需集市
+    function renderDemandsList() {
+      const container = document.getElementById("demandsListContainer");
+      const filtered = demandsData.filter(d => {
+        if (currentDemandFilter === "all") return true;
+        return d.type === currentDemandFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px 20px;color:var(--color-text-muted);font-size:12px;">
+            暂无该分类供需记录
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => `
+        <div class="demand-card">
+          <div class="demand-header">
+            <span class="demand-badge ${d.typeBadge}">${d.typeName}</span>
+            <span class="demand-date">${d.date}</span>
+          </div>
+          <div class="demand-title">${d.title}</div>
+          <div class="demand-desc">${d.desc}</div>
+          <div class="contact-tags-row" style="margin-bottom:10px;">
+            ${d.tags.map(t => `<span class="tag-item">${t}</span>`).join("")}
+          </div>
+          <div class="demand-author-box">
+            <div class="author-name-group">
+              <span class="icon" style="width:13px;height:13px;color:var(--color-primary);">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              <span>${d.corp} · ${d.publisher}</span>
+            </div>
+            <button class="connect-action-btn" onclick="connectDemandItem('${d.id}', '${d.publisher}')">
+              <span class="icon" style="width:12px;height:12px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </span>
+              <span>立即对接</span>
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // 渲染收到的名片申请
+    function renderCardRequests() {
+      const container = document.getElementById("cardRequestsList");
+      const badge = document.getElementById("pendingCardBadge");
+      const tabBadge = document.getElementById("tabBadgeMine");
+
+      if (cardRequestsData.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:30px 10px;color:var(--color-text-muted);font-size:12px;">
+            当前暂无待处理的名片申请
+          </div>
+        `;
+        badge.style.display = "none";
+        tabBadge.style.display = "none";
+        return;
+      }
+
+      badge.style.display = "inline-block";
+      badge.innerText = `${cardRequestsData.length}条待处理`;
+      tabBadge.style.display = "block";
+
+      container.innerHTML = cardRequestsData.map(req => `
+        <div style="background:var(--color-bg-app);border:1px solid var(--color-border);border-radius:10px;padding:12px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <b style="font-size:13px;color:var(--color-text-main);">${req.name} <span style="font-size:11px;font-weight:normal;color:var(--color-text-muted);">(${req.duty})</span></b>
+            <span style="font-size:10px;color:var(--color-text-tertiary);">${req.time}</span>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-sub);margin-bottom:6px;">${req.corp}</div>
+          <div style="font-size:11px;background:var(--color-white);border:1px solid var(--color-border-subtle);border-radius:6px;padding:6px 8px;color:var(--color-text-muted);margin-bottom:10px;line-height:1.4;">
+            "${req.reason}"
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;">
+            <button style="background:var(--color-white);border:1px solid var(--color-border);color:var(--color-text-muted);font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer;" onclick="handleCardRequest('${req.id}', 'ignore')">
+              忽略
+            </button>
+            <button style="background:var(--color-primary);border:none;color:var(--color-white);font-size:11px;padding:4px 14px;border-radius:6px;font-weight:600;cursor:pointer;" onclick="handleCardRequest('${req.id}', 'accept')">
+              同意交换
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // =================== 导航与 Tab 切换 ===================
+    function switchTab(index) {
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-item").forEach(t => t.classList.remove("active"));
+
+      const targetPane = document.getElementById("pane-" + index);
+      const targetTab = document.getElementById("tabItem-" + index);
+      if (targetPane) targetPane.classList.add("active");
+      if (targetTab) targetTab.classList.add("active");
+
+      // 动态更新导航栏标题
+      const titles = ["校友会·商会服务云讯录", "会员名录检索", "商机与供需集市", "会员个人中心"];
+      document.getElementById("mpNavTitle").innerText = titles[index];
+
+      // 回滚到顶部
+      document.getElementById("mpBody").scrollTop = 0;
+    }
+
+    // 锚点平滑滚动到沙龙
+    function scrollToSalon() {
+      const anchor = document.getElementById("salonSectionAnchor");
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // =================== 通讯录检索与过滤交互 ===================
+    function handleSearchInput(val) {
+      searchKeyword = val.trim();
+      const clearBtn = document.getElementById("searchClearBtn");
+      if (searchKeyword.length > 0) {
+        clearBtn.style.display = "block";
+      } else {
+        clearBtn.style.display = "none";
+      }
+      renderDirectoryList();
+    }
+
+    function clearSearchInput() {
+      const input = document.getElementById("directorySearchInput");
+      input.value = "";
+      searchKeyword = "";
+      document.getElementById("searchClearBtn").style.display = "none";
+      renderDirectoryList();
+    }
+
+    function setBranchFilter(branch, element) {
+      currentBranch = branch;
+      document.querySelectorAll("#branchFilterBar .filter-pill").forEach(p => p.classList.remove("active"));
+      element.classList.add("active");
+      renderDirectoryList();
+    }
+
+    function setIndustryFilter(industry, element) {
+      currentIndustry = industry;
+      document.querySelectorAll("#industryFilterBar .filter-pill").forEach(p => p.classList.remove("active"));
+      element.classList.add("active");
+      renderDirectoryList();
+    }
+
+    function resetDirectoryFilters() {
+      currentBranch = "all";
+      currentIndustry = "all";
+      clearSearchInput();
+      document.querySelectorAll("#branchFilterBar .filter-pill").forEach((p, i) => {
+        p.classList.toggle("active", i === 0);
+      });
+      document.querySelectorAll("#industryFilterBar .filter-pill").forEach((p, i) => {
+        p.classList.toggle("active", i === 0);
+      });
+      renderDirectoryList();
+      showToast("已重置筛选条件");
+    }
+
+    // 递名片互动
+    function exchangeContactCard(id) {
+      const contact = contactsData.find(c => c.id === id);
+      if (!contact) return;
+
+      contact.exchanged = !contact.exchanged;
+      renderDirectoryList();
+
+      if (contact.exchanged) {
+        showToast(`已向 ${contact.name} 发送名片互换请求`);
+        const countEl = document.getElementById("statExchangeCount");
+        if (countEl) countEl.innerText = parseInt(countEl.innerText) + 1;
+      } else {
+        showToast(`已取消对 ${contact.name} 的名片申请`);
+        const countEl = document.getElementById("statExchangeCount");
+        if (countEl) countEl.innerText = Math.max(18, parseInt(countEl.innerText) - 1);
+      }
+    }
+
+    // 打开会员名片抽屉详情
+    function openContactDetail(id) {
+      const contact = contactsData.find(c => c.id === id);
+      if (!contact) return;
+
+      const body = document.getElementById("contactDetailBody");
+      body.innerHTML = `
+        <div class="card-detail-box">
+          <div class="card-detail-avatar-row">
+            <div class="card-detail-avatar">${contact.name.charAt(0)}</div>
+            <div>
+              <div style="font-size:16px;font-weight:800;color:var(--color-text-main);display:flex;align-items:center;gap:6px;">
+                ${contact.name}
+                <span class="duty-badge ${contact.dutyType}">${contact.duty}</span>
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--color-text-sub);margin-top:2px;">
+                ${contact.corp} · ${contact.position}
+              </div>
+            </div>
+          </div>
+
+          <div class="card-info-item">
+            <span class="card-info-label">毕业院系</span>
+            <span class="card-info-val">${contact.edu}</span>
+          </div>
+          <div class="card-info-item">
+            <span class="card-info-label">所属分会</span>
+            <span class="card-info-val">${contact.branch}</span>
+          </div>
+          <div class="card-info-item">
+            <span class="card-info-label">联系电话</span>
+            <span class="card-info-val" style="display:flex;align-items:center;justify-content:space-between;">
+              <span>${contact.phone}</span>
+              <button onclick="showToast('已模拟拨通内部加密线路')" style="background:none;border:none;color:var(--color-primary);font-size:11px;cursor:pointer;font-weight:600;">呼叫</button>
+            </span>
+          </div>
+          <div class="card-info-item">
+            <span class="card-info-label">微信号</span>
+            <span class="card-info-val" style="display:flex;align-items:center;justify-content:space-between;">
+              <span>${contact.wechat}</span>
+              <button onclick="showToast('微信号已复制到剪贴板')" style="background:none;border:none;color:var(--color-primary);font-size:11px;cursor:pointer;font-weight:600;">复制</button>
+            </span>
+          </div>
+          <div class="card-info-item">
+            <span class="card-info-label">主营供给</span>
+            <span class="card-info-val" style="color:var(--color-success);">${contact.supply}</span>
+          </div>
+          <div class="card-info-item">
+            <span class="card-info-label">合作诉求</span>
+            <span class="card-info-val" style="color:var(--color-primary-hover);">${contact.demand}</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;" onclick="exchangeContactCard('${contact.id}');closeModal('contactDetailModal');">
+            ${contact.exchanged ? '已发送名片申请' : '向TA递送电子名片'}
+          </button>
+          <button style="background:var(--color-white);border:1px solid var(--color-border);color:var(--color-text-sub);padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;" onclick="showToast('已将该名片存入本地夹');closeModal('contactDetailModal');">
+            收藏名片
+          </button>
+        </div>
+      `;
+
+      openModal("contactDetailModal");
+    }
+
+    // =================== 供需集市交互 ===================
+    function setDemandTab(type) {
+      currentDemandFilter = type;
+      document.getElementById("segTabAll").classList.toggle("active", type === "all");
+      document.getElementById("segTabDemand").classList.toggle("active", type === "demand");
+      document.getElementById("segTabSupply").classList.toggle("active", type === "supply");
+      renderDemandsList();
+    }
+
+    function connectDemandItem(id, publisher) {
+      showToast(`已向 ${publisher} 发送商务合作对接意向`);
+    }
+
+    function openPostDemandModal() {
+      document.getElementById("postTitleInput").value = "";
+      document.getElementById("postDescInput").value = "";
+      openModal("postDemandModal");
+    }
+
+    function submitNewDemand() {
+      const title = document.getElementById("postTitleInput").value.trim();
+      const desc = document.getElementById("postDescInput").value.trim();
+      const industry = document.getElementById("postIndustrySelect").value;
+      const type = document.querySelector('input[name="postType"]:checked').value;
+
+      if (!title || !desc) {
+        showToast("请填写完整的需求标题与描述");
+        return;
+      }
+
+      const newDemand = {
+        id: "d-" + Date.now(),
+        type: type,
+        typeBadge: type === "demand" ? "type-need" : "type-offer",
+        typeName: type === "demand" ? "寻找需求" : "提供资源",
+        title: title,
+        publisher: "李*明",
+        corp: "某产业投资控股集团",
+        industry: industry,
+        date: "刚刚",
+        desc: desc,
+        tags: [industry, "自主发布", "审核通过"]
+      };
+
+      demandsData.unshift(newDemand);
+      renderDemandsList();
+      closeModal("postDemandModal");
+      showToast("供需发布成功并已实时上架");
+
+      const countEl = document.getElementById("statDemandCount");
+      if (countEl) countEl.innerText = parseInt(countEl.innerText) + 1;
+    }
+
+    // =================== 活动与签到交互 ===================
+    function toggleEventSignup(eventId, eventName) {
+      const btn = document.getElementById(`eventBtn-${eventId}`);
+      if (!btn) return;
+
+      const isSigned = btn.classList.contains("signed");
+      if (isSigned) {
+        btn.classList.remove("signed");
+        btn.innerHTML = `
+          <span class="icon" style="width:14px;height:14px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <line x1="19" y1="8" x2="19" y2="14"/>
+              <line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+          </span>
+          <span>立即预约席位</span>
+        `;
+        showToast(`已取消对「${eventName}」的席位预约`);
+      } else {
+        btn.classList.add("signed");
+        btn.innerHTML = `
+          <span class="icon" style="width:14px;height:14px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span>已预约 · 出示电子签到码</span>
+        `;
+        showToast(`预约成功！已生成「${eventName}」入场凭证`);
+      }
+    }
+
+    // =================== 个人中心待办与隐私控制 ===================
+    function handleCardRequest(id, action) {
+      const req = cardRequestsData.find(r => r.id === id);
+      if (!req) return;
+
+      cardRequestsData = cardRequestsData.filter(r => r.id !== id);
+      renderCardRequests();
+
+      if (action === "accept") {
+        showToast(`已同意与 ${req.name} 交换名片`);
+        const countEl = document.getElementById("statExchangeCount");
+        if (countEl) countEl.innerText = parseInt(countEl.innerText) + 1;
+      } else {
+        showToast(`已忽略该名片互换请求`);
+      }
+
+      if (cardRequestsData.length === 0) {
+        closeModal("cardRequestsModal");
+      }
+    }
+
+    function handlePrivacyToggle(type, checked) {
+      const labels = {
+        maskPhone: "手机号码脱敏保护",
+        verifiedOnly: "仅对认证会员公开名片",
+        businessMatch: "产业供需精准匹配推送"
+      };
+      showToast(`${labels[type]}已${checked ? '开启' : '关闭'}`);
+    }
+
+    // =================== 弹窗管理通用逻辑 ===================
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add("active");
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove("active");
+    }
+
+    function closeModalOnOverlay(e, modalId) {
+      if (e.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
+    function openNoticeModal() { openModal("noticeModal"); }
+    function openCertModal() { openModal("certModal"); }
+    function openCardRequestsModal() { openModal("cardRequestsModal"); }
+    function openQrCheckinModal() { openModal("qrCheckinModal"); }
+    function openCharterModal() { openModal("charterModal"); }
+
+    // =================== 原生微信 Toast 提示 ===================
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById("mpToast");
+      const text = document.getElementById("mpToastMsg");
+      if (!toast || !text) return;
+
+      text.innerText = msg;
+      toast.classList.add("show");
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
+    }
+  </script>
+</body>
+</html>

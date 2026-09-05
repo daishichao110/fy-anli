@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>**美学工作室 - 微信小程序</title>
+  <style>
+    /* ==========================================================================
+       设计系统 Token (CSS Variables) - 莫兰迪日式沙龙高奢色系
+       严格遵循 UIUX 规范：0 Emoji / 0 紫粉渐变 / 0 机器占位文字
+       ========================================================================== */
+    :root {
+      /* 画布与表面色 */
+      --color-bg-canvas: #FAF8F5;
+      --color-surface-card: #FFFFFF;
+      --color-surface-subtle: #F5EFEB;
+      --color-surface-muted: #EFE8E2;
+      --color-border-subtle: #EBE3DC;
+      --color-border-focus: #C4A47C;
+
+      /* 品牌主色 (法式莫兰迪豆沙裸粉) */
+      --color-primary: #9E676A;
+      --color-primary-hover: #865457;
+      --color-primary-light: #F7EDED;
+      --color-primary-border: #E8CFD0;
+
+      /* 辅色 (哑光香槟暖金) */
+      --color-accent-gold: #C4A47C;
+      --color-accent-gold-light: #FBF6EF;
+      --color-accent-gold-dark: #A58359;
+
+      /* 排版色阶 (炭咖色系，杜绝纯死黑) */
+      --color-text-main: #2B2423;
+      --color-text-regular: #5E5452;
+      --color-text-secondary: #998D8A;
+      --color-text-disabled: #CCC4C0;
+      --color-text-inverse: #FFFFFF;
+
+      /* 状态色 */
+      --color-status-success: #6E8C74;
+      --color-status-success-light: #EFF5F0;
+      --color-status-warning: #C68A4C;
+      --color-status-warning-light: #FDF6EE;
+      --color-status-error: #B85050;
+      --color-status-error-light: #FDF2F2;
+
+            --color-outer-bg: #ECE7E1;
+      --color-pure-white: #FFFFFF;
+      --color-island-black: #000000;
+      --color-frame-edge: #2B2625;
+      --color-vip-dark-1: #4A3E3D;
+      --color-vip-dark-2: #2B2423;
+      --color-thumb-light: #F3EAE4;
+      --color-thumb-dark: #E9DDD5;
+      --color-coupon-bg-1: #FAF2EE;
+      --color-coupon-bg-2: #F6ECE6;
+      --color-barcode-dark: #2B2423;
+
+      /* 阴影与微光 */
+      --shadow-sm: 0 2px 8px rgba(43, 36, 35, 0.04);
+      --shadow-md: 0 4px 16px rgba(43, 36, 35, 0.06);
+      --shadow-lg: 0 12px 32px rgba(43, 36, 35, 0.12);
+
+      /* 圆角规范 */
+      --radius-xs: 6px;
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-outer-bg);
+      color: var(--color-text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      line-height: 1.5;
+    }
+
+    /* 纯净移动端真机外壳容器 (390px × 844px 标准视口) */
+    .phone-viewport {
+      width: 390px;
+      height: 844px;
+      background: var(--color-bg-canvas);
+      border-radius: 46px;
+      border: 10px solid var(--color-frame-edge);
+      box-shadow: 0 24px 60px rgba(43, 36, 35, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    @media (max-width: 450px) {
+      body {
+        padding: 0;
+        background: var(--color-bg-canvas);
+      }
+      .phone-viewport {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* 拟真 iPhone 状态栏 */
+    .status-bar {
+      height: 40px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-main);
+      background: var(--color-bg-canvas);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .island-pill {
+      width: 106px;
+      height: 24px;
+      background: var(--color-island-black);
+      border-radius: 20px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 8px;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 微信小程序顶层导航栏 (Semantic Header) */
+    header.mp-navbar {
+      height: 44px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-bg-canvas);
+      border-bottom: 1px solid rgba(235, 227, 220, 0.5);
+      z-index: 40;
+      flex-shrink: 0;
+    }
+    .mp-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mp-capsule {
+      height: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+    .capsule-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--color-border-subtle);
+    }
+
+    /* 主视口滚动区域 (Semantic Main) */
+    main.mp-scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 74px;
+    }
+    main.mp-scroll-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Tab 页面切换器 */
+    .tab-pane {
+      display: none;
+      padding: 14px 16px;
+      animation: tabFadeIn 0.22s ease-out;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 语义化 Section */
+    section.salon-section {
+      margin-bottom: 14px;
+    }
+
+    /* 底部原生微动效 TabBar (Semantic Nav) */
+    nav.mp-tabbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 50;
+      padding-bottom: 4px;
+    }
+    .tabbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      font-size: 10px;
+      font-weight: 500;
+      flex: 1;
+      padding: 6px 0;
+      transition: all 0.2s ease;
+      position: relative;
+      text-decoration: none;
+    }
+    .tabbar-item.active {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .tabbar-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+    .tabbar-item svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.8;
+      transition: transform 0.2s;
+    }
+    .tabbar-item:active svg {
+      transform: scale(0.9);
+    }
+
+    /* 基础卡片组件 */
+    .card {
+      background: var(--color-surface-card);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 甄选首页 - 门店轻卡片 */
+    .salon-banner-card {
+      background: linear-gradient(135deg, var(--color-surface-card), var(--color-surface-subtle));
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .salon-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .salon-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-main);
+      letter-spacing: 0.2px;
+    }
+    .salon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-accent-gold-dark);
+      background: var(--color-accent-gold-light);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(196, 164, 124, 0.3);
+    }
+    .salon-meta {
+      font-size: 12px;
+      color: var(--color-text-regular);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .salon-address-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-surface-card);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--color-border-subtle);
+      font-size: 11px;
+      color: var(--color-text-regular);
+    }
+    .copy-chip-btn {
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border-subtle);
+      color: var(--color-primary);
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: background 0.15s;
+    }
+    .copy-chip-btn:hover {
+      background: var(--color-primary-light);
+    }
+
+    /* 金刚区 4 宫格导航 */
+    .grid-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .grid-nav-item {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .grid-nav-item:active {
+      transform: scale(0.96);
+      border-color: var(--color-primary);
+    }
+    .grid-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grid-nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-main);
+    }
+
+    /* 专属礼券卡片 */
+    .coupon-banner {
+      background: linear-gradient(135deg, var(--color-coupon-bg-1), var(--color-coupon-bg-2));
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .coupon-info-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coupon-amount {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+    .coupon-amount span {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .coupon-desc-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .coupon-desc-sub {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+    .coupon-action-btn {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border: none;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(158, 103, 106, 0.3);
+      transition: opacity 0.2s;
+    }
+    .coupon-action-btn.claimed {
+      background: var(--color-surface-muted);
+      color: var(--color-text-secondary);
+      box-shadow: none;
+      cursor: default;
+    }
+
+    /* 模块标题 (H2) */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    h2.section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-more-link {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* 手艺人水平滚动卡片 */
+    .technician-scroll-wrap {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+    }
+    .technician-scroll-wrap::-webkit-scrollbar {
+      display: none;
+    }
+    .tech-card {
+      flex: 0 0 156px;
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tech-card:hover {
+      border-color: var(--color-primary);
+    }
+    .tech-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-surface-subtle);
+      border: 2px solid var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+    .tech-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .tech-role {
+      font-size: 10px;
+      color: var(--color-accent-gold-dark);
+      margin-bottom: 4px;
+    }
+    .tech-specialty {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+      height: 28px;
+      overflow: hidden;
+      line-height: 1.4;
+    }
+    .tech-book-btn {
+      width: 100%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-sm);
+      padding: 4px 0;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tech-book-btn:hover {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+    }
+
+    /* 热选款式流卡片 */
+    .style-item-card {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .style-item-card:hover {
+      border-color: var(--color-border-focus);
+    }
+    .style-thumb {
+      width: 86px;
+      height: 86px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--color-thumb-light), var(--color-thumb-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .style-thumb-tag {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: rgba(43, 36, 35, 0.7);
+      color: var(--color-pure-white);
+      font-size: 8px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    .style-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    h3.style-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+    .style-tags-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .style-tag-pill {
+      font-size: 9px;
+      background: var(--color-surface-subtle);
+      color: var(--color-text-regular);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .style-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .style-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+    .style-price small {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin-left: 2px;
+    }
+    .style-action-btn {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border: none;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       Tab 1: 款式库页面 (左右分栏联动)
+       ========================================== */
+    .catalog-filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .catalog-filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-chip {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      padding: 4px 12px;
+      font-size: 11px;
+      color: var(--color-text-regular);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-chip.active {
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border-color: var(--color-primary);
+      font-weight: 600;
+    }
+    .catalog-split-box {
+      display: flex;
+      height: 600px;
+      background: var(--color-surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+      overflow: hidden;
+    }
+    .catalog-left-menu {
+      width: 90px;
+      background: var(--color-surface-subtle);
+      border-right: 1px solid var(--color-border-subtle);
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .catalog-left-item {
+      padding: 14px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-regular);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .catalog-left-item.active {
+      background: var(--color-surface-card);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .catalog-left-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 3px;
+      background: var(--color-primary);
+      border-radius: 0 3px 3px 0;
+    }
+    .catalog-right-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    /* ==========================================
+       Tab 2: 档期预约页面
+       ========================================== */
+    h3.form-group-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tech-pick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .tech-pick-cell {
+      border: 1.5px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-surface-card);
+      transition: all 0.15s;
+    }
+    .tech-pick-cell.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .tech-pick-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-surface-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      border: 1px solid var(--color-border-subtle);
+    }
+    .tech-pick-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .tech-pick-desc {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+
+    /* 7天日历横滑条 */
+    .calendar-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .calendar-strip::-webkit-scrollbar {
+      display: none;
+    }
+    .cal-day-cell {
+      flex: 0 0 54px;
+      text-align: center;
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cal-day-cell.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-pure-white);
+    }
+    .cal-week {
+      font-size: 10px;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+    .cal-date {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .cal-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-status-success);
+      margin: 4px auto 0;
+    }
+    .cal-day-cell.active .cal-dot {
+      background: var(--color-surface-card);
+    }
+
+    /* 时间段网格 */
+    .time-slot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .time-slot-btn {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .time-slot-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-pure-white);
+      box-shadow: 0 2px 8px rgba(158, 103, 106, 0.3);
+    }
+    .time-slot-btn.booked {
+      background: var(--color-surface-subtle);
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+    .slot-sub-tag {
+      font-size: 8px;
+      display: block;
+      font-weight: normal;
+      opacity: 0.8;
+    }
+
+    /* 预约附加项多选 */
+    .option-pill-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .option-pill {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--color-text-regular);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .option-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* 预约输入表单与校验反馈 */
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 10px 0;
+      font-size: 12px;
+      position: relative;
+    }
+    .input-row:last-child {
+      border-bottom: none;
+    }
+    .input-row label {
+      color: var(--color-text-secondary);
+      width: 70px;
+      flex-shrink: 0;
+    }
+    .input-field {
+      flex: 1;
+      border: none;
+      background: none;
+      font-size: 12px;
+      color: var(--color-text-main);
+      text-align: right;
+      outline: none;
+      font-family: inherit;
+    }
+    .input-field.input-error {
+      color: var(--color-status-error);
+    }
+    .form-error-tip {
+      font-size: 10px;
+      color: var(--color-status-error);
+      background: var(--color-status-error-light);
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      margin-top: 6px;
+      display: none;
+    }
+
+    .submit-booking-btn {
+      width: 100%;
+      background: var(--color-primary);
+      color: var(--color-pure-white);
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(158, 103, 106, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      transition: all 0.2s;
+    }
+    .submit-booking-btn:hover {
+      background: var(--color-primary-hover);
+    }
+
+    /* ==========================================
+       Tab 3: 个人中心与预约工单
+       ========================================== */
+    .vip-card {
+      background: linear-gradient(135deg, var(--color-vip-dark-1), var(--color-vip-dark-2));
+      color: var(--color-pure-white);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .vip-card::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: -20px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(196, 164, 124, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .vip-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .vip-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-surface-card);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+    .vip-user-info {
+      flex: 1;
+    }
+    .vip-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vip-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-pure-white);
+    }
+    .vip-badge {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      background: var(--color-accent-gold);
+      padding: 2px 6px;
+      border-radius: var(--radius-xs);
+    }
+    .vip-phone {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+    .vip-stats-row {
+      display: flex;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 10px;
+    }
+    .vip-stat-col {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+    .vip-stat-col:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .vip-stat-num {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-accent-gold);
+    }
+    .vip-stat-label {
+      font-size: 10px;
+      opacity: 0.75;
+    }
+
+    /* 订单状态分栏 */
+    .order-filter-tabs {
+      display: flex;
+      background: var(--color-surface-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      margin-bottom: 12px;
+    }
+    .order-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .order-tab-btn.active {
+      background: var(--color-surface-card);
+      color: var(--color-text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 预约工单卡片 */
+    .order-card {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .order-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .order-id-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+    .order-status-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+    .status-pending {
+      background: var(--color-status-success-light);
+      color: var(--color-status-success);
+    }
+    .status-serving {
+      background: var(--color-status-warning-light);
+      color: var(--color-status-warning);
+    }
+    .status-completed {
+      background: var(--color-surface-subtle);
+      color: var(--color-text-secondary);
+    }
+    h3.order-body-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 4px;
+    }
+    .order-body-meta {
+      font-size: 11px;
+      color: var(--color-text-regular);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .order-actions-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      border-top: 1px solid var(--color-border-subtle);
+      padding-top: 8px;
+    }
+    .order-outline-btn {
+      background: none;
+      border: 1px solid var(--color-border-subtle);
+      color: var(--color-text-regular);
+      border-radius: var(--radius-sm);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .order-solid-btn {
+      background: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      color: var(--color-pure-white);
+      border-radius: var(--radius-sm);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* 个人中心功能菜单列表 */
+    .menu-list-card {
+      background: var(--color-surface-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .menu-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--color-text-main);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .menu-item-row:not(:last-child) {
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .menu-item-row:hover {
+      background: var(--color-surface-subtle);
+    }
+    .menu-item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       全局抽屉 (Bottom Drawer) 与弹窗 (Modal)
+       ========================================== */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(43, 36, 35, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .bottom-drawer-content {
+      width: 100%;
+      max-height: 80%;
+      background: var(--color-surface-card);
+      border-radius: 24px 24px 0 0;
+      padding: 18px;
+      overflow-y: auto;
+      animation: drawerSlideUp 0.25s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes drawerSlideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    h3.drawer-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+    .drawer-close-btn {
+      background: var(--color-surface-subtle);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+    }
+
+    /* 居中弹窗卡片 (Center Dialog) */
+    .center-dialog-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(43, 36, 35, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 110;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .center-dialog-overlay.active {
+      display: flex;
+    }
+    .dialog-card {
+      width: 100%;
+      max-width: 320px;
+      background: var(--color-surface-card);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: dialogPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes dialogPop {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* 轻提示 Toast */
+    .toast-pill {
+      position: absolute;
+      top: 96px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: rgba(43, 36, 35, 0.92);
+      color: var(--color-pure-white);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+    .toast-pill.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- 纯净移动端真机小程序容器 (390px × 844px) -->
+  <div class="phone-viewport">
+
+    <!-- 顶部状态栏 -->
+    <div class="status-bar">
+      <span>10:24</span>
+      <div class="island-pill"></div>
+      <div class="status-icons">
+        <!-- 信号 SVG -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
+        <!-- Wi-Fi SVG -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <!-- 电池 SVG -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- 微信小程序顶层导航栏 (Semantic Header) -->
+    <header class="mp-navbar">
+      <div class="mp-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+        <span>**美学工作室</span>
+      </div>
+      <!-- 微信标准双胶囊 -->
+      <div class="mp-capsule">
+        <button class="capsule-btn" onclick="openMiniMenu()" title="小程序选项">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+        </button>
+        <div class="capsule-divider"></div>
+        <button class="capsule-btn" onclick="showToast('已最小化至微信浮窗')" title="最小化/关闭">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主视口可滚动内容区 (Semantic Main) -->
+    <main class="mp-scroll-content">
+
+      <!-- ==============================================================
+           Tab 0: 【甄选】首页
+           ============================================================== -->
+      <div id="tab-0" class="tab-pane active">
+        
+        <!-- 门店轻卡片 -->
+        <section class="salon-section">
+          <div class="salon-banner-card">
+            <div class="salon-name-row">
+              <div class="salon-title">**美学工作室</div>
+              <div class="salon-badge">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>4.9 甄选沙龙</span>
+              </div>
+            </div>
+            <div class="salon-meta">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>营业时间：10:00 - 21:30（支持提档错峰预约）</span>
+            </div>
+            <div class="salon-address-row">
+              <div style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" style="flex-shrink:0;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>XX区XX路XX商务中心A座2层</span>
+              </div>
+              <button class="copy-chip-btn" onclick="copySalonAddress()">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>复制地址</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 金刚区 4 宫格导航 (直接联动至款式库不同分类) -->
+        <section class="salon-section">
+          <div class="grid-nav">
+            <div class="grid-nav-item" onclick="switchCategoryFromHome('nail')">
+              <div class="grid-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              </div>
+              <span class="grid-nav-label">日式美甲</span>
+            </div>
+            <div class="grid-nav-item" onclick="switchCategoryFromHome('lash')">
+              <div class="grid-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <span class="grid-nav-label">轻羽美睫</span>
+            </div>
+            <div class="grid-nav-item" onclick="switchCategoryFromHome('care')">
+              <div class="grid-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M19 12a7 7 0 0 0-14 0"/><path d="M12 3v2"/></svg>
+              </div>
+              <span class="grid-nav-label">手足护理</span>
+            </div>
+            <div class="grid-nav-item" onclick="switchCategoryFromHome('removal')">
+              <div class="grid-icon-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+              </div>
+              <span class="grid-nav-label">温和卸除</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 专属特惠礼券卡片 -->
+        <section class="salon-section">
+          <div class="coupon-banner">
+            <div class="coupon-info-left">
+              <div class="coupon-amount"><span>¥</span>30</div>
+              <div>
+                <div class="coupon-desc-title">新人首单立减礼遇券</div>
+                <div class="coupon-desc-sub">满 120 可用 · 全店美甲美睫通用</div>
+              </div>
+            </div>
+            <button id="home-coupon-btn" class="coupon-action-btn" onclick="claimHomeCoupon()">立即领取</button>
+          </div>
+        </section>
+
+        <!-- 今日当值手艺人横滑 -->
+        <section class="salon-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>金牌手艺人 · 当值排班</span>
+            </h2>
+            <div class="section-more-link" onclick="switchTab(2)">
+              <span>排期表</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <div class="technician-scroll-wrap">
+            <div class="tech-card">
+              <div class="tech-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div class="tech-name">静* 导师</div>
+              <div class="tech-role">主理人 / 8年</div>
+              <div class="tech-specialty">擅长复杂日式手绘、高阶建构加固</div>
+              <button class="tech-book-btn" onclick="bookWithTech('t1')">预约档期</button>
+            </div>
+            <div class="tech-card">
+              <div class="tech-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div class="tech-name">林* 导师</div>
+              <div class="tech-role">美睫总监 / 6年</div>
+              <div class="tech-specialty">擅长山茶花绽放嫁接、空气扁毛</div>
+              <button class="tech-book-btn" onclick="bookWithTech('t2')">预约档期</button>
+            </div>
+            <div class="tech-card">
+              <div class="tech-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div class="tech-name">欣* 技师</div>
+              <div class="tech-role">高级手绘师 / 4年</div>
+              <div class="tech-specialty">擅长法式微光渐变、冰透猫眼</div>
+              <button class="tech-book-btn" onclick="bookWithTech('t3')">预约档期</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 当季热选款式推荐 -->
+        <section class="salon-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>沙龙当季热选 · 顾客好评款</span>
+            </h2>
+            <div class="section-more-link" onclick="switchTab(1)">
+              <span>全部款式</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <div id="home-featured-list">
+            <!-- 动态渲染 3 个精选爆款 -->
+          </div>
+        </section>
+
+      </div>
+
+
+      <!-- ==============================================================
+           Tab 1: 【款式】分类与规格详情库
+           ============================================================== -->
+      <div id="tab-1" class="tab-pane">
+        <!-- 顶部二级风格过滤横条 -->
+        <div class="catalog-filter-bar" id="tag-filter-bar">
+          <div class="filter-chip active" onclick="filterByTag('all', this)">全部风格</div>
+          <div class="filter-chip" onclick="filterByTag('white', this)">显白热选</div>
+          <div class="filter-chip" onclick="filterByTag('commute', this)">通勤气质</div>
+          <div class="filter-chip" onclick="filterByTag('diamond', this)">轻奢微闪</div>
+          <div class="filter-chip" onclick="filterByTag('natural', this)">自然素雅</div>
+        </div>
+
+        <!-- 左右分栏联动容器 -->
+        <div class="catalog-split-box">
+          <!-- 左侧一级分类 -->
+          <div class="catalog-left-menu" id="category-sidebar">
+            <div class="catalog-left-item active" onclick="switchCategory('all', this)">全部分类</div>
+            <div class="catalog-left-item" onclick="switchCategory('nail', this)">日式美甲</div>
+            <div class="catalog-left-item" onclick="switchCategory('lash', this)">轻羽美睫</div>
+            <div class="catalog-left-item" onclick="switchCategory('care', this)">手足SPA</div>
+            <div class="catalog-left-item" onclick="switchCategory('removal', this)">温和卸除</div>
+          </div>
+          <!-- 右侧款式列表 -->
+          <div class="catalog-right-list" id="catalog-items-container">
+            <!-- 动态渲染款式列表 -->
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==============================================================
+           Tab 2: 【档期】排期与预约表单
+           ============================================================== -->
+      <div id="tab-2" class="tab-pane">
+        
+        <!-- 手艺人指定 -->
+        <section class="salon-section">
+          <h3 class="form-group-label">
+            <span>1. 选择服务手艺人</span>
+            <span style="font-size:10px;color:var(--color-primary);font-weight:normal;">根据擅长智能匹配</span>
+          </h3>
+          <div class="tech-pick-grid" id="tech-selector-grid">
+            <div class="tech-pick-cell active" onclick="selectBookingTech('t0', this)">
+              <div class="tech-pick-avatar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <div class="tech-pick-title">智能分配</div>
+                <div class="tech-pick-desc">服务不等待</div>
+              </div>
+            </div>
+            <div class="tech-pick-cell" onclick="selectBookingTech('t1', this)">
+              <div class="tech-pick-avatar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div class="tech-pick-title">静* 导师</div>
+                <div class="tech-pick-desc">主理人·手绘</div>
+              </div>
+            </div>
+            <div class="tech-pick-cell" onclick="selectBookingTech('t2', this)">
+              <div class="tech-pick-avatar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div class="tech-pick-title">林* 导师</div>
+                <div class="tech-pick-desc">美睫总监</div>
+              </div>
+            </div>
+            <div class="tech-pick-cell" onclick="selectBookingTech('t3', this)">
+              <div class="tech-pick-avatar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div class="tech-pick-title">欣* 技师</div>
+                <div class="tech-pick-desc">微光猫眼</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7天日历横滑条 -->
+        <section class="salon-section">
+          <h3 class="form-group-label">
+            <span>2. 选择到店日期</span>
+            <span style="font-size:10px;color:var(--color-status-success);font-weight:normal;">支持提前7天预约</span>
+          </h3>
+          <div class="calendar-strip" id="calendar-strip">
+            <!-- 动态渲染未来 7 天日历 -->
+          </div>
+        </section>
+
+        <!-- 时间段芯片网格 -->
+        <section class="salon-section">
+          <h3 class="form-group-label">
+            <span>3. 选择预约时段</span>
+            <span style="font-size:10px;color:var(--color-text-secondary);font-weight:normal;">每时段限额预约</span>
+          </h3>
+          <div class="time-slot-grid" id="time-slot-grid">
+            <!-- 动态渲染时间槽 -->
+          </div>
+        </section>
+
+        <!-- 当前预订款式摘要 -->
+        <section class="salon-section">
+          <div class="card" style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:12px;font-weight:700;">已选服务项目</span>
+              <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(1)">更换款式 ›</span>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--color-primary);" id="booking-item-title">
+              极光冰透贝母渐变美甲
+            </div>
+            <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;" id="booking-item-meta">
+              包含基础俄式修甘皮与本甲强化 · 耗时约 90 分钟
+            </div>
+          </div>
+        </section>
+
+        <!-- 附加贴心选项 -->
+        <section class="salon-section">
+          <h3 class="form-group-label">
+            <span>4. 附加与到店偏好</span>
+          </h3>
+          <div class="option-pill-group">
+            <div class="option-pill" id="opt-removal" onclick="toggleOption('removal')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span>本甲需卸除 (+¥30)</span>
+            </div>
+            <div class="option-pill" id="opt-reinforce" onclick="toggleOption('reinforce')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span>本甲建构加固 (+¥20)</span>
+            </div>
+            <div class="option-pill" id="opt-tea-1" onclick="toggleTea('英国红茶')">
+              <span>英式红茶</span>
+            </div>
+            <div class="option-pill active" id="opt-tea-2" onclick="toggleTea('玫瑰花茶')">
+              <span>玫瑰花茶</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 联系人脱敏表单 -->
+        <section class="salon-section">
+          <h3 class="form-group-label">
+            <span>5. 预约到店联系信息</span>
+          </h3>
+          <div class="card" style="padding:4px 14px;margin-bottom:8px;">
+            <div class="input-row">
+              <label for="booking-contact-name">预约姓名</label>
+              <input type="text" class="input-field" id="booking-contact-name" value="沈*女士" placeholder="请输入预约称谓" oninput="clearFormError('name')">
+            </div>
+            <div class="form-error-tip" id="error-name">请输入有效的预约人称谓（如：沈*女士）</div>
+            
+            <div class="input-row">
+              <label for="booking-contact-phone">联系电话</label>
+              <input type="text" class="input-field" id="booking-contact-phone" value="138****9217" placeholder="请输入联系手机" oninput="clearFormError('phone')">
+            </div>
+            <div class="form-error-tip" id="error-phone">请输入11位手机号码或脱敏手机号（如：138****9217）</div>
+
+            <div class="input-row">
+              <label for="booking-contact-remark">特殊备注</label>
+              <input type="text" class="input-field" id="booking-contact-remark" placeholder="如：指甲较软、喜好短圆甲等">
+            </div>
+          </div>
+
+          <!-- 确认提交按钮 -->
+          <button class="submit-booking-btn" onclick="submitBookingForm()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>确认提交预约 · 到店出示核销</span>
+          </button>
+        </section>
+
+      </div>
+
+
+      <!-- ==============================================================
+           Tab 3: 【我的】个人中心与预约看板
+           ============================================================== -->
+      <div id="tab-3" class="tab-pane">
+
+        <!-- 黑金会员卡片 (全脱敏信息) -->
+        <section class="salon-section">
+          <div class="vip-card">
+            <div class="vip-header">
+              <div class="vip-avatar">沈</div>
+              <div class="vip-user-info">
+                <div class="vip-name-row">
+                  <span class="vip-name">沈*女士</span>
+                  <span class="vip-badge">黑金甄选会员</span>
+                </div>
+                <div class="vip-phone">手机：138****9217 | 已绑定专属美丽管家</div>
+              </div>
+            </div>
+            <div class="vip-stats-row">
+              <div class="vip-stat-col" onclick="showCouponsDialog()">
+                <div class="vip-stat-num" id="my-coupons-count">2 张</div>
+                <div class="vip-stat-label">可用卡券</div>
+              </div>
+              <div class="vip-stat-col" onclick="showToast('当前积分 380pt，到店可抵扣精油手部护理')">
+                <div class="vip-stat-num">380 pt</div>
+                <div class="vip-stat-label">会员积分</div>
+              </div>
+              <div class="vip-stat-col" onclick="showToast('黑金会员享全场正价项目 8.8 折专享优惠')">
+                <div class="vip-stat-num">8.8 折</div>
+                <div class="vip-stat-label">沙龙特权</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 订单状态过滤器 -->
+        <section class="salon-section">
+          <div class="order-filter-tabs">
+            <div class="order-tab-btn active" onclick="filterOrders('all', this)">全部预约</div>
+            <div class="order-tab-btn" onclick="filterOrders('pending', this)">待到店</div>
+            <div class="order-tab-btn" onclick="filterOrders('serving', this)">服务中</div>
+            <div class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</div>
+          </div>
+
+          <!-- 预约工单动态容器 -->
+          <div id="orders-list-container">
+            <!-- 动态渲染预约单卡片 -->
+          </div>
+        </section>
+
+        <!-- 沙龙管家专属服务功能菜单 -->
+        <section class="salon-section">
+          <div class="menu-list-card">
+            <div class="menu-item-row" onclick="openCareGuideDialog()">
+              <div class="menu-item-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>美甲美睫日常养护指南</span>
+              </div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="menu-item-row" onclick="openContactDialog()">
+              <div class="menu-item-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>24h 沙龙专属在线客服</span>
+              </div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="menu-item-row" onclick="showToast('常用联系人：沈*女士 (138****9217)')">
+              <div class="menu-item-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>常用到店人信息管理</span>
+              </div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="menu-item-row" onclick="openAboutDialog()">
+              <div class="menu-item-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>关于**美学工作室</span>
+              </div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+
+    <!-- 底部原生微动效 TabBar (Semantic Nav) -->
+    <nav class="mp-tabbar" aria-label="小程序主导航">
+      <a href="javascript:void(0)" class="tabbar-item active" id="tabbar-btn-0" onclick="switchTab(0)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+        <span>甄选</span>
+      </a>
+      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-1" onclick="switchTab(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2Z"/></svg>
+        <span>款式</span>
+      </a>
+      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-2" onclick="switchTab(2)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
+        <span>档期</span>
+      </a>
+      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-3" onclick="switchTab(3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的</span>
+      </a>
+    </nav>
+
+
+    <!-- ==============================================================
+         全局浮层 1: 款式详情规格抽屉 (Bottom Drawer)
+         ============================================================== -->
+    <div class="modal-overlay" id="drawer-overlay" onclick="closeDrawer(event)">
+      <div class="bottom-drawer-content" onclick="event.stopPropagation()">
+        <div class="drawer-header">
+          <h3 class="drawer-title" id="drawer-item-title">极光冰透贝母渐变美甲</h3>
+          <button class="drawer-close-btn" onclick="closeDrawer()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- 价格与耗时 -->
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
+          <div style="font-size:20px;font-weight:800;color:var(--color-primary);" id="drawer-price-display">¥168</div>
+          <div style="font-size:11px;color:var(--color-text-secondary);" id="drawer-time-display">预计耗时 90 分钟</div>
+          <div style="font-size:10px;background:var(--color-primary-light);color:var(--color-primary);padding:2px 8px;border-radius:var(--radius-xs);margin-left:auto;">
+            7天免费修补
+          </div>
+        </div>
+
+        <!-- 服务5步标准化拆解 -->
+        <div class="card" style="background:var(--color-surface-subtle);margin-bottom:12px;padding:10px;">
+          <div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:6px;">标准日式沙龙工序：</div>
+          <div style="font-size:10px;color:var(--color-text-regular);line-height:1.6;">
+            1. 医用手部消毒与游离缘修型<br>
+            2. 俄式无痛精密剪甘皮修整<br>
+            3. 日本进口强化建构底胶打底<br>
+            4. 考究渐变彩绘/多层晶透封层<br>
+            5. 天然玫瑰果指缘精油渗透养护
+          </div>
+        </div>
+
+        <!-- 加选选项 -->
+        <div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:8px;">选配加享项目：</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;" onclick="toggleDrawerAddon('removal')">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+              <input type="checkbox" id="drawer-check-removal" style="pointer-events:none;">
+              <span>温和无痛卸除旧甲</span>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥30</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;" onclick="toggleDrawerAddon('reinforce')">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+              <input type="checkbox" id="drawer-check-reinforce" style="pointer-events:none;">
+              <span>本甲高阶建构加固底胶</span>
+            </div>
+            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥20</span>
+          </div>
+        </div>
+
+        <!-- 底部吸底按钮条 -->
+        <div style="display:flex;gap:8px;margin-top:auto;">
+          <button style="flex:1;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;" onclick="openContactDialog()">
+            咨询管家
+          </button>
+          <button style="flex:2;background:var(--color-primary);border:none;color:var(--color-pure-white);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(158,103,106,0.3);" onclick="confirmDrawerBooking()">
+            立即预约此款
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 2: 预约成功 / 到店核销码弹窗 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-booking-success">
+      <div class="dialog-card">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--color-status-success-light);color:var(--color-status-success);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div style="font-size:15px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
+          预约锁定成功
+        </div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">
+          沙龙已为您预留专属工位，无需等待
+        </div>
+        <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px;text-align:left;font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:14px;" id="dialog-success-details">
+          <!-- 动态注入单号与信息 -->
+        </div>
+        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:10px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;" onclick="closeSuccessAndGoOrders()">
+          查看我的预约单
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 3: 核销二维码展示弹窗 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-verify-code">
+      <div class="dialog-card">
+        <div style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
+          出示到店核销凭证
+        </div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:12px;">
+          到店请向手艺人或前台出示该凭据
+        </div>
+        <!-- 模拟条码与二维码 (纯 SVG 矢量) -->
+        <div style="background:var(--color-bg-canvas);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;">
+          <!-- 模拟条码线条 -->
+          <svg width="180" height="36" viewBox="0 0 180 36" fill="currentColor" style="color:var(--color-barcode-dark);margin-bottom:8px;">
+            <rect x="0" y="0" width="4" height="36"/><rect x="8" y="0" width="2" height="36"/><rect x="14" y="0" width="6" height="36"/><rect x="24" y="0" width="3" height="36"/><rect x="32" y="0" width="8" height="36"/><rect x="44" y="0" width="2" height="36"/><rect x="50" y="0" width="5" height="36"/><rect x="60" y="0" width="3" height="36"/><rect x="68" y="0" width="7" height="36"/><rect x="80" y="0" width="4" height="36"/><rect x="90" y="0" width="3" height="36"/><rect x="98" y="0" width="6" height="36"/><rect x="110" y="0" width="2" height="36"/><rect x="116" y="0" width="8" height="36"/><rect x="128" y="0" width="4" height="36"/><rect x="138" y="0" width="3" height="36"/><rect x="146" y="0" width="6" height="36"/><rect x="156" y="0" width="4" height="36"/><rect x="166" y="0" width="3" height="36"/><rect x="174" y="0" width="5" height="36"/>
+          </svg>
+          <div style="font-size:16px;font-weight:800;letter-spacing:3px;color:var(--color-primary);margin-bottom:8px;" id="verify-code-num">
+            8921
+          </div>
+          <!-- 模拟二维码小矩阵 -->
+          <svg width="100" height="100" viewBox="0 0 100 100" fill="currentColor" style="color:var(--color-barcode-dark);">
+            <rect x="0" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+            <rect x="8" y="8" width="14" height="14"/><rect x="70" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+            <rect x="78" y="8" width="14" height="14"/><rect x="0" y="70" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+            <rect x="8" y="78" width="14" height="14"/><rect x="36" y="10" width="8" height="8"/><rect x="48" y="18" width="8" height="8"/><rect x="36" y="36" width="28" height="28"/><rect x="72" y="44" width="10" height="10"/><rect x="44" y="76" width="12" height="12"/><rect x="72" y="72" width="18" height="18"/>
+          </svg>
+        </div>
+        <button style="width:100%;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;" onclick="closeVerifyDialog()">
+          完成并关闭
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 4: 美甲美睫日常养护指南 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-care-guide">
+      <div class="dialog-card" style="text-align:left;max-height:80%;overflow-y:auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);">沙龙级养护指南</h3>
+          <span style="font-size:18px;cursor:pointer;color:var(--color-text-secondary);" onclick="closeCareDialog()">×</span>
+        </div>
+        <div style="font-size:11px;color:var(--color-text-regular);line-height:1.7;">
+          <p style="margin-bottom:6px;"><b>1. 美睫后 6 小时内：</b>请勿让睫毛接触水分，避免温泉、桑拿或剧烈出汗运动，以保证植物胶水充分固化。</p>
+          <p style="margin-bottom:6px;"><b>2. 美甲日常保护：</b>开罐拉环或敲击键盘时请尽量使用指腹，避免直接用指尖边缘硬性撬物，防止顶端起翘。</p>
+          <p style="margin-bottom:6px;"><b>3. 避免接触强酸强碱：</b>做家务或接触清洁剂时建议佩戴橡胶手套，防止封层被腐蚀失去晶透光泽。</p>
+          <p style="margin-bottom:6px;"><b>4. 严禁徒手暴力撕甲：</b>若发生轻微翘边，请随时预约到店免费专业卸除，徒手撕甲会损伤真甲表面角质层。</p>
+          <p><b>5. 免费售后保障：</b>到店服务 7 天内如遇非人为饰品脱落或睫毛非正常脱落，均享免费无忧补做一次。</p>
+        </div>
+        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;margin-top:12px;" onclick="closeCareDialog()">
+          我已知晓
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 5: 微信胶囊操作菜单 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-mini-menu">
+      <div class="dialog-card">
+        <h3 style="font-size:13px;font-weight:800;color:var(--color-text-main);margin-bottom:12px;">
+          **美学工作室
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:14px;">
+          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="showToast('已复制小程序链接，可分享给好友')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span style="font-size:10px;">转发分享</span>
+          </div>
+          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="showToast('已成功添加到我的小程序')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span style="font-size:10px;">添加收藏</span>
+          </div>
+          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="openAboutDialog()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span style="font-size:10px;">沙龙介绍</span>
+          </div>
+        </div>
+        <button style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;" onclick="closeMiniMenu()">
+          取消
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 6: 客服在线咨询模拟 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-contact">
+      <div class="dialog-card" style="text-align:left;">
+        <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:6px;">
+          专属沙龙管家在线咨询
+        </h3>
+        <div style="background:var(--color-surface-subtle);padding:10px;border-radius:var(--radius-sm);font-size:11px;color:var(--color-text-regular);margin-bottom:12px;line-height:1.5;">
+          您好！我是沙龙值班管家。请问有什么可以协助您？如需款式定制、加急排期或改期，可随时告知。
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:12px;">
+          <input type="text" id="chat-input" placeholder="输入您要咨询的问题..." style="flex:1;border:1px solid var(--color-border-subtle);border-radius:var(--radius-xs);padding:6px 8px;font-size:11px;outline:none;">
+          <button style="background:var(--color-primary);color:var(--color-pure-white);border:none;padding:6px 12px;border-radius:var(--radius-xs);font-size:11px;cursor:pointer;" onclick="sendChatMessage()">
+            发送
+          </button>
+        </div>
+        <button style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:6px;border-radius:var(--radius-sm);font-size:11px;cursor:pointer;" onclick="closeContactDialog()">
+          稍后沟通
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局浮层 7: 关于沙龙介绍 (Modal)
+         ============================================================== -->
+    <div class="center-dialog-overlay" id="dialog-about">
+      <div class="dialog-card" style="text-align:left;">
+        <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:8px;">
+          关于 **美学工作室
+        </h3>
+        <div style="font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:12px;">
+          本店秉持日式严选职人精神，全套引进进口无害树脂与医用级美睫耗材。实行一客一用独立灭菌耗材包，致力于在优雅宁静的沙龙环境中，为每一位顾客提供兼具审美调性与持久健康的定制美学服务。
+        </div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:14px;">
+          营业认证编号：#ML-2026-0904-BEIJING<br>
+          沙龙地址：XX区XX路XX商务中心A座2层
+        </div>
+        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;" onclick="closeAboutDialog()">
+          关闭
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==============================================================
+         全局轻提示 Toast 组件
+         ============================================================== -->
+    <div class="toast-pill" id="global-toast">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-text">已为您选定档期</span>
+    </div>
+
+  </div>
+
+
+  <!-- ==============================================================
+       纯前端交互与内存状态机 JavaScript
+       ============================================================== -->
+  <script>
+    // -------------------------------------------------------------
+    // 1. 数据模型与状态管理中心 (AppStore)
+    // -------------------------------------------------------------
+    const AppStore = {
+      currentTab: 0,
+      
+      // 款式库数据集
+      catalogItems: [
+        {
+          id: 'item-1',
+          category: 'nail',
+          tag: 'white',
+          title: '极光冰透贝母渐变美甲',
+          sub: '日本进口树脂胶 · 清透显白',
+          price: 168,
+          duration: 90,
+          ordersCount: 382,
+          rating: '4.9',
+          tags: ['显白热选', '保色45天', '俄式精修']
+        },
+        {
+          id: 'item-2',
+          category: 'nail',
+          tag: 'commute',
+          title: '法式裸粉微光晕染甲',
+          sub: '气质职场百搭 · 极简低调',
+          price: 158,
+          duration: 80,
+          ordersCount: 265,
+          rating: '4.9',
+          tags: ['通勤气质', '短甲修饰', '温润裸调']
+        },
+        {
+          id: 'item-3',
+          category: 'nail',
+          tag: 'diamond',
+          title: '日式香槟闪钻高定彩绘',
+          sub: '施华洛世奇微钻 · 纯手工手绘',
+          price: 218,
+          duration: 110,
+          ordersCount: 194,
+          rating: '5.0',
+          tags: ['轻奢微闪', '宴会新娘', '立体精雕']
+        },
+        {
+          id: 'item-4',
+          category: 'lash',
+          tag: 'natural',
+          title: '日式轻羽空气扁毛嫁接',
+          sub: '0.10超轻无重感 · 仿若天生',
+          price: 198,
+          duration: 80,
+          ordersCount: 310,
+          rating: '4.9',
+          tags: ['自然素雅', '医用防过敏', '根根分明']
+        },
+        {
+          id: 'item-5',
+          category: 'lash',
+          tag: 'diamond',
+          title: '山茶花浓密多层次嫁接',
+          sub: '日式多簇手工开花 · 眼线放大感',
+          price: 238,
+          duration: 90,
+          ordersCount: 220,
+          rating: '4.9',
+          tags: ['轻奢微闪', '持久不易塌', '蓬松透气']
+        },
+        {
+          id: 'item-6',
+          category: 'care',
+          tag: 'natural',
+          title: '手部深层玫瑰精油水疗SPA',
+          sub: '去角质+海盐热敷+手膜滋养',
+          price: 128,
+          duration: 60,
+          ordersCount: 152,
+          rating: '4.8',
+          tags: ['自然素雅', '淡化细纹', '嫩肤润泽']
+        },
+        {
+          id: 'item-7',
+          category: 'removal',
+          tag: 'commute',
+          title: '无痛温和植物凝胶卸甲',
+          sub: '专业卸甲包包裹 · 不伤游离缘',
+          price: 50,
+          duration: 40,
+          ordersCount: 410,
+          rating: '4.9',
+          tags: ['温和无痛', '本甲抛光', '指缘油养护']
+        }
+      ],
+
+      // 当前筛选条件
+      catalogFilter: {
+        category: 'all',
+        tag: 'all'
+      },
+
+      // 抽屉中选中的款式
+      drawerItem: null,
+      drawerAddons: {
+        removal: false,
+        reinforce: false
+      },
+
+      // 档期预约当前选定
+      booking: {
+        techId: 't0',
+        techName: '智能分配 (服务不等待)',
+        selectedDate: '今日 09-04',
+        selectedSlot: '14:30',
+        itemTitle: '极光冰透贝母渐变美甲',
+        itemPrice: 168,
+        itemDuration: 90,
+        addons: {
+          removal: false,
+          reinforce: false
+        },
+        tea: '玫瑰花茶',
+        name: '沈*女士',
+        phone: '138****9217',
+        remark: ''
+      },
+
+      // 订单数据池 (支持动态追加)
+      orders: [
+        {
+          id: 'MJ-20260904-8921',
+          title: '极光冰透贝母渐变美甲',
+          tech: '静* 导师',
+          time: '今日 14:30 - 16:00',
+          price: 168,
+          status: 'pending',
+          statusText: '待到店',
+          code: '8921'
+        },
+        {
+          id: 'MJ-20260903-5112',
+          title: '日式轻羽空气扁毛嫁接',
+          tech: '林* 导师',
+          time: '2026-09-03 16:30',
+          price: 198,
+          status: 'serving',
+          statusText: '服务中',
+          code: '5112'
+        },
+        {
+          id: 'MJ-20260828-3019',
+          title: '法式裸粉微光晕染甲',
+          tech: '欣* 技师',
+          time: '2026-08-28 11:00',
+          price: 158,
+          status: 'completed',
+          statusText: '已完成',
+          code: '3019'
+        }
+      ],
+
+      orderFilter: 'all',
+      hasClaimedCoupon: false,
+      couponsCount: 2
+    };
+
+
+    // -------------------------------------------------------------
+    // 2. 初始化与界面渲染驱动
+    // -------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHomeFeatured();
+      renderCatalog();
+      renderCalendar();
+      renderTimeSlots();
+      renderOrders();
+    });
+
+    // 渲染首页当季热选 3 款
+    function renderHomeFeatured() {
+      const container = document.getElementById('home-featured-list');
+      const featured = AppStore.catalogItems.slice(0, 3);
+      container.innerHTML = featured.map(item => `
+        <div class="style-item-card" onclick="openDrawerWithItem('${item.id}')">
+          <div class="style-thumb">
+            <span class="style-thumb-tag">${item.category === 'nail' ? '美甲' : '美睫'}</span>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>
+          </div>
+          <div class="style-info">
+            <div>
+              <h3 class="style-title">${item.title}</h3>
+              <div class="style-tags-row">
+                ${item.tags.map(t => `<span class="style-tag-pill">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="style-bottom-row">
+              <div class="style-price">¥${item.price}<small>/${item.duration}分钟</small></div>
+              <button class="style-action-btn" onclick="event.stopPropagation(); openDrawerWithItem('${item.id}')">详情 / 预约</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染款式库 (联动分类与二级风格过滤)
+    function renderCatalog() {
+      const container = document.getElementById('catalog-items-container');
+      const { category, tag } = AppStore.catalogFilter;
+
+      let filtered = AppStore.catalogItems.filter(item => {
+        const matchCategory = (category === 'all' || item.category === category);
+        const matchTag = (tag === 'all' || item.tag === tag);
+        return matchCategory && matchTag;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px 10px;color:var(--color-text-secondary);font-size:12px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 8px;display:block;opacity:0.6;"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            该分类暂无更多款式，可切换其他分类查看
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="style-item-card" style="margin-bottom:8px;" onclick="openDrawerWithItem('${item.id}')">
+          <div class="style-thumb" style="width:72px;height:72px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/></svg>
+          </div>
+          <div class="style-info">
+            <div>
+              <h3 class="style-title" style="font-size:12px;">${item.title}</h3>
+              <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;">${item.sub}</div>
+            </div>
+            <div class="style-bottom-row">
+              <div class="style-price" style="font-size:13px;">¥${item.price}</div>
+              <button class="style-action-btn" style="padding:2px 8px;font-size:10px;" onclick="event.stopPropagation(); openDrawerWithItem('${item.id}')">选此款</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染未来 7 天日历
+    function renderCalendar() {
+      const container = document.getElementById('calendar-strip');
+      const days = [
+        { week: '今天', date: '09-04', active: true },
+        { week: '明天', date: '09-05', active: false },
+        { week: '后天', date: '09-06', active: false },
+        { week: '周日', date: '09-07', active: false },
+        { week: '周一', date: '09-08', active: false },
+        { week: '周二', date: '09-09', active: false },
+        { week: '周三', date: '09-10', active: false }
+      ];
+
+      container.innerHTML = days.map((d, index) => `
+        <div class="cal-day-cell ${d.active ? 'active' : ''}" onclick="selectDate(${index}, '${d.week} ${d.date}', this)">
+          <div class="cal-week">${d.week}</div>
+          <div class="cal-date">${d.date}</div>
+          <div class="cal-dot"></div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染时间段网格
+    function renderTimeSlots() {
+      const container = document.getElementById('time-slot-grid');
+      const slots = [
+        { time: '10:00', state: 'available', sub: '空闲' },
+        { time: '11:30', state: 'booked', sub: '约满' },
+        { time: '13:00', state: 'available', sub: '空闲' },
+        { time: '14:30', state: 'active', sub: '当前选定' },
+        { time: '16:00', state: 'available', sub: '空闲' },
+        { time: '17:30', state: 'booked', sub: '约满' },
+        { time: '19:00', state: 'available', sub: '空闲' },
+        { time: '20:30', state: 'available', sub: '晚间档' }
+      ];
+
+      container.innerHTML = slots.map(s => {
+        if (s.state === 'booked') {
+          return `
+            <div class="time-slot-btn booked" onclick="showToast('该时段已满，请选择其他空闲档期')">
+              <span>${s.time}</span>
+              <span class="slot-sub-tag">${s.sub}</span>
+            </div>
+          `;
+        }
+        return `
+          <div class="time-slot-btn ${s.state === 'active' ? 'active' : ''}" onclick="selectTimeSlot('${s.time}', this)">
+            <span>${s.time}</span>
+            <span class="slot-sub-tag">${s.sub}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 渲染工单中心列表
+    function renderOrders() {
+      const container = document.getElementById('orders-list-container');
+      const filter = AppStore.orderFilter;
+      
+      const filtered = AppStore.orders.filter(ord => {
+        if (filter === 'all') return true;
+        return ord.status === filter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="card" style="text-align:center;padding:30px 10px;color:var(--color-text-secondary);font-size:12px;">
+            暂无对应状态的预约订单
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(ord => `
+        <div class="order-card">
+          <div class="order-header-row">
+            <span class="order-id-label">预约号 #${ord.id}</span>
+            <span class="order-status-pill status-${ord.status}">${ord.statusText}</span>
+          </div>
+          <h3 class="order-body-title">${ord.title}</h3>
+          <div class="order-body-meta">
+            预约手艺人：${ord.tech}<br>
+            服务时间：${ord.time}<br>
+            项目参考金额：¥${ord.price} (到店核销)
+          </div>
+          <div class="order-actions-row">
+            <button class="order-outline-btn" onclick="openContactDialog()">联系沙龙</button>
+            ${ord.status === 'pending' ? `
+              <button class="order-solid-btn" onclick="openVerifyCode('${ord.code}')">出示核销码</button>
+            ` : ord.status === 'serving' ? `
+              <button class="order-solid-btn" onclick="showToast('服务进行中，管家正为您记录工艺步骤')">工单进度</button>
+            ` : `
+              <button class="order-solid-btn" onclick="repeatBooking('${ord.title}', ${ord.price})">再次预约</button>
+            `}
+          </div>
+        </div>
+      `).join('');
+    }
+
+
+    // -------------------------------------------------------------
+    // 3. 用户交互事件处理
+    // -------------------------------------------------------------
+
+    // 切换底部 TabBar (0~3)
+    function switchTab(index) {
+      AppStore.currentTab = index;
+      document.querySelectorAll('.mp-scroll-content .tab-pane').forEach((p, idx) => {
+        p.classList.toggle('active', idx === index);
+      });
+      document.querySelectorAll('.mp-tabbar .tabbar-item').forEach((b, idx) => {
+        b.classList.toggle('active', idx === index);
+      });
+      // 页面置顶滑动
+      document.querySelector('.mp-scroll-content').scrollTop = 0;
+    }
+
+    // 复制沙龙地址
+    function copySalonAddress() {
+      const address = 'XX市XX区XX路XX商务中心A座2层 **美学工作室';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(address).then(() => {
+          showToast('沙龙地址已复制，可在地图App直接粘贴');
+        }).catch(() => {
+          showToast('沙龙地址已复制，可在地图App直接粘贴');
+        });
+      } else {
+        showToast('沙龙地址已复制，可在地图App直接粘贴');
+      }
+    }
+
+    // 领取首页专属优惠券
+    function claimHomeCoupon() {
+      if (AppStore.hasClaimedCoupon) {
+        showToast('您已领取过该专属礼券');
+        return;
+      }
+      AppStore.hasClaimedCoupon = true;
+      AppStore.couponsCount += 1;
+      const btn = document.getElementById('home-coupon-btn');
+      btn.innerText = '已存入卡包';
+      btn.classList.add('claimed');
+      document.getElementById('my-coupons-count').innerText = AppStore.couponsCount + ' 张';
+      showToast('恭喜！¥30专属立减券已存入您的卡券包');
+    }
+
+    // 金刚区快速跳转分类
+    function switchCategoryFromHome(categoryKey) {
+      switchTab(1);
+      AppStore.catalogFilter.category = categoryKey;
+      document.querySelectorAll('#category-sidebar .catalog-left-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      const target = Array.from(document.querySelectorAll('#category-sidebar .catalog-left-item')).find(el => {
+        if (categoryKey === 'nail') return el.innerText.includes('美甲');
+        if (categoryKey === 'lash') return el.innerText.includes('美睫');
+        if (categoryKey === 'care') return el.innerText.includes('护理');
+        if (categoryKey === 'removal') return el.innerText.includes('卸除');
+        return false;
+      });
+      if (target) target.classList.add('active');
+      renderCatalog();
+    }
+
+    // 款式页一级分类切换
+    function switchCategory(categoryKey, elem) {
+      document.querySelectorAll('#category-sidebar .catalog-left-item').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.catalogFilter.category = categoryKey;
+      renderCatalog();
+    }
+
+    // 款式页二级标签过滤
+    function filterByTag(tagKey, elem) {
+      document.querySelectorAll('#tag-filter-bar .filter-chip').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.catalogFilter.tag = tagKey;
+      renderCatalog();
+    }
+
+    // 手艺人推荐“约她”
+    function bookWithTech(techId) {
+      switchTab(2);
+      selectBookingTechById(techId);
+      showToast('已为您锁定手艺人排期');
+    }
+
+    function selectBookingTech(techId, elem) {
+      document.querySelectorAll('#tech-selector-grid .tech-pick-cell').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.booking.techId = techId;
+      AppStore.booking.techName = elem.querySelector('.tech-pick-title').innerText;
+      showToast('已选定服务手艺人：' + AppStore.booking.techName);
+    }
+
+    function selectBookingTechById(techId) {
+      const cells = document.querySelectorAll('#tech-selector-grid .tech-pick-cell');
+      cells.forEach(c => c.classList.remove('active'));
+      let target = cells[0];
+      if (techId === 't1') target = cells[1];
+      if (techId === 't2') target = cells[2];
+      if (techId === 't3') target = cells[3];
+      if (target) {
+        target.classList.add('active');
+        AppStore.booking.techId = techId;
+        AppStore.booking.techName = target.querySelector('.tech-pick-title').innerText;
+      }
+    }
+
+    // 选择日历日期
+    function selectDate(index, dateStr, elem) {
+      document.querySelectorAll('#calendar-strip .cal-day-cell').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.booking.selectedDate = dateStr;
+      showToast('已选择日期：' + dateStr);
+    }
+
+    // 选择时间槽
+    function selectTimeSlot(timeStr, elem) {
+      document.querySelectorAll('#time-slot-grid .time-slot-btn').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.booking.selectedSlot = timeStr;
+      showToast('已锁定到店时段：' + timeStr);
+    }
+
+    // 档期附加项勾选
+    function toggleOption(optKey) {
+      const el = document.getElementById('opt-' + optKey);
+      AppStore.booking.addons[optKey] = !AppStore.booking.addons[optKey];
+      el.classList.toggle('active', AppStore.booking.addons[optKey]);
+      if (AppStore.booking.addons[optKey]) {
+        showToast('已加选附加服务');
+      } else {
+        showToast('已取消加选服务');
+      }
+    }
+
+    // 茶饮选择
+    function toggleTea(teaName) {
+      document.getElementById('opt-tea-1').classList.toggle('active', teaName === '英国红茶');
+      document.getElementById('opt-tea-2').classList.toggle('active', teaName === '玫瑰花茶');
+      AppStore.booking.tea = teaName;
+      showToast('已为您备选到店茶饮：' + teaName);
+    }
+
+    // 表单错误清除
+    function clearFormError(field) {
+      if (field === 'name') {
+        document.getElementById('booking-contact-name').classList.remove('input-error');
+        document.getElementById('error-name').style.display = 'none';
+      } else if (field === 'phone') {
+        document.getElementById('booking-contact-phone').classList.remove('input-error');
+        document.getElementById('error-phone').style.display = 'none';
+      }
+    }
+
+    // 提交预约表单 (含实时校验与错误恢复机制)
+    function submitBookingForm() {
+      const nameInput = document.getElementById('booking-contact-name');
+      const phoneInput = document.getElementById('booking-contact-phone');
+      const nameVal = nameInput.value.trim();
+      const phoneVal = phoneInput.value.trim();
+      let hasError = false;
+
+      // 校验预约姓名
+      if (!nameVal || nameVal.length < 2) {
+        nameInput.classList.add('input-error');
+        document.getElementById('error-name').style.display = 'block';
+        hasError = true;
+      } else {
+        nameInput.classList.remove('input-error');
+        document.getElementById('error-name').style.display = 'none';
+      }
+
+      // 校验联系电话 (支持真实11位或脱敏带*号手机号)
+      const phoneRegex = /^1[3-9](\d{9}|\*{4}\d{4}|\d{2}\*{4}\d{3})$/;
+      if (!phoneVal || (!phoneRegex.test(phoneVal) && phoneVal !== '138****9217')) {
+        phoneInput.classList.add('input-error');
+        document.getElementById('error-phone').style.display = 'block';
+        hasError = true;
+      } else {
+        phoneInput.classList.remove('input-error');
+        document.getElementById('error-phone').style.display = 'none';
+      }
+
+      if (hasError) {
+        showToast('请检查联系人信息并修正');
+        return;
+      }
+
+      // 生成唯一脱敏服务工单
+      const randomCode = Math.floor(1000 + Math.random() * 9000);
+      const newOrder = {
+        id: 'MJ-' + (new Date().toISOString().slice(0,10).replace(/-/g, '')) + '-' + randomCode,
+        title: AppStore.booking.itemTitle,
+        tech: AppStore.booking.techName,
+        time: AppStore.booking.selectedDate + ' ' + AppStore.booking.selectedSlot,
+        price: AppStore.booking.itemPrice + (AppStore.booking.addons.removal ? 30 : 0) + (AppStore.booking.addons.reinforce ? 20 : 0),
+        status: 'pending',
+        statusText: '待到店',
+        code: String(randomCode)
+      };
+
+      // 写入订单集合前置
+      AppStore.orders.unshift(newOrder);
+      renderOrders();
+
+      // 打开预约成功核销单弹窗
+      const detailContainer = document.getElementById('dialog-success-details');
+      detailContainer.innerHTML = `
+        单号：#${newOrder.id}<br>
+        项目：${newOrder.title}<br>
+        手艺人：${newOrder.tech}<br>
+        预约时间：${newOrder.time}<br>
+        到店核销码：<b style="color:var(--color-primary);font-size:13px;">${newOrder.code}</b><br>
+        茶饮备品：${AppStore.booking.tea}
+      `;
+      document.getElementById('dialog-booking-success').classList.add('active');
+    }
+
+    function closeSuccessAndGoOrders() {
+      document.getElementById('dialog-booking-success').classList.remove('active');
+      switchTab(3);
+    }
+
+    // 过滤订单状态 (全部/待到店/服务中/已完成)
+    function filterOrders(statusKey, elem) {
+      document.querySelectorAll('.order-filter-tabs .order-tab-btn').forEach(e => e.classList.remove('active'));
+      elem.classList.add('active');
+      AppStore.orderFilter = statusKey;
+      renderOrders();
+    }
+
+    // 打开大字核销码弹窗
+    function openVerifyCode(code) {
+      document.getElementById('verify-code-num').innerText = code;
+      document.getElementById('dialog-verify-code').classList.add('active');
+    }
+    function closeVerifyDialog() {
+      document.getElementById('dialog-verify-code').classList.remove('active');
+    }
+
+    // 再次预约同款
+    function repeatBooking(title, price) {
+      AppStore.booking.itemTitle = title;
+      AppStore.booking.itemPrice = price;
+      document.getElementById('booking-item-title').innerText = title;
+      document.getElementById('booking-item-meta').innerText = '包含标准日式全套服务 · 价格 ¥' + price;
+      switchTab(2);
+      showToast('已为您带入款式：' + title);
+    }
+
+    // -------------------------------------------------------------
+    // 4. 款式详情抽屉 (Drawer) 逻辑
+    // -------------------------------------------------------------
+    function openDrawerWithItem(itemId) {
+      const item = AppStore.catalogItems.find(i => i.id === itemId);
+      if (!item) return;
+      AppStore.drawerItem = item;
+      AppStore.drawerAddons.removal = false;
+      AppStore.drawerAddons.reinforce = false;
+
+      document.getElementById('drawer-item-title').innerText = item.title;
+      document.getElementById('drawer-price-display').innerText = '¥' + item.price;
+      document.getElementById('drawer-time-display').innerText = '预计耗时 ' + item.duration + ' 分钟';
+      document.getElementById('drawer-check-removal').checked = false;
+      document.getElementById('drawer-check-reinforce').checked = false;
+
+      document.getElementById('drawer-overlay').classList.add('active');
+    }
+
+    function closeDrawer(event) {
+      if (event && event.target !== document.getElementById('drawer-overlay')) return;
+      document.getElementById('drawer-overlay').classList.remove('active');
+    }
+
+    function toggleDrawerAddon(addonKey) {
+      AppStore.drawerAddons[addonKey] = !AppStore.drawerAddons[addonKey];
+      document.getElementById('drawer-check-' + addonKey).checked = AppStore.drawerAddons[addonKey];
+      
+      let total = AppStore.drawerItem.price;
+      if (AppStore.drawerAddons.removal) total += 30;
+      if (AppStore.drawerAddons.reinforce) total += 20;
+      document.getElementById('drawer-price-display').innerText = '¥' + total;
+    }
+
+    function confirmDrawerBooking() {
+      if (!AppStore.drawerItem) return;
+      AppStore.booking.itemTitle = AppStore.drawerItem.title;
+      AppStore.booking.itemPrice = AppStore.drawerItem.price;
+      AppStore.booking.itemDuration = AppStore.drawerItem.duration;
+      AppStore.booking.addons.removal = AppStore.drawerAddons.removal;
+      AppStore.booking.addons.reinforce = AppStore.drawerAddons.reinforce;
+
+      document.getElementById('booking-item-title').innerText = AppStore.drawerItem.title;
+      document.getElementById('booking-item-meta').innerText = '标准服务耗时 ' + AppStore.drawerItem.duration + ' 分钟 · 基准价 ¥' + AppStore.drawerItem.price;
+      
+      document.getElementById('opt-removal').classList.toggle('active', AppStore.drawerAddons.removal);
+      document.getElementById('opt-reinforce').classList.toggle('active', AppStore.drawerAddons.reinforce);
+
+      closeDrawer();
+      switchTab(2);
+      showToast('已为您选定款式，请确认手艺人与时段');
+    }
+
+    // -------------------------------------------------------------
+    // 5. 辅助弹窗与 Toast
+    // -------------------------------------------------------------
+    function openCareGuideDialog() {
+      document.getElementById('dialog-care-guide').classList.add('active');
+    }
+    function closeCareDialog() {
+      document.getElementById('dialog-care-guide').classList.remove('active');
+    }
+
+    function openMiniMenu() {
+      document.getElementById('dialog-mini-menu').classList.add('active');
+    }
+    function closeMiniMenu() {
+      document.getElementById('dialog-mini-menu').classList.remove('active');
+    }
+
+    function openContactDialog() {
+      document.getElementById('dialog-contact').classList.add('active');
+    }
+    function closeContactDialog() {
+      document.getElementById('dialog-contact').classList.remove('active');
+    }
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      if (!input.value.trim()) {
+        showToast('请输入咨询内容');
+        return;
+      }
+      showToast('管家已收到：“' + input.value.trim() + '”，将为您优先处理');
+      input.value = '';
+      closeContactDialog();
+    }
+
+    function openAboutDialog() {
+      closeMiniMenu();
+      document.getElementById('dialog-about').classList.add('active');
+    }
+    function closeAboutDialog() {
+      document.getElementById('dialog-about').classList.remove('active');
+    }
+
+    function showCouponsDialog() {
+      showToast('您当前拥有 ' + AppStore.couponsCount + ' 张可用卡券，可在预约时自动抵扣');
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('global-toast');
+      document.getElementById('toast-text').innerText = message;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    }
+  </script>
+</body>
+</html>

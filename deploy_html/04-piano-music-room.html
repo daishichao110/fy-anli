@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>声场 SoundStage · 24H智能排练室与无人琴房 - 微信小程序高保真拟真交互</title>
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & SYSTEM VARIABLES (专业音乐人暗调现场风格)
+       ========================================================================== */
+    :root {
+      --color-bg-canvas: #090B0E;
+      --color-bg-panel: #11141A;
+      --color-bg-phone: #13171F;
+      --color-bg-card: #1A1F2B;
+      --color-bg-card-hover: #222938;
+      --color-bg-subtle: #202736;
+      
+      --color-border: #283245;
+      --color-border-subtle: #1E2533;
+      --color-border-active: #F59E0B;
+      
+      --color-accent-amber: #F59E0B;
+      --color-accent-amber-glow: rgba(245, 158, 11, 0.25);
+      --color-accent-emerald: #10B981;
+      --color-accent-emerald-glow: rgba(16, 185, 129, 0.25);
+      --color-accent-rose: #F43F5E;
+      --color-accent-cyan: #06B6D4;
+      
+      --color-text-primary: #F8FAFC;
+      --color-text-secondary: #94A3B8;
+      --color-text-muted: #64748B;
+      
+      --radius-phone: 46px;
+      --radius-card: 16px;
+      --radius-sm: 8px;
+      --radius-pill: 9999px;
+      
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      
+      --shadow-phone: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 12px #1E232E, 0 0 0 14px #2D3748;
+      --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--color-bg-canvas);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       2. TOP BAR & SHOWCASE HEADER
+       ========================================================================== */
+    .top-bar {
+      background: var(--color-bg-panel);
+      border-bottom: 1px solid var(--color-border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--color-accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .back-link {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      background: var(--color-bg-card);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-link:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-accent-amber);
+      background: var(--color-bg-card-hover);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-btn-sm {
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .action-btn-sm:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-border-active);
+    }
+
+    /* ==========================================================================
+       3. WORKSPACE WRAPPER (PHONE + INSPECTOR PANEL)
+       ========================================================================== */
+    .workspace-wrapper {
+      max-width: 1280px;
+      width: 100%;
+      margin: 24px auto;
+      padding: 0 20px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       4. PHONE SHELL (IPHONE 15 PRO SIMULATOR)
+       ========================================================================== */
+    .phone-shell {
+      width: 390px;
+      height: 844px;
+      background: var(--color-bg-phone);
+      border-radius: var(--radius-phone);
+      box-shadow: var(--shadow-phone);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #334155;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 28px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      pointer-events: none;
+    }
+    .island-lens {
+      width: 10px;
+      height: 10px;
+      background: #111827;
+      border-radius: 50%;
+      box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+    }
+    .island-sensor {
+      width: 8px;
+      height: 8px;
+      background: #0F172A;
+      border-radius: 50%;
+    }
+
+    /* Phone Status Bar */
+    .phone-status-bar {
+      height: 44px;
+      padding: 10px 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      z-index: 900;
+      letter-spacing: 0.5px;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Mini-Program Navigation Bar */
+    .mp-nav-bar {
+      height: 44px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(19, 23, 31, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 800;
+    }
+
+    .mp-nav-store {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+    .mp-nav-store:hover {
+      background: var(--color-bg-subtle);
+    }
+
+    .wechat-capsule {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      height: 30px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #FFF;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+    .capsule-btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+    }
+    .capsule-btn:hover { opacity: 1; }
+    .capsule-divider {
+      width: 1px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Mini-Program Body (Scrollable) */
+    .mp-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px 14px 76px;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+    .mp-content::-webkit-scrollbar { width: 4px; }
+    .mp-content::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+
+    /* Bottom TabBar */
+    .mp-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 58px;
+      background: rgba(17, 20, 26, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 850;
+      padding-bottom: 6px;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      flex: 1;
+      height: 100%;
+      transition: all 0.2s ease;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .tab-item.active {
+      color: var(--color-accent-amber);
+    }
+    .tab-item svg {
+      transition: transform 0.15s ease;
+    }
+    .tab-item:active svg {
+      transform: scale(0.9);
+    }
+
+    /* Home Indicator bar */
+    .home-indicator {
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 124px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 860;
+    }
+
+    /* ==========================================================================
+       5. CARD STYLES & REUSABLE UI ELEMENTS
+       ========================================================================== */
+    .card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+    .card:hover {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--color-accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .badge-emerald {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--color-accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-cyan {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--color-accent-cyan);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .pane { display: none; }
+    .pane.active { display: block; animation: paneFade 0.2s ease-out; }
+    @keyframes paneFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       6. TAB 0: 房型预订 (BOOKING)
+       ========================================================================== */
+    .store-hero-card {
+      background: linear-gradient(145deg, #1C2230 0%, #131722 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 14px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .store-hero-title {
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--color-text-primary);
+    }
+    .store-hero-address {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Category Pill Filter */
+    .cat-scroll-box {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .cat-scroll-box::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .cat-pill.active {
+      background: var(--color-accent-amber);
+      color: #000;
+      border-color: var(--color-accent-amber);
+      font-weight: 700;
+    }
+
+    /* Room Cards */
+    .room-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .room-item.selected {
+      border-color: var(--color-accent-amber);
+      box-shadow: 0 0 0 1px var(--color-accent-amber), 0 8px 24px -4px rgba(245, 158, 11, 0.2);
+      background: #1C2230;
+    }
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .room-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+    }
+    .room-specs {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .room-gear-list {
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin: 10px 0 8px;
+      font-size: 11px;
+      color: #CBD5E1;
+      line-height: 1.5;
+    }
+    .room-price-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .price-num {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--color-accent-amber);
+      font-family: var(--font-mono);
+    }
+
+    /* Horizontal 7-Day Date Bar */
+    .date-scroll-box {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin: 10px 0 14px;
+      padding-bottom: 4px;
+    }
+    .date-scroll-box::-webkit-scrollbar { display: none; }
+    .date-pill {
+      flex: 0 0 58px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .date-pill.active {
+      background: var(--color-accent-amber);
+      color: #000;
+      border-color: var(--color-accent-amber);
+    }
+    .date-pill-week { font-size: 10px; font-weight: 600; opacity: 0.8; }
+    .date-pill-day { font-size: 13px; font-weight: 800; margin-top: 2px; font-family: var(--font-mono); }
+
+    /* Time Slot Grid */
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .slot-btn {
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 2px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      transition: all 0.15s ease;
+    }
+    .slot-btn:hover:not(.disabled) {
+      border-color: var(--color-accent-amber);
+      color: var(--color-text-primary);
+    }
+    .slot-btn.selected {
+      background: var(--color-accent-amber);
+      color: #000;
+      border-color: var(--color-accent-amber);
+      font-weight: 800;
+      box-shadow: 0 0 10px var(--color-accent-amber-glow);
+    }
+    .slot-btn.disabled {
+      background: #151820;
+      color: #475569;
+      border-color: #1E232E;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* Equipment Addon List */
+    .addon-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .addon-item.checked {
+      border-color: var(--color-accent-amber);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    /* Fixed Bottom Checkout Bar */
+    .booking-summary-bar {
+      position: sticky;
+      bottom: -10px;
+      background: #181E29;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.5);
+      z-index: 700;
+    }
+
+    .btn-primary {
+      background: var(--color-accent-amber);
+      color: #090B0E;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary:hover {
+      background: #FBBF24;
+      transform: translateY(-1px);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       7. TAB 1: 智能现场控制台 (SMART HUB)
+       ========================================================================== */
+    .door-passcode-box {
+      background: linear-gradient(135deg, #1A2130 0%, #151A24 100%);
+      border: 1.5px solid var(--color-accent-amber);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 14px;
+      box-shadow: 0 0 20px var(--color-accent-amber-glow);
+      position: relative;
+    }
+    .passcode-digits {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: var(--color-accent-amber);
+      font-family: var(--font-mono);
+      margin: 10px 0;
+      text-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-unlock-big {
+      width: 100%;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px;
+      border-radius: var(--radius-card);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px var(--color-accent-emerald-glow);
+      transition: all 0.2s ease;
+      margin-bottom: 14px;
+    }
+    .btn-unlock-big:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+    .btn-unlock-big.unlocked {
+      background: #1E293B;
+      color: var(--color-accent-emerald);
+      border: 1.5px solid var(--color-accent-emerald);
+      box-shadow: none;
+    }
+
+    /* Environmental IoT Control Grid */
+    .iot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .iot-tile {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .temp-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .temp-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      transition: all 0.15s;
+    }
+    .temp-btn:hover {
+      border-color: var(--color-accent-amber);
+      color: var(--color-accent-amber);
+    }
+
+    /* Lighting Presets */
+    .light-pill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .light-btn {
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 6px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .light-btn.active {
+      border-color: var(--color-accent-amber);
+      color: var(--color-accent-amber);
+      background: rgba(245, 158, 11, 0.1);
+      font-weight: 800;
+    }
+
+    /* Decibel Meter */
+    .meter-bar-track {
+      height: 8px;
+      background: #1E232E;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 8px;
+      display: flex;
+    }
+    .meter-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10B981, #F59E0B, #F43F5E);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* ==========================================================================
+       8. TAB 2: 录音资产与设备 (ASSETS & RECORDING)
+       ========================================================================== */
+    .audio-player-card {
+      background: linear-gradient(145deg, #1E2433 0%, #151924 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .waveform-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      gap: 3px;
+      padding: 8px 0;
+      margin: 10px 0;
+    }
+    .wave-bar {
+      flex: 1;
+      background: #334155;
+      border-radius: 2px;
+      transition: height 0.2s ease, background 0.2s ease;
+    }
+    .audio-player-card.playing .wave-bar {
+      background: var(--color-accent-amber);
+      animation: waveDance 1.2s infinite ease-in-out alternate;
+    }
+    @keyframes waveDance {
+      0% { height: 15%; }
+      50% { height: 95%; }
+      100% { height: 30%; }
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .play-btn-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-accent-amber);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s ease;
+    }
+    .play-btn-circle:hover { transform: scale(1.06); }
+    .play-btn-circle:active { transform: scale(0.95); }
+
+    /* ==========================================================================
+       9. TAB 3: 乐手中心与乐队管理 (USER CENTER)
+       ========================================================================== */
+    .profile-hero {
+      background: linear-gradient(135deg, #1F2535 0%, #151924 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .user-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #2D3748;
+      border: 2px solid var(--color-accent-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent-amber);
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .stat-row {
+      display: flex;
+      background: rgba(0,0,0,0.25);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .grid-menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .menu-tile {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+    .menu-tile:hover {
+      border-color: var(--color-accent-amber);
+      background: var(--color-bg-card-hover);
+    }
+
+    /* ==========================================================================
+       10. GLOBAL MODALS, DRAWERS & TOAST (100% 真实交互组件)
+       ========================================================================== */
+    .toast-box {
+      position: absolute;
+      top: 54px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      background: #1E2533;
+      border: 1px solid var(--color-accent-amber);
+      color: var(--color-text-primary);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toast-box.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      width: 100%;
+      max-width: 330px;
+      padding: 18px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      transform: scale(0.94);
+      transition: transform 0.2s ease;
+    }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1400;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .drawer-card {
+      background: #171C26;
+      border-top: 1px solid var(--color-border);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      padding: 18px 16px 24px;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7);
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 80%;
+      overflow-y: auto;
+    }
+    .drawer-overlay.active .drawer-card {
+      transform: translateY(0);
+    }
+    .drawer-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 2px;
+      margin: 0 auto 14px;
+    }
+
+    /* ==========================================================================
+       11. SIDE INSPECTOR & DEMO CONTROLLER (DESKTOP)
+       ========================================================================== */
+    .side-inspector {
+      flex: 1;
+      min-width: 320px;
+      max-width: 480px;
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    .log-terminal {
+      background: #090B0E;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #10B981;
+      height: 150px;
+      overflow-y: auto;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    /* Utility SVGs inline helpers */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP SHOWCASE HEADER
+       ========================================================================== -->
+  <header class="top-bar">
+    <div class="brand-box">
+      <a href="index.html" class="back-link">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        返回 50 场景大厅
+      </a>
+      <div style="font-weight:800; font-size:15px; color:#F8FAFC;">
+        04-无人琴房-乐队排练室
+      </div>
+      <div class="brand-tag">
+        <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        声场 SoundStage 24H 真实复刻 · 0 Emoji · 去 AI 味
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="action-btn-sm" onclick="App.resetDemoData()">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        重置演示数据
+      </button>
+      <button class="action-btn-sm" onclick="App.switchTab(1)">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-6 4l3 3m5 0l-3-3m-3 3l-2-2M7 17l-5 5m0 0h4m-4 0v-4"/></svg>
+        直达开门中枢
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN WORKSPACE: PHONE SHELL + FEATURE INSPECTOR
+       ========================================================================== -->
+  <main class="workspace-wrapper">
+
+    <!-- 1. IPHONE 15 PRO MINI-PROGRAM SIMULATOR -->
+    <div class="phone-shell" id="phoneContainer">
+      
+      <!-- Dynamic Island -->
+      <div class="dynamic-island">
+        <div class="island-lens"></div>
+        <div class="island-sensor"></div>
+      </div>
+
+      <!-- Phone Status Bar -->
+      <div class="phone-status-bar">
+        <span id="statusBarClock">21:30</span>
+        <div class="status-icons">
+          <!-- Signal Icon -->
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01M7 20v-4M12 20v-8M17 20V4M22 20v-14"/></svg>
+          <!-- Wifi Icon -->
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          <!-- Battery Icon -->
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+        </div>
+      </div>
+
+      <!-- WeChat Mini-Program Nav Bar -->
+      <div class="mp-nav-bar">
+        <div class="mp-nav-store" onclick="App.openStoreDrawer()">
+          <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="currentStoreTitle">798 迷幻声场旗舰店</span>
+          <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+
+        <div class="wechat-capsule">
+          <div class="capsule-btn" onclick="App.triggerCapsuleMenu()">
+            <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </div>
+          <div class="capsule-divider"></div>
+          <div class="capsule-btn" onclick="App.triggerCapsuleClose()">
+            <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global Toast Notification inside Phone -->
+      <div class="toast-box" id="mpToast">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="toastMsg">提示信息</span>
+      </div>
+
+      <!-- Scrollable Mini-Program Content -->
+      <div class="mp-content" id="mpContent">
+        
+        <!-- ====================================================================
+             TAB 0: 房型选择与分时预订 (BOOKING)
+             ==================================================================== -->
+        <div class="pane active" id="pane-0">
+          
+          <!-- Store Hero Card -->
+          <div class="store-hero-card">
+            <div class="store-hero-title">
+              <span id="storeCardName">798 迷幻声场旗舰店</span>
+              <span class="badge badge-emerald">24H 自助排练</span>
+            </div>
+            <div class="store-hero-address">
+              <span id="storeCardAddress">北京市朝阳区酒仙桥路4号 798艺术区B03仓</span>
+              <button class="action-btn-sm" style="padding:2px 8px; font-size:10px;" onclick="App.copyStoreAddress()">
+                <svg class="icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                复制地址
+              </button>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="cat-scroll-box" id="catFilterBox">
+            <button class="cat-pill active" onclick="App.filterCategory('all', this)">全部房型</button>
+            <button class="cat-pill" onclick="App.filterCategory('large', this)">全编制大排练室</button>
+            <button class="cat-pill" onclick="App.filterCategory('rock', this)">摇滚经典房</button>
+            <button class="cat-pill" onclick="App.filterCategory('midi', this)">电声编曲棚</button>
+            <button class="cat-pill" onclick="App.filterCategory('piano', this)">静音钢琴房</button>
+          </div>
+
+          <!-- Room Selection Card List -->
+          <div id="roomCardList"></div>
+
+          <!-- 7-Day Horizontal Date Scroller -->
+          <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin:14px 0 6px; display:flex; align-items:center; justify-content:space-between;">
+            <span>选择预订日期</span>
+            <span class="badge badge-amber" id="selectedDateLabel">今天 (09-03)</span>
+          </div>
+          <div class="date-scroll-box" id="dateScrollBox"></div>
+
+          <!-- Hourly Time Slot Grid -->
+          <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin:10px 0 6px; display:flex; align-items:center; justify-content:space-between;">
+            <span>排练时段 (支持连续点选多小时)</span>
+            <span style="font-size:11px; color:var(--color-text-muted);">08:00 - 24:00</span>
+          </div>
+          <div class="slot-grid" id="slotGrid"></div>
+
+          <!-- Add-on Equipment Options -->
+          <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin:14px 0 8px;">附加器材选配 (按场次计费)</div>
+          <div id="addonList"></div>
+
+          <!-- Fixed Bottom Booking Action Bar -->
+          <div class="booking-summary-bar">
+            <div>
+              <div style="font-size:10px; color:var(--color-text-muted);">已选时长: <span id="summaryDuration" style="color:var(--color-text-primary); font-weight:700;">2小时</span></div>
+              <div style="font-size:18px; font-weight:900; color:var(--color-accent-amber); font-family:var(--font-mono);">
+                ¥<span id="summaryPrice">345</span>
+                <span style="font-size:10px; font-weight:normal; color:var(--color-text-muted);">预估实付</span>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="App.openBookingConfirmModal()">
+              <span>立即预订</span>
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ====================================================================
+             TAB 1: 智能现场控制台 (SMART HUB)
+             ==================================================================== -->
+        <div class="pane" id="pane-1">
+          
+          <!-- Current Active Order Card -->
+          <div class="card" style="border:1.5px solid var(--color-accent-amber); background:#181E2B;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <span class="badge badge-amber" id="hubOrderBadge">正在使用中</span>
+                <div style="font-size:15px; font-weight:800; color:#FFF; margin-top:6px;" id="hubRoomName">A房·全编制大排练室 (45㎡)</div>
+                <div style="font-size:11px; color:var(--color-text-secondary); margin-top:3px;" id="hubTimeRange">今天 19:00 - 21:00 (2小时)</div>
+              </div>
+              <button class="action-btn-sm" style="font-size:11px;" onclick="App.openExtendModal()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                快速续钟
+              </button>
+            </div>
+            
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); font-size:11px;">
+              <span style="color:var(--color-text-muted);">倒计时:</span>
+              <span style="color:var(--color-accent-amber); font-weight:800; font-family:var(--font-mono); font-size:13px;" id="hubCountdown">剩余 52 分钟</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Door Passcode Card -->
+          <div class="door-passcode-box">
+            <div style="font-size:11px; font-weight:700; color:var(--color-text-secondary); letter-spacing:1px;">
+              6 位现场智能门禁密钥 (离线键盘直接输入)
+            </div>
+            <div class="passcode-digits" id="passcodeDisplay">839 214</div>
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:6px;">
+              <button class="action-btn-sm" onclick="App.copyPasscode()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                复制门禁码
+              </button>
+              <button class="action-btn-sm" onclick="App.refreshPasscode()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                重新刷新
+              </button>
+            </div>
+          </div>
+
+          <!-- Bluetooth / Cloud Unlock Big Button -->
+          <button class="btn-unlock-big" id="btnUnlock" onclick="App.triggerBluetoothUnlock()">
+            <svg class="icon" id="unlockIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span id="unlockLabel">点击蓝牙一键开门</span>
+          </button>
+
+          <!-- IoT Environmental Controls (Air Conditioner & Stage Lighting) -->
+          <div class="iot-grid">
+            <!-- AC Control -->
+            <div class="iot-tile">
+              <div>
+                <div style="font-size:11px; font-weight:700; color:var(--color-text-secondary); display:flex; align-items:center; gap:5px;">
+                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-cyan)" stroke-width="2"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+                  中央空调恒温
+                </div>
+                <div style="font-size:22px; font-weight:900; color:#FFF; margin-top:4px; font-family:var(--font-mono);">
+                  <span id="acTempDisplay">23</span>°C
+                </div>
+              </div>
+              <div class="temp-control-row">
+                <button class="temp-btn" onclick="App.adjustTemp(-1)">-</button>
+                <button class="temp-btn" onclick="App.adjustTemp(1)">+</button>
+                <button class="action-btn-sm" style="padding:4px 8px; font-size:10px;" id="btnAcMode" onclick="App.toggleAcMode()">制冷模式</button>
+              </div>
+            </div>
+
+            <!-- Decibel Sound Level Meter -->
+            <div class="iot-tile">
+              <div>
+                <div style="font-size:11px; font-weight:700; color:var(--color-text-secondary); display:flex; align-items:center; gap:5px;">
+                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  室内声压监测
+                </div>
+                <div style="font-size:22px; font-weight:900; color:var(--color-accent-amber); margin-top:4px; font-family:var(--font-mono);">
+                  <span id="decibelValue">92</span> <span style="font-size:12px; font-weight:normal; color:var(--color-text-muted);">dB</span>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:10px; color:var(--color-text-secondary);">排练中 · 声压合规</div>
+                <div class="meter-bar-track">
+                  <div class="meter-bar-fill" id="decibelBar" style="width: 72%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage Lighting Presets -->
+          <div class="card">
+            <div style="font-size:12px; font-weight:700; color:#CBD5E1; display:flex; align-items:center; gap:6px;">
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              排练室灯光情景预设
+            </div>
+            <div class="light-pill-grid">
+              <button class="light-btn" onclick="App.setLightMode('bright', this)">工作白光模式</button>
+              <button class="light-btn active" onclick="App.setLightMode('stage', this)">舞台演出聚光</button>
+              <button class="light-btn" onclick="App.setLightMode('rock', this)">低光暗调摇滚</button>
+              <button class="light-btn" onclick="App.setLightMode('sleep', this)">离场微光节能</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====================================================================
+             TAB 2: 录音资产与设备清单 (ASSETS & AUDIO)
+             ==================================================================== -->
+        <div class="pane" id="pane-2">
+          
+          <!-- Multi-track Audio Player Card -->
+          <div class="audio-player-card" id="audioCard">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <span class="badge badge-amber">X32 多轨直录工程</span>
+                <div style="font-size:14px; font-weight:800; color:#FFF; margin-top:4px;">
+                  Track 03 - 刺猬未命名 Demo (Rehearsal ver)
+                </div>
+                <div style="font-size:10px; color:var(--color-text-secondary); margin-top:2px;">
+                  格式: 24bit/48kHz WAV · 4分轨 (鼓组/吉他/贝斯/人声)
+                </div>
+              </div>
+              <span class="badge badge-emerald" id="audioStateBadge">就绪</span>
+            </div>
+
+            <!-- Animated Sound Waveform -->
+            <div class="waveform-box" id="waveformBox">
+              <div class="wave-bar" style="height: 25%;"></div>
+              <div class="wave-bar" style="height: 45%;"></div>
+              <div class="wave-bar" style="height: 80%;"></div>
+              <div class="wave-bar" style="height: 60%;"></div>
+              <div class="wave-bar" style="height: 95%;"></div>
+              <div class="wave-bar" style="height: 40%;"></div>
+              <div class="wave-bar" style="height: 70%;"></div>
+              <div class="wave-bar" style="height: 85%;"></div>
+              <div class="wave-bar" style="height: 50%;"></div>
+              <div class="wave-bar" style="height: 90%;"></div>
+              <div class="wave-bar" style="height: 65%;"></div>
+              <div class="wave-bar" style="height: 30%;"></div>
+              <div class="wave-bar" style="height: 75%;"></div>
+              <div class="wave-bar" style="height: 40%;"></div>
+              <div class="wave-bar" style="height: 60%;"></div>
+              <div class="wave-bar" style="height: 30%;"></div>
+            </div>
+
+            <!-- Audio Controls -->
+            <div class="audio-controls">
+              <div style="font-size:11px; color:var(--color-text-secondary); font-family:var(--font-mono);">
+                <span id="audioCurrentTime">01:24</span> / 04:36
+              </div>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button class="action-btn-sm" style="padding:6px 8px;" onclick="App.prevTrack()">
+                  <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+                </button>
+                <button class="play-btn-circle" id="btnPlayPause" onclick="App.toggleAudioPlay()">
+                  <svg class="icon" id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+                <button class="action-btn-sm" style="padding:6px 8px;" onclick="App.nextTrack()">
+                  <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Audio Stems Action Buttons -->
+            <div style="display:flex; gap:8px; margin-top:14px; border-top:1px solid rgba(255,255,255,0.06); padding-top:10px;">
+              <button class="action-btn-sm" style="flex:1; justify-content:center;" onclick="App.downloadStemsModal()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                下载分轨工程
+              </button>
+              <button class="action-btn-sm" style="flex:1; justify-content:center;" onclick="App.shareAudioModal()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                分享给乐队群
+              </button>
+            </div>
+          </div>
+
+          <!-- Studio Equipment Checklist & Report -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div style="font-size:13px; font-weight:800; color:#FFF;">当前房间固定设备清单</div>
+              <button class="action-btn-sm" style="font-size:11px;" onclick="App.openReportDrawer()">
+                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-rose)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                器材故障报修
+              </button>
+            </div>
+
+            <div style="font-size:11px; color:#CBD5E1; line-height:1.8;">
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:4px 0;">
+                <span>Marshall JCM2000 DSL100 箱头+箱体</span>
+                <span class="badge badge-emerald">工作正常</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:4px 0;">
+                <span>Fender '65 Twin Reverb 全管箱</span>
+                <span class="badge badge-emerald">工作正常</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:4px 0;">
+                <span>Ampeg SVT-4PRO 贝斯分体 (810E箱体)</span>
+                <span class="badge badge-emerald">工作正常</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:4px 0;">
+                <span>DW Collector's 5鼓套件 + 9000踩槌</span>
+                <span class="badge badge-emerald">工作正常</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:4px 0;">
+                <span>Behringer X32 数字调音台 + 4路监听</span>
+                <span class="badge badge-emerald">工作正常</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====================================================================
+             TAB 3: 乐手中心与乐队管理 (USER CENTER)
+             ==================================================================== -->
+        <div class="pane" id="pane-3">
+          
+          <!-- Profile Hero Card -->
+          <div class="profile-hero">
+            <div class="user-row">
+              <div class="avatar-box">阿</div>
+              <div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-size:15px; font-weight:800; color:#FFF;">阿伦</span>
+                  <span class="badge badge-amber">主理人乐手</span>
+                </div>
+                <div style="font-size:11px; color:var(--color-text-secondary); margin-top:2px;">
+                  迷航逃逸乐队 (Flight Escape) · 主音吉他
+                </div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div>
+                <div style="font-size:10px; color:var(--color-text-muted);">累计排练</div>
+                <div style="font-size:16px; font-weight:800; color:#FFF; font-family:var(--font-mono);">42.5 h</div>
+              </div>
+              <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+              <div>
+                <div style="font-size:10px; color:var(--color-text-muted);">乐队储值余额</div>
+                <div style="font-size:16px; font-weight:800; color:var(--color-accent-amber); font-family:var(--font-mono);" id="profileBalance">¥380.00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Grid Menu (All Clickable) -->
+          <div class="grid-menu">
+            <div class="menu-tile" onclick="App.openAaCalculatorDrawer()">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+              <span>乐队 AA 分摊</span>
+            </div>
+            <div class="menu-tile" onclick="App.openTopupModal()">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-emerald)" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <span>储值特惠充值</span>
+            </div>
+            <div class="menu-tile" onclick="App.openGuidelinesModal()">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-cyan)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span>24H 排练公约</span>
+            </div>
+            <div class="menu-tile" onclick="App.openSupportModal()">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>24H 店长热线</span>
+            </div>
+            <div class="menu-tile" onclick="App.openRefundModal()">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+              <span>退改签申请</span>
+            </div>
+            <div class="menu-tile" onclick="App.switchTab(0)">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span>再约新档期</span>
+            </div>
+          </div>
+
+          <!-- Orders List -->
+          <div style="font-size:13px; font-weight:800; color:#FFF; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <span>排练订单列表</span>
+            <span style="font-size:10px; color:var(--color-text-muted);">共 3 笔单据</span>
+          </div>
+          <div id="ordersList"></div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Mini-Program TabBar -->
+      <nav class="mp-tab-bar">
+        <div class="tab-item active" id="tab-0" onclick="App.switchTab(0)">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>预订排期</span>
+        </div>
+        <div class="tab-item" id="tab-1" onclick="App.switchTab(1)">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2l-2 2m-6 4l3 3m5 0l-3-3m-3 3l-2-2M7 17l-5 5m0 0h4m-4 0v-4"/></svg>
+          <span>智能现场</span>
+        </div>
+        <div class="tab-item" id="tab-2" onclick="App.switchTab(2)">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1"/></svg>
+          <span>录音资产</span>
+        </div>
+        <div class="tab-item" id="tab-3" onclick="App.switchTab(3)">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>乐手中心</span>
+        </div>
+      </nav>
+
+      <!-- Home Indicator -->
+      <div class="home-indicator"></div>
+
+      <!-- Center Modal Layer -->
+      <div class="modal-overlay" id="centerModal" onclick="App.closeModal(event)">
+        <div class="modal-card" id="modalCard" onclick="event.stopPropagation()">
+          <div style="font-size:15px; font-weight:800; color:#FFF; margin-bottom:8px;" id="modalTitle">弹窗标题</div>
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.6;" id="modalBody">弹窗内容</div>
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+            <button class="action-btn-sm" onclick="App.closeModal()">取消</button>
+            <button class="btn-primary" style="padding:6px 14px; font-size:12px;" id="modalConfirmBtn" onclick="App.handleModalConfirm()">确定</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Drawer / ActionSheet Layer -->
+      <div class="drawer-overlay" id="bottomDrawer" onclick="App.closeDrawer(event)">
+        <div class="drawer-card" id="drawerCard" onclick="event.stopPropagation()">
+          <div class="drawer-handle"></div>
+          <div style="font-size:15px; font-weight:800; color:#FFF; margin-bottom:12px;" id="drawerTitle">抽屉标题</div>
+          <div id="drawerBody">抽屉内容</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         2. SIDE FEATURE INSPECTOR & SCENARIO CONTROLLER (DESKTOP)
+         ========================================================================== -->
+    <div class="side-inspector">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:16px; font-weight:800; color:var(--color-accent-amber); display:flex; align-items:center; gap:8px;">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          交互控制台与全功能检视
+        </div>
+        <span class="badge badge-emerald">零死按钮 100% 可点</span>
+      </div>
+
+      <p style="font-size:12px; color:var(--color-text-secondary); margin-top:8px;">
+        本演示复刻了成熟一线无人排练室微信小程序的完整业务链路。去除了 AI 生成常见的紫粉色渐变与 Emoji，全面采用 Lucide SVG 图标与硬核暗调现场工业质感。
+      </p>
+
+      <!-- Quick Action Buttons -->
+      <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin:16px 0 8px;">快捷场景直达与触发:</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <button class="action-btn-sm" style="justify-content:center;" onclick="App.switchTab(0)">
+          1. 房型与时段选配
+        </button>
+        <button class="action-btn-sm" style="justify-content:center;" onclick="App.switchTab(1); App.triggerBluetoothUnlock();">
+          2. 现场蓝牙模拟开门
+        </button>
+        <button class="action-btn-sm" style="justify-content:center;" onclick="App.switchTab(2); App.toggleAudioPlay();">
+          3. 多轨排练录音试听
+        </button>
+        <button class="action-btn-sm" style="justify-content:center;" onclick="App.switchTab(3); App.openAaCalculatorDrawer();">
+          4. 乐队 AA 分摊计算
+        </button>
+      </div>
+
+      <!-- Realtime Interaction Terminal Log -->
+      <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin:16px 0 6px; display:flex; justify-content:space-between; align-items:center;">
+        <span>操作实时交互日志:</span>
+        <button class="action-btn-sm" style="padding:2px 8px; font-size:10px;" onclick="App.clearLog()">清空日志</button>
+      </div>
+      <div class="log-terminal" id="logTerminal">
+        [21:30:00] 系统启动: 声场 SoundStage 状态机 AppStore 就绪。<br>
+        [21:30:01] 房型数据装载完毕: 4 款专业排练室/琴房配置就绪。<br>
+        [21:30:02] 现场 IoT 模块连接: 智能门禁、空调恒温、灯光情景已联机。
+      </div>
+
+      <!-- Highlights List -->
+      <div style="background:var(--color-bg-subtle); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; font-size:11px; color:#CBD5E1; line-height:1.7;">
+        <b style="color:var(--color-accent-amber);">复刻标杆与去 AI 化亮点:</b><br>
+        • <b>0 Emoji 铁律</b>：杜绝任何表情符号，全面规范采用标准 Lucide SVG 矢量图标。<br>
+        • <b>全假数据拟真</b>：Marshall、Ampeg、Fender、DW 真实管箱与鼓组，STC 55dB 真实隔音指标。<br>
+        • <b>免支付闭环</b>：点击下单即刻模拟出单并生成 6 位门禁码与倒计时，零阻碍体验。<br>
+        • <b>乐手刚需</b>：内置动态分贝仪、多轨录音试听、乐队 AA 分摊计算器。
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       JAVASCRIPT APPLICATION STORE & INTERACTIVE CONTROLLERS
+       ========================================================================== */ -->
+  <script>
+    const App = {
+      // 1. GLOBAL STATE (APPSTORE)
+      store: {
+        currentTab: 0,
+        currentStoreIndex: 0,
+        stores: [
+          { id: '798', name: '798 迷幻声场旗舰店', address: '北京市朝阳区酒仙桥路4号 798艺术区B03仓' },
+          { id: 'wangjing', name: '望京 Livehouse 基地', address: '北京市朝阳区望京SOHO地下商业街 B2-08' },
+          { id: 'dongdaqiao', name: '东大桥地下声音仓库', address: '北京市朝阳区关东店北街19号地下空间' }
+        ],
+        categories: 'all',
+        rooms: [
+          {
+            id: 'room_a',
+            name: 'A房·全编制大排练室 (45㎡)',
+            category: 'large',
+            price: 150,
+            capacity: '5-8人乐队',
+            soundIsolation: 'STC 55dB 浮筑隔音',
+            specs: '双吉他分体 + Ampeg贝斯分体 + DW套鼓 + X32数字台',
+            gear: '箱头: Marshall JCM2000 DSL100 / Fender Twin Reverb\n贝斯: Ampeg SVT-4PRO + 810E\n鼓组: DW Collector\'s 5件套\n话筒: Shure SM58 无线*4'
+          },
+          {
+            id: 'room_b',
+            name: 'B房·摇滚经典排练室 (28㎡)',
+            category: 'rock',
+            price: 100,
+            capacity: '3-5人乐队',
+            soundIsolation: 'STC 50dB 专业隔音',
+            specs: 'Marshall JVM210H + Orange TH30 + Yamaha鼓组',
+            gear: '吉他: Marshall JVM210H + 1960A / Orange TH30\n贝斯: Ampeg BA210\n鼓组: Yamaha Tour Custom\n话筒: Shure SM58 有线*3'
+          },
+          {
+            id: 'room_c',
+            name: 'C房·电声编曲工作室 (18㎡)',
+            category: 'midi',
+            price: 65,
+            capacity: '2-3人小编制',
+            soundIsolation: 'STC 48dB 静音声学',
+            specs: 'Genelec 8030C 监听 + Nord Stage 3 舞台电钢琴',
+            gear: '监听: Genelec 8030C 双监听\n键盘: Nord Stage 3 88键全配重\n打击板: Roland SPD-SX\n声卡: Universal Audio Apollo Twin'
+          },
+          {
+            id: 'room_d',
+            name: 'D房·专业静音钢琴琴房 (12㎡)',
+            category: 'piano',
+            price: 45,
+            capacity: '1-2人练习/教学',
+            soundIsolation: 'STC 55dB 琴房隔音',
+            specs: 'Yamaha U3 经典原声立式钢琴 + 录音电容话筒',
+            gear: '钢琴: Yamaha U3 原声立式钢琴 (每周调律)\n辅助: 德国原装升降琴凳 / 手机多角度录播支架\n空调: 大金独立新风静音空调'
+          }
+        ],
+        selectedRoomId: 'room_a',
+        selectedDateIndex: 0,
+        selectedSlots: [19, 20], // 19:00, 20:00
+        addons: [
+          { id: 'stems', name: 'X32 多轨分轨工程直录 (WAV包)', price: 30, checked: true },
+          { id: 'mic_beta', name: '额外 Shure Beta 58A 超心形话筒', price: 15, checked: false },
+          { id: 'pick_pack', name: '乐手备用线材与拨片急救包', price: 10, checked: false },
+          { id: 'fender_guitar', name: 'Fender Stratocaster 借用', price: 25, checked: false }
+        ],
+        iot: {
+          passcode: '839214',
+          unlocked: false,
+          acTemp: 23,
+          acMode: 'cool',
+          lightMode: 'stage',
+          decibel: 92,
+          remainingMinutes: 52
+        },
+        audio: {
+          isPlaying: false,
+          currentTime: 84, // 01:24
+          timer: null
+        },
+        orders: [
+          {
+            id: 'ORD-20260903-8821',
+            roomName: 'A房·全编制大排练室 (45㎡)',
+            storeName: '798 迷幻声场旗舰店',
+            timeRange: '今天 19:00 - 21:00 (2小时)',
+            passcode: '839214',
+            price: 330,
+            status: 'active'
+          },
+          {
+            id: 'ORD-20260901-7650',
+            roomName: 'B房·摇滚经典排练室 (28㎡)',
+            storeName: '798 迷幻声场旗舰店',
+            timeRange: '前天 14:00 - 17:00 (3小时)',
+            passcode: '419082',
+            price: 300,
+            status: 'completed'
+          },
+          {
+            id: 'ORD-20260828-5520',
+            roomName: 'D房·专业静音钢琴琴房 (12㎡)',
+            storeName: '望京 Livehouse 基地',
+            timeRange: '08-28 10:00 - 12:00 (2小时)',
+            passcode: '673199',
+            price: 90,
+            status: 'completed'
+          }
+        ]
+      },
+
+      // 2. INIT FUNCTION
+      init: function() {
+        this.renderRooms();
+        this.renderDates();
+        this.renderSlots();
+        this.renderAddons();
+        this.renderOrders();
+        this.recalcPrice();
+        this.startDecibelSimulator();
+        this.log('应用初始化成功，当前激活 Tab: 0 (预订排期)');
+      },
+
+      // 3. LOG TERMINAL
+      log: function(msg) {
+        const term = document.getElementById('logTerminal');
+        if (!term) return;
+        const now = new Date();
+        const timeStr = String(now.getHours()).padStart(2,'0') + ':' + 
+                        String(now.getMinutes()).padStart(2,'0') + ':' + 
+                        String(now.getSeconds()).padStart(2,'0');
+        term.innerHTML += `<div>[${timeStr}] ${msg}</div>`;
+        term.scrollTop = term.scrollHeight;
+      },
+      clearLog: function() {
+        const term = document.getElementById('logTerminal');
+        if (term) term.innerHTML = '<div>[系统日志已清空]</div>';
+      },
+
+      // 4. TOAST HELPER
+      toast: function(msg) {
+        const toast = document.getElementById('mpToast');
+        const text = document.getElementById('toastMsg');
+        if (!toast || !text) return;
+        text.innerText = msg;
+        toast.classList.add('show');
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2200);
+      },
+
+      // 5. TAB SWITCHER
+      switchTab: function(idx) {
+        this.store.currentTab = idx;
+        document.querySelectorAll('.mp-tab-bar .tab-item').forEach((item, i) => {
+          item.classList.toggle('active', i === idx);
+        });
+        document.querySelectorAll('.mp-content .pane').forEach((pane, i) => {
+          pane.classList.toggle('active', i === idx);
+        });
+        const tabNames = ['房型预订', '智能现场', '录音资产', '乐手中心'];
+        this.log(`切换至底部导航: [${tabNames[idx]}]`);
+        // Scroll to top
+        document.getElementById('mpContent').scrollTop = 0;
+      },
+
+      // 6. CATEGORY FILTER
+      filterCategory: function(cat, btn) {
+        this.store.categories = cat;
+        document.querySelectorAll('#catFilterBox .cat-pill').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        this.renderRooms();
+        this.log(`过滤房型分类: [${cat}]`);
+      },
+
+      // 7. RENDER ROOMS
+      renderRooms: function() {
+        const container = document.getElementById('roomCardList');
+        if (!container) return;
+        const filtered = this.store.categories === 'all' 
+          ? this.store.rooms 
+          : this.store.rooms.filter(r => r.category === this.store.categories);
+        
+        container.innerHTML = filtered.map(room => {
+          const isSelected = room.id === this.store.selectedRoomId;
+          return `
+            <div class="room-item ${isSelected ? 'selected' : ''}" onclick="App.selectRoom('${room.id}')">
+              <div class="room-header">
+                <div>
+                  <div class="room-name">${room.name}</div>
+                  <div class="room-specs">
+                    <span class="badge badge-amber">${room.capacity}</span>
+                    <span class="badge badge-cyan">${room.soundIsolation}</span>
+                  </div>
+                </div>
+                <div class="badge ${isSelected ? 'badge-amber' : 'badge-emerald'}">
+                  ${isSelected ? '当前已选' : '空闲可约'}
+                </div>
+              </div>
+
+              <div class="room-gear-list">
+                ${room.gear.replace(/\n/g, '<br>')}
+              </div>
+
+              <div class="room-price-bar">
+                <div>
+                  <span class="price-num">¥${room.price}</span>
+                  <span style="font-size:10px; color:var(--color-text-muted);">/小时</span>
+                </div>
+                <button class="action-btn-sm" style="font-size:10px; padding:3px 10px; background:${isSelected ? 'var(--color-accent-amber)' : 'var(--color-bg-subtle)'}; color:${isSelected ? '#000' : 'var(--color-text-primary)'};">
+                  ${isSelected ? '已选此房' : '选择此房型'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      },
+
+      selectRoom: function(id) {
+        this.store.selectedRoomId = id;
+        this.renderRooms();
+        this.recalcPrice();
+        const room = this.store.rooms.find(r => r.id === id);
+        this.toast(`已选房型: ${room.name}`);
+        this.log(`选中房型: ${room.name}, 单价 ¥${room.price}/h`);
+      },
+
+      // 8. RENDER DATES
+      renderDates: function() {
+        const box = document.getElementById('dateScrollBox');
+        if (!box) return;
+        const days = ['今天', '明天', '周五', '周六', '周日', '周一', '周二'];
+        const dates = ['09-03', '09-04', '09-05', '09-06', '09-07', '09-08', '09-09'];
+        
+        box.innerHTML = days.map((d, i) => {
+          const isAct = i === this.store.selectedDateIndex;
+          return `
+            <div class="date-pill ${isAct ? 'active' : ''}" onclick="App.selectDate(${i}, '${d}', '${dates[i]}')">
+              <div class="date-pill-week">${d}</div>
+              <div class="date-pill-day">${dates[i]}</div>
+            </div>
+          `;
+        }).join('');
+      },
+
+      selectDate: function(idx, dayName, dateStr) {
+        this.store.selectedDateIndex = idx;
+        this.renderDates();
+        document.getElementById('selectedDateLabel').innerText = `${dayName} (${dateStr})`;
+        this.toast(`已切换日期: ${dayName} ${dateStr}`);
+        this.log(`切换预订日期: ${dayName} (${dateStr})`);
+      },
+
+      // 9. RENDER TIME SLOTS
+      renderSlots: function() {
+        const grid = document.getElementById('slotGrid');
+        if (!grid) return;
+        // 08:00 to 23:00 (16 slots)
+        const occupied = [10, 14, 15, 22]; // Mock booked hours
+        let html = '';
+        for (let h = 8; h <= 23; h++) {
+          const slotStr = `${String(h).padStart(2,'0')}:00`;
+          const isOccupied = occupied.includes(h);
+          const isSelected = this.store.selectedSlots.includes(h);
+          html += `
+            <button class="slot-btn ${isOccupied ? 'disabled' : ''} ${isSelected ? 'selected' : ''}" 
+                    onclick="App.toggleSlot(${h})">
+              ${slotStr}
+              <div style="font-size:9px; font-weight:normal; margin-top:1px;">
+                ${isOccupied ? '已被约' : (isSelected ? '已选' : '空闲')}
+              </div>
+            </button>
+          `;
+        }
+        grid.innerHTML = html;
+      },
+
+      toggleSlot: function(hour) {
+        if ([10, 14, 15, 22].includes(hour)) {
+          this.toast('该时段已被其他乐队预订');
+          return;
+        }
+        const idx = this.store.selectedSlots.indexOf(hour);
+        if (idx > -1) {
+          if (this.store.selectedSlots.length <= 1) {
+            this.toast('至少保留 1 小时排练时段');
+            return;
+          }
+          this.store.selectedSlots.splice(idx, 1);
+        } else {
+          this.store.selectedSlots.push(hour);
+          this.store.selectedSlots.sort((a,b) => a - b);
+        }
+        this.renderSlots();
+        this.recalcPrice();
+        this.log(`更新时段: 选中 ${this.store.selectedSlots.length} 个小时时段 [${this.store.selectedSlots.map(h => h + ':00').join(', ')}]`);
+      },
+
+      // 10. RENDER ADDONS
+      renderAddons: function() {
+        const box = document.getElementById('addonList');
+        if (!box) return;
+        box.innerHTML = this.store.addons.map((a, i) => {
+          return `
+            <div class="addon-item ${a.checked ? 'checked' : ''}" onclick="App.toggleAddon(${i})">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" ${a.checked ? 'checked' : ''} style="accent-color:var(--color-accent-amber); cursor:pointer;" onclick="event.stopPropagation(); App.toggleAddon(${i})">
+                <span style="font-size:11px; font-weight:600; color:#CBD5E1;">${a.name}</span>
+              </div>
+              <span style="font-size:12px; font-weight:800; color:var(--color-accent-amber); font-family:var(--font-mono);">+¥${a.price}</span>
+            </div>
+          `;
+        }).join('');
+      },
+
+      toggleAddon: function(idx) {
+        this.store.addons[idx].checked = !this.store.addons[idx].checked;
+        this.renderAddons();
+        this.recalcPrice();
+        this.log(`切换器材选配: ${this.store.addons[idx].name} -> ${this.store.addons[idx].checked ? '已加选' : '已取消'}`);
+      },
+
+      // 11. RECALCULATE PRICE
+      recalcPrice: function() {
+        const room = this.store.rooms.find(r => r.id === this.store.selectedRoomId);
+        const hours = this.store.selectedSlots.length;
+        const roomTotal = room.price * hours;
+        let addonTotal = 0;
+        this.store.addons.forEach(a => {
+          if (a.checked) addonTotal += a.price;
+        });
+        const finalPrice = roomTotal + addonTotal;
+
+        const durEl = document.getElementById('summaryDuration');
+        const priceEl = document.getElementById('summaryPrice');
+        if (durEl) durEl.innerText = `${hours}小时`;
+        if (priceEl) priceEl.innerText = finalPrice;
+      },
+
+      // 12. STORE SELECTOR DRAWER
+      openStoreDrawer: function() {
+        const title = '切换排练室门店';
+        const body = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            ${this.store.stores.map((s, idx) => `
+              <div class="card" style="margin:0; cursor:pointer; border-color:${idx === this.store.currentStoreIndex ? 'var(--color-accent-amber)' : 'var(--color-border)'}" onclick="App.chooseStore(${idx})">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <b style="color:#FFF; font-size:13px;">${s.name}</b>
+                  ${idx === this.store.currentStoreIndex ? '<span class="badge badge-amber">当前所选</span>' : ''}
+                </div>
+                <div style="font-size:11px; color:var(--color-text-secondary); margin-top:4px;">${s.address}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        this.openDrawer(title, body);
+        this.log('打开门店选择抽屉');
+      },
+
+      chooseStore: function(idx) {
+        this.store.currentStoreIndex = idx;
+        const s = this.store.stores[idx];
+        document.getElementById('currentStoreTitle').innerText = s.name;
+        document.getElementById('storeCardName').innerText = s.name;
+        document.getElementById('storeCardAddress').innerText = s.address;
+        this.closeDrawer();
+        this.toast(`已切换至: ${s.name}`);
+        this.log(`切换门店成功: ${s.name}`);
+      },
+
+      copyStoreAddress: function() {
+        const addr = this.store.stores[this.store.currentStoreIndex].address;
+        this.toast('门店详细地址已复制');
+        this.log(`复制门店地址: ${addr}`);
+      },
+
+      // 13. BOOKING CONFIRMATION MODAL
+      openBookingConfirmModal: function() {
+        const room = this.store.rooms.find(r => r.id === this.store.selectedRoomId);
+        const hours = this.store.selectedSlots.length;
+        const price = document.getElementById('summaryPrice').innerText;
+        const slotText = `${this.store.selectedSlots[0]}:00 - ${this.store.selectedSlots[this.store.selectedSlots.length - 1] + 1}:00`;
+
+        const title = '确认排练预约单 (免支付模拟)';
+        const body = `
+          <div style="background:var(--color-bg-panel); border:1px solid var(--color-border); border-radius:8px; padding:10px; margin-bottom:12px; font-size:12px; line-height:1.7;">
+            <div><b>预订房型:</b> ${room.name}</div>
+            <div><b>排练时段:</b> 今天 ${slotText} (${hours}小时)</div>
+            <div><b>所选门店:</b> ${this.store.stores[this.store.currentStoreIndex].name}</div>
+            <div><b>合计金额:</b> <span style="color:var(--color-accent-amber); font-weight:800; font-family:var(--font-mono);">¥${price}</span> (展示模式 · 无需真实支付)</div>
+          </div>
+          <div style="font-size:11px; color:var(--color-text-secondary);">
+            点击确认后系统将立即下发 6 位智能动态门禁码，并在现场总控台激活设备通电权限。
+          </div>
+        `;
+
+        this.openModal(title, body, () => {
+          this.executeBookingOrder(room.name, slotText, hours, price);
+        });
+        this.log('唤起预约确认结算弹窗');
+      },
+
+      executeBookingOrder: function(roomName, slotText, hours, price) {
+        const newOrderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+        const newPasscode = String(Math.floor(100000 + Math.random() * 900000));
+        
+        // Add to orders
+        this.store.orders.unshift({
+          id: newOrderId,
+          roomName: roomName,
+          storeName: this.store.stores[this.store.currentStoreIndex].name,
+          timeRange: `今天 ${slotText} (${hours}小时)`,
+          passcode: newPasscode,
+          price: Number(price),
+          status: 'active'
+        });
+
+        // Update hub state
+        this.store.iot.passcode = newPasscode;
+        document.getElementById('passcodeDisplay').innerText = newPasscode.slice(0,3) + ' ' + newPasscode.slice(3);
+        document.getElementById('hubRoomName').innerText = roomName;
+        document.getElementById('hubTimeRange').innerText = `今天 ${slotText} (${hours}小时)`;
+        document.getElementById('hubCountdown').innerText = `剩余 ${hours * 60} 分钟`;
+
+        this.renderOrders();
+        this.closeModal();
+        this.toast('预约成功！已自动下发门禁密码');
+        this.log(`订单创建成功: 单号 #${newOrderId}, 门禁码 [${newPasscode}], 实付 ¥${price}`);
+        
+        // Auto switch to Tab 1 (Smart Hub)
+        setTimeout(() => {
+          this.switchTab(1);
+        }, 400);
+      },
+
+      // 14. IOT & PASSCODE ACTIONS
+      copyPasscode: function() {
+        const code = this.store.iot.passcode;
+        this.toast(`门禁码 ${code} 已复制`);
+        this.log(`复制门禁码 [${code}]，可在门口物理密码锁直接输入 #${code}#`);
+      },
+
+      refreshPasscode: function() {
+        const newCode = String(Math.floor(100000 + Math.random() * 900000));
+        this.store.iot.passcode = newCode;
+        document.getElementById('passcodeDisplay').innerText = newCode.slice(0,3) + ' ' + newCode.slice(3);
+        this.toast('已重新生成动态门禁码');
+        this.log(`动态刷新门禁凭证，新密码为: [${newCode}]`);
+      },
+
+      triggerBluetoothUnlock: function() {
+        const btn = document.getElementById('btnUnlock');
+        const icon = document.getElementById('unlockIcon');
+        const label = document.getElementById('unlockLabel');
+        if (!btn) return;
+
+        label.innerText = '正在向门禁主机通讯...';
+        btn.style.opacity = '0.7';
+        this.log('发起蓝牙脉冲开门指令，验证当前预约权限...');
+
+        setTimeout(() => {
+          btn.style.opacity = '1';
+          btn.classList.add('unlocked');
+          label.innerText = '门锁已解开 · 欢迎排练 (点击再开)';
+          icon.innerHTML = '<path d="M7 11V7a5 5 0 0 1 9.9-1"/><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>';
+          this.toast('门锁已解开 (蜂鸣声响起)');
+          this.log('门锁状态变更: [已释放]，排练室电源排插已开启正常供电');
+        }, 600);
+      },
+
+      adjustTemp: function(delta) {
+        let temp = this.store.iot.acTemp + delta;
+        if (temp < 18) temp = 18;
+        if (temp > 30) temp = 30;
+        this.store.iot.acTemp = temp;
+        document.getElementById('acTempDisplay').innerText = temp;
+        this.toast(`空调温度已设定为 ${temp}°C`);
+        this.log(`室内温度调节: ${temp}°C`);
+      },
+
+      toggleAcMode: function() {
+        const isCool = this.store.iot.acMode === 'cool';
+        this.store.iot.acMode = isCool ? 'fan' : 'cool';
+        const label = isCool ? '新风送风' : '制冷模式';
+        document.getElementById('btnAcMode').innerText = label;
+        this.toast(`空调模式已切换为: ${label}`);
+        this.log(`空调模式切换: [${label}]`);
+      },
+
+      setLightMode: function(mode, btn) {
+        this.store.iot.lightMode = mode;
+        document.querySelectorAll('.light-pill-grid .light-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        const map = {
+          'bright': '工作白光模式 (全亮调音)',
+          'stage': '舞台演出聚光 (沉浸Live氛围)',
+          'rock': '低光暗调摇滚 (霓虹轮廓)',
+          'sleep': '离场微光节能 (待机休眠)'
+        };
+        this.toast(`灯光已切换: ${map[mode]}`);
+        this.log(`灯光调光器场景切换: [${map[mode]}]`);
+      },
+
+      startDecibelSimulator: function() {
+        setInterval(() => {
+          if (this.store.currentTab === 1) {
+            // Fluctuate decibel between 88 and 97 dB
+            const db = 88 + Math.floor(Math.random() * 10);
+            this.store.iot.decibel = db;
+            const valEl = document.getElementById('decibelValue');
+            const barEl = document.getElementById('decibelBar');
+            if (valEl) valEl.innerText = db;
+            if (barEl) barEl.style.width = `${Math.min(100, Math.round((db / 110) * 100))}%`;
+          }
+        }, 900);
+      },
+
+      openExtendModal: function() {
+        const title = '排练时段快速续钟';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.7;">
+            当前预约将在 52 分钟后到期，下一时段该房间处于空闲状态。<br>
+            是否加订 <b>1 小时续钟</b> (¥150)？
+          </div>
+        `;
+        this.openModal(title, body, () => {
+          this.store.iot.remainingMinutes += 60;
+          document.getElementById('hubCountdown').innerText = `剩余 ${this.store.iot.remainingMinutes} 分钟`;
+          this.closeModal();
+          this.toast('续钟成功！排练倒计时增加 60 分钟');
+          this.log('排练时长快速续单: +60分钟，倒计时同步延长');
+        });
+      },
+
+      // 15. AUDIO PLAYER
+      toggleAudioPlay: function() {
+        this.store.audio.isPlaying = !this.store.audio.isPlaying;
+        const card = document.getElementById('audioCard');
+        const icon = document.getElementById('playIcon');
+        const badge = document.getElementById('audioStateBadge');
+
+        if (this.store.audio.isPlaying) {
+          card.classList.add('playing');
+          badge.innerText = '播放中';
+          badge.className = 'badge badge-amber';
+          icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+          this.toast('开始试听多轨排练录音');
+          this.log('录音工程模拟播放: Track 03 - 刺猬未命名 Demo');
+
+          // Timer ticker
+          clearInterval(this.store.audio.timer);
+          this.store.audio.timer = setInterval(() => {
+            this.store.audio.currentTime++;
+            if (this.store.audio.currentTime > 276) this.store.audio.currentTime = 0;
+            const min = Math.floor(this.store.audio.currentTime / 60);
+            const sec = this.store.audio.currentTime % 60;
+            document.getElementById('audioCurrentTime').innerText = 
+              `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+          }, 1000);
+        } else {
+          card.classList.remove('playing');
+          badge.innerText = '已暂停';
+          badge.className = 'badge badge-cyan';
+          icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+          clearInterval(this.store.audio.timer);
+          this.toast('录音试听已暂停');
+          this.log('录音试听暂停');
+        }
+      },
+
+      prevTrack: function() {
+        this.store.audio.currentTime = 0;
+        document.getElementById('audioCurrentTime').innerText = '00:00';
+        this.toast('切换至上一首排练音频');
+        this.log('切换音频 Track - 02');
+      },
+
+      nextTrack: function() {
+        this.store.audio.currentTime = 0;
+        document.getElementById('audioCurrentTime').innerText = '00:00';
+        this.toast('切换至下一首排练音频');
+        this.log('切换音频 Track - 04');
+      },
+
+      downloadStemsModal: function() {
+        const title = '下载多通道分轨工程包';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.7;">
+            工程名称: <b>Track_03_Hedgehog_Demo_Stems.zip</b> (186 MB)<br>
+            分轨规格: 24bit/48kHz 原生数字母带<br>
+            通道清单: 鼓组分轨*4、吉他箱头*2、贝斯DI*1、主唱话筒*1。<br><br>
+            <span style="color:var(--color-accent-amber);">模拟打包完成，已生成下载临时凭据。</span>
+          </div>
+        `;
+        this.openModal(title, body, () => {
+          this.closeModal();
+          this.toast('分轨工程链接已发送至预留邮箱');
+          this.log('生成多轨分轨工程下载链接 (24bit/48kHz WAV压缩包)');
+        });
+      },
+
+      shareAudioModal: function() {
+        const title = '分享排练 Demo 给乐队群';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.7;">
+            已生成乐队专属试听卡片：<br>
+            <b>《Track 03 - 刺猬未命名 Demo》</b><br>
+            排练房型: 798旗舰店 A房<br>
+            录制时间: 今天 19:45
+          </div>
+        `;
+        this.openModal(title, body, () => {
+          this.closeModal();
+          this.toast('已复制小程序试听卡片分享链接');
+          this.log('生成微信群试听卡片');
+        });
+      },
+
+      // 16. EQUIPMENT REPORT DRAWER
+      openReportDrawer: function() {
+        const title = '器材故障或异常报修';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.6;">
+            <p style="margin-bottom:8px;">请选择出现异常的现场设备:</p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="display:flex; align-items:center; gap:6px; background:var(--color-bg-panel); padding:8px; border-radius:6px; cursor:pointer;">
+                <input type="radio" name="reportDev" checked style="accent-color:var(--color-accent-amber)">
+                <span>Shure SM58 无线话筒 (啸叫或无声)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; background:var(--color-bg-panel); padding:8px; border-radius:6px; cursor:pointer;">
+                <input type="radio" name="reportDev" style="accent-color:var(--color-accent-amber)">
+                <span>Marshall JCM2000 箱头 (电子管杂音)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; background:var(--color-bg-panel); padding:8px; border-radius:6px; cursor:pointer;">
+                <input type="radio" name="reportDev" style="accent-color:var(--color-accent-amber)">
+                <span>DW 9000 踩槌/鼓凳 (机械松动)</span>
+              </label>
+            </div>
+            <button class="btn-primary" style="width:100%; margin-top:14px; justify-content:center;" onclick="App.submitReport()">
+              提交报修反馈
+            </button>
+          </div>
+        `;
+        this.openDrawer(title, body);
+        this.log('打开器材故障报修抽屉');
+      },
+
+      submitReport: function() {
+        this.closeDrawer();
+        this.toast('报修信息已直达 24H 店长手机');
+        this.log('提交设备报修反馈，店长已收到推送通知');
+      },
+
+      // 17. BAND AA CALCULATOR DRAWER (乐手刚需)
+      openAaCalculatorDrawer: function() {
+        const title = '乐队 AA 分摊计算器';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.6;">
+            <div style="background:var(--color-bg-panel); border:1px solid var(--color-border); border-radius:8px; padding:12px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span>排练总费用 (元):</span>
+                <input type="number" id="aaTotalInput" value="330" style="width:90px; background:#1C2230; border:1px solid var(--color-border); color:#FFF; padding:4px 8px; border-radius:4px; font-weight:800; font-family:var(--font-mono); text-align:right;" oninput="App.calcAa()">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span>分摊人数 (位乐手):</span>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <button class="temp-btn" style="width:26px; height:26px;" onclick="App.changeAaCount(-1)">-</button>
+                  <span id="aaCountDisplay" style="font-weight:800; font-family:var(--font-mono); width:20px; text-align:center;">4</span>
+                  <button class="temp-btn" style="width:26px; height:26px;" onclick="App.changeAaCount(1)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Per Person Result Card -->
+            <div style="background:rgba(245, 158, 11, 0.1); border:1.5px solid var(--color-accent-amber); border-radius:8px; padding:14px; text-align:center; margin-bottom:12px;">
+              <div style="font-size:11px; color:var(--color-text-secondary);">每位乐队成员应摊金额</div>
+              <div style="font-size:28px; font-weight:900; color:var(--color-accent-amber); font-family:var(--font-mono); margin:4px 0;">
+                ¥<span id="aaPerPerson">82.50</span>
+              </div>
+              <div style="font-size:10px; color:var(--color-text-muted);">已按四舍五入自动规整</div>
+            </div>
+
+            <button class="btn-primary" style="width:100%; justify-content:center;" onclick="App.copyAaText()">
+              一键复制 AA 收款账单文案
+            </button>
+          </div>
+        `;
+        this.openDrawer(title, body);
+        this.log('唤起乐队 AA 分摊计算器');
+      },
+
+      changeAaCount: function(delta) {
+        let count = parseInt(document.getElementById('aaCountDisplay').innerText) + delta;
+        if (count < 2) count = 2;
+        if (count > 10) count = 10;
+        document.getElementById('aaCountDisplay').innerText = count;
+        this.calcAa();
+      },
+
+      calcAa: function() {
+        const total = parseFloat(document.getElementById('aaTotalInput').value) || 0;
+        const count = parseInt(document.getElementById('aaCountDisplay').innerText) || 4;
+        const per = (total / count).toFixed(2);
+        document.getElementById('aaPerPerson').innerText = per;
+      },
+
+      copyAaText: function() {
+        const total = document.getElementById('aaTotalInput').value;
+        const count = document.getElementById('aaCountDisplay').innerText;
+        const per = document.getElementById('aaPerPerson').innerText;
+        const text = `【迷航逃逸乐队】今晚排练共消费 ¥${total}，共 ${count} 人均摊，每人 ¥${per}，大家请扫群收款码付款～`;
+        this.toast('AA 分摊文案已复制至剪贴板');
+        this.log(`复制 AA 分摊账单: ${text}`);
+      },
+
+      // 18. TOPUP & MEMBER MODALS
+      openTopupModal: function() {
+        const title = '琴房乐队储值特惠';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.6;">
+            <p style="margin-bottom:8px;">选择特惠充值包 (即充即赠):</p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div class="addon-item" style="margin:0; cursor:pointer;" onclick="App.doTopup(300, 50)">
+                <b>充 ¥300 送 ¥50</b>
+                <span class="badge badge-amber">赠额 16%</span>
+              </div>
+              <div class="addon-item checked" style="margin:0; cursor:pointer;" onclick="App.doTopup(500, 100)">
+                <b>充 ¥500 送 ¥100 (主理人推荐)</b>
+                <span class="badge badge-emerald">赠额 20%</span>
+              </div>
+              <div class="addon-item" style="margin:0; cursor:pointer;" onclick="App.doTopup(1000, 260)">
+                <b>充 ¥1000 送 ¥260 (通宵畅练卡)</b>
+                <span class="badge badge-cyan">赠额 26%</span>
+              </div>
+            </div>
+          </div>
+        `;
+        this.openModal(title, body);
+        this.log('唤起储值卡充值面板');
+      },
+
+      doTopup: function(pay, gift) {
+        this.closeModal();
+        const total = pay + gift;
+        this.toast(`充值成功！账户已到账 ¥${total}`);
+        document.getElementById('profileBalance').innerText = `¥${(380 + total).toFixed(2)}`;
+        this.log(`模拟余额充值: 支付 ¥${pay}, 赠送 ¥${gift}, 账户余额更新`);
+      },
+
+      openGuidelinesModal: function() {
+        const title = '声场 SoundStage 24H 排练公约';
+        const body = `
+          <div style="font-size:11px; color:#CBD5E1; line-height:1.8;">
+            1. <b>严禁吸烟与明火</b>: 排练室内布设高灵敏度烟感报警器，全场禁烟。<br>
+            2. <b>爱护全管箱与原声钢琴</b>: 管箱开机请先热管 1 分钟后开高压 Standby；严禁将含糖饮料置于音箱顶板。<br>
+            3. <b>文明离场</b>: 排练结束请将话筒放回架上、盘好连接线，带走垃圾。<br>
+            4. <b>退改规定</b>: 预约开始前 2 小时支持免费退订，不足 2 小时可改签后延。
+          </div>
+        `;
+        this.openModal(title, body);
+        this.log('查看排练公约说明');
+      },
+
+      openSupportModal: function() {
+        const title = '24H 驻店管家与应急支持';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.7;">
+            798旗舰店店长直通: <b>138-0010-8899</b><br>
+            微信客服响应: <b>soundstage_01</b><br>
+            夜间巡检值班: 24 小时 IoT 哨兵联动在岗。
+          </div>
+        `;
+        this.openModal(title, body, () => {
+          this.closeModal();
+          this.toast('已呼叫店长手机 (模拟拨打)');
+          this.log('发起店长应急电话呼叫');
+        });
+      },
+
+      openRefundModal: function() {
+        const title = '订单改签与退订申请';
+        const body = `
+          <div style="font-size:12px; color:#CBD5E1; line-height:1.7;">
+            当前可操作订单: <b>A房·全编制大排练室</b><br>
+            预约时段: 今天 19:00 - 21:00<br><br>
+            • <b>改签至明天相同时段</b> (免手续费)<br>
+            • <b>原路退款至乐队储值卡</b> (全额秒到账)
+          </div>
+        `;
+        this.openModal(title, body, () => {
+          this.closeModal();
+          this.toast('改签申请已受理，已为您顺延至明日');
+          this.log('提交订单改签申请');
+        });
+      },
+
+      // 19. RENDER ORDERS
+      renderOrders: function() {
+        const box = document.getElementById('ordersList');
+        if (!box) return;
+        box.innerHTML = this.store.orders.map(o => {
+          const isActive = o.status === 'active';
+          return `
+            <div class="card" style="margin-bottom:8px; border-left:3px solid ${isActive ? 'var(--color-accent-amber)' : '#475569'};">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:11px; font-weight:800; color:#FFF;">${o.id}</span>
+                <span class="badge ${isActive ? 'badge-amber' : 'badge-emerald'}">
+                  ${isActive ? '进行中' : '已完成'}
+                </span>
+              </div>
+              <div style="font-size:12px; font-weight:700; color:#CBD5E1; margin-top:4px;">${o.roomName}</div>
+              <div style="font-size:10px; color:var(--color-text-secondary); margin-top:2px;">${o.timeRange}</div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.05); font-size:11px;">
+                <span style="color:var(--color-accent-amber); font-weight:800; font-family:var(--font-mono);">¥${o.price}</span>
+                <div style="display:flex; gap:6px;">
+                  <button class="action-btn-sm" style="font-size:10px; padding:2px 8px;" onclick="App.showOrderPasscode('${o.passcode}', '${o.roomName}')">查看门禁码</button>
+                  <button class="action-btn-sm" style="font-size:10px; padding:2px 8px;" onclick="App.reorderRoom('${o.roomName}')">再来一单</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      },
+
+      showOrderPasscode: function(code, room) {
+        this.openModal(`门禁凭证 - ${room}`, `
+          <div style="text-align:center; padding:10px 0;">
+            <div style="font-size:11px; color:var(--color-text-secondary);">6位现场物理密码锁输入码</div>
+            <div style="font-size:32px; font-weight:900; color:var(--color-accent-amber); font-family:var(--font-mono); margin:8px 0; letter-spacing:6px;">
+              ${code}
+            </div>
+            <div style="font-size:10px; color:var(--color-text-muted);">有效期至排练时段结束</div>
+          </div>
+        `);
+        this.log(`查看订单门禁密钥: [${code}]`);
+      },
+
+      reorderRoom: function(roomName) {
+        this.switchTab(0);
+        this.toast(`已为您定位至 ${roomName} 档期`);
+        this.log(`再来一单快捷预约: ${roomName}`);
+      },
+
+      // 20. WECHAT CAPSULE SIMULATION
+      triggerCapsuleMenu: function() {
+        this.openDrawer('微信小程序快捷功能', `
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:12px;">
+            <div class="addon-item" onclick="App.closeDrawer(); App.toast('已添加到我的小程序桌面')">
+              <span>添加到桌面与我的小程序</span>
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="addon-item" onclick="App.closeDrawer(); App.toast('已生成琴房分享卡片')">
+              <span>转发给微信朋友/排练群</span>
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div class="addon-item" onclick="App.closeDrawer(); App.toast('已重新载入最新房态')">
+              <span>重新进入并刷新琴房状态</span>
+              <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+          </div>
+        `);
+        this.log('点击微信胶囊 [•••] 菜单');
+      },
+
+      triggerCapsuleClose: function() {
+        this.toast('点击了小程序胶囊关闭 ⊙');
+        this.log('点击微信胶囊 [⊙] 最小化');
+      },
+
+      // 21. MODAL & DRAWER ENGINE
+      openModal: function(title, content, onConfirm) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalBody').innerHTML = content;
+        document.getElementById('centerModal').classList.add('active');
+        this._modalConfirmCallback = onConfirm || null;
+      },
+      closeModal: function() {
+        document.getElementById('centerModal').classList.remove('active');
+      },
+      handleModalConfirm: function() {
+        if (typeof this._modalConfirmCallback === 'function') {
+          this._modalConfirmCallback();
+        } else {
+          this.closeModal();
+        }
+      },
+
+      openDrawer: function(title, content) {
+        document.getElementById('drawerTitle').innerText = title;
+        document.getElementById('drawerBody').innerHTML = content;
+        document.getElementById('bottomDrawer').classList.add('active');
+      },
+      closeDrawer: function() {
+        document.getElementById('bottomDrawer').classList.remove('active');
+      },
+
+      // 22. RESET DEMO DATA
+      resetDemoData: function() {
+        this.store.selectedSlots = [19, 20];
+        this.store.selectedRoomId = 'room_a';
+        this.store.iot.acTemp = 23;
+        this.store.iot.acMode = 'cool';
+        this.store.iot.lightMode = 'stage';
+        this.store.iot.unlocked = false;
+        this.init();
+        this.toast('演示数据已恢复初始状态');
+        this.log('数据重置完毕');
+      }
+    };
+
+    // Auto initialize on DOM ready
+    window.addEventListener('DOMContentLoaded', () => {
+      App.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>**领养平台 - 宠物相亲与领养平台</title>
+  <style>
+    /* ==========================================================================
+       Design Tokens & CSS Variables (严禁紫粉渐变，采用暖阳琥珀橙 + 森林健康青绿)
+       ========================================================================== */
+    :root {
+      --color-primary: #EA580C;
+      --color-primary-hover: #C2410C;
+      --color-primary-light: #FFF7ED;
+      --color-primary-border: #FFEDD5;
+
+      --color-secondary: #0D9488;
+      --color-secondary-light: #F0FDFA;
+      --color-secondary-border: #CCFBF1;
+
+      --color-bg-page: #F6F7F9;
+      --color-bg-card: #FFFFFF;
+      --color-bg-subtle: #F1F5F9;
+
+      --color-text-title: #0F172A;
+      --color-text-body: #334155;
+      --color-text-muted: #64748B;
+      --color-text-light: #94A3B8;
+
+      --color-border: #E2E8F0;
+      --color-border-hover: #CBD5E1;
+
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+      --shadow-toast: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #E2E8F0;
+      color: var(--color-text-title);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      overflow-x: hidden;
+    }
+
+    /* 微信小程序外部真机视口容器 (PC 居中，移动端全屏) */
+    .mp-container {
+      width: 100%;
+      max-width: 414px;
+      height: 860px;
+      background: var(--color-bg-page);
+      border-radius: 44px;
+      border: 10px solid #1E293B;
+      box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        background: var(--color-bg-page);
+      }
+      .mp-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    /* 状态栏 (iOS 微信标准) */
+    .status-bar {
+      height: 38px;
+      background: var(--color-bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      z-index: 50;
+      user-select: none;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-title);
+    }
+
+    /* 导航栏 (带微信原生胶囊按钮) */
+    .nav-bar {
+      height: 46px;
+      background: var(--color-bg-card);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .nav-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wechat-capsule {
+      background: rgba(0, 0, 0, 0.05);
+      border: 0.5px solid rgba(0, 0, 0, 0.12);
+      border-radius: var(--radius-pill);
+      height: 32px;
+      width: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 4px;
+    }
+    .capsule-btn {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-title);
+      cursor: pointer;
+      width: 36px;
+      height: 100%;
+      border-radius: var(--radius-pill);
+      transition: background 0.15s;
+    }
+    .capsule-btn:active {
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    /* 页面内容区域 */
+    .mp-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 14px 72px 14px;
+      scroll-behavior: smooth;
+    }
+    .mp-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Tab 面板 */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 卡片体系 */
+    .card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    /* 标签与 Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 7px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .badge-primary {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 0.5px solid var(--color-primary-border);
+    }
+    .badge-secondary {
+      background: var(--color-secondary-light);
+      color: var(--color-secondary);
+      border: 0.5px solid var(--color-secondary-border);
+    }
+    .badge-subtle {
+      background: var(--color-bg-subtle);
+      color: var(--color-text-muted);
+    }
+
+    /* 按钮规范 (全量可点击反馈) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+    .btn-primary:active {
+      background: var(--color-primary-hover);
+    }
+    .btn-secondary {
+      background: var(--color-secondary);
+      color: #FFFFFF;
+    }
+    .btn-outline {
+      background: #FFFFFF;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+    .btn-subtle {
+      background: var(--color-bg-subtle);
+      color: var(--color-text-body);
+    }
+    .btn-block {
+      width: 100%;
+    }
+
+    /* 底部导航 TabBar */
+    .tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: var(--color-bg-card);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 50;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--color-text-light);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.15s;
+      position: relative;
+    }
+    .tab-item.active {
+      color: var(--color-primary);
+    }
+    .tab-badge {
+      position: absolute;
+      top: 2px;
+      right: 22%;
+      width: 7px;
+      height: 7px;
+      background: #EF4444;
+      border-radius: 50%;
+    }
+
+    /* 快捷分类金刚区 */
+    .grid-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .grid-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 6px 2px;
+      border-radius: var(--radius-md);
+      transition: background 0.15s;
+    }
+    .grid-item:active {
+      background: var(--color-bg-subtle);
+    }
+    .grid-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-primary-border);
+    }
+    .grid-item:nth-child(2) .grid-icon-box {
+      background: #EFF6FF;
+      color: #2563EB;
+      border-color: #DBEAFE;
+    }
+    .grid-item:nth-child(3) .grid-icon-box {
+      background: var(--color-secondary-light);
+      color: var(--color-secondary);
+      border-color: var(--color-secondary-border);
+    }
+    .grid-item:nth-child(4) .grid-icon-box {
+      background: #FEF2F2;
+      color: #DC2626;
+      border-color: #FEE2E2;
+    }
+    .grid-item:nth-child(5) .grid-icon-box {
+      background: #FDF4FF;
+      color: #9333EA;
+      border-color: #F5D0FE;
+    }
+    .grid-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-body);
+    }
+
+    /* 筛选药丸条 */
+    .filter-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    .filter-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-chip {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-body);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .filter-chip.active {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* 宠物大卡片 */
+    .pet-card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pet-img-wrap {
+      position: relative;
+      height: 160px;
+      background: #CBD5E1;
+      overflow: hidden;
+    }
+    .pet-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pet-fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, color 0.15s;
+    }
+    .pet-fav-btn:active {
+      transform: scale(1.15);
+    }
+    .pet-fav-btn.liked {
+      color: #EF4444;
+      background: #FFFFFF;
+    }
+    .pet-card-body {
+      padding: 12px;
+    }
+    .pet-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .pet-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pet-org-row {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .pet-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .pet-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* 模态框与遮罩 */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-sheet {
+      width: 100%;
+      max-height: 85%;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .modal-overlay.open .modal-sheet {
+      transform: translateY(0);
+    }
+    .modal-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 50%;
+    }
+    .modal-body {
+      padding: 16px 18px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer {
+      padding: 12px 18px;
+      border-top: 1px solid var(--color-border);
+      background: #FFFFFF;
+    }
+
+    /* 表单控件体系 */
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-body);
+      margin-bottom: 6px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: #F8FAFC;
+      font-size: 13px;
+      color: var(--color-text-title);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--color-primary);
+      background: #FFFFFF;
+    }
+    .form-textarea {
+      resize: none;
+      height: 72px;
+    }
+    .form-radio-group {
+      display: flex;
+      gap: 10px;
+    }
+    .form-radio-btn {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: #F8FAFC;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-body);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .form-radio-btn.selected {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* 微信标准 Toast 提示 */
+    .toast-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(15, 23, 42, 0.88);
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-toast);
+      white-space: nowrap;
+    }
+    .toast-box.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* 焦点图轮播卡片 */
+    .banner-card {
+      background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+      border: 1px solid var(--color-primary-border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-text-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .banner-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-title);
+      margin: 3px 0;
+    }
+    .banner-sub {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* 相亲名片 */
+    .match-card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .match-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .match-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--color-primary-border);
+      background: #CBD5E1;
+    }
+    .match-info-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .match-info-owner {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 3px;
+    }
+
+    /* 进度时间轴 */
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 11px;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-border);
+    }
+    .timeline-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-bg-subtle);
+      color: var(--color-text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .timeline-item.done .timeline-dot {
+      background: var(--color-secondary-light);
+      color: var(--color-secondary);
+    }
+    .timeline-item.active .timeline-dot {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+
+    /* 个人中心列表 */
+    .menu-group {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-body);
+      transition: background 0.15s;
+    }
+    .menu-item:not(:last-child) {
+      border-bottom: 1px solid var(--color-border);
+    }
+    .menu-item:active {
+      background: var(--color-bg-subtle);
+    }
+    .menu-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Switch 开关控件 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #CBD5E1;
+      transition: .2s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px; width: 18px;
+      left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--color-primary);
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- 微信小程序手机真机视口容器 -->
+  <div class="mp-container">
+
+    <!-- 顶部状态栏 -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <div class="status-icons">
+        <!-- 信号 SVG -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
+        <!-- WiFi SVG -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <!-- 电池 SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- 小程序导航栏 (含微信标准胶囊按钮) -->
+    <div class="nav-bar">
+      <div class="nav-title" id="page-nav-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"/><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"/><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"/></svg>
+        <span>萌宠领养相亲</span>
+      </div>
+      <!-- 微信胶囊按钮 -->
+      <div class="wechat-capsule">
+        <button class="capsule-btn" title="小程序菜单" onclick="openWechatMenu()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        </button>
+        <div class="capsule-divider"></div>
+        <button class="capsule-btn" title="收起小程序" onclick="minimizeWechat()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 小程序主体内容区 -->
+    <div class="mp-content" id="mp-scroll-view">
+
+      <!-- ===================================================================
+           TAB 0: 免费领养大厅
+           =================================================================== -->
+      <div id="tab-pane-0" class="tab-pane active">
+
+        <!-- 公益焦点横幅 -->
+        <div class="banner-card">
+          <div>
+            <div class="banner-text-tag">公益领养季</div>
+            <div class="banner-title">用领养代替购买</div>
+            <div class="banner-sub">为流浪毛孩子寻找一生守护的家庭</div>
+          </div>
+          <button class="btn btn-primary" style="font-size:12px;padding:6px 12px;" onclick="openGuidelinesModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            领养必读
+          </button>
+        </div>
+
+        <!-- 快捷金刚区 -->
+        <div class="grid-nav">
+          <div class="grid-item" onclick="setAdoptionFilter('cat')">
+            <div class="grid-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.5 0 4.97-4.03 9-9 9s-9-4.03-9-9c0-1.26.43-2.43 1-3.5 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26z"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M10 16c.5.5 1.5.5 2 0 .5.5 1.5.5 2 0"/></svg>
+            </div>
+            <span class="grid-label">喵喵专区</span>
+          </div>
+          <div class="grid-item" onclick="setAdoptionFilter('dog')">
+            <div class="grid-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"/><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"/><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"/></svg>
+            </div>
+            <span class="grid-label">汪汪专区</span>
+          </div>
+          <div class="grid-item" onclick="setAdoptionFilter('special')">
+            <div class="grid-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <span class="grid-label">温顺小宠</span>
+          </div>
+          <div class="grid-item" onclick="setAdoptionFilter('urgent')">
+            <div class="grid-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <span class="grid-label">急寻新家</span>
+          </div>
+          <div class="grid-item" onclick="openPartnerHospitals()">
+            <div class="grid-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+            </div>
+            <span class="grid-label">合作医院</span>
+          </div>
+        </div>
+
+        <!-- 筛选药丸栏 -->
+        <div class="filter-scroll" id="adoption-filter-bar">
+          <button class="filter-chip active" onclick="setAdoptionFilter('all')">全部待领养</button>
+          <button class="filter-chip" onclick="setAdoptionFilter('cat')">猫咪</button>
+          <button class="filter-chip" onclick="setAdoptionFilter('dog')">狗狗</button>
+          <button class="filter-chip" onclick="setAdoptionFilter('neutered')">已绝育</button>
+          <button class="filter-chip" onclick="setAdoptionFilter('vaccinated')">已接种疫苗</button>
+          <button class="filter-chip" onclick="setAdoptionFilter('young')">1岁以内幼宠</button>
+        </div>
+
+        <!-- 宠物列表渲染容器 -->
+        <div id="adoption-card-list"></div>
+
+      </div>
+
+      <!-- ===================================================================
+           TAB 1: **相亲平台广场
+           =================================================================== -->
+      <div id="tab-pane-1" class="tab-pane">
+
+        <!-- 相亲说明横幅 -->
+        <div class="banner-card" style="background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%); border-color: var(--color-secondary-border);">
+          <div>
+            <div class="banner-text-tag" style="color: var(--color-secondary);">同城相亲角</div>
+            <div class="banner-title">萌宠品质交友</div>
+            <div class="banner-sub">文明寻玩伴 · 科学血统与健康认证</div>
+          </div>
+          <button class="btn btn-secondary" style="font-size:12px;padding:6px 12px;" onclick="openPartyModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            周末聚会
+          </button>
+        </div>
+
+        <!-- 筛选分类 -->
+        <div class="filter-scroll">
+          <button class="filter-chip active" onclick="setMatchFilter('all')">全部品种</button>
+          <button class="filter-chip" onclick="setMatchFilter('dog')">狗狗相亲</button>
+          <button class="filter-chip" onclick="setMatchFilter('cat')">猫咪相亲</button>
+          <button class="filter-chip" onclick="setMatchFilter('playmate')">纯找玩伴</button>
+          <button class="filter-chip" onclick="setMatchFilter('pedigree')">有血统凭证</button>
+        </div>
+
+        <!-- 相亲卡片容器 -->
+        <div id="match-card-list"></div>
+
+      </div>
+
+      <!-- ===================================================================
+           TAB 2: 送养与相亲发布中心
+           =================================================================== -->
+      <div id="tab-pane-2" class="tab-pane">
+
+        <div class="card" style="margin-bottom: 14px;">
+          <!-- 分段切换器 -->
+          <div style="display:flex; background:var(--color-bg-subtle); padding:3px; border-radius:var(--radius-md); margin-bottom:14px;">
+            <button id="pub-type-adopt" class="btn btn-primary" style="flex:1; padding:7px; font-size:12px;" onclick="switchPublishType('adopt')">发布送养信息</button>
+            <button id="pub-type-match" class="btn btn-subtle" style="flex:1; padding:7px; font-size:12px;" onclick="switchPublishType('match')">发布相亲档案</button>
+          </div>
+
+          <!-- 表单区 -->
+          <form id="publish-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">宠物昵称 (将自动进行脱敏展示)</label>
+              <input type="text" id="form-pet-name" class="form-input" placeholder="例如：豆**、团**" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">物种分类</label>
+              <div class="form-radio-group">
+                <div class="form-radio-btn selected" id="opt-species-cat" onclick="selectSpecies('猫咪')">猫咪</div>
+                <div class="form-radio-btn" id="opt-species-dog" onclick="selectSpecies('狗狗')">狗狗</div>
+                <div class="form-radio-btn" id="opt-species-other" onclick="selectSpecies('其他小宠')">其他小宠</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">详细品种与年龄</label>
+              <div style="display:flex; gap:10px;">
+                <input type="text" id="form-pet-breed" class="form-input" placeholder="例如：中华田园橘猫、柯基" style="flex:2;" required>
+                <select id="form-pet-age" class="form-select" style="flex:1;">
+                  <option value="3个月">3个月</option>
+                  <option value="6个月">6个月</option>
+                  <option value="1岁">1岁</option>
+                  <option value="2岁">2岁</option>
+                  <option value="3岁以上">3岁以上</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0;">
+              <div>
+                <div class="form-label" style="margin-bottom:2px;">是否已完成绝育</div>
+                <div style="font-size:11px; color:var(--color-text-muted);">科学绝育有助于伴侣动物健康寿命</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="form-pet-neutered" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-top:1px solid var(--color-border);">
+              <div>
+                <div class="form-label" style="margin-bottom:2px;">疫苗接种是否齐全</div>
+                <div style="font-size:11px; color:var(--color-text-muted);">需提供三联/狂犬疫苗健康本核验</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="form-pet-vaccinated" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">生活照上传模拟</label>
+              <div style="border:1.5px dashed var(--color-border); border-radius:var(--radius-md); padding:16px; text-align:center; background:#F8FAFC; cursor:pointer;" onclick="simulatePhotoUpload()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <div id="upload-hint-text" style="font-size:12px; color:var(--color-text-muted);">点击选择宠物实拍照 (已自动预置高保真照片)</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">领养/相亲寄语与期望要求</label>
+              <textarea id="form-pet-desc" class="form-textarea" placeholder="例如：性格极其温顺黏人，求一位爱猫懂科学喂养的家长，要求必须全屋封窗。"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">发布人称呼与联系方式 (系统已严格脱敏)</label>
+              <input type="text" class="form-input" value="赵*峰 (已实名) · 138****6789" disabled style="color:var(--color-text-muted); background:#F1F5F9;">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="padding:11px; font-size:14px; margin-top:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              提交发布审核
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================
+           TAB 3: 进度追踪与凭证
+           =================================================================== -->
+      <div id="tab-pane-3" class="tab-pane">
+
+        <!-- 顶部状态概览卡片 -->
+        <div class="card" style="background:var(--color-primary-light); border-color:var(--color-primary-border);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:11px; color:var(--color-primary); font-weight:700;">申请履约服务看板</div>
+              <div style="font-size:15px; font-weight:800; color:var(--color-text-title); margin-top:2px;">正在进行的领养进度 (2条)</div>
+            </div>
+            <button class="btn btn-outline" style="font-size:11px; padding:4px 10px; background:#FFF;" onclick="openAgreementModal()">
+              查看示范协议
+            </button>
+          </div>
+        </div>
+
+        <!-- 申请单 1: 待家访 -->
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--color-text-title);">申请领养：麻** (中华狸花猫)</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">申请单号：#AD-20260904-01 · XX救助基地救助基地</div>
+            </div>
+            <span class="badge badge-primary">家访预约中</span>
+          </div>
+
+          <div style="margin:12px 0; padding:10px; background:var(--color-bg-subtle); border-radius:var(--radius-md);">
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div style="font-size:11px; color:var(--color-text-body);"><b>提交领养问卷</b> (2026-09-02 10:15)</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-dot">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div style="font-size:11px; color:var(--color-text-body);"><b>救助专员初审通过</b> (2026-09-03 14:20)</div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-dot">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div style="font-size:11px; color:var(--color-primary); font-weight:700;"><b>安排义工上门家访</b> (预计明日 14:00)</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="contactVolunteer('张*华', '138****1234')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              联系家访义工
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:12px;" onclick="showHomeCheckDetail()">
+              查看家访准备指南
+            </button>
+          </div>
+        </div>
+
+        <!-- 申请单 2: 已完成并履约 -->
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--color-text-title);">已领养：团** (短毛橘白)</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">领养时间：2026-08-15 · 协议有效履约中</div>
+            </div>
+            <span class="badge badge-secondary">领养已达成</span>
+          </div>
+          <div style="font-size:12px; color:var(--color-text-body); line-height:1.6; margin-bottom:10px;">
+            您已连续打卡 2 次成长健康记录，距离下次定期回访还有 12 天。
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-secondary" style="flex:1; font-size:12px;" onclick="openCheckInDrawer()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              回访打卡上传
+            </button>
+            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="openAgreementModal()">
+              电子领养协议
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================
+           TAB 4: 个人中心与服务
+           =================================================================== -->
+      <div id="tab-pane-4" class="tab-pane">
+
+        <!-- 个人名片 -->
+        <div class="card" style="display:flex; align-items:center; gap:14px; padding:16px;">
+          <div style="width:52px; height:52px; border-radius:50%; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; border:2px solid var(--color-primary-border);">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:16px; font-weight:800; color:var(--color-text-title);">赵*峰</span>
+              <span class="badge badge-secondary" style="font-size:10px;">已实名认证</span>
+            </div>
+            <div style="font-size:12px; color:var(--color-text-muted); margin-top:2px;">手机：138****6789 · 爱心守护者</div>
+          </div>
+        </div>
+
+        <!-- 4 维统计看板 -->
+        <div class="card" style="padding:12px 6px;">
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); text-align:center;">
+            <div style="cursor:pointer;" onclick="switchMpTab(3)">
+              <div style="font-size:18px; font-weight:800; color:var(--color-primary);">2</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的申请</div>
+            </div>
+            <div style="cursor:pointer;" onclick="switchMpTab(2)">
+              <div style="font-size:18px; font-weight:800; color:var(--color-text-title);">1</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的发布</div>
+            </div>
+            <div style="cursor:pointer;" onclick="showMyFavorites()">
+              <div style="font-size:18px; font-weight:800; color:var(--color-text-title);" id="fav-count-display">3</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的收藏</div>
+            </div>
+            <div style="cursor:pointer;" onclick="openCheckInDrawer()">
+              <div style="font-size:18px; font-weight:800; color:var(--color-secondary);">6</div>
+              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">回访打卡</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 菜单列表 -->
+        <div class="menu-group">
+          <div class="menu-item" onclick="openGuidelinesModal()">
+            <div class="menu-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <span>平台领养公约与科学封窗规范</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-item" onclick="openPartnerHospitals()">
+            <div class="menu-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              <span>合作公益体检救助机构 (脱敏)</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-item" onclick="openFaqDrawer()">
+            <div class="menu-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>新手常见问答与辟谣</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="menu-item" onclick="openCustomerServiceModal()">
+            <div class="menu-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>爱心志愿者在线咨询</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 底部 TabBar 导航 (5 个经典微交互按钮) -->
+    <div class="tab-bar">
+      <div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>领养大厅</span>
+      </div>
+      <div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>**相亲平台</span>
+      </div>
+      <div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span>发布</span>
+      </div>
+      <div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
+        <div class="tab-badge"></div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>进度追踪</span>
+      </div>
+      <div class="tab-item" id="tab-btn-4" onclick="switchMpTab(4)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的</span>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         全局模态弹窗与底部抽屉 (全按钮闭环支持)
+         =================================================================== -->
+
+    <!-- 通用模态弹窗遮罩 -->
+    <div class="modal-overlay" id="global-modal" onclick="handleOverlayClick(event)">
+      <div class="modal-sheet" id="global-sheet">
+        <div class="modal-header">
+          <div class="modal-title" id="modal-title">详情</div>
+          <button class="modal-close" onclick="closeModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body-content"></div>
+        <div class="modal-footer" id="modal-footer-content"></div>
+      </div>
+    </div>
+
+    <!-- 轻提示 Toast -->
+    <div class="toast-box" id="mp-toast">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-text">操作成功</span>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================
+       交互逻辑与脱敏数据集 (Vanilla JS)
+       =================================================================== -->
+  <script>
+    // 宠物领养脱敏数据集
+    let adoptionList = [
+      {
+        id: 'p1',
+        name: '豆**',
+        category: 'cat',
+        breed: '中华田园短毛橘猫',
+        age: '8个月',
+        gender: '公',
+        neutered: true,
+        vaccinated: true,
+        urgent: true,
+        org: 'XX救助基地救助基地',
+        rescuer: '林*女士 (138****5678)',
+        tags: ['已绝育', '疫苗齐全', '性格黏人', '会用猫砂'],
+        story: '于XX市XX区XX社区救助，性格非常亲人，喜欢踩奶呼噜，体检各项健康指标均正常。',
+        requirements: '科学喂养进口/天然粮，全屋封窗封阳台，定期拍摄小视频回访，谢绝合租与宿舍饲养。',
+        img: 'https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=600&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'p2',
+        name: '奥**',
+        category: 'dog',
+        breed: '柯基犬 (混血)',
+        age: '1岁2个月',
+        gender: '母',
+        neutered: true,
+        vaccinated: true,
+        urgent: false,
+        org: 'XX领养中心领养中心',
+        rescuer: '陈*医生 (139****4321)',
+        tags: ['已免疫', '亲人温顺', '已驱虫', '已定点如厕'],
+        story: '性格活泼开朗，散步随行好，不护食不乱吠，希望找一个有爱心、有遛狗时间的家庭。',
+        requirements: '按时接种狂犬疫苗，出门牵引绳不离手，有稳定住所及家人同意，接受不定期义工回访。',
+        img: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'p3',
+        name: '咪**',
+        category: 'cat',
+        breed: '三花猫',
+        age: '4个月',
+        gender: '母',
+        neutered: false,
+        vaccinated: true,
+        urgent: true,
+        org: '市伴侣动物***保护协会',
+        rescuer: '张*华 义工 (137****9912)',
+        tags: ['幼猫亲人', '已接种第一针', '体检健康'],
+        story: '大雨天在路边绿化带被救助，眼睛大而灵动，喜欢依偎在人身边睡觉，非常聪明。',
+        requirements: '需在满 6 月龄时按平台公约完成绝育手术，居住地必须安装防坠金刚纱窗。',
+        img: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'p4',
+        name: '布**',
+        category: 'special',
+        breed: '垂耳兔 (白灰色)',
+        age: '6个月',
+        gender: '公',
+        neutered: true,
+        vaccinated: true,
+        urgent: false,
+        org: '小爪关爱***领养驿站',
+        rescuer: '周*义工 (186****7730)',
+        tags: ['温顺安静', '无异味', '习惯吃草'],
+        story: '性格温驯亲和，日常以提摩西草为主食，已做健康排查，寻找懂兔兔生活习性的耐心中意家长。',
+        requirements: '具备专业兔笼或散养安全区域，了解草粮配比与饮用水健康，不笼养虐待。',
+        img: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=600&auto=format&fit=crop&q=80'
+      }
+    ];
+
+    // 相亲脱敏数据集
+    let matchList = [
+      {
+        id: 'm1',
+        name: '球**',
+        category: 'dog',
+        breed: '纯种边境牧羊犬',
+        age: '2岁',
+        gender: '帅哥',
+        owner: '王*生 (135****6688)',
+        tags: ['血统证书已核验', '飞盘达人', '未绝育', '疫苗齐全'],
+        desc: '智商极高，性格温和，寻找同城体型匀称的健康伴侣，可纯做玩伴或科学相亲。',
+        img: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=600&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'm2',
+        name: '汤**',
+        category: 'cat',
+        breed: '英短蓝白折耳 (立耳繁育)',
+        age: '1岁半',
+        gender: '美眉',
+        owner: '李*女士 (159****2233)',
+        tags: ['血统纯正', '性格如狗温顺', '疫苗齐全'],
+        desc: '圆脸大眼睛，每天呼噜声不断，性格极其粘人，希望认识朝阳区附近温和的猫友家庭。',
+        img: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600&auto=format&fit=crop&q=80'
+      },
+      {
+        id: 'm3',
+        name: '奶**',
+        category: 'dog',
+        breed: '法国斗牛犬 (奶油色)',
+        age: '2岁半',
+        gender: '帅哥',
+        owner: '宋*先生 (131****8890)',
+        tags: ['纯找玩伴', '已绝育', '社交天花板'],
+        desc: '性格敦厚老实，从不吵闹，寻找周末一起在宠物乐园奔跑的好朋友。',
+        img: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80'
+      }
+    ];
+
+    // 用户收藏状态 Set
+    let favorites = new Set(['p1', 'm2']);
+    let currentAdoptFilter = 'all';
+    let currentMatchFilter = 'all';
+
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAdoptionList();
+      renderMatchList();
+      updateFavoriteCount();
+    });
+
+    // 切换 Tab 面板
+    function switchMpTab(tabIdx) {
+      document.querySelectorAll('.tab-pane').forEach((pane, idx) => {
+        pane.classList.toggle('active', idx === tabIdx);
+      });
+      document.querySelectorAll('.tab-bar .tab-item').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === tabIdx);
+      });
+
+      const navTitles = ['萌宠领养大厅', '同城**相亲平台广场', '发布中心', '申请追踪与看板', '个人中心'];
+      const titleElem = document.querySelector('#page-nav-title span');
+      if (titleElem) titleElem.textContent = navTitles[tabIdx];
+
+      // 回滚到顶部
+      const scrollView = document.getElementById('mp-scroll-view');
+      if (scrollView) scrollView.scrollTop = 0;
+    }
+
+    // 渲染待领养列表
+    function renderAdoptionList() {
+      const container = document.getElementById('adoption-card-list');
+      if (!container) return;
+
+      let filtered = adoptionList.filter(item => {
+        if (currentAdoptFilter === 'all') return true;
+        if (currentAdoptFilter === 'cat') return item.category === 'cat';
+        if (currentAdoptFilter === 'dog') return item.category === 'dog';
+        if (currentAdoptFilter === 'special') return item.category === 'special';
+        if (currentAdoptFilter === 'urgent') return item.urgent;
+        if (currentAdoptFilter === 'neutered') return item.neutered;
+        if (currentAdoptFilter === 'vaccinated') return item.vaccinated;
+        if (currentAdoptFilter === 'young') return item.age.includes('月') || item.age === '1岁';
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:30px 10px; color:var(--color-text-muted);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5" style="margin:0 auto 8px;"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <div style="font-size:13px;">暂无该分类下的待领养毛孩子</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(pet => {
+        const isFav = favorites.has(pet.id);
+        return `
+          <div class="pet-card">
+            <div class="pet-img-wrap">
+              <img src="${pet.img}" alt="${pet.name}" class="pet-img" onerror="this.src='https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=600&auto=format&fit=crop&q=80'">
+              <button class="pet-fav-btn ${isFav ? 'liked' : ''}" title="收藏" onclick="toggleFavorite('${pet.id}', event)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+            </div>
+            <div class="pet-card-body">
+              <div class="pet-title-row">
+                <div class="pet-name">
+                  <span>${pet.name}</span>
+                  <span class="badge ${pet.gender === '公' ? 'badge-primary' : 'badge-secondary'}" style="font-size:10px;">${pet.gender}</span>
+                  <span style="font-size:12px; font-weight:normal; color:var(--color-text-muted);">${pet.breed} · ${pet.age}</span>
+                </div>
+                ${pet.urgent ? '<span class="badge badge-primary" style="background:#FEF2F2; color:#DC2626; border-color:#FEE2E2;">加急寻家</span>' : ''}
+              </div>
+              <div class="pet-org-row">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>${pet.org}</span>
+              </div>
+              <div class="pet-tags">
+                ${pet.tags.map(t => `<span class="badge badge-subtle">${t}</span>`).join('')}
+              </div>
+              <div class="pet-card-actions">
+                <button class="btn btn-subtle" style="font-size:12px; padding:6px 12px;" onclick="openPetDetail('${pet.id}')">
+                  了解救助故事
+                </button>
+                <button class="btn btn-primary" style="font-size:12px; padding:6px 14px;" onclick="openApplyModal('${pet.id}')">
+                  申请领养
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 设置领养筛选
+    function setAdoptionFilter(filterKey) {
+      currentAdoptFilter = filterKey;
+      document.querySelectorAll('#adoption-filter-bar .filter-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('onclick').includes(`'${filterKey}'`));
+      });
+      renderAdoptionList();
+      showToast('已切换领养筛选列表');
+    }
+
+    // 渲染相亲列表
+    function renderMatchList() {
+      const container = document.getElementById('match-card-list');
+      if (!container) return;
+
+      let filtered = matchList.filter(item => {
+        if (currentMatchFilter === 'all') return true;
+        if (currentMatchFilter === 'dog') return item.category === 'dog';
+        if (currentMatchFilter === 'cat') return item.category === 'cat';
+        if (currentMatchFilter === 'playmate') return item.tags.includes('纯找玩伴');
+        if (currentMatchFilter === 'pedigree') return item.tags.some(t => t.includes('血统'));
+        return true;
+      });
+
+      container.innerHTML = filtered.map(item => {
+        const isFav = favorites.has(item.id);
+        return `
+          <div class="match-card">
+            <div class="match-header">
+              <img src="${item.img}" alt="${item.name}" class="match-avatar" onerror="this.src='https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=600&auto=format&fit=crop&q=80'">
+              <div style="flex:1;">
+                <div class="match-info-name">
+                  <span>${item.name}</span>
+                  <span class="badge badge-secondary" style="font-size:10px;">${item.gender}</span>
+                  <span style="font-size:11px; font-weight:normal; color:var(--color-text-muted);">${item.breed} · ${item.age}</span>
+                </div>
+                <div class="match-info-owner">宠主：${item.owner}</div>
+              </div>
+              <button class="pet-fav-btn ${isFav ? 'liked' : ''}" style="position:static;" onclick="toggleFavorite('${item.id}', event)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+            </div>
+            <div style="font-size:12px; color:var(--color-text-body); line-height:1.5; margin-bottom:8px;">
+              ${item.desc}
+            </div>
+            <div class="pet-tags" style="margin-bottom:10px;">
+              ${item.tags.map(t => `<span class="badge badge-subtle">${t}</span>`).join('')}
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-outline" style="flex:1; font-size:12px;" onclick="openGreetModal('${item.id}')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                心动打招呼
+              </button>
+              <button class="btn btn-primary" style="flex:1; font-size:12px;" onclick="showToast('已向宠主发送同城互加好友申请！')">
+                申请同城遛宠
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 设置相亲筛选
+    function setMatchFilter(filterKey) {
+      currentMatchFilter = filterKey;
+      document.querySelectorAll('#tab-pane-1 .filter-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.getAttribute('onclick').includes(`'${filterKey}'`));
+      });
+      renderMatchList();
+      showToast('已更新相亲筛选条件');
+    }
+
+    // 收藏切换与计数
+    function toggleFavorite(id, event) {
+      if (event) event.stopPropagation();
+      if (favorites.has(id)) {
+        favorites.delete(id);
+        showToast('已取消收藏');
+      } else {
+        favorites.add(id);
+        showToast('已加入爱心收藏夹');
+      }
+      renderAdoptionList();
+      renderMatchList();
+      updateFavoriteCount();
+    }
+
+    function updateFavoriteCount() {
+      const display = document.getElementById('fav-count-display');
+      if (display) display.textContent = favorites.size;
+    }
+
+    // 弹窗与抽屉核心控制器
+    function openModal(title, bodyHtml, footerHtml) {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body-content').innerHTML = bodyHtml;
+      document.getElementById('modal-footer-content').innerHTML = footerHtml || `
+        <button class="btn btn-subtle btn-block" onclick="closeModal()">关闭</button>
+      `;
+      const overlay = document.getElementById('global-modal');
+      overlay.style.display = 'flex';
+      setTimeout(() => overlay.classList.add('open'), 10);
+    }
+
+    function closeModal() {
+      const overlay = document.getElementById('global-modal');
+      overlay.classList.remove('open');
+      setTimeout(() => overlay.style.display = 'none', 250);
+    }
+
+    function handleOverlayClick(event) {
+      if (event.target.id === 'global-modal') {
+        closeModal();
+      }
+    }
+
+    // 轻提示 Toast
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('mp-toast');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+
+      text.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1600);
+    }
+
+    // 模态弹窗：宠物详细故事与体检
+    function openPetDetail(petId) {
+      const pet = adoptionList.find(p => p.id === petId);
+      if (!pet) return;
+
+      const bodyHtml = `
+        <div style="margin-bottom:14px;">
+          <img src="${pet.img}" alt="${pet.name}" style="width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <b style="font-size:18px; color:var(--color-text-title);">${pet.name}</b>
+            <span class="badge badge-secondary">${pet.breed} · ${pet.age}</span>
+          </div>
+          <div style="font-size:12px; color:var(--color-text-muted); margin-top:4px;">
+            所属机构：${pet.org} (救助责任人：${pet.rescuer})
+          </div>
+        </div>
+
+        <div style="background:var(--color-bg-subtle); padding:12px; border-radius:var(--radius-md); margin-bottom:12px;">
+          <div style="font-size:12px; font-weight:700; color:var(--color-text-title); margin-bottom:4px;">救助故事与性格习性</div>
+          <div style="font-size:12px; color:var(--color-text-body); line-height:1.6;">${pet.story}</div>
+        </div>
+
+        <div style="background:#FFF7ED; border:1px solid #FFEDD5; padding:12px; border-radius:var(--radius-md); margin-bottom:12px;">
+          <div style="font-size:12px; font-weight:700; color:var(--color-primary); margin-bottom:4px;">送养要求 (申请前请务必确认符合)</div>
+          <div style="font-size:12px; color:var(--color-text-body); line-height:1.6;">${pet.requirements}</div>
+        </div>
+
+        <div style="font-size:11px; color:var(--color-text-muted); line-height:1.5;">
+          * 提示：平台为纯公益性质，领养无需向送养人支付购买费；疫苗与绝育费用均受平台公约保障。
+        </div>
+      `;
+
+      const footerHtml = `
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-subtle" style="flex:1;" onclick="closeModal()">稍后考虑</button>
+          <button class="btn btn-primary" style="flex:2;" onclick="closeModal(); openApplyModal('${pet.id}')">立即填写领养申请</button>
+        </div>
+      `;
+
+      openModal('待领养档案详情', bodyHtml, footerHtml);
+    }
+
+    // 模态弹窗：领养意向书申请
+    function openApplyModal(petId) {
+      const pet = adoptionList.find(p => p.id === petId);
+      const petName = pet ? pet.name : '爱心宝贝';
+
+      const bodyHtml = `
+        <form id="adoption-apply-form" onsubmit="submitAdoptionApply(event, '${petId}')">
+          <div style="background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-md); margin-bottom:12px; font-size:12px; color:var(--color-text-body);">
+            正在申请：<b>${petName}</b> (${pet ? pet.breed : ''})
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">申请人脱敏信息确认</label>
+            <input type="text" class="form-input" value="赵*峰 · 138****6789 (已实名核验)" disabled style="background:#F1F5F9; color:var(--color-text-muted);">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">现居住住房条件</label>
+            <div class="form-radio-group">
+              <div class="form-radio-btn selected" id="house-opt-1" onclick="selectRadioBtn(this, 'house-opt')">自有产权</div>
+              <div class="form-radio-btn" id="house-opt-2" onclick="selectRadioBtn(this, 'house-opt')">整租(已封窗)</div>
+              <div class="form-radio-btn" id="house-opt-3" onclick="selectRadioBtn(this, 'house-opt')">家庭共住</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">过往养宠经验</label>
+            <div class="form-radio-group">
+              <div class="form-radio-btn selected" id="exp-opt-1" onclick="selectRadioBtn(this, 'exp-opt')">有多年经验</div>
+              <div class="form-radio-btn" id="exp-opt-2" onclick="selectRadioBtn(this, 'exp-opt')">新手(认真学习)</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">家人与同住人态度</label>
+            <input type="text" class="form-input" value="全家人均支持，已共同商议好照料分工" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">给送养人的留言承诺</label>
+            <textarea class="form-textarea" placeholder="请简述您的日常作息、科学喂养规划及陪伴时间..."></textarea>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+            <input type="checkbox" id="agree-policy" checked style="accent-color:var(--color-primary);">
+            <label for="agree-policy" style="font-size:11px; color:var(--color-text-muted);">我已阅读并同意《平台科学领养公约及定期回访要求》</label>
+          </div>
+
+          <div style="margin-top:16px;">
+            <button type="submit" class="btn btn-primary btn-block" style="padding:11px;">确认提交意向申请</button>
+          </div>
+        </form>
+      `;
+
+      openModal('填写领养申请意向书', bodyHtml, '');
+    }
+
+    function submitAdoptionApply(e, petId) {
+      e.preventDefault();
+      closeModal();
+      showToast('申请提交成功！专员将在24小时内审核');
+      setTimeout(() => {
+        switchMpTab(3); // 自动切换至进度看板
+      }, 500);
+    }
+
+    // 模态弹窗：心动打招呼
+    function openGreetModal(matchId) {
+      const match = matchList.find(m => m.id === matchId);
+      const name = match ? match.name : '小可爱';
+
+      const bodyHtml = `
+        <div style="font-size:13px; color:var(--color-text-body); margin-bottom:12px;">
+          向 <b>${name}</b> 的宠主（${match ? match.owner : ''}）发送友善问候：
+        </div>
+        <div class="form-group">
+          <label class="form-label">快捷打招呼用语</label>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <button class="btn btn-subtle" style="justify-content:flex-start; text-align:left; font-size:12px;" onclick="chooseGreetText(this)">
+              你好，我家宝贝性格很乖，周末在附近公园一起散步吗？
+            </button>
+            <button class="btn btn-subtle" style="justify-content:flex-start; text-align:left; font-size:12px;" onclick="chooseGreetText(this)">
+              你好！看到您家毛孩子非常合眼缘，想互相认识交流一下～
+            </button>
+            <button class="btn btn-subtle" style="justify-content:flex-start; text-align:left; font-size:12px;" onclick="chooseGreetText(this)">
+              您好，想请教一下平时喂养和训练的经验，期待认识！
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">自定义打招呼内容</label>
+          <input type="text" id="custom-greet-input" class="form-input" value="你好，我家宝贝性格很乖，周末在附近公园一起散步吗？">
+        </div>
+      `;
+
+      const footerHtml = `
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-subtle" style="flex:1;" onclick="closeModal()">取消</button>
+          <button class="btn btn-primary" style="flex:2;" onclick="sendGreetMessage()">发送心动问候</button>
+        </div>
+      `;
+
+      openModal('心动打招呼', bodyHtml, footerHtml);
+    }
+
+    function chooseGreetText(btn) {
+      document.getElementById('custom-greet-input').value = btn.textContent.trim();
+    }
+
+    function sendGreetMessage() {
+      closeModal();
+      showToast('已向对方宠主发送心动问候！');
+    }
+
+    // 模态弹窗：周末相亲聚会报名
+    function openPartyModal() {
+      const bodyHtml = `
+        <div style="background:var(--color-secondary-light); border:1px solid var(--color-secondary-border); padding:14px; border-radius:var(--radius-md); margin-bottom:14px;">
+          <div style="font-size:14px; font-weight:800; color:var(--color-secondary); margin-bottom:4px;">第 38 期·同城周末萌宠社交草坪派对</div>
+          <div style="font-size:12px; color:var(--color-text-body); line-height:1.6;">
+            时间：本周六下午 14:30 - 17:30<br>
+            地点：XX市XX区**森林公园·萌宠草坪活动区<br>
+            规模：限额 30 组家庭 (需携带犬证或疫苗本复印件)
+          </div>
+        </div>
+        <div style="font-size:12px; color:var(--color-text-muted); line-height:1.6;">
+          活动内容包含：人宠互动飞盘赛、文明养犬讲座、萌宠红娘牵线配对。报名完全免费，爱心义卖饮用水收益归当地流浪动物救助基金。
+        </div>
+      `;
+
+      const footerHtml = `
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-subtle" style="flex:1;" onclick="closeModal()">返回</button>
+          <button class="btn btn-secondary" style="flex:2;" onclick="closeModal(); showToast('报名成功！电子入场券已发放至您的账户');">立即免费报名预约</button>
+        </div>
+      `;
+
+      openModal('同城萌**相亲平台聚会', bodyHtml, footerHtml);
+    }
+
+    // 模态弹窗：电子领养协议示范
+    function openAgreementModal() {
+      const bodyHtml = `
+        <div style="background:#F8FAFC; border:1px solid var(--color-border); padding:14px; border-radius:var(--radius-md); font-size:12px; color:var(--color-text-body); line-height:1.7;">
+          <div style="text-align:center; font-weight:800; font-size:14px; color:var(--color-text-title); margin-bottom:8px;">
+            伴侣动物公益领养与责任保证协议书
+          </div>
+          <p><b>送养方 (甲方)</b>：XX救助基地救助基地 (已认证认证机构)</p>
+          <p><b>领养方 (乙方)</b>：赵*峰 (身份证号：110105********1234)</p>
+          <hr style="margin:8px 0; border:none; border-top:1px solid var(--color-border);">
+          <p><b>第一条 承诺关爱</b>：乙方承诺视被领养动物为家庭成员，给予充分关爱与照料，提供清洁充足饮水及符合科学配比之天然口粮。</p>
+          <p><b>第二条 居住安全</b>：乙方保证饲养场所具备安全防坠措施 (高层居所必须完成牢固金刚纱窗全封)。</p>
+          <p><b>第三条 严禁弃养与虐待</b>：任何情况下严禁转卖、遗弃或虐待动物。如遇特殊不可抗力无法继续抚养，必须第一时间交还甲方，不得擅自处置。</p>
+          <p><b>第四条 医疗与防疫</b>：遵照兽医建议按时接种狂犬疫苗及多联疫苗，适龄完成绝育手术，突发疾病及时送医。</p>
+          <p><b>第五条 随访机制</b>：乙方自愿接受甲方在前六个月内定期通过视频或上门家访打卡。</p>
+        </div>
+      `;
+
+      const footerHtml = `
+        <button class="btn btn-primary btn-block" onclick="closeModal(); showToast('已成功查验官方标准电子协议存根');">已阅知领养协议条款</button>
+      `;
+
+      openModal('电子领养协议存根', bodyHtml, footerHtml);
+    }
+
+    // 模态弹窗：领养公约
+    function openGuidelinesModal() {
+      const bodyHtml = `
+        <div style="font-size:12px; color:var(--color-text-body); line-height:1.8;">
+          <div style="margin-bottom:10px;">
+            <b style="color:var(--color-primary);">1. 审慎考虑，一生陪伴</b><br>
+            猫犬寿命通常在 12-18 年，请在领养前确认未来求学、搬家、生育等人生规划中均有毛孩子的位置。
+          </div>
+          <div style="margin-bottom:10px;">
+            <b style="color:var(--color-primary);">2. 封窗是生命防线</b><br>
+            猫咪好奇心极强，开窗坠楼是家养猫非正常死亡的主因。领养猫咪家庭必须全屋加装金刚网防坠纱窗。
+          </div>
+          <div style="margin-bottom:10px;">
+            <b style="color:var(--color-primary);">3. 科学喂养，适龄绝育</b><br>
+            拒绝生冷变质与低廉劣质粮；适龄科学绝育不仅能预防生殖系统疾病，更能显著延长毛孩子寿命。
+          </div>
+        </div>
+      `;
+      openModal('平台领养公约与指南', bodyHtml, '<button class="btn btn-primary btn-block" onclick="closeModal()">我已熟知并遵守</button>');
+    }
+
+    // 模态弹窗：合作医院
+    function openPartnerHospitals() {
+      const bodyHtml = `
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="padding:10px; border:1px solid var(--color-border); border-radius:var(--radius-md); background:#FFF;">
+            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX动物医院 (朝阳分院)</div>
+            <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">地址：XX市XX区XX路XX号</div>
+            <div style="font-size:11px; color:var(--color-secondary); margin-top:4px;">提供领养宠物首套基础体检及疫苗专属爱心减免</div>
+          </div>
+          <div style="padding:10px; border:1px solid var(--color-border); border-radius:var(--radius-md); background:#FFF;">
+            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX综合转诊医院 (海淀总院)</div>
+            <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">地址：XX市XX区XX路XX号</div>
+            <div style="font-size:11px; color:var(--color-secondary); margin-top:4px;">具备 24 小时急诊中心，支持公益绝育救助芯片植入</div>
+          </div>
+        </div>
+      `;
+      openModal('合作爱心救助体检机构', bodyHtml, '<button class="btn btn-subtle btn-block" onclick="closeModal()">关闭</button>');
+    }
+
+    // 模态弹窗：常见问答 FAQ
+    function openFaqDrawer() {
+      const bodyHtml = `
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
+          <div>
+            <b>问：领养需要收费吗？</b>
+            <div style="color:var(--color-text-muted); margin-top:2px;">答：平台所有领养信息均为公益性质，严禁收取领养费。疫苗或绝育基础押金在打卡完成后由救助机构全额退还。</div>
+          </div>
+          <div>
+            <b>问：为什么要实名认证和家访？</b>
+            <div style="color:var(--color-text-muted); margin-top:2px;">答：为防止星期狗、流浪动物二次遭虐待或被贩卖倒卖，严格审核与家访是对每一个生命负责的必要闭环。</div>
+          </div>
+        </div>
+      `;
+      openModal('常见问题与答疑', bodyHtml, '<button class="btn btn-subtle btn-block" onclick="closeModal()">知道了</button>');
+    }
+
+    // 模态弹窗：客服
+    function openCustomerServiceModal() {
+      const bodyHtml = `
+        <div style="text-align:center; padding:10px;">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="1.8" style="margin:0 auto 10px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div style="font-size:15px; font-weight:700; color:var(--color-text-title);">在线爱心救助客服专席</div>
+          <div style="font-size:12px; color:var(--color-text-muted); margin-top:4px; line-height:1.6;">
+            工作时间：周一至周日 09:00 - 21:00<br>
+            值班义工：李*医生 / 张*专员 (随时在线解答领养、健康与家访问题)
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
+            <button class="btn btn-subtle" style="font-size:12px;" onclick="showToast('正在为您转接在线人工专员...')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              咨询领养流程进度
+            </button>
+            <button class="btn btn-subtle" style="font-size:12px;" onclick="showToast('已派发紧急医疗救助指南')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              突发伤病流浪动物救助指引
+            </button>
+          </div>
+        </div>
+      `;
+      openModal('爱心客服支持', bodyHtml, '<button class="btn btn-primary btn-block" onclick="closeModal()">结束咨询</button>');
+    }
+
+    // 抽屉：回访打卡
+    function openCheckInDrawer() {
+      const bodyHtml = `
+        <div style="font-size:12px; color:var(--color-text-body); margin-bottom:12px;">
+          打卡对象：<b>团** (短毛橘白)</b> · 距上次打卡已过 15 天
+        </div>
+        <div class="form-group">
+          <label class="form-label">今日精神与进食状态</label>
+          <div class="form-radio-group">
+            <div class="form-radio-btn selected" onclick="selectRadioBtn(this, 'status-opt')">食欲旺盛/活泼</div>
+            <div class="form-radio-btn" onclick="selectRadioBtn(this, 'status-opt')">精神良好</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">上传生活日常打卡照 (模拟)</label>
+          <div style="border:1.5px dashed var(--color-border); border-radius:var(--radius-md); padding:14px; text-align:center; background:#F8FAFC; cursor:pointer;" onclick="showToast('已模拟选取相册生活照一张')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" style="margin:0 auto 4px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <div style="font-size:11px; color:var(--color-text-muted);">点击上传近照</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">成长变化记录笔记</label>
+          <input type="text" class="form-input" value="体重涨了0.3公斤，每天在客厅跑酷，非常黏人！">
+        </div>
+      `;
+      const footerHtml = `
+        <button class="btn btn-secondary btn-block" onclick="closeModal(); showToast('今日回访打卡成功！爱心守护积分 +10');">提交打卡记录</button>
+      `;
+      openModal('毛孩子成长回访打卡', bodyHtml, footerHtml);
+    }
+
+    // 辅助单选切换
+    function selectRadioBtn(btn, groupClass) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.form-radio-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    // 发布表单相关
+    let currentPubType = 'adopt';
+    function switchPublishType(type) {
+      currentPubType = type;
+      const btnAdopt = document.getElementById('pub-type-adopt');
+      const btnMatch = document.getElementById('pub-type-match');
+      if (type === 'adopt') {
+        btnAdopt.className = 'btn btn-primary';
+        btnMatch.className = 'btn btn-subtle';
+        showToast('已切换为：发布送养信息');
+      } else {
+        btnAdopt.className = 'btn btn-subtle';
+        btnMatch.className = 'btn btn-primary';
+        showToast('已切换为：发布相亲档案');
+      }
+    }
+
+    function selectSpecies(species) {
+      ['cat', 'dog', 'other'].forEach(s => {
+        const el = document.getElementById('opt-species-' + s);
+        if (el) el.classList.remove('selected');
+      });
+      if (species === '猫咪') document.getElementById('opt-species-cat').classList.add('selected');
+      else if (species === '狗狗') document.getElementById('opt-species-dog').classList.add('selected');
+      else document.getElementById('opt-species-other').classList.add('selected');
+      showToast('已选择物种：' + species);
+    }
+
+    function simulatePhotoUpload() {
+      const hint = document.getElementById('upload-hint-text');
+      if (hint) {
+        hint.textContent = '已选取高清萌宠照片 (2 张已就绪)';
+        hint.style.color = 'var(--color-secondary)';
+      }
+      showToast('照片选择就绪');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('form-pet-name').value.trim();
+      const breed = document.getElementById('form-pet-breed').value.trim();
+      const age = document.getElementById('form-pet-age').value;
+      const neutered = document.getElementById('form-pet-neutered').checked;
+      const vaccinated = document.getElementById('form-pet-vaccinated').checked;
+      const desc = document.getElementById('form-pet-desc').value.trim() || '性格温和，寻找负责任爱心家长。';
+
+      if (!name || !breed) {
+        showToast('请完整填写必填项');
+        return;
+      }
+
+      // 脱敏名称转换
+      const maskedName = name.length <= 1 ? name + '*' : name[0] + '**';
+
+      if (currentPubType === 'adopt') {
+        adoptionList.unshift({
+          id: 'p' + Date.now(),
+          name: maskedName,
+          category: 'cat',
+          breed: breed,
+          age: age,
+          gender: '公',
+          neutered: neutered,
+          vaccinated: vaccinated,
+          urgent: false,
+          org: '个人送养 (赵*峰 138****6789)',
+          rescuer: '赵*峰',
+          tags: [neutered ? '已绝育' : '未绝育', vaccinated ? '疫苗齐全' : '疫苗中', '个人救助'],
+          story: desc,
+          requirements: '按时回访打卡，全屋封窗，科学喂养。',
+          img: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=600&auto=format&fit=crop&q=80'
+        });
+        renderAdoptionList();
+      } else {
+        matchList.unshift({
+          id: 'm' + Date.now(),
+          name: maskedName,
+          category: 'dog',
+          breed: breed,
+          age: age,
+          gender: '帅哥',
+          owner: '赵*峰 (138****6789)',
+          tags: [vaccinated ? '健康已认证' : '常规体检', '新发布'],
+          desc: desc,
+          img: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80'
+        });
+        renderMatchList();
+      }
+
+      showToast('发布成功！审核专员已完成快速同步');
+      document.getElementById('publish-form').reset();
+      setTimeout(() => {
+        switchMpTab(currentPubType === 'adopt' ? 0 : 1);
+      }, 600);
+    }
+
+    // 微信胶囊按钮事件
+    function openWechatMenu() {
+      const bodyHtml = `
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="btn btn-subtle" style="justify-content:flex-start;" onclick="closeModal(); showToast('已生成分享卡片，可直接转发');">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            转发给好友
+          </button>
+          <button class="btn btn-subtle" style="justify-content:flex-start;" onclick="closeModal(); showToast('已添加到【我的小程序】');">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            添加到我的小程序
+          </button>
+          <button class="btn btn-subtle" style="justify-content:flex-start;" onclick="location.reload()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            重新进入小程序
+          </button>
+        </div>
+      `;
+      openModal('小程序设置与操作', bodyHtml, '<button class="btn btn-subtle btn-block" onclick="closeModal()">取消</button>');
+    }
+
+    function minimizeWechat() {
+      showToast('已收起至微信浮窗');
+    }
+
+    function contactVolunteer(name, phone) {
+      showToast(`已呼叫家访专员：${name} (${phone})`);
+    }
+
+    function showHomeCheckDetail() {
+      const bodyHtml = `
+        <div style="font-size:12px; color:var(--color-text-body); line-height:1.7;">
+          <p><b>1. 封窗检查</b>：义工将实地测试所有开启扇纱窗牢固度与网格密实度；</p>
+          <p><b>2. 食盆与砂盆摆放</b>：确认静止通风区域，避免应激；</p>
+          <p><b>3. 常备药物建议</b>：义工将赠送新手养宠消毒与驱虫指南手册一份。</p>
+        </div>
+      `;
+      openModal('上门家访准备要点', bodyHtml, '<button class="btn btn-primary btn-block" onclick="closeModal()">已了解家访流程</button>');
+    }
+
+    function showMyFavorites() {
+      switchMpTab(0);
+      showToast('已为您展示爱心收藏列表');
+    }
+  </script>
+</body>
+</html>

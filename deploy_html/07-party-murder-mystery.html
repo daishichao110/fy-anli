@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XX潮玩轰趴·无人沉浸剧本馆</title>
+  <style>
+    :root {
+      --bg-canvas: #090a0f;
+      --bg-phone: #12141d;
+      --bg-card: #1a1d29;
+      --bg-card-hover: #222636;
+      --bg-card-subtle: #252a3b;
+      --color-primary: #f59e0b;
+      --color-primary-dark: #d97706;
+      --color-primary-light: rgba(245, 158, 11, 0.15);
+      --color-success: #10b981;
+      --color-success-light: rgba(16, 185, 129, 0.15);
+      --color-danger: #f43f5e;
+      --color-danger-light: rgba(244, 63, 94, 0.15);
+      --color-accent: #6366f1;
+      --color-accent-light: rgba(99, 102, 241, 0.15);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(245, 158, 11, 0.4);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.35);
+      --shadow-pulse: 0 0 24px rgba(245, 158, 11, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* WeChat Mini-Program Container */
+    .mp-container {
+      width: 100%;
+      max-width: 414px;
+      height: 100vh;
+      max-height: 896px;
+      background-color: var(--bg-phone);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    }
+
+    @media (min-width: 480px) {
+      .mp-container {
+        border-radius: 40px;
+        border: 8px solid #202330;
+        height: 844px;
+        margin: 20px auto;
+      }
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 38px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      z-index: 50;
+      background: var(--bg-phone);
+      flex-shrink: 0;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      height: 44px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-phone);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .store-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 5px 10px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .store-badge:active {
+      border-color: var(--color-primary);
+      background: var(--bg-card-hover);
+    }
+
+    .capsule-btn {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 3px 10px;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .capsule-sep {
+      width: 1px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Scrollable Body */
+    .mp-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px 14px 70px 14px;
+      scroll-behavior: smooth;
+    }
+    .mp-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Views */
+    .view-pane {
+      display: none;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .view-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bottom Tab Bar */
+    .bottom-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(18, 20, 29, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 60;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+    .tab-item svg {
+      transition: transform 0.2s ease;
+    }
+    .tab-item:active svg {
+      transform: scale(0.9);
+    }
+    .tab-item span {
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .tab-item.active {
+      color: var(--color-primary);
+    }
+    .tab-item.active span {
+      font-weight: 700;
+    }
+    .tab-indicator {
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      display: none;
+    }
+    .tab-item.active .tab-indicator {
+      display: block;
+    }
+
+    /* Common Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .card:active {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Chips & Tags */
+    .chip {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-card-subtle);
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-color: var(--border-active);
+    }
+
+    .tag {
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .tag-amber {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .tag-green {
+      background: var(--color-success-light);
+      color: var(--color-success);
+    }
+    .tag-rose {
+      background: var(--color-danger-light);
+      color: var(--color-danger);
+    }
+    .tag-blue {
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      color: #0b0c10;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.15s, filter 0.15s;
+    }
+    .btn-primary:active {
+      transform: scale(0.96);
+      filter: brightness(0.9);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card-subtle);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-secondary:active {
+      background: var(--bg-card-hover);
+      border-color: var(--border-active);
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    /* Store Banner */
+    .store-info-box {
+      background: linear-gradient(180deg, #212534 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .store-address-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* Scroll Horizontal Filter */
+    .scroll-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+    .scroll-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Room Cards */
+    .room-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+      transition: all 0.2s;
+    }
+    .room-card:active {
+      border-color: var(--border-active);
+    }
+    .room-card-body {
+      padding: 12px;
+    }
+    .room-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 12px 0;
+    }
+
+    /* Script Cards */
+    .script-item {
+      display: flex;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .script-item:active {
+      border-color: var(--border-active);
+      background: var(--bg-card-hover);
+    }
+    .script-cover {
+      width: 76px;
+      height: 104px;
+      border-radius: var(--radius-sm);
+      background: #252838;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      flex-shrink: 0;
+      border: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .script-cover-tag {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.6);
+      color: var(--color-primary);
+    }
+    .script-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Carpool Cards */
+    .carpool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .seats-grid {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+    .seat-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      border: 1px solid var(--border-subtle);
+    }
+    .seat-badge.taken {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .seat-badge.empty {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border-style: dashed;
+    }
+
+    /* IoT Control Console */
+    .iot-header {
+      background: linear-gradient(135deg, #24293c 0%, #171924 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .iot-header::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-full);
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .passcode-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .passcode-val {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: var(--color-primary);
+      font-family: monospace;
+    }
+
+    /* Giant Unlock Button */
+    .unlock-btn-container {
+      margin: 14px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .unlock-pulse-btn {
+      width: 100%;
+      height: 52px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0b0c10;
+      font-size: 15px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-pulse);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .unlock-pulse-btn:active {
+      transform: scale(0.98);
+      filter: brightness(0.92);
+    }
+    .unlock-pulse-btn.unlocked {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+    }
+
+    /* 6 Scene Atmosphere Grid */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .scene-pill {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .scene-pill:active {
+      background: var(--bg-card-hover);
+    }
+    .scene-pill.active {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+    }
+    .scene-pill-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .scene-pill.active .scene-pill-icon {
+      background: var(--color-primary);
+      color: #0b0c10;
+    }
+
+    /* Hardware Adjustment Toggles */
+    .device-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .device-row:last-child {
+      border-bottom: none;
+    }
+
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stepper-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-full);
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .stepper-btn:active {
+      border-color: var(--color-primary);
+      background: var(--bg-card-hover);
+    }
+
+    /* Switch Component */
+    .switch-toggle {
+      width: 44px;
+      height: 24px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .switch-toggle.on {
+      background: var(--color-primary);
+    }
+    .switch-handle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s;
+    }
+    .switch-toggle.on .switch-handle {
+      transform: translateX(20px);
+    }
+
+    /* DM Assistant Timeline */
+    .dm-stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 14px 0;
+    }
+    .dm-stepper::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 10px;
+      right: 10px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+    .dm-step-item {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .dm-step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-card-subtle);
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .dm-step-item.active .dm-step-circle {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #0b0c10;
+    }
+    .dm-step-text {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .dm-step-item.active .dm-step-text {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* Profile View */
+    .profile-card {
+      background: linear-gradient(135deg, #252b3e 0%, #191c28 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .profile-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      border: 2px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .asset-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .asset-box:active {
+      border-color: var(--border-active);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .menu-item:first-child {
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .menu-item:last-child {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-bottom: none;
+    }
+    .menu-item:active {
+      background: var(--bg-card-hover);
+    }
+
+    /* Global Modal & Sheet Overlays */
+    .overlay-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .overlay-backdrop.center {
+      align-items: center;
+      padding: 20px;
+    }
+    .overlay-backdrop.active {
+      display: flex;
+    }
+
+    .drawer-content {
+      width: 100%;
+      background: #171a25;
+      border-radius: 20px 20px 0 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 18px 16px 28px 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 340px;
+      background: #1a1d29;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      animation: zoomIn 0.2s ease-out;
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Toast */
+    .toast-capsule {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(28, 32, 45, 0.95);
+      border: 1px solid var(--border-active);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-capsule.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- WeChat Mini-Program Container -->
+  <div class="mp-container">
+
+    <!-- Top Floating Toast Notification -->
+    <div id="toast" class="toast-capsule">
+      <svg id="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="toast-msg">操作成功</span>
+    </div>
+
+    <!-- WeChat Mini-Program Status Bar -->
+    <div class="status-bar">
+      <span id="clock-display">21:40</span>
+      <div class="status-icons">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
+      </div>
+    </div>
+
+    <!-- WeChat Mini-Program Navigation Bar -->
+    <div class="nav-bar">
+      <div class="store-badge" id="btn-switch-store" onclick="openStoreSelector()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="current-store-name">XX商圈旗舰店</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="capsule-btn" onclick="showToast('已进入小程序官方安全运行环境', 'info')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="5" cy="12" r="3"/></svg>
+        <div class="capsule-sep"></div>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+    </div>
+
+    <!-- Main Scrollable Body -->
+    <div class="mp-body">
+
+      <!-- ==================== TAB 1: 包厢选订 ==================== -->
+      <div id="pane-rooms" class="view-pane active">
+        <!-- Store Address Strip -->
+        <div class="store-info-box">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:14px;font-weight:800;color:var(--text-primary);" id="banner-store-title">XX潮玩轰趴·无人沉浸剧本馆 (XX商圈旗舰店)</div>
+              <div style="display:flex;gap:6px;margin-top:5px;">
+                <span class="tag tag-amber">24H营业</span>
+                <span class="tag tag-green">智能物联</span>
+                <span class="tag tag-blue">免押畅玩</span>
+              </div>
+            </div>
+            <button class="btn-secondary btn-sm" onclick="showStoreDetailModal()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              门店详情
+            </button>
+          </div>
+          <div class="store-address-row">
+            <span id="banner-store-address">XX市XX区XX路88号XX大厦3层</span>
+            <span style="color:var(--color-primary);cursor:pointer;display:inline-flex;align-items:center;gap:3px;" onclick="showToast('已复制门店详细导航指引', 'success')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              复制指引
+            </span>
+          </div>
+        </div>
+
+        <!-- Time Slot Pills -->
+        <div style="margin-bottom:8px;font-size:12px;font-weight:700;color:var(--text-secondary);display:flex;justify-content:space-between;align-items:center;">
+          <span>预订时段模式</span>
+          <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="showToast('今日各场次均支持提早30分钟进场准备', 'info')">预约规则说明</span>
+        </div>
+        <div class="scroll-row">
+          <div class="chip active" data-slot="all" onclick="filterSlot(this, 'all')">全部时段</div>
+          <div class="chip" data-slot="morning" onclick="filterSlot(this, 'morning')">早鸟特惠 09:00-13:00</div>
+          <div class="chip" data-slot="afternoon" onclick="filterSlot(this, 'afternoon')">下午欢乐 13:30-18:00</div>
+          <div class="chip" data-slot="night" onclick="filterSlot(this, 'night')">黄金晚场 18:30-23:30</div>
+          <div class="chip" data-slot="overnight" onclick="filterSlot(this, 'overnight')">通宵狂欢 00:00-08:00</div>
+        </div>
+
+        <!-- Room Type Filter Chips -->
+        <div class="scroll-row" style="margin-bottom:12px;">
+          <div class="chip active" data-roomtype="all" onclick="filterRoomType(this, 'all')">全部包厢 (4)</div>
+          <div class="chip" data-roomtype="gufeng" onclick="filterRoomType(this, 'gufeng')">沉浸剧场</div>
+          <div class="chip" data-roomtype="cyber" onclick="filterRoomType(this, 'cyber')">赛博推理舱</div>
+          <div class="chip" data-roomtype="party" onclick="filterRoomType(this, 'party')">巨幕轰趴大厅</div>
+          <div class="chip" data-roomtype="lounge" onclick="filterRoomType(this, 'lounge')">微醺私语小包</div>
+        </div>
+
+        <!-- Rooms List -->
+        <div id="rooms-list-container">
+          <!-- Dynamically injected via JS -->
+        </div>
+      </div>
+
+      <!-- ==================== TAB 2: 剧本大厅 ==================== -->
+      <div id="pane-scripts" class="view-pane">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text-primary);">沉浸剧本库</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">精选脱敏推理剧本 · 支持一键发起组局拼车</div>
+          </div>
+          <button class="btn-secondary btn-sm" onclick="showToast('已更新本周剧本热度榜单', 'success')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            热度榜
+          </button>
+        </div>
+
+        <!-- Script Genre Chips -->
+        <div class="scroll-row">
+          <div class="chip active" data-genre="all" onclick="filterScriptGenre(this, 'all')">全部题材</div>
+          <div class="chip" data-genre="推理" onclick="filterScriptGenre(this, '推理')">硬核推理</div>
+          <div class="chip" data-genre="悬疑" onclick="filterScriptGenre(this, '悬疑')">悬疑惊悚</div>
+          <div class="chip" data-genre="情感" onclick="filterScriptGenre(this, '情感')">情感沉浸</div>
+          <div class="chip" data-genre="机制" onclick="filterScriptGenre(this, '机制')">阵营机制</div>
+          <div class="chip" data-genre="微醺" onclick="filterScriptGenre(this, '微醺')">微醺私语</div>
+        </div>
+
+        <!-- Script Player Filter -->
+        <div class="scroll-row" style="margin-bottom:12px;">
+          <div class="chip active" data-player="all" onclick="filterScriptPlayer(this, 'all')">全部人数</div>
+          <div class="chip" data-player="5" onclick="filterScriptPlayer(this, '5')">5人本</div>
+          <div class="chip" data-player="6" onclick="filterScriptPlayer(this, '6')">6人本</div>
+          <div class="chip" data-player="7" onclick="filterScriptPlayer(this, '7')">7人本</div>
+          <div class="chip" data-player="8" onclick="filterScriptPlayer(this, '8')">8人本</div>
+        </div>
+
+        <!-- Scripts List -->
+        <div id="scripts-list-container">
+          <!-- Dynamically injected via JS -->
+        </div>
+      </div>
+
+      <!-- ==================== TAB 3: 组局拼车 ==================== -->
+      <div id="pane-carpool" class="view-pane">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text-primary);">组局拼车大厅</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">在线锁定角色 · 满员自动锁房</div>
+          </div>
+          <button class="btn-primary btn-sm" onclick="openCreateCarpoolModal()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            发起新拼车
+          </button>
+        </div>
+
+        <!-- Carpool Filter Chips -->
+        <div class="scroll-row" style="margin-bottom:12px;">
+          <div class="chip active" data-cpstatus="all" onclick="filterCarpool(this, 'all')">全部车次 (4)</div>
+          <div class="chip" data-cpstatus="recruiting" onclick="filterCarpool(this, 'recruiting')">正在招募 (3)</div>
+          <div class="chip" data-cpstatus="full" onclick="filterCarpool(this, 'full')">已满员待发 (1)</div>
+        </div>
+
+        <!-- Carpools List -->
+        <div id="carpools-list-container">
+          <!-- Dynamically injected via JS -->
+        </div>
+      </div>
+
+      <!-- ==================== TAB 4: 无人智控 ==================== -->
+      <div id="pane-iot" class="view-pane">
+        <!-- Active Room Header Card -->
+        <div class="iot-header">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <span class="tag tag-green">当前正在使用</span>
+              <div style="font-size:16px;font-weight:800;margin-top:6px;" id="iot-room-name">XX古风沉浸剧场</div>
+              <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;" id="iot-store-name">XX商圈旗舰店 · 包厢01</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:var(--text-secondary);">使用倒计时</div>
+              <div style="font-size:16px;font-weight:800;color:var(--color-primary);font-family:monospace;margin-top:2px;" id="iot-countdown">03:27:54</div>
+            </div>
+          </div>
+
+          <!-- Dynamic Door Passcode -->
+          <div class="passcode-box">
+            <div>
+              <div style="font-size:10px;color:var(--text-secondary);">智能门禁动态密码 (每分钟刷新)</div>
+              <div class="passcode-val" id="iot-passcode">839215</div>
+            </div>
+            <button class="btn-secondary btn-sm" onclick="copyPasscode()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              复制密码
+            </button>
+          </div>
+
+          <!-- Giant Remote Unlock Pulse Button -->
+          <div class="unlock-btn-container">
+            <button id="btn-remote-unlock" class="unlock-pulse-btn" onclick="triggerRemoteUnlock()">
+              <svg id="unlock-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span id="unlock-label">一键远程开门解锁</span>
+            </button>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:6px;" id="unlock-subtext">如遇门锁未弹开，可在门禁面板直接输入上方6位密码</span>
+          </div>
+        </div>
+
+        <!-- 6 Lighting & Atmosphere Modes -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              全屋声光电氛围联动
+            </div>
+            <span class="tag tag-amber" id="current-scene-tag">当前：剧本推理</span>
+          </div>
+          <div class="scene-grid">
+            <div class="scene-pill active" onclick="switchScene(this, 'reasoning', '剧本推理')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">剧本推理</div>
+                <div style="font-size:10px;color:var(--text-muted);">柔和聚焦白光</div>
+              </div>
+            </div>
+
+            <div class="scene-pill" onclick="switchScene(this, 'mystery', '沉浸悬疑')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">沉浸悬疑</div>
+                <div style="font-size:10px;color:var(--text-muted);">幽蓝弱光低音</div>
+              </div>
+            </div>
+
+            <div class="scene-pill" onclick="switchScene(this, 'ktv', 'KTV狂欢')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">KTV狂欢</div>
+                <div style="font-size:10px;color:var(--text-muted);">RGB律动音响开</div>
+              </div>
+            </div>
+
+            <div class="scene-pill" onclick="switchScene(this, 'cinema', '巨幕影院')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="15" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">巨幕影院</div>
+                <div style="font-size:10px;color:var(--text-muted);">熄灯降幕布</div>
+              </div>
+            </div>
+
+            <div class="scene-pill" onclick="switchScene(this, 'bright', '聚会明亮')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">聚会明亮</div>
+                <div style="font-size:10px;color:var(--text-muted);">全开3000K暖光</div>
+              </div>
+            </div>
+
+            <div class="scene-pill" onclick="switchScene(this, 'clean', '离场清洁')">
+              <div class="scene-pill-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 12 5-5-4-4-5 5"/><path d="m9 18-5 5 4 4 5-5"/><path d="M14.5 17.5 7 10"/></svg>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">离场清洁</div>
+                <div style="font-size:10px;color:var(--text-muted);">高亮查漏退房</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hardware Micro-Controls -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              空间硬件微调
+            </div>
+            <span style="font-size:11px;color:var(--text-muted);">实时联动下发</span>
+          </div>
+
+          <!-- AC Temp -->
+          <div class="device-row">
+            <div>
+              <div style="font-size:13px;font-weight:600;">中央空调温控</div>
+              <div style="font-size:11px;color:var(--text-muted);" id="ac-status-text">制冷运行中 · 风速适中</div>
+            </div>
+            <div class="stepper">
+              <div class="stepper-btn" onclick="adjustAc(-1)">-</div>
+              <span style="font-size:14px;font-weight:800;color:var(--color-primary);min-width:32px;text-align:center;" id="ac-temp-val">24°C</span>
+              <div class="stepper-btn" onclick="adjustAc(1)">+</div>
+              <div class="switch-toggle on" id="ac-power-toggle" onclick="toggleAcPower()">
+                <div class="switch-handle"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fan Ventilation -->
+          <div class="device-row">
+            <div>
+              <div style="font-size:13px;font-weight:600;">智能新风排气</div>
+              <div style="font-size:11px;color:var(--text-muted);">空气循环与除味净化</div>
+            </div>
+            <div class="chip active" id="btn-fan-speed" onclick="cycleFanSpeed()">强档循环</div>
+          </div>
+
+          <!-- Screen Curtain -->
+          <div class="device-row">
+            <div>
+              <div style="font-size:13px;font-weight:600;">电动全景幕布</div>
+              <div style="font-size:11px;color:var(--text-muted);" id="curtain-text">状态：升起收起</div>
+            </div>
+            <button class="btn-secondary btn-sm" id="btn-toggle-curtain" onclick="toggleCurtain()">降下幕布</button>
+          </div>
+        </div>
+
+        <!-- Electronic DM Assistant -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              电子DM流程与线索下发
+            </div>
+            <span class="tag tag-green" onclick="showToast('已切换至下一幕背景音效', 'success')">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              BGM播放中
+            </span>
+          </div>
+
+          <!-- DM Stepper -->
+          <div class="dm-stepper">
+            <div class="dm-step-item" onclick="setDmStep(1)">
+              <div class="dm-step-circle">1</div>
+              <div class="dm-step-text">开幕读本</div>
+            </div>
+            <div class="dm-step-item active" onclick="setDmStep(2)">
+              <div class="dm-step-circle">2</div>
+              <div class="dm-step-text">搜证公聊</div>
+            </div>
+            <div class="dm-step-item" onclick="setDmStep(3)">
+              <div class="dm-step-circle">3</div>
+              <div class="dm-step-text">私聊对线</div>
+            </div>
+            <div class="dm-step-item" onclick="setDmStep(4)">
+              <div class="dm-step-circle">4</div>
+              <div class="dm-step-text">投票决案</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn-secondary" style="flex:1;" onclick="openCluesDrawer()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
+              查看公共线索卡 (5)
+            </button>
+            <button class="btn-secondary" style="flex:1;" onclick="showToast('已向所有探员手机广播搜证警报', 'info')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              全员搜证播报
+            </button>
+          </div>
+        </div>
+
+        <!-- In-Room Service Bar -->
+        <div style="display:flex;gap:10px;margin-bottom:12px;">
+          <button class="btn-primary" style="flex:1;padding:12px;" onclick="openAddTimeModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            加钟续时申请
+          </button>
+          <button class="btn-secondary" style="flex:1;padding:12px;" onclick="openCallHelpModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            呼叫云端管家
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 5: 个人中心 ==================== -->
+      <div id="pane-profile" class="view-pane">
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <div class="profile-avatar">顾</div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:16px;font-weight:800;color:var(--text-primary);">探员·顾XX</span>
+              <span class="tag tag-amber">黄金大侦探 Lv.4</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">138****8899</div>
+          </div>
+          <button class="btn-secondary btn-sm" onclick="showToast('探员实名安全凭证已核验有效', 'success')">已实名</button>
+        </div>
+
+        <!-- Assets Matrix -->
+        <div class="assets-grid">
+          <div class="asset-box" onclick="showToast('账户储值余额：¥280.00', 'info')">
+            <div style="font-size:10px;color:var(--text-muted);">储值金库</div>
+            <div style="font-size:16px;font-weight:800;color:var(--color-primary);margin-top:3px;">¥280.00</div>
+          </div>
+          <div class="asset-box" onclick="openCouponsDrawer()">
+            <div style="font-size:10px;color:var(--text-muted);">可用优惠券</div>
+            <div style="font-size:16px;font-weight:800;color:var(--color-success);margin-top:3px;">3 张</div>
+          </div>
+          <div class="asset-box" onclick="showToast('当前推理积分：1,240点，可兑换加钟时长', 'info')">
+            <div style="font-size:10px;color:var(--text-muted);">推理积分</div>
+            <div style="font-size:16px;font-weight:800;color:var(--color-accent);margin-top:3px;">1,240</div>
+          </div>
+        </div>
+
+        <!-- Badges Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              探员成就徽章
+            </div>
+            <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="showToast('已点亮 4 枚核心荣誉徽章', 'info')">查看全部</span>
+          </div>
+          <div style="display:flex;gap:8px;overflow-x:auto;">
+            <div class="tag tag-amber" style="padding:6px 10px;">神探MVP</div>
+            <div class="tag tag-green" style="padding:6px 10px;">硬核推土机</div>
+            <div class="tag tag-blue" style="padding:6px 10px;">夜行守望者</div>
+            <div class="tag tag-rose" style="padding:6px 10px;">组局常胜车头</div>
+          </div>
+        </div>
+
+        <!-- Menu List -->
+        <div style="margin-bottom:14px;">
+          <div class="menu-item" onclick="openMyOrdersDrawer()">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span style="font-size:13px;font-weight:600;">我的包厢预订</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+              <span>进行中 1 笔</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="menu-item" onclick="openMyCarpoolDrawer()">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span style="font-size:13px;font-weight:600;">我的拼车车队</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+              <span>在途 1 局</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="menu-item" onclick="openSnacksDrawer()">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+              <span style="font-size:13px;font-weight:600;">智能零食精酿柜</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+              <span>扫码自提</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="menu-item" onclick="showRulesModal()">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span style="font-size:13px;font-weight:600;">24小时无人安全守则</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+              <span>须知</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Tab Bar -->
+    <div class="bottom-tab-bar">
+      <div class="tab-item active" data-tab="rooms" onclick="switchTab('rooms')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span>选订</span>
+        <div class="tab-indicator"></div>
+      </div>
+
+      <div class="tab-item" data-tab="scripts" onclick="switchTab('scripts')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+        <span>找本</span>
+        <div class="tab-indicator"></div>
+      </div>
+
+      <div class="tab-item" data-tab="carpool" onclick="switchTab('carpool')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>拼车</span>
+        <div class="tab-indicator"></div>
+      </div>
+
+      <div class="tab-item" data-tab="iot" onclick="switchTab('iot')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>智控</span>
+        <div class="tab-indicator"></div>
+      </div>
+
+      <div class="tab-item" data-tab="profile" onclick="switchTab('profile')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的</span>
+        <div class="tab-indicator"></div>
+      </div>
+    </div>
+
+    <!-- Global Bottom Drawer -->
+    <div id="drawer-overlay" class="overlay-backdrop" onclick="closeDrawer(event)">
+      <div class="drawer-content" onclick="event.stopPropagation()">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <span style="font-size:15px;font-weight:700;color:var(--text-primary);" id="drawer-title">抽屉标题</span>
+          <div style="cursor:pointer;padding:4px;color:var(--text-muted);" onclick="closeDrawer()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div id="drawer-body">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Global Center Modal -->
+    <div id="modal-overlay" class="overlay-backdrop center" onclick="closeModal(event)">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:15px;font-weight:700;color:var(--text-primary);" id="modal-title">弹窗标题</span>
+          <div style="cursor:pointer;padding:4px;color:var(--text-muted);" onclick="closeModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div id="modal-body" style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">
+          <!-- Injected dynamically -->
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;" id="modal-actions">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /* =========================================================================
+       1. Reactive Application State & Datasets (Strictly Desensitized)
+       ========================================================================= */
+    const AppData = {
+      stores: [
+        {
+          id: "store_01",
+          name: "XX商圈旗舰店",
+          fullName: "XX潮玩轰趴·无人沉浸剧本馆 (XX商圈旗舰店)",
+          address: "XX市XX区XX路88号XX大厦3层",
+          tags: ["24H营业", "8间包厢", "智能物联", "沉浸声光电"],
+          tel: "010-8888****"
+        },
+        {
+          id: "store_02",
+          name: "XX高新创客店",
+          fullName: "XX潮玩轰趴·无人沉浸剧本馆 (XX高新创客店)",
+          address: "XX市XX区XX科技大道102号2层",
+          tags: ["24H营业", "6间包厢", "双屏投影", "智能隔音"],
+          tel: "010-6666****"
+        },
+        {
+          id: "store_03",
+          name: "XX大学城店",
+          fullName: "XX潮玩轰趴·无人沉浸剧本馆 (XX大学城店)",
+          address: "XX市XX区XX学府路19号青年汇B1",
+          tags: ["24H营业", "5间包厢", "超大巨幕", "桌游专区"],
+          tel: "010-9999****"
+        }
+      ],
+      currentStoreId: "store_01",
+
+      rooms: [
+        {
+          id: "room_01",
+          type: "gufeng",
+          name: "XX古风沉浸剧场",
+          capacity: "8-10人",
+          price: 88,
+          tag: "沉浸剧场",
+          status: "using", // using / free / reserved
+          statusText: "使用中",
+          statusColor: "rose",
+          features: ["全景古风光影", "智能宫灯调光", "复古案几软包", "独立私聊隔间", "专业音效矩阵"],
+          desc: "专为古风沉浸、民国谍战与机制阵营本打造，沉浸式三面联动光影，支持私聊密室与证据搜寻暗格。"
+        },
+        {
+          id: "room_02",
+          type: "cyber",
+          name: "XX赛博硬核推理舱",
+          capacity: "6-8人",
+          price: 78,
+          tag: "赛博推理",
+          status: "free",
+          statusText: "空闲中",
+          statusColor: "green",
+          features: ["双屏高清线索投影", "专业案情白板", "静音吸音环境", "侦探聚光射灯"],
+          desc: "极简科技暗黑风，配备双屏线索投屏与超大电子白板，适合本格硬核推凶与时间线复盘。"
+        },
+        {
+          id: "room_03",
+          type: "party",
+          name: "XX全景巨幕轰趴大厅",
+          capacity: "10-16人",
+          price: 128,
+          tag: "巨幕轰趴",
+          status: "free",
+          statusText: "空闲中",
+          statusColor: "green",
+          features: ["150寸超大电动巨幕", "JBL高保真点歌系统", "双机位游戏机", "精酿吧台与制冰机"],
+          desc: "复合型聚会娱乐空间，集高清观影、欢聚K歌、互动电竞、桌游餐饮于一体，适合团建与生日聚会。"
+        },
+        {
+          id: "room_04",
+          type: "lounge",
+          name: "XX微醺私语小包",
+          capacity: "4-6人",
+          price: 58,
+          tag: "微醺私语",
+          status: "free",
+          statusText: "空闲中",
+          statusColor: "green",
+          features: ["真皮懒人沙发", "微醺暖调壁灯", "桌面暖光台灯", "精酿小食冷柜"],
+          desc: "私密温馨小包厢，专为微醺情感本、3-5人好友畅聊或双人深度桌游对弈定制。"
+        }
+      ],
+
+      scripts: [
+        {
+          id: "script_01",
+          title: "《XX古堡夜宴》",
+          genre: "推理",
+          genreText: "硬核本格推理",
+          playerText: "6人 (3男3女)",
+          players: 6,
+          duration: "4.5h",
+          difficulty: "4.8",
+          hot: 98,
+          brief: "暴风雨孤岛古堡，各怀鬼胎的六位宾客，离奇死去的伯爵...",
+          characters: [
+            { name: "侦探·XX", desc: "名震公国的敏锐探长，眼神犀利" },
+            { name: "伯爵夫人·XX", desc: "古堡女主人，气质高雅神情忧伤" },
+            { name: "医生·XX", desc: "家族私人医生，冷静内敛" },
+            { name: "继承人·XX", desc: "长子，桀骜不驯急于继承家业" },
+            { name: "管家·XX", desc: "服务古堡三十年，知晓所有密道" },
+            { name: "女画家·XX", desc: "受邀前来绘制肖像的年轻女子" }
+          ],
+          clues: ["案发书房的烧焦信件残片", "管家口袋中的铜制生锈钥匙", "酒窖暗格内的烈性镇静剂空瓶", "撕碎的伯爵遗嘱复印件", "窗台外部留下的泥泞脚印"]
+        },
+        {
+          id: "script_02",
+          title: "《XX迷雾之谜》",
+          genre: "悬疑",
+          genreText: "悬疑惊悚还原",
+          playerText: "7人 (4男3女)",
+          players: 7,
+          duration: "4.0h",
+          difficulty: "4.5",
+          hot: 96,
+          brief: "大雾封锁的山中小镇，每逢月圆之夜便有钟声回响...",
+          characters: [
+            { name: "钟楼守护人·XX", desc: "年迈沉默，总是披着深色风衣" },
+            { name: "警长·XX", desc: "试图维持小镇秩序的调查者" },
+            { name: "旅社老板娘·XX", desc: "热情背后暗藏防备" },
+            { name: "借宿学者·XX", desc: "研究民俗怪异传说的外来客" },
+            { name: "猎户·XX", desc: "深谙山林野兽与地形路径" },
+            { name: "花店少女·XX", desc: "经常在迷雾中采摘夜昙花" },
+            { name: "神秘流浪客·XX", desc: "言语颠三倒四却语出惊人" }
+          ],
+          clues: ["生锈钟楼齿轮卡住的麻绳", "旅馆登记簿被撕去的最后一页", "古籍记载的三十年前未解之谜"]
+        },
+        {
+          id: "script_03",
+          title: "《XX年华旧梦》",
+          genre: "情感",
+          genreText: "民国情感沉浸",
+          playerText: "6人 (3男3女)",
+          players: 6,
+          duration: "5.0h",
+          difficulty: "4.2",
+          hot: 95,
+          brief: "灯红酒绿的十里洋场，家国动荡下的诀别与誓言...",
+          characters: [
+            { name: "商会少东·XX", desc: "玩世不恭的外表下有一颗炽热之心" },
+            { name: "名伶·XX", desc: "戏台上的绝代风华，乱世漂泊" },
+            { name: "报社记者·XX", desc: "笔伐黑暗，追寻历史真相" },
+            { name: "留洋少校·XX", desc: "身着戎装，肩负秘密重任" },
+            { name: "千金小姐·XX", desc: "理想主义，向往光明新青年" },
+            { name: "教书先生·XX", desc: "温润如玉，默默守护学子" }
+          ],
+          clues: ["夹在曲谱中的泛黄旧相片", "一张写有秘密联络暗号的火车票", "刻着誓言的铜制怀表"]
+        },
+        {
+          id: "script_04",
+          title: "《XX机制风云》",
+          genre: "机制",
+          genreText: "阵营对抗与策略博弈",
+          playerText: "8人 (4男4女)",
+          players: 8,
+          duration: "5.0h",
+          difficulty: "4.0",
+          hot: 93,
+          brief: "商海争锋，四大商业集团角逐城市标王，暗牌机制对决...",
+          characters: [
+            { name: "资本大鳄·XX", desc: "手握重金，谋定而后动" },
+            { name: "科技新贵·XX", desc: "专利无数，剑走偏锋" },
+            { name: "金牌精算师·XX", desc: "数据为王，洞悉每一分盈亏" },
+            { name: "政商掮客·XX", desc: "人脉广泛，善于平衡各方" }
+          ],
+          clues: ["竞标核心底价机密文件", "海外离岸账户资金流水账单"]
+        },
+        {
+          id: "script_05",
+          title: "《XX微醺夜话》",
+          genre: "微醺",
+          genreText: "都市微醺情感",
+          playerText: "5人 (2男3女)",
+          players: 5,
+          duration: "3.5h",
+          difficulty: "3.8",
+          hot: 91,
+          brief: "午夜零点的小酒馆，五杯鸡尾酒，交换各自未曾言说的心事...",
+          characters: [
+            { name: "调酒师·XX", desc: "见证过无数离合的倾听者" },
+            { name: "设计师·XX", desc: "都市加班狂人，渴望逃离" },
+            { name: "自由音乐人·XX", desc: "一把吉他游历四方" }
+          ],
+          clues: ["吧台杯垫背面写着的未寄出情书", "一张褪色的旅行明信片"]
+        },
+        {
+          id: "script_06",
+          title: "《XX诡案纪事》",
+          genre: "推理",
+          genreText: "现代刑侦本格",
+          playerText: "6人 (3男3女)",
+          players: 6,
+          duration: "4.5h",
+          difficulty: "4.9",
+          hot: 97,
+          brief: "封闭的现代写字楼密室，离奇坠楼的高管与完美的互为不在场证明...",
+          characters: [
+            { name: "法医·XX", desc: "严谨客观，只用尸检报告说话" },
+            { name: "痕检专家·XX", desc: "微观痕迹的还原捕手" },
+            { name: "刑警队长·XX", desc: "直觉与逻辑并重的探案先锋" }
+          ],
+          clues: ["死者手表停摆的精确时间点", "办公室百叶窗缝隙提取的合成纤维"]
+        }
+      ],
+
+      carpools: [
+        {
+          id: "cp_01",
+          scriptTitle: "《XX古堡夜宴》",
+          scriptGenre: "硬核推理",
+          storeName: "XX商圈旗舰店",
+          roomName: "古风沉浸剧场",
+          departureTime: "今日 19:30",
+          initiator: "探员·林XX",
+          status: "recruiting",
+          statusText: "差2人成车",
+          total: 6,
+          taken: 4,
+          roles: [
+            { name: "侦探·XX", taken: true, player: "林XX (车头)" },
+            { name: "伯爵夫人·XX", taken: true, player: "苏XX" },
+            { name: "医生·XX", taken: true, player: "张XX" },
+            { name: "继承人·XX", taken: true, player: "陈XX" },
+            { name: "管家·XX", taken: false },
+            { name: "女画家·XX", taken: false }
+          ]
+        },
+        {
+          id: "cp_02",
+          scriptTitle: "《XX迷雾之谜》",
+          scriptGenre: "悬疑惊悚",
+          storeName: "XX高新创客店",
+          roomName: "赛博硬核推理舱",
+          departureTime: "今日 20:00",
+          initiator: "探员·赵XX",
+          status: "recruiting",
+          statusText: "差1人成车",
+          total: 7,
+          taken: 6,
+          roles: [
+            { name: "钟楼守护人·XX", taken: true, player: "赵XX (车头)" },
+            { name: "警长·XX", taken: true, player: "钱XX" },
+            { name: "旅社老板娘·XX", taken: true, player: "孙XX" },
+            { name: "借宿学者·XX", taken: true, player: "李XX" },
+            { name: "猎户·XX", taken: true, player: "周XX" },
+            { name: "花店少女·XX", taken: true, player: "吴XX" },
+            { name: "神秘流浪客·XX", taken: false }
+          ]
+        },
+        {
+          id: "cp_03",
+          scriptTitle: "《XX年华旧梦》",
+          scriptGenre: "民国情感",
+          storeName: "XX商圈旗舰店",
+          roomName: "微醺私语小包",
+          departureTime: "今日 21:00",
+          initiator: "探员·周XX",
+          status: "full",
+          statusText: "已满员待发车",
+          total: 6,
+          taken: 6,
+          roles: [
+            { name: "商会少东·XX", taken: true, player: "周XX" },
+            { name: "名伶·XX", taken: true, player: "郑XX" },
+            { name: "报社记者·XX", taken: true, player: "王XX" },
+            { name: "留洋少校·XX", taken: true, player: "冯XX" },
+            { name: "千金小姐·XX", taken: true, player: "陈XX" },
+            { name: "教书先生·XX", taken: true, player: "褚XX" }
+          ]
+        },
+        {
+          id: "cp_04",
+          scriptTitle: "《XX机制风云》",
+          scriptGenre: "阵营机制",
+          storeName: "XX大学城店",
+          roomName: "全景巨幕轰趴大厅",
+          departureTime: "明日 14:00",
+          initiator: "探员·孙XX",
+          status: "recruiting",
+          statusText: "差3人成车",
+          total: 8,
+          taken: 5,
+          roles: [
+            { name: "资本大鳄·XX", taken: true, player: "孙XX" },
+            { name: "科技新贵·XX", taken: true, player: "卫XX" },
+            { name: "金牌精算师·XX", taken: true, player: "蒋XX" },
+            { name: "政商掮客·XX", taken: true, player: "沈XX" },
+            { name: "投资合伙人·XX", taken: true, player: "韩XX" },
+            { name: "法务代表·XX", taken: false },
+            { name: "品牌总监·XX", taken: false },
+            { name: "技术专业·XX", taken: false }
+          ]
+        }
+      ],
+
+      iot: {
+        countdownSec: 12474, // 03:27:54
+        passcode: "839215",
+        isUnlocked: false,
+        activeScene: "reasoning",
+        activeSceneName: "剧本推理",
+        acTemp: 24,
+        acPower: true,
+        fanSpeed: "强档循环",
+        curtainDown: false,
+        dmStep: 2,
+        bgmPlaying: true
+      },
+
+      user: {
+        name: "探员·顾XX",
+        phone: "138****8899",
+        level: "黄金大侦探 Lv.4",
+        balance: 280.00,
+        coupons: [
+          { id: "c1", title: "包厢立减¥20元券", desc: "满¥88即可使用 · 全店通用", valid: "至本月底" },
+          { id: "c2", title: "剧本拼车8折券", desc: "仅限剧本杀包厢组局使用", valid: "至下周日" },
+          { id: "c3", title: "夜间加钟免单1小时券", desc: "通宵场次专享", valid: "长期有效" }
+        ],
+        points: 1240,
+        orders: [
+          { id: "ORD-20260903-882", room: "XX古风沉浸剧场", time: "今日 18:30-22:30", amount: "¥352.00", status: "使用中" },
+          { id: "ORD-20260828-419", room: "XX赛博硬核推理舱", time: "08-28 14:00-18:00", amount: "¥312.00", status: "已完成" },
+          { id: "ORD-20260820-103", room: "XX全景巨幕轰趴大厅", time: "08-20 20:00-01:00", amount: "¥640.00", status: "已完成" }
+        ]
+      }
+    };
+
+    /* =========================================================================
+       2. UI Rendering & Interactions
+       ========================================================================= */
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const el = document.getElementById("clock-display");
+      if (el) el.innerText = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // IoT Countdown
+    function updateCountdown() {
+      if (AppData.iot.countdownSec > 0) {
+        AppData.iot.countdownSec--;
+        const h = String(Math.floor(AppData.iot.countdownSec / 3600)).padStart(2, "0");
+        const m = String(Math.floor((AppData.iot.countdownSec % 3600) / 60)).padStart(2, "0");
+        const s = String(AppData.iot.countdownSec % 60).padStart(2, "0");
+        const el = document.getElementById("iot-countdown");
+        if (el) el.innerText = `${h}:${m}:${s}`;
+      }
+    }
+    setInterval(updateCountdown, 1000);
+
+    // Toast
+    let toastTimer = null;
+    function showToast(msg, type = "success") {
+      const toast = document.getElementById("toast");
+      const toastMsg = document.getElementById("toast-msg");
+      const toastIcon = document.getElementById("toast-icon");
+      if (!toast) return;
+
+      toastMsg.innerText = msg;
+      if (type === "success") {
+        toastIcon.innerHTML = `<circle cx="12" cy="12" r="10" stroke="#10b981"/><path d="m9 12 2 2 4-4" stroke="#10b981"/>`;
+      } else if (type === "info") {
+        toastIcon.innerHTML = `<circle cx="12" cy="12" r="10" stroke="#f59e0b"/><line x1="12" y1="8" x2="12" y2="12" stroke="#f59e0b"/><line x1="12" y1="16" x2="12.01" y2="16" stroke="#f59e0b"/>`;
+      } else {
+        toastIcon.innerHTML = `<circle cx="12" cy="12" r="10" stroke="#f43f5e"/><line x1="15" y1="9" x2="9" y2="15" stroke="#f43f5e"/><line x1="9" y1="9" x2="15" y2="15" stroke="#f43f5e"/>`;
+      }
+
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1900);
+    }
+
+    // Tab Switcher
+    function switchTab(tabKey) {
+      document.querySelectorAll(".tab-item").forEach(item => {
+        item.classList.toggle("active", item.getAttribute("data-tab") === tabKey);
+      });
+      document.querySelectorAll(".view-pane").forEach(pane => {
+        pane.classList.remove("active");
+      });
+      const targetPane = document.getElementById(`pane-${tabKey}`);
+      if (targetPane) {
+        targetPane.classList.add("active");
+        document.querySelector(".mp-body").scrollTop = 0;
+      }
+    }
+
+    // Modal Controller
+    function openModal(title, htmlContent, confirmText = "确认", onConfirm = null) {
+      document.getElementById("modal-title").innerText = title;
+      document.getElementById("modal-body").innerHTML = htmlContent;
+      const actContainer = document.getElementById("modal-actions");
+      actContainer.innerHTML = `
+        <button class="btn-secondary" onclick="closeModal()">取消</button>
+        <button class="btn-primary" id="btn-modal-confirm">${confirmText}</button>
+      `;
+      document.getElementById("btn-modal-confirm").onclick = () => {
+        if (onConfirm) onConfirm();
+        closeModal();
+      };
+      document.getElementById("modal-overlay").classList.add("active");
+    }
+    function closeModal(e) {
+      if (!e || e.target === document.getElementById("modal-overlay") || !e.target) {
+        document.getElementById("modal-overlay").classList.remove("active");
+      }
+    }
+
+    // Drawer Controller
+    function openDrawer(title, htmlContent) {
+      document.getElementById("drawer-title").innerText = title;
+      document.getElementById("drawer-body").innerHTML = htmlContent;
+      document.getElementById("drawer-overlay").classList.add("active");
+    }
+    function closeDrawer(e) {
+      if (!e || e.target === document.getElementById("drawer-overlay") || !e.target) {
+        document.getElementById("drawer-overlay").classList.remove("active");
+      }
+    }
+
+    /* =========================================================================
+       3. Tab 1: Rooms Logic
+       ========================================================================= */
+    let currentRoomType = "all";
+    let currentSlot = "all";
+
+    function renderRooms() {
+      const container = document.getElementById("rooms-list-container");
+      if (!container) return;
+
+      const filtered = AppData.rooms.filter(r => {
+        return currentRoomType === "all" || r.type === currentRoomType;
+      });
+
+      container.innerHTML = filtered.map(room => `
+        <div class="room-card">
+          <div class="room-card-body">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:15px;font-weight:700;color:var(--text-primary);">${room.name}</span>
+                  <span class="tag tag-${room.statusColor}">${room.statusText}</span>
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">
+                  适合容纳：${room.capacity} · ${room.tag}
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <span style="font-size:11px;color:var(--color-primary);">¥</span>
+                <span style="font-size:18px;font-weight:800;color:var(--color-primary);">${room.price}</span>
+                <span style="font-size:10px;color:var(--text-muted);">/小时</span>
+              </div>
+            </div>
+
+            <div class="room-features">
+              ${room.features.map(f => `<span class="tag" style="background:var(--bg-card-subtle);color:var(--text-secondary);">${f}</span>`).join("")}
+            </div>
+
+            <div style="font-size:11px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;background:rgba(255,255,255,0.03);padding:8px;border-radius:var(--radius-sm);">
+              ${room.desc}
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--border-subtle);">
+              <span style="font-size:11px;color:var(--text-muted);display:inline-flex;align-items:center;gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                无人智控开锁 · 离场通电自控
+              </span>
+              <button class="btn-primary btn-sm" onclick="openBookRoomDrawer('${room.id}')">
+                立即预约选订
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function filterRoomType(el, type) {
+      document.querySelectorAll("[data-roomtype]").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+      currentRoomType = type;
+      renderRooms();
+    }
+
+    function filterSlot(el, slot) {
+      document.querySelectorAll("[data-slot]").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+      currentSlot = slot;
+      showToast(`已切换至：${el.innerText}`, "info");
+      renderRooms();
+    }
+
+    function openBookRoomDrawer(roomId) {
+      const room = AppData.rooms.find(r => r.id === roomId);
+      if (!room) return;
+
+      const html = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div style="font-size:16px;font-weight:700;">${room.name}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">门店：${document.getElementById("current-store-name").innerText}</div>
+          </div>
+          <div style="font-size:18px;font-weight:800;color:var(--color-primary);">¥${room.price}<span style="font-size:11px;font-weight:400;color:var(--text-muted);">/小时</span></div>
+        </div>
+
+        <div style="margin:12px 0;">
+          <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">预订预约时长</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;" id="book-hours-grid">
+            <div class="chip active" style="justify-content:center;padding:8px;" onclick="selectBookDuration(this, 2, ${room.price})">2小时</div>
+            <div class="chip" style="justify-content:center;padding:8px;" onclick="selectBookDuration(this, 3, ${room.price})">3小时</div>
+            <div class="chip" style="justify-content:center;padding:8px;" onclick="selectBookDuration(this, 4, ${room.price})">4小时 (推荐)</div>
+          </div>
+        </div>
+
+        <div style="margin:14px 0;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+            <span>可用优惠券抵扣</span>
+            <span style="color:var(--color-success);font-weight:600;" id="book-coupon-tip">- ¥20.00 (满¥88专享)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:8px;">
+            <span>免押金信用开锁</span>
+            <span style="color:var(--color-primary);font-weight:600;">微信支付分已点亮</span>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+          <div>
+            <div style="font-size:10px;color:var(--text-muted);">应付金额</div>
+            <div style="font-size:20px;font-weight:800;color:var(--color-primary);" id="book-total-price">¥${room.price * 2 - 20}.00</div>
+          </div>
+          <button class="btn-primary" style="padding:10px 24px;" onclick="confirmBookRoom('${room.id}', '${room.name}')">
+            确认预订并生成钥匙
+          </button>
+        </div>
+      `;
+      openDrawer("包厢预约配置", html);
+    }
+
+    let selectedDuration = 2;
+    function selectBookDuration(el, hours, pricePerHour) {
+      document.querySelectorAll("#book-hours-grid .chip").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      selectedDuration = hours;
+      const total = hours * pricePerHour - 20;
+      document.getElementById("book-total-price").innerText = `¥${total > 0 ? total : 0}.00`;
+    }
+
+    function confirmBookRoom(roomId, roomName) {
+      closeDrawer();
+      showToast(`预约成功！已为您的【${roomName}】生成智能开锁钥匙`, "success");
+      // Switch active room in IoT tab
+      document.getElementById("iot-room-name").innerText = roomName;
+      AppData.iot.countdownSec = selectedDuration * 3600;
+      // Navigate to IoT tab
+      setTimeout(() => {
+        switchTab("iot");
+      }, 500);
+    }
+
+    // Store Switcher
+    function openStoreSelector() {
+      const html = AppData.stores.map(s => `
+        <div class="card" style="cursor:pointer;margin-bottom:8px;${s.id === AppData.currentStoreId ? 'border-color:var(--color-primary);background:var(--bg-card-hover);' : ''}" onclick="selectStore('${s.id}')">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--text-primary);">${s.name}</div>
+            ${s.id === AppData.currentStoreId ? '<span class="tag tag-amber">当前门店</span>' : ''}
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin:4px 0;">${s.address}</div>
+          <div style="display:flex;gap:4px;margin-top:6px;">
+            ${s.tags.map(t => `<span class="tag" style="background:var(--bg-card-subtle);">${t}</span>`).join("")}
+          </div>
+        </div>
+      `).join("");
+      openDrawer("切换轰趴馆门店", html);
+    }
+
+    function selectStore(storeId) {
+      AppData.currentStoreId = storeId;
+      const store = AppData.stores.find(s => s.id === storeId);
+      if (store) {
+        document.getElementById("current-store-name").innerText = store.name;
+        document.getElementById("banner-store-title").innerText = store.fullName;
+        document.getElementById("banner-store-address").innerText = store.address;
+        document.getElementById("iot-store-name").innerText = `${store.name} · 包厢01`;
+        showToast(`已切换至：${store.name}`, "success");
+      }
+      closeDrawer();
+      renderRooms();
+    }
+
+    function showStoreDetailModal() {
+      const s = AppData.stores.find(x => x.id === AppData.currentStoreId) || AppData.stores[0];
+      const html = `
+        <div style="line-height:1.6;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${s.fullName}</div>
+          <div>门店位置：${s.address}</div>
+          <div>服务电话：${s.tel}</div>
+          <div style="margin-top:8px;">配套设施：24小时自助门禁、全屋智能中控、一次性杯具茶包、独立洗手间、冷饮自售机。</div>
+          <div style="margin-top:8px;color:var(--color-primary);">支持提前30分钟进场，离场请随手关闭房门。</div>
+        </div>
+      `;
+      openModal("门店详细信息", html, "联系管家", () => {
+        showToast("已呼叫该门店云端管家电话", "info");
+      });
+    }
+
+    /* =========================================================================
+       4. Tab 2: Scripts Logic
+       ========================================================================= */
+    let currentScriptGenre = "all";
+    let currentScriptPlayer = "all";
+
+    function renderScripts() {
+      const container = document.getElementById("scripts-list-container");
+      if (!container) return;
+
+      const filtered = AppData.scripts.filter(s => {
+        const matchGenre = currentScriptGenre === "all" || s.genre === currentScriptGenre;
+        const matchPlayer = currentScriptPlayer === "all" || s.players === parseInt(currentScriptPlayer);
+        return matchGenre && matchPlayer;
+      });
+
+      container.innerHTML = filtered.map(item => `
+        <div class="script-item" onclick="openScriptDetailDrawer('${item.id}')">
+          <div class="script-cover">
+            <span class="script-cover-tag">${item.genre}</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" style="margin-bottom:6px;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+            <div style="font-size:11px;font-weight:700;color:var(--text-primary);">${item.title}</div>
+          </div>
+          <div class="script-content">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <span style="font-size:15px;font-weight:800;color:var(--text-primary);">${item.title}</span>
+                <span class="tag tag-amber">${item.difficulty}分</span>
+              </div>
+              <div style="display:flex;gap:6px;margin:6px 0;">
+                <span class="tag tag-blue">${item.playerText}</span>
+                <span class="tag tag-green">${item.duration}</span>
+                <span class="tag" style="background:var(--bg-card-subtle);">${item.genreText}</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.4;">
+                ${item.brief}
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+              <span style="font-size:10px;color:var(--text-muted);">包含 ${item.characters.length} 个角色 · ${item.clues.length} 条核心线索</span>
+              <button class="btn-secondary btn-sm" onclick="event.stopPropagation(); quickCreateCarpool('${item.title}')">
+                发起拼车
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function filterScriptGenre(el, genre) {
+      document.querySelectorAll("[data-genre]").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      currentScriptGenre = genre;
+      renderScripts();
+    }
+
+    function filterScriptPlayer(el, p) {
+      document.querySelectorAll("[data-player]").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      currentScriptPlayer = p;
+      renderScripts();
+    }
+
+    function openScriptDetailDrawer(scriptId) {
+      const item = AppData.scripts.find(s => s.id === scriptId);
+      if (!item) return;
+
+      const html = `
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:18px;font-weight:800;color:var(--text-primary);">${item.title}</div>
+            <span class="tag tag-amber">${item.genreText} · 难度${item.difficulty}</span>
+          </div>
+          <div style="display:flex;gap:8px;margin:8px 0;">
+            <span class="tag tag-blue">${item.playerText}</span>
+            <span class="tag tag-green">耗时约 ${item.duration}</span>
+            <span class="tag" style="background:var(--bg-card-subtle);">热度指数 ${item.hot}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;background:rgba(255,255,255,0.03);padding:10px;border-radius:var(--radius-sm);margin:10px 0;">
+            ${item.brief}
+          </div>
+        </div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:8px;">角色简介列表</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          ${item.characters.map(c => `
+            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;font-weight:700;color:var(--color-primary);">${c.name}</span>
+              <span style="font-size:11px;color:var(--text-muted);">${c.desc}</span>
+            </div>
+          `).join("")}
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="btn-secondary" style="flex:1;" onclick="closeDrawer(); switchTab('carpool')">
+            查看该本拼车车次
+          </button>
+          <button class="btn-primary" style="flex:1;" onclick="closeDrawer(); quickCreateCarpool('${item.title}')">
+            以此剧本发起新组局
+          </button>
+        </div>
+      `;
+      openDrawer("剧本详情与角色档案", html);
+    }
+
+    /* =========================================================================
+       5. Tab 3: Carpool Logic
+       ========================================================================= */
+    let currentCarpoolStatus = "all";
+
+    function renderCarpools() {
+      const container = document.getElementById("carpools-list-container");
+      if (!container) return;
+
+      const filtered = AppData.carpools.filter(c => {
+        return currentCarpoolStatus === "all" || c.status === currentCarpoolStatus;
+      });
+
+      container.innerHTML = filtered.map(item => `
+        <div class="carpool-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:15px;font-weight:800;color:var(--text-primary);">${item.scriptTitle}</span>
+                <span class="tag ${item.status === 'full' ? 'tag-green' : 'tag-rose'}">${item.statusText}</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">
+                ${item.storeName} · ${item.roomName}
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;color:var(--color-primary);font-weight:700;">${item.departureTime}</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">发起人：${item.initiator}</div>
+            </div>
+          </div>
+
+          <div class="seats-grid">
+            ${item.roles.map(r => `
+              <div class="seat-badge ${r.taken ? 'taken' : 'empty'}">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>${r.name}</span>
+                ${r.taken ? `<span style="font-size:9px;opacity:0.8;">[${r.player.split(" ")[0]}]</span>` : '<span style="font-size:9px;color:var(--color-primary);">[空位]</span>'}
+              </div>
+            `).join("")}
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border-subtle);">
+            <span style="font-size:11px;color:var(--text-muted);">
+              已锁定 ${item.taken} / ${item.total} 人 · ${item.total - item.taken === 0 ? '随时可发车' : `还缺 ${item.total - item.taken} 位探员`}
+            </span>
+            ${item.status !== 'full' ? `
+              <button class="btn-primary btn-sm" onclick="openJoinCarpoolDrawer('${item.id}')">
+                立即选角色上车
+              </button>
+            ` : `
+              <button class="btn-secondary btn-sm" onclick="showToast('该车队已满员，请选择其他车次或自行发起', 'info')">
+                查看满员阵容
+              </button>
+            `}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function filterCarpool(el, st) {
+      document.querySelectorAll("[data-cpstatus]").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      currentCarpoolStatus = st;
+      renderCarpools();
+    }
+
+    function openJoinCarpoolDrawer(cpId) {
+      const item = AppData.carpools.find(c => c.id === cpId);
+      if (!item) return;
+
+      const emptyRoles = item.roles.filter(r => !r.taken);
+
+      const html = `
+        <div style="margin-bottom:12px;">
+          <div style="font-size:16px;font-weight:700;">加入组局车队：${item.scriptTitle}</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">时间：${item.departureTime} · 门店：${item.storeName}</div>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">请认领您的剧本角色：</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+          ${emptyRoles.map(r => `
+            <div class="card" style="margin-bottom:0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="confirmJoinRole('${item.id}', '${r.name}')">
+              <span style="font-size:13px;font-weight:700;color:var(--color-primary);">${r.name}</span>
+              <button class="btn-primary btn-sm">认领此角色</button>
+            </div>
+          `).join("")}
+        </div>
+      `;
+      openDrawer("选定角色上车", html);
+    }
+
+    function confirmJoinRole(cpId, roleName) {
+      const item = AppData.carpools.find(c => c.id === cpId);
+      if (item) {
+        const r = item.roles.find(x => x.name === roleName);
+        if (r) {
+          r.taken = true;
+          r.player = "顾XX (我)";
+          item.taken++;
+          if (item.taken >= item.total) {
+            item.status = "full";
+            item.statusText = "已满员待发车";
+          } else {
+            item.statusText = `差${item.total - item.taken}人成车`;
+          }
+        }
+      }
+      closeDrawer();
+      showToast(`上车成功！您已成功认领角色【${roleName}】`, "success");
+      renderCarpools();
+    }
+
+    function quickCreateCarpool(title) {
+      document.getElementById("pane-carpool").classList.add("active");
+      openCreateCarpoolModal(title);
+    }
+
+    function openCreateCarpoolModal(defaultScript = "《XX古堡夜宴》") {
+      const html = `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <label style="font-size:11px;color:var(--text-muted);">目标剧本</label>
+            <select id="new-cp-script" style="width:100%;background:var(--bg-card);border:1px solid var(--border-subtle);color:var(--text-primary);padding:8px;border-radius:var(--radius-sm);margin-top:4px;">
+              ${AppData.scripts.map(s => `<option value="${s.title}" ${s.title === defaultScript ? 'selected' : ''}>${s.title} (${s.genre})</option>`).join("")}
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;color:var(--text-muted);">约定发车时间</label>
+            <select id="new-cp-time" style="width:100%;background:var(--bg-card);border:1px solid var(--border-subtle);color:var(--text-primary);padding:8px;border-radius:var(--radius-sm);margin-top:4px;">
+              <option value="今日 20:30">今日 20:30 (晚班黄金场)</option>
+              <option value="今日 22:00">今日 22:00 (夜猫狂欢场)</option>
+              <option value="明日 14:00">明日 14:00 (周末下午场)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;color:var(--text-muted);">约定包厢</label>
+            <input type="text" value="XX商圈旗舰店 · 古风沉浸剧场" readonly style="width:100%;background:var(--bg-card-subtle);border:1px solid var(--border-subtle);color:var(--text-secondary);padding:8px;border-radius:var(--radius-sm);margin-top:4px;">
+          </div>
+        </div>
+      `;
+      openModal("发起新组局车队", html, "立即发布车次", () => {
+        const scriptTitle = document.getElementById("new-cp-script").value;
+        const timeVal = document.getElementById("new-cp-time").value;
+        const newCp = {
+          id: "cp_" + Date.now(),
+          scriptTitle: scriptTitle,
+          scriptGenre: "组局定制",
+          storeName: "XX商圈旗舰店",
+          roomName: "古风沉浸剧场",
+          departureTime: timeVal,
+          initiator: "探员·顾XX (我)",
+          status: "recruiting",
+          statusText: "差5人成车",
+          total: 6,
+          taken: 1,
+          roles: [
+            { name: "主角·XX", taken: true, player: "顾XX (我)" },
+            { name: "搭档·XX", taken: false },
+            { name: "证人·XX", taken: false },
+            { name: "法医·XX", taken: false },
+            { name: "探长·XX", taken: false },
+            { name: "顾问·XX", taken: false }
+          ]
+        };
+        AppData.carpools.unshift(newCp);
+        showToast("拼车车队发布成功！已自动锁定发起人角色", "success");
+        switchTab("carpool");
+        renderCarpools();
+      });
+    }
+
+    /* =========================================================================
+       6. Tab 4: IoT Controls Logic
+       ========================================================================= */
+    function copyPasscode() {
+      const code = document.getElementById("iot-passcode").innerText;
+      navigator.clipboard ? navigator.clipboard.writeText(code) : null;
+      showToast(`动态开门密码【${code}】已复制`, "success");
+    }
+
+    function triggerRemoteUnlock() {
+      const btn = document.getElementById("btn-remote-unlock");
+      const icon = document.getElementById("unlock-icon");
+      const label = document.getElementById("unlock-label");
+
+      btn.classList.add("unlocked");
+      icon.innerHTML = `<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>`;
+      label.innerText = "门禁已开启 · 请推门入场";
+      showToast("指令下发成功：包厢智能电磁锁已释放！", "success");
+
+      setTimeout(() => {
+        btn.classList.remove("unlocked");
+        icon.innerHTML = `<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`;
+        label.innerText = "一键远程开门解锁";
+      }, 4000);
+    }
+
+    function switchScene(el, sceneKey, sceneName) {
+      document.querySelectorAll(".scene-pill").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
+      AppData.iot.activeScene = sceneKey;
+      AppData.iot.activeSceneName = sceneName;
+      document.getElementById("current-scene-tag").innerText = `当前：${sceneName}`;
+      showToast(`空间声光电已联动切换至【${sceneName}】模式`, "success");
+    }
+
+    function adjustAc(delta) {
+      if (!AppData.iot.acPower) {
+        showToast("请先开启中央空调总电源", "info");
+        return;
+      }
+      let t = AppData.iot.acTemp + delta;
+      if (t < 16) t = 16;
+      if (t > 30) t = 30;
+      AppData.iot.acTemp = t;
+      document.getElementById("ac-temp-val").innerText = `${t}°C`;
+      showToast(`空调目标温度已设为 ${t}°C`, "info");
+    }
+
+    function toggleAcPower() {
+      AppData.iot.acPower = !AppData.iot.acPower;
+      const toggle = document.getElementById("ac-power-toggle");
+      const text = document.getElementById("ac-status-text");
+      if (AppData.iot.acPower) {
+        toggle.classList.add("on");
+        text.innerText = "制冷运行中 · 风速适中";
+        showToast("中央空调已开启", "success");
+      } else {
+        toggle.classList.remove("on");
+        text.innerText = "已关机待机中";
+        showToast("中央空调已关闭", "info");
+      }
+    }
+
+    function cycleFanSpeed() {
+      const speeds = ["低档微风", "中档排气", "强档循环"];
+      let idx = speeds.indexOf(AppData.iot.fanSpeed);
+      idx = (idx + 1) % speeds.length;
+      AppData.iot.fanSpeed = speeds[idx];
+      document.getElementById("btn-fan-speed").innerText = speeds[idx];
+      showToast(`新风换气已切换为：${speeds[idx]}`, "info");
+    }
+
+    function toggleCurtain() {
+      AppData.iot.curtainDown = !AppData.iot.curtainDown;
+      const btn = document.getElementById("btn-toggle-curtain");
+      const text = document.getElementById("curtain-text");
+      if (AppData.iot.curtainDown) {
+        btn.innerText = "升起幕布";
+        text.innerText = "状态：已降下 (影院模式)";
+        showToast("电动巨幕已降下，投影机信号联动启动", "success");
+      } else {
+        btn.innerText = "降下幕布";
+        text.innerText = "状态：升起收起";
+        showToast("电动巨幕已升起收起", "info");
+      }
+    }
+
+    function setDmStep(stepNum) {
+      AppData.iot.dmStep = stepNum;
+      document.querySelectorAll(".dm-step-item").forEach((item, i) => {
+        item.classList.toggle("active", i + 1 === stepNum);
+      });
+      const names = ["开幕阅本", "搜证公聊", "私聊对线", "投票决案"];
+      showToast(`电子DM推进至阶段 [${stepNum}/4]：${names[stepNum - 1]}`, "success");
+    }
+
+    function openCluesDrawer() {
+      const html = `
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">
+          当前剧本【《XX古堡夜宴》】公共搜查线索：
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:700;color:var(--color-primary);">线索 #01 · 案发书房残卷</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">壁炉灰烬中残留半截未燃尽的信纸，模糊字样写着“绝不将古堡交给那个私生子...”</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:700;color:var(--color-primary);">线索 #02 · 生锈铜钥匙</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">管家外套内侧暗袋找到，齿痕特殊，与古堡地下酒窖隐蔽侧门完全吻合。</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:700;color:var(--color-primary);">线索 #03 · 碎裂的红酒高脚杯</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">地毯边缘酒渍呈现异常苦杏仁气味，化学试剂测出剧毒物沉淀。</div>
+          </div>
+        </div>
+      `;
+      openDrawer("公共搜查线索库", html);
+    }
+
+    function openAddTimeModal() {
+      const html = `
+        <div>
+          <div style="font-size:13px;color:var(--text-primary);margin-bottom:10px;">
+            请选择需追加的包厢使用时长（自动顺延门禁锁期）：
+          </div>
+          <div style="display:flex;gap:10px;">
+            <div class="chip active" style="flex:1;justify-content:center;padding:10px;" onclick="selectAddTime(this, 1)">+ 1 小时 (¥88)</div>
+            <div class="chip" style="flex:1;justify-content:center;padding:10px;" onclick="selectAddTime(this, 2)">+ 2 小时 (¥160)</div>
+          </div>
+          <div style="font-size:11px;color:var(--color-primary);margin-top:10px;">可用账户储值余额直接抵扣</div>
+        </div>
+      `;
+      openModal("加钟续时申请", html, "确认续时", () => {
+        AppData.iot.countdownSec += selectedAddHours * 3600;
+        showToast(`续时成功！已为您延长 ${selectedAddHours} 小时`, "success");
+      });
+    }
+    let selectedAddHours = 1;
+    function selectAddTime(el, h) {
+      document.querySelectorAll(".modal-box .chip").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      selectedAddHours = h;
+    }
+
+    function openCallHelpModal() {
+      const html = `
+        <div style="line-height:1.6;">
+          <div>如有包厢设备故障、零食补货、空调异常或线索答疑，请选择服务诉求：</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;">
+            <button class="btn-secondary" onclick="showToast('已向云端值班店长派单，将在60秒内电话联系您', 'success'); closeModal();">智能设备/门锁调试求助</button>
+            <button class="btn-secondary" onclick="showToast('已呼叫保洁阿姨前往包厢添补耗材', 'success'); closeModal();">一次性用品/垃圾清理</button>
+            <button class="btn-secondary" onclick="showToast('已连线云端剧本DM，即将语音答疑', 'success'); closeModal();">剧本杀流程规则与裁判仲裁</button>
+          </div>
+        </div>
+      `;
+      openModal("呼叫云端管家服务", html, "知道了", null);
+    }
+
+    /* =========================================================================
+       7. Tab 5: Profile Logic
+       ========================================================================= */
+    function openCouponsDrawer() {
+      const html = AppData.user.coupons.map(c => `
+        <div class="card" style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--color-primary);">${c.title}</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${c.desc}</div>
+            <div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">有效期：${c.valid}</div>
+          </div>
+          <button class="btn-secondary btn-sm" onclick="showToast('优惠券已选择，下单时自动抵扣', 'success')">去使用</button>
+        </div>
+      `).join("");
+      openDrawer("我的可用优惠券 (3)", html);
+    }
+
+    function openMyOrdersDrawer() {
+      const html = AppData.user.orders.map(o => `
+        <div class="card" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;font-weight:700;color:var(--text-primary);">${o.room}</span>
+            <span class="tag ${o.status === '使用中' ? 'tag-amber' : 'tag-green'}">${o.status}</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin:4px 0;">订单号：${o.id}</div>
+          <div style="font-size:11px;color:var(--text-secondary);">预订时段：${o.time}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border-subtle);">
+            <span style="font-size:13px;font-weight:800;color:var(--color-primary);">${o.amount}</span>
+            <button class="btn-secondary btn-sm" onclick="showToast('已调取电子凭证与发票清单', 'info')">查看电子凭证</button>
+          </div>
+        </div>
+      `).join("");
+      openDrawer("我的包厢预订记录", html);
+    }
+
+    function openMyCarpoolDrawer() {
+      const html = `
+        <div class="card" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:14px;font-weight:700;color:var(--text-primary);">《XX古堡夜宴》</span>
+            <span class="tag tag-rose">差2人发车</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin:4px 0;">出征时间：今日 19:30 · XX商圈旗舰店</div>
+          <div style="font-size:12px;color:var(--color-primary);font-weight:600;">我的角色：主角/侦探·XX</div>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn-secondary btn-sm" style="flex:1;" onclick="showToast('已复制车队分享卡片', 'info')">邀请好友上车</button>
+            <button class="btn-secondary btn-sm" style="flex:1;color:var(--color-danger);" onclick="showToast('您已成功退出该车队', 'info'); closeDrawer();">退出车队</button>
+          </div>
+        </div>
+      `;
+      openDrawer("我的在途组局车队", html);
+    }
+
+    function openSnacksDrawer() {
+      const html = `
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">
+          包厢内置智能货柜 · 取物关门自动结算：
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="card" style="margin-bottom:0;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">精酿白啤 (500ml)</div>
+              <div style="font-size:11px;color:var(--text-muted);">微醺畅爽 · 冰镇</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">¥18.00</div>
+              <button class="btn-primary btn-sm" style="margin-top:4px;" onclick="showToast('智能冷柜门锁已打开，请取物', 'success')">扫码开柜</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">特调无酒精气泡水</div>
+              <div style="font-size:11px;color:var(--text-muted);">清新白桃乌龙味</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">¥12.00</div>
+              <button class="btn-primary btn-sm" style="margin-top:4px;" onclick="showToast('智能冷柜门锁已打开，请取物', 'success')">扫码开柜</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">膨化大礼包 (分享装)</div>
+              <div style="font-size:11px;color:var(--text-muted);">薯片/米果/肉脯拼盘</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">¥25.00</div>
+              <button class="btn-primary btn-sm" style="margin-top:4px;" onclick="showToast('零食货架仓门已开启，请取物', 'success')">扫码开柜</button>
+            </div>
+          </div>
+        </div>
+      `;
+      openDrawer("智能小卖部自售柜", html);
+    }
+
+    function showRulesModal() {
+      const html = `
+        <div style="line-height:1.6;font-size:12px;">
+          <p>1. <strong>进出门禁</strong>：本馆为全时段无人值守模式，订单生效后可通过小程序获取动态6位密码或一键远程开锁。</p>
+          <p style="margin-top:6px;">2. <strong>设备关爱</strong>：包厢声光电与点歌投影设备均已接入物联网保护，离开时请随手关闭大功率电器或点击“离场清洁”模式。</p>
+          <p style="margin-top:6px;">3. <strong>剧本与道具</strong>：请爱惜剧本杀线索卡片与道具道具，游戏结束后请归纳至桌盒中，遗失道具将按成本扣除押金。</p>
+          <p style="margin-top:6px;">4. <strong>安全监控</strong>：公共走廊设有24小时安防摄像头，包厢内部保证绝对私密无监控。</p>
+        </div>
+      `;
+      openModal("24小时无人包厢安全守则", html, "我已阅读并知悉", null);
+    }
+
+    // Initial Launch
+    window.addEventListener("DOMContentLoaded", () => {
+      renderRooms();
+      renderScripts();
+      renderCarpools();
+    });
+  </script>
+</body>
+</html>

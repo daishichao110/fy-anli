@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>**私厨定制·私厨定制</title>
+  <style>
+    /* ==========================================================================
+       Design Tokens & CSS Custom Properties (Declared & Strictly Standardized)
+       ========================================================================== */
+    :root {
+      /* 品牌色板与调性 */
+      --clr-primary: #991b1b;
+      --clr-primary-hover: #7f1d1d;
+      --clr-primary-soft: #fef2f2;
+      --clr-accent: #d97706;
+      --clr-accent-soft: #fffbeb;
+      --clr-slate-dark: #0f172a;
+      --clr-slate-frame: #1e293b;
+      --clr-page: #fdfbf7;
+      --clr-surface: #ffffff;
+      --clr-surface-subtle: #f8f6f0;
+
+      /* 文字排版调性 */
+      --clr-ink-main: #1c1917;
+      --clr-ink-muted: #57534e;
+      --clr-ink-faint: #a8a29e;
+      --clr-ink-inverse: #ffffff;
+
+      /* 边框线条与状态 */
+      --clr-line: #e7e5e4;
+      --clr-line-subtle: #f5f5f4;
+      --clr-line-red: #fca5a5;
+      --clr-line-gold: #fde68a;
+      --clr-status-success: #16a34a;
+
+      /* 阴影与遮罩 */
+      --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.05);
+      --shadow-md: 0 4px 14px rgba(28, 25, 23, 0.08);
+      --shadow-lg: 0 16px 36px rgba(28, 25, 23, 0.16);
+      --shadow-drawer: 0 -8px 32px rgba(0, 0, 0, 0.22);
+      --mask-backdrop: rgba(15, 23, 42, 0.6);
+      --mask-toast: rgba(28, 25, 23, 0.9);
+
+      /* 圆角规范 */
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--clr-slate-dark);
+      color: var(--clr-ink-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       Pure Mini-Program Viewport (iPhone 14 Pro 390px Native Dimension)
+       ========================================================================== */
+    .mp-container {
+      width: 100%;
+      max-width: 400px;
+      height: 844px;
+      background-color: var(--clr-page);
+      border-radius: 46px;
+      border: 10px solid var(--clr-slate-frame);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        background-color: var(--clr-page);
+      }
+      .mp-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    /* 顶部手机状态栏 */
+    .status-bar {
+      height: 42px;
+      background-color: var(--clr-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: var(--clr-ink-inverse);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      user-select: none;
+      z-index: 30;
+    }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 微信导航栏与胶囊控制区 */
+    .wechat-header {
+      height: 44px;
+      background-color: var(--clr-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--clr-ink-inverse);
+      position: relative;
+      z-index: 30;
+      box-shadow: 0 2px 8px rgba(153, 27, 27, 0.2);
+    }
+    .mp-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wechat-capsule {
+      height: 30px;
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--clr-ink-inverse);
+      user-select: none;
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* 内容滚动区域 */
+    .mp-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 74px;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+    .mp-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 页面 Tab Pane 切换动画 */
+    .tab-pane {
+      display: none;
+      padding: 12px 14px;
+      animation: tabFadeIn 0.22s ease-in-out;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 通用基础卡片 */
+    .card {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--clr-line);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 徽章与标签 */
+    .badge-gold {
+      background-color: var(--clr-accent-soft);
+      color: var(--clr-accent);
+      border: 1px solid var(--clr-line-gold);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-red {
+      background-color: var(--clr-primary-soft);
+      color: var(--clr-primary);
+      border: 1px solid var(--clr-line-red);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 按钮基础 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      outline: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-primary {
+      background-color: var(--clr-primary);
+      color: var(--clr-ink-inverse);
+    }
+    .btn-primary:hover {
+      background-color: var(--clr-primary-hover);
+    }
+    .btn-outline {
+      background-color: transparent;
+      color: var(--clr-primary);
+      border: 1px solid var(--clr-primary);
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       Tab 1: 探索甄选 首页组件
+       ========================================================================== */
+    /* 顶部服务定位与保障横幅 */
+    .service-bar {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--clr-line);
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .location-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--clr-ink-main);
+      font-weight: 600;
+    }
+
+    /* 4大履约保障金刚横条 */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background-color: var(--clr-accent-soft);
+      border: 1px solid var(--clr-line-gold);
+      border-radius: var(--radius-sm);
+      padding: 8px 4px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .trust-item {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--clr-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    /* 场景金刚区 */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .scene-item {
+      background-color: var(--clr-surface);
+      border: 1px solid var(--clr-line);
+      border-radius: var(--radius-md);
+      padding: 10px 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .scene-item.active {
+      border-color: var(--clr-primary);
+      background-color: var(--clr-primary-soft);
+      color: var(--clr-primary);
+    }
+    .scene-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--clr-primary);
+    }
+    .scene-text {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* 私宴套系卡片 */
+    .package-card {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--clr-line);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .package-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .package-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+    .package-sub {
+      font-size: 11px;
+      color: var(--clr-ink-muted);
+      margin-top: 3px;
+    }
+    .package-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--clr-primary);
+    }
+    .package-price-sub {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--clr-ink-faint);
+    }
+    .dish-preview-list {
+      background-color: var(--clr-surface-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin: 10px 0;
+      font-size: 11px;
+      color: var(--clr-ink-muted);
+      line-height: 1.6;
+    }
+    .package-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* 名厨风采横滑专区 */
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 14px 0 8px 2px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-more {
+      font-size: 11px;
+      color: var(--clr-ink-muted);
+      cursor: pointer;
+    }
+    .chef-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+    .chef-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .chef-card {
+      min-width: 145px;
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--clr-line);
+      padding: 10px;
+      text-align: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .chef-avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--clr-primary-soft);
+      color: var(--clr-primary);
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chef-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+    .chef-level {
+      font-size: 10px;
+      color: var(--clr-accent);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+    .chef-tag {
+      font-size: 10px;
+      color: var(--clr-ink-muted);
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       Tab 2: 私宴定制 菜单组件
+       ========================================================================== */
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 2px;
+    }
+    .filter-pills::-webkit-scrollbar {
+      display: none;
+    }
+    .pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background-color: var(--clr-surface);
+      border: 1px solid var(--clr-line);
+      color: var(--clr-ink-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pill.active {
+      background-color: var(--clr-primary);
+      border-color: var(--clr-primary);
+      color: var(--clr-ink-inverse);
+    }
+
+    .spec-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .spec-btn {
+      background-color: var(--clr-surface);
+      border: 1px solid var(--clr-line);
+      border-radius: var(--radius-sm);
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--clr-ink-muted);
+      transition: all 0.15s ease;
+    }
+    .spec-btn.active {
+      background-color: var(--clr-primary-soft);
+      border-color: var(--clr-primary);
+      color: var(--clr-primary);
+      font-weight: 700;
+    }
+
+    .dish-category-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--clr-ink-muted);
+      margin: 10px 0 6px 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dish-item {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--clr-line);
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dish-info {
+      flex: 1;
+      padding-right: 8px;
+    }
+    .dish-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+    .dish-desc {
+      font-size: 11px;
+      color: var(--clr-ink-muted);
+      margin-top: 2px;
+    }
+    .btn-replace {
+      background-color: var(--clr-surface-subtle);
+      border: 1px solid var(--clr-line);
+      color: var(--clr-primary);
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .btn-replace:active {
+      background-color: var(--clr-primary-soft);
+    }
+
+    /* ==========================================================================
+       Tab 3: 预约行程 表单组件
+       ========================================================================== */
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--clr-line);
+      border-radius: var(--radius-sm);
+      background-color: var(--clr-surface);
+      overflow: hidden;
+    }
+    .step-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--clr-surface-subtle);
+      border: none;
+      cursor: pointer;
+      color: var(--clr-ink-main);
+    }
+    .step-btn:active {
+      background-color: var(--clr-line);
+    }
+    .step-val {
+      min-width: 44px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--clr-primary);
+    }
+
+    .segment-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .segment-opt {
+      background-color: var(--clr-surface);
+      border: 1.5px solid var(--clr-line);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .segment-opt.active {
+      border-color: var(--clr-primary);
+      background-color: var(--clr-primary-soft);
+    }
+    .segment-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+    .segment-opt.active .segment-title {
+      color: var(--clr-primary);
+    }
+    .segment-sub {
+      font-size: 11px;
+      color: var(--clr-ink-muted);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      background-color: var(--clr-surface);
+      border: 1px solid var(--clr-line);
+      color: var(--clr-ink-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .chip.selected {
+      background-color: var(--clr-primary-soft);
+      border-color: var(--clr-primary);
+      color: var(--clr-primary);
+      font-weight: 700;
+    }
+
+    /* 费用结算清单 */
+    .bill-card {
+      background-color: var(--clr-surface-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      border: 1px dashed var(--clr-line);
+      margin-bottom: 14px;
+    }
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--clr-ink-muted);
+      margin-bottom: 6px;
+    }
+    .bill-row.total {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--clr-line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+
+    /* ==========================================================================
+       Tab 4: 服务追踪 个人中心
+       ========================================================================== */
+    .profile-card {
+      background-color: var(--clr-primary);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      color: var(--clr-ink-inverse);
+      margin-bottom: 12px;
+      box-shadow: 0 4px 16px rgba(153, 27, 27, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+    .user-meta {
+      flex: 1;
+    }
+    .user-name {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .user-phone {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      text-align: center;
+      margin-bottom: 12px;
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      padding: 12px 6px;
+      border: 1px solid var(--clr-line);
+    }
+    .order-state-item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .order-state-text {
+      font-size: 10px;
+      color: var(--clr-ink-muted);
+      font-weight: 600;
+    }
+    .order-state-item.active .order-state-text {
+      color: var(--clr-primary);
+      font-weight: 700;
+    }
+
+    /* 履约中订单时间轴 */
+    .timeline {
+      margin: 10px 0;
+      padding-left: 6px;
+    }
+    .timeline-step {
+      position: relative;
+      padding-left: 20px;
+      padding-bottom: 10px;
+      font-size: 11px;
+    }
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 4px;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--clr-line);
+    }
+    .timeline-step:last-child::before {
+      display: none;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--clr-line);
+    }
+    .timeline-step.done .timeline-dot {
+      background-color: var(--clr-status-success);
+    }
+    .timeline-step.active .timeline-dot {
+      background-color: var(--clr-primary);
+      box-shadow: 0 0 0 3px var(--clr-primary-soft);
+    }
+    .timeline-time {
+      color: var(--clr-ink-faint);
+      margin-right: 6px;
+    }
+
+    /* 功能快捷列表项 */
+    .menu-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--clr-line-subtle);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--clr-ink-main);
+      cursor: pointer;
+    }
+    .menu-item-row:last-child {
+      border-bottom: none;
+      padding-bottom: 4px;
+    }
+    .menu-item-row:active {
+      opacity: 0.7;
+    }
+    .menu-row-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ==========================================================================
+       微信原生底部导航栏 (TabBar)
+       ========================================================================== */
+    .bottom-tabbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background-color: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--clr-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 20;
+    }
+    .tabbar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--clr-ink-faint);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.15s ease;
+      height: 100%;
+    }
+    .tabbar-item.active {
+      color: var(--clr-primary);
+      font-weight: 700;
+    }
+    .tabbar-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ==========================================================================
+       微交互遮罩与抽屉模态层 (Drawers & Modals)
+       ========================================================================== */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--mask-backdrop);
+      z-index: 50;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .drawer-content {
+      width: 100%;
+      max-height: 80%;
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: 16px 18px 24px;
+      box-shadow: var(--shadow-drawer);
+      overflow-y: auto;
+      animation: slideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--clr-line);
+      margin-bottom: 12px;
+    }
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--clr-ink-main);
+    }
+    .drawer-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--clr-surface-subtle);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--clr-ink-muted);
+    }
+
+    .center-modal-content {
+      width: 88%;
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      margin-bottom: auto;
+      margin-top: auto;
+      animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes scaleUp {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* 仿微信原生 Toast 轻提示 */
+    .wx-toast {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--mask-toast);
+      color: var(--clr-ink-inverse);
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 100;
+      pointer-events: none;
+      display: none;
+      text-align: center;
+      line-height: 1.4;
+      box-shadow: var(--shadow-md);
+      animation: toastFade 0.2s ease-out;
+    }
+    @keyframes toastFade {
+      from { opacity: 0; transform: translate(-50%, -45%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- Pure Mini-Program Viewport Container -->
+  <div class="mp-container">
+
+    <!-- 1. 顶部手机状态栏 (Status Bar) -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <div class="status-icons">
+        <!-- 信号 (Signal) -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/>
+        </svg>
+        <!-- 满电电池 (Battery) -->
+        <svg width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
+          <line x1="22" y1="11" x2="22" y2="13"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 2. 微信导航栏与胶囊控制区 (WeChat Header) -->
+    <div class="wechat-header">
+      <div class="mp-title" id="page-title-text">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        <span>**私厨定制·私厨定制</span>
+      </div>
+      <div class="wechat-capsule">
+        <span onclick="triggerWechatCapsuleMenu()" style="cursor:pointer;">•••</span>
+        <div class="capsule-divider"></div>
+        <span onclick="triggerWechatCapsuleClose()" style="cursor:pointer;">⊙</span>
+      </div>
+    </div>
+
+    <!-- 3. 主体视口内容滚动区 (Tab Panes) -->
+    <div class="mp-body">
+
+      <!-- =================================================================
+           Tab 0: 【探索甄选】首页
+           ================================================================= -->
+      <div id="tab-pane-0" class="tab-pane active">
+
+        <!-- 服务范围与区域定位 -->
+        <div class="service-bar" onclick="showAreaCoverageModal()">
+          <div class="location-info">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>同城主城区 · 核心服务商圈</span>
+          </div>
+          <span class="badge-gold">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            支持即约即达
+          </span>
+        </div>
+
+        <!-- 4大核心服务承诺条 -->
+        <div class="trust-strip">
+          <div class="trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>持健康证上岗</span>
+          </div>
+          <div class="trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/></svg>
+            <span>食材实报实销</span>
+          </div>
+          <div class="trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            <span>特级烹调师认证</span>
+          </div>
+          <div class="trust-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            <span>灶台深度洁净</span>
+          </div>
+        </div>
+
+        <!-- 场景金刚区筛选 -->
+        <div class="scene-grid">
+          <div class="scene-item active" onclick="filterHomeScene('all', this)">
+            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/>
+            </svg>
+            <span class="scene-text">全套系</span>
+          </div>
+          <div class="scene-item" onclick="filterHomeScene('family', this)">
+            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span class="scene-text">幸福家宴</span>
+          </div>
+          <div class="scene-item" onclick="filterHomeScene('business', this)">
+            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+            <span class="scene-text">商务私宴</span>
+          </div>
+          <div class="scene-item" onclick="filterHomeScene('celebration', this)">
+            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+            <span class="scene-text">寿宴百日</span>
+          </div>
+          <div class="scene-item" onclick="filterHomeScene('buffet', this)">
+            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="scene-text">冷餐派对</span>
+          </div>
+        </div>
+
+        <!-- 当季主推私宴套餐 1: 幸福家宴 -->
+        <div class="package-card" data-category="family">
+          <div class="package-header">
+            <div>
+              <span class="badge-red">家宴臻选</span>
+              <div class="package-title" style="margin-top:4px;">**经典私厨家宴 (4~6位)</div>
+              <div class="package-sub">清晨采买优质鲜活海鲜 · 主厨定制6菜1汤</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="package-price">¥268 <span class="package-price-sub">起/工时费</span></div>
+              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约2.5小时</div>
+            </div>
+          </div>
+          <div class="dish-preview-list">
+            <b>菜单配置：</b>精制冷盘2道 + 豉汁蒸深海大石斑 + 鲍汁鲜鲍红烧肉 + 芦笋百合炒鲜贝 + 松茸土鸡高汤 + 葱油拌面
+          </div>
+          <div class="package-actions">
+            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('family')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              定制/替换菜品
+            </button>
+            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**经典私厨家宴', 268, 6)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+              立即预约大厨
+            </button>
+          </div>
+        </div>
+
+        <!-- 当季主推私宴套餐 2: 商务私宴 -->
+        <div class="package-card" data-category="business">
+          <div class="package-header">
+            <div>
+              <span class="badge-gold">商务私享</span>
+              <div class="package-title" style="margin-top:4px;">**尊享商务家宴 (8~10位)</div>
+              <div class="package-sub">高级宴席餐台摆设 · 特级烹调名厨主理10菜1汤</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="package-price">¥588 <span class="package-price-sub">起/工时费</span></div>
+              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约3.5小时</div>
+            </div>
+          </div>
+          <div class="dish-preview-list">
+            <b>菜单配置：</b>精致前菜4品 + 葱油老虎斑 + 慢煨黑松露辽参 + 金牌脆皮乳鸽 + 浓汤花胶炖鸡 + 荷叶香菇糯米饭
+          </div>
+          <div class="package-actions">
+            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('business')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              定制/替换菜品
+            </button>
+            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**尊享商务家宴', 588, 10)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+              立即预约大厨
+            </button>
+          </div>
+        </div>
+
+        <!-- 当季主推私宴套餐 3: 喜庆寿宴 -->
+        <div class="package-card" data-category="celebration">
+          <div class="package-header">
+            <div>
+              <span class="badge-red">寿喜大宴</span>
+              <div class="package-title" style="margin-top:4px;">**名厨喜庆华宴 (12~16位)</div>
+              <div class="package-sub">寿宴/百日/乔迁吉日宴 · 特供非遗长寿点心12菜2汤</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="package-price">¥888 <span class="package-price-sub">起/工时费</span></div>
+              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约4.5小时</div>
+            </div>
+          </div>
+          <div class="dish-preview-list">
+            <b>菜单配置：</b>吉祥四冷拼 + 鸿运富贵大龙虾 + 珍菌煨关东参 + 传统松鼠桂鱼 + 养生甲鱼土鸡煲 + 手制寿桃如意面点
+          </div>
+          <div class="package-actions">
+            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('celebration')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              定制/替换菜品
+            </button>
+            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**名厨喜庆华宴', 888, 14)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+              立即预约大厨
+            </button>
+          </div>
+        </div>
+
+        <!-- 名厨展位专区 (横滑) -->
+        <div class="section-head">
+          <div class="section-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"/><path d="M6 17h12"/><path d="M6 14h12v7H6z"/>
+            </svg>
+            <span>特级名厨风采专区</span>
+          </div>
+          <span class="section-more" onclick="showToast('全部特级名厨均经实名认证及健康背调')">资质公开 ›</span>
+        </div>
+
+        <div class="chef-scroll">
+          <div class="chef-card" onclick="openChefProfileModal('chef-li')">
+            <div class="chef-avatar-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div class="chef-name">李主厨</div>
+            <div class="chef-level">特级中式烹调师</div>
+            <div class="chef-tag">从厨18年 · 粤菜私厨</div>
+            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.8%</div>
+          </div>
+
+          <div class="chef-card" onclick="openChefProfileModal('chef-zhang')">
+            <div class="chef-avatar-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div class="chef-name">张主厨</div>
+            <div class="chef-level">资深淮扬非遗名厨</div>
+            <div class="chef-tag">从厨15年 · 细点精工</div>
+            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.5%</div>
+          </div>
+
+          <div class="chef-card" onclick="openChefProfileModal('chef-wang')">
+            <div class="chef-avatar-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div class="chef-name">王大厨</div>
+            <div class="chef-level">高级中式烹调师</div>
+            <div class="chef-tag">从厨12年 · 新派川湘</div>
+            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.2%</div>
+          </div>
+        </div>
+
+        <!-- 6步履约标准化服务流程卡 -->
+        <div class="card" style="margin-top:14px;background-color:var(--clr-surface);">
+          <div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+            </svg>
+            <span>上门大厨标准化服务 6 步闭环</span>
+          </div>
+          <div style="font-size:11px;color:var(--clr-ink-muted);line-height:1.7;">
+            ① 提交预约定制需求 → ② 确认食材自备或代买 → ③ 佩戴专业防护准时上门 → ④ 明档烹饪与餐台摆设 → ⑤ 举杯尽享私密宴饮 → ⑥ <b>灶台擦拭油烟机清洁与垃圾带走</b>。
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =================================================================
+           Tab 1: 【定制】私宴菜单与替换
+           ================================================================= -->
+      <div id="tab-pane-1" class="tab-pane">
+
+        <!-- 菜系分类筛选药丸 -->
+        <div class="filter-pills">
+          <div class="pill active" onclick="switchCuisine('cantonese', this)">经典粤菜 (顺德/潮汕)</div>
+          <div class="pill" onclick="switchCuisine('huaiyang', this)">淮扬本帮 (鲜雅细致)</div>
+          <div class="pill" onclick="switchCuisine('chuanxiang', this)">川湘私房 (醇厚香辣)</div>
+          <div class="pill" onclick="switchCuisine('western', this)">轻奢西式 (意法私享)</div>
+        </div>
+
+        <!-- 规格选择器 -->
+        <div class="spec-selector">
+          <div class="spec-btn active" id="spec-opt-family" onclick="selectMenuSpec('family', this)">
+            4~6位 (6菜1汤)
+          </div>
+          <div class="spec-btn" id="spec-opt-business" onclick="selectMenuSpec('business', this)">
+            8~10位 (10菜1汤)
+          </div>
+          <div class="spec-btn" id="spec-opt-celebration" onclick="selectMenuSpec('celebration', this)">
+            12~16位 (14菜2汤)
+          </div>
+        </div>
+
+        <!-- 菜单操作横幅提示 -->
+        <div style="display:flex;justify-content:space-between;align-items:center;background-color:var(--clr-primary-soft);border:1px solid var(--clr-line-red);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:10px;">
+          <div style="font-size:11px;color:var(--clr-primary);font-weight:600;">
+            提示：点击菜品右侧【替换】可自选备选佳肴
+          </div>
+          <button class="btn btn-outline btn-sm" style="padding:2px 8px;" onclick="resetCustomMenu()">
+            恢复默认
+          </button>
+        </div>
+
+        <!-- 动态菜单列表容器 -->
+        <div id="dynamic-dish-list">
+          <!-- JS 动态渲染菜品 -->
+        </div>
+
+        <!-- 资质核验抽屉入口 -->
+        <div class="card" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openChefProfileModal('chef-li')">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+            </svg>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">主理大厨：李主厨 (特级中式烹调师)</div>
+              <div style="font-size:10px;color:var(--clr-ink-muted);">健康证号：粤-健康证-2026****091 (已核验在效)</div>
+            </div>
+          </div>
+          <span style="font-size:11px;color:var(--clr-primary);font-weight:600;">资质档案 ›</span>
+        </div>
+
+        <!-- 菜单带入预约吸底条 -->
+        <div style="margin-top:14px;">
+          <button class="btn btn-primary" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);" onclick="bringMenuToBooking()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><circle cx="16" cy="16" r="6"/></svg>
+            锁定此菜单并前往预约大厨
+          </button>
+        </div>
+
+      </div>
+
+      <!-- =================================================================
+           Tab 2: 【预约】服务行程与明细
+           ================================================================= -->
+      <div id="tab-pane-2" class="tab-pane">
+
+        <div class="card">
+          <!-- 预约就餐日期 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>预约就餐日期</span>
+              <span style="font-size:10px;color:var(--clr-accent);">支持48小时内免费改期</span>
+            </div>
+            <div class="chip-grid">
+              <div class="chip selected" onclick="selectDate(this, '今天 (09-04)')">今天 (09-04)</div>
+              <div class="chip" onclick="selectDate(this, '明天 (09-05)')">明天 (09-05)</div>
+              <div class="chip" onclick="selectDate(this, '后天 (09-06)')">后天 (09-06)</div>
+              <div class="chip" onclick="selectDate(this, '本周末特选')">本周末特选</div>
+            </div>
+          </div>
+
+          <!-- 预约就餐餐段 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>预约餐段与开餐时间</span>
+            </div>
+            <div class="segment-tabs">
+              <div class="segment-opt" id="slot-lunch" onclick="selectSlot('lunch')">
+                <div class="segment-title">午宴餐段</div>
+                <div class="segment-sub">10:30 上门备餐<br>12:00~13:30 用餐开席</div>
+              </div>
+              <div class="segment-opt active" id="slot-dinner" onclick="selectSlot('dinner')">
+                <div class="segment-title">晚宴餐段 (推荐)</div>
+                <div class="segment-sub">16:30 上门备餐<br>18:00~19:30 用餐开席</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 就餐人数计数器 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>实际就餐人数</span>
+              <span style="font-size:11px;color:var(--clr-ink-muted);">当前建议 6~10 人</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:12px;color:var(--clr-ink-muted);">人数影响备菜工时与建议道数</span>
+              <div class="stepper">
+                <button class="step-btn" onclick="adjustGuestCount(-1)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+                </button>
+                <div class="step-val" id="guest-count-display">8人</div>
+                <button class="step-btn" onclick="adjustGuestCount(1)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- 食材采购模式单选 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>食材准备模式</span>
+              <span style="font-size:10px;color:var(--clr-primary);">均享食品安全保障</span>
+            </div>
+            <div class="segment-tabs">
+              <div class="segment-opt" id="mode-self" onclick="selectIngredientMode('self')">
+                <div class="segment-title">自备食材模式</div>
+                <div class="segment-sub">用户自行采买生鲜<br>大厨仅收取上门烹饪工时费</div>
+              </div>
+              <div class="segment-opt active" id="mode-agent" onclick="selectIngredientMode('agent')">
+                <div class="segment-title">大厨代买 (实报实销)</div>
+                <div class="segment-sub">大厨清晨甄选新鲜生鲜<br>提供超市正规机打小票核验</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 厨房灶具与设备环境 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>家中厨房设施勾选</span>
+            </div>
+            <div class="chip-grid">
+              <div class="chip selected" onclick="toggleChip(this)">燃气双眼灶</div>
+              <div class="chip selected" onclick="toggleChip(this)">抽油烟机</div>
+              <div class="chip selected" onclick="toggleChip(this)">电磁炉</div>
+              <div class="chip" onclick="toggleChip(this)">烤箱/蒸箱</div>
+              <div class="chip" onclick="toggleChip(this)">自动洗碗机</div>
+            </div>
+          </div>
+
+          <!-- 饮食禁忌与口味定制 -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>口味偏好与忌口要求</span>
+            </div>
+            <div class="chip-grid">
+              <div class="chip selected" onclick="toggleChip(this)">少油少盐</div>
+              <div class="chip" onclick="toggleChip(this)">免葱姜蒜</div>
+              <div class="chip" onclick="toggleChip(this)">微辣调味</div>
+              <div class="chip selected" onclick="toggleChip(this)">海鲜过敏提示</div>
+              <div class="chip" onclick="toggleChip(this)">老年/儿童温和</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 增值服务项目 -->
+        <div class="card">
+          <div class="form-label" style="margin-bottom:8px;">
+            <span>品质增值服务</span>
+          </div>
+          <div style="font-size:12px;color:var(--clr-ink-muted);display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <b style="color:var(--clr-ink-main);">标准餐后保洁与厨余打包</b>
+                <div style="font-size:10px;color:var(--clr-ink-faint);">灶台台面擦净、油烟机表面清洁、厨余垃圾封口装袋</div>
+              </div>
+              <span class="badge-gold">标准包含 · ¥0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <b style="color:var(--clr-ink-main);">尊享精美餐台布置</b>
+                <div style="font-size:10px;color:var(--clr-ink-faint);">随宴配送精美口布与宴席摆盘仪式感</div>
+              </div>
+              <span class="badge-gold">特供赠送 · ¥0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleDishwashService(this)">
+              <div>
+                <b style="color:var(--clr-ink-main);">深度多餐具手洗服务</b>
+                <div style="font-size:10px;color:var(--clr-ink-faint);">就餐完毕后由大厨完成全套餐具精洗与归位</div>
+              </div>
+              <span class="chip" id="addon-dishwash">+ ¥30/次</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 费用清单明细卡 -->
+        <div class="bill-card">
+          <div class="bill-row">
+            <span>基础**私厨定制工时费 (标准套餐)</span>
+            <span id="bill-base-fee">¥588.00</span>
+          </div>
+          <div class="bill-row">
+            <span>食材采购服务 (按小票实报实销)</span>
+            <span>凭电脑小票核付</span>
+          </div>
+          <div class="bill-row">
+            <span>增值服务费用 (深度洗碗清洁)</span>
+            <span id="bill-addon-fee">¥0.00</span>
+          </div>
+          <div class="bill-row" style="color:var(--clr-status-success);">
+            <span>新客专属私宴体验券抵扣</span>
+            <span>- ¥50.00</span>
+          </div>
+          <div class="bill-row total">
+            <span>预估工时服务费合计</span>
+            <span style="color:var(--clr-primary);font-size:18px;" id="bill-total-price">¥538.00</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;padding:13px;font-size:15px;border-radius:var(--radius-md);margin-bottom:20px;" onclick="submitBookingOrder()">
+          确认提交预约单 (免在线支付)
+        </button>
+
+      </div>
+
+      <!-- =================================================================
+           Tab 3: 【我的】服务进度与订单
+           ================================================================= -->
+      <div id="tab-pane-3" class="tab-pane">
+
+        <!-- 用户名片档案 (脱敏) -->
+        <div class="profile-card">
+          <div class="user-avatar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="user-meta">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div class="user-name">陈** 先生</div>
+              <span class="badge-gold" style="background:rgba(255,255,255,0.25);color:var(--clr-ink-inverse);border-color:rgba(255,255,255,0.4);">尊享黑金卡</span>
+            </div>
+            <div class="user-phone">手机：138****6688 · 已完成实名与安全认证</div>
+          </div>
+        </div>
+
+        <!-- 5 状态服务看板切换 -->
+        <div class="order-grid">
+          <div class="order-state-item" onclick="filterOrderState(0, this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="order-state-text">待确认(0)</span>
+          </div>
+          <div class="order-state-item" onclick="filterOrderState(1, this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/></svg>
+            <span class="order-state-text">待备料(1)</span>
+          </div>
+          <div class="order-state-item active" onclick="filterOrderState(2, this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <span class="order-state-text" style="color:var(--clr-primary);font-weight:700;">服务中(1)</span>
+          </div>
+          <div class="order-state-item" onclick="filterOrderState(3, this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="order-state-text">待评价(1)</span>
+          </div>
+          <div class="order-state-item" onclick="filterOrderState(4, this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/></svg>
+            <span class="order-state-text">售后/退(0)</span>
+          </div>
+        </div>
+
+        <!-- 当前正在履约的服务单看板 -->
+        <div class="card" style="border:1.5px solid var(--clr-primary);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--clr-line);">
+            <div>
+              <span style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">单号 #ORD-20260904-8891</span>
+              <div style="font-size:10px;color:var(--clr-ink-muted);margin-top:2px;">预约：今日 晚宴 (16:30~19:30)</div>
+            </div>
+            <span class="badge-red">服务中 · 大厨已到家</span>
+          </div>
+
+          <div style="font-size:12px;color:var(--clr-ink-muted);margin-top:10px;">
+            <div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">定制套餐：</b>**家宴·尊享商务私享家宴 (8~10位)</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">主理大厨：</b>李主厨 (健康证核验在效 · 持双保险)</div>
+            <div><b style="color:var(--clr-ink-main);">服务地址：</b>XX社区XX号楼***室</div>
+          </div>
+
+          <!-- 履约时间轴 -->
+          <div class="timeline">
+            <div class="timeline-step done">
+              <div class="timeline-dot"></div>
+              <span class="timeline-time">15:00</span> 菜单确认与备料清单锁定 (已完成)
+            </div>
+            <div class="timeline-step done">
+              <div class="timeline-dot"></div>
+              <span class="timeline-time">15:45</span> 大厨甄选鲜活生鲜并备齐小票 (已完成)
+            </div>
+            <div class="timeline-step done">
+              <div class="timeline-dot"></div>
+              <span class="timeline-time">16:25</span> 大厨佩戴无菌防护装备准时入室 (已完成)
+            </div>
+            <div class="timeline-step active">
+              <div class="timeline-dot"></div>
+              <span class="timeline-time">16:50</span> <b>厨房现场备料与冷盘制作中 (预计18:00准时开席)</b>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openContactModal()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              联系大厨 (隐私号)
+            </button>
+            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openPolicyModal()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              退改与保障说明
+            </button>
+          </div>
+        </div>
+
+        <!-- 常用管理工具卡片 -->
+        <div class="card" style="padding:4px 14px;">
+          <div class="menu-item-row" onclick="openAddressModal()">
+            <div class="menu-row-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>常用服务地址簿 (已脱敏)</span>
+            </div>
+            <span style="color:var(--clr-ink-faint);">›</span>
+          </div>
+          <div class="menu-item-row" onclick="openChefProfileModal('chef-li')">
+            <div class="menu-row-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-accent);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>大厨健康证明与资质公示</span>
+            </div>
+            <span style="color:var(--clr-ink-faint);">›</span>
+          </div>
+          <div class="menu-item-row" onclick="openConciergeModal()">
+            <div class="menu-row-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+              <span>24小时 专属私宴管家</span>
+            </div>
+            <span style="color:var(--clr-ink-faint);">›</span>
+          </div>
+          <div class="menu-item-row" onclick="showToast('电子收据及代买明细支持即时开具')">
+            <div class="menu-row-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-ink-muted);"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/><path d="M10 16h-2"/></svg>
+              <span>电子发票与代买明细收据</span>
+            </div>
+            <span style="color:var(--clr-ink-faint);">›</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 4. 微信原生底部导航栏 (TabBar) -->
+    <div class="bottom-tabbar">
+      <div class="tabbar-item active" id="tabbar-btn-0" onclick="switchMainTab(0)">
+        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/>
+        </svg>
+        <span>探索甄选</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-btn-1" onclick="switchMainTab(1)">
+        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"/><path d="M6 17h12"/><path d="M6 14h12v7H6z"/>
+        </svg>
+        <span>私宴定制</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-btn-2" onclick="switchMainTab(2)">
+        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/>
+        </svg>
+        <span>预约行程</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-btn-3" onclick="switchMainTab(3)">
+        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>
+        </svg>
+        <span>服务追踪</span>
+      </div>
+    </div>
+
+    <!-- =====================================================================
+         模态抽屉与弹层系统 (All Overlays & Drawers)
+         ===================================================================== -->
+
+    <!-- A. 菜品替换底部抽屉 -->
+    <div class="modal-overlay" id="dish-replace-drawer" onclick="closeOverlayOnBackdrop(event, 'dish-replace-drawer')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-title" id="replace-drawer-heading">自选替换备选菜品</div>
+            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">同品质食材自由替换 · 零额外差价</div>
+          </div>
+          <button class="drawer-close" onclick="closeDrawer('dish-replace-drawer')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div id="replace-options-container" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- 动态注入候选菜品 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- B. 大厨资质与健康证明抽屉 -->
+    <div class="modal-overlay" id="chef-profile-drawer" onclick="closeOverlayOnBackdrop(event, 'chef-profile-drawer')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div class="drawer-title">特级名厨履约资质与健康档案</div>
+          <button class="drawer-close" onclick="closeDrawer('chef-profile-drawer')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--clr-line);">
+          <div class="chef-avatar-box" style="margin:0;width:54px;height:54px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:var(--clr-ink-main);" id="chef-modal-name">李主厨</div>
+            <div style="font-size:12px;color:var(--clr-accent);font-weight:600;" id="chef-modal-title">特级中式烹调师 · 从厨18年</div>
+            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">已完成服务：1,280+ 宴席 · 好评率 99.8%</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
+          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">从业资格认证：</b>国家高级技师 (中式烹调一级)</div>
+          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">健康证公示：</b>粤-健康证-2026****091 (经官方背调无犯罪、无传染病)</div>
+          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">擅长领域：</b>传统精细粤菜、高汤滋补炖品、鲍参翅肚温润私宴</div>
+          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">安全保险保障：</b>本单由中国人寿承保【食品安全责任险及人身险】</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:14px;padding:10px;" onclick="chooseThisChefForBooking()">
+          选定该大厨主理本场私宴
+        </button>
+      </div>
+    </div>
+
+    <!-- C. 预约成功居中弹窗 -->
+    <div class="modal-overlay" id="booking-success-modal" onclick="closeOverlayOnBackdrop(event, 'booking-success-modal')">
+      <div class="center-modal-content">
+        <div style="width:48px;height:48px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div style="font-size:16px;font-weight:800;color:var(--clr-ink-main);margin-bottom:6px;">私宴预约已成功派发</div>
+        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:14px;">
+          专属私宴管家与特级大厨已接收您的需求。<br>大厨将在 15 分钟内通过脱敏虚拟专线电话联系您确认菜品与备餐细节。
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:10px;" onclick="closeBookingSuccessAndGoOrders()">
+          查看我的服务追踪进度
+        </button>
+      </div>
+    </div>
+
+    <!-- D. 联系大厨虚拟号弹窗 -->
+    <div class="modal-overlay" id="contact-modal" onclick="closeOverlayOnBackdrop(event, 'contact-modal')">
+      <div class="center-modal-content">
+        <div style="font-size:15px;font-weight:700;color:var(--clr-ink-main);margin-bottom:6px;">隐私安全虚拟通话</div>
+        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:12px;">
+          已开启号码双向脱敏保护，双方均不可见真实手机号。<br>正在连线大厨专属中间号：<br>
+          <b style="font-size:16px;color:var(--clr-primary);">021-9507****</b>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" style="flex:1;" onclick="closeDrawer('contact-modal')">取消</button>
+          <button class="btn btn-primary" style="flex:1;" onclick="showToast('正在为您建立安全虚拟通话...');closeDrawer('contact-modal');">立即拨打</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- E. 常用地址管理抽屉 -->
+    <div class="modal-overlay" id="address-modal" onclick="closeOverlayOnBackdrop(event, 'address-modal')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div class="drawer-title">常用上门服务地址簿</div>
+          <button class="drawer-close" onclick="closeDrawer('address-modal')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background-color:var(--clr-surface-subtle);border:1px solid var(--clr-primary);border-radius:var(--radius-sm);padding:10px;cursor:pointer;" onclick="selectAddress('XX社区XX号楼***室')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼***室</b>
+              <span class="badge-red">默认服务地址</span>
+            </div>
+            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：陈** (138****6688)</div>
+          </div>
+          <div style="background-color:var(--clr-surface);border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:10px;cursor:pointer;" onclick="selectAddress('XX社区XX号楼***室')">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼***室</b>
+              <span style="font-size:11px;color:var(--clr-ink-faint);">设为默认</span>
+            </div>
+            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：林** (159****3120)</div>
+          </div>
+        </div>
+        <button class="btn btn-outline" style="width:100%;margin-top:12px;padding:8px;" onclick="showToast('已录入新地址占位模板')">
+          + 添加新服务地址
+        </button>
+      </div>
+    </div>
+
+    <!-- F. 退改与保障说明抽屉 -->
+    <div class="modal-overlay" id="policy-modal" onclick="closeOverlayOnBackdrop(event, 'policy-modal')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div class="drawer-title">私宴定制履约与保障须知</div>
+          <button class="drawer-close" onclick="closeDrawer('policy-modal')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
+          <p style="margin-bottom:8px;"><b>1. 免费改期政策：</b>在预约服务开始前 24 小时以上，可享受无条件免费改期服务，食材若尚未采买不产生额外损耗。</p>
+          <p style="margin-bottom:8px;"><b>2. 食材小票机制：</b>代买生鲜严格按照当日正规商超/生鲜集市电脑机打小票实报实销，大厨绝不赚取食材差价。</p>
+          <p style="margin-bottom:8px;"><b>3. 厨房深度复原：</b>用餐完成后，大厨负责清洗锅具灶台、擦拭吸油烟机表面油污，并将厨余垃圾规范装袋打包带离。</p>
+          <p><b>4. 食品安全保险：</b>平台为每场宴席投保专有食品安全与人身财产双重责任险，保障全家安心享用。</p>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:14px;padding:10px;" onclick="closeDrawer('policy-modal')">
+          我已知晓
+        </button>
+      </div>
+    </div>
+
+    <!-- G. 专属私宴管家在线沟通抽屉 -->
+    <div class="modal-overlay" id="concierge-modal" onclick="closeOverlayOnBackdrop(event, 'concierge-modal')">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div class="drawer-title">24小时 专属私宴管家</div>
+          <button class="drawer-close" onclick="closeDrawer('concierge-modal')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background-color:var(--clr-surface-subtle);border-radius:var(--radius-sm);padding:10px;margin-bottom:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);">资深宴会管家 - 林小雅</div>
+            <div style="font-size:11px;color:var(--clr-status-success);">● 在线为您服务中</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--clr-ink-muted);background-color:var(--clr-page);padding:10px;border-radius:var(--radius-sm);line-height:1.5;margin-bottom:12px;">
+          您好！请问您需要调整今天的就餐人数、特定菜系要求，或是咨询大厨上门动线？我将全程协助协调。
+        </div>
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="concierge-input" placeholder="输入您的问题..." style="flex:1;border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;outline:none;">
+          <button class="btn btn-primary btn-sm" onclick="sendConciergeMsg()">发送</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 微信原生风格 Toast 气泡 -->
+    <div class="wx-toast" id="wx-toast-box">轻提示内容</div>
+
+  </div>
+
+  <!-- ==========================================================================
+       前端纯原生高保真交互与状态控制逻辑 (Zero External Dependency)
+       ========================================================================== -->
+  <script>
+    // 1. 全局数据与菜单状态定义
+    const MENU_DATABASE = {
+      family: {
+        specText: "4~6位 (6菜1汤)",
+        baseFee: 268,
+        dishes: [
+          { id: "d1", cat: "凉菜冷盘", name: "潮汕经典卤水金钱肚", desc: "慢火老卤浸润，醇香软糯", altGroup: "cold" },
+          { id: "d2", cat: "主厨硬菜", name: "清蒸深海大石斑鱼", desc: "生猛活鲜，葱油豉油提鲜", altGroup: "fish" },
+          { id: "d3", cat: "热荤佳肴", name: "金牌鲍汁鲍鱼红烧肉", desc: "精选五花五层肉，鲍汁浓郁透亮", altGroup: "meat" },
+          { id: "d4", cat: "时令素珍", name: "芦笋百合炒带子鲜贝", desc: "时蔬爽脆，鲜甜清口", altGroup: "vege" },
+          { id: "d5", cat: "家常风味", name: "古法生抽干煎走地鸡", desc: "皮脆肉嫩，原汁原味", altGroup: "poultry" },
+          { id: "d6", cat: "时蔬清炒", name: "蒜蓉上汤清炒宁夏菜心", desc: "清甜细嫩，解腻爽口", altGroup: "vege" },
+          { id: "d7", cat: "养生靓汤", name: "松茸菌菇炖老母鸡汤", desc: "文火慢煨3小时，鲜香清润", altGroup: "soup" }
+        ]
+      },
+      business: {
+        specText: "8~10位 (10菜1汤)",
+        baseFee: 588,
+        dishes: [
+          { id: "b1", cat: "前菜冷拼", name: "潮汕手工卤水双拼拼盘", desc: "卤水鹅肝搭配金钱肚", altGroup: "cold" },
+          { id: "b2", cat: "前菜冷拼", name: "江南陈醋养生捞汁黑木耳", desc: "酸爽开胃，爽脆怡人", altGroup: "cold" },
+          { id: "b3", cat: "主厨硬菜", name: "葱油清蒸深海老虎斑", desc: "特级名厨火候，肉质嫩如凝脂", altGroup: "fish" },
+          { id: "b4", cat: "主厨硬菜", name: "黑松露浓汁慢煨辽参", desc: "特级关东辽参，软糯入味", altGroup: "delicacy" },
+          { id: "b5", cat: "热荤佳肴", name: "金牌香脆皮乳鸽 (位上)", desc: "外酥里嫩，汁水丰盈", altGroup: "poultry" },
+          { id: "b6", cat: "热荤佳肴", name: "浓油赤酱秘制牛小排", desc: "澳洲安格斯牛肉，脂香四溢", altGroup: "meat" },
+          { id: "b7", cat: "时令鲜味", name: "百合鲜虾仁炒翡翠芦笋", desc: "活剥手剥青虾仁，清爽鲜嫩", altGroup: "vege" },
+          { id: "b8", cat: "养生靓汤", name: "浓汤花胶炖响螺土鸡汤", desc: "浓厚金汤，胶原温补滋养", altGroup: "soup" },
+          { id: "b9", cat: "主厨时蔬", name: "清炒嫩尖金苗时令豆苗", desc: "嫩叶脆爽，碧绿青翠", altGroup: "vege" },
+          { id: "b10", cat: "精致主食", name: "香菇腊味荷叶鲍汁饭", desc: "荷香扑鼻，粒粒分明", altGroup: "staple" }
+        ]
+      },
+      celebration: {
+        specText: "12~16位 (14菜2汤)",
+        baseFee: 888,
+        dishes: [
+          { id: "c1", cat: "吉祥四冷", name: "如意吉祥迎宾四冷拼", desc: "冷切牛肉+熏鱼+海蜇+脆笋", altGroup: "cold" },
+          { id: "c2", cat: "头牌硬菜", name: "鸿运富贵深海大青龙", desc: "蒜蓉粉丝清蒸，气势非凡", altGroup: "fish" },
+          { id: "c3", cat: "头牌硬菜", name: "传统古法松鼠桂鱼", desc: "刀工精湛，外脆里嫩酸甜适口", altGroup: "fish" },
+          { id: "c4", cat: "尊享位上", name: "特级关东参烩花胶", desc: "浓汤位上，尊享典雅", altGroup: "delicacy" },
+          { id: "c5", cat: "寿庆硬菜", name: "金牌福寿养生甲鱼煲", desc: "滋补醇厚，寓意吉祥", altGroup: "meat" },
+          { id: "c6", cat: "招牌热荤", name: "主厨秘制果木脆皮烤鸭", desc: "现片现卷，皮脆肉香", altGroup: "poultry" },
+          { id: "c7", cat: "寿宴面点", name: "手作养生长寿如意面", desc: "高汤手擀一根面，长寿长福", altGroup: "staple" },
+          { id: "c8", cat: "滋补双汤", name: "野山参松茸炖老母鸡汤", desc: "原盅炖制，清澈鲜香", altGroup: "soup" }
+        ]
+      }
+    };
+
+    // 备选可替换菜品库
+    const REPLACEMENT_CANDIDATES = {
+      fish: [
+        { name: "蒜蓉粉丝蒸大波士顿龙虾", desc: "生猛活龙虾，肉质Q弹鲜甜" },
+        { name: "豉汁清蒸鲜活深海老虎斑", desc: "传统粤式名菜，嫩滑入味" },
+        { name: "古法红烧太湖大白鱼", desc: "浓油赤酱，肉质极其细腻" }
+      ],
+      meat: [
+        { name: "黑椒香煎雪花和牛粒", desc: "油脂丰腴，外焦里嫩" },
+        { name: "秘制鲍汁大连鲜鲍红烧肉", desc: "精选5头大连鲜鲍搭配五花" },
+        { name: "传统扬州手打蟹粉狮子头", desc: "文火慢炖，入口即化" }
+      ],
+      cold: [
+        { name: "秘制江南陈年花雕熟醉罗氏虾", desc: "酒香浓郁，膏满肉厚" },
+        { name: "潮汕古法老卤金钱肚拼鹅掌", desc: "醇香回甘，软糯适口" },
+        { name: "爽脆养生捞汁鲜海蛰头", desc: "酸爽微辣，清口解腻" }
+      ],
+      delicacy: [
+        { name: "黑松露烩浓汤辽参位上", desc: "浓稠醇香，软糯入味" },
+        { name: "金汤花胶煨鲜鲍位上", desc: "胶原饱满，尊贵体面" }
+      ],
+      poultry: [
+        { name: "金牌香脆皮乳鸽 (两只装)", desc: "肉汁充沛，皮薄如纸" },
+        { name: "顺德传统葱油白斩走地鸡", desc: "皮滑肉嫩，葱香四溢" }
+      ],
+      vege: [
+        { name: "鸡汤火腿煨高山有机金苗菜心", desc: "清汤温润，回味清甜" },
+        { name: "松露酱鲜百合炒芦笋甜豆", desc: "爽脆清香，素雅高级" }
+      ],
+      soup: [
+        { name: "浓汤花胶炖响螺鲜鸡汤", desc: "高汤浓郁，温润滋补" },
+        { name: "文火松茸竹荪土鸡清炖汤", desc: "清澈甘甜，菌香扑鼻" }
+      ],
+      staple: [
+        { name: "鲍汁野菌荷叶香糯米饭", desc: "荷叶芬芳，软糯咸鲜" },
+        { name: "主厨手工双色如意长寿面", desc: "精磨高筋，爽滑劲道" }
+      ]
+    };
+
+    // 运行状态跟踪
+    let currentTab = 0;
+    let currentCuisine = "cantonese";
+    let currentSpec = "family";
+    let activeDishes = JSON.parse(JSON.stringify(MENU_DATABASE.family.dishes));
+    let guestCount = 6;
+    let ingredientMode = "agent"; // 'self' | 'agent'
+    let hasDishwashAddon = false;
+    let replacingDishId = null;
+
+    // 初始化渲染
+    window.addEventListener("DOMContentLoaded", () => {
+      renderDynamicDishList();
+      updateBillTotal();
+    });
+
+    // 2. 微信胶囊交互响应
+    function triggerWechatCapsuleMenu() {
+      showToast("微信小程序服务配置与分享菜单");
+    }
+    function triggerWechatCapsuleClose() {
+      showToast("已最小化至微信浮窗");
+    }
+
+    // 3. TabBar 路由切换
+    function switchMainTab(idx) {
+      currentTab = idx;
+      document.querySelectorAll(".mp-body .tab-pane").forEach((pane, i) => {
+        pane.classList.toggle("active", i === idx);
+      });
+      document.querySelectorAll(".bottom-tabbar .tabbar-item").forEach((item, i) => {
+        item.classList.toggle("active", i === idx);
+      });
+
+      const titles = [
+        "**私厨定制·私厨定制",
+        "私宴菜单·个性化定制",
+        "服务预约·行程配置",
+        "服务追踪·订单看板"
+      ];
+      document.querySelector("#page-title-text span").textContent = titles[idx] || "**私厨定制·私厨定制";
+      document.querySelector(".mp-body").scrollTop = 0;
+    }
+
+    // 4. 首页金刚区联动过滤
+    function filterHomeScene(cat, el) {
+      document.querySelectorAll(".scene-grid .scene-item").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+
+      const cards = document.querySelectorAll(".package-card");
+      cards.forEach(card => {
+        if (cat === "all" || card.getAttribute("data-category") === cat) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+      showToast("已筛选相关宴席套系");
+    }
+
+    // 5. 首页与菜单联动
+    function openCustomMenuWithSpec(specKey) {
+      selectMenuSpec(specKey);
+      switchMainTab(1);
+    }
+    function quickBookPackage(pkgName, fee, defaultGuests) {
+      guestCount = defaultGuests;
+      document.getElementById("guest-count-display").textContent = guestCount + "人";
+      document.getElementById("bill-base-fee").textContent = "¥" + fee + ".00";
+      updateBillTotal();
+      switchMainTab(2);
+      showToast("已将【" + pkgName + "】带入预约");
+    }
+
+    // 6. 菜单规格与菜系切换
+    function switchCuisine(cuisine, el) {
+      document.querySelectorAll(".filter-pills .pill").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
+      currentCuisine = cuisine;
+      showToast("已切换至对应特色菜系");
+    }
+
+    function selectMenuSpec(specKey, el) {
+      currentSpec = specKey;
+      document.querySelectorAll(".spec-selector .spec-btn").forEach(b => b.classList.remove("active"));
+      const targetBtn = el || document.getElementById("spec-opt-" + specKey);
+      if (targetBtn) targetBtn.classList.add("active");
+
+      activeDishes = JSON.parse(JSON.stringify(MENU_DATABASE[specKey].dishes));
+      renderDynamicDishList();
+
+      if (specKey === "family") guestCount = 6;
+      if (specKey === "business") guestCount = 10;
+      if (specKey === "celebration") guestCount = 14;
+      document.getElementById("guest-count-display").textContent = guestCount + "人";
+      document.getElementById("bill-base-fee").textContent = "¥" + MENU_DATABASE[specKey].baseFee + ".00";
+      updateBillTotal();
+    }
+
+    function resetCustomMenu() {
+      activeDishes = JSON.parse(JSON.stringify(MENU_DATABASE[currentSpec].dishes));
+      renderDynamicDishList();
+      showToast("已恢复此套系出厂默认菜单");
+    }
+
+    function renderDynamicDishList() {
+      const container = document.getElementById("dynamic-dish-list");
+      container.innerHTML = "";
+
+      let currentCat = "";
+      activeDishes.forEach(dish => {
+        if (dish.cat !== currentCat) {
+          currentCat = dish.cat;
+          const catHeading = document.createElement("div");
+          catHeading.className = "dish-category-title";
+          catHeading.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>${currentCat}</span>
+          `;
+          container.appendChild(catHeading);
+        }
+
+        const dishDiv = document.createElement("div");
+        dishDiv.className = "dish-item";
+        dishDiv.innerHTML = `
+          <div class="dish-info">
+            <div class="dish-name">${dish.name}</div>
+            <div class="dish-desc">${dish.desc}</div>
+          </div>
+          <button class="btn-replace" onclick="openDishReplaceModal('${dish.id}', '${dish.altGroup}', '${dish.name}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            <span>替换</span>
+          </button>
+        `;
+        container.appendChild(dishDiv);
+      });
+    }
+
+    // 7. 菜品替换抽屉交互
+    function openDishReplaceModal(dishId, altGroup, dishName) {
+      replacingDishId = dishId;
+      document.getElementById("replace-drawer-heading").textContent = "正在替换：" + dishName;
+      const optionsContainer = document.getElementById("replace-options-container");
+      optionsContainer.innerHTML = "";
+
+      const candidates = REPLACEMENT_CANDIDATES[altGroup] || REPLACEMENT_CANDIDATES.fish;
+      candidates.forEach(cand => {
+        const item = document.createElement("div");
+        item.style.backgroundColor = "var(--clr-surface-subtle)";
+        item.style.border = "1px solid var(--clr-line)";
+        item.style.borderRadius = "var(--radius-sm)";
+        item.style.padding = "10px 12px";
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.style.justifyContent = "space-between";
+        item.style.cursor = "pointer";
+
+        item.innerHTML = `
+          <div>
+            <b style="font-size:13px;color:var(--clr-ink-main);">${cand.name}</b>
+            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">${cand.desc}</div>
+          </div>
+          <button class="btn btn-outline btn-sm">选定此菜</button>
+        `;
+        item.onclick = () => confirmReplaceDish(cand.name, cand.desc);
+        optionsContainer.appendChild(item);
+      });
+
+      openDrawer("dish-replace-drawer");
+    }
+
+    function confirmReplaceDish(newName, newDesc) {
+      const target = activeDishes.find(d => d.id === replacingDishId);
+      if (target) {
+        target.name = newName;
+        target.desc = newDesc;
+        renderDynamicDishList();
+        closeDrawer("dish-replace-drawer");
+        showToast("已更新菜单：" + newName);
+      }
+    }
+
+    function bringMenuToBooking() {
+      switchMainTab(2);
+      showToast("已锁定当前自定义菜单，请核对行程");
+    }
+
+    // 8. 预约表单逻辑与计数器
+    function selectDate(el, dateText) {
+      document.querySelectorAll(".chip-grid .chip").forEach(c => {
+        if (c.textContent.includes("今天") || c.textContent.includes("明天") || c.textContent.includes("后天") || c.textContent.includes("周末")) {
+          c.classList.remove("selected");
+        }
+      });
+      el.classList.add("selected");
+      showToast("已选择日期：" + dateText);
+    }
+
+    function selectSlot(slotType) {
+      document.getElementById("slot-lunch").classList.toggle("active", slotType === "lunch");
+      document.getElementById("slot-dinner").classList.toggle("active", slotType === "dinner");
+      showToast(slotType === "lunch" ? "已选择午宴餐段 (10:30 上门)" : "已选择晚宴餐段 (16:30 上门)");
+    }
+
+    function adjustGuestCount(delta) {
+      guestCount = Math.max(2, Math.min(20, guestCount + delta));
+      document.getElementById("guest-count-display").textContent = guestCount + "人";
+      updateBillTotal();
+    }
+
+    function selectIngredientMode(mode) {
+      ingredientMode = mode;
+      document.getElementById("mode-self").classList.toggle("active", mode === "self");
+      document.getElementById("mode-agent").classList.toggle("active", mode === "agent");
+      showToast(mode === "self" ? "已选择：自备食材模式" : "已选择：大厨代买 (实报实销)");
+    }
+
+    function toggleChip(el) {
+      el.classList.toggle("selected");
+    }
+
+    function toggleDishwashService(el) {
+      hasDishwashAddon = !hasDishwashAddon;
+      const chip = document.getElementById("addon-dishwash");
+      chip.classList.toggle("selected", hasDishwashAddon);
+      document.getElementById("bill-addon-fee").textContent = hasDishwashAddon ? "¥30.00" : "¥0.00";
+      updateBillTotal();
+      showToast(hasDishwashAddon ? "已增加：深度多餐具洗碗服务" : "已取消洗碗增值服务");
+    }
+
+    function updateBillTotal() {
+      const base = MENU_DATABASE[currentSpec].baseFee;
+      const addon = hasDishwashAddon ? 30 : 0;
+      const discount = 50;
+      const total = Math.max(0, base + addon - discount);
+      document.getElementById("bill-total-price").textContent = "¥" + total + ".00";
+    }
+
+    function submitBookingOrder() {
+      openDrawer("booking-success-modal");
+    }
+
+    function closeBookingSuccessAndGoOrders() {
+      closeDrawer("booking-success-modal");
+      switchMainTab(3);
+    }
+
+    // 9. 订单状态过滤与操作
+    function filterOrderState(idx, el) {
+      document.querySelectorAll(".order-grid .order-state-item").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+      const states = ["待确认订单列表 (暂无)", "待大厨备料订单 (1笔)", "当前服务中订单 (1笔)", "待评价服务列表 (1笔)", "售后与退款列表 (暂无)"];
+      showToast(states[idx]);
+    }
+
+    // 10. 模态抽屉通用控制
+    function openDrawer(drawerId) {
+      const drawer = document.getElementById(drawerId);
+      if (drawer) drawer.classList.add("active");
+    }
+    function closeDrawer(drawerId) {
+      const drawer = document.getElementById(drawerId);
+      if (drawer) drawer.classList.remove("active");
+    }
+    function closeOverlayOnBackdrop(event, drawerId) {
+      if (event.target.id === drawerId) {
+        closeDrawer(drawerId);
+      }
+    }
+
+    // 11. 大厨资质弹窗
+    function openChefProfileModal(chefId) {
+      if (chefId === "chef-li") {
+        document.getElementById("chef-modal-name").textContent = "李主厨";
+        document.getElementById("chef-modal-title").textContent = "特级中式烹调师 · 从厨18年";
+      } else if (chefId === "chef-zhang") {
+        document.getElementById("chef-modal-name").textContent = "张主厨";
+        document.getElementById("chef-modal-title").textContent = "资深淮扬非遗名厨 · 从厨15年";
+      } else {
+        document.getElementById("chef-modal-name").textContent = "王大厨";
+        document.getElementById("chef-modal-title").textContent = "高级中式烹调师 · 从厨12年";
+      }
+      openDrawer("chef-profile-drawer");
+    }
+
+    function chooseThisChefForBooking() {
+      closeDrawer("chef-profile-drawer");
+      switchMainTab(2);
+      showToast("已指派大厨为您预约本场私宴");
+    }
+
+    // 12. 辅助弹层
+    function openContactModal() {
+      openDrawer("contact-modal");
+    }
+    function openAddressModal() {
+      openDrawer("address-modal");
+    }
+    function openPolicyModal() {
+      openDrawer("policy-modal");
+    }
+    function openConciergeModal() {
+      openDrawer("concierge-modal");
+    }
+    function showAreaCoverageModal() {
+      showToast("当前服务覆盖同城核心区域（5公里内免额外上门路费）");
+    }
+    function selectAddress(addr) {
+      closeDrawer("address-modal");
+      showToast("已选用服务地址：" + addr);
+    }
+    function sendConciergeMsg() {
+      const input = document.getElementById("concierge-input");
+      if (input.value.trim()) {
+        const val = input.value.trim();
+        input.value = "";
+        showToast("管家已收到您的留言并正在协助跟进");
+      }
+    }
+
+    // 13. 仿微信原生 Toast 轻提示
+    let toastTimer = null;
+    function showToast(msg) {
+      const toastBox = document.getElementById("wx-toast-box");
+      if (!toastBox) return;
+      toastBox.textContent = msg;
+      toastBox.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastBox.style.display = "none";
+      }, 1900);
+    }
+  </script>
+</body>
+</html>

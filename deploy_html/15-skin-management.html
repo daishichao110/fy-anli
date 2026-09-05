@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>**轻医美 · 皮肤医学中心</title>
+  <style>
+    /* ==========================================================================
+       Design System Tokens (Aesthetic Morandi & Pure Clinical Theme)
+       ========================================================================== */
+    :root {
+      --color-primary: #0E657D;
+      --color-primary-dark: #08495B;
+      --color-primary-light: #E8F4F7;
+      --color-primary-subtle: rgba(14, 101, 125, 0.08);
+
+      --color-accent: #B87B42;
+      --color-accent-dark: #96602F;
+      --color-accent-light: #FDF7F1;
+      --color-accent-border: rgba(184, 123, 66, 0.22);
+
+      --color-bg-canvas: #EBF0F5;
+      --color-bg-app: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-surface-hover: #F1F5F9;
+
+      --color-text-title: #0F172A;
+      --color-text-body: #334155;
+      --color-text-secondary: #64748B;
+      --color-text-muted: #94A3B8;
+      --color-text-inverse: #FFFFFF;
+
+      --color-border-light: #F1F5F9;
+      --color-border-base: #E2E8F0;
+      --color-border-focused: #CBD5E1;
+
+      --color-status-success: #10B981;
+      --color-status-warning: #F59E0B;
+      --color-status-info: #0284C7;
+
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 14px 30px -6px rgba(15, 23, 42, 0.14);
+      --shadow-drawer: 0 -10px 30px rgba(15, 23, 42, 0.16);
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-bg-canvas);
+      color: var(--color-text-body);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+
+    /* ==========================================================================
+       Pure Mini-Program Frame (390px x 844px Retina Simulator Shell)
+       ========================================================================== */
+    .mp-shell {
+      width: 390px;
+      height: 844px;
+      max-height: 96vh;
+      background: var(--color-bg-app);
+      border-radius: 46px;
+      border: 10px solid #1E293B;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* iOS / Mini-Program Status Bar */
+    .status-bar {
+      height: 40px;
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      user-select: none;
+      z-index: 50;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+
+    .status-bar-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-title);
+    }
+
+    /* Mini-Program Navigation Header */
+    .mp-header {
+      height: 44px;
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      position: relative;
+      border-bottom: 1px solid var(--color-border-light);
+      z-index: 49;
+    }
+
+    .header-title-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      letter-spacing: -0.2px;
+    }
+
+    .header-badge {
+      font-size: 10px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      padding: 2px 6px;
+      border-radius: var(--radius-xs);
+      font-weight: 600;
+    }
+
+    /* Standard WeChat Capsule */
+    .wechat-capsule {
+      height: 30px;
+      background: rgba(241, 245, 249, 0.9);
+      border: 1px solid rgba(203, 213, 225, 0.8);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 10px;
+      color: var(--color-text-title);
+      cursor: pointer;
+    }
+
+    .capsule-divider {
+      width: 1px;
+      height: 14px;
+      background: #CBD5E1;
+    }
+
+    /* ==========================================================================
+       Scrollable Viewport & Tabs Layout
+       ========================================================================== */
+    .mp-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 64px;
+      position: relative;
+      scrollbar-width: none;
+    }
+    .mp-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: tabFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       Bottom Navigation Bar (TabBar)
+       ========================================================================== */
+    .mp-tabbar {
+      height: 56px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-border-base);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+
+    .tabbar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      transition: all 0.18s ease;
+      gap: 3px;
+    }
+
+    .tabbar-item span {
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .tabbar-item.active {
+      color: var(--color-primary);
+    }
+    .tabbar-item.active span {
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       Components: Cards, Buttons, Badges, Typography
+       ========================================================================== */
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-decoration: none;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      box-shadow: 0 4px 10px rgba(14, 101, 125, 0.2);
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+    }
+    .btn-accent {
+      background: var(--color-accent);
+      color: var(--color-text-inverse);
+      box-shadow: 0 4px 10px rgba(184, 123, 66, 0.2);
+    }
+    .btn-subtle {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--color-border-base);
+      color: var(--color-text-body);
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: var(--radius-xs);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+    }
+    .tag-teal {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .tag-gold {
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent-border);
+    }
+    .tag-gray {
+      background: #F1F5F9;
+      color: var(--color-text-secondary);
+    }
+
+    /* ==========================================================================
+       TAB 0: Home Screen (甄选首页)
+       ========================================================================== */
+    .home-top-search {
+      padding: 10px 14px;
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .search-input-fake {
+      flex: 1;
+      height: 34px;
+      background: #F1F5F9;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      color: var(--color-text-muted);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .clinic-picker-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    .hero-banner {
+      margin: 12px 14px;
+      background: linear-gradient(135deg, #0E657D 0%, #08495B 100%);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      color: var(--color-text-inverse);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px -4px rgba(14, 101, 125, 0.35);
+    }
+
+    .hero-banner-accent-circle {
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184, 123, 66, 0.25) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+
+    .hero-title {
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .hero-desc {
+      font-size: 11px;
+      opacity: 0.9;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Grid Categories (5 宫格金刚区) */
+    .grid-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 6px 14px 14px 14px;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .grid-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .grid-icon-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border-light);
+      transition: all 0.2s ease;
+    }
+    .grid-nav-item:active .grid-icon-circle {
+      background: var(--color-primary-light);
+      transform: scale(0.95);
+    }
+
+    .grid-nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-body);
+    }
+
+    /* VISIA Skin Diagnosis Card */
+    .visia-card {
+      margin: 0 14px 14px 14px;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .visia-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .visia-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+
+    .visia-body {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .visia-score-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 4px solid var(--color-primary-light);
+      border-top-color: var(--color-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #FAFDFE;
+      flex-shrink: 0;
+    }
+    .visia-score-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+    .visia-score-lbl {
+      font-size: 9px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    .visia-metrics {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+
+    .metric-bar-bg {
+      flex: 1;
+      height: 5px;
+      background: #F1F5F9;
+      border-radius: var(--radius-pill);
+      margin: 0 8px;
+      overflow: hidden;
+    }
+    .metric-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-pill);
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 14px 10px 14px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-more {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* Product Cards Stream */
+    .product-list {
+      padding: 0 14px;
+    }
+
+    .product-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--color-border-light);
+      display: flex;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-focused);
+    }
+
+    .product-thumb-box {
+      width: 82px;
+      height: 82px;
+      border-radius: var(--radius-sm);
+      background: #F8FAFC;
+      border: 1px solid var(--color-border-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+    .product-thumb-tag {
+      font-size: 9px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      line-height: 1.4;
+    }
+
+    .product-desc {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .product-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .price-main {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-accent);
+    }
+    .price-original {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+      margin-left: 4px;
+    }
+
+    /* Assurance badges row */
+    .assurance-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 12px 14px;
+      margin: 10px 14px 16px 14px;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-light);
+    }
+    .assurance-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-body);
+    }
+
+    /* ==========================================================================
+       TAB 1: Catalog Screen (方案分类)
+       ========================================================================== */
+    .catalog-layout {
+      display: flex;
+      height: calc(844px - 40px - 44px - 56px);
+      overflow: hidden;
+    }
+
+    .catalog-sidebar {
+      width: 88px;
+      background: #F1F5F9;
+      overflow-y: auto;
+      border-right: 1px solid var(--color-border-base);
+    }
+
+    .sidebar-item {
+      padding: 14px 8px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+      transition: all 0.15s ease;
+    }
+    .sidebar-item.active {
+      background: var(--color-surface);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .sidebar-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 3.5px;
+      background: var(--color-primary);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .catalog-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      background: var(--color-bg-app);
+    }
+
+    .catalog-banner {
+      background: var(--color-primary-light);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .catalog-banner-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+    }
+
+    /* ==========================================================================
+       TAB 2: Booking Scheduler (在线预约)
+       ========================================================================== */
+    .booking-container {
+      padding: 14px;
+    }
+
+    .form-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clinic-selector-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .clinic-pill {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-base);
+      background: var(--color-surface);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-body);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .clinic-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+    }
+
+    /* Calendar Strip */
+    .calendar-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      scrollbar-width: none;
+    }
+    .calendar-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .day-card {
+      width: 46px;
+      padding: 8px 0;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.18s ease;
+    }
+    .day-week {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+    }
+    .day-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+    }
+    .day-card.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .day-card.active .day-week,
+    .day-card.active .day-num {
+      color: var(--color-text-inverse);
+    }
+
+    /* Doctor Select Row */
+    .doctor-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .doctor-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      border: 1.5px solid var(--color-border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .doctor-card.active {
+      border-color: var(--color-primary);
+      background: #FAFDFE;
+    }
+
+    .doctor-info-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .doctor-avatar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .doctor-name-box b {
+      font-size: 12px;
+      color: var(--color-text-title);
+    }
+    .doctor-specialty {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Time Slots Grid */
+    .time-slot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .time-slot-pill {
+      padding: 8px 4px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-base);
+      background: var(--color-surface);
+      font-size: 11px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--color-text-body);
+      transition: all 0.15s ease;
+    }
+    .time-slot-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+    }
+    .time-slot-pill.disabled {
+      background: #F1F5F9;
+      border-color: #E2E8F0;
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-base);
+      padding: 0 12px;
+      font-size: 12px;
+      color: var(--color-text-title);
+      background: var(--color-surface);
+      outline: none;
+      margin-bottom: 10px;
+    }
+    .input-field:focus {
+      border-color: var(--color-primary);
+    }
+
+    /* ==========================================================================
+       TAB 3: Profile Screen (我的档案)
+       ========================================================================== */
+    .profile-container {
+      padding: 14px;
+    }
+
+    .vip-card {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      color: var(--color-text-inverse);
+      position: relative;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .vip-card-accent {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      background: rgba(184, 123, 66, 0.2);
+      border: 1px solid rgba(184, 123, 66, 0.4);
+      color: #E5A96A;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .vip-user-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .vip-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #E5A96A;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .vip-name {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+    .vip-phone {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 2px;
+    }
+
+    .vip-assets-row {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 12px;
+      text-align: center;
+    }
+    .asset-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: #E5A96A;
+    }
+    .asset-lbl {
+      font-size: 9px;
+      color: #94A3B8;
+      margin-top: 2px;
+    }
+
+    /* 5-Status Filter Strip */
+    .order-status-strip {
+      display: flex;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      margin-bottom: 12px;
+      border: 1px solid var(--color-border-light);
+    }
+
+    .order-status-btn {
+      flex: 1;
+      padding: 8px 0;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .order-status-btn.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+    }
+
+    /* Booking Order Cards */
+    .booking-item-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      border: 1px solid var(--color-border-light);
+      margin-bottom: 10px;
+    }
+    .booking-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border-light);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .booking-clinic {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+    .booking-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-title);
+      margin-bottom: 4px;
+    }
+    .booking-item-meta {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .booking-item-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    /* Menu List */
+    .menu-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-light);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .menu-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--color-text-body);
+      transition: background 0.15s ease;
+    }
+    .menu-row:last-child {
+      border-bottom: none;
+    }
+    .menu-row:hover {
+      background: var(--color-surface-hover);
+    }
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Global Overlay: BottomSheet Drawers, Modals, ActionSheet, Toast
+       ========================================================================== */
+    .overlay-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn 0.18s ease-out;
+    }
+    .overlay-backdrop.active {
+      display: flex;
+    }
+
+    .bottom-sheet {
+      width: 100%;
+      max-height: 82%;
+      background: var(--color-surface);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: 18px 16px 24px 16px;
+      overflow-y: auto;
+      box-shadow: var(--shadow-drawer);
+      animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .center-modal {
+      width: 88%;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      box-shadow: var(--shadow-lg);
+      animation: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: auto;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes popIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .sheet-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text-title);
+    }
+    .sheet-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+    }
+
+    /* WeChat Style Centered Toast */
+    .hud-toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      max-width: 220px;
+    }
+    .hud-toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .hud-toast-text {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* Radar Canvas */
+    .radar-canvas-box {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    /* Barcode / QR Simulation */
+    .mock-barcode {
+      width: 220px;
+      height: 48px;
+      margin: 14px auto;
+      background: repeating-linear-gradient(
+        90deg,
+        #1E293B 0px,
+        #1E293B 2px,
+        transparent 2px,
+        transparent 4px,
+        #1E293B 4px,
+        #1E293B 7px,
+        transparent 7px,
+        transparent 9px,
+        #1E293B 9px,
+        #1E293B 10px,
+        transparent 10px,
+        transparent 14px
+      );
+      border-radius: var(--radius-xs);
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- ========================================================================
+       Pure Mini-Program Simulator Container
+       ======================================================================== -->
+  <div class="mp-shell" id="mpApp">
+
+    <!-- 1. Native Status Bar -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <div class="status-bar-icons">
+        <!-- Signal SVG -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
+        <!-- Wifi SVG -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        <!-- Battery SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/><rect x="4" y="9" width="10" height="6" fill="currentColor"/></svg>
+      </div>
+    </div>
+
+    <!-- 2. Navigation Header -->
+    <div class="mp-header">
+      <div class="header-title-box" onclick="MedicalMp.toggleClinicSelector()">
+        <span class="header-title" id="topNavTitle">**轻医美 · 皮肤医学中心</span>
+        <span class="header-badge" id="topClinicBadge">国金总院</span>
+        <!-- ChevronDown SVG -->
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <!-- Standard WeChat Capsule -->
+      <div class="wechat-capsule" onclick="MedicalMp.onCapsuleClick()">
+        <!-- More Dots SVG -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+        <div class="capsule-divider"></div>
+        <!-- Target Ring SVG -->
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+    </div>
+
+    <!-- 3. Dynamic Scrollable Viewport -->
+    <div class="mp-body" id="mpBodyScroll">
+
+      <!-- ====================================================================
+           TAB 0: 甄选首页 (Home)
+           ==================================================================== -->
+      <div id="tab-pane-0" class="tab-pane active">
+        <!-- Top Search Bar -->
+        <div class="home-top-search">
+          <div class="search-input-fake" onclick="MedicalMp.openSearchModal()">
+            <!-- Search SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>搜索项目、医生、皮肤问题...</span>
+          </div>
+          <div class="clinic-picker-btn" onclick="MedicalMp.showActionSheet('院区咨询', ['国金中心总院：010-8801****', '科技园分院：010-8802****', '在线美学顾问 24h'])">
+            <!-- MapPin SVG -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>导诊</span>
+          </div>
+        </div>
+
+        <!-- Hero Brand Banner -->
+        <div class="hero-banner">
+          <div class="hero-banner-accent-circle"></div>
+          <div class="hero-tag">AESTHETIC DERMATOLOGY · 循证皮肤管理</div>
+          <div class="hero-title">科学量肤定制<br>重塑健康轻韧屏障</div>
+          <div class="hero-desc">严选正品仪器官方验真 · 三甲学术委员会执业医师规范操作</div>
+          <button class="btn btn-accent btn-sm" onclick="MedicalMp.switchTab(1)">
+            <span>探索分型方案</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- 5-Grid Categories -->
+        <div class="grid-nav">
+          <div class="grid-nav-item" onclick="MedicalMp.goToCategory('laser')">
+            <div class="grid-icon-circle">
+              <!-- Sparkles SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            </div>
+            <span class="grid-nav-label">光电抗衰</span>
+          </div>
+          <div class="grid-nav-item" onclick="MedicalMp.goToCategory('meso')">
+            <div class="grid-icon-circle">
+              <!-- Droplet SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+            </div>
+            <span class="grid-nav-label">水光维稳</span>
+          </div>
+          <div class="grid-nav-item" onclick="MedicalMp.openRadarModal()">
+            <div class="grid-icon-circle">
+              <!-- Activity SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <span class="grid-nav-label">VISIA测肤</span>
+          </div>
+          <div class="grid-nav-item" onclick="MedicalMp.switchTab(2)">
+            <div class="grid-icon-circle">
+              <!-- Award SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            </div>
+            <span class="grid-nav-label">名医排班</span>
+          </div>
+          <div class="grid-nav-item" onclick="MedicalMp.openCouponClaimModal()">
+            <div class="grid-icon-circle">
+              <!-- Gift / Tag SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </div>
+            <span class="grid-nav-label">新客礼券</span>
+          </div>
+        </div>
+
+        <!-- VISIA Diagnosis Widget -->
+        <div class="visia-card">
+          <div class="visia-header">
+            <div class="visia-title">
+              <!-- Shield SVG -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>数字皮肤健康档案 (VISIA)</span>
+            </div>
+            <button class="btn btn-subtle btn-sm" onclick="MedicalMp.openRadarModal()">查看维度报告</button>
+          </div>
+          <div class="visia-body">
+            <div class="visia-score-ring">
+              <span class="visia-score-val">88</span>
+              <span class="visia-score-lbl">综合指数</span>
+            </div>
+            <div class="visia-metrics">
+              <div class="metric-row">
+                <span>水润度</span>
+                <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 82%;"></div></div>
+                <b>82分</b>
+              </div>
+              <div class="metric-row">
+                <span>毛孔平滑</span>
+                <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 76%;"></div></div>
+                <b>76分</b>
+              </div>
+              <div class="metric-row">
+                <span>屏障耐受</span>
+                <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 68%;"></div></div>
+                <b>68分</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quality Assurances Banner -->
+        <div class="assurance-row">
+          <div class="assurance-item">
+            <!-- ShieldCheck SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>正品仪器验真</span>
+          </div>
+          <div class="assurance-item">
+            <!-- UserCheck SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+            <span>主治医师亲操</span>
+          </div>
+          <div class="assurance-item">
+            <!-- CheckCircle SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>无隐形消费</span>
+          </div>
+        </div>
+
+        <!-- Featured Products Section -->
+        <div class="section-header">
+          <span class="section-title">
+            <!-- Sparkle SVG -->
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>当季严选爆品方案</span>
+          </span>
+          <span class="section-more" onclick="MedicalMp.switchTab(1)">
+            <span>全部方案</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </div>
+
+        <div class="product-list" id="homeProductList">
+          <!-- Dynamically Injected Products -->
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: 方案分类 (Catalog)
+           ==================================================================== -->
+      <div id="tab-pane-1" class="tab-pane">
+        <div class="catalog-layout">
+          <!-- Left Sidebar -->
+          <div class="catalog-sidebar">
+            <div class="sidebar-item active" id="cat-nav-laser" onclick="MedicalMp.selectCategory('laser')">光电抗衰</div>
+            <div class="sidebar-item" id="cat-nav-meso" onclick="MedicalMp.selectCategory('meso')">水光修护</div>
+            <div class="sidebar-item" id="cat-nav-repair" onclick="MedicalMp.selectCategory('repair')">舒敏维稳</div>
+            <div class="sidebar-item" id="cat-nav-clean" onclick="MedicalMp.selectCategory('clean')">深层焕肤</div>
+            <div class="sidebar-item" id="cat-nav-inject" onclick="MedicalMp.selectCategory('inject')">注射塑颜</div>
+          </div>
+
+          <!-- Right Content Stream -->
+          <div class="catalog-content" id="catalogContent">
+            <!-- Category Banner -->
+            <div class="catalog-banner">
+              <span class="catalog-banner-text" id="catalogBannerTitle">光电抗衰专区 · 科学淡纹紧致</span>
+              <span class="tag tag-gold">官方溯源认证</span>
+            </div>
+            <!-- Dynamic Items Container -->
+            <div id="categoryProductList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 2: 在线预约 (Booking Scheduler)
+           ==================================================================== -->
+      <div id="tab-pane-2" class="tab-pane">
+        <div class="booking-container">
+          
+          <!-- Clinic Selector -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>就诊院区选择</span>
+          </div>
+          <div class="clinic-selector-row">
+            <div class="clinic-pill active" id="clinicPill0" onclick="MedicalMp.selectBookingClinic(0, '国金中心总院')">国金旗舰总院 (市中心)</div>
+            <div class="clinic-pill" id="clinicPill1" onclick="MedicalMp.selectBookingClinic(1, '科技园名医分院')">科技园名医分院</div>
+          </div>
+
+          <!-- Project Select Display -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>预约服务项目</span>
+          </div>
+          <div class="card" style="padding: 10px 12px; margin-bottom: 14px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <b style="font-size:12px; color:var(--color-text-title);" id="bookingSelectedProjectName">第七代超光子嫩肤 (全模式)</b>
+              <div style="font-size:10px; color:var(--color-text-secondary); margin-top:2px;" id="bookingSelectedProjectMeta">用时约 45分钟 · 正品仪器耗材</div>
+            </div>
+            <button class="btn btn-subtle btn-sm" onclick="MedicalMp.switchTab(1)">更换项目</button>
+          </div>
+
+          <!-- Date Strip -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>就诊日期排班</span>
+          </div>
+          <div class="calendar-strip" id="bookingCalendarStrip">
+            <!-- Injected Days -->
+          </div>
+
+          <!-- Doctor Select -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+            <span>主治医师排班</span>
+          </div>
+          <div class="doctor-card-list">
+            <div class="doctor-card active" id="docCard0" onclick="MedicalMp.selectDoctor(0, '周景和 (副主任医师)')">
+              <div class="doctor-info-left">
+                <div class="doctor-avatar-circle">周</div>
+                <div class="doctor-name-box">
+                  <b>周景和 · 副主任医师</b>
+                  <div class="doctor-specialty">从业18年 · 擅长光电联合淡斑与抗衰</div>
+                </div>
+              </div>
+              <span class="tag tag-teal">余3号</span>
+            </div>
+            <div class="doctor-card" id="docCard1" onclick="MedicalMp.selectDoctor(1, '林若清 (主治医师)')">
+              <div class="doctor-info-left">
+                <div class="doctor-avatar-circle">林</div>
+                <div class="doctor-name-box">
+                  <b>林若清 · 主治医师</b>
+                  <div class="doctor-specialty">皮肤科硕士 · 擅长敏感肌屏障修复与水光</div>
+                </div>
+              </div>
+              <span class="tag tag-teal">余5号</span>
+            </div>
+          </div>
+
+          <!-- Time Slot Grid -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>服务时段</span>
+          </div>
+          <div class="time-slot-grid" id="timeSlotGrid">
+            <div class="time-slot-pill" onclick="MedicalMp.selectSlot(this, '10:00 - 11:00')">10:00 - 11:00</div>
+            <div class="time-slot-pill disabled">11:00 - 12:00 (满)</div>
+            <div class="time-slot-pill active" onclick="MedicalMp.selectSlot(this, '14:00 - 15:00')">14:00 - 15:00</div>
+            <div class="time-slot-pill" onclick="MedicalMp.selectSlot(this, '15:30 - 16:30')">15:30 - 16:30</div>
+            <div class="time-slot-pill" onclick="MedicalMp.selectSlot(this, '17:00 - 18:00')">17:00 - 18:00</div>
+            <div class="time-slot-pill" onclick="MedicalMp.selectSlot(this, '18:30 - 19:30')">18:30 - 19:30</div>
+          </div>
+
+          <!-- Patient Information Inputs -->
+          <div class="form-group-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>到店就诊人信息</span>
+          </div>
+          <input type="text" class="input-field" id="bookingNameInput" value="林女士 (已实名)" placeholder="就诊人姓名">
+          <input type="text" class="input-field" id="bookingPhoneInput" value="138****6621" placeholder="联系手机号">
+          <input type="text" class="input-field" id="bookingNoteInput" placeholder="个性化备注 (如：近期泛红敏感、对痛感敏感等)">
+
+          <!-- Submit Button -->
+          <button class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 6px; font-size: 14px;" onclick="MedicalMp.submitBookingForm()">
+            <!-- Check SVG -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>确认预约到店</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 3: 我的档案 (Profile & Orders)
+           ==================================================================== -->
+      <div id="tab-pane-3" class="tab-pane">
+        <div class="profile-container">
+          
+          <!-- VIP Membership Card -->
+          <div class="vip-card">
+            <div class="vip-card-accent">VIP 尊享金卡</div>
+            <div class="vip-user-row">
+              <div class="vip-avatar">林</div>
+              <div>
+                <div class="vip-name">林女士</div>
+                <div class="vip-phone">138****6621 · 会员成长值 2,480</div>
+              </div>
+            </div>
+            <div class="vip-assets-row">
+              <div onclick="MedicalMp.showToast('您拥有 2 张可用优惠券')">
+                <div class="asset-val">2 张</div>
+                <div class="asset-lbl">可用卡券</div>
+              </div>
+              <div onclick="MedicalMp.openRadarModal()">
+                <div class="asset-val">88 分</div>
+                <div class="asset-lbl">健康指数</div>
+              </div>
+              <div onclick="MedicalMp.showToast('当前有效次卡 1 次 (水光深层修护)')">
+                <div class="asset-val">1 次</div>
+                <div class="asset-lbl">可用次卡</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-Status Filter Strip -->
+          <div class="section-header" style="padding: 0 0 8px 0;">
+            <span class="section-title">
+              <!-- Clock SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>预约服务订单看板</span>
+            </span>
+          </div>
+          <div class="order-status-strip">
+            <div class="order-status-btn active" id="orderTab-all" onclick="MedicalMp.filterBookings('all')">全部</div>
+            <div class="order-status-btn" id="orderTab-pending" onclick="MedicalMp.filterBookings('pending')">待到店</div>
+            <div class="order-status-btn" id="orderTab-serving" onclick="MedicalMp.filterBookings('serving')">服务中</div>
+            <div class="order-status-btn" id="orderTab-completed" onclick="MedicalMp.filterBookings('completed')">已完成</div>
+            <div class="order-status-btn" id="orderTab-cancelled" onclick="MedicalMp.filterBookings('cancelled')">已取消</div>
+          </div>
+
+          <!-- Dynamic Bookings List Container -->
+          <div id="myBookingsList"></div>
+
+          <!-- VISIA Radar Quick Card -->
+          <div class="card" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="MedicalMp.openRadarModal()">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:36px; height:36px; border-radius:var(--radius-sm); background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center;">
+                <!-- Activity SVG -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <b style="font-size:12px; color:var(--color-text-title);">皮肤检测报告与量肤档案</b>
+                <div style="font-size:10px; color:var(--color-text-secondary); margin-top:2px;">最近检测: 2026-08-28 · 混合偏干肌</div>
+              </div>
+            </div>
+            <!-- ChevronRight SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <!-- Service Tools Menu -->
+          <div class="menu-card">
+            <div class="menu-row" onclick="MedicalMp.openCouponClaimModal()">
+              <div class="menu-left">
+                <!-- Tag SVG -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span>我的优惠礼券包</span>
+              </div>
+              <span class="tag tag-gold">2张可用</span>
+            </div>
+            <div class="menu-row" onclick="MedicalMp.showActionSheet('发票开具', ['增值税电子普通发票', '企业增值税专用发票', '查看历史开票记录'])">
+              <div class="menu-left">
+                <!-- FileText SVG -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>电子发票与就诊凭据</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="menu-row" onclick="MedicalMp.showActionSheet('机构资质', ['医疗机构执业许可证号：PDY880199201', '放射诊疗许可与大型仪器备案', '主治医师执业注册信息公示'])">
+              <div class="menu-left">
+                <!-- Shield SVG -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>医疗执业许可与正品认证</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="menu-row" onclick="MedicalMp.showActionSheet('联系专属顾问', ['呼叫国金旗舰前台：010-8801****', '呼叫值班主治医师', '在线美学顾问企微对接'])">
+              <div class="menu-left">
+                <!-- Headphones SVG -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                <span>24h 专属医美管家</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. Native TabBar -->
+    <div class="mp-tabbar">
+      <div class="tabbar-item active" id="tabbar-0" onclick="MedicalMp.switchTab(0)">
+        <!-- Home SVG -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>甄选首页</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-1" onclick="MedicalMp.switchTab(1)">
+        <!-- Grid SVG -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        <span>方案库</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-2" onclick="MedicalMp.switchTab(2)">
+        <!-- Calendar SVG -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+        <span>在线预约</span>
+      </div>
+      <div class="tabbar-item" id="tabbar-3" onclick="MedicalMp.switchTab(3)">
+        <!-- User SVG -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>我的档案</span>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         5. Global Feedback & Overlay Components
+         ====================================================================== -->
+    
+    <!-- Centered HUD Toast -->
+    <div class="hud-toast" id="hudToast">
+      <!-- CheckCircle SVG -->
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-status-success)" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div class="hud-toast-text" id="hudToastText">操作成功</div>
+    </div>
+
+    <!-- Project Detail BottomSheet Drawer -->
+    <div class="overlay-backdrop" id="projectDrawerBackdrop" onclick="MedicalMp.closeDrawerOnBackdrop(event)">
+      <div class="bottom-sheet" id="projectDrawer">
+        <div class="sheet-header">
+          <span class="sheet-title" id="drawerProjectTitle">项目详情</span>
+          <div class="sheet-close-btn" onclick="MedicalMp.closeProjectDrawer()">
+            <!-- X SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div id="drawerProjectContent">
+          <!-- Dynamic Project Details -->
+        </div>
+        <div style="margin-top: 18px; display:flex; gap:10px;">
+          <button class="btn btn-outline" style="flex:1;" onclick="MedicalMp.showActionSheet('联系美学顾问', ['电话咨询项目禁忌', '预约到店面诊'])">
+            <!-- MessageCircle SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>咨询顾问</span>
+          </button>
+          <button class="btn btn-primary" style="flex:2;" id="drawerBookBtn" onclick="MedicalMp.bookFromDrawer()">
+            <!-- Calendar SVG -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>立即预约该方案</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISIA Radar Modal -->
+    <div class="overlay-backdrop" id="radarModalBackdrop" style="align-items:center;" onclick="MedicalMp.closeRadarOnBackdrop(event)">
+      <div class="center-modal" id="radarModal">
+        <div class="sheet-header">
+          <span class="sheet-title">VISIA 科学测肤五维分析</span>
+          <div class="sheet-close-btn" onclick="MedicalMp.closeRadarModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div class="radar-canvas-box">
+          <canvas id="skinRadarCanvas" width="260" height="210"></canvas>
+        </div>
+        <div style="background:#F8FAFC; border-radius:var(--radius-sm); padding:10px; font-size:11px; color:var(--color-text-body); line-height:1.5; border:1px solid var(--color-border-light); margin-bottom:12px;">
+          <b>主治医师建议：</b>T区角质适中但伴有轻微水油失衡，两颊屏障耐受度偏低。建议首选深层补水舒缓，避免频繁强酸焕肤，配合非剥脱光电养护。
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="MedicalMp.closeRadarModal(); MedicalMp.goToCategory('repair');">
+          <span>查看针对性修护方案</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Appointment Voucher / QR Modal -->
+    <div class="overlay-backdrop" id="voucherModalBackdrop" style="align-items:center;" onclick="MedicalMp.closeVoucherOnBackdrop(event)">
+      <div class="center-modal" id="voucherModal" style="text-align:center;">
+        <div style="display:flex; justify-content:flex-end;">
+          <div class="sheet-close-btn" onclick="MedicalMp.closeVoucherModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div style="width:48px; height:48px; border-radius:50%; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; margin:0 auto 10px auto;">
+          <!-- QrCode SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+        </div>
+        <h3 style="font-size:16px; font-weight:800; color:var(--color-text-title);" id="voucherTitle">到店核销凭证</h3>
+        <p style="font-size:11px; color:var(--color-text-secondary); margin-top:4px;" id="voucherSub">请向机构前台或主治医师出示</p>
+        
+        <div class="mock-barcode"></div>
+        <div style="font-size:14px; font-weight:800; letter-spacing:2px; color:var(--color-primary); margin-bottom:12px;" id="voucherCode">8820 - 9912</div>
+
+        <div style="background:#F8FAFC; border-radius:var(--radius-sm); padding:10px; font-size:11px; color:var(--color-text-body); text-align:left; line-height:1.6; border:1px solid var(--color-border-light); margin-bottom:14px;">
+          <div><b>就诊院区：</b><span id="voucherClinic">**轻医美·国金旗舰总院</span></div>
+          <div><b>就诊项目：</b><span id="voucherProject">第七代超光子全模式</span></div>
+          <div><b>主治医师：</b><span id="voucherDoctor">周景和 (副主任医师)</span></div>
+          <div><b>预约时段：</b><span id="voucherTime">2026-09-05 14:00 - 15:00</span></div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;" onclick="MedicalMp.closeVoucherModal(); MedicalMp.showToast('凭证已同步至手机就诊卡包');">
+          <span>完成并保存凭证</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Dynamic Overlay -->
+    <div class="overlay-backdrop" id="searchOverlay" style="align-items:flex-start;" onclick="MedicalMp.closeSearchOnBackdrop(event)">
+      <div style="width:100%; background:var(--color-surface); padding:16px; border-radius:0 0 var(--radius-xl) var(--radius-xl); box-shadow:var(--shadow-md);" onclick="event.stopPropagation()">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div style="flex:1; display:flex; align-items:center; background:#F1F5F9; border-radius:var(--radius-pill); padding:0 12px; height:36px; gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="liveSearchInput" placeholder="输入超光子、水光、医生姓名..." style="border:none; background:transparent; font-size:12px; outline:none; width:100%;" oninput="MedicalMp.handleLiveSearch(this.value)">
+          </div>
+          <span style="font-size:12px; color:var(--color-primary); font-weight:600; cursor:pointer;" onclick="MedicalMp.closeSearchModal()">取消</span>
+        </div>
+        <div style="font-size:11px; font-weight:700; color:var(--color-text-secondary); margin-bottom:8px;">热门检索推荐</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('超光子')">超光子嫩肤</span>
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('水光')">高纯玻尿酸水光</span>
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('周景和')">周景和主任</span>
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('VISIA')">VISIA全脸检测</span>
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('舒敏')">舒敏维稳修护</span>
+        </div>
+        <div id="searchResultsList" style="max-height:260px; overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- Generic ActionSheet -->
+    <div class="overlay-backdrop" id="actionSheetBackdrop" onclick="MedicalMp.closeActionSheetOnBackdrop(event)">
+      <div class="bottom-sheet" style="max-height:50%;" id="actionSheetContent">
+        <div class="sheet-header">
+          <span class="sheet-title" id="actionSheetTitle">操作面板</span>
+          <div class="sheet-close-btn" onclick="MedicalMp.closeActionSheet()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div id="actionSheetItems" style="display:flex; flex-direction:column; gap:8px;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================================
+       Pure Native JS Application Logic & State (Zero External Dependencies)
+       ======================================================================== -->
+  <script>
+    const MedicalMp = (function () {
+      // 1. Core State Store
+      const state = {
+        currentTab: 0,
+        currentCategory: 'laser',
+        selectedClinic: '**轻医美 · 国金旗舰总院',
+        selectedDoctor: '周景和 (副主任医师)',
+        selectedProject: null,
+        selectedDate: '2026-09-05',
+        selectedSlot: '14:00 - 15:00',
+        activeFilter: 'all',
+        
+        // Comprehensive Desensitized Catalog
+        catalog: {
+          laser: [
+            {
+              id: 'PRJ-L1',
+              title: '第七代超光子嫩肤 (全模式三合一)',
+              desc: '精准针对色沉、暗沉、红血丝，多波段联合提亮',
+              tags: ['主治医师亲操', 'NMPA/FDA验真', '午休美容'],
+              price: 580,
+              originalPrice: 1280,
+              duration: '45分钟',
+              details: {
+                theory: '运用强脉冲光精准选择性光热作用原理，闭合异常扩张毛细血管，瓦解表层色素颗粒，同时刺激真皮胶原新生。',
+                steps: ['温和卸妆洁面', 'VISIA全脸高清照相检测', '均匀涂抹高透医用冷凝胶', '主治医师多波段精准靶向操作', '术后医用冷敷贴镇静舒缓'],
+                aftercare: '治疗后72小时避免热水洗脸，连续7天严格使用SPF50+物理防晒，停用一切强剥脱酸类护肤品。'
+              }
+            },
+            {
+              id: 'PRJ-L2',
+              title: '双极黄金射频微针 · 胶原紧实重塑',
+              desc: '微针穿透联合点阵射频，紧致毛孔与抚平细纹',
+              tags: ['正品探头一客一换', '副主任医师亲操'],
+              price: 1380,
+              originalPrice: 2680,
+              duration: '60分钟',
+              details: {
+                theory: '绝缘微针机械点阵穿透至真皮层，尖端释放高频射频能量，直接诱发胶原纤维即刻收缩与后续胶原新生。',
+                steps: ['舒缓表麻敷贴 (30min)', '全脸消毒与仪器探头验真', '医师精细分区能量操作', '重组人胶原冷敷敷料即刻冷喷', '建立就诊跟踪档案'],
+                aftercare: '术后24小时内不碰生水，建议使用医用无菌生理盐水轻拭，使用指定医用修护乳。'
+              }
+            },
+            {
+              id: 'PRJ-L3',
+              title: '调Q精准皮秒净斑 · 净透焕颜',
+              desc: '光震波击碎深层色素，淡化顽固雀斑与日晒斑',
+              tags: ['色素性皮损专研', '资深操作'],
+              price: 980,
+              originalPrice: 1880,
+              duration: '40分钟',
+              details: {
+                theory: '皮秒级脉宽产生强大光震波效应，将黑色素颗粒震碎为细微粉尘状，通过巨噬细胞自然代谢排出体外。',
+                steps: ['皮肤色斑深度检测', '局部精准能量测试', '主治医师全脸扫描操作', '医用无菌镇静贴敷', '发放术后避光医嘱卡'],
+                aftercare: '返家后结痂处自然脱落，严禁抠抓；两周内避免剧烈运动与桑拿暴晒。'
+              }
+            }
+          ],
+          meso: [
+            {
+              id: 'PRJ-M1',
+              title: '高纯透明质酸钠水光 · 屏障深润',
+              desc: '小分子复合透明质酸注入，改善干裂缺水与脱皮',
+              tags: ['药监合规溯源', '机打恒量'],
+              price: 420,
+              originalPrice: 980,
+              duration: '50分钟',
+              details: {
+                theory: '通过智能负压水光仪器，将医用非交联透明质酸均匀精准输送至中胚层，提高真皮细胞含水量。',
+                steps: ['医学无菌洁面', '全脸舒缓麻膏敷贴', '负压针头扫码验真', '规范深度推注操作', '医疗级降温镇静'],
+                aftercare: '术后48小时后可正常化淡妆，前三天每日敷贴一剂医用修护贴，增加保湿饮水。'
+              }
+            },
+            {
+              id: 'PRJ-M2',
+              title: 'PDRN三文鱼三文质素联合水光',
+              desc: '深层DNA修护微循环，增强敏感泛红肌底耐受度',
+              tags: ['修护退红专研', '主治医师操作'],
+              price: 880,
+              originalPrice: 1680,
+              duration: '55分钟',
+              details: {
+                theory: '提取自深海天然鲑鱼的多聚脱氧核糖核苷酸(PDRN)，促进成纤维细胞生长因子分泌，修复毛细血管弹性。',
+                steps: ['敏感肌温和卸妆', '冷喷舒缓降温', '无菌水光精准导入', '重组Ⅲ型胶原贴敷', '光疗红黄光照射'],
+                aftercare: '注意温水洁面，避免接触宠物毛发与尘螨环境，促进屏障快速愈合。'
+              }
+            }
+          ],
+          repair: [
+            {
+              id: 'PRJ-R1',
+              title: '舒敏之星 · 屏障急救增厚维稳',
+              desc: '超强电离渗透射频，消炎降温与改善换季潮红',
+              tags: ['无创零恢复期', '敏感肌挚友'],
+              price: 260,
+              originalPrice: 580,
+              duration: '40分钟',
+              details: {
+                theory: '利用电磁波活化水分子，促使细胞膜水通道开放，配合超声波雾化将神经酰胺及脂质导入基底。',
+                steps: ['舒敏氨基酸洁颜', '超声雾化舒缓活肤水导入', '电离射频修复皮脂膜', '甘草酸苷退红敷膜', '神经酰胺乳霜锁水'],
+                aftercare: '可即刻正常洗脸护肤，日常需配合温和非离子表面活性剂洁面。'
+              }
+            },
+            {
+              id: 'PRJ-R2',
+              title: '红黄光动力冷光疗法 · 抗炎褪红',
+              desc: '窄谱发光二极管照射，镇静痤疮与加速伤口愈合',
+              tags: ['温和无痛', '医美术后标配'],
+              price: 180,
+              originalPrice: 380,
+              duration: '30分钟',
+              details: {
+                theory: '630nm红光刺激胶原生成，590nm黄光促进淋巴排毒和减少神经敏感度。',
+                steps: ['轻柔清洁', '佩戴医用防护眼罩', '红黄交替照射20分钟', '涂抹医用退红水凝霜'],
+                aftercare: '无任何恢复期，照射后皮肤舒适水润。'
+              }
+            }
+          ],
+          clean: [
+            {
+              id: 'PRJ-C1',
+              title: '医用超微小气泡 · 毛孔生态深层洁净',
+              desc: '真空负压水循环溶解黑头与老废角质，水油平衡',
+              tags: ['深层吸黑头', '清爽通透'],
+              price: 168,
+              originalPrice: 398,
+              duration: '45分钟',
+              details: {
+                theory: '通过真空负压形成水循环回路，配合水杨酸与果酸配方，剥离多余油脂及粉刺。',
+                steps: ['热喷打开毛孔', '果酸乳化T区黑头', '负压吸头全脸深清', '冷喷收敛毛孔', '积雪草舒缓补水软膜'],
+                aftercare: '术后当晚敷贴补水面膜，避免手部触摸或挤压鼻翼。'
+              }
+            }
+          ],
+          inject: [
+            {
+              id: 'PRJ-I1',
+              title: '除皱紧致平滑方案 · 面部精雕',
+              desc: '针对川字纹、鱼尾纹、抬头纹，医师定点微量注射',
+              tags: ['正品溯源', '主治医师亲操'],
+              price: 680,
+              originalPrice: 1580,
+              duration: '30分钟',
+              details: {
+                theory: '阻断神经乙酰胆碱释放，放松过度活跃的表情肌纤维，使表皮动态纹路自然舒展平滑。',
+                steps: ['表情动态纹深度画线评估', '微量精准定点注射', '局部冰敷消肿', '扫码验真药剂批号'],
+                aftercare: '注射后4小时内避免平躺，禁止用力揉搓按摩注射部位，一周内戒烟酒。'
+              }
+            }
+          ]
+        },
+
+        // Mock Dynamic Bookings State
+        bookings: [
+          {
+            id: 'ZY-20260902-8801',
+            projectName: '水光联合屏障维稳修护',
+            clinic: '国金中心总院',
+            doctor: '林若清 (主治医师)',
+            time: '2026-09-02 10:30',
+            status: 'serving', // pending, booked, serving, completed, cancelled
+            statusText: '服务进行中',
+            verifyCode: '8820 - 9912'
+          },
+          {
+            id: 'ZY-20260905-1420',
+            projectName: '第七代超光子嫩肤 (全模式三合一)',
+            clinic: '国金中心总院',
+            doctor: '周景和 (副主任医师)',
+            time: '2026-09-05 14:00 - 15:00',
+            status: 'pending',
+            statusText: '待到店服务',
+            verifyCode: '6610 - 3381'
+          },
+          {
+            id: 'ZY-20260818-4432',
+            projectName: '舒敏之星 · 屏障急救增厚维稳',
+            clinic: '国金中心总院',
+            doctor: '周景和 (副主任医师)',
+            time: '2026-08-18 15:00',
+            status: 'completed',
+            statusText: '已完成服务',
+            verifyCode: '已核销'
+          }
+        ]
+      };
+
+      // 2. Lifecycle & Initialization
+      function init() {
+        renderHomeProducts();
+        renderCategoryProducts();
+        renderBookingCalendar();
+        renderBookingsList();
+        // default select first project for booking draft
+        state.selectedProject = state.catalog.laser[0];
+      }
+
+      // 3. Tab Switching
+      function switchTab(index) {
+        state.currentTab = index;
+        document.querySelectorAll('.tab-pane').forEach((p, i) => {
+          p.classList.toggle('active', i === index);
+        });
+        document.querySelectorAll('.tabbar-item').forEach((item, i) => {
+          item.classList.toggle('active', i === index);
+        });
+
+        const titles = [
+          '**轻医美 · 皮肤医学中心',
+          '方案方案库 · 定制分类',
+          '名医在线预约排班',
+          '我的就诊与健康档案'
+        ];
+        document.getElementById('topNavTitle').innerText = titles[index] || '**轻医美';
+
+        // Scroll to top
+        document.getElementById('mpBodyScroll').scrollTop = 0;
+      }
+
+      // 4. Render Home Products
+      function renderHomeProducts() {
+        const container = document.getElementById('homeProductList');
+        const featured = [
+          state.catalog.laser[0],
+          state.catalog.meso[0],
+          state.catalog.laser[1]
+        ];
+
+        container.innerHTML = featured.map(p => `
+          <div class="product-card" onclick="MedicalMp.openProjectDrawer('${p.id}')">
+            <div class="product-thumb-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+              <span class="product-thumb-tag">${p.duration}</span>
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-name">${p.title}</div>
+                <div class="product-desc">${p.desc}</div>
+                <div class="product-tags">
+                  ${p.tags.map(t => `<span class="tag tag-teal">${t}</span>`).join('')}
+                </div>
+              </div>
+              <div class="product-price-row">
+                <div>
+                  <span class="price-main">¥${p.price}</span>
+                  <span class="price-original">¥${p.originalPrice}</span>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); MedicalMp.quickBook('${p.id}')">
+                  预约
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 5. Render Category Products
+      function renderCategoryProducts() {
+        const container = document.getElementById('categoryProductList');
+        const items = state.catalog[state.currentCategory] || [];
+
+        container.innerHTML = items.map(p => `
+          <div class="product-card" onclick="MedicalMp.openProjectDrawer('${p.id}')">
+            <div class="product-info">
+              <div class="product-name">${p.title}</div>
+              <div class="product-desc">${p.desc}</div>
+              <div class="product-tags">
+                <span class="tag tag-gray">${p.duration}</span>
+                ${p.tags.slice(0, 2).map(t => `<span class="tag tag-teal">${t}</span>`).join('')}
+              </div>
+              <div class="product-price-row" style="margin-top:8px;">
+                <div>
+                  <span class="price-main">¥${p.price}</span>
+                  <span class="price-original">¥${p.originalPrice}</span>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); MedicalMp.quickBook('${p.id}')">
+                  立即预约
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function selectCategory(catKey) {
+        state.currentCategory = catKey;
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+          item.classList.toggle('active', item.id === `cat-nav-${catKey}`);
+        });
+
+        const catTitles = {
+          laser: '光电抗衰专区 · 科学淡纹紧致',
+          meso: '水光修护专区 · 补水深润维稳',
+          repair: '舒敏维稳专区 · 屏障急救修红',
+          clean: '深层焕肤专区 · 毛孔生态洁净',
+          inject: '注射塑颜专区 · 医师精准定点'
+        };
+        document.getElementById('catalogBannerTitle').innerText = catTitles[catKey] || '专区精选';
+        renderCategoryProducts();
+      }
+
+      function goToCategory(catKey) {
+        switchTab(1);
+        selectCategory(catKey);
+      }
+
+      // 6. Project Drawer Details
+      function findProjectById(id) {
+        for (const cat in state.catalog) {
+          const found = state.catalog[cat].find(p => p.id === id);
+          if (found) return found;
+        }
+        return state.catalog.laser[0];
+      }
+
+      function openProjectDrawer(id) {
+        const p = findProjectById(id);
+        state.selectedProject = p;
+        document.getElementById('drawerProjectTitle').innerText = p.title;
+
+        const content = document.getElementById('drawerProjectContent');
+        content.innerHTML = `
+          <div style="margin-bottom:12px;">
+            <div style="font-size:18px; font-weight:800; color:var(--color-accent); margin-bottom:4px;">¥${p.price} <span style="font-size:11px; color:var(--color-text-muted); text-decoration:line-through;">¥${p.originalPrice}</span></div>
+            <div style="font-size:11px; color:var(--color-text-secondary);">${p.desc}</div>
+            <div style="display:flex; gap:6px; margin-top:6px;">
+              <span class="tag tag-gold">操作时长：${p.duration}</span>
+              ${p.tags.map(t => `<span class="tag tag-teal">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div style="background:#F8FAFC; border-radius:var(--radius-sm); padding:12px; margin-bottom:10px; border:1px solid var(--color-border-light);">
+            <div style="font-size:12px; font-weight:700; color:var(--color-text-title); margin-bottom:4px;">科学医学原理</div>
+            <div style="font-size:11px; color:var(--color-text-body); line-height:1.5;">${p.details.theory}</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:12px; font-weight:700; color:var(--color-text-title); margin-bottom:8px;">临床标准操作流程</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${p.details.steps.map((s, idx) => `
+                <div style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--color-text-body);">
+                  <span style="width:18px; height:18px; border-radius:50%; background:var(--color-primary-light); color:var(--color-primary); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;">${idx+1}</span>
+                  <span>${s}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="background:#FFFBF7; border:1px solid var(--color-accent-border); border-radius:var(--radius-sm); padding:10px; font-size:11px; color:var(--color-accent-dark); line-height:1.5;">
+            <b>术后护理要点：</b>${p.details.aftercare}
+          </div>
+        `;
+
+        document.getElementById('projectDrawerBackdrop').classList.add('active');
+      }
+
+      function closeProjectDrawer() {
+        document.getElementById('projectDrawerBackdrop').classList.remove('active');
+      }
+      function closeDrawerOnBackdrop(e) {
+        if (e.target.id === 'projectDrawerBackdrop') closeProjectDrawer();
+      }
+
+      function bookFromDrawer() {
+        closeProjectDrawer();
+        if (state.selectedProject) {
+          document.getElementById('bookingSelectedProjectName').innerText = state.selectedProject.title;
+          document.getElementById('bookingSelectedProjectMeta').innerText = `用时约 ${state.selectedProject.duration} · 正品验真保障`;
+        }
+        switchTab(2);
+        showToast('已锁定该项目，请确认预约排期');
+      }
+
+      function quickBook(id) {
+        const p = findProjectById(id);
+        state.selectedProject = p;
+        document.getElementById('bookingSelectedProjectName').innerText = p.title;
+        document.getElementById('bookingSelectedProjectMeta').innerText = `用时约 ${p.duration} · 正品验真保障`;
+        switchTab(2);
+        showToast('已载入项目预约表单');
+      }
+
+      // 7. Booking Scheduler Flow
+      function renderBookingCalendar() {
+        const strip = document.getElementById('bookingCalendarStrip');
+        const days = [
+          { week: '周五', num: '09-04', date: '2026-09-04' },
+          { week: '周六', num: '09-05', date: '2026-09-05' },
+          { week: '周日', num: '09-06', date: '2026-09-06' },
+          { week: '周一', num: '09-07', date: '2026-09-07' },
+          { week: '周二', num: '09-08', date: '2026-09-08' },
+          { week: '周三', num: '09-09', date: '2026-09-09' },
+          { week: '周四', num: '09-10', date: '2026-09-10' }
+        ];
+
+        strip.innerHTML = days.map((d, i) => `
+          <div class="day-card ${i === 1 ? 'active' : ''}" onclick="MedicalMp.selectDay(this, '${d.date}')">
+            <span class="day-week">${d.week}</span>
+            <span class="day-num">${d.num}</span>
+          </div>
+        `).join('');
+      }
+
+      function selectDay(element, dateStr) {
+        document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
+        state.selectedDate = dateStr;
+        showToast(`已选择日期：${dateStr}`);
+      }
+
+      function selectBookingClinic(idx, clinicName) {
+        document.getElementById('clinicPill0').classList.toggle('active', idx === 0);
+        document.getElementById('clinicPill1').classList.toggle('active', idx === 1);
+        state.selectedClinic = clinicName;
+        showToast(`已切换至：${clinicName}`);
+      }
+
+      function selectDoctor(idx, docName) {
+        document.getElementById('docCard0').classList.toggle('active', idx === 0);
+        document.getElementById('docCard1').classList.toggle('active', idx === 1);
+        state.selectedDoctor = docName;
+        showToast(`已选择：${docName}`);
+      }
+
+      function selectSlot(element, slotStr) {
+        if (element.classList.contains('disabled')) {
+          showToast('该时段号源已约满，请选择其他时段');
+          return;
+        }
+        document.querySelectorAll('.time-slot-pill').forEach(p => p.classList.remove('active'));
+        element.classList.add('active');
+        state.selectedSlot = slotStr;
+        showToast(`已选择时段：${slotStr}`);
+      }
+
+      function submitBookingForm() {
+        const name = document.getElementById('bookingNameInput').value.trim() || '林女士';
+        const phone = document.getElementById('bookingPhoneInput').value.trim() || '138****6621';
+        const project = state.selectedProject ? state.selectedProject.title : '第七代超光子嫩肤 (全模式)';
+
+        // Create appointment record
+        const newBooking = {
+          id: 'ZY-' + Date.now().toString().slice(-8),
+          projectName: project,
+          clinic: state.selectedClinic,
+          doctor: state.selectedDoctor,
+          time: `${state.selectedDate} ${state.selectedSlot}`,
+          status: 'pending',
+          statusText: '待到店服务',
+          verifyCode: Math.floor(1000 + Math.random() * 9000) + ' - ' + Math.floor(1000 + Math.random() * 9000)
+        };
+
+        state.bookings.unshift(newBooking);
+        renderBookingsList();
+
+        // Show Voucher Modal
+        document.getElementById('voucherTitle').innerText = '预约申请已确认';
+        document.getElementById('voucherSub').innerText = '电子到店核销凭证已生成';
+        document.getElementById('voucherCode').innerText = newBooking.verifyCode;
+        document.getElementById('voucherClinic').innerText = newBooking.clinic;
+        document.getElementById('voucherProject').innerText = newBooking.projectName;
+        document.getElementById('voucherDoctor').innerText = newBooking.doctor;
+        document.getElementById('voucherTime').innerText = newBooking.time;
+
+        document.getElementById('voucherModalBackdrop').classList.add('active');
+      }
+
+      // 8. Bookings List & Order Management
+      function renderBookingsList() {
+        const container = document.getElementById('myBookingsList');
+        const filter = state.activeFilter;
+        const filtered = filter === 'all' 
+          ? state.bookings 
+          : state.bookings.filter(b => b.status === filter);
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div style="text-align:center; padding:30px 10px; color:var(--color-text-muted); font-size:11px;">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-bottom:6px;"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <div>暂无该分类下的预约单据</div>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = filtered.map(b => {
+          let statusBadgeClass = 'tag-teal';
+          if (b.status === 'serving') statusBadgeClass = 'tag-gold';
+          if (b.status === 'completed') statusBadgeClass = 'tag-gray';
+          if (b.status === 'cancelled') statusBadgeClass = 'tag-gray';
+
+          return `
+            <div class="booking-item-card">
+              <div class="booking-item-header">
+                <span class="booking-clinic">${b.clinic}</span>
+                <span class="tag ${statusBadgeClass}">${b.statusText}</span>
+              </div>
+              <div class="booking-item-title">${b.projectName}</div>
+              <div class="booking-item-meta">
+                <div>主治医师：${b.doctor}</div>
+                <div>就诊时段：${b.time}</div>
+                <div>服务单号：#${b.id}</div>
+              </div>
+              <div class="booking-item-actions">
+                ${b.status === 'pending' ? `
+                  <button class="btn btn-outline btn-sm" onclick="MedicalMp.cancelBooking('${b.id}')">取消预约</button>
+                  <button class="btn btn-primary btn-sm" onclick="MedicalMp.viewVoucher('${b.id}')">核销二维码</button>
+                ` : ''}
+                ${b.status === 'serving' ? `
+                  <button class="btn btn-primary btn-sm" onclick="MedicalMp.viewVoucher('${b.id}')">出示核销码</button>
+                  <button class="btn btn-subtle btn-sm" onclick="MedicalMp.showActionSheet('服务进度', ['已完成术前测肤', '正在进行冷凝胶敷贴', '联系巡回护士'])">查看进度</button>
+                ` : ''}
+                ${b.status === 'completed' ? `
+                  <button class="btn btn-subtle btn-sm" onclick="MedicalMp.openRadarModal()">就诊复盘报告</button>
+                  <button class="btn btn-primary btn-sm" onclick="MedicalMp.quickBook('${b.id}')">再次预约</button>
+                ` : ''}
+                ${b.status === 'cancelled' ? `
+                  <button class="btn btn-outline btn-sm" onclick="MedicalMp.quickBook('${b.id}')">重新预约</button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function filterBookings(statusKey) {
+        state.activeFilter = statusKey;
+        document.querySelectorAll('.order-status-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.id === `orderTab-${statusKey}`);
+        });
+        renderBookingsList();
+      }
+
+      function cancelBooking(id) {
+        const item = state.bookings.find(b => b.id === id);
+        if (item) {
+          item.status = 'cancelled';
+          item.statusText = '已取消';
+          renderBookingsList();
+          showToast('已为您取消该次预约');
+        }
+      }
+
+      function viewVoucher(id) {
+        const item = state.bookings.find(b => b.id === id);
+        if (item) {
+          document.getElementById('voucherTitle').innerText = '到店核销电子单';
+          document.getElementById('voucherSub').innerText = '请向接诊医生或前台出示该条码';
+          document.getElementById('voucherCode').innerText = item.verifyCode;
+          document.getElementById('voucherClinic').innerText = item.clinic;
+          document.getElementById('voucherProject').innerText = item.projectName;
+          document.getElementById('voucherDoctor').innerText = item.doctor;
+          document.getElementById('voucherTime').innerText = item.time;
+          document.getElementById('voucherModalBackdrop').classList.add('active');
+        }
+      }
+
+      function closeVoucherModal() {
+        document.getElementById('voucherModalBackdrop').classList.remove('active');
+      }
+      function closeVoucherOnBackdrop(e) {
+        if (e.target.id === 'voucherModalBackdrop') closeVoucherModal();
+      }
+
+      // 9. VISIA Radar Canvas Rendering
+      function openRadarModal() {
+        document.getElementById('radarModalBackdrop').classList.add('active');
+        setTimeout(drawRadarChart, 50);
+      }
+      function closeRadarModal() {
+        document.getElementById('radarModalBackdrop').classList.remove('active');
+      }
+      function closeRadarOnBackdrop(e) {
+        if (e.target.id === 'radarModalBackdrop') closeRadarModal();
+      }
+
+      function drawRadarChart() {
+        const canvas = document.getElementById('skinRadarCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = 68;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const dimensions = [
+          { name: '水润度', val: 0.82 },
+          { name: '平滑度', val: 0.90 },
+          { name: '抗光老', val: 0.85 },
+          { name: '屏障耐受', val: 0.68 },
+          { name: '毛孔细致', val: 0.76 }
+        ];
+
+        const total = dimensions.length;
+
+        // Draw background concentric webs
+        for (let level = 1; level <= 4; level++) {
+          const r = (radius / 4) * level;
+          ctx.beginPath();
+          for (let i = 0; i < total; i++) {
+            const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+            const x = centerX + r * Math.cos(angle);
+            const y = centerY + r * Math.sin(angle);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.strokeStyle = '#E2E8F0';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Draw axes and labels
+        ctx.font = '11px -apple-system, sans-serif';
+        ctx.fillStyle = '#64748B';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        for (let i = 0; i < total; i++) {
+          const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+          const x = centerX + radius * Math.cos(angle);
+          const y = centerY + radius * Math.sin(angle);
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.lineTo(x, y);
+          ctx.strokeStyle = '#E2E8F0';
+          ctx.stroke();
+
+          // Label coordinates
+          const labelX = centerX + (radius + 20) * Math.cos(angle);
+          const labelY = centerY + (radius + 14) * Math.sin(angle);
+          ctx.fillText(dimensions[i].name, labelX, labelY);
+        }
+
+        // Draw data polygon
+        ctx.beginPath();
+        for (let i = 0; i < total; i++) {
+          const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+          const r = radius * dimensions[i].val;
+          const x = centerX + r * Math.cos(angle);
+          const y = centerY + r * Math.sin(angle);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(14, 101, 125, 0.25)';
+        ctx.fill();
+        ctx.strokeStyle = '#0E657D';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw data points
+        for (let i = 0; i < total; i++) {
+          const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+          const r = radius * dimensions[i].val;
+          const x = centerX + r * Math.cos(angle);
+          const y = centerY + r * Math.sin(angle);
+          ctx.beginPath();
+          ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#0E657D';
+          ctx.fill();
+        }
+      }
+
+      // 10. Coupons & Claim Modal
+      function openCouponClaimModal() {
+        showActionSheet('我的专享礼券包', [
+          '¥100 新客无门槛体验券 (已领取 · 剩余12天)',
+          '¥200 光电抗衰专享减免券 (满800可用)',
+          '领取 VIP 专享测肤复诊券'
+        ]);
+      }
+
+      // 11. Search Modal & Logic
+      function openSearchModal() {
+        document.getElementById('searchOverlay').classList.add('active');
+        document.getElementById('liveSearchInput').value = '';
+        document.getElementById('searchResultsList').innerHTML = '';
+        setTimeout(() => document.getElementById('liveSearchInput').focus(), 50);
+      }
+      function closeSearchModal() {
+        document.getElementById('searchOverlay').classList.remove('active');
+      }
+      function closeSearchOnBackdrop(e) {
+        if (e.target.id === 'searchOverlay') closeSearchModal();
+      }
+      function applySearchKeyword(word) {
+        document.getElementById('liveSearchInput').value = word;
+        handleLiveSearch(word);
+      }
+      function handleLiveSearch(keyword) {
+        const query = (keyword || '').trim().toLowerCase();
+        const resultsContainer = document.getElementById('searchResultsList');
+        if (!query) {
+          resultsContainer.innerHTML = '';
+          return;
+        }
+
+        const matches = [];
+        for (const cat in state.catalog) {
+          state.catalog[cat].forEach(p => {
+            if (p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query)) {
+              matches.push(p);
+            }
+          });
+        }
+
+        if (matches.length === 0) {
+          resultsContainer.innerHTML = `
+            <div style="font-size:11px; color:var(--color-text-muted); text-align:center; padding:16px;">未匹配到相关项目，可咨询专属顾问获取定制建议</div>
+          `;
+          return;
+        }
+
+        resultsContainer.innerHTML = matches.map(p => `
+          <div style="padding:8px 0; border-bottom:1px solid var(--color-border-light); display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="MedicalMp.closeSearchModal(); MedicalMp.openProjectDrawer('${p.id}')">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:var(--color-text-title);">${p.title}</div>
+              <div style="font-size:10px; color:var(--color-text-secondary);">${p.desc}</div>
+            </div>
+            <span class="tag tag-teal">¥${p.price}</span>
+          </div>
+        `).join('');
+      }
+
+      // 12. Generic ActionSheet
+      function showActionSheet(title, items) {
+        document.getElementById('actionSheetTitle').innerText = title;
+        const container = document.getElementById('actionSheetItems');
+        container.innerHTML = items.map((it, idx) => `
+          <div style="padding:12px 14px; background:#F8FAFC; border-radius:var(--radius-sm); border:1px solid var(--color-border-light); font-size:12px; font-weight:600; color:var(--color-text-body); cursor:pointer; display:flex; justify-content:space-between; align-items:center;" onclick="MedicalMp.handleActionItem('${it}')">
+            <span>${it}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        `).join('');
+        document.getElementById('actionSheetBackdrop').classList.add('active');
+      }
+
+      function closeActionSheet() {
+        document.getElementById('actionSheetBackdrop').classList.remove('active');
+      }
+      function closeActionSheetOnBackdrop(e) {
+        if (e.target.id === 'actionSheetBackdrop') closeActionSheet();
+      }
+      function handleActionItem(itemText) {
+        closeActionSheet();
+        showToast(`已响应：${itemText.split('：')[0]}`);
+      }
+
+      function toggleClinicSelector() {
+        showActionSheet('切换默认院区', [
+          '**轻医美 · 国金旗舰总院 (市中心CBD)',
+          '**轻医美 · 科技园名医分院 (南山科创园)'
+        ]);
+      }
+
+      function onCapsuleClick() {
+        showActionSheet('小程序快捷设置', [
+          '添加到我的小程序',
+          '授权隐私与就诊人管理',
+          '重新加载并同步状态'
+        ]);
+      }
+
+      // 13. Centered Toast Helper
+      let toastTimer = null;
+      function showToast(msg) {
+        const toast = document.getElementById('hudToast');
+        const text = document.getElementById('hudToastText');
+        text.innerText = msg;
+        toast.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 1600);
+      }
+
+      // Public API exposure
+      return {
+        init,
+        switchTab,
+        selectCategory,
+        goToCategory,
+        openProjectDrawer,
+        closeProjectDrawer,
+        closeDrawerOnBackdrop,
+        bookFromDrawer,
+        quickBook,
+        selectDay,
+        selectBookingClinic,
+        selectDoctor,
+        selectSlot,
+        submitBookingForm,
+        filterBookings,
+        cancelBooking,
+        viewVoucher,
+        closeVoucherModal,
+        closeVoucherOnBackdrop,
+        openRadarModal,
+        closeRadarModal,
+        closeRadarOnBackdrop,
+        openCouponClaimModal,
+        openSearchModal,
+        closeSearchModal,
+        closeSearchOnBackdrop,
+        applySearchKeyword,
+        handleLiveSearch,
+        showActionSheet,
+        closeActionSheet,
+        closeActionSheetOnBackdrop,
+        handleActionItem,
+        toggleClinicSelector,
+        onCapsuleClick,
+        showToast
+      };
+    })();
+
+    // Initialize application when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      MedicalMp.init();
+    });
+  </script>
+</body>
+</html>

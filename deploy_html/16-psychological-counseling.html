@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>**心理咨询工作室</title>
+  <style>
+    /* ==========================================================================
+       1. Design Tokens & Global Reset
+       ========================================================================== */
+    :root {
+      /* Declared Icon Library: Lucide (Inline SVG) */
+      /* Declared Typography: PingFang SC, -apple-system, sans-serif */
+
+      --color-primary: #2D6A5D;
+      --color-primary-dark: #1F4D43;
+      --color-primary-light: #EEF5F2;
+      --color-primary-subtle: #F4F8F6;
+      --color-accent: #C68A4C;
+      --color-accent-light: #FDF7F0;
+      --color-bg-outer: #E8EDE9;
+      --color-bg-page: #F5F7F5;
+      --color-bg-card: #FFFFFF;
+      --color-bg-subtle: #EDF1EE;
+      --color-text-title: #182824;
+      --color-text-body: #4A5B56;
+      --color-text-muted: #879A94;
+      --color-text-white: #FFFFFF;
+      --color-border: #E1E8E4;
+      --color-border-subtle: #EDF1EE;
+      --color-status-success: #2D6A5D;
+      --color-status-warning: #C68A4C;
+      --color-status-cancelled: #8A9692;
+
+      --color-phone-bezel: #1E2623;
+      --color-avatar-bg-1: #DEE7E2;
+      --color-avatar-bg-2: #D8E4E0;
+      --color-danger-bg: #F8EDED;
+      --color-danger-text: #A34848;
+      --color-danger-border: #F0D0D0;
+      --color-indicator: #CCD5D0;
+      --color-switch-bg: #D3DBD6;
+      --color-drawer-handle: #D5DFD9;
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(25, 45, 38, 0.04);
+      --shadow-card: 0 3px 12px -2px rgba(25, 45, 38, 0.05);
+      --shadow-drawer: 0 -8px 32px rgba(15, 30, 25, 0.15);
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--color-bg-outer);
+      color: var(--color-text-body);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+
+    /* ==========================================================================
+       2. Mini-Program Container & Bezel
+       ========================================================================== */
+    .phone-container {
+      width: 100%;
+      max-width: 412px;
+      height: 840px;
+      background-color: var(--color-bg-page);
+      border-radius: 46px;
+      border: 10px solid var(--color-phone-bezel);
+      box-shadow: 0 25px 50px -12px rgba(15, 30, 25, 0.25), 0 0 0 1px rgba(255,255,255,0.1);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 0;
+        background-color: var(--color-bg-page);
+      }
+      .phone-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    /* Status Bar */
+    .status-bar {
+      height: 38px;
+      background-color: var(--color-bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      flex-shrink: 0;
+      user-select: none;
+      border-bottom: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* WeChat Header */
+    .mp-header {
+      height: 46px;
+      background-color: var(--color-bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-title-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      letter-spacing: 0.3px;
+    }
+
+    .header-badge {
+      font-size: 10px;
+      color: var(--color-primary);
+      background-color: var(--color-primary-light);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      font-weight: 500;
+    }
+
+    .wechat-capsule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 4px 11px;
+      cursor: pointer;
+    }
+
+    .capsule-dots {
+      display: flex;
+      gap: 3px;
+    }
+    .capsule-dot {
+      width: 3.5px;
+      height: 3.5px;
+      background-color: var(--color-text-title);
+      border-radius: 50%;
+    }
+    .capsule-divider {
+      width: 1px;
+      height: 12px;
+      background-color: rgba(0,0,0,0.12);
+    }
+    .capsule-circle {
+      width: 11px;
+      height: 11px;
+      border: 1.8px solid var(--color-text-title);
+      border-radius: 50%;
+    }
+
+    /* Body Viewport */
+    .mp-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px 14px 70px 14px;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .tab-pane {
+      display: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Common Card Components */
+    .card {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .card-title-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* Native Tabbar */
+    .mp-tabbar {
+      height: 56px;
+      background: var(--color-bg-card);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .tab-item {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .tab-item svg {
+      transition: transform 0.2s ease, stroke 0.2s ease;
+    }
+
+    .tab-item span {
+      font-size: 10.5px;
+      font-weight: 500;
+    }
+
+    .tab-item.active {
+      color: var(--color-primary);
+    }
+
+    .tab-item.active svg {
+      stroke: var(--color-primary);
+      transform: translateY(-1px);
+    }
+
+    .tab-item.active span {
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       3. Tab 0: Home Page Styles
+       ========================================================================== */
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: var(--color-text-white);
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-banner::after {
+      content: "";
+      position: absolute;
+      right: -15px;
+      bottom: -25px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .welcome-sub {
+      font-size: 11px;
+      opacity: 0.85;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .welcome-heading {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 4px 0 6px 0;
+      letter-spacing: 0.2px;
+    }
+
+    .welcome-desc {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* Mood Tracker */
+    .mood-capsules {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mood-chip {
+      flex: 1;
+      padding: 8px 4px;
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-body);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mood-chip.active {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .mood-quote-box {
+      background: var(--color-primary-subtle);
+      border-left: 3px solid var(--color-primary);
+      padding: 10px 12px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 12px;
+      color: var(--color-primary-dark);
+      line-height: 1.55;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* Category Grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .theme-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-card:hover, .theme-card:active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .theme-icon-wrap {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .theme-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      margin-bottom: 2px;
+    }
+
+    .theme-info p {
+      font-size: 10.5px;
+      color: var(--color-text-muted);
+    }
+
+    /* Consultant Summary Card */
+    .consultant-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .consultant-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .consultant-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      background: var(--color-avatar-bg-1);
+      color: var(--color-primary);
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid var(--color-text-white);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .consultant-meta {
+      flex: 1;
+    }
+
+    .consultant-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .consultant-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-title);
+    }
+
+    .consultant-tag {
+      font-size: 10px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      padding: 2px 6px;
+      border-radius: var(--radius-xs);
+      font-weight: 500;
+    }
+
+    .consultant-cert {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .consultant-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .skill-chip {
+      font-size: 10.5px;
+      background: var(--color-bg-subtle);
+      color: var(--color-text-body);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+
+    .consultant-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .consultant-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .consultant-price-sub {
+      font-size: 10.5px;
+      font-weight: normal;
+      color: var(--color-text-muted);
+      margin-left: 3px;
+    }
+
+    .action-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      padding: 6px 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--color-text-body);
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--color-text-white);
+      background: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(45, 106, 93, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:active {
+      background: var(--color-primary-dark);
+      transform: scale(0.98);
+    }
+
+    /* Process Flow */
+    .flow-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 12px 0 6px 0;
+    }
+
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 30%;
+      cursor: pointer;
+    }
+
+    .step-num-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      border: 1px solid var(--color-primary);
+    }
+
+    .step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      margin-bottom: 2px;
+    }
+
+    .step-desc {
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       4. Tab 1: Consultant Filter & List
+       ========================================================================== */
+    .filter-section {
+      margin-bottom: 12px;
+    }
+
+    .filter-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .filter-btn {
+      padding: 5px 12px;
+      font-size: 11.5px;
+      border-radius: var(--radius-full);
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-body);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-text-white);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(45, 106, 93, 0.2);
+    }
+
+    /* ==========================================================================
+       5. Tab 2: Assessment Scales
+       ========================================================================== */
+    .scale-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .scale-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .scale-badge {
+      font-size: 10px;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+      font-weight: 600;
+    }
+
+    .scale-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      margin-bottom: 4px;
+    }
+
+    .scale-desc {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .scale-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .scale-stat {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ==========================================================================
+       6. Tab 3: Profile & Orders
+       ========================================================================== */
+    .profile-card {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: var(--color-text-white);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 14px rgba(45, 106, 93, 0.25);
+    }
+
+    .profile-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--color-bg-card);
+      color: var(--color-primary);
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .profile-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .profile-phone {
+      font-size: 11.5px;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .profile-badge-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .profile-pill {
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 500;
+    }
+
+    /* Orders Filter Tabs */
+    .order-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 12px;
+    }
+
+    .order-tab-btn {
+      flex: 1;
+      padding: 8px 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-align: center;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .order-tab-btn.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .order-item-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+
+    .order-num {
+      color: var(--color-text-muted);
+      font-family: monospace;
+    }
+
+    .order-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-xs);
+    }
+
+    .badge-confirmed {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .badge-completed {
+      background: var(--color-bg-subtle);
+      color: var(--color-text-body);
+    }
+
+    .badge-cancelled {
+      background: var(--color-danger-bg);
+      color: var(--color-danger-text);
+    }
+
+    .order-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      margin-bottom: 4px;
+    }
+
+    .order-meta-info {
+      font-size: 11.5px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .order-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    /* Menu Items */
+    .menu-group {
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item:hover, .menu-item:active {
+      background-color: var(--color-bg-subtle);
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-title);
+    }
+
+    .menu-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+
+    /* Switch */
+    .switch-wrap {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 22px;
+    }
+
+    .switch-wrap input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--color-switch-bg);
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .switch-slider {
+      background-color: var(--color-primary);
+    }
+
+    input:checked + .switch-slider:before {
+      transform: translateX(16px);
+    }
+
+    /* ==========================================================================
+       7. Modal & Drawer Overlay System
+       ========================================================================== */
+    .modal-backdrop {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 25, 20, 0.45);
+      z-index: 200;
+      backdrop-filter: blur(1.5px);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Booking Drawer */
+    .booking-drawer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--color-bg-card);
+      border-radius: 24px 24px 0 0;
+      padding: 18px 18px 24px 18px;
+      z-index: 210;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 85%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-drawer);
+    }
+
+    .booking-drawer.active {
+      transform: translateY(0);
+    }
+
+    .drawer-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--color-drawer-handle);
+      border-radius: var(--radius-full);
+      margin: 0 auto 14px auto;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .drawer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text-title);
+    }
+
+    .drawer-close {
+      background: var(--color-bg-subtle);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      cursor: pointer;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 12px;
+    }
+
+    /* Date and Slot selection inside drawer */
+    .date-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .date-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg-subtle);
+      border: 1.5px solid var(--color-border);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .date-btn.active {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .date-btn .date-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .date-btn .date-day {
+      font-size: 10px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .slot-btn {
+      padding: 10px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-body);
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .slot-btn.active {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* Quiz Modal */
+    .quiz-modal {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      z-index: 220;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .quiz-modal.active {
+      display: flex;
+      animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .progress-bar-wrap {
+      height: 6px;
+      background: var(--color-bg-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 10px 0 16px 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+      width: 15%;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .quiz-option-btn {
+      padding: 13px 14px;
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      color: var(--color-text-body);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-option-btn:hover, .quiz-option-btn:active {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Generic Modal Dialog */
+    .dialog-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 340px;
+      background: var(--color-bg-card);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      z-index: 230;
+      display: none;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    .dialog-box.active {
+      display: block;
+      animation: modalFadeIn 0.2s ease;
+    }
+
+    .dialog-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text-title);
+      margin-bottom: 8px;
+    }
+
+    .dialog-content {
+      font-size: 12.5px;
+      color: var(--color-text-body);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    /* WeChat Style Toast */
+    .mp-toast {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(22, 33, 28, 0.88);
+      color: var(--color-text-white);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 999;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mp-toast.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 128px;
+      height: 4px;
+      background: var(--color-indicator);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 101;
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Return to Hall Button -->
+  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>返回 50 场景大厅</span>
+  </a>
+
+
+  <!-- ========================================================================
+       Mini-Program Realistic Bezel & Container
+       ======================================================================== -->
+  <div class="phone-container">
+
+    <!-- 1. Native Status Bar -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <div class="status-icons">
+        <!-- Signal -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/>
+        </svg>
+        <!-- Wifi -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+        </svg>
+        <!-- Battery -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 2. WeChat Header with Standard Capsule -->
+    <div class="mp-header">
+      <div class="header-title-box">
+        <span class="header-title">**心理咨询工作室</span>
+        <span class="header-badge">专业认证</span>
+      </div>
+      <div class="wechat-capsule" onclick="showToast('微信小程序选项面板')">
+        <div class="capsule-dots">
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+          <div class="capsule-dot"></div>
+        </div>
+        <div class="capsule-divider"></div>
+        <div class="capsule-circle"></div>
+      </div>
+    </div>
+
+    <!-- 3. Mini-Program Scrollable Viewport -->
+    <div class="mp-body" id="mainScroll">
+
+      <!-- ====================================================================
+           TAB 0: 首页 (Home)
+           ==================================================================== -->
+      <div class="tab-pane active" id="pane-home">
+        
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+          <div class="welcome-sub">Holding Space · Professional Care</div>
+          <div class="welcome-heading">在此刻，倾听内心的声音</div>
+          <div class="welcome-desc">国家认证心理咨询师团队 · 严格恪守专业伦理保密守则</div>
+        </div>
+
+        <!-- Mood Tracker Card -->
+        <div class="card">
+          <div class="card-title">
+            <div class="card-title-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+              <span>今日心情树洞</span>
+            </div>
+            <span style="font-size:11px;color:var(--color-text-muted);">点选记录感受</span>
+          </div>
+          <div class="mood-capsules">
+            <div class="mood-chip active" onclick="selectMood('calm', this)">平静</div>
+            <div class="mood-chip" onclick="selectMood('anxious', this)">焦虑</div>
+            <div class="mood-chip" onclick="selectMood('tired', this)">疲惫</div>
+            <div class="mood-chip" onclick="selectMood('down', this)">低落</div>
+            <div class="mood-chip" onclick="selectMood('fulfilled', this)">充实</div>
+          </div>
+          <div class="mood-quote-box" id="moodQuoteText">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span id="quoteContent">接纳此刻的呼吸，安住于当下的安宁。允许一切如其所是。</span>
+          </div>
+        </div>
+
+        <!-- 4 Core Themes -->
+        <div class="theme-grid">
+          <div class="theme-card" onclick="jumpToCategory('emotion')">
+            <div class="theme-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+            </div>
+            <div class="theme-info">
+              <h4>情绪减压</h4>
+              <p>抑郁焦虑 / 睡眠改善</p>
+            </div>
+          </div>
+
+          <div class="theme-card" onclick="jumpToCategory('relation')">
+            <div class="theme-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+            </div>
+            <div class="theme-info">
+              <h4>亲密关系</h4>
+              <p>伴侣沟通 / 依恋创伤</p>
+            </div>
+          </div>
+
+          <div class="theme-card" onclick="jumpToCategory('growth')">
+            <div class="theme-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="theme-info">
+              <h4>个人成长</h4>
+              <p>自我探索 / 自尊重建</p>
+            </div>
+          </div>
+
+          <div class="theme-card" onclick="jumpToCategory('career')">
+            <div class="theme-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div class="theme-info">
+              <h4>职场人际</h4>
+              <p>职业倦怠 / 社交边界</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Consultants -->
+        <div class="card">
+          <div class="card-title">
+            <div class="card-title-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>精选执业咨询师</span>
+            </div>
+            <span style="font-size:11.5px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(1)">查看全部 ›</span>
+          </div>
+
+          <!-- Consultant 1 -->
+          <div class="consultant-item">
+            <div class="consultant-head">
+              <div class="consultant-avatar">林</div>
+              <div class="consultant-meta">
+                <div class="consultant-name-row">
+                  <span class="consultant-name">林*（主任咨询师）</span>
+                  <span class="consultant-tag">个案 2800+ 小时</span>
+                </div>
+                <div class="consultant-cert">中国心理学会注册心理师 · X-19-***</div>
+                <div class="consultant-chips">
+                  <span class="skill-chip">精神动力学</span>
+                  <span class="skill-chip">人本聚焦</span>
+                  <span class="skill-chip">深层情绪困扰</span>
+                </div>
+              </div>
+            </div>
+            <div class="consultant-foot">
+              <div>
+                <span class="consultant-price">¥450</span>
+                <span class="consultant-price-sub">/ 50分钟</span>
+              </div>
+              <div class="action-btn-group">
+                <button class="btn-secondary" onclick="showBioModal('c1')">详细履历</button>
+                <button class="btn-primary" onclick="openBookingDrawer('c1')">预约排班</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consultant 2 -->
+          <div class="consultant-item" style="margin-bottom:0;">
+            <div class="consultant-head">
+              <div class="consultant-avatar" style="background:var(--color-avatar-bg-2);">周</div>
+              <div class="consultant-meta">
+                <div class="consultant-name-row">
+                  <span class="consultant-name">周*敏（资深咨询师）</span>
+                  <span class="consultant-tag">个案 1900+ 小时</span>
+                </div>
+                <div class="consultant-cert">国家二级心理咨询师 · 180100****3290</div>
+                <div class="consultant-chips">
+                  <span class="skill-chip">认知行为 (CBT)</span>
+                  <span class="skill-chip">职场适应</span>
+                  <span class="skill-chip">亲密关系</span>
+                </div>
+              </div>
+            </div>
+            <div class="consultant-foot">
+              <div>
+                <span class="consultant-price">¥380</span>
+                <span class="consultant-price-sub">/ 50分钟</span>
+              </div>
+              <div class="action-btn-group">
+                <button class="btn-secondary" onclick="showBioModal('c2')">详细履历</button>
+                <button class="btn-primary" onclick="openBookingDrawer('c2')">预约排班</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consultation 3-Step Guide -->
+        <div class="card">
+          <div class="card-title">
+            <div class="card-title-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>新手咨询服务路径</span>
+            </div>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step" onclick="showFlowDetail(1)">
+              <div class="step-num-circle">1</div>
+              <div class="step-label">明确诉求</div>
+              <div class="step-desc">初步梳理困扰</div>
+            </div>
+            <div class="flow-step" onclick="showFlowDetail(2)">
+              <div class="step-num-circle">2</div>
+              <div class="step-label">选择流派</div>
+              <div class="step-desc">匹配适合师资</div>
+            </div>
+            <div class="flow-step" onclick="showFlowDetail(3)">
+              <div class="step-num-circle">3</div>
+              <div class="step-label">排班面询</div>
+              <div class="step-desc">线上或面对面</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Assurance Banner -->
+        <div class="card" style="background:var(--color-primary-subtle);border-color:var(--color-border);cursor:pointer;" onclick="openEthicsModal()">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+              </svg>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--color-text-title);">严格遵循心理咨询工作伦理守则</div>
+                <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">信息加密存储 · 保密例外告知 · 知情同意书保障</div>
+              </div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: 找咨询师 (Consultants & Filter)
+           ==================================================================== -->
+      <div class="tab-pane" id="pane-consult">
+        
+        <!-- Filter Controls -->
+        <div class="card" style="padding:14px;">
+          <!-- Issue Filter -->
+          <div class="filter-section">
+            <div class="filter-label">困扰议题</div>
+            <div class="filter-chips" id="issueFilterGroup">
+              <button class="filter-btn active" onclick="setIssueFilter('all', this)">全部</button>
+              <button class="filter-btn" onclick="setIssueFilter('emotion', this)">情绪压力</button>
+              <button class="filter-btn" onclick="setIssueFilter('relation', this)">亲密关系</button>
+              <button class="filter-btn" onclick="setIssueFilter('growth', this)">自我探索</button>
+              <button class="filter-btn" onclick="setIssueFilter('career', this)">职场发展</button>
+            </div>
+          </div>
+
+          <!-- School Filter -->
+          <div class="filter-section" style="margin-bottom:0;">
+            <div class="filter-label">理论流派</div>
+            <div class="filter-chips" id="schoolFilterGroup">
+              <button class="filter-btn active" onclick="setSchoolFilter('all', this)">全部流派</button>
+              <button class="filter-btn" onclick="setSchoolFilter('cbt', this)">认知行为 (CBT)</button>
+              <button class="filter-btn" onclick="setSchoolFilter('psychodynamic', this)">精神动力学</button>
+              <button class="filter-btn" onclick="setSchoolFilter('humanistic', this)">人本聚焦</button>
+              <button class="filter-btn" onclick="setSchoolFilter('family', this)">家庭治疗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consultants Dynamic List -->
+        <div id="consultantListContainer">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 2: 心理测评 (Assessments)
+           ==================================================================== -->
+      <div class="tab-pane" id="pane-assess">
+        
+        <div style="margin-bottom:12px;">
+          <div style="font-size:15px;font-weight:600;color:var(--color-text-title);">标准化专业心理量表</div>
+          <div style="font-size:11.5px;color:var(--color-text-muted);margin-top:2px;">科学循证量表自检 · 提供分级心理建议</div>
+        </div>
+
+        <!-- Scale 1: PHQ-9 -->
+        <div class="scale-card">
+          <div class="scale-header">
+            <span class="scale-badge">国际标准量表</span>
+            <span style="font-size:11px;color:var(--color-text-muted);">约 3 分钟</span>
+          </div>
+          <div class="scale-title">PHQ-9 抑郁症状群筛查问卷</div>
+          <div class="scale-desc">由国际精神医学团队开发，用于评估过去两周内情绪动力、低落感及生活兴趣程度。</div>
+          <div class="scale-meta-row">
+            <span class="scale-stat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>9 道标准题项 · 计分反馈</span>
+            </span>
+            <button class="btn-primary" onclick="startQuiz('phq9')">开始自评</button>
+          </div>
+        </div>
+
+        <!-- Scale 2: GAD-7 -->
+        <div class="scale-card">
+          <div class="scale-header">
+            <span class="scale-badge">国际标准量表</span>
+            <span style="font-size:11px;color:var(--color-text-muted);">约 2 分钟</span>
+          </div>
+          <div class="scale-title">GAD-7 广泛性焦虑障碍量表</div>
+          <div class="scale-desc">用于快速测评紧张不安、过度担忧、惊恐感及躯体焦虑反应程度。</div>
+          <div class="scale-meta-row">
+            <span class="scale-stat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>7 道标准题项 · 实时分析</span>
+            </span>
+            <button class="btn-primary" onclick="startQuiz('gad7')">开始自评</button>
+          </div>
+        </div>
+
+        <!-- Scale 3: Attachment -->
+        <div class="scale-card">
+          <div class="scale-header">
+            <span class="scale-badge" style="background:var(--color-primary-light);color:var(--color-primary);">人际与情感</span>
+            <span style="font-size:11px;color:var(--color-text-muted);">约 4 分钟</span>
+          </div>
+          <div class="scale-title">成人依恋风格与亲密关系测验</div>
+          <div class="scale-desc">探索自己在亲密关系中属于安全型、焦虑型还是回避型，理解深层沟通模式。</div>
+          <div class="scale-meta-row">
+            <span class="scale-stat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+              <span>6 道代表题项 · 风格解析</span>
+            </span>
+            <button class="btn-primary" onclick="startQuiz('attachment')">开始测评</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 3: 我的中心 (Profile)
+           ==================================================================== -->
+      <div class="tab-pane" id="pane-profile">
+        
+        <!-- User Profile Card -->
+        <div class="profile-card">
+          <div class="profile-avatar">屿</div>
+          <div class="profile-info">
+            <h3>来访者 · 屿光</h3>
+            <div class="profile-phone">手机：138****9201 · 档案编号：QX-081</div>
+            <div class="profile-badge-row">
+              <span class="profile-pill">已签署保密协议</span>
+              <span class="profile-pill">加密档案</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appointment Order Card List -->
+        <div class="card">
+          <div class="card-title" style="margin-bottom:8px;">
+            <div class="card-title-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>我的咨询预约</span>
+            </div>
+          </div>
+
+          <!-- Order Status Tab -->
+          <div class="order-tabs">
+            <button class="order-tab-btn active" onclick="filterOrders('all', this)">全部</button>
+            <button class="order-tab-btn" onclick="filterOrders('confirmed', this)">待面询</button>
+            <button class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</button>
+            <button class="order-tab-btn" onclick="filterOrders('cancelled', this)">已取消</button>
+          </div>
+
+          <!-- Dynamic Orders Container -->
+          <div id="ordersContainer">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+        <!-- Settings & Compliance Menu -->
+        <div class="menu-group">
+          <div class="menu-item" onclick="openEthicsModal()">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>知情同意与保密伦理规范</span>
+            </div>
+            <div class="menu-right">
+              <span>查看条款</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>来访隐私高保密模式</span>
+            </div>
+            <div class="menu-right">
+              <label class="switch-wrap">
+                <input type="checkbox" checked onchange="togglePrivacy(this)">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="menu-item" onclick="callCrisisHotline()">
+            <div class="menu-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span style="color:var(--color-accent);font-weight:600;">24小时全国心理危机援助热线</span>
+            </div>
+            <div class="menu-right">
+              <span>紧急求助</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 4. Native Mini-Program TabBar -->
+    <div class="mp-tabbar">
+      <div class="tab-item active" id="tabBtn0" onclick="switchTab(0)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>首页</span>
+      </div>
+      <div class="tab-item" id="tabBtn1" onclick="switchTab(1)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span>找咨询师</span>
+      </div>
+      <div class="tab-item" id="tabBtn2" onclick="switchTab(2)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span>心理测评</span>
+      </div>
+      <div class="tab-item" id="tabBtn3" onclick="switchTab(3)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>我的中心</span>
+      </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator"></div>
+
+    <!-- ======================================================================
+         5. Overlays, Modals, Drawers & Toast
+         ====================================================================== -->
+    <!-- Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop" onclick="closeAllOverlays()"></div>
+
+    <!-- Booking Drawer -->
+    <div class="booking-drawer" id="bookingDrawer">
+      <div class="drawer-handle"></div>
+      <div class="drawer-header">
+        <div class="drawer-title" id="drawerTitle">预约咨询排班</div>
+        <button class="drawer-close" onclick="closeBookingDrawer()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="drawer-body">
+        
+        <!-- Consultant Summary in Drawer -->
+        <div style="background:var(--color-bg-subtle);padding:10px 12px;border-radius:var(--radius-md);margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+          <div id="drawerAvatar" class="consultant-avatar" style="width:38px;height:38px;font-size:14px;">林</div>
+          <div style="flex:1;">
+            <div id="drawerConsultantName" style="font-size:13.5px;font-weight:600;color:var(--color-text-title);">林* · 主任咨询师</div>
+            <div id="drawerConsultantCert" style="font-size:11px;color:var(--color-text-muted);">国家注册心理师 · 50分钟/节</div>
+          </div>
+          <div id="drawerPrice" style="font-size:14px;font-weight:700;color:var(--color-primary);">¥450</div>
+        </div>
+
+        <!-- Date Selection -->
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择咨询日期</div>
+        <div class="date-row">
+          <div class="date-btn active" onclick="selectDate('今天 (09-04)', this)">
+            <div class="date-name">今天</div>
+            <div class="date-day">09月04日</div>
+          </div>
+          <div class="date-btn" onclick="selectDate('明天 (09-05)', this)">
+            <div class="date-name">明天</div>
+            <div class="date-day">09月05日</div>
+          </div>
+          <div class="date-btn" onclick="selectDate('后天 (09-06)', this)">
+            <div class="date-name">后天</div>
+            <div class="date-day">09月06日</div>
+          </div>
+        </div>
+
+        <!-- Time Slot Selection -->
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择可约时段</div>
+        <div class="slot-grid">
+          <div class="slot-btn" onclick="selectSlot('10:00 - 10:50', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>10:00 - 10:50</span>
+          </div>
+          <div class="slot-btn active" onclick="selectSlot('14:00 - 14:50', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>14:00 - 14:50</span>
+          </div>
+          <div class="slot-btn" onclick="selectSlot('16:00 - 16:50', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>16:00 - 16:50</span>
+          </div>
+          <div class="slot-btn" onclick="selectSlot('19:00 - 19:50', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>19:00 - 19:50</span>
+          </div>
+        </div>
+
+        <!-- Consultation Format -->
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询形式</div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;">
+          <button class="filter-btn active" id="formatBtn1" onclick="selectFormat('视频连线 (加密专线)', this)">视频连线</button>
+          <button class="filter-btn" id="formatBtn2" onclick="selectFormat('语音深度倾听', this)">语音通话</button>
+          <button class="filter-btn" id="formatBtn3" onclick="selectFormat('面对面咨询 (工作室面询)', this)">面对面面询</button>
+        </div>
+
+        <!-- Service Intent -->
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询诉求阶段</div>
+        <div style="display:flex;gap:8px;margin-bottom:18px;">
+          <button class="filter-btn active" onclick="selectStage('初次访谈评估', this)">首次访谈评估</button>
+          <button class="filter-btn" onclick="selectStage('阶段深度咨询', this)">持续阶段咨询</button>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn-primary" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);" onclick="submitBookingOrder()">
+          确认提交预约申请
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Quiz Interactive Modal -->
+    <div class="quiz-modal" id="quizModal">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span class="scale-badge" id="quizModalBadge">心理自评量表</span>
+          <span style="font-size:12px;color:var(--color-text-muted);margin-left:6px;" id="quizStepText">第 1 / 5 题</span>
+        </div>
+        <button class="drawer-close" onclick="closeQuizModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="quizProgressBar"></div>
+      </div>
+
+      <!-- Question Box -->
+      <div id="quizQuestionBox" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:11px;color:var(--color-primary);font-weight:600;margin-bottom:6px;">过去两周内，您是否存在以下感受：</div>
+        <div id="quizQuestionTitle" style="font-size:16px;font-weight:600;color:var(--color-text-title);line-height:1.5;">
+          做事时提不起劲或没有乐趣？
+        </div>
+
+        <div class="quiz-options" id="quizOptionsContainer">
+          <!-- Options populated by JS -->
+        </div>
+      </div>
+
+      <!-- Result Card Box (Hidden during quiz) -->
+      <div id="quizResultBox" style="display:none;flex:1;flex-direction:column;justify-content:center;text-align:center;padding:10px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 12px auto;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div style="font-size:13px;color:var(--color-text-muted);">测评得分总览</div>
+        <div id="quizScoreDisplay" style="font-size:32px;font-weight:700;color:var(--color-primary);margin:4px 0 6px 0;">
+          3 <span style="font-size:14px;font-weight:normal;color:var(--color-text-muted);">分</span>
+        </div>
+        <div id="quizLevelBadge" style="font-size:13px;font-weight:600;color:var(--color-primary);background:var(--color-primary-light);padding:4px 12px;border-radius:var(--radius-full);display:inline-block;margin:0 auto 12px auto;">
+          情绪良好 · 状态平稳
+        </div>
+        <div id="quizAdviceText" style="font-size:12px;color:var(--color-text-body);line-height:1.6;background:var(--color-bg-subtle);padding:12px;border-radius:var(--radius-md);margin-bottom:18px;text-align:left;">
+          您的情绪基调较为平衡，日常偶有轻微压力属于正常心理弹性反应。建议保持良好作息与户外散步习惯。
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-secondary" style="flex:1;padding:10px;" onclick="restartCurrentQuiz()">重新测试</button>
+          <button class="btn-primary" style="flex:1;padding:10px;" onclick="finishQuiz()">保存并返回</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Generic Modal Dialog -->
+    <div class="dialog-box" id="dialogBox">
+      <div class="dialog-title" id="dialogTitle">提示</div>
+      <div class="dialog-content" id="dialogContent">内容...</div>
+      <div class="dialog-actions">
+        <button class="btn-secondary" id="dialogSecondaryBtn" onclick="closeDialog()">关闭</button>
+        <button class="btn-primary" id="dialogPrimaryBtn" onclick="closeDialog()">确定</button>
+      </div>
+    </div>
+
+    <!-- WeChat Style Toast -->
+    <div class="mp-toast" id="mpToast">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-white)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toastMessage">操作成功</span>
+    </div>
+
+  </div>
+
+  <!-- ========================================================================
+       6. Reactive Logic & Data Controller (Zero Emoji, Pure SVG)
+       ======================================================================== -->
+  <script>
+    // State Container
+    const AppState = {
+      currentTab: 0,
+      filterIssue: 'all',
+      filterSchool: 'all',
+      orderFilter: 'all',
+      drawer: {
+        consultantId: 'c1',
+        date: '今天 (09-04)',
+        slot: '14:00 - 14:50',
+        format: '视频连线 (加密专线)',
+        stage: '初次访谈评估'
+      },
+      consultants: [
+        {
+          id: 'c1',
+          name: '林*',
+          title: '主任心理咨询师',
+          avatarLetter: '林',
+          cert: '中国心理学会注册心理师 · X-19-***',
+          hours: '2800+ 小时',
+          schools: ['psychodynamic', 'humanistic'],
+          schoolNames: ['精神动力学', '人本聚焦'],
+          issues: ['emotion', 'growth'],
+          issueNames: ['抑郁焦虑', '个人成长', '自我认同'],
+          price: '¥450',
+          priceSub: '/ 50分钟',
+          intro: '受训于北京大学心理学系动力学连续培训项目。擅长深层潜意识探索、自我认同整合与深层抑郁焦虑疏导。坚持尊重与安全容器原则。'
+        },
+        {
+          id: 'c2',
+          name: '周*敏',
+          title: '资深心理咨询师',
+          avatarLetter: '周',
+          cert: '国家二级心理咨询师 · 180100****3290',
+          hours: '1900+ 小时',
+          schools: ['cbt', 'humanistic'],
+          schoolNames: ['认知行为 (CBT)', '人本聚焦'],
+          issues: ['emotion', 'career', 'relation'],
+          issueNames: ['情绪调节', '职场适应', '人际沟通'],
+          price: '¥380',
+          priceSub: '/ 50分钟',
+          intro: '系统接受认知行为疗法（CBT）与正念减压系统培训。长于帮助来访者识别自动化负性思维，重构理性认知图式并掌握情绪自我调节技能。'
+        },
+        {
+          id: 'c3',
+          name: '程*',
+          title: '家庭治疗督导师',
+          avatarLetter: '程',
+          cert: '注册系统督导师 (D-18-***) · 副主任医师',
+          hours: '3500+ 小时',
+          schools: ['family', 'psychodynamic'],
+          schoolNames: ['系统家庭治疗', '精神动力学'],
+          issues: ['relation', 'growth'],
+          issueNames: ['亲密关系', '亲子教育', '原生家庭纠葛'],
+          price: '¥500',
+          priceSub: '/ 50分钟',
+          intro: '德中系统家庭治疗连续受训背景，二十年心理动力学临床督导经验。专注于多代家庭系统模式解析、婚姻沟通困境及青少年成长阻抗化解。'
+        },
+        {
+          id: 'c4',
+          name: '沈*安',
+          title: '心理倾听与咨询师',
+          avatarLetter: '沈',
+          cert: '国家二级心理咨询师 · 200200****5182',
+          hours: '1200+ 小时',
+          schools: ['humanistic', 'cbt'],
+          schoolNames: ['人本聚焦', '认知行为 (CBT)'],
+          issues: ['growth', 'career', 'emotion'],
+          issueNames: ['职场倦怠', '社交边界', '生活转折期'],
+          price: '¥320',
+          priceSub: '/ 50分钟',
+          intro: '人本主义存在主义取向受训背景。相信每个人内在蕴含着朝向自我实现的生命力量，以真诚、无条件积极关注陪伴每一位行至迷雾的来访者。'
+        }
+      ],
+      orders: [
+        {
+          orderId: 'QX-20260904-8821',
+          consultantName: '林*',
+          consultantTitle: '主任心理咨询师',
+          time: '2026-09-04 14:00 - 14:50',
+          format: '视频连线 (加密专线)',
+          stage: '首次初访评估',
+          status: 'confirmed',
+          statusText: '待面询',
+          securityCode: 'SEC-8921-ENCRYPTED'
+        },
+        {
+          orderId: 'QX-20260828-5103',
+          consultantName: '周*敏',
+          consultantTitle: '资深心理咨询师',
+          time: '2026-08-28 10:00 - 10:50',
+          format: '语音深度倾听',
+          stage: '阶段深入咨询',
+          status: 'completed',
+          statusText: '已完成',
+          securityCode: 'SEC-5103-ARCHIVED'
+        }
+      ],
+      currentQuizId: 'phq9',
+      quizStep: 0,
+      quizAnswers: [],
+      quizData: {
+        phq9: {
+          title: 'PHQ-9 抑郁症状群健康问卷',
+          badge: '医学国际黄金标准',
+          questions: [
+            '做事时提不起劲或没有乐趣？',
+            '感到心情低落、沮丧或绝望？',
+            '入睡困难、睡不安稳或睡眠过多？',
+            '感觉疲惫或没有精力活力？',
+            '对自己的评价较低，觉得自己是个失败者？'
+          ],
+          options: [
+            { text: '完全不会 (0分)', score: 0 },
+            { text: '有几天 (1分)', score: 1 },
+            { text: '一半以上天数 (2分)', score: 2 },
+            { text: '几乎每天 (3分)', score: 3 }
+          ]
+        },
+        gad7: {
+          title: 'GAD-7 广泛性焦虑障碍量表',
+          badge: '焦虑国际筛查标准',
+          questions: [
+            '感到紧张、焦虑或急切不安？',
+            '难以停止或无法控制过度担忧？',
+            '对各种各样的事情担忧过多？',
+            '很难放松下来，身心处于紧绷状态？',
+            '容易烦躁或易被微小琐事激怒？'
+          ],
+          options: [
+            { text: '完全没有 (0分)', score: 0 },
+            { text: '有几天 (1分)', score: 1 },
+            { text: '超过一周 (2分)', score: 2 },
+            { text: '几乎每天 (3分)', score: 3 }
+          ]
+        },
+        attachment: {
+          title: '成人亲密关系依恋风格测验',
+          badge: '关系心理学专业量表',
+          questions: [
+            '在亲密关系中，我发现很难完全信任或依赖对方？',
+            '我常常担心伴侣并不像我爱对方那样深爱我？',
+            '当别人试图与我过度亲密时，我会感到不适想后撤？',
+            '如果对方没有及时回复信息，我容易产生被抛弃的恐惧？'
+          ],
+          options: [
+            { text: '极不符合 (0分)', score: 0 },
+            { text: '偶尔符合 (1分)', score: 1 },
+            { text: '比较符合 (2分)', score: 2 },
+            { text: '高度符合 (3分)', score: 3 }
+          ]
+        }
+      }
+    };
+
+    // ========================================================================
+    // Navigation & Tab Switching
+    // ========================================================================
+    function switchTab(index) {
+      AppState.currentTab = index;
+      document.querySelectorAll('.tab-pane').forEach((p, idx) => {
+        p.classList.toggle('active', idx === index);
+      });
+      document.querySelectorAll('.mp-tabbar .tab-item').forEach((item, idx) => {
+        item.classList.toggle('active', idx === index);
+      });
+      document.getElementById('mainScroll').scrollTop = 0;
+    }
+
+    function jumpToCategory(issueKey) {
+      AppState.filterIssue = issueKey;
+      switchTab(1);
+      // update filter chips in tab 1
+      const chips = document.querySelectorAll('#issueFilterGroup .filter-btn');
+      chips.forEach(btn => {
+        const text = btn.textContent;
+        if (issueKey === 'emotion' && text.includes('情绪')) btn.classList.add('active');
+        else if (issueKey === 'relation' && text.includes('亲密')) btn.classList.add('active');
+        else if (issueKey === 'growth' && text.includes('探索')) btn.classList.add('active');
+        else if (issueKey === 'career' && text.includes('职场')) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      renderConsultants();
+      showToast('已筛选相关领域咨询师');
+    }
+
+    // ========================================================================
+    // Tab 0: Mood Tracker
+    // ========================================================================
+    const moodQuotes = {
+      calm: '接纳此刻的呼吸，安住于当下的安宁。允许一切如其所是。',
+      anxious: '焦虑是对未来的过度透支。请把双脚踩实地面，此时此刻你很安全。',
+      tired: '允许自己什么都不做，疲惫是身体发出的停歇休整信号。',
+      down: '乌云亦是天空的一部分。允许情绪如流水般穿过身体，不必苛责自己。',
+      fulfilled: '步步踏实，为自己的每一份内在觉知与前进而心怀赞赏。'
+    };
+
+    function selectMood(moodKey, el) {
+      document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const box = document.getElementById('moodQuoteText');
+      box.style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('quoteContent').textContent = moodQuotes[moodKey];
+        box.style.opacity = '1';
+      }, 150);
+      showToast('已记录心情状态');
+    }
+
+    function showFlowDetail(step) {
+      const details = {
+        1: { title: '步骤一：明确诉求与困扰', text: '在预约前，您可以先进行轻量化测评或简短整理近期最希望获得支持的议题（如睡眠障碍、人际沟通、职业倦怠），这将帮助咨询师在初访时更快进入核心。' },
+        2: { title: '步骤二：选择适合流派', text: '认知行为疗法（CBT）偏向目标与思维重构；精神动力学偏向无意识动机与人格深度成长；系统家庭治疗偏向多代关系互动。咨询师均能提供个性化支持。' },
+        3: { title: '步骤三：排班与专业面询', text: '确认预约后，工作室将为您保留专属保密时段。线上咨询通过加密专线进行，线下咨询请准时抵达工作室静心候诊室。' }
+      };
+      openDialog(details[step].title, details[step].text);
+    }
+
+    // ========================================================================
+    // Tab 1: Consultant Filter & List Render
+    // ========================================================================
+    function setIssueFilter(issueKey, el) {
+      AppState.filterIssue = issueKey;
+      document.querySelectorAll('#issueFilterGroup .filter-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderConsultants();
+    }
+
+    function setSchoolFilter(schoolKey, el) {
+      AppState.filterSchool = schoolKey;
+      document.querySelectorAll('#schoolFilterGroup .filter-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderConsultants();
+    }
+
+    function renderConsultants() {
+      const container = document.getElementById('consultantListContainer');
+      const list = AppState.consultants.filter(c => {
+        const matchIssue = (AppState.filterIssue === 'all') || c.issues.includes(AppState.filterIssue);
+        const matchSchool = (AppState.filterSchool === 'all') || c.schools.includes(AppState.filterSchool);
+        return matchIssue && matchSchool;
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:40px 10px;color:var(--color-text-muted);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:8px;"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <div style="font-size:13px;">暂无完全符合该流派/议题组合的咨询师</div>
+            <button class="btn-secondary" style="margin-top:12px;" onclick="resetFilters()">重置筛选条件</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(c => `
+        <div class="consultant-item">
+          <div class="consultant-head">
+            <div class="consultant-avatar">${c.avatarLetter}</div>
+            <div class="consultant-meta">
+              <div class="consultant-name-row">
+                <span class="consultant-name">${c.name}（${c.title}）</span>
+                <span class="consultant-tag">个案 ${c.hours}</span>
+              </div>
+              <div class="consultant-cert">${c.cert}</div>
+              <div class="consultant-chips">
+                ${c.schoolNames.map(s => `<span class="skill-chip">${s}</span>`).join('')}
+                ${c.issueNames.map(i => `<span class="skill-chip">${i}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="consultant-foot">
+            <div>
+              <span class="consultant-price">${c.price}</span>
+              <span class="consultant-price-sub">${c.priceSub}</span>
+            </div>
+            <div class="action-btn-group">
+              <button class="btn-secondary" onclick="showBioModal('${c.id}')">详细履历</button>
+              <button class="btn-primary" onclick="openBookingDrawer('${c.id}')">预约排班</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function resetFilters() {
+      AppState.filterIssue = 'all';
+      AppState.filterSchool = 'all';
+      document.querySelectorAll('#issueFilterGroup .filter-btn').forEach((b, idx) => b.classList.toggle('active', idx === 0));
+      document.querySelectorAll('#schoolFilterGroup .filter-btn').forEach((b, idx) => b.classList.toggle('active', idx === 0));
+      renderConsultants();
+      showToast('已重置筛选条件');
+    }
+
+    function showBioModal(consultantId) {
+      const c = AppState.consultants.find(item => item.id === consultantId);
+      if (!c) return;
+      openDialog(
+        `${c.name} · ${c.title} 详细专业履历`,
+        `<strong>执业资质：</strong>${c.cert}<br>
+         <strong>临床累计时长：</strong>${c.hours}<br>
+         <strong>擅长理论流派：</strong>${c.schoolNames.join('、')}<br>
+         <strong>主要受训背景：</strong>${c.intro}<br><br>
+         <strong>伦理守则承诺：</strong>均严格遵循《中国心理学会临床与咨询心理学工作伦理守则》，持续接受中国心理学会注册督导师定期个案督导。`
+      );
+    }
+
+    // ========================================================================
+    // Booking Drawer Matrix & Logic
+    // ========================================================================
+    function openBookingDrawer(consultantId) {
+      const c = AppState.consultants.find(item => item.id === consultantId) || AppState.consultants[0];
+      AppState.drawer.consultantId = c.id;
+
+      document.getElementById('drawerTitle').textContent = `预约 ${c.name} 咨询排班`;
+      document.getElementById('drawerAvatar').textContent = c.avatarLetter;
+      document.getElementById('drawerConsultantName').textContent = `${c.name} · ${c.title}`;
+      document.getElementById('drawerConsultantCert').textContent = `${c.cert}`;
+      document.getElementById('drawerPrice').textContent = c.price;
+
+      document.getElementById('modalBackdrop').classList.add('active');
+      document.getElementById('bookingDrawer').classList.add('active');
+    }
+
+    function closeBookingDrawer() {
+      document.getElementById('bookingDrawer').classList.remove('active');
+      if (!document.getElementById('quizModal').classList.contains('active') &&
+          !document.getElementById('dialogBox').classList.contains('active')) {
+        document.getElementById('modalBackdrop').classList.remove('active');
+      }
+    }
+
+    function selectDate(dateStr, el) {
+      AppState.drawer.date = dateStr;
+      document.querySelectorAll('.date-row .date-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      showToast(`已选 ${dateStr}`);
+    }
+
+    function selectSlot(slotStr, el) {
+      AppState.drawer.slot = slotStr;
+      document.querySelectorAll('.slot-grid .slot-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      showToast(`已选时段 ${slotStr}`);
+    }
+
+    function selectFormat(fmtStr, el) {
+      AppState.drawer.format = fmtStr;
+      document.querySelectorAll('#formatBtn1, #formatBtn2, #formatBtn3').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      showToast(`形式：${fmtStr}`);
+    }
+
+    function selectStage(stageStr, el) {
+      AppState.drawer.stage = stageStr;
+      el.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      showToast(`诉求阶段：${stageStr}`);
+    }
+
+    function submitBookingOrder() {
+      const c = AppState.consultants.find(item => item.id === AppState.drawer.consultantId);
+      const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
+      const newOrder = {
+        orderId: `QX-20260904-${randomOrderNum}`,
+        consultantName: c ? c.name : '咨询师',
+        consultantTitle: c ? c.title : '主任咨询师',
+        time: `${AppState.drawer.date} ${AppState.drawer.slot}`,
+        format: AppState.drawer.format,
+        stage: AppState.drawer.stage,
+        status: 'confirmed',
+        statusText: '待面询',
+        securityCode: `SEC-${randomOrderNum}-ENCRYPTED`
+      };
+
+      AppState.orders.unshift(newOrder);
+      closeBookingDrawer();
+      renderOrders();
+      showToast('预约提交成功，已锁定该档期');
+
+      // Auto jump to profile tab after 1 second so user sees the order
+      setTimeout(() => {
+        switchTab(3);
+      }, 700);
+    }
+
+    // ========================================================================
+    // Tab 2: Interactive Psychological Assessments
+    // ========================================================================
+    function startQuiz(scaleId) {
+      AppState.currentQuizId = scaleId;
+      AppState.quizStep = 0;
+      AppState.quizAnswers = [];
+
+      const qData = AppState.quizData[scaleId];
+      document.getElementById('quizModalBadge').textContent = qData.title;
+      document.getElementById('quizQuestionBox').style.display = 'flex';
+      document.getElementById('quizResultBox').style.display = 'none';
+
+      renderQuizQuestion();
+
+      document.getElementById('modalBackdrop').classList.add('active');
+      document.getElementById('quizModal').classList.add('active');
+    }
+
+    function renderQuizQuestion() {
+      const qData = AppState.quizData[AppState.currentQuizId];
+      const total = qData.questions.length;
+      const current = AppState.quizStep + 1;
+
+      document.getElementById('quizStepText').textContent = `第 ${current} / ${total} 题`;
+      const pct = Math.round((current / total) * 100);
+      document.getElementById('quizProgressBar').style.width = `${pct}%`;
+
+      document.getElementById('quizQuestionTitle').textContent = qData.questions[AppState.quizStep];
+
+      const optsContainer = document.getElementById('quizOptionsContainer');
+      optsContainer.innerHTML = qData.options.map(opt => `
+        <button class="quiz-option-btn" onclick="handleQuizAnswer(${opt.score})">
+          <span>${opt.text}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      `).join('');
+    }
+
+    function handleQuizAnswer(score) {
+      AppState.quizAnswers.push(score);
+      const qData = AppState.quizData[AppState.currentQuizId];
+      if (AppState.quizStep < qData.questions.length - 1) {
+        AppState.quizStep++;
+        renderQuizQuestion();
+      } else {
+        // Quiz completed, calculate score
+        const totalScore = AppState.quizAnswers.reduce((a, b) => a + b, 0);
+        showQuizResult(totalScore);
+      }
+    }
+
+    function showQuizResult(score) {
+      document.getElementById('quizQuestionBox').style.display = 'none';
+      document.getElementById('quizResultBox').style.display = 'flex';
+
+      document.getElementById('quizScoreDisplay').innerHTML = `${score} <span style="font-size:14px;font-weight:normal;color:var(--color-text-muted);">分</span>`;
+
+      const badge = document.getElementById('quizLevelBadge');
+      const advice = document.getElementById('quizAdviceText');
+
+      if (score <= 4) {
+        badge.textContent = '情绪良好 · 心理弹性充足';
+        badge.style.background = 'var(--color-primary-light)';
+        badge.style.color = 'var(--color-primary)';
+        advice.innerHTML = '<strong>专业建议：</strong>您的身心状态平稳健康。日常偶发的情绪起伏属于健康的应激弹性，建议保持规律作息与深度睡眠，在喜爱的活动中持续获得充实感。';
+      } else if (score <= 9) {
+        badge.textContent = '轻度压力 · 适度关注调节';
+        badge.style.background = 'var(--color-accent-light)';
+        badge.style.color = 'var(--color-accent)';
+        advice.innerHTML = '<strong>专业建议：</strong>近期可能经历轻度的疲惫或精神内耗。建议尝试正念呼吸、减少咖啡因摄入并与信赖的朋友倾诉交流。若情绪持续两周未解，可考虑进行首次单次咨询疏导。';
+      } else {
+        badge.textContent = '明显情绪压力 · 建议专业疏导';
+        badge.style.background = 'var(--color-danger-bg)';
+        badge.style.color = 'var(--color-danger-text)';
+        advice.innerHTML = '<strong>专业建议：</strong>量表提示您正承受一定强度的情绪压力负担。请予以自己温柔接纳与关照，适时寻求执业心理咨询师进行一对一深度倾听，构建安全的情绪支持网络。';
+      }
+    }
+
+    function restartCurrentQuiz() {
+      startQuiz(AppState.currentQuizId);
+    }
+
+    function finishQuiz() {
+      closeQuizModal();
+      showToast('测评结果已归档至您的个人健康中心');
+    }
+
+    function closeQuizModal() {
+      document.getElementById('quizModal').classList.remove('active');
+      document.getElementById('modalBackdrop').classList.remove('active');
+    }
+
+    // ========================================================================
+    // Tab 3: Orders Lifecycle & Settings
+    // ========================================================================
+    function filterOrders(status, el) {
+      AppState.orderFilter = status;
+      document.querySelectorAll('.order-tabs .order-tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderOrders();
+    }
+
+    function renderOrders() {
+      const container = document.getElementById('ordersContainer');
+      const list = AppState.orders.filter(ord => {
+        if (AppState.orderFilter === 'all') return true;
+        return ord.status === AppState.orderFilter;
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:24px 10px;color:var(--color-text-muted);font-size:12px;">
+            暂无该分类下的咨询订单记录
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(ord => {
+        const badgeClass = ord.status === 'confirmed' ? 'badge-confirmed' :
+                           ord.status === 'completed' ? 'badge-completed' : 'badge-cancelled';
+        const isCancelled = ord.status === 'cancelled';
+        return `
+          <div class="order-item-card">
+            <div class="order-top">
+              <span class="order-num">单号：${ord.orderId}</span>
+              <span class="order-badge ${badgeClass}">${ord.statusText}</span>
+            </div>
+            <div class="order-title">${ord.consultantName} · ${ord.format}</div>
+            <div class="order-meta-info">
+              预约时间：${ord.time}<br>
+              诉求类型：${ord.stage} · 保密凭证已生成
+            </div>
+            <div class="order-actions">
+              <button class="btn-secondary" onclick="showOrderDetail('${ord.orderId}')">查看凭证</button>
+              ${!isCancelled ? `<button class="btn-secondary" style="color:var(--color-danger-text);border-color:var(--color-danger-border);" onclick="cancelOrder('${ord.orderId}')">取消预约</button>` : `<span style="font-size:11px;color:var(--color-text-muted);align-self:center;">已取消不可改约</span>`}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showOrderDetail(orderId) {
+      const ord = AppState.orders.find(o => o.orderId === orderId);
+      if (!ord) return;
+      openDialog(
+        '咨询预约凭证详情',
+        `<strong>单据流水：</strong>${ord.orderId}<br>
+         <strong>咨询师：</strong>${ord.consultantName} (${ord.consultantTitle})<br>
+         <strong>服务形式：</strong>${ord.format}<br>
+         <strong>排期时段：</strong>${ord.time}<br>
+         <strong>当前状态：</strong>${ord.statusText}<br>
+         <strong>加密凭证编码：</strong><code>${ord.securityCode}</code><br><br>
+         <span style="font-size:11.5px;color:var(--color-text-muted);">注：咨询开始前15分钟，系统将发送密态连线接入码至您的个人消息信箱。</span>`
+      );
+    }
+
+    function cancelOrder(orderId) {
+      const ord = AppState.orders.find(o => o.orderId === orderId);
+      if (!ord) return;
+
+      const secondaryBtn = document.getElementById('dialogSecondaryBtn');
+      const primaryBtn = document.getElementById('dialogPrimaryBtn');
+
+      secondaryBtn.textContent = '暂不取消';
+      secondaryBtn.onclick = closeDialog;
+
+      primaryBtn.textContent = '确认取消预约';
+      primaryBtn.onclick = function() {
+        ord.status = 'cancelled';
+        ord.statusText = '已取消';
+        closeDialog();
+        renderOrders();
+        showToast('已取消该笔咨询预约');
+        // restore buttons
+        secondaryBtn.textContent = '关闭';
+        primaryBtn.textContent = '确定';
+      };
+
+      openDialog('取消咨询预约确认', `您确认要取消与 <strong>${ord.consultantName}</strong> 老师于 <strong>${ord.time}</strong> 的咨询预约吗？取消后该时段将被重新释放。`);
+    }
+
+    function togglePrivacy(checkbox) {
+      if (checkbox.checked) {
+        showToast('已开启高保密脱敏保护模式');
+      } else {
+        showToast('已切换至标准隐私模式');
+      }
+    }
+
+    function openEthicsModal() {
+      openDialog(
+        '知情同意与保密伦理守则',
+        `<strong>一、保密原则与范围</strong><br>
+         **心理咨询工作室及所有执业咨询师严格恪守《中国心理学会临床与咨询心理学工作伦理守则》。在咨询过程中来访者的个人身份、咨询记录、测评数据及谈话内容均属高度私密信息，受法律及职业伦理全面保护。<br><br>
+         <strong>二、保密例外原则</strong><br>
+         依据国家法规与专业伦理，在以下极特殊情形下保密原则将被突破：<br>
+         1. 来访者存在明确危及自身生命安全（如自伤、自杀自毁倾向）时；<br>
+         2. 来访者存在明确伤害他人或公共安全的意图与计划时；<br>
+         3. 涉及未成年人受虐待或遭受严重侵害时；<br>
+         4. 法律法规要求且经司法机关正当程序调查协助时。<br><br>
+         <strong>三、知情与自主决定权</strong><br>
+         来访者享有随时询问咨询流派理论假设、讨论咨询目标、要求调整咨询频率或终止咨询关系的权利。`
+      );
+    }
+
+    function callCrisisHotline() {
+      openDialog(
+        '全国免费心理危机干预热线',
+        `如您或身边的朋友正处于突发极度心理痛苦或生命危机边缘，请立即拨打以下 24 小时全国免费心理援助热线：<br><br>
+         <strong>• 全国心理援助热线：</strong><a href="tel:4001619995" style="color:var(--color-primary);font-weight:bold;text-decoration:none;">400-161-9995</a><br>
+         <strong>• 北京心理危机干预中心：</strong><a href="tel:01082951332" style="color:var(--color-primary);font-weight:bold;text-decoration:none;">010-82951332</a><br>
+         <strong>• 希望24小时热线：</strong><a href="tel:4001619995" style="color:var(--color-primary);font-weight:bold;text-decoration:none;">400-161-9995</a><br><br>
+         生命弥足珍贵，请允许专业力量陪伴您度过难关。`
+      );
+    }
+
+    // ========================================================================
+    // Global Dialog, Toast & Backdrops
+    // ========================================================================
+    function openDialog(title, htmlContent) {
+      document.getElementById('dialogTitle').innerHTML = title;
+      document.getElementById('dialogContent').innerHTML = htmlContent;
+      document.getElementById('modalBackdrop').classList.add('active');
+      document.getElementById('dialogBox').classList.add('active');
+    }
+
+    function closeDialog() {
+      document.getElementById('dialogBox').classList.remove('active');
+      if (!document.getElementById('bookingDrawer').classList.contains('active') &&
+          !document.getElementById('quizModal').classList.contains('active')) {
+        document.getElementById('modalBackdrop').classList.remove('active');
+      }
+    }
+
+    function closeAllOverlays() {
+      closeBookingDrawer();
+      closeQuizModal();
+      closeDialog();
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('mpToast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.add('active');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('active');
+      }, 1800);
+    }
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      renderConsultants();
+      renderOrders();
+    });
+  </script>
+</body>
+</html>
