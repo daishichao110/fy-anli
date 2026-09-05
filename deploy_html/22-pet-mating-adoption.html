@@ -165,7 +165,7 @@
       background: rgba(0, 0, 0, 0.15);
     }
 
-    /* 页面内容区域 */
+    /* **区域 */
     .mp-content {
       flex: 1;
       overflow-y: auto;
@@ -313,7 +313,7 @@
       border-radius: 50%;
     }
 
-    /* 快捷分类金刚区 */
+    /* **区 */
     .grid-nav {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -856,7 +856,7 @@
       </div>
     </div>
 
-    <!-- 小程序主体内容区 -->
+    <!-- 小**区 -->
     <div class="mp-content" id="mp-scroll-view">
 
       <!-- ===================================================================
@@ -877,19 +877,19 @@
           </button>
         </div>
 
-        <!-- 快捷金刚区 -->
+        <!-- **区 -->
         <div class="grid-nav">
           <div class="grid-item" onclick="setAdoptionFilter('cat')">
             <div class="grid-icon-box">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.5 0 4.97-4.03 9-9 9s-9-4.03-9-9c0-1.26.43-2.43 1-3.5 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26z"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M10 16c.5.5 1.5.5 2 0 .5.5 1.5.5 2 0"/></svg>
             </div>
-            <span class="grid-label">喵喵专区</span>
+            <span class="grid-label">**区</span>
           </div>
           <div class="grid-item" onclick="setAdoptionFilter('dog')">
             <div class="grid-icon-box">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"/><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"/><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"/></svg>
             </div>
-            <span class="grid-label">汪汪专区</span>
+            <span class="grid-label">**区</span>
           </div>
           <div class="grid-item" onclick="setAdoptionFilter('special')">
             <div class="grid-icon-box">
@@ -970,7 +970,7 @@
             <button id="pub-type-match" class="btn btn-subtle" style="flex:1; padding:7px; font-size:12px;" onclick="switchPublishType('match')">发布相亲档案</button>
           </div>
 
-          <!-- 表单区 -->
+          <!-- **区 -->
           <form id="publish-form" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
               <label class="form-label">宠物昵称 (将自动进行脱敏展示)</label>
@@ -1037,7 +1037,7 @@
 
             <div class="form-group">
               <label class="form-label">发布人称呼与联系方式 (系统已严格脱敏)</label>
-              <input type="text" class="form-input" value="赵*峰 (已实名) · 138****6789" disabled style="color:var(--color-text-muted); background:#F1F5F9;">
+              <input type="text" class="form-input" value="赵*峰 (已实名) · 138**6789" disabled style="color:var(--color-text-muted); background:#F1F5F9;">
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" style="padding:11px; font-size:14px; margin-top:10px;">
@@ -1099,7 +1099,7 @@
           </div>
 
           <div style="display:flex; gap:8px;">
-            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="contactVolunteer('张*华', '138****1234')">
+            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="contactVolunteer('张*华', '138**1234')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               联系家访义工
             </button>
@@ -1149,7 +1149,7 @@
               <span style="font-size:16px; font-weight:800; color:var(--color-text-title);">赵*峰</span>
               <span class="badge badge-secondary" style="font-size:10px;">已实名认证</span>
             </div>
-            <div style="font-size:12px; color:var(--color-text-muted); margin-top:2px;">手机：138****6789 · 爱心守护者</div>
+            <div style="font-size:12px; color:var(--color-text-muted); margin-top:2px;">手机：138**6789 · 爱心守护者</div>
           </div>
         </div>
 
@@ -1279,7 +1279,7 @@
         vaccinated: true,
         urgent: true,
         org: 'XX救助基地救助基地',
-        rescuer: '林*女士 (138****5678)',
+        rescuer: '林*女士 (138**5678)',
         tags: ['已绝育', '疫苗齐全', '性格黏人', '会用猫砂'],
         story: '于XX市XX区XX社区救助，性格非常亲人，喜欢踩奶呼噜，体检各项健康指标均正常。',
         requirements: '科学喂养进口/天然粮，全屋封窗封阳台，定期拍摄小视频回访，谢绝合租与宿舍饲养。',
@@ -1296,7 +1296,7 @@
         vaccinated: true,
         urgent: false,
         org: 'XX领养中心领养中心',
-        rescuer: '陈*医生 (139****4321)',
+        rescuer: '陈**人员 (139**4321)',
         tags: ['已免疫', '亲人温顺', '已驱虫', '已定点如厕'],
         story: '性格活泼开朗，散步随行好，不护食不乱吠，希望找一个有爱心、有遛狗时间的家庭。',
         requirements: '按时接种狂犬疫苗，出门牵引绳不离手，有稳定住所及家人同意，接受不定期义工回访。',
@@ -1312,8 +1312,8 @@
         neutered: false,
         vaccinated: true,
         urgent: true,
-        org: '市伴侣动物***保护协会',
-        rescuer: '张*华 义工 (137****9912)',
+        org: '市伴侣动物**保护协会',
+        rescuer: '张*华 义工 (137**9912)',
         tags: ['幼猫亲人', '已接种第一针', '体检健康'],
         story: '大雨天在路边绿化带被救助，眼睛大而灵动，喜欢依偎在人身边睡觉，非常聪明。',
         requirements: '需在满 6 月龄时按平台公约完成绝育手术，居住地必须安装防坠金刚纱窗。',
@@ -1329,11 +1329,11 @@
         neutered: true,
         vaccinated: true,
         urgent: false,
-        org: '小爪关爱***领养驿站',
-        rescuer: '周*义工 (186****7730)',
+        org: '小爪关爱**领养驿站',
+        rescuer: '周*义工 (186**7730)',
         tags: ['温顺安静', '无异味', '习惯吃草'],
         story: '性格温驯亲和，日常以提摩西草为主食，已做健康排查，寻找懂兔兔生活习性的耐心中意家长。',
-        requirements: '具备专业兔笼或散养安全区域，了解草粮配比与饮用水健康，不笼养虐待。',
+        requirements: '具备专业兔**区域，了解草粮配比与饮用水健康，不笼养虐待。',
         img: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=600&auto=format&fit=crop&q=80'
       }
     ];
@@ -1347,7 +1347,7 @@
         breed: '纯种边境牧羊犬',
         age: '2岁',
         gender: '帅哥',
-        owner: '王*生 (135****6688)',
+        owner: '王*生 (135**6688)',
         tags: ['血统证书已核验', '飞盘达人', '未绝育', '疫苗齐全'],
         desc: '智商极高，性格温和，寻找同城体型匀称的健康伴侣，可纯做玩伴或科学相亲。',
         img: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=600&auto=format&fit=crop&q=80'
@@ -1359,9 +1359,9 @@
         breed: '英短蓝白折耳 (立耳繁育)',
         age: '1岁半',
         gender: '美眉',
-        owner: '李*女士 (159****2233)',
+        owner: '李*女士 (159**2233)',
         tags: ['血统纯正', '性格如狗温顺', '疫苗齐全'],
-        desc: '圆脸大眼睛，每天呼噜声不断，性格极其粘人，希望认识朝阳区附近温和的猫友家庭。',
+        desc: '圆脸大眼睛，每天呼噜声不断，性格极其粘人，希望认识**区附近温和的猫友家庭。',
         img: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600&auto=format&fit=crop&q=80'
       },
       {
@@ -1371,7 +1371,7 @@
         breed: '法国斗牛犬 (奶油色)',
         age: '2岁半',
         gender: '帅哥',
-        owner: '宋*先生 (131****8890)',
+        owner: '宋*先生 (131**8890)',
         tags: ['纯找玩伴', '已绝育', '社交天花板'],
         desc: '性格敦厚老实，从不吵闹，寻找周末一起在宠物乐园奔跑的好朋友。',
         img: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80'
@@ -1661,7 +1661,7 @@
 
           <div class="form-group">
             <label class="form-label">申请人脱敏信息确认</label>
-            <input type="text" class="form-input" value="赵*峰 · 138****6789 (已实名核验)" disabled style="background:#F1F5F9; color:var(--color-text-muted);">
+            <input type="text" class="form-input" value="赵*峰 · 138**6789 (已实名核验)" disabled style="background:#F1F5F9; color:var(--color-text-muted);">
           </div>
 
           <div class="form-group">
@@ -1769,7 +1769,7 @@
           <div style="font-size:14px; font-weight:800; color:var(--color-secondary); margin-bottom:4px;">第 38 期·同城周末萌宠社交草坪派对</div>
           <div style="font-size:12px; color:var(--color-text-body); line-height:1.6;">
             时间：本周六下午 14:30 - 17:30<br>
-            地点：XX市XX区**森林公园·萌宠草坪活动区<br>
+            地点：XX市XX区**森林公园·**区<br>
             规模：限额 30 组家庭 (需携带犬证或疫苗本复印件)
           </div>
         </div>
@@ -1796,12 +1796,12 @@
             伴侣动物公益领养与责任保证协议书
           </div>
           <p><b>送养方 (甲方)</b>：XX救助基地救助基地 (已认证认证机构)</p>
-          <p><b>领养方 (乙方)</b>：赵*峰 (身份证号：110105********1234)</p>
+          <p><b>领养方 (乙方)</b>：赵*峰 (身份证号：110105**1234)</p>
           <hr style="margin:8px 0; border:none; border-top:1px solid var(--color-border);">
           <p><b>第一条 承诺关爱</b>：乙方承诺视被领养动物为家庭成员，给予充分关爱与照料，提供清洁充足饮水及符合科学配比之天然口粮。</p>
           <p><b>第二条 居住安全</b>：乙方保证饲养场所具备安全防坠措施 (高层居所必须完成牢固金刚纱窗全封)。</p>
           <p><b>第三条 严禁弃养与虐待</b>：任何情况下严禁转卖、遗弃或虐待动物。如遇特殊不可抗力无法继续抚养，必须第一时间交还甲方，不得擅自处置。</p>
-          <p><b>第四条 医疗与防疫</b>：遵照兽医建议按时接种狂犬疫苗及多联疫苗，适龄完成绝育手术，突发疾病及时送医。</p>
+          <p><b>第四条 医疗与防疫</b>：遵照**人员建议按时接种狂犬疫苗及多联疫苗，适龄完成绝育手术，突发疾病及时送医。</p>
           <p><b>第五条 随访机制</b>：乙方自愿接受甲方在前六个月内定期通过视频或上门家访打卡。</p>
         </div>
       `;
@@ -1839,12 +1839,12 @@
       const bodyHtml = `
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div style="padding:10px; border:1px solid var(--color-border); border-radius:var(--radius-md); background:#FFF;">
-            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX动物医院 (朝阳分院)</div>
+            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX动物医院 (**分院)</div>
             <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">地址：XX市XX区XX路XX号</div>
             <div style="font-size:11px; color:var(--color-secondary); margin-top:4px;">提供领养宠物首套基础体检及疫苗专属爱心减免</div>
           </div>
           <div style="padding:10px; border:1px solid var(--color-border); border-radius:var(--radius-md); background:#FFF;">
-            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX综合转诊医院 (海淀总院)</div>
+            <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">XX综合转诊医院 (**总院)</div>
             <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">地址：XX市XX区XX路XX号</div>
             <div style="font-size:11px; color:var(--color-secondary); margin-top:4px;">具备 24 小时急诊中心，支持公益绝育救助芯片植入</div>
           </div>
@@ -1878,7 +1878,7 @@
           <div style="font-size:15px; font-weight:700; color:var(--color-text-title);">在线爱心救助客服专席</div>
           <div style="font-size:12px; color:var(--color-text-muted); margin-top:4px; line-height:1.6;">
             工作时间：周一至周日 09:00 - 21:00<br>
-            值班义工：李*医生 / 张*专员 (随时在线解答领养、健康与家访问题)
+            值班义工：李**人员 / 张*专员 (随时在线解答领养、健康与家访问题)
           </div>
           <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
             <button class="btn btn-subtle" style="font-size:12px;" onclick="showToast('正在为您转接在线人工专员...')">
@@ -1998,7 +1998,7 @@
           neutered: neutered,
           vaccinated: vaccinated,
           urgent: false,
-          org: '个人送养 (赵*峰 138****6789)',
+          org: '个人送养 (赵*峰 138**6789)',
           rescuer: '赵*峰',
           tags: [neutered ? '已绝育' : '未绝育', vaccinated ? '疫苗齐全' : '疫苗中', '个人救助'],
           story: desc,
@@ -2014,7 +2014,7 @@
           breed: breed,
           age: age,
           gender: '帅哥',
-          owner: '赵*峰 (138****6789)',
+          owner: '赵*峰 (138**6789)',
           tags: [vaccinated ? '健康已认证' : '常规体检', '新发布'],
           desc: desc,
           img: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80'
@@ -2062,7 +2062,7 @@
       const bodyHtml = `
         <div style="font-size:12px; color:var(--color-text-body); line-height:1.7;">
           <p><b>1. 封窗检查</b>：义工将实地测试所有开启扇纱窗牢固度与网格密实度；</p>
-          <p><b>2. 食盆与砂盆摆放</b>：确认静止通风区域，避免应激；</p>
+          <p><b>2. 食盆与砂盆摆放</b>：**区域，避免应激；</p>
           <p><b>3. 常备药物建议</b>：义工将赠送新手养宠消毒与驱虫指南手册一份。</p>
         </div>
       `;

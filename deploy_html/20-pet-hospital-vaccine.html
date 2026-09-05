@@ -158,7 +158,7 @@
     .capsule-sep { width: 1px; height: 14px; background-color: var(--color-divider); }
     .capsule-circle { width: 12px; height: 12px; border: 2px solid var(--color-text-title); border-radius: 50%; }
 
-    /* 页面主体区域 */
+    /* **区域 */
     .mp-body {
       flex: 1;
       overflow-y: auto;
@@ -451,7 +451,7 @@
       </div>
     </header>
 
-    <!-- 主体内容滚动区 -->
+    <!-- **区 -->
     <div class="mp-body" id="mpBody">
 
       <!-- ======================================================================
@@ -472,7 +472,7 @@
           </div>
         </div>
 
-        <!-- 4宫格金刚区快捷服务 -->
+        <!-- 4**区快捷服务 -->
         <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;margin-bottom:10px;">
           <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="switchMpTab(1);setSpaySegment('neuter');">
             <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
@@ -494,8 +494,8 @@
             <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 3h2v4a3 3 0 0 0 6 0V3h2M6.5 19a4.5 4.5 0 0 1-4.5-4.5V13h9v1.5A4.5 4.5 0 0 1 6.5 19zM18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0v5a3 3 0 0 1-3 3h-2"/></svg>
             </div>
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">专家挂号</div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">副主任团队</div>
+            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">**挂号</div>
+            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">副**团队</div>
           </div>
 
           <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="openHealthCheckDrawer()">
@@ -507,7 +507,7 @@
           </div>
         </div>
 
-        <!-- 专科医生排班出诊区 -->
+        <!-- 专科**区 -->
         <div id="doctorSectionTitle" style="display:flex;justify-content:space-between;align-items:center;margin:12px 2px 8px;">
           <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -523,7 +523,7 @@
           <div class="segmented-item" id="dateTab-2" onclick="switchDateTab(2)">后天出诊</div>
         </div>
 
-        <!-- 医生卡片 1 -->
+        <!-- **人员卡片 1 -->
         <div class="ui-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div style="display:flex;gap:10px;">
@@ -533,9 +533,9 @@
               <div>
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">周*远</span>
-                  <span class="badge-primary">副主任兽医师</span>
+                  <span class="badge-primary">副**人员师</span>
                 </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">外科总监 · 软组织微创/复杂骨科 · 从业14年</div>
+                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">外科** · 软组织微创/复杂骨科 · 从业14年</div>
               </div>
             </div>
             <span class="badge-success">就诊可约</span>
@@ -551,7 +551,7 @@
           </div>
         </div>
 
-        <!-- 医生卡片 2 -->
+        <!-- **人员卡片 2 -->
         <div class="ui-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div style="display:flex;gap:10px;">
@@ -561,9 +561,9 @@
               <div>
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">林*婷</span>
-                  <span class="badge-primary">主治兽医师</span>
+                  <span class="badge-primary">主治**人员师</span>
                 </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫科专科组长 · 国际猫友好认证医生 · 从业8年</div>
+                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫科专科组长 · 国际猫友好认证**人员 · 从业8年</div>
               </div>
             </div>
             <span class="badge-success">就诊可约</span>
@@ -578,7 +578,7 @@
           </div>
         </div>
 
-        <!-- 医生卡片 3 -->
+        <!-- **人员卡片 3 -->
         <div class="ui-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div style="display:flex;gap:10px;">
@@ -588,9 +588,9 @@
               <div>
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">陈*峰</span>
-                  <span class="badge-primary">执业兽医师</span>
+                  <span class="badge-primary">执业**人员师</span>
                 </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防兽医学主管 · 免疫驱虫与幼宠健康 · 从业6年</div>
+                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防**人员学主管 · 免疫驱虫与幼宠健康 · 从业6年</div>
               </div>
             </div>
             <span class="badge-success">就诊可约</span>
@@ -608,7 +608,7 @@
       </div>
 
       <!-- ======================================================================
-           TAB 2: 绝育疫苗专区
+           TAB 2: **区
            ====================================================================== -->
       <div id="pane-1" class="pane">
         <!-- 专区分段控制器 -->
@@ -617,7 +617,7 @@
           <div class="segmented-item" id="spaySeg-1" onclick="setSpaySegment('vaccine')">预防免疫与驱虫</div>
         </div>
 
-        <!-- 绝育手术专区 -->
+        <!-- **区 -->
         <div id="subViewNeuter">
           <!-- 术前须知提示 -->
           <div class="info-bar" style="cursor:pointer;" onclick="openPreOpNoticeModal()">
@@ -650,7 +650,7 @@
               </div>
             </div>
 
-            <!-- 参数选择器 2: 体重区间 -->
+            <!-- 参数选择器 2: **区间 -->
             <div style="margin-top:8px;">
               <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">爱宠当前体重：</div>
               <div class="chip-group">
@@ -680,7 +680,7 @@
 
             <!-- 包含明细清单 -->
             <div style="margin-top:12px;font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.6;background:var(--color-primary-soft);padding:8px 10px;border-radius:var(--radius-sm);">
-              包含服务：术前血液常规五分类 + 术中多参数监护 + 可吸收免拆皮内缝合 + 术后镇痛苏醒观察。
+              包含服务：术前血液常规五分类 + 术中多参数监护 + 可吸收免拆皮内缝合 + **镇痛苏醒观察。
             </div>
 
             <button class="btn-action" style="width:100%;margin-top:12px;padding:10px;" onclick="openSpayBookingDrawer()">
@@ -690,7 +690,7 @@
           </div>
         </div>
 
-        <!-- 疫苗驱虫专区 -->
+        <!-- **区 -->
         <div id="subViewVaccine" style="display:none;">
           <!-- 疫苗 1 -->
           <div class="ui-card">
@@ -763,7 +763,7 @@
               </div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">服务支持：支持护士专业到院代滴与体重称量</span>
+              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">服务支持：**护士专业到院代滴与体重称量</span>
               <button class="btn-action" onclick="openVaccineBookingDrawer('体内外同驱滴剂')">预约滴服</button>
             </div>
           </div>
@@ -820,7 +820,7 @@
             </div>
             <div style="flex:1;">
               <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">猫三联核心疫苗 (第1/2针) - 已完成</div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">接种于：2026-06-15 · 执业兽医：陈*峰</div>
+              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">接种于：2026-06-15 · 执业**人员：陈*峰</div>
             </div>
           </div>
 
@@ -885,7 +885,7 @@
             <div>
               <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">全血细胞五分类与生化初筛报告单</div>
               <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
-                化验时间：2026-07-10 11:20 | 采样医生：林*婷
+                化验时间：2026-07-10 11:20 | 采样**人员：林*婷
               </div>
             </div>
             <button class="btn-action-outline" style="padding:4px 8px;font-size:var(--font-2xs);" onclick="openLabReportModal()">
@@ -911,7 +911,7 @@
                 <span class="badge-primary">金卡健康会员</span>
               </div>
               <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
-                绑定手机：138****8920 · 已绑定爱宠 2 只
+                绑定手机：138**8920 · 已绑定爱宠 2 只
               </div>
             </div>
             <button class="btn-action-outline" style="padding:4px 8px;font-size:var(--font-2xs);" onclick="openEditProfileDrawer()">编辑资料</button>
@@ -938,7 +938,7 @@
               猫科门诊挂号 - 布* (英国短毛猫)
             </div>
             <div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;line-height:1.5;">
-              主诊医生：周*远 (副主任兽医师)<br>
+              主诊**人员：周*远 (副**人员师)<br>
               预约时间：2026-09-05 09:30-10:00<br>
               院区门诊：**动物医疗中心XX总院 (1楼门诊2室)
             </div>
@@ -961,7 +961,7 @@
               猫三联核心疫苗首免第1针 - 布*
             </div>
             <div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;">
-              接诊医生：陈*峰 (执业兽医师) · 接种完成且留观无不良反应
+              接诊**人员：陈*峰 (执业**人员师) · 接种完成且留观无不良反应
             </div>
             <div style="display:flex;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--color-border-light);justify-content:flex-end;">
               <button class="btn-action-outline" style="font-size:var(--font-2xs);" onclick="switchMpTab(2)">查看免疫记录</button>
@@ -1145,7 +1145,7 @@
             <tr style="background:var(--color-bg-page);border-bottom:1px solid var(--color-divider);">
               <th style="padding:6px;">检验指标</th>
               <th style="padding:6px;">测定结果</th>
-              <th style="padding:6px;">参考区间</th>
+              <th style="padding:6px;">**区间</th>
               <th style="padding:6px;">状态</th>
             </tr>
           </thead>
@@ -1178,7 +1178,7 @@
         </table>
 
         <div style="font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.4;margin-bottom:12px;">
-          诊断意见：血液生化生理指标均处于合理参考区间，可安全支持绝育微创麻醉及常规疫苗免疫。
+          诊断意见：血液生化生理指标均**区间，可安全支持绝育微创麻醉及常规疫苗免疫。
         </div>
 
         <button class="btn-action" style="width:100%;" onclick="closeOverlay('labReportModalOverlay')">返回病历</button>
@@ -1247,7 +1247,7 @@
 
           <div style="margin-bottom:10px;">
             <div style="font-weight:700;color:var(--color-text-title);">地铁公共交通路线：</div>
-            <div style="color:var(--color-text-muted);margin-top:2px;">轨道交通2号线【XX路站】C出口向南步行约280米即达。</div>
+            <div style="color:var(--color-text-muted);margin-top:2px;">轨道交通**号线【XX路站】C出口向南步行约280米即达。</div>
           </div>
 
           <div style="margin-bottom:10px;">
@@ -1257,7 +1257,7 @@
         </div>
 
         <button class="btn-action" style="width:100%;margin-top:10px;" onclick="closeOverlay('trafficDrawerOverlay');showToast('已复制脱敏就诊地址');">
-          复制院区脱敏地址
+          **区脱敏地址
         </button>
       </div>
     </div>
@@ -1274,11 +1274,11 @@
 
         <div style="font-size:var(--font-xs);color:var(--color-text-muted);line-height:1.7;">
           机构名称：**动物医疗中心（XX总院）<br>
-          动物诊疗许可证：(高新)动诊许字第2024****09号<br>
-          放射诊疗许可：(省)辐卫许字第2023****11号<br>
+          动物诊疗许可证：(高新)动诊许字第2024**09号<br>
+          放射诊疗许可：(省)辐卫许字第2023**11号<br>
           法定代表人：陈*明<br>
-          技术总监：周*远 (副主任兽医师)<br>
-          执业兽医配置：高级执业兽医师6名、主治兽医师12名
+          技术**：周*远 (副**人员师)<br>
+          执业**人员配置：高级执业**人员师6名、主治**人员师12名
         </div>
 
         <button class="btn-action" style="width:100%;margin-top:14px;" onclick="closeOverlay('licenceModalOverlay')">
@@ -1300,12 +1300,12 @@
         <div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;">
           <div style="padding:10px;background:var(--color-bg-page);border-radius:var(--radius-sm);margin-bottom:8px;">
             <div style="font-weight:700;color:var(--color-text-title);">日间常规门诊热线：</div>
-            <div style="color:var(--color-primary);font-size:var(--font-base);font-weight:800;margin-top:2px;">400-***-8820 (09:00 - 21:00)</div>
+            <div style="color:var(--color-primary);font-size:var(--font-base);font-weight:800;margin-top:2px;">400-**-8820 (09:00 - 21:00)</div>
           </div>
 
           <div style="padding:10px;background:var(--color-warning-light);border-radius:var(--radius-sm);margin-bottom:8px;">
             <div style="font-weight:700;color:var(--color-warning);">24小时急症急救绿色通道：</div>
-            <div style="color:var(--color-warning);font-size:var(--font-base);font-weight:800;margin-top:2px;">021-****8999 (急症夜诊)</div>
+            <div style="color:var(--color-warning);font-size:var(--font-base);font-weight:800;margin-top:2px;">021-**8999 (急症夜诊)</div>
           </div>
         </div>
 
@@ -1319,15 +1319,15 @@
     <div class="overlay" id="branchDrawerOverlay">
       <div class="drawer-content">
         <div class="sheet-header">
-          <div class="sheet-title">选择就诊分院院区</div>
+          <div class="sheet-title">选**区</div>
           <div class="sheet-close" onclick="closeOverlay('branchDrawerOverlay')">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </div>
         </div>
 
         <div class="ui-card" style="cursor:pointer;border:1.5px solid var(--color-primary-edge);" onclick="closeOverlay('branchDrawerOverlay');showToast('已选定高新旗舰总院');">
-          <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">高新旗舰总院 (当前院区)</div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">**市高新区科技南路**号 · 具备CT/核磁/专科手术室</div>
+          <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">高新旗舰总院 (**区)</div>
+          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">**区科技南路**号 · 具备CT/核磁/专科手术室</div>
         </div>
 
         <div class="ui-card" style="cursor:pointer;" onclick="closeOverlay('branchDrawerOverlay');showToast('已切换至滨江科技分院');">
@@ -1446,7 +1446,7 @@
       document.getElementById('neuterPrice').innerText = '¥' + total;
     }
 
-    // 6. 医生预约抽屉
+    // 6. **人员预约抽屉
     function openBookingDrawer(doctorName, timeSlot, dept) {
       AppStore.currentDoctorBooking.name = doctorName;
       AppStore.currentDoctorBooking.time = timeSlot;
@@ -1593,7 +1593,7 @@
     function openContactSupportDrawer() { openOverlay('contactDrawerOverlay'); }
     function openBranchDrawer() { openOverlay('branchDrawerOverlay'); }
     function openNoticeModal() { showToast('分时段预约免排队，支持到院核销'); }
-    function openHealthCheckDrawer() { switchMpTab(1); setSpaySegment('neuter'); showToast('已直达健康筛查与绝育专区'); }
+    function openHealthCheckDrawer() { switchMpTab(1); setSpaySegment('neuter'); showToast('已直达健康**区'); }
     function openEditProfileDrawer() { showToast('当前已绑定实名档案：赵*女士 (金卡会员)'); }
 
     function scrollToDoctors() {

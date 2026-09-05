@@ -174,7 +174,7 @@
       font-weight: 500;
     }
 
-    /* 微信胶囊控制区 */
+    /* **区 */
     .mp-capsule {
       background-color: var(--color-capsule-bg);
       border: 1px solid var(--color-capsule-border);
@@ -206,7 +206,7 @@
       background-color: var(--color-capsule-border);
     }
 
-    /* 主视区滚动区 */
+    /* **区 */
     .mp-body {
       flex: 1;
       overflow-y: auto;
@@ -777,7 +777,7 @@
       </div>
     </header>
 
-    <!-- 主视区滚动容器 -->
+    <!-- **区滚动容器 -->
     <main class="mp-body" id="mp-body">
 
       <!-- ================= Tab 0: 工坊首页 ================= -->
@@ -903,7 +903,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               <span>主理量体师名录</span>
             </div>
-            <span class="section-tag" onclick="showToast('工坊量体师均持有国家高级定制技师认证')">认证标准</span>
+            <span class="section-tag" onclick="showToast('工坊量体师均持有国家高级定制**人员认证')">认证标准</span>
           </div>
           <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:4px;">
             <div style="min-width:160px; background-color:var(--color-bg-muted); border:1px solid var(--color-border-light); border-radius:var(--radius-sm); padding:10px;">
@@ -1026,7 +1026,7 @@
               <span style="font-size:12px;">立领形制 (Collar Silhouette)</span>
             </div>
             <div class="option-grid">
-              <div class="option-pill active" onclick="selectOptionPill(this, 'qipao-collar', '上海圆立领')">上海圆立领 (4cm)</div>
+              <div class="option-pill active" onclick="selectOptionPill(this, 'qipao-collar', '**圆立领')">**圆立领 (4cm)</div>
               <div class="option-pill" onclick="selectOptionPill(this, 'qipao-collar', '水滴镂空领')">水滴镂空领</div>
               <div class="option-pill" onclick="selectOptionPill(this, 'qipao-collar', '低立领 (2.5cm)')">日常舒适低领</div>
             </div>
@@ -1127,14 +1127,14 @@
           <div class="form-group" id="group-studio-select">
             <label class="form-label">工坊私享体验馆</label>
             <select class="form-input" id="appt-studio-input">
-              <option value="工坊静安VIP接待馆">工坊静安VIP接待馆 (静安区威海路88号)</option>
-              <option value="国金中心定制展厅">国金中心高级定制展厅 (世纪大道8号)</option>
+              <option value="工坊静安VIP接待馆">工坊静安VIP接待馆 **路**号)</option>
+              <option value="国金中心定制展厅">国金中心高级定制展厅 **大道**号)</option>
             </select>
           </div>
 
           <div class="form-group" id="group-address-select" style="display:none;">
             <label class="form-label">上门量体服务地址 (同城专车抵达)</label>
-            <input type="text" class="form-input" id="appt-address-input" value="上海市徐汇区龙腾大道3388号 1202室">
+            <input type="text" class="form-input" id="appt-address-input" value="**大道**号 1202室">
           </div>
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -1160,19 +1160,19 @@
             <label class="form-label">主理量体师</label>
             <select class="form-input" id="appt-tailor-input">
               <option value="周高级量体师">周高级量体师 (22年经验 · 意式修身立体剪裁)</option>
-              <option value="梁首席工艺师">梁首席工艺师 (非遗海派旗袍传承技师)</option>
-              <option value="工坊资深量体顾问">工坊优选量体主理顾问 (随机调配)</option>
+              <option value="梁首席工艺师">梁首席工艺师 (非遗海派旗袍传承**人员)</option>
+              <option value="工坊资深量体**">工坊优选量体主理** (随机调配)</option>
             </select>
           </div>
 
           <div style="display:grid; grid-template-columns:1fr 1.3fr; gap:8px;">
             <div class="form-group">
               <label class="form-label">贵宾称谓</label>
-              <input type="text" class="form-input" id="appt-name-input" value="陈先生">
+              <input type="text" class="form-input" id="appt-name-input" value="**先生">
             </div>
             <div class="form-group">
               <label class="form-label">联络电话</label>
-              <input type="text" class="form-input" id="appt-phone-input" value="138****5821">
+              <input type="text" class="form-input" id="appt-phone-input" value="138**5821">
             </div>
           </div>
 
@@ -1196,7 +1196,7 @@
           </div>
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:11px; color:var(--color-text-body);">
-            <span>档案持有人：<b style="color:var(--color-primary);" id="disp-owner">陈先生 (本人)</b></span>
+            <span>档案持有人：<b style="color:var(--color-primary);" id="disp-owner">**先生 (本人)</b></span>
             <span style="color:var(--color-text-muted);">校准日期: 2026-09-01</span>
           </div>
 
@@ -1250,8 +1250,8 @@
             <div style="display:flex; align-items:center; gap:12px;">
               <div style="width:46px; height:46px; border-radius:50%; background-color:var(--color-accent); color:var(--color-primary-dark); display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:900;">陈</div>
               <div>
-                <div style="font-size:15px; font-weight:800;">陈先生</div>
-                <div style="font-size:11px; color:var(--color-accent); margin-top:2px;">工坊黑金卡客户 · 手机 138****5821</div>
+                <div style="font-size:15px; font-weight:800;">**先生</div>
+                <div style="font-size:11px; color:var(--color-accent); margin-top:2px;">工坊黑金卡客户 · 手机 138**5821</div>
               </div>
             </div>
             <button class="btn btn-gold-outline" style="padding:4px 8px; font-size:10px;" onclick="openDrawer('drawer-butler')">
@@ -1271,7 +1271,7 @@
             意式深海蓝150支手工全毛衬西服三件套
           </div>
           <div style="font-size:11px; color:var(--color-text-body); margin-bottom:12px;">
-            面料: 英国世家 150支纯羊毛 | 主理师傅: 周高级量体师
+            面料: 英国世家 150支纯羊毛 | **师傅: 周高级量体师
           </div>
 
           <!-- 6节点时间线 -->
@@ -1442,7 +1442,7 @@
           <div><b>预约模式：</b><span id="res-appt-mode">到店接待量体 (工坊静安VIP接待馆)</span></div>
           <div><b>预约时间：</b><span id="res-appt-datetime">2026-09-05 下午 14:00 - 15:30</span></div>
           <div><b>服务主理人：</b><span id="res-appt-tailor">周高级量体师 (专车准备中)</span></div>
-          <div><b>贵宾信息：</b><span id="res-appt-client">陈先生 (138****5821)</span></div>
+          <div><b>贵宾信息：</b><span id="res-appt-client">**先生 (138**5821)</span></div>
         </div>
         <button class="btn btn-gold btn-block" onclick="closeModal('modal-appointment-success'); switchMpTab(3);">
           <span>查看工单进度中心</span>
@@ -1575,11 +1575,11 @@
         </div>
         <div style="background-color:var(--color-accent-bg); border:1px solid var(--color-accent-border); border-radius:var(--radius-sm); padding:10px; margin-bottom:10px;">
           <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:var(--color-primary);">
-            <span>陈先生 · 138****5821</span>
+            <span>**先生 · 138**5821</span>
             <span style="font-size:10px; color:var(--color-accent-gold);">默认地址</span>
           </div>
           <div style="font-size:11px; color:var(--color-text-body); margin-top:4px;">
-            上海市徐汇区龙腾大道3388号 1202室 (专线快递保价专递)
+            **大道**号 1202室 (专线快递保价专递)
           </div>
         </div>
         <button class="btn btn-outline btn-block" onclick="showToast('已进入地址新增流程')">+ 新增成衣私密收件地址</button>
@@ -1598,7 +1598,7 @@
         </div>
         <div id="chat-stream" style="min-height:180px; max-height:260px; overflow-y:auto; display:flex; flex-direction:column; padding:6px 0;">
           <div class="chat-bubble chat-bubble-butler">
-            尊敬的陈先生，我是您的专属定制管家小苏。工坊目前正在为您推进「意式深海蓝150支手工西装」的毛样试衣准备，请问有什么可以协助您？
+            尊**先生，我是您的专属定制管家小苏。工坊目前正在为您推进「意式深海蓝150支手工西装」的毛样试衣准备，请问有什么可以协助您？
           </div>
         </div>
         <div style="border-top:1px solid var(--color-border-light); padding-top:10px;">
@@ -1665,7 +1665,7 @@
         vent: '双开衩 (英式)'
       },
       qipaoConfig: {
-        collar: '上海圆立领',
+        collar: '**圆立领',
         placket: '斜襟 (经典传统)',
         button: '纯手工一字扣'
       },
@@ -1674,7 +1674,7 @@
         color: '香槟金'
       },
       measurements: {
-        owner: '陈先生 (本人)',
+        owner: '**先生 (本人)',
         neck: 39.5,
         shoulder: 46.0,
         chest: 102.0,
@@ -1687,11 +1687,11 @@
       appointment: {
         mode: 'store', // 'store' | 'home'
         studio: '工坊静安VIP接待馆',
-        address: '上海市徐汇区龙腾大道3388号 1202室',
+        address: **大道**号 1202室',
         date: '2026-09-05',
         time: '14:00 - 15:30',
         tailor: '周高级量体师',
-        client: '陈先生 (138****5821)'
+        client: '**先生 (138**5821)'
       }
     };
 
@@ -1971,9 +1971,9 @@
         const replyMsg = document.createElement('div');
         replyMsg.className = 'chat-bubble chat-bubble-butler';
         if (text.includes('交付') || text.includes('哪天')) {
-          replyMsg.textContent = '陈先生，当前西服工期预计在 9月18日 前完成终烫与防尘礼盒封装，若试衣一次过关可再提前2天。';
+          replyMsg.textContent = '**先生，当前西服工期预计在 9月18日 前完成终烫与防尘礼盒封装，若试衣一次过关可再提前2天。';
         } else if (text.includes('上门') || text.includes('出差')) {
-          replyMsg.textContent = '完全没问题，周师傅可以携带专用立裁工具包专车前往您的办公地点试衣，我们提前1天与您最终确认。';
+          replyMsg.textContent = '完全没问题，**师傅可以携带专用立裁工具包专车前往您的办公地点试衣，我们提前1天与您最终确认。';
         } else if (text.includes('马甲')) {
           replyMsg.textContent = '同款英国世家羊毛马甲定制参考价为 ¥1,280，可以共享本次已录入的三围胸腰版型，无需重复量体。';
         } else {

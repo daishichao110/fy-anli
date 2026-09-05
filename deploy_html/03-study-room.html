@@ -1389,10 +1389,10 @@
           
           <!-- Area Filters -->
           <div class="filter-tabs-row" id="areaFilterRow">
-            <div class="filter-chip active" onclick="filterArea('全部', this)">全部区域 (24)</div>
-            <div class="filter-chip" onclick="filterArea('沉浸暗光区', this)">沉浸暗光区</div>
-            <div class="filter-chip" onclick="filterArea('阳光卡座区', this)">阳光卡座区</div>
-            <div class="filter-chip" onclick="filterArea('考研静音区', this)">考研静音区</div>
+            <div class="filter-chip active" onclick="filterArea('全部', this)">**区域 (24)</div>
+            <div class="filter-chip" onclick="filterArea('**区', this)">**区</div>
+            <div class="filter-chip" onclick="filterArea('**区', this)">**区</div>
+            <div class="filter-chip" onclick="filterArea('**区', this)">**区</div>
             <div class="filter-chip" onclick="filterArea('独立电话间', this)">独立电话间</div>
           </div>
 
@@ -1411,7 +1411,7 @@
             <!-- Door Entry Representation -->
             <div class="floorplan-door-bar">
               <svg class="svg-icon" style="width:12px;height:12px;margin-right:4px;" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
-              <span>自习区门禁入口 · 静音软垫走廊</span>
+              <span>**区门禁入口 · 静音软垫走廊</span>
             </div>
 
             <!-- Grid of 24 Seats -->
@@ -1426,7 +1426,7 @@
               <div>
                 <div style="display:flex;align-items:center;gap:6px;">
                   <b style="font-size:16px;color:var(--color-primary);" id="drawerSeatCode">B-06</b>
-                  <span class="user-tag-badge" id="drawerSeatArea">沉浸暗光区</span>
+                  <span class="user-tag-badge" id="drawerSeatArea">**区</span>
                 </div>
                 <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;" id="drawerSeatFeatures">
                   配备 220V独立电源 · 无极护眼台灯 · 静音隔音挡板
@@ -1470,7 +1470,7 @@
 
           <!-- Focus Countdown Dial Card -->
           <div class="timer-card">
-            <div class="timer-seat-label" id="consoleSeatLabel">当前卡座: B-06 (沉浸暗光区)</div>
+            <div class="timer-seat-label" id="consoleSeatLabel">当前卡座: B-06 (**区)</div>
             <div class="timer-digits" id="countdownDisplay">02:45:18</div>
             <div class="timer-progress-track">
               <div class="timer-progress-bar" id="countdownProgressBar"></div>
@@ -1497,7 +1497,7 @@
             </div>
 
             <!-- Door Access Unlock -->
-            <div class="control-btn-card" onclick="triggerDoorOpen('自习区大门')">
+            <div class="control-btn-card" onclick="triggerDoorOpen('**区大门')">
               <div class="control-icon-circle" style="background:var(--color-accent-light);color:var(--color-accent);">
                 <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
               </div>
@@ -1742,7 +1742,7 @@
             <div style="background:var(--color-bg-elevated);border-radius:var(--radius-lg);padding:14px;text-align:center;margin-bottom:12px;">
               <div style="font-size:12px;color:var(--color-text-secondary);">分配柜号</div>
               <div style="font-size:24px;font-weight:900;color:var(--color-primary);margin:4px 0;">Locker #16</div>
-              <div style="font-size:11px;color:var(--color-text-muted);">位于前台服务区右侧储物区</div>
+              <div style="font-size:11px;color:var(--color-text-muted);">**区**区</div>
             </div>
 
             <div style="background:var(--color-accent-light);border:1px dashed var(--color-accent);border-radius:var(--radius-md);padding:10px;text-align:center;margin-bottom:14px;">
@@ -1771,7 +1771,7 @@
           </div>
           <div class="modal-body" style="font-size:12px;display:flex;flex-direction:column;gap:8px;">
             <p><b>1. 静音规范：</b>全室请将手机保持静音或振动；接打电话请移步独立电话间。</p>
-            <p><b>2. 键盘鼠标：</b>暗光沉浸区严禁青轴等机械发声键盘，如需打字请移步阳光卡座区。</p>
+            <p><b>2. 键盘鼠标：</b>**区严禁青轴等机械发声键盘，如需打字请**区。</p>
             <p><b>3. 离开保留：</b>如需就餐或短暂离开，请在中控台开启“临时离开保留”，单次最长保留30分钟。</p>
             <p><b>4. 电源自控：</b>结束自习离店前，请点击“结束自习”，系统将自动断电并释放工位。</p>
             <button class="btn btn-primary btn-block" style="margin-top:10px;" onclick="closeModal('modalRules')">我已充分阅读并遵守</button>
@@ -1825,7 +1825,7 @@
 
             <div class="card" style="margin-bottom:8px;">
               <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                <b style="font-size:13px;">A-02 阳光卡座区 (2小时)</b>
+                <b style="font-size:13px;">A-02 **区 (2小时)</b>
                 <span class="user-tag-badge" style="background:var(--color-bg-elevated);color:var(--color-text-secondary);border-color:var(--color-border);">已完结</span>
               </div>
               <div style="font-size:11px;color:var(--color-text-secondary);">单号: ORD-20260902-1409 · 消费: ¥15.00</div>
@@ -1962,7 +1962,7 @@
       session: {
         isActive: true,
         seatCode: 'B-06',
-        seatArea: '沉浸暗光区',
+        seatArea: '**区',
         seatDesc: '配备 220V独立电源 · 无极调光台灯 · 静音隔板',
         startTime: '10:15',
         endTime: '14:15',
@@ -1983,30 +1983,30 @@
 
       // 24 Seats mock data
       seats: [
-        { id: 1, code: 'A-01', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
-        { id: 2, code: 'A-02', area: '沉浸暗光区', status: 'occupied', socket: true, lamp: true },
-        { id: 3, code: 'A-03', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
-        { id: 4, code: 'A-04', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
-        { id: 5, code: 'A-05', area: '沉浸暗光区', status: 'reserved', socket: true, lamp: true },
-        { id: 6, code: 'A-06', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
-        { id: 7, code: 'A-07', area: '沉浸暗光区', status: 'idle', socket: true, lamp: true },
-        { id: 8, code: 'A-08', area: '沉浸暗光区', status: 'occupied', socket: true, lamp: true },
+        { id: 1, code: 'A-01', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 2, code: 'A-02', area: '**区', status: 'occupied', socket: true, lamp: true },
+        { id: 3, code: 'A-03', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 4, code: 'A-04', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 5, code: 'A-05', area: '**区', status: 'reserved', socket: true, lamp: true },
+        { id: 6, code: 'A-06', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 7, code: 'A-07', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 8, code: 'A-08', area: '**区', status: 'occupied', socket: true, lamp: true },
         
-        { id: 9, code: 'B-01', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
-        { id: 10, code: 'B-02', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
-        { id: 11, code: 'B-03', area: '阳光卡座区', status: 'occupied', socket: true, lamp: true },
-        { id: 12, code: 'B-04', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
-        { id: 13, code: 'B-05', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
-        { id: 14, code: 'B-06', area: '阳光卡座区', status: 'occupied', socket: true, lamp: true }, // Current Session
-        { id: 15, code: 'B-07', area: '阳光卡座区', status: 'idle', socket: true, lamp: true },
-        { id: 16, code: 'B-08', area: '阳光卡座区', status: 'reserved', socket: true, lamp: true },
+        { id: 9, code: 'B-01', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 10, code: 'B-02', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 11, code: 'B-03', area: '**区', status: 'occupied', socket: true, lamp: true },
+        { id: 12, code: 'B-04', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 13, code: 'B-05', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 14, code: 'B-06', area: '**区', status: 'occupied', socket: true, lamp: true }, // Current Session
+        { id: 15, code: 'B-07', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 16, code: 'B-08', area: '**区', status: 'reserved', socket: true, lamp: true },
 
-        { id: 17, code: 'C-01', area: '考研静音区', status: 'idle', socket: true, lamp: true },
-        { id: 18, code: 'C-02', area: '考研静音区', status: 'idle', socket: true, lamp: true },
-        { id: 19, code: 'C-03', area: '考研静音区', status: 'occupied', socket: true, lamp: true },
-        { id: 20, code: 'C-04', area: '考研静音区', status: 'idle', socket: true, lamp: true },
-        { id: 21, code: 'C-05', area: '考研静音区', status: 'idle', socket: true, lamp: true },
-        { id: 22, code: 'C-06', area: '考研静音区', status: 'reserved', socket: true, lamp: true },
+        { id: 17, code: 'C-01', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 18, code: 'C-02', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 19, code: 'C-03', area: '**区', status: 'occupied', socket: true, lamp: true },
+        { id: 20, code: 'C-04', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 21, code: 'C-05', area: '**区', status: 'idle', socket: true, lamp: true },
+        { id: 22, code: 'C-06', area: '**区', status: 'reserved', socket: true, lamp: true },
 
         { id: 23, code: 'D-01', area: '独立电话间', status: 'idle', socket: true, lamp: true },
         { id: 24, code: 'D-02', area: '独立电话间', status: 'idle', socket: true, lamp: true }

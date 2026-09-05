@@ -397,7 +397,7 @@
       margin-bottom: 14px;
     }
 
-    /* Grid Categories (5 宫格金刚区) */
+    /* Grid Categories (5 **区) */
     .grid-nav {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1287,9 +1287,9 @@
           <div class="search-input-fake" onclick="MedicalMp.openSearchModal()">
             <!-- Search SVG -->
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <span>搜索项目、医生、皮肤问题...</span>
+            <span>搜索项目、**人员、皮肤问题...</span>
           </div>
-          <div class="clinic-picker-btn" onclick="MedicalMp.showActionSheet('院区咨询', ['国金中心总院：010-8801****', '科技园分院：010-8802****', '在线美学顾问 24h'])">
+          <div class="clinic-picker-btn" onclick="MedicalMp.showActionSheet('院区咨询', ['国金中心总院：010-8801**', '**园区分院：010-8802**', '在线美学** 24h'])">
             <!-- MapPin SVG -->
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span>导诊</span>
@@ -1438,7 +1438,7 @@
           <div class="catalog-content" id="catalogContent">
             <!-- Category Banner -->
             <div class="catalog-banner">
-              <span class="catalog-banner-text" id="catalogBannerTitle">光电抗衰专区 · 科学淡纹紧致</span>
+              <span class="catalog-banner-text" id="catalogBannerTitle">**区 · 科学淡纹紧致</span>
               <span class="tag tag-gold">官方溯源认证</span>
             </div>
             <!-- Dynamic Items Container -->
@@ -1456,11 +1456,11 @@
           <!-- Clinic Selector -->
           <div class="form-group-title">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>就诊院区选择</span>
+            <span>**区选择</span>
           </div>
           <div class="clinic-selector-row">
             <div class="clinic-pill active" id="clinicPill0" onclick="MedicalMp.selectBookingClinic(0, '国金中心总院')">国金旗舰总院 (市中心)</div>
-            <div class="clinic-pill" id="clinicPill1" onclick="MedicalMp.selectBookingClinic(1, '科技园名医分院')">科技园名医分院</div>
+            <div class="clinic-pill" id="clinicPill1" onclick="MedicalMp.selectBookingClinic(1, '**园区名医分院')">**园区名医分院</div>
           </div>
 
           <!-- Project Select Display -->
@@ -1491,11 +1491,11 @@
             <span>主治医师排班</span>
           </div>
           <div class="doctor-card-list">
-            <div class="doctor-card active" id="docCard0" onclick="MedicalMp.selectDoctor(0, '周景和 (副主任医师)')">
+            <div class="doctor-card active" id="docCard0" onclick="MedicalMp.selectDoctor(0, '周景和 (副**医师)')">
               <div class="doctor-info-left">
                 <div class="doctor-avatar-circle">周</div>
                 <div class="doctor-name-box">
-                  <b>周景和 · 副主任医师</b>
+                  <b>周景和 · 副**医师</b>
                   <div class="doctor-specialty">从业18年 · 擅长光电联合淡斑与抗衰</div>
                 </div>
               </div>
@@ -1532,8 +1532,8 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>到店就诊人信息</span>
           </div>
-          <input type="text" class="input-field" id="bookingNameInput" value="林女士 (已实名)" placeholder="就诊人姓名">
-          <input type="text" class="input-field" id="bookingPhoneInput" value="138****6621" placeholder="联系手机号">
+          <input type="text" class="input-field" id="bookingNameInput" value="**女士 (已实名)" placeholder="就诊人姓名">
+          <input type="text" class="input-field" id="bookingPhoneInput" value="138**6621" placeholder="联系手机号">
           <input type="text" class="input-field" id="bookingNoteInput" placeholder="个性化备注 (如：近期泛红敏感、对痛感敏感等)">
 
           <!-- Submit Button -->
@@ -1558,8 +1558,8 @@
             <div class="vip-user-row">
               <div class="vip-avatar">林</div>
               <div>
-                <div class="vip-name">林女士</div>
-                <div class="vip-phone">138****6621 · 会员成长值 2,480</div>
+                <div class="vip-name">**女士</div>
+                <div class="vip-phone">138**6621 · 会员成长值 2,480</div>
               </div>
             </div>
             <div class="vip-assets-row">
@@ -1639,7 +1639,7 @@
               </div>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
-            <div class="menu-row" onclick="MedicalMp.showActionSheet('联系专属顾问', ['呼叫国金旗舰前台：010-8801****', '呼叫值班主治医师', '在线美学顾问企微对接'])">
+            <div class="menu-row" onclick="MedicalMp.showActionSheet('联系专属**', ['呼叫国金旗舰前台：010-8801**', '呼叫值班主治医师', '在线美学**企微对接'])">
               <div class="menu-left">
                 <!-- Headphones SVG -->
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
@@ -1703,10 +1703,10 @@
           <!-- Dynamic Project Details -->
         </div>
         <div style="margin-top: 18px; display:flex; gap:10px;">
-          <button class="btn btn-outline" style="flex:1;" onclick="MedicalMp.showActionSheet('联系美学顾问', ['电话咨询项目禁忌', '预约到店面诊'])">
+          <button class="btn btn-outline" style="flex:1;" onclick="MedicalMp.showActionSheet('联系美学**', ['电话咨询项目禁忌', '预约到店面诊'])">
             <!-- MessageCircle SVG -->
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            <span>咨询顾问</span>
+            <span>咨询**</span>
           </button>
           <button class="btn btn-primary" style="flex:2;" id="drawerBookBtn" onclick="MedicalMp.bookFromDrawer()">
             <!-- Calendar SVG -->
@@ -1757,9 +1757,9 @@
         <div style="font-size:14px; font-weight:800; letter-spacing:2px; color:var(--color-primary); margin-bottom:12px;" id="voucherCode">8820 - 9912</div>
 
         <div style="background:#F8FAFC; border-radius:var(--radius-sm); padding:10px; font-size:11px; color:var(--color-text-body); text-align:left; line-height:1.6; border:1px solid var(--color-border-light); margin-bottom:14px;">
-          <div><b>就诊院区：</b><span id="voucherClinic">**轻医美·国金旗舰总院</span></div>
+          <div><b>**区：</b><span id="voucherClinic">**轻医美·国金旗舰总院</span></div>
           <div><b>就诊项目：</b><span id="voucherProject">第七代超光子全模式</span></div>
-          <div><b>主治医师：</b><span id="voucherDoctor">周景和 (副主任医师)</span></div>
+          <div><b>主治医师：</b><span id="voucherDoctor">周景和 (副**医师)</span></div>
           <div><b>预约时段：</b><span id="voucherTime">2026-09-05 14:00 - 15:00</span></div>
         </div>
 
@@ -1775,7 +1775,7 @@
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
           <div style="flex:1; display:flex; align-items:center; background:#F1F5F9; border-radius:var(--radius-pill); padding:0 12px; height:36px; gap:8px;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="liveSearchInput" placeholder="输入超光子、水光、医生姓名..." style="border:none; background:transparent; font-size:12px; outline:none; width:100%;" oninput="MedicalMp.handleLiveSearch(this.value)">
+            <input type="text" id="liveSearchInput" placeholder="输入超光子、水光、**人员姓名..." style="border:none; background:transparent; font-size:12px; outline:none; width:100%;" oninput="MedicalMp.handleLiveSearch(this.value)">
           </div>
           <span style="font-size:12px; color:var(--color-primary); font-weight:600; cursor:pointer;" onclick="MedicalMp.closeSearchModal()">取消</span>
         </div>
@@ -1783,7 +1783,7 @@
         <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
           <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('超光子')">超光子嫩肤</span>
           <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('水光')">高纯玻尿酸水光</span>
-          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('周景和')">周景和主任</span>
+          <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('周景和')">周景和**</span>
           <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('VISIA')">VISIA全脸检测</span>
           <span class="tag tag-gray" style="cursor:pointer;" onclick="MedicalMp.applySearchKeyword('舒敏')">舒敏维稳修护</span>
         </div>
@@ -1816,7 +1816,7 @@
         currentTab: 0,
         currentCategory: 'laser',
         selectedClinic: '**轻医美 · 国金旗舰总院',
-        selectedDoctor: '周景和 (副主任医师)',
+        selectedDoctor: '周景和 (副**医师)',
         selectedProject: null,
         selectedDate: '2026-09-05',
         selectedSlot: '14:00 - 15:00',
@@ -1835,7 +1835,7 @@
               duration: '45分钟',
               details: {
                 theory: '运用强脉冲光精准选择性光热作用原理，闭合异常扩张毛细血管，瓦解表层色素颗粒，同时刺激真皮胶原新生。',
-                steps: ['温和卸妆洁面', 'VISIA全脸高清照相检测', '均匀涂抹高透医用冷凝胶', '主治医师多波段精准靶向操作', '术后医用冷敷贴镇静舒缓'],
+                steps: ['温和卸妆洁面', 'VISIA全脸高清照相检测', '均匀涂抹高透医用冷凝胶', '主治医师多波段精准靶向操作', '术**镇静舒缓'],
                 aftercare: '治疗后72小时避免热水洗脸，连续7天严格使用SPF50+物理防晒，停用一切强剥脱酸类护肤品。'
               }
             },
@@ -1843,13 +1843,13 @@
               id: 'PRJ-L2',
               title: '双极黄金射频微针 · 胶原紧实重塑',
               desc: '微针穿透联合点阵射频，紧致毛孔与抚平细纹',
-              tags: ['正品探头一客一换', '副主任医师亲操'],
+              tags: ['正品探头一客一换', '副**医师亲操'],
               price: 1380,
               originalPrice: 2680,
               duration: '60分钟',
               details: {
                 theory: '绝缘微针机械点阵穿透至真皮层，尖端释放高频射频能量，直接诱发胶原纤维即刻收缩与后续胶原新生。',
-                steps: ['舒缓表麻敷贴 (30min)', '全脸消毒与仪器探头验真', '医师精细分区能量操作', '重组人胶原冷敷敷料即刻冷喷', '建立就诊跟踪档案'],
+                steps: ['舒缓表麻敷贴 (30min)', '全脸消毒与仪器探头验真', '**区能量操作', '重组人胶原冷敷敷料即刻冷喷', '建立就诊跟踪档案'],
                 aftercare: '术后24小时内不碰生水，建议使用医用无菌生理盐水轻拭，使用指定医用修护乳。'
               }
             },
@@ -1863,7 +1863,7 @@
               duration: '40分钟',
               details: {
                 theory: '皮秒级脉宽产生强大光震波效应，将黑色素颗粒震碎为细微粉尘状，通过巨噬细胞自然代谢排出体外。',
-                steps: ['皮肤色斑深度检测', '局部精准能量测试', '主治医师全脸扫描操作', '医用无菌镇静贴敷', '发放术后避光医嘱卡'],
+                steps: ['皮肤色斑深度检测', '局部精准能量测试', '主治医师全脸扫描操作', '**镇静贴敷', '发放术后避光医嘱卡'],
                 aftercare: '返家后结痂处自然脱落，严禁抠抓；两周内避免剧烈运动与桑拿暴晒。'
               }
             }
@@ -1879,7 +1879,7 @@
               duration: '50分钟',
               details: {
                 theory: '通过智能负压水光仪器，将医用非交联透明质酸均匀精准输送至中胚层，提高真皮细胞含水量。',
-                steps: ['医学无菌洁面', '全脸舒缓麻膏敷贴', '负压针头扫码验真', '规范深度推注操作', '医疗级降温镇静'],
+                steps: ['医学无菌洁面', '全脸舒缓麻膏敷贴', '负压针头扫码验真', '规范深度推注操作', '**镇静'],
                 aftercare: '术后48小时后可正常化淡妆，前三天每日敷贴一剂医用修护贴，增加保湿饮水。'
               }
             },
@@ -1978,7 +1978,7 @@
             id: 'ZY-20260905-1420',
             projectName: '第七代超光子嫩肤 (全模式三合一)',
             clinic: '国金中心总院',
-            doctor: '周景和 (副主任医师)',
+            doctor: '周景和 (副**医师)',
             time: '2026-09-05 14:00 - 15:00',
             status: 'pending',
             statusText: '待到店服务',
@@ -1988,7 +1988,7 @@
             id: 'ZY-20260818-4432',
             projectName: '舒敏之星 · 屏障急救增厚维稳',
             clinic: '国金中心总院',
-            doctor: '周景和 (副主任医师)',
+            doctor: '周景和 (副**医师)',
             time: '2026-08-18 15:00',
             status: 'completed',
             statusText: '已完成服务',
@@ -2101,11 +2101,11 @@
         });
 
         const catTitles = {
-          laser: '光电抗衰专区 · 科学淡纹紧致',
-          meso: '水光修护专区 · 补水深润维稳',
-          repair: '舒敏维稳专区 · 屏障急救修红',
-          clean: '深层焕肤专区 · 毛孔生态洁净',
-          inject: '注射塑颜专区 · 医师精准定点'
+          laser: '**区 · 科学淡纹紧致',
+          meso: '**区 · 补水深润维稳',
+          repair: '**区 · 屏障急救修红',
+          clean: '**区 · 毛孔生态洁净',
+          inject: '**区 · 医师精准定点'
         };
         document.getElementById('catalogBannerTitle').innerText = catTitles[catKey] || '专区精选';
         renderCategoryProducts();
@@ -2246,8 +2246,8 @@
       }
 
       function submitBookingForm() {
-        const name = document.getElementById('bookingNameInput').value.trim() || '林女士';
-        const phone = document.getElementById('bookingPhoneInput').value.trim() || '138****6621';
+        const name = document.getElementById('bookingNameInput').value.trim() || '**女士';
+        const phone = document.getElementById('bookingPhoneInput').value.trim() || '138**6621';
         const project = state.selectedProject ? state.selectedProject.title : '第七代超光子嫩肤 (全模式)';
 
         // Create appointment record
@@ -2320,7 +2320,7 @@
                 ` : ''}
                 ${b.status === 'serving' ? `
                   <button class="btn btn-primary btn-sm" onclick="MedicalMp.viewVoucher('${b.id}')">出示核销码</button>
-                  <button class="btn btn-subtle btn-sm" onclick="MedicalMp.showActionSheet('服务进度', ['已完成术前测肤', '正在进行冷凝胶敷贴', '联系巡回护士'])">查看进度</button>
+                  <button class="btn btn-subtle btn-sm" onclick="MedicalMp.showActionSheet('服务进度', ['已完成术前测肤', '正在进行冷凝胶敷贴', '联**护士'])">查看进度</button>
                 ` : ''}
                 ${b.status === 'completed' ? `
                   <button class="btn btn-subtle btn-sm" onclick="MedicalMp.openRadarModal()">就诊复盘报告</button>
@@ -2357,7 +2357,7 @@
         const item = state.bookings.find(b => b.id === id);
         if (item) {
           document.getElementById('voucherTitle').innerText = '到店核销电子单';
-          document.getElementById('voucherSub').innerText = '请向接诊医生或前台出示该条码';
+          document.getElementById('voucherSub').innerText = '请向接诊**人员或前台出示该条码';
           document.getElementById('voucherCode').innerText = item.verifyCode;
           document.getElementById('voucherClinic').innerText = item.clinic;
           document.getElementById('voucherProject').innerText = item.projectName;
@@ -2523,7 +2523,7 @@
 
         if (matches.length === 0) {
           resultsContainer.innerHTML = `
-            <div style="font-size:11px; color:var(--color-text-muted); text-align:center; padding:16px;">未匹配到相关项目，可咨询专属顾问获取定制建议</div>
+            <div style="font-size:11px; color:var(--color-text-muted); text-align:center; padding:16px;">未匹配到相关项目，可咨询专属**获取定制建议</div>
           `;
           return;
         }
@@ -2564,9 +2564,9 @@
       }
 
       function toggleClinicSelector() {
-        showActionSheet('切换默认院区', [
+        showActionSheet('**区', [
           '**轻医美 · 国金旗舰总院 (市中心CBD)',
-          '**轻医美 · 科技园名医分院 (南山科创园)'
+          '**轻医美 · **园区名医分院 (**科创园)'
         ]);
       }
 

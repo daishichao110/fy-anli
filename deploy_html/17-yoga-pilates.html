@@ -130,7 +130,7 @@
       background: rgba(0, 0, 0, 0.1);
     }
 
-    /* 小程序主体滚动视区 */
+    /* 小程**区 */
     .mp-body {
       flex: 1;
       overflow-y: auto;
@@ -1006,7 +1006,7 @@
       </div>
     </div>
 
-    <!-- 3. 主体内容滚动视区 -->
+    <!-- 3. 主**区 -->
     <div class="mp-body" id="mp-scroll-body">
 
       <!-- ================= Tab 0: 课表预约 ================= -->
@@ -1017,7 +1017,7 @@
             <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             <div>
               <div class="branch-title" id="current-branch-name">静安恒隆概念店 (首店)</div>
-              <div style="font-size:10px; color:var(--text-tertiary); margin-top:1px;">南京西路1266号恒隆广场5层</div>
+              <div style="font-size:10px; color:var(--text-tertiary); margin-top:1px;"**路**号恒隆广场5层</div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:4px;">
@@ -1179,7 +1179,7 @@
             <div class="profile-avatar">林</div>
             <div>
               <div class="profile-name">林* 学员</div>
-              <div style="font-size:11px; opacity:0.8; margin-top:2px;">手机：138****8890</div>
+              <div style="font-size:11px; opacity:0.8; margin-top:2px;">手机：138**8890</div>
               <span class="profile-tier">黑金尊享会员</span>
             </div>
           </div>
@@ -1263,7 +1263,7 @@
           <div class="menu-item" onclick="openSupportModal()">
             <div class="menu-left">
               <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>联系专属私享客服顾问</span>
+              <span>联系专属私享客服**</span>
             </div>
             <div class="menu-right">
               <span>在线</span>
@@ -1343,7 +1343,7 @@
     <div class="modal-overlay" id="qr-modal-overlay" onclick="handleModalOverlayClick(event, "qr-modal-overlay")">
       <div class="modal-card" style="text-align:center;">
         <div style="font-size:15px; font-weight:700; margin-bottom:4px;">入场闸机电子凭证</div>
-        <div style="font-size:11px; color:var(--text-tertiary);">请将二维码对准场馆闸机扫码区</div>
+        <div style="font-size:11px; color:var(--text-tertiary);">请将二维码对准**区</div>
         <div style="background:var(--bg-page); padding:20px; border-radius:14px; margin:16px auto; display:inline-block; border:1px solid var(--border-light);">
           <!-- 仿真二维码矢量绘制 -->
           <svg width="140" height="140" viewBox="0 0 140 140">
@@ -1439,7 +1439,7 @@
         </div>
         <div style="background:var(--bg-page); padding:10px; border-radius:8px; font-size:11px; color:var(--text-tertiary); line-height:1.5; margin-bottom:12px;">
           营业时间：周一至周日 09:00 - 21:30<br>
-          全国统一私享专线：400-820-****
+          全国统一私享专线：400-820-**
         </div>
         <button class="sheet-btn-primary" style="padding:10px;" onclick="closeAboutModal()">关闭</button>
       </div>
@@ -1458,9 +1458,9 @@
     // 状态数据中心
     const State = {
       branches: [
-        { id: "b1", name: "静安恒隆概念店 (首店)", address: "南京西路1266号恒隆广场5层", desc: "4间核心床阳光房 · 2间凯迪拉克私教厅" },
-        { id: "b2", name: "前滩太古里旗舰空间", address: "东育路500号前滩太古里木区3层", desc: "全进口大器械配备 · 附设沉浸式普拉提露台" },
-        { id: "b3", name: "新天地石库门独栋馆", address: "马当路245号新天地时尚一期4层", desc: "私密一对一静谧包房 · 专项体态测量中心" }
+        { id: "b1", name: "静安恒隆概念店 (首店)", address: "**路**号恒隆广场5层", desc: "4间核心床阳光房 · 2间凯迪拉克私教厅" },
+        { id: "b2", name: "前滩太古里旗舰空间", address: "**路**号**区3层", desc: "全进口大器械配备 · 附设沉浸式普拉提露台" },
+        { id: "b3", name: "新天地石库门独栋馆", address: "**路**号新天地时尚一期4层", desc: "私密一对一静谧包房 · 专项体态测量中心" }
       ],
       selectedBranchId: "b1",
       currentTab: 0,
@@ -1942,7 +1942,7 @@
 
     // 预约私教档期
     function openPrivateCoachSheet(coachName) {
-      showToast("已发起 " + coachName + " 私教档期预约申请，专属顾问将与您确认");
+      showToast("已发起 " + coachName + " 私教档期预约申请，专属**将与您确认");
     }
 
     // 取消预约流程
@@ -2066,7 +2066,7 @@
       showToast("守则说明：开课前4小时免费取消，超时将计扣课时");
     }
     function openSupportModal() {
-      showToast("已连线专属客服顾问，当前排队第 1 位");
+      showToast("已连线专属客服**，当前排队第 1 位");
     }
 
     // 蒙层点击关闭防护

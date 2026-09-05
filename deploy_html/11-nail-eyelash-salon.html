@@ -195,7 +195,7 @@
       background: var(--color-border-subtle);
     }
 
-    /* 主视口滚动区域 (Semantic Main) */
+    /* **区域 (Semantic Main) */
     main.mp-scroll-content {
       flex: 1;
       overflow-y: auto;
@@ -362,7 +362,7 @@
       background: var(--color-primary-light);
     }
 
-    /* 金刚区 4 宫格导航 */
+    /* **区 4 宫格导航 */
     .grid-nav {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1345,7 +1345,7 @@
       </div>
     </header>
 
-    <!-- 主视口可滚动内容区 (Semantic Main) -->
+    <!-- 主视**区 (Semantic Main) -->
     <main class="mp-scroll-content">
 
       <!-- ==============================================================
@@ -1380,7 +1380,7 @@
           </div>
         </section>
 
-        <!-- 金刚区 4 宫格导航 (直接联动至款式库不同分类) -->
+        <!-- **区 4 宫格导航 (直接联动至款式库不同分类) -->
         <section class="salon-section">
           <div class="grid-nav">
             <div class="grid-nav-item" onclick="switchCategoryFromHome('nail')">
@@ -1452,7 +1452,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
               </div>
               <div class="tech-name">林* 导师</div>
-              <div class="tech-role">美睫总监 / 6年</div>
+              <div class="tech-role">美睫** / 6年</div>
               <div class="tech-specialty">擅长山茶花绽放嫁接、空气扁毛</div>
               <button class="tech-book-btn" onclick="bookWithTech('t2')">预约档期</button>
             </div>
@@ -1460,7 +1460,7 @@
               <div class="tech-avatar">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
               </div>
-              <div class="tech-name">欣* 技师</div>
+              <div class="tech-name">欣* **人员</div>
               <div class="tech-role">高级手绘师 / 4年</div>
               <div class="tech-specialty">擅长法式微光渐变、冰透猫眼</div>
               <button class="tech-book-btn" onclick="bookWithTech('t3')">预约档期</button>
@@ -1556,7 +1556,7 @@
               </div>
               <div>
                 <div class="tech-pick-title">林* 导师</div>
-                <div class="tech-pick-desc">美睫总监</div>
+                <div class="tech-pick-desc">美睫**</div>
               </div>
             </div>
             <div class="tech-pick-cell" onclick="selectBookingTech('t3', this)">
@@ -1564,7 +1564,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
               </div>
               <div>
-                <div class="tech-pick-title">欣* 技师</div>
+                <div class="tech-pick-title">欣* **人员</div>
                 <div class="tech-pick-desc">微光猫眼</div>
               </div>
             </div>
@@ -1646,9 +1646,9 @@
             
             <div class="input-row">
               <label for="booking-contact-phone">联系电话</label>
-              <input type="text" class="input-field" id="booking-contact-phone" value="138****9217" placeholder="请输入联系手机" oninput="clearFormError('phone')">
+              <input type="text" class="input-field" id="booking-contact-phone" value="138**9217" placeholder="请输入联系手机" oninput="clearFormError('phone')">
             </div>
-            <div class="form-error-tip" id="error-phone">请输入11位手机号码或脱敏手机号（如：138****9217）</div>
+            <div class="form-error-tip" id="error-phone">请输入11位手机号码或脱敏手机号（如：138**9217）</div>
 
             <div class="input-row">
               <label for="booking-contact-remark">特殊备注</label>
@@ -1681,7 +1681,7 @@
                   <span class="vip-name">沈*女士</span>
                   <span class="vip-badge">黑金甄选会员</span>
                 </div>
-                <div class="vip-phone">手机：138****9217 | 已绑定专属美丽管家</div>
+                <div class="vip-phone">手机：138**9217 | 已绑定专属美丽管家</div>
               </div>
             </div>
             <div class="vip-stats-row">
@@ -1733,7 +1733,7 @@
               </div>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
-            <div class="menu-item-row" onclick="showToast('常用联系人：沈*女士 (138****9217)')">
+            <div class="menu-item-row" onclick="showToast('常用联系人：沈*女士 (138**9217)')">
               <div class="menu-item-left">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>常用到店人信息管理</span>
@@ -2134,7 +2134,7 @@
         },
         tea: '玫瑰花茶',
         name: '沈*女士',
-        phone: '138****9217',
+        phone: '138**9217',
         remark: ''
       },
 
@@ -2163,7 +2163,7 @@
         {
           id: 'MJ-20260828-3019',
           title: '法式裸粉微光晕染甲',
-          tech: '欣* 技师',
+          tech: '欣* **人员',
           time: '2026-08-28 11:00',
           price: 158,
           status: 'completed',
@@ -2401,7 +2401,7 @@
       showToast('恭喜！¥30专属立减券已存入您的卡券包');
     }
 
-    // 金刚区快速跳转分类
+    // **区快速跳转分类
     function switchCategoryFromHome(categoryKey) {
       switchTab(1);
       AppStore.catalogFilter.category = categoryKey;
@@ -2531,7 +2531,7 @@
 
       // 校验联系电话 (支持真实11位或脱敏带*号手机号)
       const phoneRegex = /^1[3-9](\d{9}|\*{4}\d{4}|\d{2}\*{4}\d{3})$/;
-      if (!phoneVal || (!phoneRegex.test(phoneVal) && phoneVal !== '138****9217')) {
+      if (!phoneVal || (!phoneRegex.test(phoneVal) && phoneVal !== '138**9217')) {
         phoneInput.classList.add('input-error');
         document.getElementById('error-phone').style.display = 'block';
         hasError = true;

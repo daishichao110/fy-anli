@@ -128,7 +128,7 @@
       background: rgba(0, 0, 0, 0.1);
     }
 
-    /* 小程序主可滚动区域 */
+    /* 小**区域 */
     .mp-content {
       flex: 1;
       overflow-y: auto;
@@ -259,7 +259,7 @@
       color: var(--text-sub);
     }
 
-    /* Tab 0 门诊挂号专区 */
+    /* Tab 0 **区 */
     .clinic-hero {
       background: linear-gradient(180deg, #0369A1 0%, #0284C7 100%);
       border-radius: var(--radius-card);
@@ -308,7 +308,7 @@
       gap: 4px;
     }
 
-    /* 金刚区 */
+    /* **区 */
     .grid-portal {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -378,7 +378,7 @@
       color: #FFFFFF;
     }
 
-    /* 医生卡片 */
+    /* **人员卡片 */
     .doctor-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -815,7 +815,7 @@
 
     <!-- 微信小程序顶栏与原生胶囊 -->
     <div class="wechat-header">
-      <div class="header-title" id="page-title">专家挂号</div>
+      <div class="header-title" id="page-title">**挂号</div>
       <div class="capsule-btn" onclick="showToast('已载入**齿科专属服务')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="4" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="20" cy="12" r="2.5"/></svg>
         <div class="capsule-divider"></div>
@@ -823,10 +823,10 @@
       </div>
     </div>
 
-    <!-- 小程序滚动内容区 -->
+    <!-- 小**区 -->
     <div class="mp-content" id="mp-scroll">
 
-      <!-- TAB 0: 门诊首页与专家挂号 -->
+      <!-- TAB 0: 门诊首页与**挂号 -->
       <div id="pane-0" class="view-pane active">
         <!-- 门诊信息卡片 -->
         <div class="clinic-hero">
@@ -851,7 +851,7 @@
           </div>
         </div>
 
-        <!-- 4大专科金刚区快捷入口 -->
+        <!-- 4**区快捷入口 -->
         <div class="grid-portal">
           <div class="portal-item" onclick="filterDept('implant')">
             <div class="portal-icon-box">
@@ -887,9 +887,9 @@
           <div class="cat-pill" id="cat-general" onclick="filterDept('general')">口腔综合门诊</div>
         </div>
 
-        <!-- 医生排班列表容器 -->
+        <!-- **人员排班列表容器 -->
         <div id="doctor-list">
-          <!-- JS 动态渲染医生卡片 -->
+          <!-- JS 动态渲染**人员卡片 -->
         </div>
       </div>
 
@@ -942,7 +942,7 @@
           <div style="margin-top:8px;display:flex;gap:4px;">
             <span class="badge badge-primary">三维方案预览</span>
             <span class="badge badge-gray">隐形舒适</span>
-            <span class="badge badge-gray">正畸专科副主任亲诊</span>
+            <span class="badge badge-gray">正畸专科副**亲诊</span>
           </div>
           <div style="display:flex;gap:8px;margin-top:12px;">
             <button class="btn btn-outline" style="flex:1;" onclick="openProjectProcess('ortho')">
@@ -988,7 +988,7 @@
             <span style="font-family:monospace;letter-spacing:0.5px;">#DY-2026-8809</span>
           </div>
           <div style="font-size:16px;font-weight:700;margin-top:2px;">张*生 先生 (就诊卡: 880901)</div>
-          <div style="font-size:11px;opacity:0.85;margin-top:4px;">建档门诊：高新旗舰院 · 主治医生：陈副主任医师</div>
+          <div style="font-size:11px;opacity:0.85;margin-top:4px;">建档门诊：高新旗舰院 · 主治**人员：陈副**医师</div>
 
           <div class="progress-track">
             <div class="progress-bar" id="ortho-progress"></div>
@@ -1033,7 +1033,7 @@
           <div style="font-size:12px;color:var(--text-sub);line-height:1.6;">
             复诊项目：正畸阶段检查 & 第 13-16 步牙套领取<br>
             建议日期：<b id="review-date-text" style="color:var(--text-main);">2026-09-12 (周六) 10:00</b><br>
-            主治门诊：正畸二诊室 (陈副主任医师)
+            主治门诊：正畸二诊室 (陈副**医师)
           </div>
           <div style="display:flex;gap:8px;margin-top:12px;">
             <button class="btn btn-outline" style="flex:1;" onclick="openRescheduleModal()">
@@ -1047,7 +1047,7 @@
 
         <!-- 术后注意事项与医嘱 -->
         <div class="card">
-          <div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:8px;">主治医生特别医嘱</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:8px;">主治**人员特别医嘱</div>
           <div style="font-size:12px;color:var(--text-sub);line-height:1.6;background:#F8FAFC;padding:10px;border-radius:8px;">
             1. 每日佩戴隐形矫治器须保证 20-22 小时；<br>
             2. 进食时请摘下保存于牙套盒中，温水轻刷清洁；<br>
@@ -1066,7 +1066,7 @@
             </div>
             <div>
               <div style="font-size:15px;font-weight:700;color:var(--text-main);" id="profile-name">张*生</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">手机：<span id="profile-phone">138****8890</span> · 金卡就诊会员</div>
+              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">手机：<span id="profile-phone">138**8890</span> · 金卡就诊会员</div>
             </div>
           </div>
           <button class="btn btn-outline" style="font-size:11px;padding:5px 10px;" onclick="openPatientSwitchModal()">
@@ -1138,7 +1138,7 @@
     <div class="mp-tabbar">
       <div class="tabbar-item active" id="tab-0" onclick="switchTab(0)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>专家挂号</span>
+        <span>**挂号</span>
       </div>
       <div class="tabbar-item" id="tab-1" onclick="switchTab(1)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
@@ -1165,7 +1165,7 @@
         </div>
 
         <div style="background:#F8FAFC;padding:10px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color);">
-          <div style="font-size:13px;font-weight:700;color:var(--text-main);" id="drawer-doc-name">林主任医师</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text-main);" id="drawer-doc-name">林**医师</div>
           <div style="font-size:11px;color:var(--text-sub);margin-top:2px;" id="drawer-doc-dept">数字化种植中心 · 门诊302室</div>
         </div>
 
@@ -1183,11 +1183,11 @@
         <div class="patient-strip">
           <div class="patient-pill active" id="bp-P01" onclick="selectBookingPatient('P01')">
             <span>张*生 (本人)</span>
-            <span style="font-size:10px;color:var(--text-muted);">138****8890</span>
+            <span style="font-size:10px;color:var(--text-muted);">138**8890</span>
           </div>
           <div class="patient-pill" id="bp-P02" onclick="selectBookingPatient('P02')">
             <span>李*雅 (家属)</span>
-            <span style="font-size:10px;color:var(--text-muted);">139****6672</span>
+            <span style="font-size:10px;color:var(--text-muted);">139**6672</span>
           </div>
         </div>
 
@@ -1214,7 +1214,7 @@
 
         <div style="background:#F8FAFC;border:1px dashed var(--border-color);border-radius:10px;padding:12px;font-size:12px;line-height:1.7;color:var(--text-sub);margin-bottom:14px;">
           预约单号：<b id="v-apt-id" style="color:var(--text-main);font-family:monospace;">#APT-20260905</b><br>
-          就诊专家：<span id="v-doc" style="color:var(--text-main);font-weight:600;">林主任医师</span><br>
+          就诊**：<span id="v-doc" style="color:var(--text-main);font-weight:600;">林**医师</span><br>
           门诊科室：<span id="v-dept">数字化种植专科</span><br>
           预约时间：<span id="v-time" style="color:var(--primary);font-weight:700;">2026-09-06 09:30</span><br>
           就诊患者：<span id="v-patient">张*生</span>
@@ -1282,14 +1282,14 @@
           <div class="patient-pill" style="padding:12px;" onclick="setActivePatient('P01')">
             <div>
               <div style="font-weight:700;color:var(--text-main);">张*生 (本人)</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880901 · 138****8890</div>
+              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880901 · 138**8890</div>
             </div>
             <span class="badge badge-primary">当前使用</span>
           </div>
           <div class="patient-pill" style="padding:12px;" onclick="setActivePatient('P02')">
             <div>
               <div style="font-weight:700;color:var(--text-main);">李*雅 (家属)</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880902 · 139****6672</div>
+              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880902 · 139**6672</div>
             </div>
             <span class="badge badge-gray">切换</span>
           </div>
@@ -1360,7 +1360,7 @@
         <div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">门诊基本信息与导航指引</div>
         <div style="font-size:12px;color:var(--text-sub);line-height:1.7;margin-bottom:12px;">
           门诊名称：**口腔·数字化种植正畸中心<br>
-          门诊院区：高新旗舰院区 (独栋诊疗大楼)<br>
+          **区：**区 (独栋诊疗大楼)<br>
           详细地址：XX市XX区XX大道XX号XX综合体3层<br>
           接诊时间：周一至周日 09:00 - 18:00<br>
           直达路线：地铁X号线XX站A口出站步行300米，地下停车场配有直达医梯。
@@ -1394,17 +1394,17 @@
       reviewStatus: 'pending', // 'pending' | 'confirmed' | 'rescheduled'
 
       patients: {
-        'P01': { id: 'P01', name: '张*生', phone: '138****8890', relation: '本人', cardNo: 'DY-880901' },
-        'P02': { id: 'P02', name: '李*雅', phone: '139****6672', relation: '家属', cardNo: 'DY-880902' }
+        'P01': { id: 'P01', name: '张*生', phone: '138**8890', relation: '本人', cardNo: 'DY-880901' },
+        'P02': { id: 'P02', name: '李*雅', phone: '139**6672', relation: '家属', cardNo: 'DY-880902' }
       },
 
       doctors: [
         {
           id: 'D01',
-          name: '林主任医师',
+          name: '林**医师',
           dept: 'implant',
           deptLabel: '数字化种植中心',
-          title: '主任医师 · 种植医学博士',
+          title: '**医师 · 种植医学**',
           exp: '22年临床经验',
           tags: ['全口All-on-4', '微创即刻种植', '骨增量疑难修复'],
           room: '种植一诊室 (302室)',
@@ -1413,10 +1413,10 @@
         },
         {
           id: 'D02',
-          name: '陈副主任医师',
+          name: '陈副**医师',
           dept: 'ortho',
           deptLabel: '隐形美学正畸',
-          title: '副主任医师 · 正畸专科会士',
+          title: '副**医师 · 正畸专科会士',
           exp: '16年正畸经验',
           tags: ['时代天使认证', '隐适美黑钻', '骨性错颌矫治'],
           room: '正畸二诊室 (205室)',
@@ -1441,13 +1441,13 @@
         {
           id: 'APT-20260905-01',
           docId: 'D01',
-          docName: '林主任医师',
+          docName: '林**医师',
           deptName: '数字化种植中心',
           room: '种植一诊室 (302室)',
           date: '2026-09-06',
           slot: '09:30 - 10:30',
           patientName: '张*生',
-          phone: '138****8890',
+          phone: '138**8890',
           type: '初诊面诊评估',
           status: 'pending' // 'pending' | 'in_progress' | 'completed' | 'cancelled'
         }
@@ -1466,7 +1466,7 @@
     // -------------------------------------------------------------------
     // 视图切换 (Tab 切换)
     // -------------------------------------------------------------------
-    const tabTitles = ['专家挂号', '专科特色', '3D诊断卡', '我的档案'];
+    const tabTitles = ['**挂号', '专科特色', '3D诊断卡', '我的档案'];
     function switchTab(index) {
       AppState.activeTab = index;
       document.querySelectorAll('.view-pane').forEach((p, i) => {
@@ -1509,7 +1509,7 @@
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:30px;font-size:12px;color:var(--text-muted);">暂无匹配的医生排班</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:30px;font-size:12px;color:var(--text-muted);">暂无匹配的**人员排班</div>`;
         return;
       }
 
@@ -1699,7 +1699,7 @@
             </div>
             <div class="apt-body">
               <div>就诊科室：<b style="color:var(--text-main);">${a.deptName}</b> · ${a.room}</div>
-              <div>就诊医生：${a.docName}</div>
+              <div>就诊**人员：${a.docName}</div>
               <div>预约时间：${a.date} ${a.slot}</div>
               <div>就诊患者：${a.patientName} (${a.phone})</div>
             </div>
@@ -1838,7 +1838,7 @@
     function sendQuickChat(text) {
       appendChatMessage(text, 'user');
       setTimeout(() => {
-        let reply = '门诊专员已收到您的疑问。**齿科数字化中心提供免费初诊拍片评估，建议您直接点击【专家挂号】预约面诊，医生将结合您的牙片给予专业方案。';
+        let reply = '门诊专员已收到您的疑问。**齿科数字化中心提供免费初诊拍片评估，建议您直接点击【**挂号】预约面诊，**人员将结合您的牙片给予专业方案。';
         if (text.includes('种植牙周期')) {
           reply = '常规微创种植约需 3-4 个月骨结合周期；若骨质条件优越，可采用即拔即种即刻负重方案，当天即可佩戴临时冠恢复美观。';
         } else if (text.includes('隐形正畸')) {
@@ -1886,7 +1886,7 @@
     }
 
     function callClinicPhone() {
-      showToast('服务热线：010-8888**** (接听时段 09:00-18:00)');
+      showToast('服务热线：010-8888**(接听时段 09:00-18:00)');
     }
 
     // -------------------------------------------------------------------
