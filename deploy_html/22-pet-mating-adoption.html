@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**领养平台 - 宠物相亲与领养平台</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**领养平台 - 宠物相亲与领养平台</title>
+<style>
     /* ==========================================================================
        Design Tokens & CSS Variables (严禁紫粉渐变，采用暖阳琥珀橙 + 森林健康青绿)
        ========================================================================== */
@@ -919,459 +920,410 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 微信小程序手机真机视口容器 -->
+<div class="mp-container">
+<!-- 顶部状态栏 -->
 
+<!-- 小程序导航栏 (含微信标准胶囊按钮) -->
 
-  <!-- 微信小程序手机真机视口容器 -->
-  <div class="mp-container">
-
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <!-- 信号 SVG -->
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
-        <!-- WiFi SVG -->
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <!-- 电池 SVG -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- 小程序导航栏 (含微信标准胶囊按钮) -->
-    <div class="nav-bar">
-      <div class="nav-title" id="page-nav-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"/><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"/><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"/></svg>
-        <span>萌宠领养相亲</span>
-      </div>
-      <!-- 微信胶囊按钮 -->
-      <div class="wechat-capsule">
-        <button class="capsule-btn" title="小程序菜单" onclick="openWechatMenu()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-        </button>
-        <div class="capsule-divider"></div>
-        <button class="capsule-btn" title="收起小程序" onclick="minimizeWechat()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- 小**区 -->
-    <div class="mp-content" id="mp-scroll-view">
-
-      <!-- ===================================================================
+<!-- 小**区 -->
+<div class="mp-content" id="mp-scroll-view">
+<!-- ===================================================================
            TAB 0: 免费领养大厅
            =================================================================== -->
-      <div id="tab-pane-0" class="tab-pane active">
-
-        <!-- 公益焦点横幅 -->
-        <div class="banner-card">
-          <div>
-            <div class="banner-text-tag">公益领养季</div>
-            <div class="banner-title">用领养代替购买</div>
-            <div class="banner-sub">为流浪毛孩子寻找一生守护的家庭</div>
-          </div>
-          <button class="btn btn-primary" style="font-size:12px;padding:6px 12px;" onclick="openGuidelinesModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+<div class="tab-pane active" id="tab-pane-0">
+<!-- 公益焦点横幅 -->
+<div class="banner-card">
+<div>
+<div class="banner-text-tag">公益领养季</div>
+<div class="banner-title">用领养代替购买</div>
+<div class="banner-sub">为流浪毛孩子寻找一生守护的家庭</div>
+</div>
+<button class="btn btn-primary" onclick="openGuidelinesModal()" style="font-size:12px;padding:6px 12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
             领养必读
           </button>
-        </div>
-
-        <!-- **区 -->
-        <div class="grid-nav">
-          <div class="grid-item" onclick="setAdoptionFilter('cat')">
-            <div class="grid-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.5 0 4.97-4.03 9-9 9s-9-4.03-9-9c0-1.26.43-2.43 1-3.5 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26z"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M10 16c.5.5 1.5.5 2 0 .5.5 1.5.5 2 0"/></svg>
-            </div>
-            <span class="grid-label">**区</span>
-          </div>
-          <div class="grid-item" onclick="setAdoptionFilter('dog')">
-            <div class="grid-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"/><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"/><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"/></svg>
-            </div>
-            <span class="grid-label">**区</span>
-          </div>
-          <div class="grid-item" onclick="setAdoptionFilter('special')">
-            <div class="grid-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            </div>
-            <span class="grid-label">温顺小宠</span>
-          </div>
-          <div class="grid-item" onclick="setAdoptionFilter('urgent')">
-            <div class="grid-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <span class="grid-label">急寻新家</span>
-          </div>
-          <div class="grid-item" onclick="openPartnerHospitals()">
-            <div class="grid-icon-box">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-            </div>
-            <span class="grid-label">合作医院</span>
-          </div>
-        </div>
-
-        <!-- 筛选药丸栏 -->
-        <div class="filter-scroll" id="adoption-filter-bar">
-          <button class="filter-chip active" onclick="setAdoptionFilter('all')">全部待领养</button>
-          <button class="filter-chip" onclick="setAdoptionFilter('cat')">猫咪</button>
-          <button class="filter-chip" onclick="setAdoptionFilter('dog')">狗狗</button>
-          <button class="filter-chip" onclick="setAdoptionFilter('neutered')">已绝育</button>
-          <button class="filter-chip" onclick="setAdoptionFilter('vaccinated')">已接种疫苗</button>
-          <button class="filter-chip" onclick="setAdoptionFilter('young')">1岁以内幼宠</button>
-        </div>
-
-        <!-- 宠物列表渲染容器 -->
-        <div id="adoption-card-list"></div>
-
-      </div>
-
-      <!-- ===================================================================
+</div>
+<!-- **区 -->
+<div class="grid-nav">
+<div class="grid-item" onclick="setAdoptionFilter('cat')">
+<div class="grid-icon-box">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.5 0 4.97-4.03 9-9 9s-9-4.03-9-9c0-1.26.43-2.43 1-3.5 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26z"></path><circle cx="9" cy="13" r="1"></circle><circle cx="15" cy="13" r="1"></circle><path d="M10 16c.5.5 1.5.5 2 0 .5.5 1.5.5 2 0"></path></svg>
+</div>
+<span class="grid-label">**区</span>
+</div>
+<div class="grid-item" onclick="setAdoptionFilter('dog')">
+<div class="grid-icon-box">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .107.94 1.5 2 2.5 2s2-1.5 2-2.5c0-.83.67-1.5 1.5-1.5.83 0 1.5.67 1.5 1.5"></path><path d="M14 5.172C14 3.782 15.577 2.679 17.5 3c2.823.47 4.113 6.006 4 7-.107.94-1.5 2-2.5 2s-2-1.5-2-2.5c0-.83-.67-1.5-1.5-1.5-.83 0-1.5.67-1.5 1.5"></path><path d="M12 14c-3.5 0-6 2-6 5v1h12v-1c0-3-2.5-5-6-5z"></path></svg>
+</div>
+<span class="grid-label">**区</span>
+</div>
+<div class="grid-item" onclick="setAdoptionFilter('special')">
+<div class="grid-icon-box">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+</div>
+<span class="grid-label">温顺小宠</span>
+</div>
+<div class="grid-item" onclick="setAdoptionFilter('urgent')">
+<div class="grid-icon-box">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" x2="12" y1="9" y2="13"></line><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+</div>
+<span class="grid-label">急寻新家</span>
+</div>
+<div class="grid-item" onclick="openPartnerHospitals()">
+<div class="grid-icon-box">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+</div>
+<span class="grid-label">合作医院</span>
+</div>
+</div>
+<!-- 筛选药丸栏 -->
+<div class="filter-scroll" id="adoption-filter-bar">
+<button class="filter-chip active" onclick="setAdoptionFilter('all')">全部待领养</button>
+<button class="filter-chip" onclick="setAdoptionFilter('cat')">猫咪</button>
+<button class="filter-chip" onclick="setAdoptionFilter('dog')">狗狗</button>
+<button class="filter-chip" onclick="setAdoptionFilter('neutered')">已绝育</button>
+<button class="filter-chip" onclick="setAdoptionFilter('vaccinated')">已接种疫苗</button>
+<button class="filter-chip" onclick="setAdoptionFilter('young')">1岁以内幼宠</button>
+</div>
+<!-- 宠物列表渲染容器 -->
+<div id="adoption-card-list"></div>
+</div>
+<!-- ===================================================================
            TAB 1: **相亲平台广场
            =================================================================== -->
-      <div id="tab-pane-1" class="tab-pane">
-
-        <!-- 相亲说明横幅 -->
-        <div class="banner-card" style="background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%); border-color: var(--color-secondary-border);">
-          <div>
-            <div class="banner-text-tag" style="color: var(--color-secondary);">同城相亲角</div>
-            <div class="banner-title">萌宠品质交友</div>
-            <div class="banner-sub">文明寻玩伴 · 科学血统与健康认证</div>
-          </div>
-          <button class="btn btn-secondary" style="font-size:12px;padding:6px 12px;" onclick="openPartyModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<div class="tab-pane" id="tab-pane-1">
+<!-- 相亲说明横幅 -->
+<div class="banner-card" style="background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%); border-color: var(--color-secondary-border);">
+<div>
+<div class="banner-text-tag" style="color: var(--color-secondary);">同城相亲角</div>
+<div class="banner-title">萌宠品质交友</div>
+<div class="banner-sub">文明寻玩伴 · 科学血统与健康认证</div>
+</div>
+<button class="btn btn-secondary" onclick="openPartyModal()" style="font-size:12px;padding:6px 12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             周末聚会
           </button>
-        </div>
-
-        <!-- 筛选分类 -->
-        <div class="filter-scroll">
-          <button class="filter-chip active" onclick="setMatchFilter('all')">全部品种</button>
-          <button class="filter-chip" onclick="setMatchFilter('dog')">狗狗相亲</button>
-          <button class="filter-chip" onclick="setMatchFilter('cat')">猫咪相亲</button>
-          <button class="filter-chip" onclick="setMatchFilter('playmate')">纯找玩伴</button>
-          <button class="filter-chip" onclick="setMatchFilter('pedigree')">有血统凭证</button>
-        </div>
-
-        <!-- 相亲卡片容器 -->
-        <div id="match-card-list"></div>
-
-      </div>
-
-      <!-- ===================================================================
+</div>
+<!-- 筛选分类 -->
+<div class="filter-scroll">
+<button class="filter-chip active" onclick="setMatchFilter('all')">全部品种</button>
+<button class="filter-chip" onclick="setMatchFilter('dog')">狗狗相亲</button>
+<button class="filter-chip" onclick="setMatchFilter('cat')">猫咪相亲</button>
+<button class="filter-chip" onclick="setMatchFilter('playmate')">纯找玩伴</button>
+<button class="filter-chip" onclick="setMatchFilter('pedigree')">有血统凭证</button>
+</div>
+<!-- 相亲卡片容器 -->
+<div id="match-card-list"></div>
+</div>
+<!-- ===================================================================
            TAB 2: 送养与相亲发布中心
            =================================================================== -->
-      <div id="tab-pane-2" class="tab-pane">
-
-        <div class="card" style="margin-bottom: 14px;">
-          <!-- 分段切换器 -->
-          <div style="display:flex; background:var(--color-bg-subtle); padding:3px; border-radius:var(--radius-md); margin-bottom:14px;">
-            <button id="pub-type-adopt" class="btn btn-primary" style="flex:1; padding:7px; font-size:12px;" onclick="switchPublishType('adopt')">发布送养信息</button>
-            <button id="pub-type-match" class="btn btn-subtle" style="flex:1; padding:7px; font-size:12px;" onclick="switchPublishType('match')">发布相亲档案</button>
-          </div>
-
-          <!-- **区 -->
-          <form id="publish-form" onsubmit="handleFormSubmit(event)">
-            <div class="form-group">
-              <label class="form-label">宠物昵称 (将自动进行脱敏展示)</label>
-              <input type="text" id="form-pet-name" class="form-input" placeholder="例如：豆**、团**" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">物种分类</label>
-              <div class="form-radio-group">
-                <div class="form-radio-btn selected" id="opt-species-cat" onclick="selectSpecies('猫咪')">猫咪</div>
-                <div class="form-radio-btn" id="opt-species-dog" onclick="selectSpecies('狗狗')">狗狗</div>
-                <div class="form-radio-btn" id="opt-species-other" onclick="selectSpecies('其他小宠')">其他小宠</div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">详细品种与年龄</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="form-pet-breed" class="form-input" placeholder="例如：中华田园橘猫、柯基" style="flex:2;" required>
-                <select id="form-pet-age" class="form-select" style="flex:1;">
-                  <option value="3个月">3个月</option>
-                  <option value="6个月">6个月</option>
-                  <option value="1岁">1岁</option>
-                  <option value="2岁">2岁</option>
-                  <option value="3岁以上">3岁以上</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0;">
-              <div>
-                <div class="form-label" style="margin-bottom:2px;">是否已完成绝育</div>
-                <div style="font-size:11px; color:var(--color-text-muted);">科学绝育有助于伴侣动物健康寿命</div>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="form-pet-neutered" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-top:1px solid var(--color-border);">
-              <div>
-                <div class="form-label" style="margin-bottom:2px;">疫苗接种是否齐全</div>
-                <div style="font-size:11px; color:var(--color-text-muted);">需提供三联/狂犬疫苗健康本核验</div>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="form-pet-vaccinated" checked>
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">生活照上传模拟</label>
-              <div style="border:1.5px dashed var(--color-border); border-radius:var(--radius-md); padding:16px; text-align:center; background:#F8FAFC; cursor:pointer;" onclick="simulatePhotoUpload()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                <div id="upload-hint-text" style="font-size:12px; color:var(--color-text-muted);">点击选择宠物实拍照 (已自动预置高保真照片)</div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">领养/相亲寄语与期望要求</label>
-              <textarea id="form-pet-desc" class="form-textarea" placeholder="例如：性格极其温顺黏人，求一位爱猫懂科学喂养的家长，要求必须全屋封窗。"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">发布人称呼与联系方式 (系统已严格脱敏)</label>
-              <input type="text" class="form-input" value="赵*峰 (已实名) · 138**6789" disabled style="color:var(--color-text-muted); background:#F1F5F9;">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block" style="padding:11px; font-size:14px; margin-top:10px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<div class="tab-pane" id="tab-pane-2">
+<div class="card" style="margin-bottom: 14px;">
+<!-- 分段切换器 -->
+<div style="display:flex; background:var(--color-bg-subtle); padding:3px; border-radius:var(--radius-md); margin-bottom:14px;">
+<button class="btn btn-primary" id="pub-type-adopt" onclick="switchPublishType('adopt')" style="flex:1; padding:7px; font-size:12px;">发布送养信息</button>
+<button class="btn btn-subtle" id="pub-type-match" onclick="switchPublishType('match')" style="flex:1; padding:7px; font-size:12px;">发布相亲档案</button>
+</div>
+<!-- **区 -->
+<form id="publish-form" onsubmit="handleFormSubmit(event)">
+<div class="form-group">
+<label class="form-label">宠物昵称 (将自动进行脱敏展示)</label>
+<input class="form-input" id="form-pet-name" placeholder="例如：豆**、团**" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">物种分类</label>
+<div class="form-radio-group">
+<div class="form-radio-btn selected" id="opt-species-cat" onclick="selectSpecies('猫咪')">猫咪</div>
+<div class="form-radio-btn" id="opt-species-dog" onclick="selectSpecies('狗狗')">狗狗</div>
+<div class="form-radio-btn" id="opt-species-other" onclick="selectSpecies('其他小宠')">其他小宠</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">详细品种与年龄</label>
+<div style="display:flex; gap:10px;">
+<input class="form-input" id="form-pet-breed" placeholder="例如：中华田园橘猫、柯基" required="" style="flex:2;" type="text"/>
+<select class="form-select" id="form-pet-age" style="flex:1;">
+<option value="3个月">3个月</option>
+<option value="6个月">6个月</option>
+<option value="1岁">1岁</option>
+<option value="2岁">2岁</option>
+<option value="3岁以上">3岁以上</option>
+</select>
+</div>
+</div>
+<div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0;">
+<div>
+<div class="form-label" style="margin-bottom:2px;">是否已完成绝育</div>
+<div style="font-size:11px; color:var(--color-text-muted);">科学绝育有助于伴侣动物健康寿命</div>
+</div>
+<label class="switch">
+<input checked="" id="form-pet-neutered" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="form-group" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-top:1px solid var(--color-border);">
+<div>
+<div class="form-label" style="margin-bottom:2px;">疫苗接种是否齐全</div>
+<div style="font-size:11px; color:var(--color-text-muted);">需提供三联/狂犬疫苗健康本核验</div>
+</div>
+<label class="switch">
+<input checked="" id="form-pet-vaccinated" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="form-group">
+<label class="form-label">生活照上传模拟</label>
+<div onclick="simulatePhotoUpload()" style="border:1.5px dashed var(--color-border); border-radius:var(--radius-md); padding:16px; text-align:center; background:#F8FAFC; cursor:pointer;">
+<svg fill="none" height="24" stroke="#94A3B8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="margin:0 auto 6px;" viewbox="0 0 24 24" width="24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+<div id="upload-hint-text" style="font-size:12px; color:var(--color-text-muted);">点击选择宠物实拍照 (已自动预置高保真照片)</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">领养/相亲寄语与期望要求</label>
+<textarea class="form-textarea" id="form-pet-desc" placeholder="例如：性格极其温顺黏人，求一位爱猫懂科学喂养的家长，要求必须全屋封窗。"></textarea>
+</div>
+<div class="form-group">
+<label class="form-label">发布人称呼与联系方式 (系统已严格脱敏)</label>
+<input class="form-input" disabled="" style="color:var(--color-text-muted); background:#F1F5F9;" type="text" value="赵*峰 (已实名) · 138**6789"/>
+</div>
+<button class="btn btn-primary btn-block" style="padding:11px; font-size:14px; margin-top:10px;" type="submit">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
               提交发布审核
             </button>
-          </form>
-        </div>
-
-      </div>
-
-      <!-- ===================================================================
+</form>
+</div>
+</div>
+<!-- ===================================================================
            TAB 3: 进度追踪与凭证
            =================================================================== -->
-      <div id="tab-pane-3" class="tab-pane">
-
-        <!-- 顶部状态概览卡片 -->
-        <div class="card" style="background:var(--color-primary-light); border-color:var(--color-primary-border);">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <div style="font-size:11px; color:var(--color-primary); font-weight:700;">申请履约服务看板</div>
-              <div style="font-size:15px; font-weight:800; color:var(--color-text-title); margin-top:2px;">正在进行的领养进度 (2条)</div>
-            </div>
-            <button class="btn btn-outline" style="font-size:11px; padding:4px 10px; background:#FFF;" onclick="openAgreementModal()">
+<div class="tab-pane" id="tab-pane-3">
+<!-- 顶部状态概览卡片 -->
+<div class="card" style="background:var(--color-primary-light); border-color:var(--color-primary-border);">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<div style="font-size:11px; color:var(--color-primary); font-weight:700;">申请履约服务看板</div>
+<div style="font-size:15px; font-weight:800; color:var(--color-text-title); margin-top:2px;">正在进行的领养进度 (2条)</div>
+</div>
+<button class="btn btn-outline" onclick="openAgreementModal()" style="font-size:11px; padding:4px 10px; background:#FFF;">
               查看示范协议
             </button>
-          </div>
-        </div>
-
-        <!-- 申请单 1: 待家访 -->
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-            <div>
-              <div style="font-size:14px; font-weight:700; color:var(--color-text-title);">申请领养：麻** (中华狸花猫)</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">申请单号：#AD-20260904-01 · XX救助基地救助基地</div>
-            </div>
-            <span class="badge badge-primary">家访预约中</span>
-          </div>
-
-          <div style="margin:12px 0; padding:10px; background:var(--color-bg-subtle); border-radius:var(--radius-md);">
-            <div class="timeline-item done">
-              <div class="timeline-dot">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <div style="font-size:11px; color:var(--color-text-body);"><b>提交领养问卷</b> (2026-09-02 10:15)</div>
-            </div>
-            <div class="timeline-item done">
-              <div class="timeline-dot">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <div style="font-size:11px; color:var(--color-text-body);"><b>救助专员初审通过</b> (2026-09-03 14:20)</div>
-            </div>
-            <div class="timeline-item active">
-              <div class="timeline-dot">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
-              </div>
-              <div style="font-size:11px; color:var(--color-primary); font-weight:700;"><b>安排义工上门家访</b> (预计明日 14:00)</div>
-            </div>
-          </div>
-
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="contactVolunteer('张*华', '138**1234')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+</div>
+</div>
+<!-- 申请单 1: 待家访 -->
+<div class="card">
+<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+<div>
+<div style="font-size:14px; font-weight:700; color:var(--color-text-title);">申请领养：麻** (中华狸花猫)</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">申请单号：#AD-20260904-01 · XX救助基地救助基地</div>
+</div>
+<span class="badge badge-primary">家访预约中</span>
+</div>
+<div style="margin:12px 0; padding:10px; background:var(--color-bg-subtle); border-radius:var(--radius-md);">
+<div class="timeline-item done">
+<div class="timeline-dot">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div style="font-size:11px; color:var(--color-text-body);"><b>提交领养问卷</b> (2026-09-02 10:15)</div>
+</div>
+<div class="timeline-item done">
+<div class="timeline-dot">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div style="font-size:11px; color:var(--color-text-body);"><b>救助专员初审通过</b> (2026-09-03 14:20)</div>
+</div>
+<div class="timeline-item active">
+<div class="timeline-dot">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle></svg>
+</div>
+<div style="font-size:11px; color:var(--color-primary); font-weight:700;"><b>安排义工上门家访</b> (预计明日 14:00)</div>
+</div>
+</div>
+<div style="display:flex; gap:8px;">
+<button class="btn btn-subtle" onclick="contactVolunteer('张*华', '138**1234')" style="flex:1; font-size:12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               联系家访义工
             </button>
-            <button class="btn btn-outline" style="flex:1; font-size:12px;" onclick="showHomeCheckDetail()">
+<button class="btn btn-outline" onclick="showHomeCheckDetail()" style="flex:1; font-size:12px;">
               查看家访准备指南
             </button>
-          </div>
-        </div>
-
-        <!-- 申请单 2: 已完成并履约 -->
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-            <div>
-              <div style="font-size:14px; font-weight:700; color:var(--color-text-title);">已领养：团** (短毛橘白)</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">领养时间：2026-08-15 · 协议有效履约中</div>
-            </div>
-            <span class="badge badge-secondary">领养已达成</span>
-          </div>
-          <div style="font-size:12px; color:var(--color-text-body); line-height:1.6; margin-bottom:10px;">
+</div>
+</div>
+<!-- 申请单 2: 已完成并履约 -->
+<div class="card">
+<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+<div>
+<div style="font-size:14px; font-weight:700; color:var(--color-text-title);">已领养：团** (短毛橘白)</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">领养时间：2026-08-15 · 协议有效履约中</div>
+</div>
+<span class="badge badge-secondary">领养已达成</span>
+</div>
+<div style="font-size:12px; color:var(--color-text-body); line-height:1.6; margin-bottom:10px;">
             您已连续打卡 2 次成长健康记录，距离下次定期回访还有 12 天。
           </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-secondary" style="flex:1; font-size:12px;" onclick="openCheckInDrawer()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+<div style="display:flex; gap:8px;">
+<button class="btn btn-secondary" onclick="openCheckInDrawer()" style="flex:1; font-size:12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
               回访打卡上传
             </button>
-            <button class="btn btn-subtle" style="flex:1; font-size:12px;" onclick="openAgreementModal()">
+<button class="btn btn-subtle" onclick="openAgreementModal()" style="flex:1; font-size:12px;">
               电子领养协议
             </button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ===================================================================
+</div>
+</div>
+</div>
+<!-- ===================================================================
            TAB 4: 个人中心与服务
            =================================================================== -->
-      <div id="tab-pane-4" class="tab-pane">
-
-        <!-- 个人名片 -->
-        <div class="card" style="display:flex; align-items:center; gap:14px; padding:16px;">
-          <div style="width:52px; height:52px; border-radius:50%; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; border:2px solid var(--color-primary-border);">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <div style="flex:1;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:16px; font-weight:800; color:var(--color-text-title);">赵*峰</span>
-              <span class="badge badge-secondary" style="font-size:10px;">已实名认证</span>
-            </div>
-            <div style="font-size:12px; color:var(--color-text-muted); margin-top:2px;">手机：138**6789 · 爱心守护者</div>
-          </div>
-        </div>
-
-        <!-- 4 维统计看板 -->
-        <div class="card" style="padding:12px 6px;">
-          <div style="display:grid; grid-template-columns:repeat(4, 1fr); text-align:center;">
-            <div style="cursor:pointer;" onclick="switchMpTab(3)">
-              <div style="font-size:18px; font-weight:800; color:var(--color-primary);">2</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的申请</div>
-            </div>
-            <div style="cursor:pointer;" onclick="switchMpTab(2)">
-              <div style="font-size:18px; font-weight:800; color:var(--color-text-title);">1</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的发布</div>
-            </div>
-            <div style="cursor:pointer;" onclick="showMyFavorites()">
-              <div style="font-size:18px; font-weight:800; color:var(--color-text-title);" id="fav-count-display">3</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的收藏</div>
-            </div>
-            <div style="cursor:pointer;" onclick="openCheckInDrawer()">
-              <div style="font-size:18px; font-weight:800; color:var(--color-secondary);">6</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">回访打卡</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 菜单列表 -->
-        <div class="menu-group">
-          <div class="menu-item" onclick="openGuidelinesModal()">
-            <div class="menu-item-left">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              <span>平台领养公约与科学封窗规范</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openPartnerHospitals()">
-            <div class="menu-item-left">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-              <span>合作公益体检救助机构 (脱敏)</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openFaqDrawer()">
-            <div class="menu-item-left">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span>新手常见问答与辟谣</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openCustomerServiceModal()">
-            <div class="menu-item-left">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>爱心志愿者在线咨询</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 底部 TabBar 导航 (5 个经典微交互按钮) -->
-    <div class="tab-bar">
-      <div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>领养大厅</span>
-      </div>
-      <div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span>**相亲平台</span>
-      </div>
-      <div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        <span>发布</span>
-      </div>
-      <div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
-        <div class="tab-badge"></div>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        <span>进度追踪</span>
-      </div>
-      <div class="tab-item" id="tab-btn-4" onclick="switchMpTab(4)">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的</span>
-      </div>
-    </div>
-
-    <!-- ===================================================================
+<div class="tab-pane" id="tab-pane-4">
+<!-- 个人名片 -->
+<div class="card" style="display:flex; align-items:center; gap:14px; padding:16px;">
+<div style="width:52px; height:52px; border-radius:50%; background:var(--color-primary-light); color:var(--color-primary); display:flex; align-items:center; justify-content:center; border:2px solid var(--color-primary-border);">
+<svg fill="none" height="26" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="26"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div style="flex:1;">
+<div style="display:flex; align-items:center; gap:6px;">
+<span style="font-size:16px; font-weight:800; color:var(--color-text-title);">赵*峰</span>
+<span class="badge badge-secondary" style="font-size:10px;">已实名认证</span>
+</div>
+<div style="font-size:12px; color:var(--color-text-muted); margin-top:2px;">手机：138**6789 · 爱心守护者</div>
+</div>
+</div>
+<!-- 4 维统计看板 -->
+<div class="card" style="padding:12px 6px;">
+<div style="display:grid; grid-template-columns:repeat(4, 1fr); text-align:center;">
+<div onclick="switchMpTab(3)" style="cursor:pointer;">
+<div style="font-size:18px; font-weight:800; color:var(--color-primary);">2</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的申请</div>
+</div>
+<div onclick="switchMpTab(2)" style="cursor:pointer;">
+<div style="font-size:18px; font-weight:800; color:var(--color-text-title);">1</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的发布</div>
+</div>
+<div onclick="showMyFavorites()" style="cursor:pointer;">
+<div id="fav-count-display" style="font-size:18px; font-weight:800; color:var(--color-text-title);">3</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">我的收藏</div>
+</div>
+<div onclick="openCheckInDrawer()" style="cursor:pointer;">
+<div style="font-size:18px; font-weight:800; color:var(--color-secondary);">6</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:2px;">回访打卡</div>
+</div>
+</div>
+</div>
+<!-- 菜单列表 -->
+<div class="menu-group">
+<div class="menu-item" onclick="openGuidelinesModal()">
+<div class="menu-item-left">
+<svg fill="none" height="18" stroke="#EA580C" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+<span>平台领养公约与科学封窗规范</span>
+</div>
+<svg fill="none" height="14" stroke="#94A3B8" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openPartnerHospitals()">
+<div class="menu-item-left">
+<svg fill="none" height="18" stroke="#0D9488" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+<span>合作公益体检救助机构 (脱敏)</span>
+</div>
+<svg fill="none" height="14" stroke="#94A3B8" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openFaqDrawer()">
+<div class="menu-item-left">
+<svg fill="none" height="18" stroke="#2563EB" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+<span>新手常见问答与辟谣</span>
+</div>
+<svg fill="none" height="14" stroke="#94A3B8" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openCustomerServiceModal()">
+<div class="menu-item-left">
+<svg fill="none" height="18" stroke="#9333EA" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span>爱心志愿者在线咨询</span>
+</div>
+<svg fill="none" height="14" stroke="#94A3B8" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- 底部 TabBar 导航 (5 个经典微交互按钮) -->
+<div class="tab-bar">
+<div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>领养大厅</span>
+</div>
+<div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<span>**相亲平台</span>
+</div>
+<div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="16"></line><line x1="8" x2="16" y1="12" y2="12"></line></svg>
+<span>发布</span>
+</div>
+<div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
+<div class="tab-badge"></div>
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
+<span>进度追踪</span>
+</div>
+<div class="tab-item" id="tab-btn-4" onclick="switchMpTab(4)">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+</div>
+</div>
+<!-- ===================================================================
          全局模态弹窗与底部抽屉 (全按钮闭环支持)
          =================================================================== -->
-
-    <!-- 通用模态弹窗遮罩 -->
-    <div class="modal-overlay" id="global-modal" onclick="handleOverlayClick(event)">
-      <div class="modal-sheet" id="global-sheet">
-        <div class="modal-header">
-          <div class="modal-title" id="modal-title">详情</div>
-          <button class="modal-close" onclick="closeModal()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div class="modal-body" id="modal-body-content"></div>
-        <div class="modal-footer" id="modal-footer-content"></div>
-      </div>
-    </div>
-
-    <!-- 轻提示 Toast -->
-    <div class="toast-box" id="mp-toast">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作成功</span>
-    </div>
-
-  </div>
-
-  <!-- ===================================================================
+<!-- 通用模态弹窗遮罩 -->
+<div class="modal-overlay" id="global-modal" onclick="handleOverlayClick(event)">
+<div class="modal-sheet" id="global-sheet">
+<div class="modal-header">
+<div class="modal-title" id="modal-title">详情</div>
+<button class="modal-close" onclick="closeModal()">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="modal-body" id="modal-body-content"></div>
+<div class="modal-footer" id="modal-footer-content"></div>
+</div>
+</div>
+<!-- 轻提示 Toast -->
+<div class="toast-box" id="mp-toast">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作成功</span>
+</div>
+</div>
+<!-- ===================================================================
        交互逻辑与脱敏数据集 (Vanilla JS)
        =================================================================== -->
-  <script>
+<script>
     // 宠物领养脱敏数据集
     let adoptionList = [
       {

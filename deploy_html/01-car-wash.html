@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**24h自助洗车 - 智能微信小程序仿真系统</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**24h自助洗车 - 智能微信小程序仿真系统</title>
+<style>
     :root {
       --color-primary: #0284C7;
       --color-primary-hover: #0369A1;
@@ -628,851 +629,779 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
+<!-- Top Global Header -->
+<header class="global-header">
+<div class="header-brand">
+<div class="brand-logo-badge">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+<span>**洗车</span>
+</div>
+<div>
+<div class="brand-title">24h 智能自助洗车小程序 · 高保真交互展示版</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">100% 按钮可点击交互 · 纯前端零依赖 · 真实状态流转演示</div>
+</div>
+</div>
+<div class="header-actions">
+<a class="back-to-hall-btn" href="index.html" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:7px 16px; border-radius:9999px; font-size:12px; font-weight:700; background:#6366f1; color:#fff; transition:all 0.2s; border:1px solid #6366f1; box-shadow:0 2px 6px rgba(99,102,241,0.3);">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<button class="view-switch-btn active" id="btn-mode-mobile" onclick="toggleViewportMode('mobile')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><rect height="20" rx="2" ry="2" width="14" x="5" y="2"></rect><line x1="12" x2="12.01" y1="18" y2="18"></line></svg>
+<span>手机仿真模式</span>
+</button>
+<button class="view-switch-btn" id="btn-mode-wide" onclick="toggleViewportMode('wide')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+<span>宽屏自适应模式</span>
+</button>
+<button class="reset-data-btn" onclick="resetDemoData()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+<span>重置演示数据</span>
+</button>
+</div>
+</header>
+<!-- Main Viewport Layout -->
+<main class="app-viewport-wrapper" id="viewport-wrapper">
+<div class="mobile-frame">
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container">
+<div class="toast-bubble" id="toast-bubble">
+<svg fill="none" height="16" id="toast-icon" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+<span id="toast-text">提示信息</span>
+</div>
+</div>
+<!-- iOS Status Bar -->
 
-  <!-- Top Global Header -->
-  <header class="global-header">
-    <div class="header-brand">
-      <div class="brand-logo-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-        <span>**洗车</span>
-      </div>
-      <div>
-        <div class="brand-title">24h 智能自助洗车小程序 · 高保真交互展示版</div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">100% 按钮可点击交互 · 纯前端零依赖 · 真实状态流转演示</div>
-      </div>
-    </div>
+<!-- WeChat Mini Program Header -->
 
-    <div class="header-actions">
-      <a href="index.html" class="back-to-hall-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:7px 16px; border-radius:9999px; font-size:12px; font-weight:700; background:#6366f1; color:#fff; transition:all 0.2s; border:1px solid #6366f1; box-shadow:0 2px 6px rgba(99,102,241,0.3);">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span>返回 50 场景大厅</span>
-      </a>
-
-      <button class="view-switch-btn active" id="btn-mode-mobile" onclick="toggleViewportMode('mobile')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        <span>手机仿真模式</span>
-      </button>
-      <button class="view-switch-btn" id="btn-mode-wide" onclick="toggleViewportMode('wide')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        <span>宽屏自适应模式</span>
-      </button>
-      <button class="reset-data-btn" onclick="resetDemoData()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-        <span>重置演示数据</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Main Viewport Layout -->
-  <main class="app-viewport-wrapper" id="viewport-wrapper">
-    <div class="mobile-frame">
-
-      <!-- Toast Container -->
-      <div class="toast-container" id="toast-container">
-        <div class="toast-bubble" id="toast-bubble">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="toast-icon"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          <span id="toast-text">提示信息</span>
-        </div>
-      </div>
-
-      <!-- iOS Status Bar -->
-      <div class="ios-status-bar">
-        <span id="live-time">10:24</span>
-        <div class="status-icons">
-          <!-- Signal -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
-          <!-- Wifi -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-          <!-- Battery -->
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-        </div>
-      </div>
-
-      <!-- WeChat Mini Program Header -->
-      <div class="mp-header">
-        <div class="mp-header-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-          <span id="mp-nav-title">**24h自助洗车</span>
-        </div>
-        <div class="mp-capsule">
-          <button class="capsule-btn" onclick="openAppInfoModal()" title="小程序选项">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-          </button>
-          <div class="capsule-divider"></div>
-          <button class="capsule-btn" onclick="showToast('小程序已最小化挂起', 'info')" title="挂起小程序">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Main Scrollable Content Area -->
-      <div class="mp-content-container">
-
-        <!-- ==================== TAB 0: 首页 (Home) ==================== -->
-        <div class="mp-tab-panel active" id="tab-pane-0">
-          
-          <!-- Current Store Card -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span class="badge-success">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<!-- Main Scrollable Content Area -->
+<div class="mp-content-container">
+<!-- ==================== TAB 0: 首页 (Home) ==================== -->
+<div class="mp-tab-panel active" id="tab-pane-0">
+<!-- Current Store Card -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span class="badge-success">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="10"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   24H 营业中
                 </span>
-              </div>
-              <div style="font-size:15px;font-weight:800;color:var(--color-text-title);margin-top:4px;" id="current-store-name">
+</div>
+<div id="current-store-name" style="font-size:15px;font-weight:800;color:var(--color-text-title);margin-top:4px;">
                 ** · **24h 旗舰店
               </div>
-            </div>
-            <button class="btn-secondary" onclick="openStoreModal()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
-              <span>切换门店</span>
-            </button>
-          </div>
-
-          <!-- Hero Promo Banner -->
-          <div style="background:linear-gradient(135deg, var(--color-primary), #0369A1);border-radius:var(--radius-md);padding:16px;color:#FFF;margin-bottom:12px;box-shadow:0 6px 16px rgba(2,132,199,0.25);position:relative;overflow:hidden;">
-            <div style="font-size:10px;opacity:0.85;font-weight:800;letter-spacing:1px;">SMART 24H CAR WASH SYSTEM</div>
-            <div style="font-size:18px;font-weight:900;margin-top:2px;">智能按分计费 · 洁净随心</div>
-            <div style="font-size:11px;opacity:0.9;margin-top:4px;">高压水枪 / 浓密泡沫 / 强力吸尘 / 水蜡镀膜</div>
-            <div style="margin-top:10px;display:flex;align-items:center;gap:8px;">
-              <button class="btn-primary" style="background:#FFF;color:var(--color-primary);font-size:11px;padding:6px 12px;box-shadow:none;" onclick="openCouponDetailModal()">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                <span>领新人洗车券 ¥5</span>
-              </button>
-              <button class="btn-secondary" style="background:rgba(255,255,255,0.2);color:#FFF;border:none;font-size:11px;" onclick="openGuideModal()">
-                <span>新手洗车指南</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 4 Quick Kingkong Buttons -->
-          <div class="ui-card" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;padding:12px 6px;">
-            <div style="cursor:pointer;" onclick="switchMpTab(1)">
-              <div style="width:40px;height:40px;border-radius:12px;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              </div>
-              <div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">扫码开机</div>
-            </div>
-            <div style="cursor:pointer;" onclick="switchMpTab(2)">
-              <div style="width:40px;height:40px;border-radius:12px;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;margin:0 auto;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              </div>
-              <div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">钱包充值</div>
-            </div>
-            <div style="cursor:pointer;" onclick="switchMpTab(3)">
-              <div style="width:40px;height:40px;border-radius:12px;background:#DCFCE7;color:#16A34A;display:flex;align-items:center;justify-content:center;margin:0 auto;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-              </div>
-              <div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">我的爱车</div>
-            </div>
-            <div style="cursor:pointer;" onclick="openGuideModal()">
-              <div style="width:40px;height:40px;border-radius:12px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center;margin:0 auto;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </div>
-              <div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">使用教程</div>
-            </div>
-          </div>
-
-          <!-- Real-Time Bay Status Board -->
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">门店工位实时看板</span>
-            <span style="font-size:11px;color:var(--color-text-muted);">共 3 个工位 · 2 空闲</span>
-          </div>
-
-          <!-- Bay 01 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:14px;font-weight:800;color:var(--color-text-title);">01 号工位 · 智能标准舱</span>
-                <span class="badge-success">空闲待机</span>
-              </div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:3px;">配备: 2.8MPa清水 / 挂壁泡沫 / 负压吸尘</div>
-            </div>
-            <button class="btn-primary" style="padding:6px 14px;font-size:11px;" onclick="selectBayAndWash(1)">
-              <span>进入洗车</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-
-          <!-- Bay 02 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;">
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:14px;font-weight:800;color:var(--color-text-muted);">02 号工位 · 智能标准舱</span>
-                <span class="badge-warning">洗车作业中</span>
-              </div>
-              <div style="font-size:11px;color:var(--color-text-subtle);margin-top:3px;">车牌: 京A·**21 · 预计剩余 6 分钟</div>
-            </div>
-            <button class="btn-secondary" style="padding:6px 12px;font-size:11px;background:#F1F5F9;color:var(--color-text-muted);border-color:var(--color-border);" onclick="showToast('02号工位正在使用中，请选择其他工位', 'info')">
-              <span>查看状态</span>
-            </button>
-          </div>
-
-          <!-- Bay 03 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:14px;font-weight:800;color:var(--color-text-title);">03 号工位 · SUV大进深精洗舱</span>
-                <span class="badge-success">空闲待机</span>
-              </div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:3px;">配备: 水蜡镀膜 / 强劲风干 / 臭氧消毒</div>
-            </div>
-            <button class="btn-primary" style="padding:6px 14px;font-size:11px;" onclick="selectBayAndWash(3)">
-              <span>进入洗车</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- ==================== TAB 1: 扫码洗车与工作台 (Wash Console) ==================== -->
-        <div class="mp-tab-panel" id="tab-pane-1">
-
-          <!-- SECTION 1: Standby Unconnected View -->
-          <div id="wash-standby-view">
-            <!-- Simulated QR Scan Area -->
-            <div class="ui-card" style="text-align:center;padding:18px;">
-              <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">扫描洗车工位二维码</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">对准控制机身或洗车间立柱二维码</div>
-              
-              <div class="scan-radar">
-                <div class="scan-line"></div>
-                <div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--color-primary);opacity:0.4;">
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                </div>
-              </div>
-
-              <button class="btn-primary" style="width:100%;padding:11px;font-size:13px;" onclick="triggerSimulatedScan()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-                <span>点击模拟微信扫码识别</span>
-              </button>
-            </div>
-
-            <!-- Manual Bay Selection -->
-            <div class="ui-card">
-              <div style="font-size:13px;font-weight:800;color:var(--color-text-title);margin-bottom:8px;">或快捷选择当前工位开机:</div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-                <div class="mode-pill active" id="bay-btn-1" onclick="chooseBay(1)" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;">
-                  <span style="font-size:13px;font-weight:800;color:var(--color-primary);">01 号工位</span>
-                  <span style="font-size:10px;color:var(--color-success);margin-top:2px;">空闲就绪</span>
-                </div>
-                <div class="mode-pill" id="bay-btn-2" onclick="showToast('02号工位正在使用中', 'warning')" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;opacity:0.6;">
-                  <span style="font-size:13px;font-weight:800;color:var(--color-text-muted);">02 号工位</span>
-                  <span style="font-size:10px;color:var(--color-warning);margin-top:2px;">占用中</span>
-                </div>
-                <div class="mode-pill" id="bay-btn-3" onclick="chooseBay(3)" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;">
-                  <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">03 号工位</span>
-                  <span style="font-size:10px;color:var(--color-success);margin-top:2px;">空闲就绪</span>
-                </div>
-              </div>
-
-              <div style="margin-top:14px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                  <span style="font-size:12px;font-weight:700;color:var(--color-text-title);">洗车启动套餐:</span>
-                  <span style="font-size:11px;color:var(--color-primary);font-weight:700;">按分计费 · 余额扣减</span>
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                  <div style="border:1.5px solid var(--color-primary);background:var(--color-primary-light);padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;" onclick="showToast('已选用基础洗车模式', 'info')">
-                    <div style="font-size:12px;font-weight:800;color:var(--color-primary);">标准清洗套餐</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">¥0.50/分钟 · 随时结算</div>
-                  </div>
-                  <div style="border:1px solid var(--color-border);background:var(--color-bg-subtle);padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;" onclick="showToast('已选用尊享精洗模式', 'info')">
-                    <div style="font-size:12px;font-weight:800;color:var(--color-text-title);">全套镀膜精洗</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">水蜡+风干+消毒</div>
-                  </div>
-                </div>
-              </div>
-
-              <button class="btn-primary" style="width:100%;margin-top:14px;padding:12px;font-size:13px;" onclick="startWashConsole()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>确认连接工位并启动洗车</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- SECTION 2: Active Working Wash Console -->
-          <div id="wash-active-view" style="display:none;">
-            
-            <!-- Dynamic Dashboard Status -->
-            <div style="background:linear-gradient(135deg, #0F172A, #1E293B);border-radius:var(--radius-md);padding:16px;color:#FFF;margin-bottom:12px;box-shadow:var(--shadow-lg);">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="width:8px;height:8px;border-radius:50%;background:var(--color-success);display:inline-block;box-shadow:0 0 8px var(--color-success);" id="wash-status-dot"></span>
-                  <span style="font-size:12px;font-weight:800;color:#FFF;" id="active-bay-title">01 号工位 · 设备运行中</span>
-                </div>
-                <span class="badge-success" style="background:rgba(16,185,129,0.2);color:#34D399;" id="active-mode-tag">当前模式: 清水冲洗</span>
-              </div>
-
-              <!-- Meter Digits -->
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:16px 0 10px;">
-                <div>
-                  <div style="font-size:10px;color:#94A3B8;">已用时长</div>
-                  <div style="font-size:22px;font-weight:900;color:#FFF;font-variant-numeric:tabular-nums;" id="wash-timer-display">00:00</div>
-                </div>
-                <div>
-                  <div style="font-size:10px;color:#94A3B8;">实时水压</div>
-                  <div style="font-size:22px;font-weight:900;color:#38BDF8;" id="wash-pressure-display">2.8 MPa</div>
-                </div>
-                <div>
-                  <div style="font-size:10px;color:#94A3B8;">累计费用</div>
-                  <div style="font-size:22px;font-weight:900;color:#FBBF24;" id="wash-cost-display">¥0.00</div>
-                </div>
-              </div>
-
-              <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#CBD5E1;">
-                <span>账户可用虚拟余额: <b style="color:#FFF;" id="console-balance-display">¥68.50</b></span>
-                <button style="background:rgba(255,255,255,0.15);border:none;color:#FFF;padding:3px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:10px;" onclick="openEmergencyModal()">
+</div>
+<button class="btn-secondary" onclick="openStoreModal()">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><path d="m16 3 4 4-4 4"></path><path d="M20 7H4"></path><path d="m8 21-4-4 4-4"></path><path d="M4 17h16"></path></svg>
+<span>切换门店</span>
+</button>
+</div>
+<!-- Hero Promo Banner -->
+<div style="background:linear-gradient(135deg, var(--color-primary), #0369A1);border-radius:var(--radius-md);padding:16px;color:#FFF;margin-bottom:12px;box-shadow:0 6px 16px rgba(2,132,199,0.25);position:relative;overflow:hidden;">
+<div style="font-size:10px;opacity:0.85;font-weight:800;letter-spacing:1px;">SMART 24H CAR WASH SYSTEM</div>
+<div style="font-size:18px;font-weight:900;margin-top:2px;">智能按分计费 · 洁净随心</div>
+<div style="font-size:11px;opacity:0.9;margin-top:4px;">高压水枪 / 浓密泡沫 / 强力吸尘 / 水蜡镀膜</div>
+<div style="margin-top:10px;display:flex;align-items:center;gap:8px;">
+<button class="btn-primary" onclick="openCouponDetailModal()" style="background:#FFF;color:var(--color-primary);font-size:11px;padding:6px 12px;box-shadow:none;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" x2="7.01" y1="7" y2="7"></line></svg>
+<span>领新人洗车券 ¥5</span>
+</button>
+<button class="btn-secondary" onclick="openGuideModal()" style="background:rgba(255,255,255,0.2);color:#FFF;border:none;font-size:11px;">
+<span>新手洗车指南</span>
+</button>
+</div>
+</div>
+<!-- 4 Quick Kingkong Buttons -->
+<div class="ui-card" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;padding:12px 6px;">
+<div onclick="switchMpTab(1)" style="cursor:pointer;">
+<div style="width:40px;height:40px;border-radius:12px;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+</div>
+<div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">扫码开机</div>
+</div>
+<div onclick="switchMpTab(2)" style="cursor:pointer;">
+<div style="width:40px;height:40px;border-radius:12px;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;margin:0 auto;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><rect height="16" rx="2" ry="2" width="22" x="1" y="4"></rect><line x1="1" x2="23" y1="10" y2="10"></line></svg>
+</div>
+<div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">钱包充值</div>
+</div>
+<div onclick="switchMpTab(3)" style="cursor:pointer;">
+<div style="width:40px;height:40px;border-radius:12px;background:#DCFCE7;color:#16A34A;display:flex;align-items:center;justify-content:center;margin:0 auto;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+</div>
+<div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">我的爱车</div>
+</div>
+<div onclick="openGuideModal()" style="cursor:pointer;">
+<div style="width:40px;height:40px;border-radius:12px;background:#F1F5F9;color:#475569;display:flex;align-items:center;justify-content:center;margin:0 auto;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+</div>
+<div style="font-size:11px;font-weight:700;color:var(--color-text-body);margin-top:6px;">使用教程</div>
+</div>
+</div>
+<!-- Real-Time Bay Status Board -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">门店工位实时看板</span>
+<span style="font-size:11px;color:var(--color-text-muted);">共 3 个工位 · 2 空闲</span>
+</div>
+<!-- Bay 01 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:14px;font-weight:800;color:var(--color-text-title);">01 号工位 · 智能标准舱</span>
+<span class="badge-success">空闲待机</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:3px;">配备: 2.8MPa清水 / 挂壁泡沫 / 负压吸尘</div>
+</div>
+<button class="btn-primary" onclick="selectBayAndWash(1)" style="padding:6px 14px;font-size:11px;">
+<span>进入洗车</span>
+<svg fill="none" height="10" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="10"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+<!-- Bay 02 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:14px;font-weight:800;color:var(--color-text-muted);">02 号工位 · 智能标准舱</span>
+<span class="badge-warning">洗车作业中</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-subtle);margin-top:3px;">车牌: 京A·**21 · 预计剩余 6 分钟</div>
+</div>
+<button class="btn-secondary" onclick="showToast('02号工位正在使用中，请选择其他工位', 'info')" style="padding:6px 12px;font-size:11px;background:#F1F5F9;color:var(--color-text-muted);border-color:var(--color-border);">
+<span>查看状态</span>
+</button>
+</div>
+<!-- Bay 03 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:14px;font-weight:800;color:var(--color-text-title);">03 号工位 · SUV大进深精洗舱</span>
+<span class="badge-success">空闲待机</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:3px;">配备: 水蜡镀膜 / 强劲风干 / 臭氧消毒</div>
+</div>
+<button class="btn-primary" onclick="selectBayAndWash(3)" style="padding:6px 14px;font-size:11px;">
+<span>进入洗车</span>
+<svg fill="none" height="10" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="10"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</div>
+<!-- ==================== TAB 1: 扫码洗车与工作台 (Wash Console) ==================== -->
+<div class="mp-tab-panel" id="tab-pane-1">
+<!-- SECTION 1: Standby Unconnected View -->
+<div id="wash-standby-view">
+<!-- Simulated QR Scan Area -->
+<div class="ui-card" style="text-align:center;padding:18px;">
+<div style="font-size:14px;font-weight:800;color:var(--color-text-title);">扫描洗车工位二维码</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">对准控制机身或洗车间立柱二维码</div>
+<div class="scan-radar">
+<div class="scan-line"></div>
+<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--color-primary);opacity:0.4;">
+<svg fill="none" height="64" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="64"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+</div>
+</div>
+<button class="btn-primary" onclick="triggerSimulatedScan()" style="width:100%;padding:11px;font-size:13px;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+<span>点击模拟微信扫码识别</span>
+</button>
+</div>
+<!-- Manual Bay Selection -->
+<div class="ui-card">
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);margin-bottom:8px;">或快捷选择当前工位开机:</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+<div class="mode-pill active" id="bay-btn-1" onclick="chooseBay(1)" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;">
+<span style="font-size:13px;font-weight:800;color:var(--color-primary);">01 号工位</span>
+<span style="font-size:10px;color:var(--color-success);margin-top:2px;">空闲就绪</span>
+</div>
+<div class="mode-pill" id="bay-btn-2" onclick="showToast('02号工位正在使用中', 'warning')" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;opacity:0.6;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-muted);">02 号工位</span>
+<span style="font-size:10px;color:var(--color-warning);margin-top:2px;">占用中</span>
+</div>
+<div class="mode-pill" id="bay-btn-3" onclick="chooseBay(3)" style="flex-direction:column;align-items:center;padding:10px 4px;text-align:center;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">03 号工位</span>
+<span style="font-size:10px;color:var(--color-success);margin-top:2px;">空闲就绪</span>
+</div>
+</div>
+<div style="margin-top:14px;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+<span style="font-size:12px;font-weight:700;color:var(--color-text-title);">洗车启动套餐:</span>
+<span style="font-size:11px;color:var(--color-primary);font-weight:700;">按分计费 · 余额扣减</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+<div onclick="showToast('已选用基础洗车模式', 'info')" style="border:1.5px solid var(--color-primary);background:var(--color-primary-light);padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;">
+<div style="font-size:12px;font-weight:800;color:var(--color-primary);">标准清洗套餐</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">¥0.50/分钟 · 随时结算</div>
+</div>
+<div onclick="showToast('已选用尊享精洗模式', 'info')" style="border:1px solid var(--color-border);background:var(--color-bg-subtle);padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;">
+<div style="font-size:12px;font-weight:800;color:var(--color-text-title);">全套镀膜精洗</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">水蜡+风干+消毒</div>
+</div>
+</div>
+</div>
+<button class="btn-primary" onclick="startWashConsole()" style="width:100%;margin-top:14px;padding:12px;font-size:13px;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+<span>确认连接工位并启动洗车</span>
+</button>
+</div>
+</div>
+<!-- SECTION 2: Active Working Wash Console -->
+<div id="wash-active-view" style="display:none;">
+<!-- Dynamic Dashboard Status -->
+<div style="background:linear-gradient(135deg, #0F172A, #1E293B);border-radius:var(--radius-md);padding:16px;color:#FFF;margin-bottom:12px;box-shadow:var(--shadow-lg);">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span id="wash-status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--color-success);display:inline-block;box-shadow:0 0 8px var(--color-success);"></span>
+<span id="active-bay-title" style="font-size:12px;font-weight:800;color:#FFF;">01 号工位 · 设备运行中</span>
+</div>
+<span class="badge-success" id="active-mode-tag" style="background:rgba(16,185,129,0.2);color:#34D399;">当前模式: 清水冲洗</span>
+</div>
+<!-- Meter Digits -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:16px 0 10px;">
+<div>
+<div style="font-size:10px;color:#94A3B8;">已用时长</div>
+<div id="wash-timer-display" style="font-size:22px;font-weight:900;color:#FFF;font-variant-numeric:tabular-nums;">00:00</div>
+</div>
+<div>
+<div style="font-size:10px;color:#94A3B8;">实时水压</div>
+<div id="wash-pressure-display" style="font-size:22px;font-weight:900;color:#38BDF8;">2.8 MPa</div>
+</div>
+<div>
+<div style="font-size:10px;color:#94A3B8;">累计费用</div>
+<div id="wash-cost-display" style="font-size:22px;font-weight:900;color:#FBBF24;">¥0.00</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#CBD5E1;">
+<span>账户可用虚拟余额: <b id="console-balance-display" style="color:#FFF;">¥68.50</b></span>
+<button onclick="openEmergencyModal()" style="background:rgba(255,255,255,0.15);border:none;color:#FFF;padding:3px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:10px;">
                   紧急急停
                 </button>
-              </div>
-            </div>
-
-            <!-- Six Wash Function Modes -->
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">洗车模式即时切换 (点击生效)</span>
-              <span style="font-size:11px;color:var(--color-primary);font-weight:700;">微电脑即刻响应</span>
-            </div>
-
-            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-              
-              <!-- Mode 1 -->
-              <div class="mode-pill active" id="mode-pill-1" onclick="switchWashMode(1, '高压清水冲洗', '2.8 MPa', 0.50)">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:34px;height:34px;border-radius:10px;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                  </div>
-                  <div>
-                    <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">高压清水冲洗</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);">强力冲洗底盘与车身泥沙 · 2.8MPa</div>
-                  </div>
-                </div>
-                <span style="font-size:12px;font-weight:800;color:var(--color-primary);">使用中</span>
-              </div>
-
-              <!-- Mode 2 -->
-              <div class="mode-pill" id="mode-pill-2" onclick="switchWashMode(2, '浓密高泡松土', '0.6 MPa', 0.60)">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:34px;height:34px;border-radius:10px;background:#F0FDF4;color:#16A34A;display:flex;align-items:center;justify-content:center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                  <div>
-                    <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">浓密高泡松土</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);">中性环保泡沫分解油污</div>
-                  </div>
-                </div>
-                <span style="font-size:11px;color:var(--color-text-muted);">待命</span>
-              </div>
-
-              <!-- Mode 3 -->
-              <div class="mode-pill" id="mode-pill-3" onclick="switchWashMode(3, '强力负压吸尘', '负压 18kPa', 0.40)">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:34px;height:34px;border-radius:10px;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-                  </div>
-                  <div>
-                    <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">强力负压吸尘</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);">车内脚垫与座椅灰尘深度清理</div>
-                  </div>
-                </div>
-                <span style="font-size:11px;color:var(--color-text-muted);">待命</span>
-              </div>
-
-              <!-- Mode 4 -->
-              <div class="mode-pill" id="mode-pill-4" onclick="switchWashMode(4, '水驱镀膜光亮', '1.2 MPa', 0.80)">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:34px;height:34px;border-radius:10px;background:#EDE9FE;color:#7C3AED;display:flex;align-items:center;justify-content:center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-                  </div>
-                  <div>
-                    <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">水驱镀膜光亮</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);">纳米水蜡保护车漆防尘驱水</div>
-                  </div>
-                </div>
-                <span style="font-size:11px;color:var(--color-text-muted);">待命</span>
-              </div>
-
-              <!-- Mode 5 -->
-              <div class="mode-pill" id="mode-pill-5" onclick="switchWashMode(5, '强劲大风吹干', '风速 25m/s', 0.50)">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:34px;height:34px;border-radius:10px;background:#E0F2FE;color:#0284C7;display:flex;align-items:center;justify-content:center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>
-                  </div>
-                  <div>
-                    <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">强劲大风吹干</div>
-                    <div style="font-size:10px;color:var(--color-text-muted);">吹除车窗与后视镜缝隙积水</div>
-                  </div>
-                </div>
-                <span style="font-size:11px;color:var(--color-text-muted);">待命</span>
-              </div>
-
-            </div>
-
-            <!-- Console Action Controller -->
-            <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;">
-              <button class="btn-secondary" id="pause-wash-btn" style="padding:12px;font-size:13px;justify-content:center;" onclick="togglePauseWash()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span id="pause-btn-text">暂停保压</span>
-              </button>
-              <button class="btn-primary" style="background:#EF4444;box-shadow:0 4px 14px rgba(239,68,68,0.35);padding:12px;font-size:13px;" onclick="openCheckoutModal()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
-                <span>结束洗车并结算</span>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- ==================== TAB 2: 洗车券包与充值 (Coupons & Wallet) ==================== -->
-        <div class="mp-tab-panel" id="tab-pane-2">
-          
-          <!-- Virtual Balance Card -->
-          <div style="background:linear-gradient(135deg, #0284C7, #0369A1);border-radius:var(--radius-md);padding:18px;color:#FFF;box-shadow:var(--shadow-primary);margin-bottom:14px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:11px;opacity:0.85;font-weight:700;">** · 虚拟会员储值账户</span>
-              <span class="badge-success" style="background:rgba(255,255,255,0.25);color:#FFF;">金牌 VIP 车主</span>
-            </div>
-            <div style="font-size:32px;font-weight:900;margin:8px 0 4px;font-variant-numeric:tabular-nums;" id="wallet-balance-num">¥68.50</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;opacity:0.9;">
-              <span>**省 ¥45.00 洗车费用</span>
-              <span style="text-decoration:underline;cursor:pointer;" onclick="showToast('当前展示版支持一键模拟充值与扣款', 'info')">资金安全保障</span>
-            </div>
-          </div>
-
-          <!-- Recharge Tiers Matrix -->
-          <div class="ui-card">
-            <div style="font-size:13px;font-weight:800;color:var(--color-text-title);margin-bottom:10px;">储值立赠优惠 (选择档位)</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-              <div class="recharge-tier-card selected" id="tier-1" onclick="selectRechargeTier(1, 30, 5)">
-                <div style="font-size:16px;font-weight:900;color:var(--color-primary);">充 30 送 5</div>
-                <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥35.00</div>
-              </div>
-              <div class="recharge-tier-card" id="tier-2" onclick="selectRechargeTier(2, 50, 12)">
-                <div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 50 送 12</div>
-                <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥62.00</div>
-              </div>
-              <div class="recharge-tier-card" id="tier-3" onclick="selectRechargeTier(3, 100, 30)">
-                <div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 100 送 30</div>
-                <div style="font-size:10px;color:var(--color-success);font-weight:700;margin-top:2px;">热销爆款 · 到账 ¥130</div>
-              </div>
-              <div class="recharge-tier-card" id="tier-4" onclick="selectRechargeTier(4, 200, 80)">
-                <div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 200 送 80</div>
-                <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥280.00</div>
-              </div>
-            </div>
-
-            <button class="btn-primary" style="width:100%;padding:11px;font-size:13px;" onclick="executeSimulatedRecharge()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              <span id="recharge-btn-label">立即模拟充值 ¥30 (免支付直接到账)</span>
-            </button>
-          </div>
-
-          <!-- Coupons Available -->
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">我的洗车优惠券</span>
-            <span style="font-size:11px;color:var(--color-text-muted);" id="coupon-count-tag">3 张可用</span>
-          </div>
-
-          <!-- Coupon 1 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--color-primary);">
-            <div>
-              <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">¥5.00 新人专享立减券</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">全场工位无门槛抵扣 · 本月有效</div>
-            </div>
-            <button class="btn-secondary" onclick="applyCouponAndWash(5, '¥5 新人券')">
-              <span>去使用</span>
-            </button>
-          </div>
-
-          <!-- Coupon 2 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid #F59E0B;">
-            <div>
-              <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">夜间洗车 5折折抵券</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">限每日 22:00 - 次日 06:00 使用</div>
-            </div>
-            <button class="btn-secondary" onclick="applyCouponAndWash(3, '夜间5折券')">
-              <span>去使用</span>
-            </button>
-          </div>
-
-          <!-- Coupon 3 -->
-          <div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid #10B981;">
-            <div>
-              <div style="font-size:14px;font-weight:800;color:var(--color-text-title);">免费水蜡镀膜升级体验券</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">全套精洗时免费抵扣镀膜时长</div>
-            </div>
-            <button class="btn-secondary" onclick="applyCouponAndWash(4, '镀膜体验券')">
-              <span>去使用</span>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- ==================== TAB 3: 个人中心与历史 (Profile) ==================== -->
-        <div class="mp-tab-panel" id="tab-pane-3">
-
-          <!-- User Profile Card -->
-          <div class="ui-card" style="display:flex;align-items:center;gap:12px;padding:16px;">
-            <div style="width:48px;height:48px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:15px;font-weight:800;color:var(--color-text-title);">车友_**</span>
-                <span class="badge-success">已认证</span>
-              </div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">手机号: 138**8899 · 微信自动授权</div>
-            </div>
-            <button class="btn-secondary" style="font-size:11px;padding:4px 10px;" onclick="showToast('当前处于展示版登录态', 'info')">
-              <span>账户设置</span>
-            </button>
-          </div>
-
-          <!-- Vehicle Plates Management -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">绑定的爱车 (车牌识别进站)</span>
-              <button class="btn-secondary" style="padding:4px 10px;font-size:11px;" onclick="openAddPlateModal()">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                <span>添加车牌</span>
-              </button>
-            </div>
-
-            <div id="plates-container" style="display:flex;flex-direction:column;gap:8px;">
-              <!-- Default Plate 1 -->
-              <div style="display:flex;justify-content:space-between;align-items:center;background:var(--color-bg-subtle);padding:10px 14px;border-radius:var(--radius-md);border:1px solid var(--color-border);">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div class="plate-badge electric">京A·D**1</div>
-                  <div>
-                    <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">新能源纯电轿车</div>
-                    <div style="font-size:10px;color:var(--color-success);font-weight:700;">默认识别车辆</div>
-                  </div>
-                </div>
-                <span style="font-size:11px;color:var(--color-primary);font-weight:800;">当前默认</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Order History Section -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <span style="font-size:13px;font-weight:800;color:var(--color-text-title);">最近洗车订单记录</span>
-              <span style="font-size:11px;color:var(--color-text-muted);" id="order-count-tag">1 条记录</span>
-            </div>
-
-            <div id="orders-list-container">
-              <!-- Order Item 1 -->
-              <div style="border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;cursor:pointer;" onclick="openReceiptModal('ORD-2026**-01', '01号工位', '08分20秒', '¥4.10')">
-                <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
-                  <b style="color:var(--color-text-title);">**旗舰店 · 01号工位</b>
-                  <span style="color:var(--color-success);font-weight:800;">已结算 ¥4.10</span>
-                </div>
-                <div style="font-size:10px;color:var(--color-text-muted);margin-top:4px;display:flex;justify-content:space-between;">
-                  <span>时长: 08分20秒 · 清水/泡沫/吹风</span>
-                  <span>今日 18:42</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Service Tools Accordion -->
-          <div class="ui-card" style="padding:0;overflow:hidden;">
-            <div style="padding:12px 14px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openRepairModal()">
-              <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--color-primary);"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                <span>设备故障一键报修</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-
-            <div style="padding:12px 14px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openGuideModal()">
-              <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:#10B981;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span>自助洗车新手教程与规范</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-
-            <div style="padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openCustomerServiceModal()">
-              <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:#F59E0B;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                <span>24小时紧急客服热线</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Mini Program Bottom TabBar -->
-      <nav class="mp-tabbar">
-        <div class="tabbar-item active" id="mp-tab-0" onclick="switchMpTab(0)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>首页</span>
-        </div>
-        <div class="tabbar-item" id="mp-tab-1" onclick="switchMpTab(1)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          <span>扫码洗车</span>
-        </div>
-        <div class="tabbar-item" id="mp-tab-2" onclick="switchMpTab(2)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-          <span>洗车券包</span>
-        </div>
-        <div class="tabbar-item" id="mp-tab-3" onclick="switchMpTab(3)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-          <span>个人中心</span>
-        </div>
-      </nav>
-
-      <!-- ==================== UNIVERSAL MODALS ==================== -->
-
-      <!-- Modal 1: Switch Store Modal -->
-      <div class="modal-overlay" id="modal-store">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>选择洗车门店</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-store')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="padding:10px;border:1.5px solid var(--color-primary);background:var(--color-primary-light);border-radius:var(--radius-sm);cursor:pointer;" onclick="selectStore('** · **24h 旗舰店')">
-              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">** · **24h 旗舰店 (当前)</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**路 · 配备 3 个工位</div>
-            </div>
-            <div style="padding:10px;border:1px solid var(--color-border);background:var(--color-bg-page);border-radius:var(--radius-sm);cursor:pointer;" onclick="selectStore('** · **24h 精品店')">
-              <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">** · **24h 精品店</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**路 · 配备 4 个工位</div>
-            </div>
-            <div style="padding:10px;border:1px solid var(--color-border);background:var(--color-bg-page);border-radius:var(--radius-sm);cursor:pointer;" onclick="selectStore('** · **智能洗车中心')">
-              <div style="font-size:13px;font-weight:800;color:var(--color-text-title);">** · **智能洗车中心</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**商业广场 · 配备 5 个工位</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal 2: App Info Modal (Capsule •••) -->
-      <div class="modal-overlay" id="modal-app-info">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>关于**24h自助洗车小程序</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-app-info')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="text-align:center;padding:10px 0;">
-            <div style="width:52px;height:52px;border-radius:14px;background:var(--color-primary);color:#FFF;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-            </div>
-            <div style="font-size:16px;font-weight:800;color:var(--color-text-title);">**24h自助洗车</div>
-            <div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">版本号: v2.4.0 (高保真展示版)</div>
-            <div style="margin-top:14px;background:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px;font-size:11px;color:var(--color-text-body);text-align:left;line-height:1.5;">
+</div>
+</div>
+<!-- Six Wash Function Modes -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">洗车模式即时切换 (点击生效)</span>
+<span style="font-size:11px;color:var(--color-primary);font-weight:700;">微电脑即刻响应</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+<!-- Mode 1 -->
+<div class="mode-pill active" id="mode-pill-1" onclick="switchWashMode(1, '高压清水冲洗', '2.8 MPa', 0.50)">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:34px;height:34px;border-radius:10px;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">高压清水冲洗</div>
+<div style="font-size:10px;color:var(--color-text-muted);">强力冲洗底盘与车身泥沙 · 2.8MPa</div>
+</div>
+</div>
+<span style="font-size:12px;font-weight:800;color:var(--color-primary);">使用中</span>
+</div>
+<!-- Mode 2 -->
+<div class="mode-pill" id="mode-pill-2" onclick="switchWashMode(2, '浓密高泡松土', '0.6 MPa', 0.60)">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:34px;height:34px;border-radius:10px;background:#F0FDF4;color:#16A34A;display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><circle cx="7" cy="17" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">浓密高泡松土</div>
+<div style="font-size:10px;color:var(--color-text-muted);">中性环保泡沫分解油污</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--color-text-muted);">待命</span>
+</div>
+<!-- Mode 3 -->
+<div class="mode-pill" id="mode-pill-3" onclick="switchWashMode(3, '强力负压吸尘', '负压 18kPa', 0.40)">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:34px;height:34px;border-radius:10px;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">强力负压吸尘</div>
+<div style="font-size:10px;color:var(--color-text-muted);">车内脚垫与座椅灰尘深度清理</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--color-text-muted);">待命</span>
+</div>
+<!-- Mode 4 -->
+<div class="mode-pill" id="mode-pill-4" onclick="switchWashMode(4, '水驱镀膜光亮', '1.2 MPa', 0.80)">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:34px;height:34px;border-radius:10px;background:#EDE9FE;color:#7C3AED;display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">水驱镀膜光亮</div>
+<div style="font-size:10px;color:var(--color-text-muted);">纳米水蜡保护车漆防尘驱水</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--color-text-muted);">待命</span>
+</div>
+<!-- Mode 5 -->
+<div class="mode-pill" id="mode-pill-5" onclick="switchWashMode(5, '强劲大风吹干', '风速 25m/s', 0.50)">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:34px;height:34px;border-radius:10px;background:#E0F2FE;color:#0284C7;display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path><path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">强劲大风吹干</div>
+<div style="font-size:10px;color:var(--color-text-muted);">吹除车窗与后视镜缝隙积水</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--color-text-muted);">待命</span>
+</div>
+</div>
+<!-- Console Action Controller -->
+<div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px;">
+<button class="btn-secondary" id="pause-wash-btn" onclick="togglePauseWash()" style="padding:12px;font-size:13px;justify-content:center;">
+<svg fill="none" height="16" id="pause-icon" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><rect height="16" width="4" x="6" y="4"></rect><rect height="16" width="4" x="14" y="4"></rect></svg>
+<span id="pause-btn-text">暂停保压</span>
+</button>
+<button class="btn-primary" onclick="openCheckoutModal()" style="background:#EF4444;box-shadow:0 4px 14px rgba(239,68,68,0.35);padding:12px;font-size:13px;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect></svg>
+<span>结束洗车并结算</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== TAB 2: 洗车券包与充值 (Coupons & Wallet) ==================== -->
+<div class="mp-tab-panel" id="tab-pane-2">
+<!-- Virtual Balance Card -->
+<div style="background:linear-gradient(135deg, #0284C7, #0369A1);border-radius:var(--radius-md);padding:18px;color:#FFF;box-shadow:var(--shadow-primary);margin-bottom:14px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<span style="font-size:11px;opacity:0.85;font-weight:700;">** · 虚拟会员储值账户</span>
+<span class="badge-success" style="background:rgba(255,255,255,0.25);color:#FFF;">金牌 VIP 车主</span>
+</div>
+<div id="wallet-balance-num" style="font-size:32px;font-weight:900;margin:8px 0 4px;font-variant-numeric:tabular-nums;">¥68.50</div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;opacity:0.9;">
+<span>**省 ¥45.00 洗车费用</span>
+<span onclick="showToast('当前展示版支持一键模拟充值与扣款', 'info')" style="text-decoration:underline;cursor:pointer;">资金安全保障</span>
+</div>
+</div>
+<!-- Recharge Tiers Matrix -->
+<div class="ui-card">
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);margin-bottom:10px;">储值立赠优惠 (选择档位)</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+<div class="recharge-tier-card selected" id="tier-1" onclick="selectRechargeTier(1, 30, 5)">
+<div style="font-size:16px;font-weight:900;color:var(--color-primary);">充 30 送 5</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥35.00</div>
+</div>
+<div class="recharge-tier-card" id="tier-2" onclick="selectRechargeTier(2, 50, 12)">
+<div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 50 送 12</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥62.00</div>
+</div>
+<div class="recharge-tier-card" id="tier-3" onclick="selectRechargeTier(3, 100, 30)">
+<div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 100 送 30</div>
+<div style="font-size:10px;color:var(--color-success);font-weight:700;margin-top:2px;">热销爆款 · 到账 ¥130</div>
+</div>
+<div class="recharge-tier-card" id="tier-4" onclick="selectRechargeTier(4, 200, 80)">
+<div style="font-size:16px;font-weight:900;color:var(--color-text-title);">充 200 送 80</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">到账 ¥280.00</div>
+</div>
+</div>
+<button class="btn-primary" onclick="executeSimulatedRecharge()" style="width:100%;padding:11px;font-size:13px;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="16"><rect height="16" rx="2" ry="2" width="22" x="1" y="4"></rect><line x1="1" x2="23" y1="10" y2="10"></line></svg>
+<span id="recharge-btn-label">立即模拟充值 ¥30 (免支付直接到账)</span>
+</button>
+</div>
+<!-- Coupons Available -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">我的洗车优惠券</span>
+<span id="coupon-count-tag" style="font-size:11px;color:var(--color-text-muted);">3 张可用</span>
+</div>
+<!-- Coupon 1 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--color-primary);">
+<div>
+<div style="font-size:14px;font-weight:800;color:var(--color-text-title);">¥5.00 新人专享立减券</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">全场工位无门槛抵扣 · 本月有效</div>
+</div>
+<button class="btn-secondary" onclick="applyCouponAndWash(5, '¥5 新人券')">
+<span>去使用</span>
+</button>
+</div>
+<!-- Coupon 2 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid #F59E0B;">
+<div>
+<div style="font-size:14px;font-weight:800;color:var(--color-text-title);">夜间洗车 5折折抵券</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">限每日 22:00 - 次日 06:00 使用</div>
+</div>
+<button class="btn-secondary" onclick="applyCouponAndWash(3, '夜间5折券')">
+<span>去使用</span>
+</button>
+</div>
+<!-- Coupon 3 -->
+<div class="ui-card" style="display:flex;justify-content:space-between;align-items:center;border-left:4px solid #10B981;">
+<div>
+<div style="font-size:14px;font-weight:800;color:var(--color-text-title);">免费水蜡镀膜升级体验券</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">全套精洗时免费抵扣镀膜时长</div>
+</div>
+<button class="btn-secondary" onclick="applyCouponAndWash(4, '镀膜体验券')">
+<span>去使用</span>
+</button>
+</div>
+</div>
+<!-- ==================== TAB 3: 个人中心与历史 (Profile) ==================== -->
+<div class="mp-tab-panel" id="tab-pane-3">
+<!-- User Profile Card -->
+<div class="ui-card" style="display:flex;align-items:center;gap:12px;padding:16px;">
+<div style="width:48px;height:48px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:15px;font-weight:800;color:var(--color-text-title);">车友_**</span>
+<span class="badge-success">已认证</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">手机号: 138**8899 · 微信自动授权</div>
+</div>
+<button class="btn-secondary" onclick="showToast('当前处于展示版登录态', 'info')" style="font-size:11px;padding:4px 10px;">
+<span>账户设置</span>
+</button>
+</div>
+<!-- Vehicle Plates Management -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">绑定的爱车 (车牌识别进站)</span>
+<button class="btn-secondary" onclick="openAddPlateModal()" style="padding:4px 10px;font-size:11px;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+<span>添加车牌</span>
+</button>
+</div>
+<div id="plates-container" style="display:flex;flex-direction:column;gap:8px;">
+<!-- Default Plate 1 -->
+<div style="display:flex;justify-content:space-between;align-items:center;background:var(--color-bg-subtle);padding:10px 14px;border-radius:var(--radius-md);border:1px solid var(--color-border);">
+<div style="display:flex;align-items:center;gap:10px;">
+<div class="plate-badge electric">京A·D**1</div>
+<div>
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">新能源纯电轿车</div>
+<div style="font-size:10px;color:var(--color-success);font-weight:700;">默认识别车辆</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--color-primary);font-weight:800;">当前默认</span>
+</div>
+</div>
+</div>
+<!-- Order History Section -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<span style="font-size:13px;font-weight:800;color:var(--color-text-title);">最近洗车订单记录</span>
+<span id="order-count-tag" style="font-size:11px;color:var(--color-text-muted);">1 条记录</span>
+</div>
+<div id="orders-list-container">
+<!-- Order Item 1 -->
+<div onclick="openReceiptModal('ORD-2026**-01', '01号工位', '08分20秒', '¥4.10')" style="border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;cursor:pointer;">
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+<b style="color:var(--color-text-title);">**旗舰店 · 01号工位</b>
+<span style="color:var(--color-success);font-weight:800;">已结算 ¥4.10</span>
+</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:4px;display:flex;justify-content:space-between;">
+<span>时长: 08分20秒 · 清水/泡沫/吹风</span>
+<span>今日 18:42</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Tools Accordion -->
+<div class="ui-card" style="padding:0;overflow:hidden;">
+<div onclick="openRepairModal()" style="padding:12px 14px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" style="color:var(--color-primary);" viewbox="0 0 24 24" width="16"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+<span>设备故障一键报修</span>
+</div>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div onclick="openGuideModal()" style="padding:12px 14px;border-bottom:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" style="color:#10B981;" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span>自助洗车新手教程与规范</span>
+</div>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div onclick="openCustomerServiceModal()" style="padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--color-text-title);">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" style="color:#F59E0B;" viewbox="0 0 24 24" width="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>24小时紧急客服热线</span>
+</div>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" style="color:var(--color-text-subtle);" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Program Bottom TabBar -->
+<nav class="mp-tabbar">
+<div class="tabbar-item active" id="mp-tab-0" onclick="switchMpTab(0)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>首页</span>
+</div>
+<div class="tabbar-item" id="mp-tab-1" onclick="switchMpTab(1)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+<span>扫码洗车</span>
+</div>
+<div class="tabbar-item" id="mp-tab-2" onclick="switchMpTab(2)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" x2="7.01" y1="7" y2="7"></line></svg>
+<span>洗车券包</span>
+</div>
+<div class="tabbar-item" id="mp-tab-3" onclick="switchMpTab(3)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+<span>个人中心</span>
+</div>
+</nav>
+<!-- ==================== UNIVERSAL MODALS ==================== -->
+<!-- Modal 1: Switch Store Modal -->
+<div class="modal-overlay" id="modal-store">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>选择洗车门店</span>
+<button class="modal-close-btn" onclick="closeModal('modal-store')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div onclick="selectStore('** · **24h 旗舰店')" style="padding:10px;border:1.5px solid var(--color-primary);background:var(--color-primary-light);border-radius:var(--radius-sm);cursor:pointer;">
+<div style="font-size:13px;font-weight:800;color:var(--color-primary);">** · **24h 旗舰店 (当前)</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**路 · 配备 3 个工位</div>
+</div>
+<div onclick="selectStore('** · **24h 精品店')" style="padding:10px;border:1px solid var(--color-border);background:var(--color-bg-page);border-radius:var(--radius-sm);cursor:pointer;">
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">** · **24h 精品店</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**路 · 配备 4 个工位</div>
+</div>
+<div onclick="selectStore('** · **智能洗车中心')" style="padding:10px;border:1px solid var(--color-border);background:var(--color-bg-page);border-radius:var(--radius-sm);cursor:pointer;">
+<div style="font-size:13px;font-weight:800;color:var(--color-text-title);">** · **智能洗车中心</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">**市**区**商业广场 · 配备 5 个工位</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal 2: App Info Modal (Capsule •••) -->
+<div class="modal-overlay" id="modal-app-info">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>关于**24h自助洗车小程序</span>
+<button class="modal-close-btn" onclick="closeModal('modal-app-info')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="text-align:center;padding:10px 0;">
+<div style="width:52px;height:52px;border-radius:14px;background:var(--color-primary);color:#FFF;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+<svg fill="none" height="28" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="28"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+</div>
+<div style="font-size:16px;font-weight:800;color:var(--color-text-title);">**24h自助洗车</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">版本号: v2.4.0 (高保真展示版)</div>
+<div style="margin-top:14px;background:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:10px;font-size:11px;color:var(--color-text-body);text-align:left;line-height:1.5;">
               **市面上成熟自助洗车小程序（某**/**公里/**便捷）全链路复刻。具备全量按钮点击交互、实时秒表计时计费、虚拟钱包充值及工位控制闭环。
             </div>
-          </div>
-          <button class="btn-primary" style="width:100%;margin-top:10px;" onclick="closeModal('modal-app-info')">
-            <span>知道了</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal 3: Guide Modal -->
-      <div class="modal-overlay" id="modal-guide">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>自助洗车新手操作规范</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-guide')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="font-size:11px;color:var(--color-text-body);display:flex;flex-direction:column;gap:10px;line-height:1.6;">
-            <div>
-              <b style="color:var(--color-primary);">步骤 1. 停妥车辆</b><br>
+</div>
+<button class="btn-primary" onclick="closeModal('modal-app-info')" style="width:100%;margin-top:10px;">
+<span>知道了</span>
+</button>
+</div>
+</div>
+<!-- Modal 3: Guide Modal -->
+<div class="modal-overlay" id="modal-guide">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>自助洗车新手操作规范</span>
+<button class="modal-close-btn" onclick="closeModal('modal-guide')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-body);display:flex;flex-direction:column;gap:10px;line-height:1.6;">
+<div>
+<b style="color:var(--color-primary);">步骤 1. 停妥车辆</b><br/>
               将车辆倒入洗车工位，拉紧手刹、关闭车窗与天窗。
             </div>
-            <div>
-              <b style="color:var(--color-primary);">步骤 2. 扫码开机</b><br>
+<div>
+<b style="color:var(--color-primary);">步骤 2. 扫码开机</b><br/>
               打开本小程序，扫描立柱二维码或选择当前工位号点击【确认启动】。
             </div>
-            <div>
-              <b style="color:var(--color-primary);">步骤 3. 喷沫与冲洗</b><br>
+<div>
+<b style="color:var(--color-primary);">步骤 3. 喷沫与冲洗</b><br/>
               先选用【高压清水】冲去浮尘沙粒，再选用【浓密高泡】覆盖车漆静置 1 分钟。
             </div>
-            <div>
-              <b style="color:var(--color-primary);">步骤 4. 镀膜与吹干</b><br>
+<div>
+<b style="color:var(--color-primary);">步骤 4. 镀膜与吹干</b><br/>
               选用【水蜡镀膜】形成驱水保护层，最后使用【强劲风干】吹散水渍后点击【结算】离场。
             </div>
-          </div>
-          <button class="btn-primary" style="width:100%;margin-top:14px;" onclick="closeModal('modal-guide')">
-            <span>我已了解规范</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal 4: Add Plate Modal -->
-      <div class="modal-overlay" id="modal-add-plate">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>添加车牌号码</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-add-plate')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div>
-              <label style="font-size:11px;color:var(--color-text-muted);font-weight:700;">输入车牌号 (例: 粤B·**)</label>
-              <input type="text" id="input-new-plate" placeholder="请输入车牌号" value="粤B·**" style="width:100%;padding:10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:14px;font-weight:800;color:var(--color-text-title);margin-top:4px;">
-            </div>
-            <div>
-              <label style="font-size:11px;color:var(--color-text-muted);font-weight:700;">能源类型</label>
-              <div style="display:flex;gap:10px;margin-top:4px;">
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;">
-                  <input type="radio" name="plate-type" value="blue"> 燃油车 (蓝牌)
+</div>
+<button class="btn-primary" onclick="closeModal('modal-guide')" style="width:100%;margin-top:14px;">
+<span>我已了解规范</span>
+</button>
+</div>
+</div>
+<!-- Modal 4: Add Plate Modal -->
+<div class="modal-overlay" id="modal-add-plate">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>添加车牌号码</span>
+<button class="modal-close-btn" onclick="closeModal('modal-add-plate')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div>
+<label style="font-size:11px;color:var(--color-text-muted);font-weight:700;">输入车牌号 (例: 粤B·**)</label>
+<input id="input-new-plate" placeholder="请输入车牌号" style="width:100%;padding:10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:14px;font-weight:800;color:var(--color-text-title);margin-top:4px;" type="text" value="粤B·**"/>
+</div>
+<div>
+<label style="font-size:11px;color:var(--color-text-muted);font-weight:700;">能源类型</label>
+<div style="display:flex;gap:10px;margin-top:4px;">
+<label style="display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;">
+<input name="plate-type" type="radio" value="blue"/> 燃油车 (蓝牌)
                 </label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;">
-                  <input type="radio" name="plate-type" value="green" checked> 新能源 (绿牌)
+<label style="display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;">
+<input checked="" name="plate-type" type="radio" value="green"/> 新能源 (绿牌)
                 </label>
-              </div>
-            </div>
-            <button class="btn-primary" style="width:100%;margin-top:8px;" onclick="saveNewPlate()">
-              <span>保存并绑定车牌</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal 5: Checkout & Settle Modal -->
-      <div class="modal-overlay" id="modal-checkout">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>洗车完成 · 电子结算账单</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-checkout')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="background:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:12px;margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
-              <span style="color:var(--color-text-muted);">洗车总时长:</span>
-              <b style="color:var(--color-text-title);" id="checkout-duration">04分20秒</b>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
-              <span style="color:var(--color-text-muted);">使用工位:</span>
-              <b style="color:var(--color-text-title);" id="checkout-bay">01 号工位</b>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
-              <span style="color:var(--color-text-muted);">标准计费金额:</span>
-              <b style="color:var(--color-text-title);" id="checkout-raw-cost">¥2.50</b>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
-              <span style="color:var(--color-success);font-weight:700;">洗车券优惠抵扣:</span>
-              <b style="color:var(--color-success);">-¥0.00</b>
-            </div>
-            <div style="border-top:1px dashed var(--color-border);padding-top:6px;display:flex;justify-content:space-between;font-size:14px;">
-              <span style="font-weight:800;color:var(--color-text-title);">实扣洗车金:</span>
-              <b style="font-weight:900;color:var(--color-primary);" id="checkout-final-cost">¥2.50</b>
-            </div>
-          </div>
-          <button class="btn-primary" style="width:100%;" onclick="confirmPaymentAndFinish()">
-            <span>确认扣减余额并完成 (展示免密)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal 6: Order Receipt Modal -->
-      <div class="modal-overlay" id="modal-receipt">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>电子消费明细清单</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-receipt')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="font-size:12px;display:flex;flex-direction:column;gap:8px;line-height:1.5;">
-            <div><b>订单编号:</b> <span id="rec-id">ORD-2026**-01</span></div>
-            <div><b>服务门店:</b> <span id="rec-store">**24h 旗舰店</span></div>
-            <div><b>洗车工位:</b> <span id="rec-bay">01号工位</span></div>
-            <div><b>计费时长:</b> <span id="rec-time">08分20秒</span></div>
-            <div><b>扣费总额:</b> <span id="rec-cost" style="color:var(--color-primary);font-weight:900;">¥4.10</span></div>
-            <div style="background:var(--color-success-light);color:var(--color-success);padding:8px;border-radius:var(--radius-sm);font-weight:700;text-align:center;">
+</div>
+</div>
+<button class="btn-primary" onclick="saveNewPlate()" style="width:100%;margin-top:8px;">
+<span>保存并绑定车牌</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Modal 5: Checkout & Settle Modal -->
+<div class="modal-overlay" id="modal-checkout">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>洗车完成 · 电子结算账单</span>
+<button class="modal-close-btn" onclick="closeModal('modal-checkout')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:var(--color-bg-subtle);border-radius:var(--radius-sm);padding:12px;margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+<span style="color:var(--color-text-muted);">洗车总时长:</span>
+<b id="checkout-duration" style="color:var(--color-text-title);">04分20秒</b>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+<span style="color:var(--color-text-muted);">使用工位:</span>
+<b id="checkout-bay" style="color:var(--color-text-title);">01 号工位</b>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+<span style="color:var(--color-text-muted);">标准计费金额:</span>
+<b id="checkout-raw-cost" style="color:var(--color-text-title);">¥2.50</b>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+<span style="color:var(--color-success);font-weight:700;">洗车券优惠抵扣:</span>
+<b style="color:var(--color-success);">-¥0.00</b>
+</div>
+<div style="border-top:1px dashed var(--color-border);padding-top:6px;display:flex;justify-content:space-between;font-size:14px;">
+<span style="font-weight:800;color:var(--color-text-title);">实扣洗车金:</span>
+<b id="checkout-final-cost" style="font-weight:900;color:var(--color-primary);">¥2.50</b>
+</div>
+</div>
+<button class="btn-primary" onclick="confirmPaymentAndFinish()" style="width:100%;">
+<span>确认扣减余额并完成 (展示免密)</span>
+</button>
+</div>
+</div>
+<!-- Modal 6: Order Receipt Modal -->
+<div class="modal-overlay" id="modal-receipt">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>电子消费明细清单</span>
+<button class="modal-close-btn" onclick="closeModal('modal-receipt')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:12px;display:flex;flex-direction:column;gap:8px;line-height:1.5;">
+<div><b>订单编号:</b> <span id="rec-id">ORD-2026**-01</span></div>
+<div><b>服务门店:</b> <span id="rec-store">**24h 旗舰店</span></div>
+<div><b>洗车工位:</b> <span id="rec-bay">01号工位</span></div>
+<div><b>计费时长:</b> <span id="rec-time">08分20秒</span></div>
+<div><b>扣费总额:</b> <span id="rec-cost" style="color:var(--color-primary);font-weight:900;">¥4.10</span></div>
+<div style="background:var(--color-success-light);color:var(--color-success);padding:8px;border-radius:var(--radius-sm);font-weight:700;text-align:center;">
               电子凭证有效 · 支持开具增值税发票
             </div>
-          </div>
-          <button class="btn-primary" style="width:100%;margin-top:12px;" onclick="closeModal('modal-receipt')">
-            <span>关闭明细</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal 7: Equipment Repair Modal -->
-      <div class="modal-overlay" id="modal-repair">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>设备故障一键报修</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-repair')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="font-size:12px;display:flex;flex-direction:column;gap:10px;">
-            <div>
-              <label style="font-weight:700;color:var(--color-text-title);">选择故障类型:</label>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
-                <label style="font-size:11px;display:flex;align-items:center;gap:4px;">
-                  <input type="checkbox" checked> 水压不足
+</div>
+<button class="btn-primary" onclick="closeModal('modal-receipt')" style="width:100%;margin-top:12px;">
+<span>关闭明细</span>
+</button>
+</div>
+</div>
+<!-- Modal 7: Equipment Repair Modal -->
+<div class="modal-overlay" id="modal-repair">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>设备故障一键报修</span>
+<button class="modal-close-btn" onclick="closeModal('modal-repair')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:12px;display:flex;flex-direction:column;gap:10px;">
+<div>
+<label style="font-weight:700;color:var(--color-text-title);">选择故障类型:</label>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
+<label style="font-size:11px;display:flex;align-items:center;gap:4px;">
+<input checked="" type="checkbox"/> 水压不足
                 </label>
-                <label style="font-size:11px;display:flex;align-items:center;gap:4px;">
-                  <input type="checkbox"> 无法喷射泡沫
+<label style="font-size:11px;display:flex;align-items:center;gap:4px;">
+<input type="checkbox"/> 无法喷射泡沫
                 </label>
-                <label style="font-size:11px;display:flex;align-items:center;gap:4px;">
-                  <input type="checkbox"> 吸尘管漏风
+<label style="font-size:11px;display:flex;align-items:center;gap:4px;">
+<input type="checkbox"/> 吸尘管漏风
                 </label>
-                <label style="font-size:11px;display:flex;align-items:center;gap:4px;">
-                  <input type="checkbox"> 扣费异常
+<label style="font-size:11px;display:flex;align-items:center;gap:4px;">
+<input type="checkbox"/> 扣费异常
                 </label>
-              </div>
-            </div>
-            <div>
-              <label style="font-weight:700;color:var(--color-text-title);">问题补充描述:</label>
-              <input type="text" value="水枪出水量偏小，**师傅检查水泵" style="width:100%;padding:8px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:11px;margin-top:4px;">
-            </div>
-            <button class="btn-primary" style="width:100%;" onclick="submitRepairForm()">
-              <span>提交报修单 (自动指派运维)</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal 8: Customer Service Modal -->
-      <div class="modal-overlay" id="modal-service">
-        <div class="modal-dialog">
-          <div class="modal-title">
-            <span>联系 24h 智能客服</span>
-            <button class="modal-close-btn" onclick="closeModal('modal-service')">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div style="text-align:center;padding:10px 0;">
-            <div style="width:48px;height:48px;border-radius:50%;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div style="font-size:15px;font-weight:800;color:var(--color-text-title);">客服热线: 400-**-9924</div>
-            <div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">全天 24 小时无人值守网点应急服务中心</div>
-          </div>
-          <button class="btn-primary" style="width:100%;margin-top:10px;" onclick="showToast('模拟呼叫已拨通：400-**-9924', 'success');closeModal('modal-service');">
-            <span>模拟立即拨号</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <script>
+</div>
+</div>
+<div>
+<label style="font-weight:700;color:var(--color-text-title);">问题补充描述:</label>
+<input style="width:100%;padding:8px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:11px;margin-top:4px;" type="text" value="水枪出水量偏小，**师傅检查水泵"/>
+</div>
+<button class="btn-primary" onclick="submitRepairForm()" style="width:100%;">
+<span>提交报修单 (自动指派运维)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Modal 8: Customer Service Modal -->
+<div class="modal-overlay" id="modal-service">
+<div class="modal-dialog">
+<div class="modal-title">
+<span>联系 24h 智能客服</span>
+<button class="modal-close-btn" onclick="closeModal('modal-service')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="text-align:center;padding:10px 0;">
+<div style="width:48px;height:48px;border-radius:50%;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+<div style="font-size:15px;font-weight:800;color:var(--color-text-title);">客服热线: 400-**-9924</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">全天 24 小时无人值守网点应急服务中心</div>
+</div>
+<button class="btn-primary" onclick="showToast('模拟呼叫已拨通：400-**-9924', 'success');closeModal('modal-service');" style="width:100%;margin-top:10px;">
+<span>模拟立即拨号</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
     // Global State Store
     const DEFAULT_STORE = {
       balance: 68.50,

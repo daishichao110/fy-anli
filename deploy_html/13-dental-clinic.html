@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**口腔·数字化种植正畸中心</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**口腔·数字化种植正畸中心</title>
+<style>
     :root {
       --primary: #0284C7;
       --primary-dark: #0369A1;
@@ -892,599 +893,561 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 移动端仿真容器 -->
+<div class="phone-container">
+<!-- 全局 Toast 提示 -->
+<div class="toast-pill" id="toast">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作成功</span>
+</div>
+<!-- 顶部状态栏 -->
 
+<!-- 微信小程序顶栏与原生胶囊 -->
 
-  <!-- 移动端仿真容器 -->
-  <div class="phone-container">
-    
-    <!-- 全局 Toast 提示 -->
-    <div id="toast" class="toast-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作成功</span>
-    </div>
-
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序顶栏与原生胶囊 -->
-    <div class="wechat-header">
-      <div class="header-title" id="page-title">**挂号</div>
-      <div class="capsule-btn" onclick="showToast('已载入**齿科专属服务')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="4" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="20" cy="12" r="2.5"/></svg>
-        <div class="capsule-divider"></div>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
-      </div>
-    </div>
-
-    <!-- 小**区 -->
-    <div class="mp-content" id="mp-scroll">
-
-      <!-- TAB 0: 门诊首页与**挂号 -->
-      <div id="pane-0" class="view-pane active">
-        <!-- 门诊信息卡片 -->
-        <div class="clinic-hero">
-          <div class="clinic-title-row">
-            <div>
-              <div class="clinic-name">**口腔·数字化种植正畸中心</div>
-              <div class="clinic-tag">高新旗舰院 · 数字化导板示范门诊</div>
-            </div>
-            <button class="clinic-action-btn" onclick="openClinicInfo()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+<!-- 小**区 -->
+<div class="mp-content" id="mp-scroll">
+<!-- TAB 0: 门诊首页与**挂号 -->
+<div class="view-pane active" id="pane-0">
+<!-- 门诊信息卡片 -->
+<div class="clinic-hero">
+<div class="clinic-title-row">
+<div>
+<div class="clinic-name">**口腔·数字化种植正畸中心</div>
+<div class="clinic-tag">高新旗舰院 · 数字化导板示范门诊</div>
+</div>
+<button class="clinic-action-btn" onclick="openClinicInfo()">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
               门诊概况
             </button>
-          </div>
-          <div class="clinic-meta-row">
-            <span style="display:flex;align-items:center;gap:4px;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<div class="clinic-meta-row">
+<span style="display:flex;align-items:center;gap:4px;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               营业时段：09:00 - 18:00 (节假日无休)
             </span>
-            <span style="cursor:pointer;text-decoration:underline;" onclick="callClinicPhone()">
+<span onclick="callClinicPhone()" style="cursor:pointer;text-decoration:underline;">
               电话咨询
             </span>
-          </div>
-        </div>
-
-        <!-- 4**区快捷入口 -->
-        <div class="grid-portal">
-          <div class="portal-item" onclick="filterDept('implant')">
-            <div class="portal-icon-box">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5c0 3 2 6 2 10 0 2.5 1.5 5 3 5s3-2.5 3-5c0-4 2-7 2-10a5 5 0 0 0-5-5z"/></svg>
-            </div>
-            <div class="portal-name">种植专科</div>
-          </div>
-          <div class="portal-item" onclick="filterDept('ortho')">
-            <div class="portal-icon-box">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            </div>
-            <div class="portal-name">美学正畸</div>
-          </div>
-          <div class="portal-item" onclick="filterDept('general')">
-            <div class="portal-icon-box">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="portal-name">美白洁牙</div>
-          </div>
-          <div class="portal-item" onclick="filterDept('child')">
-            <div class="portal-icon-box">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="portal-name">儿童防龋</div>
-          </div>
-        </div>
-
-        <!-- 科室筛选滑块 -->
-        <div class="category-scroll">
-          <div class="cat-pill active" id="cat-all" onclick="filterDept('all')">全部科室</div>
-          <div class="cat-pill" id="cat-implant" onclick="filterDept('implant')">数字化种植中心</div>
-          <div class="cat-pill" id="cat-ortho" onclick="filterDept('ortho')">隐形美学正畸</div>
-          <div class="cat-pill" id="cat-general" onclick="filterDept('general')">口腔综合门诊</div>
-        </div>
-
-        <!-- **人员排班列表容器 -->
-        <div id="doctor-list">
-          <!-- JS 动态渲染**人员卡片 -->
-        </div>
-      </div>
-
-      <!-- TAB 1: 专科项目与诊疗方案 -->
-      <div id="pane-1" class="view-pane">
-        <div class="card" style="margin-bottom:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <span style="font-size:14px;font-weight:700;color:var(--text-main);">专科临床诊疗项目</span>
-            <span class="badge badge-primary">数字化诊疗认证</span>
-          </div>
-          <p style="font-size:12px;color:var(--text-sub);line-height:1.5;">
+</div>
+</div>
+<!-- 4**区快捷入口 -->
+<div class="grid-portal">
+<div class="portal-item" onclick="filterDept('implant')">
+<div class="portal-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M12 2a5 5 0 0 0-5 5c0 3 2 6 2 10 0 2.5 1.5 5 3 5s3-2.5 3-5c0-4 2-7 2-10a5 5 0 0 0-5-5z"></path></svg>
+</div>
+<div class="portal-name">种植专科</div>
+</div>
+<div class="portal-item" onclick="filterDept('ortho')">
+<div class="portal-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="9"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+</div>
+<div class="portal-name">美学正畸</div>
+</div>
+<div class="portal-item" onclick="filterDept('general')">
+<div class="portal-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<div class="portal-name">美白洁牙</div>
+</div>
+<div class="portal-item" onclick="filterDept('child')">
+<div class="portal-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+</div>
+<div class="portal-name">儿童防龋</div>
+</div>
+</div>
+<!-- 科室筛选滑块 -->
+<div class="category-scroll">
+<div class="cat-pill active" id="cat-all" onclick="filterDept('all')">全部科室</div>
+<div class="cat-pill" id="cat-implant" onclick="filterDept('implant')">数字化种植中心</div>
+<div class="cat-pill" id="cat-ortho" onclick="filterDept('ortho')">隐形美学正畸</div>
+<div class="cat-pill" id="cat-general" onclick="filterDept('general')">口腔综合门诊</div>
+</div>
+<!-- **人员排班列表容器 -->
+<div id="doctor-list">
+<!-- JS 动态渲染**人员卡片 -->
+</div>
+</div>
+<!-- TAB 1: 专科项目与诊疗方案 -->
+<div class="view-pane" id="pane-1">
+<div class="card" style="margin-bottom:12px;">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+<span style="font-size:14px;font-weight:700;color:var(--text-main);">专科临床诊疗项目</span>
+<span class="badge badge-primary">数字化诊疗认证</span>
+</div>
+<p style="font-size:12px;color:var(--text-sub);line-height:1.5;">
             提供从 3D 数字化口内取模、CBCT 精准骨量测算到种植正畸方案制定的全流程规范化私立齿科诊疗。
           </p>
-        </div>
-
-        <!-- 项目卡片 1: 种植 -->
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--text-main);">瑞士 ITI 数字化微创种植修复</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">含 CBCT 影像检查 + 3D导板打印 + 纯钛种植体</div>
-            </div>
-            <span style="font-size:15px;font-weight:700;color:var(--primary);">¥5,980<span style="font-size:10px;color:var(--text-muted);font-weight:normal;">/颗起</span></span>
-          </div>
-          <div style="margin-top:8px;display:flex;gap:4px;">
-            <span class="badge badge-secondary">微创切口</span>
-            <span class="badge badge-gray">即拔即种评估</span>
-            <span class="badge badge-gray">终身质保维护</span>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:12px;">
-            <button class="btn btn-outline" style="flex:1;" onclick="openProjectProcess('implant')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+</div>
+<!-- 项目卡片 1: 种植 -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<div style="font-size:14px;font-weight:700;color:var(--text-main);">瑞士 ITI 数字化微创种植修复</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">含 CBCT 影像检查 + 3D导板打印 + 纯钛种植体</div>
+</div>
+<span style="font-size:15px;font-weight:700;color:var(--primary);">¥5,980<span style="font-size:10px;color:var(--text-muted);font-weight:normal;">/颗起</span></span>
+</div>
+<div style="margin-top:8px;display:flex;gap:4px;">
+<span class="badge badge-secondary">微创切口</span>
+<span class="badge badge-gray">即拔即种评估</span>
+<span class="badge badge-gray">终身质保维护</span>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="btn btn-outline" onclick="openProjectProcess('implant')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
               诊疗流程
             </button>
-            <button class="btn btn-primary" style="flex:1;" onclick="quickBookDoctor('D01')">
+<button class="btn btn-primary" onclick="quickBookDoctor('D01')" style="flex:1;">
               预约面诊
             </button>
-          </div>
-        </div>
-
-        <!-- 项目卡片 2: 正畸 -->
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--text-main);">时代天使 / 隐适美隐形矫治套餐</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">3D数字化模拟牙移动方案 + 阶段定制矫治器</div>
-            </div>
-            <span style="font-size:15px;font-weight:700;color:var(--primary);">¥18,800<span style="font-size:10px;color:var(--text-muted);font-weight:normal;">起</span></span>
-          </div>
-          <div style="margin-top:8px;display:flex;gap:4px;">
-            <span class="badge badge-primary">三维方案预览</span>
-            <span class="badge badge-gray">隐形舒适</span>
-            <span class="badge badge-gray">正畸专科副**亲诊</span>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:12px;">
-            <button class="btn btn-outline" style="flex:1;" onclick="openProjectProcess('ortho')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+</div>
+</div>
+<!-- 项目卡片 2: 正畸 -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<div style="font-size:14px;font-weight:700;color:var(--text-main);">时代天使 / 隐适美隐形矫治套餐</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">3D数字化模拟牙移动方案 + 阶段定制矫治器</div>
+</div>
+<span style="font-size:15px;font-weight:700;color:var(--primary);">¥18,800<span style="font-size:10px;color:var(--text-muted);font-weight:normal;">起</span></span>
+</div>
+<div style="margin-top:8px;display:flex;gap:4px;">
+<span class="badge badge-primary">三维方案预览</span>
+<span class="badge badge-gray">隐形舒适</span>
+<span class="badge badge-gray">正畸专科副**亲诊</span>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="btn btn-outline" onclick="openProjectProcess('ortho')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
               矫正路径
             </button>
-            <button class="btn btn-primary" style="flex:1;" onclick="quickBookDoctor('D02')">
+<button class="btn btn-primary" onclick="quickBookDoctor('D02')" style="flex:1;">
               预约初审
             </button>
-          </div>
-        </div>
-
-        <!-- 项目卡片 3: 综合美白洁牙 -->
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--text-main);">超声波舒适深度洁牙 + 喷砂抛光</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">牙周探诊 + 全口洁治 + 牙龈上药护理</div>
-            </div>
-            <span style="font-size:15px;font-weight:700;color:var(--primary);">¥168</span>
-          </div>
-          <div style="margin-top:8px;display:flex;gap:4px;">
-            <span class="badge badge-gray">一人一机一灭菌</span>
-            <span class="badge badge-gray">显微维护</span>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:12px;">
-            <button class="btn btn-outline" style="flex:1;" onclick="openProjectProcess('clean')">
+</div>
+</div>
+<!-- 项目卡片 3: 综合美白洁牙 -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<div style="font-size:14px;font-weight:700;color:var(--text-main);">超声波舒适深度洁牙 + 喷砂抛光</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">牙周探诊 + 全口洁治 + 牙龈上药护理</div>
+</div>
+<span style="font-size:15px;font-weight:700;color:var(--primary);">¥168</span>
+</div>
+<div style="margin-top:8px;display:flex;gap:4px;">
+<span class="badge badge-gray">一人一机一灭菌</span>
+<span class="badge badge-gray">显微维护</span>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="btn btn-outline" onclick="openProjectProcess('clean')" style="flex:1;">
               操作规范
             </button>
-            <button class="btn btn-primary" style="flex:1;" onclick="quickBookDoctor('D03')">
+<button class="btn btn-primary" onclick="quickBookDoctor('D03')" style="flex:1;">
               立即预约
             </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: 3D诊断卡与健康档案 -->
-      <div id="pane-2" class="view-pane">
-        <!-- 3D诊断卡头部 -->
-        <div class="diagnostic-hero">
-          <div class="record-header-row">
-            <span>数字化电子健康档案</span>
-            <span style="font-family:monospace;letter-spacing:0.5px;">#DY-2026-8809</span>
-          </div>
-          <div style="font-size:16px;font-weight:700;margin-top:2px;">张*生 先生 (就诊卡: 880901)</div>
-          <div style="font-size:11px;opacity:0.85;margin-top:4px;">建档门诊：高新旗舰院 · 主治**人员：陈副**医师</div>
-
-          <div class="progress-track">
-            <div class="progress-bar" id="ortho-progress"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.9;">
-            <span>隐形正畸阶段：第 12 / 36 步</span>
-            <span>完成度 33.3%</span>
-          </div>
-        </div>
-
-        <!-- 诊断指标看板 -->
-        <div class="card" style="margin-bottom:12px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:10px;">数字化口扫检测指标</div>
-          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;text-align:center;">
-            <div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
-              <div style="font-size:10px;color:var(--text-sub);">咬合关系评分</div>
-              <div style="font-size:14px;font-weight:700;color:var(--primary);margin-top:2px;">88 分</div>
-              <div style="font-size:10px;color:var(--color-success);margin-top:2px;">改善中</div>
-            </div>
-            <div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
-              <div style="font-size:10px;color:var(--text-sub);">牙槽骨质密度</div>
-              <div style="font-size:14px;font-weight:700;color:var(--primary);margin-top:2px;">92 分</div>
-              <div style="font-size:10px;color:var(--color-success);margin-top:2px;">骨量良好</div>
-            </div>
-            <div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
-              <div style="font-size:10px;color:var(--text-sub);">牙龈健康指数</div>
-              <div style="font-size:14px;font-weight:700;color:var(--secondary);margin-top:2px;">0 级</div>
-              <div style="font-size:10px;color:var(--color-success);margin-top:2px;">无红肿</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 下次复诊计划卡片 -->
-        <div class="card" style="border:1.5px solid var(--primary);">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span style="font-size:13px;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:6px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+</div>
+</div>
+<!-- TAB 2: 3D诊断卡与健康档案 -->
+<div class="view-pane" id="pane-2">
+<!-- 3D诊断卡头部 -->
+<div class="diagnostic-hero">
+<div class="record-header-row">
+<span>数字化电子健康档案</span>
+<span style="font-family:monospace;letter-spacing:0.5px;">#DY-2026-8809</span>
+</div>
+<div style="font-size:16px;font-weight:700;margin-top:2px;">张*生 先生 (就诊卡: 880901)</div>
+<div style="font-size:11px;opacity:0.85;margin-top:4px;">建档门诊：高新旗舰院 · 主治**人员：陈副**医师</div>
+<div class="progress-track">
+<div class="progress-bar" id="ortho-progress"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.9;">
+<span>隐形正畸阶段：第 12 / 36 步</span>
+<span>完成度 33.3%</span>
+</div>
+</div>
+<!-- 诊断指标看板 -->
+<div class="card" style="margin-bottom:12px;">
+<div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:10px;">数字化口扫检测指标</div>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;text-align:center;">
+<div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
+<div style="font-size:10px;color:var(--text-sub);">咬合关系评分</div>
+<div style="font-size:14px;font-weight:700;color:var(--primary);margin-top:2px;">88 分</div>
+<div style="font-size:10px;color:var(--color-success);margin-top:2px;">改善中</div>
+</div>
+<div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
+<div style="font-size:10px;color:var(--text-sub);">牙槽骨质密度</div>
+<div style="font-size:14px;font-weight:700;color:var(--primary);margin-top:2px;">92 分</div>
+<div style="font-size:10px;color:var(--color-success);margin-top:2px;">骨量良好</div>
+</div>
+<div style="background:#F8FAFC;padding:8px 4px;border-radius:8px;border:1px solid var(--border-color);">
+<div style="font-size:10px;color:var(--text-sub);">牙龈健康指数</div>
+<div style="font-size:14px;font-weight:700;color:var(--secondary);margin-top:2px;">0 级</div>
+<div style="font-size:10px;color:var(--color-success);margin-top:2px;">无红肿</div>
+</div>
+</div>
+</div>
+<!-- 下次复诊计划卡片 -->
+<div class="card" style="border:1.5px solid var(--primary);">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<span style="font-size:13px;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="14" stroke="var(--primary)" stroke-width="2.5" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               复诊随访提醒
             </span>
-            <span class="badge badge-primary" id="review-status-badge">待确认</span>
-          </div>
-          <div style="font-size:12px;color:var(--text-sub);line-height:1.6;">
-            复诊项目：正畸阶段检查 & 第 13-16 步牙套领取<br>
-            建议日期：<b id="review-date-text" style="color:var(--text-main);">2026-09-12 (周六) 10:00</b><br>
+<span class="badge badge-primary" id="review-status-badge">待确认</span>
+</div>
+<div style="font-size:12px;color:var(--text-sub);line-height:1.6;">
+            复诊项目：正畸阶段检查 &amp; 第 13-16 步牙套领取<br/>
+            建议日期：<b id="review-date-text" style="color:var(--text-main);">2026-09-12 (周六) 10:00</b><br/>
             主治门诊：正畸二诊室 (陈副**医师)
           </div>
-          <div style="display:flex;gap:8px;margin-top:12px;">
-            <button class="btn btn-outline" style="flex:1;" onclick="openRescheduleModal()">
+<div style="display:flex;gap:8px;margin-top:12px;">
+<button class="btn btn-outline" onclick="openRescheduleModal()" style="flex:1;">
               申请改期
             </button>
-            <button class="btn btn-primary" id="btn-confirm-review" style="flex:1;" onclick="confirmReviewSchedule()">
+<button class="btn btn-primary" id="btn-confirm-review" onclick="confirmReviewSchedule()" style="flex:1;">
               确认按期前往
             </button>
-          </div>
-        </div>
-
-        <!-- 术后注意事项与医嘱 -->
-        <div class="card">
-          <div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:8px;">主治**人员特别医嘱</div>
-          <div style="font-size:12px;color:var(--text-sub);line-height:1.6;background:#F8FAFC;padding:10px;border-radius:8px;">
-            1. 每日佩戴隐形矫治器须保证 20-22 小时；<br>
-            2. 进食时请摘下保存于牙套盒中，温水轻刷清洁；<br>
+</div>
+</div>
+<!-- 术后注意事项与医嘱 -->
+<div class="card">
+<div style="font-size:13px;font-weight:700;color:var(--text-main);margin-bottom:8px;">主治**人员特别医嘱</div>
+<div style="font-size:12px;color:var(--text-sub);line-height:1.6;background:#F8FAFC;padding:10px;border-radius:8px;">
+            1. 每日佩戴隐形矫治器须保证 20-22 小时；<br/>
+            2. 进食时请摘下保存于牙套盒中，温水轻刷清洁；<br/>
             3. 若附件有轻微脱落，请保留牙套并点击客服微信预约就近补粘。
           </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: 就诊中心与单据管理 -->
-      <div id="pane-3" class="view-pane">
-        <!-- 会员身份卡 -->
-        <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:46px;height:46px;border-radius:23px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
-              <div style="font-size:15px;font-weight:700;color:var(--text-main);" id="profile-name">张*生</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">手机：<span id="profile-phone">138**8890</span> · 金卡就诊会员</div>
-            </div>
-          </div>
-          <button class="btn btn-outline" style="font-size:11px;padding:5px 10px;" onclick="openPatientSwitchModal()">
+</div>
+</div>
+<!-- TAB 3: 就诊中心与单据管理 -->
+<div class="view-pane" id="pane-3">
+<!-- 会员身份卡 -->
+<div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:46px;height:46px;border-radius:23px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div>
+<div id="profile-name" style="font-size:15px;font-weight:700;color:var(--text-main);">张*生</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">手机：<span id="profile-phone">138**8890</span> · 金卡就诊会员</div>
+</div>
+</div>
+<button class="btn btn-outline" onclick="openPatientSwitchModal()" style="font-size:11px;padding:5px 10px;">
             切换就诊人
           </button>
-        </div>
-
-        <!-- 单据状态 5 宫格 -->
-        <div class="card" style="padding:10px 4px;margin-bottom:12px;">
-          <div style="font-size:12px;font-weight:700;color:var(--text-main);padding:0 8px 6px 8px;">门诊单据与挂号记录</div>
-          <div class="order-status-bar">
-            <div class="status-item active" id="filter-all" onclick="filterOrderList('all')">
-              <span class="status-count" id="count-all">1</span>
-              <span class="status-label">全部</span>
-            </div>
-            <div class="status-item" id="filter-pending" onclick="filterOrderList('pending')">
-              <span class="status-count" id="count-pending">1</span>
-              <span class="status-label">待就诊</span>
-            </div>
-            <div class="status-item" id="filter-inprogress" onclick="filterOrderList('in_progress')">
-              <span class="status-count" id="count-inprogress">0</span>
-              <span class="status-label">诊疗中</span>
-            </div>
-            <div class="status-item" id="filter-evaluate" onclick="filterOrderList('evaluate')">
-              <span class="status-count" id="count-evaluate">0</span>
-              <span class="status-label">待评价</span>
-            </div>
-            <div class="status-item" id="filter-completed" onclick="filterOrderList('completed')">
-              <span class="status-count" id="count-completed">0</span>
-              <span class="status-label">已完成</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 挂号单据列表容器 -->
-        <div id="appointment-list">
-          <!-- 动态渲染单据卡片 -->
-        </div>
-
-        <!-- 辅助功能列表 -->
-        <div class="card" style="padding:4px 14px;margin-top:12px;">
-          <div style="padding:12px 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openCouponModal()">
-            <span style="font-size:13px;display:flex;align-items:center;gap:8px;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+</div>
+<!-- 单据状态 5 宫格 -->
+<div class="card" style="padding:10px 4px;margin-bottom:12px;">
+<div style="font-size:12px;font-weight:700;color:var(--text-main);padding:0 8px 6px 8px;">门诊单据与挂号记录</div>
+<div class="order-status-bar">
+<div class="status-item active" id="filter-all" onclick="filterOrderList('all')">
+<span class="status-count" id="count-all">1</span>
+<span class="status-label">全部</span>
+</div>
+<div class="status-item" id="filter-pending" onclick="filterOrderList('pending')">
+<span class="status-count" id="count-pending">1</span>
+<span class="status-label">待就诊</span>
+</div>
+<div class="status-item" id="filter-inprogress" onclick="filterOrderList('in_progress')">
+<span class="status-count" id="count-inprogress">0</span>
+<span class="status-label">诊疗中</span>
+</div>
+<div class="status-item" id="filter-evaluate" onclick="filterOrderList('evaluate')">
+<span class="status-count" id="count-evaluate">0</span>
+<span class="status-label">待评价</span>
+</div>
+<div class="status-item" id="filter-completed" onclick="filterOrderList('completed')">
+<span class="status-count" id="count-completed">0</span>
+<span class="status-label">已完成</span>
+</div>
+</div>
+</div>
+<!-- 挂号单据列表容器 -->
+<div id="appointment-list">
+<!-- 动态渲染单据卡片 -->
+</div>
+<!-- 辅助功能列表 -->
+<div class="card" style="padding:4px 14px;margin-top:12px;">
+<div onclick="openCouponModal()" style="padding:12px 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<span style="font-size:13px;display:flex;align-items:center;gap:8px;">
+<svg fill="none" height="15" stroke="var(--primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><rect height="16" rx="2" width="20" x="2" y="4"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
               健康权益与专享礼券
             </span>
-            <span class="badge badge-primary">2张可用</span>
-          </div>
-          <div style="padding:12px 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openClinicInfo()">
-            <span style="font-size:13px;display:flex;align-items:center;gap:8px;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<span class="badge badge-primary">2张可用</span>
+</div>
+<div onclick="openClinicInfo()" style="padding:12px 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<span style="font-size:13px;display:flex;align-items:center;gap:8px;">
+<svg fill="none" height="15" stroke="var(--primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               院区路线指引与楼层导航
             </span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div style="padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openChatDrawer()">
-            <span style="font-size:13px;display:flex;align-items:center;gap:8px;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+<svg fill="none" height="14" stroke="var(--text-muted)" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div onclick="openChatDrawer()" style="padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<span style="font-size:13px;display:flex;align-items:center;gap:8px;">
+<svg fill="none" height="15" stroke="var(--primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
               在线门诊客服咨询
             </span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 底部 TabBar 4-Tab 切换 -->
-    <div class="mp-tabbar">
-      <div class="tabbar-item active" id="tab-0" onclick="switchTab(0)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>**挂号</span>
-      </div>
-      <div class="tabbar-item" id="tab-1" onclick="switchTab(1)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-        <span>专科项目</span>
-      </div>
-      <div class="tabbar-item" id="tab-2" onclick="switchTab(2)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        <span>3D诊断卡</span>
-      </div>
-      <div class="tabbar-item" id="tab-3" onclick="switchTab(3)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的档案</span>
-      </div>
-    </div>
-
-    <!-- 抽屉 1: 挂号预约面板 -->
-    <div id="booking-drawer" class="modal-backdrop" onclick="handleBackdropClick(event, 'booking-drawer')">
-      <div class="drawer-sheet">
-        <div class="sheet-head">
-          <div class="sheet-title">预约门诊挂号</div>
-          <button class="close-icon-btn" onclick="closeDrawer('booking-drawer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="background:#F8FAFC;padding:10px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color);">
-          <div style="font-size:13px;font-weight:700;color:var(--text-main);" id="drawer-doc-name">林**医师</div>
-          <div style="font-size:11px;color:var(--text-sub);margin-top:2px;" id="drawer-doc-dept">数字化种植中心 · 门诊302室</div>
-        </div>
-
-        <div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">选择就诊日期</div>
-        <div class="calendar-strip" id="drawer-calendar-strip">
-          <!-- 动态渲染 7 天排班 -->
-        </div>
-
-        <div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">选择就诊时段</div>
-        <div class="slots-grid" id="drawer-slots-grid">
-          <!-- 动态渲染时段号源 -->
-        </div>
-
-        <div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">就诊人确认</div>
-        <div class="patient-strip">
-          <div class="patient-pill active" id="bp-P01" onclick="selectBookingPatient('P01')">
-            <span>张*生 (本人)</span>
-            <span style="font-size:10px;color:var(--text-muted);">138**8890</span>
-          </div>
-          <div class="patient-pill" id="bp-P02" onclick="selectBookingPatient('P02')">
-            <span>李*雅 (家属)</span>
-            <span style="font-size:10px;color:var(--text-muted);">139**6672</span>
-          </div>
-        </div>
-
-        <div style="background:#F1F5F9;border-radius:8px;padding:8px 10px;font-size:11px;color:var(--text-sub);margin-bottom:14px;">
+<svg fill="none" height="14" stroke="var(--text-muted)" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- 底部 TabBar 4-Tab 切换 -->
+<div class="mp-tabbar">
+<div class="tabbar-item active" id="tab-0" onclick="switchTab(0)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>**挂号</span>
+</div>
+<div class="tabbar-item" id="tab-1" onclick="switchTab(1)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+<span>专科项目</span>
+</div>
+<div class="tabbar-item" id="tab-2" onclick="switchTab(2)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+<span>3D诊断卡</span>
+</div>
+<div class="tabbar-item" id="tab-3" onclick="switchTab(3)">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的档案</span>
+</div>
+</div>
+<!-- 抽屉 1: 挂号预约面板 -->
+<div class="modal-backdrop" id="booking-drawer" onclick="handleBackdropClick(event, 'booking-drawer')">
+<div class="drawer-sheet">
+<div class="sheet-head">
+<div class="sheet-title">预约门诊挂号</div>
+<button class="close-icon-btn" onclick="closeDrawer('booking-drawer')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:#F8FAFC;padding:10px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color);">
+<div id="drawer-doc-name" style="font-size:13px;font-weight:700;color:var(--text-main);">林**医师</div>
+<div id="drawer-doc-dept" style="font-size:11px;color:var(--text-sub);margin-top:2px;">数字化种植中心 · 门诊302室</div>
+</div>
+<div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">选择就诊日期</div>
+<div class="calendar-strip" id="drawer-calendar-strip">
+<!-- 动态渲染 7 天排班 -->
+</div>
+<div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">选择就诊时段</div>
+<div class="slots-grid" id="drawer-slots-grid">
+<!-- 动态渲染时段号源 -->
+</div>
+<div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">就诊人确认</div>
+<div class="patient-strip">
+<div class="patient-pill active" id="bp-P01" onclick="selectBookingPatient('P01')">
+<span>张*生 (本人)</span>
+<span style="font-size:10px;color:var(--text-muted);">138**8890</span>
+</div>
+<div class="patient-pill" id="bp-P02" onclick="selectBookingPatient('P02')">
+<span>李*雅 (家属)</span>
+<span style="font-size:10px;color:var(--text-muted);">139**6672</span>
+</div>
+</div>
+<div style="background:#F1F5F9;border-radius:8px;padding:8px 10px;font-size:11px;color:var(--text-sub);margin-bottom:14px;">
           免密免预付挂号 · 请提前 15 分钟到达门诊大厅导医台签到取号。
         </div>
-
-        <button class="btn btn-primary" style="width:100%;padding:12px;font-size:14px;" onclick="confirmBookingSubmit()">
+<button class="btn btn-primary" onclick="confirmBookingSubmit()" style="width:100%;padding:12px;font-size:14px;">
           确认提交预约
         </button>
-      </div>
-    </div>
-
-    <!-- 模态框 2: 挂号成功电子凭证 -->
-    <div id="voucher-modal" class="modal-backdrop" onclick="handleBackdropClick(event, 'voucher-modal')">
-      <div class="center-modal">
-        <div style="text-align:center;margin-bottom:12px;">
-          <div style="width:44px;height:44px;border-radius:22px;background:#DCFCE7;color:var(--color-success);display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div style="font-size:16px;font-weight:700;color:var(--text-main);">门诊挂号成功</div>
-          <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">凭证已自动同步存入门诊个人档案</div>
-        </div>
-
-        <div style="background:#F8FAFC;border:1px dashed var(--border-color);border-radius:10px;padding:12px;font-size:12px;line-height:1.7;color:var(--text-sub);margin-bottom:14px;">
-          预约单号：<b id="v-apt-id" style="color:var(--text-main);font-family:monospace;">#APT-20260905</b><br>
-          就诊**：<span id="v-doc" style="color:var(--text-main);font-weight:600;">林**医师</span><br>
-          门诊科室：<span id="v-dept">数字化种植专科</span><br>
-          预约时间：<span id="v-time" style="color:var(--primary);font-weight:700;">2026-09-06 09:30</span><br>
+</div>
+</div>
+<!-- 模态框 2: 挂号成功电子凭证 -->
+<div class="modal-backdrop" id="voucher-modal" onclick="handleBackdropClick(event, 'voucher-modal')">
+<div class="center-modal">
+<div style="text-align:center;margin-bottom:12px;">
+<div style="width:44px;height:44px;border-radius:22px;background:#DCFCE7;color:var(--color-success);display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;">
+<svg fill="none" height="22" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="22"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div style="font-size:16px;font-weight:700;color:var(--text-main);">门诊挂号成功</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">凭证已自动同步存入门诊个人档案</div>
+</div>
+<div style="background:#F8FAFC;border:1px dashed var(--border-color);border-radius:10px;padding:12px;font-size:12px;line-height:1.7;color:var(--text-sub);margin-bottom:14px;">
+          预约单号：<b id="v-apt-id" style="color:var(--text-main);font-family:monospace;">#APT-20260905</b><br/>
+          就诊**：<span id="v-doc" style="color:var(--text-main);font-weight:600;">林**医师</span><br/>
+          门诊科室：<span id="v-dept">数字化种植专科</span><br/>
+          预约时间：<span id="v-time" style="color:var(--primary);font-weight:700;">2026-09-06 09:30</span><br/>
           就诊患者：<span id="v-patient">张*生</span>
-        </div>
-
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-outline" style="flex:1;" onclick="closeDrawer('voucher-modal')">
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn btn-outline" onclick="closeDrawer('voucher-modal')" style="flex:1;">
             关闭
           </button>
-          <button class="btn btn-primary" style="flex:1;" onclick="goToMyAppointments()">
+<button class="btn btn-primary" onclick="goToMyAppointments()" style="flex:1;">
             查看就诊单
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 抽屉 3: 专科服务流程说明 -->
-    <div id="process-drawer" class="modal-backdrop" onclick="handleBackdropClick(event, 'process-drawer')">
-      <div class="drawer-sheet">
-        <div class="sheet-head">
-          <div class="sheet-title" id="proc-title">临床服务标准流程</div>
-          <button class="close-icon-btn" onclick="closeDrawer('process-drawer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div id="proc-content" style="font-size:12px;color:var(--text-sub);line-height:1.7;">
-          <!-- 动态填充流程节点 -->
-        </div>
-
-        <button class="btn btn-primary" style="width:100%;margin-top:16px;padding:10px;" onclick="closeDrawer('process-drawer')">
+</div>
+</div>
+</div>
+<!-- 抽屉 3: 专科服务流程说明 -->
+<div class="modal-backdrop" id="process-drawer" onclick="handleBackdropClick(event, 'process-drawer')">
+<div class="drawer-sheet">
+<div class="sheet-head">
+<div class="sheet-title" id="proc-title">临床服务标准流程</div>
+<button class="close-icon-btn" onclick="closeDrawer('process-drawer')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div id="proc-content" style="font-size:12px;color:var(--text-sub);line-height:1.7;">
+<!-- 动态填充流程节点 -->
+</div>
+<button class="btn btn-primary" onclick="closeDrawer('process-drawer')" style="width:100%;margin-top:16px;padding:10px;">
           已了解，返回项目
         </button>
-      </div>
-    </div>
-
-    <!-- 模态框 4: 改期微调弹窗 -->
-    <div id="reschedule-modal" class="modal-backdrop" onclick="handleBackdropClick(event, 'reschedule-modal')">
-      <div class="center-modal">
-        <div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:8px;">申请复诊时间微调</div>
-        <p style="font-size:12px;color:var(--text-sub);margin-bottom:12px;">
+</div>
+</div>
+<!-- 模态框 4: 改期微调弹窗 -->
+<div class="modal-backdrop" id="reschedule-modal" onclick="handleBackdropClick(event, 'reschedule-modal')">
+<div class="center-modal">
+<div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:8px;">申请复诊时间微调</div>
+<p style="font-size:12px;color:var(--text-sub);margin-bottom:12px;">
           请选择您方便到院的备选周六时段，门诊专员将在系统中直接为您更新排期：
         </p>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-          <button class="btn btn-outline" style="justify-content:space-between;" onclick="applyRescheduleDate('2026-09-12 (周六) 14:30')">
-            <span>2026-09-12 (周六) 14:30 下午档</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-          <button class="btn btn-outline" style="justify-content:space-between;" onclick="applyRescheduleDate('2026-09-19 (下周六) 10:00')">
-            <span>2026-09-19 (下周六) 10:00 上午档</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-        <button class="btn btn-outline" style="width:100%;" onclick="closeDrawer('reschedule-modal')">
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+<button class="btn btn-outline" onclick="applyRescheduleDate('2026-09-12 (周六) 14:30')" style="justify-content:space-between;">
+<span>2026-09-12 (周六) 14:30 下午档</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+<button class="btn btn-outline" onclick="applyRescheduleDate('2026-09-19 (下周六) 10:00')" style="justify-content:space-between;">
+<span>2026-09-19 (下周六) 10:00 上午档</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+<button class="btn btn-outline" onclick="closeDrawer('reschedule-modal')" style="width:100%;">
           取消
         </button>
-      </div>
-    </div>
-
-    <!-- 模态框 5: 切换就诊人 -->
-    <div id="patient-modal" class="modal-backdrop" onclick="handleBackdropClick(event, 'patient-modal')">
-      <div class="center-modal">
-        <div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">选择当前就诊人档案</div>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-          <div class="patient-pill" style="padding:12px;" onclick="setActivePatient('P01')">
-            <div>
-              <div style="font-weight:700;color:var(--text-main);">张*生 (本人)</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880901 · 138**8890</div>
-            </div>
-            <span class="badge badge-primary">当前使用</span>
-          </div>
-          <div class="patient-pill" style="padding:12px;" onclick="setActivePatient('P02')">
-            <div>
-              <div style="font-weight:700;color:var(--text-main);">李*雅 (家属)</div>
-              <div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880902 · 139**6672</div>
-            </div>
-            <span class="badge badge-gray">切换</span>
-          </div>
-        </div>
-        <button class="btn btn-outline" style="width:100%;" onclick="closeDrawer('patient-modal')">
+</div>
+</div>
+<!-- 模态框 5: 切换就诊人 -->
+<div class="modal-backdrop" id="patient-modal" onclick="handleBackdropClick(event, 'patient-modal')">
+<div class="center-modal">
+<div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">选择当前就诊人档案</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+<div class="patient-pill" onclick="setActivePatient('P01')" style="padding:12px;">
+<div>
+<div style="font-weight:700;color:var(--text-main);">张*生 (本人)</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880901 · 138**8890</div>
+</div>
+<span class="badge badge-primary">当前使用</span>
+</div>
+<div class="patient-pill" onclick="setActivePatient('P02')" style="padding:12px;">
+<div>
+<div style="font-weight:700;color:var(--text-main);">李*雅 (家属)</div>
+<div style="font-size:11px;color:var(--text-sub);margin-top:2px;">就诊卡：DY-880902 · 139**6672</div>
+</div>
+<span class="badge badge-gray">切换</span>
+</div>
+</div>
+<button class="btn btn-outline" onclick="closeDrawer('patient-modal')" style="width:100%;">
           完成
         </button>
-      </div>
-    </div>
-
-    <!-- 抽屉 6: 在线门诊咨询 -->
-    <div id="chat-drawer" class="modal-backdrop" onclick="handleBackdropClick(event, 'chat-drawer')">
-      <div class="drawer-sheet">
-        <div class="sheet-head">
-          <div class="sheet-title">门诊智能导诊与咨询</div>
-          <button class="close-icon-btn" onclick="closeDrawer('chat-drawer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div class="chat-bubble-container" id="chat-history">
-          <div class="chat-msg msg-clinic">
+</div>
+</div>
+<!-- 抽屉 6: 在线门诊咨询 -->
+<div class="modal-backdrop" id="chat-drawer" onclick="handleBackdropClick(event, 'chat-drawer')">
+<div class="drawer-sheet">
+<div class="sheet-head">
+<div class="sheet-title">门诊智能导诊与咨询</div>
+<button class="close-icon-btn" onclick="closeDrawer('chat-drawer')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="chat-bubble-container" id="chat-history">
+<div class="chat-msg msg-clinic">
             您好！我是**齿科导医助理。请问您需要了解种植牙适应症、隐形矫正方案评估，还是查询就诊排班？
           </div>
-        </div>
-
-        <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">快捷问询：</div>
-        <div class="quick-faq-chips">
-          <div class="faq-chip" onclick="sendQuickChat('我想了解种植牙需要多长时间？')">种植牙周期多长？</div>
-          <div class="faq-chip" onclick="sendQuickChat('成人做隐形矫正有年龄限制吗？')">成人能做隐形正畸吗？</div>
-          <div class="faq-chip" onclick="sendQuickChat('拔智齿可以当天拍片直接拔吗？')">智齿拍片拔除流程</div>
-        </div>
-
-        <div style="display:flex;gap:8px;">
-          <input type="text" id="chat-input" placeholder="输入您的牙科就诊疑问..." style="flex:1;border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;font-size:12px;outline:none;">
-          <button class="btn btn-primary" onclick="sendCustomChat()">发送</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 模态框 7: 优惠礼券详情 -->
-    <div id="coupon-modal" class="modal-backdrop" onclick="handleBackdropClick(event, 'coupon-modal')">
-      <div class="center-modal">
-        <div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">门诊健康专享礼券包</div>
-        <div style="background:#F0FDFA;border:1px solid #99F6E4;border-radius:8px;padding:10px;margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--secondary);">
-            <span>数字化种植方案立减券</span>
-            <span>¥500</span>
-          </div>
-          <div style="font-size:10px;color:var(--text-sub);margin-top:4px;">适用于瑞士ITI/微创种植体项目 · 有效期至2026年底</div>
-        </div>
-        <div style="background:#F0FDFA;border:1px solid #99F6E4;border-radius:8px;padding:10px;margin-bottom:14px;">
-          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--secondary);">
-            <span>3D数字化口扫初查抵扣券</span>
-            <span>全额免费</span>
-          </div>
-          <div style="font-size:10px;color:var(--text-sub);margin-top:4px;">正畸及种植初诊面诊均可抵用 (价值¥280)</div>
-        </div>
-        <button class="btn btn-primary" style="width:100%;" onclick="closeDrawer('coupon-modal')">
+</div>
+<div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">快捷问询：</div>
+<div class="quick-faq-chips">
+<div class="faq-chip" onclick="sendQuickChat('我想了解种植牙需要多长时间？')">种植牙周期多长？</div>
+<div class="faq-chip" onclick="sendQuickChat('成人做隐形矫正有年龄限制吗？')">成人能做隐形正畸吗？</div>
+<div class="faq-chip" onclick="sendQuickChat('拔智齿可以当天拍片直接拔吗？')">智齿拍片拔除流程</div>
+</div>
+<div style="display:flex;gap:8px;">
+<input id="chat-input" placeholder="输入您的牙科就诊疑问..." style="flex:1;border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;font-size:12px;outline:none;" type="text"/>
+<button class="btn btn-primary" onclick="sendCustomChat()">发送</button>
+</div>
+</div>
+</div>
+<!-- 模态框 7: 优惠礼券详情 -->
+<div class="modal-backdrop" id="coupon-modal" onclick="handleBackdropClick(event, 'coupon-modal')">
+<div class="center-modal">
+<div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">门诊健康专享礼券包</div>
+<div style="background:#F0FDFA;border:1px solid #99F6E4;border-radius:8px;padding:10px;margin-bottom:8px;">
+<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--secondary);">
+<span>数字化种植方案立减券</span>
+<span>¥500</span>
+</div>
+<div style="font-size:10px;color:var(--text-sub);margin-top:4px;">适用于瑞士ITI/微创种植体项目 · 有效期至2026年底</div>
+</div>
+<div style="background:#F0FDFA;border:1px solid #99F6E4;border-radius:8px;padding:10px;margin-bottom:14px;">
+<div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--secondary);">
+<span>3D数字化口扫初查抵扣券</span>
+<span>全额免费</span>
+</div>
+<div style="font-size:10px;color:var(--text-sub);margin-top:4px;">正畸及种植初诊面诊均可抵用 (价值¥280)</div>
+</div>
+<button class="btn btn-primary" onclick="closeDrawer('coupon-modal')" style="width:100%;">
           已在挂号中自动享受
         </button>
-      </div>
-    </div>
-
-    <!-- 模态框 8: 门诊信息与指引 -->
-    <div id="clinic-modal" class="modal-backdrop" onclick="handleBackdropClick(event, 'clinic-modal')">
-      <div class="center-modal">
-        <div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">门诊基本信息与导航指引</div>
-        <div style="font-size:12px;color:var(--text-sub);line-height:1.7;margin-bottom:12px;">
-          门诊名称：**口腔·数字化种植正畸中心<br>
-          **区：**区 (独栋诊疗大楼)<br>
-          详细地址：XX市XX区XX大道XX号XX综合体3层<br>
-          接诊时间：周一至周日 09:00 - 18:00<br>
+</div>
+</div>
+<!-- 模态框 8: 门诊信息与指引 -->
+<div class="modal-backdrop" id="clinic-modal" onclick="handleBackdropClick(event, 'clinic-modal')">
+<div class="center-modal">
+<div style="font-size:15px;font-weight:700;color:var(--text-main);margin-bottom:10px;">门诊基本信息与导航指引</div>
+<div style="font-size:12px;color:var(--text-sub);line-height:1.7;margin-bottom:12px;">
+          门诊名称：**口腔·数字化种植正畸中心<br/>
+          **区：**区 (独栋诊疗大楼)<br/>
+          详细地址：XX市XX区XX大道XX号XX综合体3层<br/>
+          接诊时间：周一至周日 09:00 - 18:00<br/>
           直达路线：地铁X号线XX站A口出站步行300米，地下停车场配有直达医梯。
         </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-outline" style="flex:1;" onclick="copyClinicAddress()">
+<div style="display:flex;gap:8px;">
+<button class="btn btn-outline" onclick="copyClinicAddress()" style="flex:1;">
             复制地址
           </button>
-          <button class="btn btn-primary" style="flex:1;" onclick="closeDrawer('clinic-modal')">
+<button class="btn btn-primary" onclick="closeDrawer('clinic-modal')" style="flex:1;">
             确定
           </button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
+</div>
+</div>
+</div>
+</div>
+<script>
     // -------------------------------------------------------------------
     // 内存数据模型 (Memory Store)
     // -------------------------------------------------------------------

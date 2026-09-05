@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**体能少儿体能 - 微信小程序</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**体能少儿体能 - 微信小程序</title>
+<style>
     :root {
       --color-primary: #FF5A1F;
       --color-primary-hover: #E04810;
@@ -1247,986 +1248,928 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<div class="phone-simulator">
+<!-- Top Status Bar -->
 
+<!-- Mini-Program Navigation Bar -->
 
-  <div class="phone-simulator">
-    
-    <!-- Top Status Bar -->
-    <div class="status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- Mini-Program Navigation Bar -->
-    <div class="mp-header">
-      <div class="mp-header-left" onclick="openCampusModal()">
-        <div class="campus-pill">
-          <svg class="icon-svg icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span id="currentCampusText">**体育中心旗舰馆</span>
-          <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color: var(--color-neutral-500);"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="mp-capsule">
-        <span class="capsule-dots">•••</span>
-        <div class="capsule-circle">
-          <div class="capsule-dot-inner"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mini-Program Scrollable Body -->
-    <div class="mp-body">
-
-      <!-- ================= Tab 0: 首页 (Home) ================= -->
-      <div id="pane-0" class="pane active">
-        <!-- Notice Bar -->
-        <div class="notice-bar" onclick="showToast('公告：秋季体测名额预约中，请提前确认')">
-          <svg class="icon-svg icon-sm" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
-          <div class="marquee-text">通知：2026秋季少儿体能与专项体测已开放预约，名额有限</div>
-        </div>
-
-        <!-- Hero Banner -->
-        <div class="hero-banner">
-          <div class="hero-tag">4-12岁分龄成长体系</div>
-          <div class="hero-title">**体能 · 科学运动成长计划</div>
-          <div class="hero-desc">少儿基础体适能 · 篮球专项特训 · 羽毛球进阶班</div>
-          <button class="hero-btn" onclick="openBookingModal('trial-fitness')">
-            <span>预约体验测评</span>
-            <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-
-        <!-- Golden Category Grid -->
-        <div class="category-grid">
-          <div class="category-item cat-fitness active" onclick="filterCategory('fitness', this)">
-            <div class="category-icon-box">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
-            </div>
-            <div class="category-name">少儿体适能</div>
-            <div class="category-sub">敏捷/协调/感统</div>
-          </div>
-          <div class="category-item cat-basketball" onclick="filterCategory('basketball', this)">
-            <div class="category-icon-box">
-              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></svg>
-            </div>
-            <div class="category-name">篮球特训</div>
-            <div class="category-sub">球感/突破/投篮</div>
-          </div>
-          <div class="category-item cat-badminton" onclick="filterCategory('badminton', this)">
-            <div class="category-icon-box">
-              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            </div>
-            <div class="category-name">羽毛球专修</div>
-            <div class="category-sub">步法/架拍/对抗</div>
-          </div>
-          <div class="category-item cat-test" onclick="switchMpTab(2)">
-            <div class="category-icon-box">
-              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-            </div>
-            <div class="category-name">体质测评</div>
-            <div class="category-sub">五维雷达报告</div>
-          </div>
-        </div>
-
-        <!-- Filter Pills for Age Groups -->
-        <div class="filter-pills">
-          <button class="pill-btn active" onclick="filterAge('all', this)">全部年龄</button>
-          <button class="pill-btn" onclick="filterAge('u6', this)">U4-U6 启蒙班</button>
-          <button class="pill-btn" onclick="filterAge('u9', this)">U7-U9 基础班</button>
-          <button class="pill-btn" onclick="filterAge('u12', this)">U10-U12 进阶班</button>
-        </div>
-
-        <!-- Featured Courses List -->
-        <div class="section-head">
-          <div class="section-title">
-            <svg class="icon-svg icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>热门体验课程</span>
-          </div>
-          <div class="section-more" onclick="switchMpTab(1)">
-            <span>完整排课</span>
-            <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-        <div id="courseList">
-          <!-- Course Card 1 -->
-          <div class="course-card" data-cat="fitness" data-age="u6">
-            <div class="course-card-top">
-              <div class="course-name">少儿基础体适能 · 动作感知与敏捷启蒙</div>
-              <span class="course-category-tag tag-fitness">体适能</span>
-            </div>
-            <div class="course-meta">
-              <span class="meta-chip">U4-U6 启蒙</span>
-              <span class="meta-chip">1v6 精品小班</span>
-              <span class="meta-chip">60分钟/节</span>
-            </div>
-            <div class="course-desc">训练基础跑跳平衡与左右双侧动作协调，改善坐姿体态与专注力。</div>
-            <div class="course-bottom">
-              <div class="price-wrap">
-                <span class="price-num">¥99</span>
-                <span class="price-orig">¥260</span>
-              </div>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openSyllabusModal('fitness')">课程大纲</button>
-                <button class="btn-primary" onclick="openBookingModal('少儿基础体适能体验课')">立即预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Course Card 2 -->
-          <div class="course-card" data-cat="basketball" data-age="u9">
-            <div class="course-card-top">
-              <div class="course-name">青少儿小篮球 · 球感强化与双手变向特训</div>
-              <span class="course-category-tag tag-basketball">篮球</span>
-            </div>
-            <div class="course-meta">
-              <span class="meta-chip">U7-U9 基础</span>
-              <span class="meta-chip">1v8 标准班</span>
-              <span class="meta-chip">90分钟/节</span>
-            </div>
-            <div class="course-desc">双手低手变向运球、投篮动力链起步与基础战术掩护配合。</div>
-            <div class="course-bottom">
-              <div class="price-wrap">
-                <span class="price-num">¥128</span>
-                <span class="price-orig">¥320</span>
-              </div>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openSyllabusModal('basketball')">课程大纲</button>
-                <button class="btn-primary" onclick="openBookingModal('青少儿篮球特训体验课')">立即预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Course Card 3 -->
-          <div class="course-card" data-cat="badminton" data-age="u12">
-            <div class="course-card-top">
-              <div class="course-name">青少儿羽毛球 · 正手架拍与米字步法专项班</div>
-              <span class="course-category-tag tag-badminton">羽毛球</span>
-            </div>
-            <div class="course-meta">
-              <span class="meta-chip">U10-U12 进阶</span>
-              <span class="meta-chip">1v6 进阶班</span>
-              <span class="meta-chip">90分钟/节</span>
-            </div>
-            <div class="course-desc">正反手握拍切换、后场击球发力及全场米字步法连贯相持。</div>
-            <div class="course-bottom">
-              <div class="price-wrap">
-                <span class="price-num">¥138</span>
-                <span class="price-orig">¥350</span>
-              </div>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openSyllabusModal('badminton')">课程大纲</button>
-                <button class="btn-primary" onclick="openBookingModal('青少儿羽毛球体验课')">立即预约</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Gold Medal Coaches Showcase -->
-        <div class="section-head" style="margin-top: 14px;">
-          <div class="section-title">
-            <svg class="icon-svg icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>金牌师资团队</span>
-          </div>
-          <div class="section-more" onclick="showToast('全职持证**人员，教学安全规范')">
-            <span>资质保障</span>
-          </div>
-        </div>
-
-        <div class="coach-scroll">
-          <div class="coach-card">
-            <div class="coach-avatar">刘</div>
-            <div class="coach-name">刘*航 **人员</div>
-            <div class="coach-role">篮球项目主**人员</div>
-            <div class="coach-badge">国家一级运动员 · 6年青训</div>
-            <button class="coach-btn" onclick="openCoachModal('刘*航')">查看执教资质</button>
-          </div>
-          <div class="coach-card">
-            <div class="coach-avatar">陈</div>
-            <div class="coach-name">陈*敏 **人员</div>
-            <div class="coach-role">羽毛球项目主**人员</div>
-            <div class="coach-badge">前省队主力 · 8年青训经验</div>
-            <button class="coach-btn" onclick="openCoachModal('陈*敏')">查看执教资质</button>
-          </div>
-          <div class="coach-card">
-            <div class="coach-avatar">赵</div>
-            <div class="coach-name">赵*峰 **人员</div>
-            <div class="coach-role">少儿体适能教研**</div>
-            <div class="coach-badge">CSCS体能** · 10年教研</div>
-            <button class="coach-btn" onclick="openCoachModal('赵*峰')">查看执教资质</button>
-          </div>
-        </div>
-
-        <!-- Venue Hardware Section -->
-        <div class="section-head">
-          <div class="section-title">
-            <svg class="icon-svg icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-            <span>专业场馆与安全保障</span>
-          </div>
-          <div class="section-more" onclick="openHardwareModal()">
-            <span>场馆标准</span>
-          </div>
-        </div>
-
-        <div class="hardware-grid">
-          <div class="hardware-item">
-            <div class="hardware-title">
-              <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color: var(--color-accent-green);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>枫木减震地板</span>
-            </div>
-            <div class="hardware-desc">DIN认证赛事级减震结构，有效缓冲膝踝关节冲力。</div>
-          </div>
-          <div class="hardware-item">
-            <div class="hardware-title">
-              <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color: var(--color-secondary);"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/></svg>
-              <span>双向新风除湿</span>
-            </div>
-            <div class="hardware-desc">全馆恒温恒湿循环过滤，保证高强度运动含氧量。</div>
-          </div>
-          <div class="hardware-item">
-            <div class="hardware-title">
-              <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color: var(--color-danger);"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              <span>AED急救配备</span>
-            </div>
-            <div class="hardware-desc">全馆配备急救箱与AED设备，**人员全员取得急救认证。</div>
-          </div>
-          <div class="hardware-item">
-            <div class="hardware-title">
-              <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              <span>4K录像复盘</span>
-            </div>
-            <div class="hardware-desc">多机位录像分析动作细节，课后视频透明回放。</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= Tab 1: 课表 (Schedule) ================= -->
-      <div id="pane-1" class="pane">
-        <!-- Weekday Scroller -->
-        <div class="week-bar">
-          <div class="week-day-btn" onclick="selectScheduleDay(0, this)"><span class="day-name">周一</span><span class="day-date">09/01</span></div>
-          <div class="week-day-btn" onclick="selectScheduleDay(1, this)"><span class="day-name">周二</span><span class="day-date">09/02</span></div>
-          <div class="week-day-btn active" onclick="selectScheduleDay(2, this)"><span class="day-name">周三</span><span class="day-date">09/03</span></div>
-          <div class="week-day-btn" onclick="selectScheduleDay(3, this)"><span class="day-name">周四</span><span class="day-date">09/04</span></div>
-          <div class="week-day-btn" onclick="selectScheduleDay(4, this)"><span class="day-name">周五</span><span class="day-date">09/05</span></div>
-          <div class="week-day-btn" onclick="selectScheduleDay(5, this)"><span class="day-name">周六</span><span class="day-date">09/06</span></div>
-          <div class="week-day-btn" onclick="selectScheduleDay(6, this)"><span class="day-name">周日</span><span class="day-date">09/07</span></div>
-        </div>
-
-        <!-- Sport Category Filter -->
-        <div class="filter-pills">
-          <button class="pill-btn active" onclick="filterScheduleSport('all', this)">全部项目</button>
-          <button class="pill-btn" onclick="filterScheduleSport('basketball', this)">篮球专项</button>
-          <button class="pill-btn" onclick="filterScheduleSport('fitness', this)">体适能训练</button>
-          <button class="pill-btn" onclick="filterScheduleSport('badminton', this)">羽毛球专项</button>
-        </div>
-
-        <!-- Schedule Items -->
-        <div id="scheduleList">
-          <!-- Schedule Item 1: Booked -->
-          <div class="schedule-card booked" id="sched-card-1" data-sport="basketball">
-            <div class="schedule-time-row">
-              <div class="schedule-time">
-                <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>09:00 - 10:30</span>
-              </div>
-              <span class="status-badge badge-booked" id="sched-status-1">已预约 (在读班级)</span>
-            </div>
-            <div class="schedule-title">U8青少儿篮球基础进阶一班</div>
-            <div class="schedule-details">
-              <span>授课**人员：刘*航 **人员 · 室内A2枫木球场</span>
-              <span>满员情况：已预约 7/8人 · 余位 1人</span>
-            </div>
-            <div class="course-bottom">
-              <span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openGuidanceModal()">路线指引</button>
-                <button class="btn-outline" id="btn-leave-1" onclick="openLeaveModal('U8青少儿篮球基础进阶一班')">在线请假</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Schedule Item 2: Available -->
-          <div class="schedule-card available" id="sched-card-2" data-sport="fitness">
-            <div class="schedule-time-row">
-              <div class="schedule-time">
-                <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>14:30 - 16:00</span>
-              </div>
-              <span class="status-badge badge-avail" id="sched-status-2">开放预约中</span>
-            </div>
-            <div class="schedule-title">U6少儿体能敏捷与平衡训练班</div>
-            <div class="schedule-details">
-              <span>授课**人员：赵*峰 **人员 · **区C1</span>
-              <span>满员情况：已预约 4/6人 · 余位 2人</span>
-            </div>
-            <div class="course-bottom">
-              <span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openSyllabusModal('fitness')">教学重点</button>
-                <button class="btn-primary" id="btn-book-2" onclick="confirmDirectBooking('U6少儿体能敏捷班', 'sched-status-2', 'btn-book-2')">预约上课</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Schedule Item 3: Available -->
-          <div class="schedule-card available" id="sched-card-3" data-sport="badminton">
-            <div class="schedule-time-row">
-              <div class="schedule-time">
-                <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>16:30 - 18:00</span>
-              </div>
-              <span class="status-badge badge-avail" id="sched-status-3">开放预约中</span>
-            </div>
-            <div class="schedule-title">U10羽毛球前后场步法与多球对抗班</div>
-            <div class="schedule-details">
-              <span>授课**人员：陈*敏 **人员 · 恒温羽毛球馆B3</span>
-              <span>满员情况：已预约 5/6人 · 余位 1人</span>
-            </div>
-            <div class="course-bottom">
-              <span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
-              <div class="btn-group">
-                <button class="btn-outline" onclick="openSyllabusModal('badminton')">教学重点</button>
-                <button class="btn-primary" id="btn-book-3" onclick="confirmDirectBooking('U10羽毛球对抗班', 'sched-status-3', 'btn-book-3')">预约上课</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= Tab 2: 体测 (Fitness) ================= -->
-      <div id="pane-2" class="pane">
-        <!-- Student Test Basic Info Card -->
-        <div class="card" style="margin-bottom: 10px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div>
-              <b style="font-size: 14px; color: var(--color-neutral-900);" id="fitnessStudentName">张*晨 (8岁3个月)</b>
-              <div style="font-size: 10px; color: var(--color-neutral-500); margin-top: 2px;">班级：U8篮球进阶组 · 训练期：18个月</div>
-            </div>
-            <button class="btn-outline" style="font-size: 10px; padding: 4px 8px;" onclick="openCertificateModal()">电子体测证书</button>
-          </div>
-          
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; text-align: center; background-color: var(--color-neutral-100); padding: 8px 4px; border-radius: var(--radius-sm);">
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">134.5<span style="font-size: 9px; font-weight: normal;">cm</span></div>
-              <div style="font-size: 9px; color: var(--color-neutral-500);">身高 (超越78%)</div>
-            </div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">28.2<span style="font-size: 9px; font-weight: normal;">kg</span></div>
-              <div style="font-size: 9px; color: var(--color-neutral-500);">体重 (正常)</div>
-            </div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">15.6</div>
-              <div style="font-size: 9px; color: var(--color-neutral-500);">BMI 正常</div>
-            </div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: var(--color-accent-green);">1850<span style="font-size: 9px; font-weight: normal;">ml</span></div>
-              <div style="font-size: 9px; color: var(--color-neutral-500);">肺活量 (优秀)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Season Toggle Pills -->
-        <div class="filter-pills" style="margin-bottom: 8px;">
-          <button class="pill-btn active" id="btn-season-1" onclick="switchSeason(0)">2026秋季测评 (综合92分)</button>
-          <button class="pill-btn" id="btn-season-2" onclick="switchSeason(1)">2026夏季测评 (综合86分)</button>
-        </div>
-
-        <!-- 5-Dimension Radar Chart SVG -->
-        <div class="radar-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900);">少儿综合体质五维雷达</span>
-            <span class="status-badge badge-booked" id="overallGradeBadge">综合评级：优秀 (92分)</span>
-          </div>
-
-          <div class="radar-svg-wrap">
-            <svg width="240" height="220" viewBox="0 0 240 220">
-              <!-- Web Polygons -->
-              <polygon points="120,30 205,85 175,175 65,175 35,85" fill="none" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              <polygon points="120,55 178,92 157,152 83,152 62,92" fill="none" stroke="var(--color-neutral-300)" stroke-width="1" stroke-dasharray="2,2"/>
-              <polygon points="120,80 152,100 140,130 100,130 88,100" fill="none" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              
-              <!-- Axes -->
-              <line x1="120" y1="120" x2="120" y2="30" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              <line x1="120" y1="120" x2="205" y2="85" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              <line x1="120" y1="120" x2="175" y2="175" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              <line x1="120" y1="120" x2="65" y2="175" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              <line x1="120" y1="120" x2="35" y2="85" stroke="var(--color-neutral-300)" stroke-width="1"/>
-              
-              <!-- Dynamic Data Area -->
-              <polygon id="radarPolygon" points="120,40 198,90 166,168 72,166 42,90" fill="var(--color-primary-light)" stroke="var(--color-primary)" stroke-width="2" opacity="0.85"/>
-              
-              <!-- Vertex Points -->
-              <circle cx="120" cy="40" r="3" fill="var(--color-primary)"/>
-              <circle cx="198" cy="90" r="3" fill="var(--color-primary)"/>
-              <circle cx="166" cy="168" r="3" fill="var(--color-primary)"/>
-              <circle cx="72" cy="166" r="3" fill="var(--color-primary)"/>
-              <circle cx="42" cy="90" r="3" fill="var(--color-primary)"/>
-              
-              <!-- Labels -->
-              <text x="120" y="20" text-anchor="middle" font-size="10" font-weight="700" fill="var(--color-neutral-700)">速度耐力 (88)</text>
-              <text x="210" y="85" text-anchor="start" font-size="10" font-weight="700" fill="var(--color-neutral-700)">爆发力量 (94)</text>
-              <text x="180" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="var(--color-neutral-700)">柔韧平衡 (90)</text>
-              <text x="60" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="var(--color-neutral-700)">敏捷协调 (95)</text>
-              <text x="30" y="85" text-anchor="end" font-size="10" font-weight="700" fill="var(--color-neutral-700)">专项球技 (92)</text>
-            </svg>
-          </div>
-        </div>
-
-        <!-- National Standards Metrics Table -->
-        <div class="card" style="margin-bottom: 12px; padding: 10px;">
-          <div style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 6px;">
+<!-- Mini-Program Scrollable Body -->
+<div class="mp-body">
+<!-- ================= Tab 0: 首页 (Home) ================= -->
+<div class="pane active" id="pane-0">
+<!-- Notice Bar -->
+<div class="notice-bar" onclick="showToast('公告：秋季体测名额预约中，请提前确认')">
+<svg class="icon-svg icon-sm" viewbox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
+<div class="marquee-text">通知：2026秋季少儿体能与专项体测已开放预约，名额有限</div>
+</div>
+<!-- Hero Banner -->
+<div class="hero-banner">
+<div class="hero-tag">4-12岁分龄成长体系</div>
+<div class="hero-title">**体能 · 科学运动成长计划</div>
+<div class="hero-desc">少儿基础体适能 · 篮球专项特训 · 羽毛球进阶班</div>
+<button class="hero-btn" onclick="openBookingModal('trial-fitness')">
+<span>预约体验测评</span>
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+<!-- Golden Category Grid -->
+<div class="category-grid">
+<div class="category-item cat-fitness active" onclick="filterCategory('fitness', this)">
+<div class="category-icon-box">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="m18 15-6-6-6 6"></path></svg>
+</div>
+<div class="category-name">少儿体适能</div>
+<div class="category-sub">敏捷/协调/感统</div>
+</div>
+<div class="category-item cat-basketball" onclick="filterCategory('basketball', this)">
+<div class="category-icon-box">
+<svg class="icon-svg" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
+</div>
+<div class="category-name">篮球特训</div>
+<div class="category-sub">球感/突破/投篮</div>
+</div>
+<div class="category-item cat-badminton" onclick="filterCategory('badminton', this)">
+<div class="category-icon-box">
+<svg class="icon-svg" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+</div>
+<div class="category-name">羽毛球专修</div>
+<div class="category-sub">步法/架拍/对抗</div>
+</div>
+<div class="category-item cat-test" onclick="switchMpTab(2)">
+<div class="category-icon-box">
+<svg class="icon-svg" viewbox="0 0 24 24"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+</div>
+<div class="category-name">体质测评</div>
+<div class="category-sub">五维雷达报告</div>
+</div>
+</div>
+<!-- Filter Pills for Age Groups -->
+<div class="filter-pills">
+<button class="pill-btn active" onclick="filterAge('all', this)">全部年龄</button>
+<button class="pill-btn" onclick="filterAge('u6', this)">U4-U6 启蒙班</button>
+<button class="pill-btn" onclick="filterAge('u9', this)">U7-U9 基础班</button>
+<button class="pill-btn" onclick="filterAge('u12', this)">U10-U12 进阶班</button>
+</div>
+<!-- Featured Courses List -->
+<div class="section-head">
+<div class="section-title">
+<svg class="icon-svg icon-sm" style="color: var(--color-primary);" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>热门体验课程</span>
+</div>
+<div class="section-more" onclick="switchMpTab(1)">
+<span>完整排课</span>
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div id="courseList">
+<!-- Course Card 1 -->
+<div class="course-card" data-age="u6" data-cat="fitness">
+<div class="course-card-top">
+<div class="course-name">少儿基础体适能 · 动作感知与敏捷启蒙</div>
+<span class="course-category-tag tag-fitness">体适能</span>
+</div>
+<div class="course-meta">
+<span class="meta-chip">U4-U6 启蒙</span>
+<span class="meta-chip">1v6 精品小班</span>
+<span class="meta-chip">60分钟/节</span>
+</div>
+<div class="course-desc">训练基础跑跳平衡与左右双侧动作协调，改善坐姿体态与专注力。</div>
+<div class="course-bottom">
+<div class="price-wrap">
+<span class="price-num">¥99</span>
+<span class="price-orig">¥260</span>
+</div>
+<div class="btn-group">
+<button class="btn-outline" onclick="openSyllabusModal('fitness')">课程大纲</button>
+<button class="btn-primary" onclick="openBookingModal('少儿基础体适能体验课')">立即预约</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="course-card" data-age="u9" data-cat="basketball">
+<div class="course-card-top">
+<div class="course-name">青少儿小篮球 · 球感强化与双手变向特训</div>
+<span class="course-category-tag tag-basketball">篮球</span>
+</div>
+<div class="course-meta">
+<span class="meta-chip">U7-U9 基础</span>
+<span class="meta-chip">1v8 标准班</span>
+<span class="meta-chip">90分钟/节</span>
+</div>
+<div class="course-desc">双手低手变向运球、投篮动力链起步与基础战术掩护配合。</div>
+<div class="course-bottom">
+<div class="price-wrap">
+<span class="price-num">¥128</span>
+<span class="price-orig">¥320</span>
+</div>
+<div class="btn-group">
+<button class="btn-outline" onclick="openSyllabusModal('basketball')">课程大纲</button>
+<button class="btn-primary" onclick="openBookingModal('青少儿篮球特训体验课')">立即预约</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="course-card" data-age="u12" data-cat="badminton">
+<div class="course-card-top">
+<div class="course-name">青少儿羽毛球 · 正手架拍与米字步法专项班</div>
+<span class="course-category-tag tag-badminton">羽毛球</span>
+</div>
+<div class="course-meta">
+<span class="meta-chip">U10-U12 进阶</span>
+<span class="meta-chip">1v6 进阶班</span>
+<span class="meta-chip">90分钟/节</span>
+</div>
+<div class="course-desc">正反手握拍切换、后场击球发力及全场米字步法连贯相持。</div>
+<div class="course-bottom">
+<div class="price-wrap">
+<span class="price-num">¥138</span>
+<span class="price-orig">¥350</span>
+</div>
+<div class="btn-group">
+<button class="btn-outline" onclick="openSyllabusModal('badminton')">课程大纲</button>
+<button class="btn-primary" onclick="openBookingModal('青少儿羽毛球体验课')">立即预约</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Gold Medal Coaches Showcase -->
+<div class="section-head" style="margin-top: 14px;">
+<div class="section-title">
+<svg class="icon-svg icon-sm" style="color: var(--color-primary);" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>金牌师资团队</span>
+</div>
+<div class="section-more" onclick="showToast('全职持证**人员，教学安全规范')">
+<span>资质保障</span>
+</div>
+</div>
+<div class="coach-scroll">
+<div class="coach-card">
+<div class="coach-avatar">刘</div>
+<div class="coach-name">刘*航 **人员</div>
+<div class="coach-role">篮球项目主**人员</div>
+<div class="coach-badge">国家一级运动员 · 6年青训</div>
+<button class="coach-btn" onclick="openCoachModal('刘*航')">查看执教资质</button>
+</div>
+<div class="coach-card">
+<div class="coach-avatar">陈</div>
+<div class="coach-name">陈*敏 **人员</div>
+<div class="coach-role">羽毛球项目主**人员</div>
+<div class="coach-badge">前省队主力 · 8年青训经验</div>
+<button class="coach-btn" onclick="openCoachModal('陈*敏')">查看执教资质</button>
+</div>
+<div class="coach-card">
+<div class="coach-avatar">赵</div>
+<div class="coach-name">赵*峰 **人员</div>
+<div class="coach-role">少儿体适能教研**</div>
+<div class="coach-badge">CSCS体能** · 10年教研</div>
+<button class="coach-btn" onclick="openCoachModal('赵*峰')">查看执教资质</button>
+</div>
+</div>
+<!-- Venue Hardware Section -->
+<div class="section-head">
+<div class="section-title">
+<svg class="icon-svg icon-sm" style="color: var(--color-primary);" viewbox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+<span>专业场馆与安全保障</span>
+</div>
+<div class="section-more" onclick="openHardwareModal()">
+<span>场馆标准</span>
+</div>
+</div>
+<div class="hardware-grid">
+<div class="hardware-item">
+<div class="hardware-title">
+<svg class="icon-svg icon-xs" style="color: var(--color-accent-green);" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span>枫木减震地板</span>
+</div>
+<div class="hardware-desc">DIN认证赛事级减震结构，有效缓冲膝踝关节冲力。</div>
+</div>
+<div class="hardware-item">
+<div class="hardware-title">
+<svg class="icon-svg icon-xs" style="color: var(--color-secondary);" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path></svg>
+<span>双向新风除湿</span>
+</div>
+<div class="hardware-desc">全馆恒温恒湿循环过滤，保证高强度运动含氧量。</div>
+</div>
+<div class="hardware-item">
+<div class="hardware-title">
+<svg class="icon-svg icon-xs" style="color: var(--color-danger);" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span>AED急救配备</span>
+</div>
+<div class="hardware-desc">全馆配备急救箱与AED设备，**人员全员取得急救认证。</div>
+</div>
+<div class="hardware-item">
+<div class="hardware-title">
+<svg class="icon-svg icon-xs" style="color: var(--color-primary);" viewbox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"></path><rect height="14" rx="2" ry="2" width="15" x="1" y="5"></rect></svg>
+<span>4K录像复盘</span>
+</div>
+<div class="hardware-desc">多机位录像分析动作细节，课后视频透明回放。</div>
+</div>
+</div>
+</div>
+<!-- ================= Tab 1: 课表 (Schedule) ================= -->
+<div class="pane" id="pane-1">
+<!-- Weekday Scroller -->
+<div class="week-bar">
+<div class="week-day-btn" onclick="selectScheduleDay(0, this)"><span class="day-name">周一</span><span class="day-date">09/01</span></div>
+<div class="week-day-btn" onclick="selectScheduleDay(1, this)"><span class="day-name">周二</span><span class="day-date">09/02</span></div>
+<div class="week-day-btn active" onclick="selectScheduleDay(2, this)"><span class="day-name">周三</span><span class="day-date">09/03</span></div>
+<div class="week-day-btn" onclick="selectScheduleDay(3, this)"><span class="day-name">周四</span><span class="day-date">09/04</span></div>
+<div class="week-day-btn" onclick="selectScheduleDay(4, this)"><span class="day-name">周五</span><span class="day-date">09/05</span></div>
+<div class="week-day-btn" onclick="selectScheduleDay(5, this)"><span class="day-name">周六</span><span class="day-date">09/06</span></div>
+<div class="week-day-btn" onclick="selectScheduleDay(6, this)"><span class="day-name">周日</span><span class="day-date">09/07</span></div>
+</div>
+<!-- Sport Category Filter -->
+<div class="filter-pills">
+<button class="pill-btn active" onclick="filterScheduleSport('all', this)">全部项目</button>
+<button class="pill-btn" onclick="filterScheduleSport('basketball', this)">篮球专项</button>
+<button class="pill-btn" onclick="filterScheduleSport('fitness', this)">体适能训练</button>
+<button class="pill-btn" onclick="filterScheduleSport('badminton', this)">羽毛球专项</button>
+</div>
+<!-- Schedule Items -->
+<div id="scheduleList">
+<!-- Schedule Item 1: Booked -->
+<div class="schedule-card booked" data-sport="basketball" id="sched-card-1">
+<div class="schedule-time-row">
+<div class="schedule-time">
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>09:00 - 10:30</span>
+</div>
+<span class="status-badge badge-booked" id="sched-status-1">已预约 (在读班级)</span>
+</div>
+<div class="schedule-title">U8青少儿篮球基础进阶一班</div>
+<div class="schedule-details">
+<span>授课**人员：刘*航 **人员 · 室内A2枫木球场</span>
+<span>满员情况：已预约 7/8人 · 余位 1人</span>
+</div>
+<div class="course-bottom">
+<span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
+<div class="btn-group">
+<button class="btn-outline" onclick="openGuidanceModal()">路线指引</button>
+<button class="btn-outline" id="btn-leave-1" onclick="openLeaveModal('U8青少儿篮球基础进阶一班')">在线请假</button>
+</div>
+</div>
+</div>
+<!-- Schedule Item 2: Available -->
+<div class="schedule-card available" data-sport="fitness" id="sched-card-2">
+<div class="schedule-time-row">
+<div class="schedule-time">
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>14:30 - 16:00</span>
+</div>
+<span class="status-badge badge-avail" id="sched-status-2">开放预约中</span>
+</div>
+<div class="schedule-title">U6少儿体能敏捷与平衡训练班</div>
+<div class="schedule-details">
+<span>授课**人员：赵*峰 **人员 · **区C1</span>
+<span>满员情况：已预约 4/6人 · 余位 2人</span>
+</div>
+<div class="course-bottom">
+<span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
+<div class="btn-group">
+<button class="btn-outline" onclick="openSyllabusModal('fitness')">教学重点</button>
+<button class="btn-primary" id="btn-book-2" onclick="confirmDirectBooking('U6少儿体能敏捷班', 'sched-status-2', 'btn-book-2')">预约上课</button>
+</div>
+</div>
+</div>
+<!-- Schedule Item 3: Available -->
+<div class="schedule-card available" data-sport="badminton" id="sched-card-3">
+<div class="schedule-time-row">
+<div class="schedule-time">
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>16:30 - 18:00</span>
+</div>
+<span class="status-badge badge-avail" id="sched-status-3">开放预约中</span>
+</div>
+<div class="schedule-title">U10羽毛球前后场步法与多球对抗班</div>
+<div class="schedule-details">
+<span>授课**人员：陈*敏 **人员 · 恒温羽毛球馆B3</span>
+<span>满员情况：已预约 5/6人 · 余位 1人</span>
+</div>
+<div class="course-bottom">
+<span style="font-size:10px; color:var(--color-neutral-500);">扣减 1.0 课时</span>
+<div class="btn-group">
+<button class="btn-outline" onclick="openSyllabusModal('badminton')">教学重点</button>
+<button class="btn-primary" id="btn-book-3" onclick="confirmDirectBooking('U10羽毛球对抗班', 'sched-status-3', 'btn-book-3')">预约上课</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= Tab 2: 体测 (Fitness) ================= -->
+<div class="pane" id="pane-2">
+<!-- Student Test Basic Info Card -->
+<div class="card" style="margin-bottom: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+<div>
+<b id="fitnessStudentName" style="font-size: 14px; color: var(--color-neutral-900);">张*晨 (8岁3个月)</b>
+<div style="font-size: 10px; color: var(--color-neutral-500); margin-top: 2px;">班级：U8篮球进阶组 · 训练期：18个月</div>
+</div>
+<button class="btn-outline" onclick="openCertificateModal()" style="font-size: 10px; padding: 4px 8px;">电子体测证书</button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; text-align: center; background-color: var(--color-neutral-100); padding: 8px 4px; border-radius: var(--radius-sm);">
+<div>
+<div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">134.5<span style="font-size: 9px; font-weight: normal;">cm</span></div>
+<div style="font-size: 9px; color: var(--color-neutral-500);">身高 (超越78%)</div>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">28.2<span style="font-size: 9px; font-weight: normal;">kg</span></div>
+<div style="font-size: 9px; color: var(--color-neutral-500);">体重 (正常)</div>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900);">15.6</div>
+<div style="font-size: 9px; color: var(--color-neutral-500);">BMI 正常</div>
+</div>
+<div>
+<div style="font-size: 13px; font-weight: 800; color: var(--color-accent-green);">1850<span style="font-size: 9px; font-weight: normal;">ml</span></div>
+<div style="font-size: 9px; color: var(--color-neutral-500);">肺活量 (优秀)</div>
+</div>
+</div>
+</div>
+<!-- Season Toggle Pills -->
+<div class="filter-pills" style="margin-bottom: 8px;">
+<button class="pill-btn active" id="btn-season-1" onclick="switchSeason(0)">2026秋季测评 (综合92分)</button>
+<button class="pill-btn" id="btn-season-2" onclick="switchSeason(1)">2026夏季测评 (综合86分)</button>
+</div>
+<!-- 5-Dimension Radar Chart SVG -->
+<div class="radar-box">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+<span style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900);">少儿综合体质五维雷达</span>
+<span class="status-badge badge-booked" id="overallGradeBadge">综合评级：优秀 (92分)</span>
+</div>
+<div class="radar-svg-wrap">
+<svg height="220" viewbox="0 0 240 220" width="240">
+<!-- Web Polygons -->
+<polygon fill="none" points="120,30 205,85 175,175 65,175 35,85" stroke="var(--color-neutral-300)" stroke-width="1"></polygon>
+<polygon fill="none" points="120,55 178,92 157,152 83,152 62,92" stroke="var(--color-neutral-300)" stroke-dasharray="2,2" stroke-width="1"></polygon>
+<polygon fill="none" points="120,80 152,100 140,130 100,130 88,100" stroke="var(--color-neutral-300)" stroke-width="1"></polygon>
+<!-- Axes -->
+<line stroke="var(--color-neutral-300)" stroke-width="1" x1="120" x2="120" y1="120" y2="30"></line>
+<line stroke="var(--color-neutral-300)" stroke-width="1" x1="120" x2="205" y1="120" y2="85"></line>
+<line stroke="var(--color-neutral-300)" stroke-width="1" x1="120" x2="175" y1="120" y2="175"></line>
+<line stroke="var(--color-neutral-300)" stroke-width="1" x1="120" x2="65" y1="120" y2="175"></line>
+<line stroke="var(--color-neutral-300)" stroke-width="1" x1="120" x2="35" y1="120" y2="85"></line>
+<!-- Dynamic Data Area -->
+<polygon fill="var(--color-primary-light)" id="radarPolygon" opacity="0.85" points="120,40 198,90 166,168 72,166 42,90" stroke="var(--color-primary)" stroke-width="2"></polygon>
+<!-- Vertex Points -->
+<circle cx="120" cy="40" fill="var(--color-primary)" r="3"></circle>
+<circle cx="198" cy="90" fill="var(--color-primary)" r="3"></circle>
+<circle cx="166" cy="168" fill="var(--color-primary)" r="3"></circle>
+<circle cx="72" cy="166" fill="var(--color-primary)" r="3"></circle>
+<circle cx="42" cy="90" fill="var(--color-primary)" r="3"></circle>
+<!-- Labels -->
+<text fill="var(--color-neutral-700)" font-size="10" font-weight="700" text-anchor="middle" x="120" y="20">速度耐力 (88)</text>
+<text fill="var(--color-neutral-700)" font-size="10" font-weight="700" text-anchor="start" x="210" y="85">爆发力量 (94)</text>
+<text fill="var(--color-neutral-700)" font-size="10" font-weight="700" text-anchor="middle" x="180" y="195">柔韧平衡 (90)</text>
+<text fill="var(--color-neutral-700)" font-size="10" font-weight="700" text-anchor="middle" x="60" y="195">敏捷协调 (95)</text>
+<text fill="var(--color-neutral-700)" font-size="10" font-weight="700" text-anchor="end" x="30" y="85">专项球技 (92)</text>
+</svg>
+</div>
+</div>
+<!-- National Standards Metrics Table -->
+<div class="card" style="margin-bottom: 12px; padding: 10px;">
+<div style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 6px;">
             国家体测与专项指标对比表
           </div>
-          <table class="metrics-table">
-            <thead>
-              <tr>
-                <th>测试项目</th>
-                <th>实测数值</th>
-                <th>同龄基准</th>
-                <th>评定等级</th>
-              </tr>
-            </thead>
-            <tbody id="metricsTableBody">
-              <tr>
-                <td>50米短跑</td>
-                <td style="font-weight:700;">8.9 秒</td>
-                <td>9.6 秒</td>
-                <td class="val-good">优秀 (超85%)</td>
-              </tr>
-              <tr>
-                <td>立定跳远</td>
-                <td style="font-weight:700;">156 厘米</td>
-                <td>140 厘米</td>
-                <td class="val-good">优秀 (超88%)</td>
-              </tr>
-              <tr>
-                <td>坐位体前屈</td>
-                <td style="font-weight:700;">16.8 厘米</td>
-                <td>12.0 厘米</td>
-                <td class="val-good">良好 (+2.1cm)</td>
-              </tr>
-              <tr>
-                <td>1分钟双脚跳绳</td>
-                <td style="font-weight:700;">142 次</td>
-                <td>110 次</td>
-                <td class="val-good">优秀 (超90%)</td>
-              </tr>
-              <tr>
-                <td>篮球双向运球</td>
-                <td style="font-weight:700;">11.4 秒</td>
-                <td>14.0 秒</td>
-                <td class="val-good">优秀 (动作定型)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Coach Guidance & Recommendations -->
-        <div class="card">
-          <div style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 6px;">
+<table class="metrics-table">
+<thead>
+<tr>
+<th>测试项目</th>
+<th>实测数值</th>
+<th>同龄基准</th>
+<th>评定等级</th>
+</tr>
+</thead>
+<tbody id="metricsTableBody">
+<tr>
+<td>50米短跑</td>
+<td style="font-weight:700;">8.9 秒</td>
+<td>9.6 秒</td>
+<td class="val-good">优秀 (超85%)</td>
+</tr>
+<tr>
+<td>立定跳远</td>
+<td style="font-weight:700;">156 厘米</td>
+<td>140 厘米</td>
+<td class="val-good">优秀 (超88%)</td>
+</tr>
+<tr>
+<td>坐位体前屈</td>
+<td style="font-weight:700;">16.8 厘米</td>
+<td>12.0 厘米</td>
+<td class="val-good">良好 (+2.1cm)</td>
+</tr>
+<tr>
+<td>1分钟双脚跳绳</td>
+<td style="font-weight:700;">142 次</td>
+<td>110 次</td>
+<td class="val-good">优秀 (超90%)</td>
+</tr>
+<tr>
+<td>篮球双向运球</td>
+<td style="font-weight:700;">11.4 秒</td>
+<td>14.0 秒</td>
+<td class="val-good">优秀 (动作定型)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Coach Guidance & Recommendations -->
+<div class="card">
+<div style="font-size: 12px; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 6px;">
             主**人员指导建议与课后家庭作业
           </div>
-          <div style="font-size: 11px; color: var(--color-neutral-700); line-height: 1.5; background-color: var(--color-neutral-50); padding: 8px; border-radius: var(--radius-sm); border-left: 3px solid var(--color-primary);" id="coachEvaluationText">
-            <b>赵*峰 教研**：</b>学员近两月下肢爆发力与脚步变向协调性进步显著，护球手习惯良好。建议家庭锻炼每日跳绳 120次×3组，巩固踝部力量；针对肩关节灵活性可适度增加悬垂练习。
+<div id="coachEvaluationText" style="font-size: 11px; color: var(--color-neutral-700); line-height: 1.5; background-color: var(--color-neutral-50); padding: 8px; border-radius: var(--radius-sm); border-left: 3px solid var(--color-primary);">
+<b>赵*峰 教研**：</b>学员近两月下肢爆发力与脚步变向协调性进步显著，护球手习惯良好。建议家庭锻炼每日跳绳 120次×3组，巩固踝部力量；针对肩关节灵活性可适度增加悬垂练习。
           </div>
-          <div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;">
-            <button class="btn-outline" style="font-size:10px; padding:4px 8px;" onclick="openHomeWorkoutModal()">家庭作业打卡</button>
-            <button class="btn-primary" style="font-size:10px; padding:4px 8px;" onclick="showToast('已将指导建议同步给授课**人员')">同步授课**人员</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= Tab 3: 我的 (Profile) ================= -->
-      <div id="pane-3" class="pane">
-        <!-- Student Profile Card -->
-        <div class="profile-card">
-          <div class="student-info">
-            <div class="student-avatar" id="avatarInitial">晨</div>
-            <div>
-              <div class="student-name-row">
-                <span class="student-name" id="profileStudentName">张*晨</span>
-                <span class="vip-tag">金牌学员</span>
-              </div>
-              <div class="student-sub" id="profileStudentId">学籍：STAR-20260901 · **区</div>
-            </div>
-          </div>
-          <button class="switch-student-btn" onclick="toggleStudent()">切换学员</button>
-        </div>
-
-        <!-- 4-Metrics Asset Grid -->
-        <div class="assets-grid">
-          <div class="asset-item" onclick="openCreditDetailModal()">
-            <div class="asset-val highlight" id="statRemaining">26</div>
-            <div class="asset-label">剩余课时</div>
-          </div>
-          <div class="asset-item" onclick="openDeductionModal()">
-            <div class="asset-val" id="statUsed">22</div>
-            <div class="asset-label">已消课时</div>
-          </div>
-          <div class="asset-item" onclick="showToast('签约总课时为48节，有效期至2027年')">
-            <div class="asset-val">48</div>
-            <div class="asset-label">总购课时</div>
-          </div>
-          <div class="asset-item" onclick="showToast('本季度享4次请假权益，当前剩余3次')">
-            <div class="asset-val" id="statLeave">3</div>
-            <div class="asset-label">剩余请假</div>
-          </div>
-        </div>
-
-        <!-- Quick Actions Grid -->
-        <div class="quick-actions">
-          <div class="quick-action-btn" onclick="openCheckInModal()">
-            <div class="quick-icon">
-              <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            </div>
-            <span class="quick-label">到馆签到码</span>
-          </div>
-          <div class="quick-action-btn" onclick="openDeductionModal()">
-            <div class="quick-icon">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </div>
-            <span class="quick-label">消课流水账</span>
-          </div>
-          <div class="quick-action-btn" onclick="openCouponModal()">
-            <div class="quick-icon">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-            </div>
-            <span class="quick-label">优惠券 (2张)</span>
-          </div>
-          <div class="quick-action-btn" onclick="openConsultantModal()">
-            <div class="quick-icon">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-            </div>
-            <span class="quick-label">专属**</span>
-          </div>
-        </div>
-
-        <!-- Active Class Reminder Card -->
-        <div class="card" style="border-left: 4px solid var(--color-primary); margin-bottom: 12px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <span style="font-size: 11px; font-weight: 800; color: var(--color-primary);">待上课程提醒</span>
-            <span class="status-badge badge-booked">本周六 09:00</span>
-          </div>
-          <div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900); margin-bottom: 2px;">
+<div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;">
+<button class="btn-outline" onclick="openHomeWorkoutModal()" style="font-size:10px; padding:4px 8px;">家庭作业打卡</button>
+<button class="btn-primary" onclick="showToast('已将指导建议同步给授课**人员')" style="font-size:10px; padding:4px 8px;">同步授课**人员</button>
+</div>
+</div>
+</div>
+<!-- ================= Tab 3: 我的 (Profile) ================= -->
+<div class="pane" id="pane-3">
+<!-- Student Profile Card -->
+<div class="profile-card">
+<div class="student-info">
+<div class="student-avatar" id="avatarInitial">晨</div>
+<div>
+<div class="student-name-row">
+<span class="student-name" id="profileStudentName">张*晨</span>
+<span class="vip-tag">金牌学员</span>
+</div>
+<div class="student-sub" id="profileStudentId">学籍：STAR-20260901 · **区</div>
+</div>
+</div>
+<button class="switch-student-btn" onclick="toggleStudent()">切换学员</button>
+</div>
+<!-- 4-Metrics Asset Grid -->
+<div class="assets-grid">
+<div class="asset-item" onclick="openCreditDetailModal()">
+<div class="asset-val highlight" id="statRemaining">26</div>
+<div class="asset-label">剩余课时</div>
+</div>
+<div class="asset-item" onclick="openDeductionModal()">
+<div class="asset-val" id="statUsed">22</div>
+<div class="asset-label">已消课时</div>
+</div>
+<div class="asset-item" onclick="showToast('签约总课时为48节，有效期至2027年')">
+<div class="asset-val">48</div>
+<div class="asset-label">总购课时</div>
+</div>
+<div class="asset-item" onclick="showToast('本季度享4次请假权益，当前剩余3次')">
+<div class="asset-val" id="statLeave">3</div>
+<div class="asset-label">剩余请假</div>
+</div>
+</div>
+<!-- Quick Actions Grid -->
+<div class="quick-actions">
+<div class="quick-action-btn" onclick="openCheckInModal()">
+<div class="quick-icon">
+<svg class="icon-svg" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+</div>
+<span class="quick-label">到馆签到码</span>
+</div>
+<div class="quick-action-btn" onclick="openDeductionModal()">
+<div class="quick-icon">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+</div>
+<span class="quick-label">消课流水账</span>
+</div>
+<div class="quick-action-btn" onclick="openCouponModal()">
+<div class="quick-icon">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+</div>
+<span class="quick-label">优惠券 (2张)</span>
+</div>
+<div class="quick-action-btn" onclick="openConsultantModal()">
+<div class="quick-icon">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+</div>
+<span class="quick-label">专属**</span>
+</div>
+</div>
+<!-- Active Class Reminder Card -->
+<div class="card" style="border-left: 4px solid var(--color-primary); margin-bottom: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+<span style="font-size: 11px; font-weight: 800; color: var(--color-primary);">待上课程提醒</span>
+<span class="status-badge badge-booked">本周六 09:00</span>
+</div>
+<div style="font-size: 13px; font-weight: 800; color: var(--color-neutral-900); margin-bottom: 2px;">
             U8青少儿篮球基础进阶一班
           </div>
-          <div style="font-size: 10px; color: var(--color-neutral-500); margin-bottom: 8px;">
+<div style="font-size: 10px; color: var(--color-neutral-500); margin-bottom: 8px;">
             **体育中心旗舰馆 · A2枫木篮球场 · 授课**人员：刘*航
           </div>
-          <div style="display: flex; justify-content: flex-end; gap: 6px;">
-            <button class="btn-outline" style="font-size: 10px; padding: 4px 8px;" onclick="openGuidanceModal()">路线指引</button>
-            <button class="btn-primary" style="font-size: 10px; padding: 4px 8px;" onclick="openCheckInModal()">出示签到码</button>
-          </div>
-        </div>
-
-        <!-- Lesson Deduction History Timeline (消课记录流水) -->
-        <div class="card" style="margin-bottom: 12px;">
-          <div class="section-head" style="margin-bottom: 8px;">
-            <div class="section-title">
-              <svg class="icon-svg icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-              <span>近期消课记录流水</span>
-            </div>
-            <div class="section-more" onclick="openDeductionModal()">
-              <span>全部流水</span>
-              <svg class="icon-svg icon-xs" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-          <div id="deductionLogsContainer">
-            <div class="history-item">
-              <div>
-                <div class="history-title">篮球双手变向实战特训</div>
-                <div class="history-time">2026-09-02 16:30 · 刘*航**人员 · 奥体A2场</div>
-              </div>
-              <div class="history-deduct">-1.0 课时</div>
-            </div>
-            <div class="history-item">
-              <div>
-                <div class="history-title">少儿体适能核心爆发力训练</div>
-                <div class="history-time">2026-08-28 14:00 · 赵*峰**人员 · 测能C1区</div>
-              </div>
-              <div class="history-deduct">-1.0 课时</div>
-            </div>
-            <div class="history-item">
-              <div>
-                <div class="history-title">羽毛球正手高远球发力定型</div>
-                <div class="history-time">2026-08-23 09:30 · 陈*敏**人员 · 羽球B3场</div>
-              </div>
-              <div class="history-deduct">-1.0 课时</div>
-            </div>
-            <div class="history-item">
-              <div>
-                <div class="history-title">少儿季度身体素质测评</div>
-                <div class="history-time">2026-08-16 16:30 · 赵*峰**人员 · 体测中心</div>
-              </div>
-              <div class="history-deduct">-1.0 课时</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Secondary Services Menu List -->
-        <div class="card" style="padding: 4px 14px;">
-          <div class="menu-item" onclick="openGeneralModal('健康声明与安全档案', '本档案记载学员既往身体病史、过敏源及运动耐受评估，已由法定监护人完成电子签字确认。')">
-            <div class="menu-left">
-              <svg class="icon-svg icon-sm menu-icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              <span>学员健康档案与声明</span>
-            </div>
-            <svg class="icon-svg icon-xs menu-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openGeneralModal('训练护具与装备领用', '已领用：专业篮球训练服套组（黑色/140码）1套、吸汗运动护膝1对、便携运动水壶1个。')">
-            <div class="menu-left">
-              <svg class="icon-svg icon-sm menu-icon" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
-              <span>装备与护具申领记录</span>
-            </div>
-            <svg class="icon-svg icon-xs menu-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openGeneralModal('培训合同与电子凭单', '合同编号：STAR-HT-20260301-48，合同总额：¥6,880，已开具全额增值税电子发票。')">
-            <div class="menu-left">
-              <svg class="icon-svg icon-sm menu-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span>培训协议与电子发票</span>
-            </div>
-            <svg class="icon-svg icon-xs menu-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-item" onclick="openGeneralModal('场馆安全与急救通道', '**体育中心场馆前台电话：010-8498**。若遇运动跌打或身体不适，请第一时间告知当班巡场**人员。')">
-            <div class="menu-left">
-              <svg class="icon-svg icon-sm menu-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>场馆应急与服务咨询</span>
-            </div>
-            <svg class="icon-svg icon-xs menu-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Bottom TabBar (4-Tabs) -->
-    <div class="bottom-tabbar">
-      <div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
-        <span>首页</span>
-      </div>
-      <div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
-        <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>课表</span>
-      </div>
-      <div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
-        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-        <span>体测</span>
-      </div>
-      <div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的</span>
-      </div>
-    </div>
-
-    <!-- ================= All Modals & Drawers Layer ================= -->
-
-    <!-- Modal 1: Campus Switcher -->
-    <div class="modal-overlay" id="modal-campus" onclick="closeModalOnBg(event, 'modal-campus')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">**区</span>
-          <span class="modal-close" onclick="closeModal('modal-campus')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div class="course-card" style="cursor:pointer;" onclick="selectCampus('**体育中心旗舰馆', '**区奥体南路*号国家**体育中心综合馆2层')">
-            <div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">**体育中心旗舰馆 (当前)</div>
-            <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区奥体南路*号综合馆2层 · 1800㎡多功能运动场</div>
-          </div>
-          <div class="course-card" style="cursor:pointer;" onclick="selectCampus('望京**区馆', '**区望京南湖东园*号运动立方3层')">
-            <div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">望京**区馆</div>
-            <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区望京南湖东园*号3层 · 恒温羽**区</div>
-          </div>
-          <div class="course-card" style="cursor:pointer;" onclick="selectCampus('**世纪城综合馆', '**区远大路*号世纪金源运动汇2层')">
-            <div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">**世纪城综合馆</div>
-            <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区远大路*号运动汇2层 · 少年儿童篮球实训中心</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal 2: Booking Trial Class -->
-    <div class="modal-overlay" id="modal-booking" onclick="closeModalOnBg(event, 'modal-booking')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">预约体验试听课</span>
-          <span class="modal-close" onclick="closeModal('modal-booking')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div class="form-group">
-          <label class="form-label">意向体验课程</label>
-          <input type="text" class="form-input" id="bookingCourseName" readonly>
-        </div>
-        <div class="form-group">
-          <label class="form-label">上课学员姓名</label>
-          <input type="text" class="form-input" id="bookingStudentName" value="张*晨 (8岁)">
-        </div>
-        <div class="form-group">
-          <label class="form-label">**区</label>
-          <select class="form-select" id="bookingCampusSelect">
-            <option value="**体育中心旗舰馆">**体育中心旗舰馆</option>
-            <option value="望京**区馆">望京**区馆</option>
-            <option value="**世纪城综合馆">**世纪城综合馆</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">意向体验时段</label>
-          <select class="form-select" id="bookingTimeSelect">
-            <option value="周六 上午 09:00 - 10:30">周六 上午 09:00 - 10:30</option>
-            <option value="周六 下午 14:30 - 16:00">周六 下午 14:30 - 16:00</option>
-            <option value="周日 上午 10:00 - 11:30">周日 上午 10:00 - 11:30</option>
-            <option value="周日 下午 16:30 - 18:00">周日 下午 16:30 - 18:00</option>
-          </select>
-        </div>
-        <button class="btn-primary" style="width:100%; padding:10px; justify-content:center; font-size:13px; margin-top:8px;" onclick="submitBookingForm()">
+<div style="display: flex; justify-content: flex-end; gap: 6px;">
+<button class="btn-outline" onclick="openGuidanceModal()" style="font-size: 10px; padding: 4px 8px;">路线指引</button>
+<button class="btn-primary" onclick="openCheckInModal()" style="font-size: 10px; padding: 4px 8px;">出示签到码</button>
+</div>
+</div>
+<!-- Lesson Deduction History Timeline (消课记录流水) -->
+<div class="card" style="margin-bottom: 12px;">
+<div class="section-head" style="margin-bottom: 8px;">
+<div class="section-title">
+<svg class="icon-svg icon-sm" style="color: var(--color-primary);" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+<span>近期消课记录流水</span>
+</div>
+<div class="section-more" onclick="openDeductionModal()">
+<span>全部流水</span>
+<svg class="icon-svg icon-xs" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div id="deductionLogsContainer">
+<div class="history-item">
+<div>
+<div class="history-title">篮球双手变向实战特训</div>
+<div class="history-time">2026-09-02 16:30 · 刘*航**人员 · 奥体A2场</div>
+</div>
+<div class="history-deduct">-1.0 课时</div>
+</div>
+<div class="history-item">
+<div>
+<div class="history-title">少儿体适能核心爆发力训练</div>
+<div class="history-time">2026-08-28 14:00 · 赵*峰**人员 · 测能C1区</div>
+</div>
+<div class="history-deduct">-1.0 课时</div>
+</div>
+<div class="history-item">
+<div>
+<div class="history-title">羽毛球正手高远球发力定型</div>
+<div class="history-time">2026-08-23 09:30 · 陈*敏**人员 · 羽球B3场</div>
+</div>
+<div class="history-deduct">-1.0 课时</div>
+</div>
+<div class="history-item">
+<div>
+<div class="history-title">少儿季度身体素质测评</div>
+<div class="history-time">2026-08-16 16:30 · 赵*峰**人员 · 体测中心</div>
+</div>
+<div class="history-deduct">-1.0 课时</div>
+</div>
+</div>
+</div>
+<!-- Secondary Services Menu List -->
+<div class="card" style="padding: 4px 14px;">
+<div class="menu-item" onclick="openGeneralModal('健康声明与安全档案', '本档案记载学员既往身体病史、过敏源及运动耐受评估，已由法定监护人完成电子签字确认。')">
+<div class="menu-left">
+<svg class="icon-svg icon-sm menu-icon" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span>学员健康档案与声明</span>
+</div>
+<svg class="icon-svg icon-xs menu-icon" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openGeneralModal('训练护具与装备领用', '已领用：专业篮球训练服套组（黑色/140码）1套、吸汗运动护膝1对、便携运动水壶1个。')">
+<div class="menu-left">
+<svg class="icon-svg icon-sm menu-icon" viewbox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
+<span>装备与护具申领记录</span>
+</div>
+<svg class="icon-svg icon-xs menu-icon" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openGeneralModal('培训合同与电子凭单', '合同编号：STAR-HT-20260301-48，合同总额：¥6,880，已开具全额增值税电子发票。')">
+<div class="menu-left">
+<svg class="icon-svg icon-sm menu-icon" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+<span>培训协议与电子发票</span>
+</div>
+<svg class="icon-svg icon-xs menu-icon" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item" onclick="openGeneralModal('场馆安全与急救通道', '**体育中心场馆前台电话：010-8498**。若遇运动跌打或身体不适，请第一时间告知当班巡场**人员。')">
+<div class="menu-left">
+<svg class="icon-svg icon-sm menu-icon" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>场馆应急与服务咨询</span>
+</div>
+<svg class="icon-svg icon-xs menu-icon" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom TabBar (4-Tabs) -->
+<div class="bottom-tabbar">
+<div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="m18 15-6-6-6 6"></path></svg>
+<span>首页</span>
+</div>
+<div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
+<svg class="icon-svg" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>课表</span>
+</div>
+<div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
+<svg class="icon-svg" viewbox="0 0 24 24"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+<span>体测</span>
+</div>
+<div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
+<svg class="icon-svg" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+</div>
+</div>
+<!-- ================= All Modals & Drawers Layer ================= -->
+<!-- Modal 1: Campus Switcher -->
+<div class="modal-overlay" id="modal-campus" onclick="closeModalOnBg(event, 'modal-campus')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">**区</span>
+<span class="modal-close" onclick="closeModal('modal-campus')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="display:flex; flex-direction:column; gap:8px;">
+<div class="course-card" onclick="selectCampus('**体育中心旗舰馆', '**区奥体南路*号国家**体育中心综合馆2层')" style="cursor:pointer;">
+<div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">**体育中心旗舰馆 (当前)</div>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区奥体南路*号综合馆2层 · 1800㎡多功能运动场</div>
+</div>
+<div class="course-card" onclick="selectCampus('望京**区馆', '**区望京南湖东园*号运动立方3层')" style="cursor:pointer;">
+<div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">望京**区馆</div>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区望京南湖东园*号3层 · 恒温羽**区</div>
+</div>
+<div class="course-card" onclick="selectCampus('**世纪城综合馆', '**区远大路*号世纪金源运动汇2层')" style="cursor:pointer;">
+<div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">**世纪城综合馆</div>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">**区远大路*号运动汇2层 · 少年儿童篮球实训中心</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal 2: Booking Trial Class -->
+<div class="modal-overlay" id="modal-booking" onclick="closeModalOnBg(event, 'modal-booking')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">预约体验试听课</span>
+<span class="modal-close" onclick="closeModal('modal-booking')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div class="form-group">
+<label class="form-label">意向体验课程</label>
+<input class="form-input" id="bookingCourseName" readonly="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">上课学员姓名</label>
+<input class="form-input" id="bookingStudentName" type="text" value="张*晨 (8岁)"/>
+</div>
+<div class="form-group">
+<label class="form-label">**区</label>
+<select class="form-select" id="bookingCampusSelect">
+<option value="**体育中心旗舰馆">**体育中心旗舰馆</option>
+<option value="望京**区馆">望京**区馆</option>
+<option value="**世纪城综合馆">**世纪城综合馆</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">意向体验时段</label>
+<select class="form-select" id="bookingTimeSelect">
+<option value="周六 上午 09:00 - 10:30">周六 上午 09:00 - 10:30</option>
+<option value="周六 下午 14:30 - 16:00">周六 下午 14:30 - 16:00</option>
+<option value="周日 上午 10:00 - 11:30">周日 上午 10:00 - 11:30</option>
+<option value="周日 下午 16:30 - 18:00">周日 下午 16:30 - 18:00</option>
+</select>
+</div>
+<button class="btn-primary" onclick="submitBookingForm()" style="width:100%; padding:10px; justify-content:center; font-size:13px; margin-top:8px;">
           确认提交预约申请
         </button>
-      </div>
-    </div>
-
-    <!-- Modal 3: Check-in QR Code (到馆签到码) -->
-    <div class="modal-overlay" id="modal-checkin" onclick="closeModalOnBg(event, 'modal-checkin')">
-      <div class="modal-sheet" style="text-align:center;">
-        <div class="modal-head">
-          <span class="modal-title">学员到馆签到核销码</span>
-          <span class="modal-close" onclick="closeModal('modal-checkin')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div class="qr-sim-box">
-          <div style="font-size:11px; color:var(--color-neutral-500); margin-bottom:8px;">请向上课**人员或场馆前台出示扫码</div>
-          <div class="qr-code-pattern">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-              <rect x="5" y="5" width="30" height="30" fill="none" stroke="var(--color-neutral-900)" stroke-width="4"/>
-              <rect x="12" y="12" width="16" height="16" fill="var(--color-neutral-900)"/>
-              <rect x="65" y="5" width="30" height="30" fill="none" stroke="var(--color-neutral-900)" stroke-width="4"/>
-              <rect x="72" y="12" width="16" height="16" fill="var(--color-neutral-900)"/>
-              <rect x="5" y="65" width="30" height="30" fill="none" stroke="var(--color-neutral-900)" stroke-width="4"/>
-              <rect x="12" y="72" width="16" height="16" fill="var(--color-neutral-900)"/>
-              <rect x="45" y="10" width="10" height="10" fill="var(--color-primary)"/>
-              <rect x="45" y="30" width="10" height="10" fill="var(--color-neutral-900)"/>
-              <rect x="45" y="50" width="10" height="10" fill="var(--color-primary)"/>
-              <rect x="65" y="45" width="10" height="10" fill="var(--color-neutral-900)"/>
-              <rect x="65" y="65" width="10" height="10" fill="var(--color-primary)"/>
-              <rect x="85" y="85" width="10" height="10" fill="var(--color-neutral-900)"/>
-              <rect x="45" y="70" width="10" height="20" fill="var(--color-neutral-900)"/>
-            </svg>
-          </div>
-          <div class="qr-code-code" id="checkinRandomCode">829-410</div>
-          <div class="qr-refresh-timer">动态码每60秒自动刷新 · 防截图认证</div>
-        </div>
-        <div style="display:flex; justify-content:center; gap:8px;">
-          <button class="btn-outline" onclick="refreshCheckinCode()">手动刷新验证码</button>
-          <button class="btn-primary" onclick="simulateCheckinSuccess()">模拟到馆核销</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal 4: Leave Request (在线请假) -->
-    <div class="modal-overlay" id="modal-leave" onclick="closeModalOnBg(event, 'modal-leave')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">课前请假申请</span>
-          <span class="modal-close" onclick="closeModal('modal-leave')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="font-size:12px; color:var(--color-neutral-700); line-height:1.5; margin-bottom:12px;">
-          课程名称：<b id="leaveCourseTitle">U8青少儿篮球基础进阶一班</b><br>
-          上课时间：2026-09-06 (周六) 09:00 - 10:30<br>
+</div>
+</div>
+<!-- Modal 3: Check-in QR Code (到馆签到码) -->
+<div class="modal-overlay" id="modal-checkin" onclick="closeModalOnBg(event, 'modal-checkin')">
+<div class="modal-sheet" style="text-align:center;">
+<div class="modal-head">
+<span class="modal-title">学员到馆签到核销码</span>
+<span class="modal-close" onclick="closeModal('modal-checkin')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div class="qr-sim-box">
+<div style="font-size:11px; color:var(--color-neutral-500); margin-bottom:8px;">请向上课**人员或场馆前台出示扫码</div>
+<div class="qr-code-pattern">
+<svg height="100" viewbox="0 0 100 100" width="100">
+<rect fill="none" height="30" stroke="var(--color-neutral-900)" stroke-width="4" width="30" x="5" y="5"></rect>
+<rect fill="var(--color-neutral-900)" height="16" width="16" x="12" y="12"></rect>
+<rect fill="none" height="30" stroke="var(--color-neutral-900)" stroke-width="4" width="30" x="65" y="5"></rect>
+<rect fill="var(--color-neutral-900)" height="16" width="16" x="72" y="12"></rect>
+<rect fill="none" height="30" stroke="var(--color-neutral-900)" stroke-width="4" width="30" x="5" y="65"></rect>
+<rect fill="var(--color-neutral-900)" height="16" width="16" x="12" y="72"></rect>
+<rect fill="var(--color-primary)" height="10" width="10" x="45" y="10"></rect>
+<rect fill="var(--color-neutral-900)" height="10" width="10" x="45" y="30"></rect>
+<rect fill="var(--color-primary)" height="10" width="10" x="45" y="50"></rect>
+<rect fill="var(--color-neutral-900)" height="10" width="10" x="65" y="45"></rect>
+<rect fill="var(--color-primary)" height="10" width="10" x="65" y="65"></rect>
+<rect fill="var(--color-neutral-900)" height="10" width="10" x="85" y="85"></rect>
+<rect fill="var(--color-neutral-900)" height="20" width="10" x="45" y="70"></rect>
+</svg>
+</div>
+<div class="qr-code-code" id="checkinRandomCode">829-410</div>
+<div class="qr-refresh-timer">动态码每60秒自动刷新 · 防截图认证</div>
+</div>
+<div style="display:flex; justify-content:center; gap:8px;">
+<button class="btn-outline" onclick="refreshCheckinCode()">手动刷新验证码</button>
+<button class="btn-primary" onclick="simulateCheckinSuccess()">模拟到馆核销</button>
+</div>
+</div>
+</div>
+<!-- Modal 4: Leave Request (在线请假) -->
+<div class="modal-overlay" id="modal-leave" onclick="closeModalOnBg(event, 'modal-leave')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">课前请假申请</span>
+<span class="modal-close" onclick="closeModal('modal-leave')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="font-size:12px; color:var(--color-neutral-700); line-height:1.5; margin-bottom:12px;">
+          课程名称：<b id="leaveCourseTitle">U8青少儿篮球基础进阶一班</b><br/>
+          上课时间：2026-09-06 (周六) 09:00 - 10:30<br/>
           当前权益：本季度剩余无责请假 <b style="color:var(--color-primary);">3 次</b>
-        </div>
-        <div class="form-group">
-          <label class="form-label">请假原因说明</label>
-          <select class="form-select" id="leaveReason">
-            <option value="学校临时课程冲突">学校临时课程冲突</option>
-            <option value="学员身体不适休养">学员身体不适休养</option>
-            <option value="家庭事务外出安排">家庭事务外出安排</option>
-            <option value="其他原因">其他原因</option>
-          </select>
-        </div>
-        <div style="font-size:10px; color:var(--color-neutral-500); margin-bottom:14px; background-color:var(--color-neutral-100); padding:8px; border-radius:var(--radius-xs);">
+</div>
+<div class="form-group">
+<label class="form-label">请假原因说明</label>
+<select class="form-select" id="leaveReason">
+<option value="学校临时课程冲突">学校临时课程冲突</option>
+<option value="学员身体不适休养">学员身体不适休养</option>
+<option value="家庭事务外出安排">家庭事务外出安排</option>
+<option value="其他原因">其他原因</option>
+</select>
+</div>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-bottom:14px; background-color:var(--color-neutral-100); padding:8px; border-radius:var(--radius-xs);">
           提示：开课前2小时请假不扣减课时，并自动发放同科目补课权益1次，可在季度内自主改签。
         </div>
-        <button class="btn-primary" style="width:100%; padding:10px; justify-content:center;" onclick="confirmLeaveAction()">
+<button class="btn-primary" onclick="confirmLeaveAction()" style="width:100%; padding:10px; justify-content:center;">
           确认提交请假申请
         </button>
-      </div>
-    </div>
-
-    <!-- Modal 5: Coach Detail -->
-    <div class="modal-overlay" id="modal-coach" onclick="closeModalOnBg(event, 'modal-coach')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title" id="coachModalTitle">**人员执教档案</span>
-          <span class="modal-close" onclick="closeModal('modal-coach')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="text-align:center; margin-bottom:12px;">
-          <div class="coach-avatar" style="width:54px; height:54px; font-size:20px;" id="coachModalAvatar">刘</div>
-          <div style="font-size:14px; font-weight:800; color:var(--color-neutral-900);" id="coachModalName">刘*航 **人员</div>
-          <div style="font-size:11px; color:var(--color-primary); font-weight:700; margin-top:2px;" id="coachModalRole">青少儿篮球主**人员</div>
-        </div>
-        <div style="font-size:11px; color:var(--color-neutral-700); line-height:1.6; background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-md); margin-bottom:12px;" id="coachModalBio">
+</div>
+</div>
+<!-- Modal 5: Coach Detail -->
+<div class="modal-overlay" id="modal-coach" onclick="closeModalOnBg(event, 'modal-coach')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title" id="coachModalTitle">**人员执教档案</span>
+<span class="modal-close" onclick="closeModal('modal-coach')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="text-align:center; margin-bottom:12px;">
+<div class="coach-avatar" id="coachModalAvatar" style="width:54px; height:54px; font-size:20px;">刘</div>
+<div id="coachModalName" style="font-size:14px; font-weight:800; color:var(--color-neutral-900);">刘*航 **人员</div>
+<div id="coachModalRole" style="font-size:11px; color:var(--color-primary); font-weight:700; margin-top:2px;">青少儿篮球主**人员</div>
+</div>
+<div id="coachModalBio" style="font-size:11px; color:var(--color-neutral-700); line-height:1.6; background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-md); margin-bottom:12px;">
           国家一级篮球运动员，前CUBA高校主力控卫。持中国篮协E级**人员员证及国家红十字救护员证。从事青少儿体能与篮球启蒙教育6年，累计带训超800课时，学员好评率99.8%。
         </div>
-        <button class="btn-primary" style="width:100%; padding:9px; justify-content:center;" onclick="openBookingModal('金牌**人员专属测评')">预约该**人员体验课</button>
-      </div>
-    </div>
-
-    <!-- Modal 6: Course Syllabus (课程大纲) -->
-    <div class="modal-overlay" id="modal-syllabus" onclick="closeModalOnBg(event, 'modal-syllabus')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title" id="syllabusTitle">教学阶段大纲</span>
-          <span class="modal-close" onclick="closeModal('modal-syllabus')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px; font-size:11px; color:var(--color-neutral-700); line-height:1.5;">
-          <div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-primary);">
-            <b style="color:var(--color-neutral-900);">第一阶段 (1-8周)：动作定型与球感感知</b><br>
+<button class="btn-primary" onclick="openBookingModal('金牌**人员专属测评')" style="width:100%; padding:9px; justify-content:center;">预约该**人员体验课</button>
+</div>
+</div>
+<!-- Modal 6: Course Syllabus (课程大纲) -->
+<div class="modal-overlay" id="modal-syllabus" onclick="closeModalOnBg(event, 'modal-syllabus')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title" id="syllabusTitle">教学阶段大纲</span>
+<span class="modal-close" onclick="closeModal('modal-syllabus')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="display:flex; flex-direction:column; gap:10px; font-size:11px; color:var(--color-neutral-700); line-height:1.5;">
+<div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-primary);">
+<b style="color:var(--color-neutral-900);">第一阶段 (1-8周)：动作定型与球感感知</b><br/>
             身体平衡控制、专项手型强化、基础脚步移动与动态反应练习。
           </div>
-          <div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-secondary);">
-            <b style="color:var(--color-neutral-900);">第二阶段 (9-16周)：技能进阶与多球相持</b><br>
+<div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-secondary);">
+<b style="color:var(--color-neutral-900);">第二阶段 (9-16周)：技能进阶与多球相持</b><br/>
             变速变向动作组合、攻防转换节奏把控与双人掩护战术配合。
           </div>
-          <div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-accent-green);">
-            <b style="color:var(--color-neutral-900);">第三阶段 (17-24周)：全场实战与体能进阶</b><br>
+<div style="background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); border-left:3px solid var(--color-accent-green);">
+<b style="color:var(--color-neutral-900);">第三阶段 (17-24周)：全场实战与体能进阶</b><br/>
             对抗赛抗压演练、中考达标项强化、季度五维体质健康测评与档案更新。
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal 7: Certificate Preview -->
-    <div class="modal-overlay" id="modal-certificate" onclick="closeModalOnBg(event, 'modal-certificate')">
-      <div class="modal-sheet" style="text-align:center;">
-        <div class="modal-head">
-          <span class="modal-title">少儿体能成长证书</span>
-          <span class="modal-close" onclick="closeModal('modal-certificate')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="border:2px solid var(--color-primary); border-radius:var(--radius-md); padding:16px 12px; background:linear-gradient(180deg, var(--color-white), var(--color-neutral-50)); margin-bottom:12px;">
-          <div style="font-size:16px; font-weight:900; color:var(--color-primary); letter-spacing:1px;">青少年体质健康达标认证</div>
-          <div style="font-size:9px; color:var(--color-neutral-500); margin-top:2px;">**体能青少儿体育科学评估中心</div>
-          <div style="margin:14px 0; font-size:12px; color:var(--color-neutral-700); line-height:1.6;">
-            兹证明学员 <b style="color:var(--color-neutral-900);">张*晨</b> (学籍号: STAR-20260901)<br>
-            在 2026 年度秋季体质健康五维测评中成绩优异<br>
+</div>
+</div>
+</div>
+<!-- Modal 7: Certificate Preview -->
+<div class="modal-overlay" id="modal-certificate" onclick="closeModalOnBg(event, 'modal-certificate')">
+<div class="modal-sheet" style="text-align:center;">
+<div class="modal-head">
+<span class="modal-title">少儿体能成长证书</span>
+<span class="modal-close" onclick="closeModal('modal-certificate')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="border:2px solid var(--color-primary); border-radius:var(--radius-md); padding:16px 12px; background:linear-gradient(180deg, var(--color-white), var(--color-neutral-50)); margin-bottom:12px;">
+<div style="font-size:16px; font-weight:900; color:var(--color-primary); letter-spacing:1px;">青少年体质健康达标认证</div>
+<div style="font-size:9px; color:var(--color-neutral-500); margin-top:2px;">**体能青少儿体育科学评估中心</div>
+<div style="margin:14px 0; font-size:12px; color:var(--color-neutral-700); line-height:1.6;">
+            兹证明学员 <b style="color:var(--color-neutral-900);">张*晨</b> (学籍号: STAR-20260901)<br/>
+            在 2026 年度秋季体质健康五维测评中成绩优异<br/>
             综合得分 <b style="color:var(--color-primary); font-size:16px;">92</b> 分 · 评定为 <b style="color:var(--color-accent-green);">优秀等级</b>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--color-neutral-500); border-top:1px dashed var(--color-neutral-300); padding-top:8px;">
-            <span>主评**人员：赵*峰 (**)</span>
-            <span>发证日期：2026-09-01</span>
-          </div>
+</div>
+<div style="display:flex; justify-content:space-between; font-size:9px; color:var(--color-neutral-500); border-top:1px dashed var(--color-neutral-300); padding-top:8px;">
+<span>主评**人员：赵*峰 (**)</span>
+<span>发证日期：2026-09-01</span>
+</div>
+</div>
+<button class="btn-primary" onclick="showToast('电子体测证书已保存至学员相册')" style="width:100%; padding:9px; justify-content:center;">下载电子证书</button>
+</div>
+</div>
+<!-- Modal 8: Route Guidance (路线指引) -->
+<div class="modal-overlay" id="modal-guidance" onclick="closeModalOnBg(event, 'modal-guidance')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">场馆到访与交通指引</span>
+<span class="modal-close" onclick="closeModal('modal-guidance')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="font-size:11px; color:var(--color-neutral-700); line-height:1.6;">
+<b>场馆名称：</b>**体育中心旗舰馆<br/>
+<b>详细地址：</b>**区奥体南路*号国家**体育中心综合馆2层<br/>
+<b>地铁路线：</b>地铁**号线/**号线【北土城站】D2出口步行约450米<br/>
+<b>自驾停车：</b>**体育中心南门地下停车场 (前台提供2小时免费停车券)<br/>
+<b>场馆服务台：</b>入场请于2层前台出示学员签到码核销
         </div>
-        <button class="btn-primary" style="width:100%; padding:9px; justify-content:center;" onclick="showToast('电子体测证书已保存至学员相册')">下载电子证书</button>
-      </div>
-    </div>
-
-    <!-- Modal 8: Route Guidance (路线指引) -->
-    <div class="modal-overlay" id="modal-guidance" onclick="closeModalOnBg(event, 'modal-guidance')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">场馆到访与交通指引</span>
-          <span class="modal-close" onclick="closeModal('modal-guidance')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="font-size:11px; color:var(--color-neutral-700); line-height:1.6;">
-          <b>场馆名称：</b>**体育中心旗舰馆<br>
-          <b>详细地址：</b>**区奥体南路*号国家**体育中心综合馆2层<br>
-          <b>地铁路线：</b>地铁**号线/**号线【北土城站】D2出口步行约450米<br>
-          <b>自驾停车：</b>**体育中心南门地下停车场 (前台提供2小时免费停车券)<br>
-          <b>场馆服务台：</b>入场请于2层前台出示学员签到码核销
-        </div>
-        <button class="btn-primary" style="width:100%; padding:9px; justify-content:center; margin-top:12px;" onclick="showToast('已复制场馆导航文字信息')">复制场馆地址</button>
-      </div>
-    </div>
-
-    <!-- Modal 9: Consultant (专属**) -->
-    <div class="modal-overlay" id="modal-consultant" onclick="closeModalOnBg(event, 'modal-consultant')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">专属教务**</span>
-          <span class="modal-close" onclick="closeModal('modal-consultant')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-          <div class="student-avatar" style="background-color:var(--color-secondary);">顾</div>
-          <div>
-            <div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">林*萱 (专属教务班**)</div>
-            <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">工作时间：周二至周日 09:00 - 19:30</div>
-          </div>
-        </div>
-        <div style="font-size:11px; color:var(--color-neutral-700); line-height:1.5; background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); margin-bottom:12px;">
+<button class="btn-primary" onclick="showToast('已复制场馆导航文字信息')" style="width:100%; padding:9px; justify-content:center; margin-top:12px;">复制场馆地址</button>
+</div>
+</div>
+<!-- Modal 9: Consultant (专属**) -->
+<div class="modal-overlay" id="modal-consultant" onclick="closeModalOnBg(event, 'modal-consultant')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">专属教务**</span>
+<span class="modal-close" onclick="closeModal('modal-consultant')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+<div class="student-avatar" style="background-color:var(--color-secondary);">顾</div>
+<div>
+<div style="font-size:13px; font-weight:800; color:var(--color-neutral-900);">林*萱 (专属教务班**)</div>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">工作时间：周二至周日 09:00 - 19:30</div>
+</div>
+</div>
+<div style="font-size:11px; color:var(--color-neutral-700); line-height:1.5; background-color:var(--color-neutral-50); padding:10px; border-radius:var(--radius-sm); margin-bottom:12px;">
           服务范围：班级调班申请、长假停课顺延、补课考勤协同、训练装备领用。
         </div>
-        <div style="display:flex; gap:8px;">
-          <button class="btn-outline" style="flex:1;" onclick="showToast('已复制**企业微信号：StarAthletics_03')">复制**微信</button>
-          <button class="btn-primary" style="flex:1; justify-content:center;" onclick="showToast('**区教务专线 010-8498**')">电话咨询</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal 10: Coupon Drawer (优惠券) -->
-    <div class="modal-overlay" id="modal-coupon" onclick="closeModalOnBg(event, 'modal-coupon')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title">可用优惠券包</span>
-          <span class="modal-close" onclick="closeModal('modal-coupon')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div class="course-card" style="border-left:4px solid var(--color-primary);">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <b style="font-size:13px; color:var(--color-neutral-900);">¥50 体验课立减抵用券</b>
-                <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">全项目单节体验课通用 · 无门槛</div>
-              </div>
-              <button class="btn-primary" style="font-size:10px; padding:4px 8px;" onclick="applyCoupon('50元体验券')">立即使用</button>
-            </div>
-          </div>
-          <div class="course-card" style="border-left:4px solid var(--color-secondary);">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <b style="font-size:13px; color:var(--color-neutral-900);">¥200 季度续费专属礼金券</b>
-                <div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">满24课时常规班可用 · 有效期至10/31</div>
-              </div>
-              <button class="btn-outline" style="font-size:10px; padding:4px 8px;" onclick="applyCoupon('200元续费券')">立即使用</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal 11: General Prompt Dialog -->
-    <div class="modal-overlay" id="modal-general" onclick="closeModalOnBg(event, 'modal-general')">
-      <div class="modal-sheet">
-        <div class="modal-head">
-          <span class="modal-title" id="generalModalTitle">通知详情</span>
-          <span class="modal-close" onclick="closeModal('modal-general')"><svg class="icon-svg icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
-        </div>
-        <div style="font-size:12px; color:var(--color-neutral-700); line-height:1.6; margin-bottom:14px;" id="generalModalContent">
+<div style="display:flex; gap:8px;">
+<button class="btn-outline" onclick="showToast('已复制**企业微信号：StarAthletics_03')" style="flex:1;">复制**微信</button>
+<button class="btn-primary" onclick="showToast('**区教务专线 010-8498**')" style="flex:1; justify-content:center;">电话咨询</button>
+</div>
+</div>
+</div>
+<!-- Modal 10: Coupon Drawer (优惠券) -->
+<div class="modal-overlay" id="modal-coupon" onclick="closeModalOnBg(event, 'modal-coupon')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title">可用优惠券包</span>
+<span class="modal-close" onclick="closeModal('modal-coupon')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div style="display:flex; flex-direction:column; gap:8px;">
+<div class="course-card" style="border-left:4px solid var(--color-primary);">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<b style="font-size:13px; color:var(--color-neutral-900);">¥50 体验课立减抵用券</b>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">全项目单节体验课通用 · 无门槛</div>
+</div>
+<button class="btn-primary" onclick="applyCoupon('50元体验券')" style="font-size:10px; padding:4px 8px;">立即使用</button>
+</div>
+</div>
+<div class="course-card" style="border-left:4px solid var(--color-secondary);">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<b style="font-size:13px; color:var(--color-neutral-900);">¥200 季度续费专属礼金券</b>
+<div style="font-size:10px; color:var(--color-neutral-500); margin-top:2px;">满24课时常规班可用 · 有效期至10/31</div>
+</div>
+<button class="btn-outline" onclick="applyCoupon('200元续费券')" style="font-size:10px; padding:4px 8px;">立即使用</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal 11: General Prompt Dialog -->
+<div class="modal-overlay" id="modal-general" onclick="closeModalOnBg(event, 'modal-general')">
+<div class="modal-sheet">
+<div class="modal-head">
+<span class="modal-title" id="generalModalTitle">通知详情</span>
+<span class="modal-close" onclick="closeModal('modal-general')"><svg class="icon-svg icon-sm" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg></span>
+</div>
+<div id="generalModalContent" style="font-size:12px; color:var(--color-neutral-700); line-height:1.6; margin-bottom:14px;">
           详细内容
         </div>
-        <button class="btn-primary" style="width:100%; padding:9px; justify-content:center;" onclick="closeModal('modal-general')">已知晓并返回</button>
-      </div>
-    </div>
-
-    <!-- Global Floating Toast Notification -->
-    <div class="toast-box" id="globalToast">
-      <svg class="icon-svg icon-xs" viewBox="0 0 24 24" style="color:var(--color-accent-green);"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toastMsg">操作成功</span>
-    </div>
-
-  </div>
-
-  <!-- Client-Side Simulation Logic -->
-  <script>
+<button class="btn-primary" onclick="closeModal('modal-general')" style="width:100%; padding:9px; justify-content:center;">已知晓并返回</button>
+</div>
+</div>
+<!-- Global Floating Toast Notification -->
+<div class="toast-box" id="globalToast">
+<svg class="icon-svg icon-xs" style="color:var(--color-accent-green);" viewbox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toastMsg">操作成功</span>
+</div>
+</div>
+<!-- Client-Side Simulation Logic -->
+<script>
     // Application State Store
     const Store = {
       activeTab: 0,

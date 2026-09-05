@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**私厨定制·私厨定制</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**私厨定制·私厨定制</title>
+<style>
     /* ==========================================================================
        Design Tokens & CSS Custom Properties (Declared & Strictly Standardized)
        ========================================================================== */
@@ -1084,831 +1085,769 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- Pure Mini-Program Viewport Container -->
+<div class="mp-container">
+<!-- 1. 顶部手机状态栏 (Status Bar) -->
 
+<!-- 2. 微信导航**区 (WeChat Header) -->
 
-  <!-- Pure Mini-Program Viewport Container -->
-  <div class="mp-container">
-
-    <!-- 1. 顶部手机状态栏 (Status Bar) -->
-    <div class="status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <!-- 信号 (Signal) -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/>
-        </svg>
-        <!-- 满电电池 (Battery) -->
-        <svg width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
-          <line x1="22" y1="11" x2="22" y2="13"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- 2. 微信导航**区 (WeChat Header) -->
-    <div class="wechat-header">
-      <div class="mp-title" id="page-title-text">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="m9 12 2 2 4-4"/>
-        </svg>
-        <span>**私厨定制·私厨定制</span>
-      </div>
-      <div class="wechat-capsule">
-        <span onclick="triggerWechatCapsuleMenu()" style="cursor:pointer;">•••</span>
-        <div class="capsule-divider"></div>
-        <span onclick="triggerWechatCapsuleClose()" style="cursor:pointer;">⊙</span>
-      </div>
-    </div>
-
-    <!-- 3. 主体**区 (Tab Panes) -->
-    <div class="mp-body">
-
-      <!-- =================================================================
+<!-- 3. 主体**区 (Tab Panes) -->
+<div class="mp-body">
+<!-- =================================================================
            Tab 0: 【探索甄选】首页
            ================================================================= -->
-      <div id="tab-pane-0" class="tab-pane active">
-
-        <!-- **区域定位 -->
-        <div class="service-bar" onclick="showAreaCoverageModal()">
-          <div class="location-info">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-            </svg>
-            <span>**区 · 核心服务商圈</span>
-          </div>
-          <span class="badge-gold">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
+<div class="tab-pane active" id="tab-pane-0">
+<!-- **区域定位 -->
+<div class="service-bar" onclick="showAreaCoverageModal()">
+<div class="location-info">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15">
+<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle>
+</svg>
+<span>**区 · 核心服务商圈</span>
+</div>
+<span class="badge-gold">
+<svg fill="none" height="11" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="11">
+<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
             支持即约即达
           </span>
-        </div>
-
-        <!-- 4大核心服务承诺条 -->
-        <div class="trust-strip">
-          <div class="trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>持健康证上岗</span>
+</div>
+<!-- 4大核心服务承诺条 -->
+<div class="trust-strip">
+<div class="trust-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span>持健康证上岗</span>
+</div>
+<div class="trust-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path><path d="M16 8h-8"></path><path d="M16 12h-8"></path></svg>
+<span>食材实报实销</span>
+</div>
+<div class="trust-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+<span>特级烹调师认证</span>
+</div>
+<div class="trust-item">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
+<span>灶台深度洁净</span>
+</div>
+</div>
+<!-- **区筛选 -->
+<div class="scene-grid">
+<div class="scene-item active" onclick="filterHomeScene('all', this)">
+<svg class="scene-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"></path><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"></path><path d="m2.1 21.8 6.4-6.3"></path>
+</svg>
+<span class="scene-text">全套系</span>
+</div>
+<div class="scene-item" onclick="filterHomeScene('family', this)">
+<svg class="scene-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span class="scene-text">幸福家宴</span>
+</div>
+<div class="scene-item" onclick="filterHomeScene('business', this)">
+<svg class="scene-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+</svg>
+<span class="scene-text">商务私宴</span>
+</div>
+<div class="scene-item" onclick="filterHomeScene('celebration', this)">
+<svg class="scene-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+</svg>
+<span class="scene-text">寿宴百日</span>
+</div>
+<div class="scene-item" onclick="filterHomeScene('buffet', this)">
+<svg class="scene-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path>
+</svg>
+<span class="scene-text">冷餐派对</span>
+</div>
+</div>
+<!-- 当季主推私宴套餐 1: 幸福家宴 -->
+<div class="package-card" data-category="family">
+<div class="package-header">
+<div>
+<span class="badge-red">家宴臻选</span>
+<div class="package-title" style="margin-top:4px;">**经典私厨家宴 (4~6位)</div>
+<div class="package-sub">清晨采买优质鲜活海鲜 · 主厨定制6菜1汤</div>
+</div>
+<div style="text-align:right;">
+<div class="package-price">¥268 <span class="package-price-sub">起/工时费</span></div>
+<div style="font-size:10px;color:var(--clr-ink-faint);">服务约2.5小时</div>
+</div>
+</div>
+<div class="dish-preview-list">
+<b>菜单配置：</b>精制冷盘2道 + 豉汁蒸深海大石斑 + 鲍汁鲜鲍红烧肉 + 芦笋百合炒鲜贝 + 松茸土鸡高汤 + 葱油拌面
           </div>
-          <div class="trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/></svg>
-            <span>食材实报实销</span>
-          </div>
-          <div class="trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-            <span>特级烹调师认证</span>
-          </div>
-          <div class="trust-item">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-            <span>灶台深度洁净</span>
-          </div>
-        </div>
-
-        <!-- **区筛选 -->
-        <div class="scene-grid">
-          <div class="scene-item active" onclick="filterHomeScene('all', this)">
-            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/>
-            </svg>
-            <span class="scene-text">全套系</span>
-          </div>
-          <div class="scene-item" onclick="filterHomeScene('family', this)">
-            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            <span class="scene-text">幸福家宴</span>
-          </div>
-          <div class="scene-item" onclick="filterHomeScene('business', this)">
-            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
-            </svg>
-            <span class="scene-text">商务私宴</span>
-          </div>
-          <div class="scene-item" onclick="filterHomeScene('celebration', this)">
-            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-            </svg>
-            <span class="scene-text">寿宴百日</span>
-          </div>
-          <div class="scene-item" onclick="filterHomeScene('buffet', this)">
-            <svg class="scene-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
-            </svg>
-            <span class="scene-text">冷餐派对</span>
-          </div>
-        </div>
-
-        <!-- 当季主推私宴套餐 1: 幸福家宴 -->
-        <div class="package-card" data-category="family">
-          <div class="package-header">
-            <div>
-              <span class="badge-red">家宴臻选</span>
-              <div class="package-title" style="margin-top:4px;">**经典私厨家宴 (4~6位)</div>
-              <div class="package-sub">清晨采买优质鲜活海鲜 · 主厨定制6菜1汤</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="package-price">¥268 <span class="package-price-sub">起/工时费</span></div>
-              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约2.5小时</div>
-            </div>
-          </div>
-          <div class="dish-preview-list">
-            <b>菜单配置：</b>精制冷盘2道 + 豉汁蒸深海大石斑 + 鲍汁鲜鲍红烧肉 + 芦笋百合炒鲜贝 + 松茸土鸡高汤 + 葱油拌面
-          </div>
-          <div class="package-actions">
-            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('family')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+<div class="package-actions">
+<button class="btn btn-outline btn-sm" onclick="openCustomMenuWithSpec('family')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
               定制/替换菜品
             </button>
-            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**经典私厨家宴', 268, 6)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+<button class="btn btn-primary btn-sm" onclick="quickBookPackage('**经典私厨家宴', 268, 6)" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h5"></path><circle cx="16" cy="16" r="6"></circle></svg>
               立即预约大厨
             </button>
+</div>
+</div>
+<!-- 当季主推私宴套餐 2: 商务私宴 -->
+<div class="package-card" data-category="business">
+<div class="package-header">
+<div>
+<span class="badge-gold">商务私享</span>
+<div class="package-title" style="margin-top:4px;">**尊享商务家宴 (8~10位)</div>
+<div class="package-sub">高级宴席餐台摆设 · 特级烹调名厨主理10菜1汤</div>
+</div>
+<div style="text-align:right;">
+<div class="package-price">¥588 <span class="package-price-sub">起/工时费</span></div>
+<div style="font-size:10px;color:var(--clr-ink-faint);">服务约3.5小时</div>
+</div>
+</div>
+<div class="dish-preview-list">
+<b>菜单配置：</b>精致前菜4品 + 葱油老虎斑 + 慢煨黑松露辽参 + 金牌脆皮乳鸽 + 浓汤花胶炖鸡 + 荷叶香菇糯米饭
           </div>
-        </div>
-
-        <!-- 当季主推私宴套餐 2: 商务私宴 -->
-        <div class="package-card" data-category="business">
-          <div class="package-header">
-            <div>
-              <span class="badge-gold">商务私享</span>
-              <div class="package-title" style="margin-top:4px;">**尊享商务家宴 (8~10位)</div>
-              <div class="package-sub">高级宴席餐台摆设 · 特级烹调名厨主理10菜1汤</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="package-price">¥588 <span class="package-price-sub">起/工时费</span></div>
-              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约3.5小时</div>
-            </div>
-          </div>
-          <div class="dish-preview-list">
-            <b>菜单配置：</b>精致前菜4品 + 葱油老虎斑 + 慢煨黑松露辽参 + 金牌脆皮乳鸽 + 浓汤花胶炖鸡 + 荷叶香菇糯米饭
-          </div>
-          <div class="package-actions">
-            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('business')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+<div class="package-actions">
+<button class="btn btn-outline btn-sm" onclick="openCustomMenuWithSpec('business')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
               定制/替换菜品
             </button>
-            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**尊享商务家宴', 588, 10)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+<button class="btn btn-primary btn-sm" onclick="quickBookPackage('**尊享商务家宴', 588, 10)" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h5"></path><circle cx="16" cy="16" r="6"></circle></svg>
               立即预约大厨
             </button>
+</div>
+</div>
+<!-- 当季主推私宴套餐 3: 喜庆寿宴 -->
+<div class="package-card" data-category="celebration">
+<div class="package-header">
+<div>
+<span class="badge-red">寿喜大宴</span>
+<div class="package-title" style="margin-top:4px;">**名厨喜庆华宴 (12~16位)</div>
+<div class="package-sub">寿宴/百日/乔迁吉日宴 · 特供非遗长寿点心12菜2汤</div>
+</div>
+<div style="text-align:right;">
+<div class="package-price">¥888 <span class="package-price-sub">起/工时费</span></div>
+<div style="font-size:10px;color:var(--clr-ink-faint);">服务约4.5小时</div>
+</div>
+</div>
+<div class="dish-preview-list">
+<b>菜单配置：</b>吉祥四冷拼 + 鸿运富贵大龙虾 + 珍菌煨关东参 + 传统松鼠桂鱼 + 养生甲鱼土鸡煲 + 手制寿桃如意面点
           </div>
-        </div>
-
-        <!-- 当季主推私宴套餐 3: 喜庆寿宴 -->
-        <div class="package-card" data-category="celebration">
-          <div class="package-header">
-            <div>
-              <span class="badge-red">寿喜大宴</span>
-              <div class="package-title" style="margin-top:4px;">**名厨喜庆华宴 (12~16位)</div>
-              <div class="package-sub">寿宴/百日/乔迁吉日宴 · 特供非遗长寿点心12菜2汤</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="package-price">¥888 <span class="package-price-sub">起/工时费</span></div>
-              <div style="font-size:10px;color:var(--clr-ink-faint);">服务约4.5小时</div>
-            </div>
-          </div>
-          <div class="dish-preview-list">
-            <b>菜单配置：</b>吉祥四冷拼 + 鸿运富贵大龙虾 + 珍菌煨关东参 + 传统松鼠桂鱼 + 养生甲鱼土鸡煲 + 手制寿桃如意面点
-          </div>
-          <div class="package-actions">
-            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openCustomMenuWithSpec('celebration')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+<div class="package-actions">
+<button class="btn btn-outline btn-sm" onclick="openCustomMenuWithSpec('celebration')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
               定制/替换菜品
             </button>
-            <button class="btn btn-primary btn-sm" style="flex:1;" onclick="quickBookPackage('**名厨喜庆华宴', 888, 14)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/></svg>
+<button class="btn btn-primary btn-sm" onclick="quickBookPackage('**名厨喜庆华宴', 888, 14)" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h5"></path><circle cx="16" cy="16" r="6"></circle></svg>
               立即预约大厨
             </button>
-          </div>
-        </div>
-
-        <!-- **区 (横滑) -->
-        <div class="section-head">
-          <div class="section-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"/><path d="M6 17h12"/><path d="M6 14h12v7H6z"/>
-            </svg>
-            <span>特**区</span>
-          </div>
-          <span class="section-more" onclick="showToast('全部特级名厨均经实名认证及健康背调')">资质公开 ›</span>
-        </div>
-
-        <div class="chef-scroll">
-          <div class="chef-card" onclick="openChefProfileModal('chef-li')">
-            <div class="chef-avatar-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            </div>
-            <div class="chef-name">李主厨</div>
-            <div class="chef-level">特级中式烹调师</div>
-            <div class="chef-tag">从厨18年 · 粤菜私厨</div>
-            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.8%</div>
-          </div>
-
-          <div class="chef-card" onclick="openChefProfileModal('chef-zhang')">
-            <div class="chef-avatar-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            </div>
-            <div class="chef-name">张主厨</div>
-            <div class="chef-level">资深淮扬非遗名厨</div>
-            <div class="chef-tag">从厨15年 · 细点精工</div>
-            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.5%</div>
-          </div>
-
-          <div class="chef-card" onclick="openChefProfileModal('chef-wang')">
-            <div class="chef-avatar-box">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            </div>
-            <div class="chef-name">王大厨</div>
-            <div class="chef-level">高级中式烹调师</div>
-            <div class="chef-tag">从厨12年 · 新派川湘</div>
-            <div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.2%</div>
-          </div>
-        </div>
-
-        <!-- 6步履约标准化服务流程卡 -->
-        <div class="card" style="margin-top:14px;background-color:var(--clr-surface);">
-          <div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
-            </svg>
-            <span>上门大厨标准化服务 6 步闭环</span>
-          </div>
-          <div style="font-size:11px;color:var(--clr-ink-muted);line-height:1.7;">
+</div>
+</div>
+<!-- **区 (横滑) -->
+<div class="section-head">
+<div class="section-title">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"></path><path d="M6 17h12"></path><path d="M6 14h12v7H6z"></path>
+</svg>
+<span>特**区</span>
+</div>
+<span class="section-more" onclick="showToast('全部特级名厨均经实名认证及健康背调')">资质公开 ›</span>
+</div>
+<div class="chef-scroll">
+<div class="chef-card" onclick="openChefProfileModal('chef-li')">
+<div class="chef-avatar-box">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+</div>
+<div class="chef-name">李主厨</div>
+<div class="chef-level">特级中式烹调师</div>
+<div class="chef-tag">从厨18年 · 粤菜私厨</div>
+<div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.8%</div>
+</div>
+<div class="chef-card" onclick="openChefProfileModal('chef-zhang')">
+<div class="chef-avatar-box">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+</div>
+<div class="chef-name">张主厨</div>
+<div class="chef-level">资深淮扬非遗名厨</div>
+<div class="chef-tag">从厨15年 · 细点精工</div>
+<div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.5%</div>
+</div>
+<div class="chef-card" onclick="openChefProfileModal('chef-wang')">
+<div class="chef-avatar-box">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+</div>
+<div class="chef-name">王大厨</div>
+<div class="chef-level">高级中式烹调师</div>
+<div class="chef-tag">从厨12年 · 新派川湘</div>
+<div style="font-size:10px;color:var(--clr-primary);margin-top:4px;font-weight:700;">好评率 99.2%</div>
+</div>
+</div>
+<!-- 6步履约标准化服务流程卡 -->
+<div class="card" style="margin-top:14px;background-color:var(--clr-surface);">
+<div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path>
+</svg>
+<span>上门大厨标准化服务 6 步闭环</span>
+</div>
+<div style="font-size:11px;color:var(--clr-ink-muted);line-height:1.7;">
             ① 提交预约定制需求 → ② 确认食材自备或代买 → ③ 佩戴专业防护准时上门 → ④ 明档烹饪与餐台摆设 → ⑤ 举杯尽享私密宴饮 → ⑥ <b>灶台擦拭油烟机清洁与垃圾带走</b>。
           </div>
-        </div>
-
-      </div>
-
-      <!-- =================================================================
+</div>
+</div>
+<!-- =================================================================
            Tab 1: 【定制】私宴菜单与替换
            ================================================================= -->
-      <div id="tab-pane-1" class="tab-pane">
-
-        <!-- 菜系分类筛选药丸 -->
-        <div class="filter-pills">
-          <div class="pill active" onclick="switchCuisine('cantonese', this)">经典粤菜 (顺德/潮汕)</div>
-          <div class="pill" onclick="switchCuisine('huaiyang', this)">淮扬本帮 (鲜雅细致)</div>
-          <div class="pill" onclick="switchCuisine('chuanxiang', this)">川湘私房 (醇厚香辣)</div>
-          <div class="pill" onclick="switchCuisine('western', this)">轻奢西式 (意法私享)</div>
-        </div>
-
-        <!-- 规格选择器 -->
-        <div class="spec-selector">
-          <div class="spec-btn active" id="spec-opt-family" onclick="selectMenuSpec('family', this)">
+<div class="tab-pane" id="tab-pane-1">
+<!-- 菜系分类筛选药丸 -->
+<div class="filter-pills">
+<div class="pill active" onclick="switchCuisine('cantonese', this)">经典粤菜 (顺德/潮汕)</div>
+<div class="pill" onclick="switchCuisine('huaiyang', this)">淮扬本帮 (鲜雅细致)</div>
+<div class="pill" onclick="switchCuisine('chuanxiang', this)">川湘私房 (醇厚香辣)</div>
+<div class="pill" onclick="switchCuisine('western', this)">轻奢西式 (意法私享)</div>
+</div>
+<!-- 规格选择器 -->
+<div class="spec-selector">
+<div class="spec-btn active" id="spec-opt-family" onclick="selectMenuSpec('family', this)">
             4~6位 (6菜1汤)
           </div>
-          <div class="spec-btn" id="spec-opt-business" onclick="selectMenuSpec('business', this)">
+<div class="spec-btn" id="spec-opt-business" onclick="selectMenuSpec('business', this)">
             8~10位 (10菜1汤)
           </div>
-          <div class="spec-btn" id="spec-opt-celebration" onclick="selectMenuSpec('celebration', this)">
+<div class="spec-btn" id="spec-opt-celebration" onclick="selectMenuSpec('celebration', this)">
             12~16位 (14菜2汤)
           </div>
-        </div>
-
-        <!-- 菜单操作横幅提示 -->
-        <div style="display:flex;justify-content:space-between;align-items:center;background-color:var(--clr-primary-soft);border:1px solid var(--clr-line-red);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:10px;">
-          <div style="font-size:11px;color:var(--clr-primary);font-weight:600;">
+</div>
+<!-- 菜单操作横幅提示 -->
+<div style="display:flex;justify-content:space-between;align-items:center;background-color:var(--clr-primary-soft);border:1px solid var(--clr-line-red);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:10px;">
+<div style="font-size:11px;color:var(--clr-primary);font-weight:600;">
             提示：点击菜品右侧【替换】可自选备选佳肴
           </div>
-          <button class="btn btn-outline btn-sm" style="padding:2px 8px;" onclick="resetCustomMenu()">
+<button class="btn btn-outline btn-sm" onclick="resetCustomMenu()" style="padding:2px 8px;">
             恢复默认
           </button>
-        </div>
-
-        <!-- 动态菜单列表容器 -->
-        <div id="dynamic-dish-list">
-          <!-- JS 动态渲染菜品 -->
-        </div>
-
-        <!-- 资质核验抽屉入口 -->
-        <div class="card" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openChefProfileModal('chef-li')">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
-            </svg>
-            <div>
-              <div style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">主理大厨：李主厨 (特级中式烹调师)</div>
-              <div style="font-size:10px;color:var(--clr-ink-muted);">健康证号：粤-健康证-2026**091 (已核验在效)</div>
-            </div>
-          </div>
-          <span style="font-size:11px;color:var(--clr-primary);font-weight:600;">资质档案 ›</span>
-        </div>
-
-        <!-- 菜单带入预约吸底条 -->
-        <div style="margin-top:14px;">
-          <button class="btn btn-primary" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);" onclick="bringMenuToBooking()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><circle cx="16" cy="16" r="6"/></svg>
+</div>
+<!-- 动态菜单列表容器 -->
+<div id="dynamic-dish-list">
+<!-- JS 动态渲染菜品 -->
+</div>
+<!-- 资质核验抽屉入口 -->
+<div class="card" onclick="openChefProfileModal('chef-li')" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);" viewbox="0 0 24 24" width="18">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path>
+</svg>
+<div>
+<div style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">主理大厨：李主厨 (特级中式烹调师)</div>
+<div style="font-size:10px;color:var(--clr-ink-muted);">健康证号：粤-健康证-2026**091 (已核验在效)</div>
+</div>
+</div>
+<span style="font-size:11px;color:var(--clr-primary);font-weight:600;">资质档案 ›</span>
+</div>
+<!-- 菜单带入预约吸底条 -->
+<div style="margin-top:14px;">
+<button class="btn btn-primary" onclick="bringMenuToBooking()" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><circle cx="16" cy="16" r="6"></circle></svg>
             锁定此菜单并前往预约大厨
           </button>
-        </div>
-
-      </div>
-
-      <!-- =================================================================
+</div>
+</div>
+<!-- =================================================================
            Tab 2: 【预约】服务行程与明细
            ================================================================= -->
-      <div id="tab-pane-2" class="tab-pane">
-
-        <div class="card">
-          <!-- 预约就餐日期 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>预约就餐日期</span>
-              <span style="font-size:10px;color:var(--clr-accent);">支持48小时内免费改期</span>
-            </div>
-            <div class="chip-grid">
-              <div class="chip selected" onclick="selectDate(this, '今天 (09-04)')">今天 (09-04)</div>
-              <div class="chip" onclick="selectDate(this, '明天 (09-05)')">明天 (09-05)</div>
-              <div class="chip" onclick="selectDate(this, '后天 (09-06)')">后天 (09-06)</div>
-              <div class="chip" onclick="selectDate(this, '本周末特选')">本周末特选</div>
-            </div>
-          </div>
-
-          <!-- 预约就餐餐段 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>预约餐段与开餐时间</span>
-            </div>
-            <div class="segment-tabs">
-              <div class="segment-opt" id="slot-lunch" onclick="selectSlot('lunch')">
-                <div class="segment-title">午宴餐段</div>
-                <div class="segment-sub">10:30 上门备餐<br>12:00~13:30 用餐开席</div>
-              </div>
-              <div class="segment-opt active" id="slot-dinner" onclick="selectSlot('dinner')">
-                <div class="segment-title">晚宴餐段 (推荐)</div>
-                <div class="segment-sub">16:30 上门备餐<br>18:00~19:30 用餐开席</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 就餐人数计数器 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>实际就餐人数</span>
-              <span style="font-size:11px;color:var(--clr-ink-muted);">当前建议 6~10 人</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;">
-              <span style="font-size:12px;color:var(--clr-ink-muted);">人数影响备菜工时与建议道数</span>
-              <div class="stepper">
-                <button class="step-btn" onclick="adjustGuestCount(-1)">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
-                </button>
-                <div class="step-val" id="guest-count-display">8人</div>
-                <button class="step-btn" onclick="adjustGuestCount(1)">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <!-- 食材采购模式单选 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>食材准备模式</span>
-              <span style="font-size:10px;color:var(--clr-primary);">均享食品安全保障</span>
-            </div>
-            <div class="segment-tabs">
-              <div class="segment-opt" id="mode-self" onclick="selectIngredientMode('self')">
-                <div class="segment-title">自备食材模式</div>
-                <div class="segment-sub">用户自行采买生鲜<br>大厨仅收取上门烹饪工时费</div>
-              </div>
-              <div class="segment-opt active" id="mode-agent" onclick="selectIngredientMode('agent')">
-                <div class="segment-title">大厨代买 (实报实销)</div>
-                <div class="segment-sub">大厨清晨甄选新鲜生鲜<br>**市正规机打小票核验</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 厨房灶具与设备环境 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>家中厨房设施勾选</span>
-            </div>
-            <div class="chip-grid">
-              <div class="chip selected" onclick="toggleChip(this)">燃气双眼灶</div>
-              <div class="chip selected" onclick="toggleChip(this)">抽油烟机</div>
-              <div class="chip selected" onclick="toggleChip(this)">电磁炉</div>
-              <div class="chip" onclick="toggleChip(this)">烤箱/蒸箱</div>
-              <div class="chip" onclick="toggleChip(this)">自动洗碗机</div>
-            </div>
-          </div>
-
-          <!-- 饮食禁忌与口味定制 -->
-          <div class="form-group">
-            <div class="form-label">
-              <span>口味偏好与忌口要求</span>
-            </div>
-            <div class="chip-grid">
-              <div class="chip selected" onclick="toggleChip(this)">少油少盐</div>
-              <div class="chip" onclick="toggleChip(this)">免葱姜蒜</div>
-              <div class="chip" onclick="toggleChip(this)">微辣调味</div>
-              <div class="chip selected" onclick="toggleChip(this)">海鲜过敏提示</div>
-              <div class="chip" onclick="toggleChip(this)">老年/儿童温和</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 增值服务项目 -->
-        <div class="card">
-          <div class="form-label" style="margin-bottom:8px;">
-            <span>品质增值服务</span>
-          </div>
-          <div style="font-size:12px;color:var(--clr-ink-muted);display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <div>
-                <b style="color:var(--clr-ink-main);">标准餐后保洁与厨余打包</b>
-                <div style="font-size:10px;color:var(--clr-ink-faint);">灶台台面擦净、油烟机表面清洁、厨余垃圾封口装袋</div>
-              </div>
-              <span class="badge-gold">标准包含 · ¥0</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <div>
-                <b style="color:var(--clr-ink-main);">尊享精美餐台布置</b>
-                <div style="font-size:10px;color:var(--clr-ink-faint);">随宴配送精美口布与宴席摆盘仪式感</div>
-              </div>
-              <span class="badge-gold">特供赠送 · ¥0</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleDishwashService(this)">
-              <div>
-                <b style="color:var(--clr-ink-main);">深度多餐具手洗服务</b>
-                <div style="font-size:10px;color:var(--clr-ink-faint);">就餐完毕后由大厨完成全套餐具精洗与归位</div>
-              </div>
-              <span class="chip" id="addon-dishwash">+ ¥30/次</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 费用清单明细卡 -->
-        <div class="bill-card">
-          <div class="bill-row">
-            <span>基础**私厨定制工时费 (标准套餐)</span>
-            <span id="bill-base-fee">¥588.00</span>
-          </div>
-          <div class="bill-row">
-            <span>食材采购服务 (按小票实报实销)</span>
-            <span>凭电脑小票核付</span>
-          </div>
-          <div class="bill-row">
-            <span>增值服务费用 (深度洗碗清洁)</span>
-            <span id="bill-addon-fee">¥0.00</span>
-          </div>
-          <div class="bill-row" style="color:var(--clr-status-success);">
-            <span>新客专属私宴体验券抵扣</span>
-            <span>- ¥50.00</span>
-          </div>
-          <div class="bill-row total">
-            <span>预估工时服务费合计</span>
-            <span style="color:var(--clr-primary);font-size:18px;" id="bill-total-price">¥538.00</span>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" style="width:100%;padding:13px;font-size:15px;border-radius:var(--radius-md);margin-bottom:20px;" onclick="submitBookingOrder()">
+<div class="tab-pane" id="tab-pane-2">
+<div class="card">
+<!-- 预约就餐日期 -->
+<div class="form-group">
+<div class="form-label">
+<span>预约就餐日期</span>
+<span style="font-size:10px;color:var(--clr-accent);">支持48小时内免费改期</span>
+</div>
+<div class="chip-grid">
+<div class="chip selected" onclick="selectDate(this, '今天 (09-04)')">今天 (09-04)</div>
+<div class="chip" onclick="selectDate(this, '明天 (09-05)')">明天 (09-05)</div>
+<div class="chip" onclick="selectDate(this, '后天 (09-06)')">后天 (09-06)</div>
+<div class="chip" onclick="selectDate(this, '本周末特选')">本周末特选</div>
+</div>
+</div>
+<!-- 预约就餐餐段 -->
+<div class="form-group">
+<div class="form-label">
+<span>预约餐段与开餐时间</span>
+</div>
+<div class="segment-tabs">
+<div class="segment-opt" id="slot-lunch" onclick="selectSlot('lunch')">
+<div class="segment-title">午宴餐段</div>
+<div class="segment-sub">10:30 上门备餐<br/>12:00~13:30 用餐开席</div>
+</div>
+<div class="segment-opt active" id="slot-dinner" onclick="selectSlot('dinner')">
+<div class="segment-title">晚宴餐段 (推荐)</div>
+<div class="segment-sub">16:30 上门备餐<br/>18:00~19:30 用餐开席</div>
+</div>
+</div>
+</div>
+<!-- 就餐人数计数器 -->
+<div class="form-group">
+<div class="form-label">
+<span>实际就餐人数</span>
+<span style="font-size:11px;color:var(--clr-ink-muted);">当前建议 6~10 人</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<span style="font-size:12px;color:var(--clr-ink-muted);">人数影响备菜工时与建议道数</span>
+<div class="stepper">
+<button class="step-btn" onclick="adjustGuestCount(-1)">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M5 12h14"></path></svg>
+</button>
+<div class="step-val" id="guest-count-display">8人</div>
+<button class="step-btn" onclick="adjustGuestCount(1)">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<!-- 食材采购模式单选 -->
+<div class="form-group">
+<div class="form-label">
+<span>食材准备模式</span>
+<span style="font-size:10px;color:var(--clr-primary);">均享食品安全保障</span>
+</div>
+<div class="segment-tabs">
+<div class="segment-opt" id="mode-self" onclick="selectIngredientMode('self')">
+<div class="segment-title">自备食材模式</div>
+<div class="segment-sub">用户自行采买生鲜<br/>大厨仅收取上门烹饪工时费</div>
+</div>
+<div class="segment-opt active" id="mode-agent" onclick="selectIngredientMode('agent')">
+<div class="segment-title">大厨代买 (实报实销)</div>
+<div class="segment-sub">大厨清晨甄选新鲜生鲜<br/>**市正规机打小票核验</div>
+</div>
+</div>
+</div>
+<!-- 厨房灶具与设备环境 -->
+<div class="form-group">
+<div class="form-label">
+<span>家中厨房设施勾选</span>
+</div>
+<div class="chip-grid">
+<div class="chip selected" onclick="toggleChip(this)">燃气双眼灶</div>
+<div class="chip selected" onclick="toggleChip(this)">抽油烟机</div>
+<div class="chip selected" onclick="toggleChip(this)">电磁炉</div>
+<div class="chip" onclick="toggleChip(this)">烤箱/蒸箱</div>
+<div class="chip" onclick="toggleChip(this)">自动洗碗机</div>
+</div>
+</div>
+<!-- 饮食禁忌与口味定制 -->
+<div class="form-group">
+<div class="form-label">
+<span>口味偏好与忌口要求</span>
+</div>
+<div class="chip-grid">
+<div class="chip selected" onclick="toggleChip(this)">少油少盐</div>
+<div class="chip" onclick="toggleChip(this)">免葱姜蒜</div>
+<div class="chip" onclick="toggleChip(this)">微辣调味</div>
+<div class="chip selected" onclick="toggleChip(this)">海鲜过敏提示</div>
+<div class="chip" onclick="toggleChip(this)">老年/儿童温和</div>
+</div>
+</div>
+</div>
+<!-- 增值服务项目 -->
+<div class="card">
+<div class="form-label" style="margin-bottom:8px;">
+<span>品质增值服务</span>
+</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<b style="color:var(--clr-ink-main);">标准餐后保洁与厨余打包</b>
+<div style="font-size:10px;color:var(--clr-ink-faint);">灶台台面擦净、油烟机表面清洁、厨余垃圾封口装袋</div>
+</div>
+<span class="badge-gold">标准包含 · ¥0</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<b style="color:var(--clr-ink-main);">尊享精美餐台布置</b>
+<div style="font-size:10px;color:var(--clr-ink-faint);">随宴配送精美口布与宴席摆盘仪式感</div>
+</div>
+<span class="badge-gold">特供赠送 · ¥0</span>
+</div>
+<div onclick="toggleDishwashService(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div>
+<b style="color:var(--clr-ink-main);">深度多餐具手洗服务</b>
+<div style="font-size:10px;color:var(--clr-ink-faint);">就餐完毕后由大厨完成全套餐具精洗与归位</div>
+</div>
+<span class="chip" id="addon-dishwash">+ ¥30/次</span>
+</div>
+</div>
+</div>
+<!-- 费用清单明细卡 -->
+<div class="bill-card">
+<div class="bill-row">
+<span>基础**私厨定制工时费 (标准套餐)</span>
+<span id="bill-base-fee">¥588.00</span>
+</div>
+<div class="bill-row">
+<span>食材采购服务 (按小票实报实销)</span>
+<span>凭电脑小票核付</span>
+</div>
+<div class="bill-row">
+<span>增值服务费用 (深度洗碗清洁)</span>
+<span id="bill-addon-fee">¥0.00</span>
+</div>
+<div class="bill-row" style="color:var(--clr-status-success);">
+<span>新客专属私宴体验券抵扣</span>
+<span>- ¥50.00</span>
+</div>
+<div class="bill-row total">
+<span>预估工时服务费合计</span>
+<span id="bill-total-price" style="color:var(--clr-primary);font-size:18px;">¥538.00</span>
+</div>
+</div>
+<button class="btn btn-primary" onclick="submitBookingOrder()" style="width:100%;padding:13px;font-size:15px;border-radius:var(--radius-md);margin-bottom:20px;">
           确认提交预约单 (免在线支付)
         </button>
-
-      </div>
-
-      <!-- =================================================================
+</div>
+<!-- =================================================================
            Tab 3: 【我的】服务进度与订单
            ================================================================= -->
-      <div id="tab-pane-3" class="tab-pane">
-
-        <!-- 用户名片档案 (脱敏) -->
-        <div class="profile-card">
-          <div class="user-avatar">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div class="user-meta">
-            <div style="display:flex;align-items:center;gap:6px;">
-              <div class="user-name">陈** 先生</div>
-              <span class="badge-gold" style="background:rgba(255,255,255,0.25);color:var(--clr-ink-inverse);border-color:rgba(255,255,255,0.4);">尊享黑金卡</span>
+<div class="tab-pane" id="tab-pane-3">
+<!-- 用户名片档案 (脱敏) -->
+<div class="profile-card">
+<div class="user-avatar">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle>
+</svg>
+</div>
+<div class="user-meta">
+<div style="display:flex;align-items:center;gap:6px;">
+<div class="user-name">陈** 先生</div>
+<span class="badge-gold" style="background:rgba(255,255,255,0.25);color:var(--clr-ink-inverse);border-color:rgba(255,255,255,0.4);">尊享黑金卡</span>
+</div>
+<div class="user-phone">手机：138**6688 · 已完成实名与安全认证</div>
+</div>
+</div>
+<!-- 5 状态服务看板切换 -->
+<div class="order-grid">
+<div class="order-state-item" onclick="filterOrderState(0, this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span class="order-state-text">待确认(0)</span>
+</div>
+<div class="order-state-item" onclick="filterOrderState(1, this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path></svg>
+<span class="order-state-text">待备料(1)</span>
+</div>
+<div class="order-state-item active" onclick="filterOrderState(2, this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);" viewbox="0 0 24 24" width="18"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+<span class="order-state-text" style="color:var(--clr-primary);font-weight:700;">服务中(1)</span>
+</div>
+<div class="order-state-item" onclick="filterOrderState(3, this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span class="order-state-text">待评价(1)</span>
+</div>
+<div class="order-state-item" onclick="filterOrderState(4, this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path><path d="M16 8h-8"></path><path d="M16 12h-8"></path></svg>
+<span class="order-state-text">售后/退(0)</span>
+</div>
+</div>
+<!-- 当前正在履约的服务单看板 -->
+<div class="card" style="border:1.5px solid var(--clr-primary);">
+<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--clr-line);">
+<div>
+<span style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">单号 #ORD-20260904-8891</span>
+<div style="font-size:10px;color:var(--clr-ink-muted);margin-top:2px;">预约：今日 晚宴 (16:30~19:30)</div>
+</div>
+<span class="badge-red">服务中 · 大厨已到家</span>
+</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);margin-top:10px;">
+<div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">定制套餐：</b>**家宴·尊享商务私享家宴 (8~10位)</div>
+<div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">主理大厨：</b>李主厨 (健康证核验在效 · 持双保险)</div>
+<div><b style="color:var(--clr-ink-main);">服务地址：</b>XX社区XX号楼**室</div>
+</div>
+<!-- 履约时间轴 -->
+<div class="timeline">
+<div class="timeline-step done">
+<div class="timeline-dot"></div>
+<span class="timeline-time">15:00</span> 菜单确认与备料清单锁定 (已完成)
             </div>
-            <div class="user-phone">手机：138**6688 · 已完成实名与安全认证</div>
-          </div>
-        </div>
-
-        <!-- 5 状态服务看板切换 -->
-        <div class="order-grid">
-          <div class="order-state-item" onclick="filterOrderState(0, this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span class="order-state-text">待确认(0)</span>
-          </div>
-          <div class="order-state-item" onclick="filterOrderState(1, this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/></svg>
-            <span class="order-state-text">待备料(1)</span>
-          </div>
-          <div class="order-state-item active" onclick="filterOrderState(2, this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-            <span class="order-state-text" style="color:var(--clr-primary);font-weight:700;">服务中(1)</span>
-          </div>
-          <div class="order-state-item" onclick="filterOrderState(3, this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="order-state-text">待评价(1)</span>
-          </div>
-          <div class="order-state-item" onclick="filterOrderState(4, this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/></svg>
-            <span class="order-state-text">售后/退(0)</span>
-          </div>
-        </div>
-
-        <!-- 当前正在履约的服务单看板 -->
-        <div class="card" style="border:1.5px solid var(--clr-primary);">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--clr-line);">
-            <div>
-              <span style="font-size:12px;font-weight:700;color:var(--clr-ink-main);">单号 #ORD-20260904-8891</span>
-              <div style="font-size:10px;color:var(--clr-ink-muted);margin-top:2px;">预约：今日 晚宴 (16:30~19:30)</div>
+<div class="timeline-step done">
+<div class="timeline-dot"></div>
+<span class="timeline-time">15:45</span> 大厨甄选鲜活生鲜并备齐小票 (已完成)
             </div>
-            <span class="badge-red">服务中 · 大厨已到家</span>
-          </div>
-
-          <div style="font-size:12px;color:var(--clr-ink-muted);margin-top:10px;">
-            <div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">定制套餐：</b>**家宴·尊享商务私享家宴 (8~10位)</div>
-            <div style="margin-bottom:4px;"><b style="color:var(--clr-ink-main);">主理大厨：</b>李主厨 (健康证核验在效 · 持双保险)</div>
-            <div><b style="color:var(--clr-ink-main);">服务地址：</b>XX社区XX号楼**室</div>
-          </div>
-
-          <!-- 履约时间轴 -->
-          <div class="timeline">
-            <div class="timeline-step done">
-              <div class="timeline-dot"></div>
-              <span class="timeline-time">15:00</span> 菜单确认与备料清单锁定 (已完成)
+<div class="timeline-step done">
+<div class="timeline-dot"></div>
+<span class="timeline-time">16:25</span> 大厨佩戴无菌防护装备准时入室 (已完成)
             </div>
-            <div class="timeline-step done">
-              <div class="timeline-dot"></div>
-              <span class="timeline-time">15:45</span> 大厨甄选鲜活生鲜并备齐小票 (已完成)
-            </div>
-            <div class="timeline-step done">
-              <div class="timeline-dot"></div>
-              <span class="timeline-time">16:25</span> 大厨佩戴无菌防护装备准时入室 (已完成)
-            </div>
-            <div class="timeline-step active">
-              <div class="timeline-dot"></div>
-              <span class="timeline-time">16:50</span> <b>厨房现场备料与冷盘制作中 (预计18:00准时开席)</b>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:8px;margin-top:8px;">
-            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openContactModal()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+<div class="timeline-step active">
+<div class="timeline-dot"></div>
+<span class="timeline-time">16:50</span> <b>厨房现场备料与冷盘制作中 (预计18:00准时开席)</b>
+</div>
+</div>
+<div style="display:flex;gap:8px;margin-top:8px;">
+<button class="btn btn-outline btn-sm" onclick="openContactModal()" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               联系大厨 (隐私号)
             </button>
-            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openPolicyModal()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+<button class="btn btn-outline btn-sm" onclick="openPolicyModal()" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               退改与保障说明
             </button>
-          </div>
-        </div>
-
-        <!-- 常用管理工具卡片 -->
-        <div class="card" style="padding:4px 14px;">
-          <div class="menu-item-row" onclick="openAddressModal()">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>常用服务地址簿 (已脱敏)</span>
-            </div>
-            <span style="color:var(--clr-ink-faint);">›</span>
-          </div>
-          <div class="menu-item-row" onclick="openChefProfileModal('chef-li')">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-accent);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-              <span>大厨健康证明与资质公示</span>
-            </div>
-            <span style="color:var(--clr-ink-faint);">›</span>
-          </div>
-          <div class="menu-item-row" onclick="openConciergeModal()">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
-              <span>24小时 专属私宴管家</span>
-            </div>
-            <span style="color:var(--clr-ink-faint);">›</span>
-          </div>
-          <div class="menu-item-row" onclick="showToast('电子收据及代买明细支持即时开具')">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--clr-ink-muted);"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/><path d="M10 16h-2"/></svg>
-              <span>电子发票与代买明细收据</span>
-            </div>
-            <span style="color:var(--clr-ink-faint);">›</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 4. 微信原生底部导航栏 (TabBar) -->
-    <div class="bottom-tabbar">
-      <div class="tabbar-item active" id="tabbar-btn-0" onclick="switchMainTab(0)">
-        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/>
-        </svg>
-        <span>探索甄选</span>
-      </div>
-      <div class="tabbar-item" id="tabbar-btn-1" onclick="switchMainTab(1)">
-        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"/><path d="M6 17h12"/><path d="M6 14h12v7H6z"/>
-        </svg>
-        <span>私宴定制</span>
-      </div>
-      <div class="tabbar-item" id="tabbar-btn-2" onclick="switchMainTab(2)">
-        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><circle cx="16" cy="16" r="6"/>
-        </svg>
-        <span>预约行程</span>
-      </div>
-      <div class="tabbar-item" id="tabbar-btn-3" onclick="switchMainTab(3)">
-        <svg class="tabbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>
-        </svg>
-        <span>服务追踪</span>
-      </div>
-    </div>
-
-    <!-- =====================================================================
+</div>
+</div>
+<!-- 常用管理工具卡片 -->
+<div class="card" style="padding:4px 14px;">
+<div class="menu-item-row" onclick="openAddressModal()">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);" viewbox="0 0 24 24" width="16"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>常用服务地址簿 (已脱敏)</span>
+</div>
+<span style="color:var(--clr-ink-faint);">›</span>
+</div>
+<div class="menu-item-row" onclick="openChefProfileModal('chef-li')">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--clr-accent);" viewbox="0 0 24 24" width="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span>大厨健康证明与资质公示</span>
+</div>
+<span style="color:var(--clr-ink-faint);">›</span>
+</div>
+<div class="menu-item-row" onclick="openConciergeModal()">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--clr-primary);" viewbox="0 0 24 24" width="16"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"></path></svg>
+<span>24小时 专属私宴管家</span>
+</div>
+<span style="color:var(--clr-ink-faint);">›</span>
+</div>
+<div class="menu-item-row" onclick="showToast('电子收据及代买明细支持即时开具')">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--clr-ink-muted);" viewbox="0 0 24 24" width="16"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path><path d="M16 8h-8"></path><path d="M16 12h-8"></path><path d="M10 16h-2"></path></svg>
+<span>电子发票与代买明细收据</span>
+</div>
+<span style="color:var(--clr-ink-faint);">›</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. 微信原生底部导航栏 (TabBar) -->
+<div class="bottom-tabbar">
+<div class="tabbar-item active" id="tabbar-btn-0" onclick="switchMainTab(0)">
+<svg class="tabbar-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8Z"></path><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"></path><path d="m2.1 21.8 6.4-6.3"></path>
+</svg>
+<span>探索甄选</span>
+</div>
+<div class="tabbar-item" id="tabbar-btn-1" onclick="switchMainTab(1)">
+<svg class="tabbar-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 13.8a5.5 5.5 0 0 1-2.4-4.8 5.5 5.5 0 0 1 9.6-3.8 5.5 5.5 0 0 1 9.6 3.8 5.5 5.5 0 0 1-2.4 4.8"></path><path d="M6 17h12"></path><path d="M6 14h12v7H6z"></path>
+</svg>
+<span>私宴定制</span>
+</div>
+<div class="tabbar-item" id="tabbar-btn-2" onclick="switchMainTab(2)">
+<svg class="tabbar-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"></path><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h5"></path><circle cx="16" cy="16" r="6"></circle>
+</svg>
+<span>预约行程</span>
+</div>
+<div class="tabbar-item" id="tabbar-btn-3" onclick="switchMainTab(3)">
+<svg class="tabbar-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline>
+</svg>
+<span>服务追踪</span>
+</div>
+</div>
+<!-- =====================================================================
          模态抽屉与弹层系统 (All Overlays & Drawers)
          ===================================================================== -->
-
-    <!-- A. 菜品替换底部抽屉 -->
-    <div class="modal-overlay" id="dish-replace-drawer" onclick="closeOverlayOnBackdrop(event, 'dish-replace-drawer')">
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <div>
-            <div class="drawer-title" id="replace-drawer-heading">自选替换备选菜品</div>
-            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">同品质食材自由替换 · 零额外差价</div>
-          </div>
-          <button class="drawer-close" onclick="closeDrawer('dish-replace-drawer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </div>
-        <div id="replace-options-container" style="display:flex;flex-direction:column;gap:8px;">
-          <!-- 动态注入候选菜品 -->
-        </div>
-      </div>
-    </div>
-
-    <!-- B. 大厨资质与健康证明抽屉 -->
-    <div class="modal-overlay" id="chef-profile-drawer" onclick="closeOverlayOnBackdrop(event, 'chef-profile-drawer')">
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <div class="drawer-title">特级名厨履约资质与健康档案</div>
-          <button class="drawer-close" onclick="closeDrawer('chef-profile-drawer')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--clr-line);">
-          <div class="chef-avatar-box" style="margin:0;width:54px;height:54px;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          </div>
-          <div>
-            <div style="font-size:16px;font-weight:700;color:var(--clr-ink-main);" id="chef-modal-name">李主厨</div>
-            <div style="font-size:12px;color:var(--clr-accent);font-weight:600;" id="chef-modal-title">特级中式烹调师 · 从厨18年</div>
-            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">已完成服务：1,280+ 宴席 · 好评率 99.8%</div>
-          </div>
-        </div>
-        <div style="margin-top:12px;font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
-          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">从业资格认证：</b>国家高级**人员 (中式烹调一级)</div>
-          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">健康证公示：</b>粤-健康证-2026**091 (经官方背调无犯罪、无传染病)</div>
-          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">擅长领域：</b>传统精细粤菜、高汤滋补炖品、鲍参翅肚温润私宴</div>
-          <div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">安全保险保障：</b>本单由中国人寿承保【食品安全责任险及人身险】</div>
-        </div>
-        <button class="btn btn-primary" style="width:100%;margin-top:14px;padding:10px;" onclick="chooseThisChefForBooking()">
+<!-- A. 菜品替换底部抽屉 -->
+<div class="modal-overlay" id="dish-replace-drawer" onclick="closeOverlayOnBackdrop(event, 'dish-replace-drawer')">
+<div class="drawer-content">
+<div class="drawer-header">
+<div>
+<div class="drawer-title" id="replace-drawer-heading">自选替换备选菜品</div>
+<div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">同品质食材自由替换 · 零额外差价</div>
+</div>
+<button class="drawer-close" onclick="closeDrawer('dish-replace-drawer')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div id="replace-options-container" style="display:flex;flex-direction:column;gap:8px;">
+<!-- 动态注入候选菜品 -->
+</div>
+</div>
+</div>
+<!-- B. 大厨资质与健康证明抽屉 -->
+<div class="modal-overlay" id="chef-profile-drawer" onclick="closeOverlayOnBackdrop(event, 'chef-profile-drawer')">
+<div class="drawer-content">
+<div class="drawer-header">
+<div class="drawer-title">特级名厨履约资质与健康档案</div>
+<button class="drawer-close" onclick="closeDrawer('chef-profile-drawer')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--clr-line);">
+<div class="chef-avatar-box" style="margin:0;width:54px;height:54px;">
+<svg fill="none" height="28" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="28"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+</div>
+<div>
+<div id="chef-modal-name" style="font-size:16px;font-weight:700;color:var(--clr-ink-main);">李主厨</div>
+<div id="chef-modal-title" style="font-size:12px;color:var(--clr-accent);font-weight:600;">特级中式烹调师 · 从厨18年</div>
+<div style="font-size:11px;color:var(--clr-ink-muted);margin-top:2px;">已完成服务：1,280+ 宴席 · 好评率 99.8%</div>
+</div>
+</div>
+<div style="margin-top:12px;font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
+<div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">从业资格认证：</b>国家高级**人员 (中式烹调一级)</div>
+<div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">健康证公示：</b>粤-健康证-2026**091 (经官方背调无犯罪、无传染病)</div>
+<div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">擅长领域：</b>传统精细粤菜、高汤滋补炖品、鲍参翅肚温润私宴</div>
+<div style="margin-bottom:6px;"><b style="color:var(--clr-ink-main);">安全保险保障：</b>本单由中国人寿承保【食品安全责任险及人身险】</div>
+</div>
+<button class="btn btn-primary" onclick="chooseThisChefForBooking()" style="width:100%;margin-top:14px;padding:10px;">
           选定该大厨主理本场私宴
         </button>
-      </div>
-    </div>
-
-    <!-- C. 预约成功居中弹窗 -->
-    <div class="modal-overlay" id="booking-success-modal" onclick="closeOverlayOnBackdrop(event, 'booking-success-modal')">
-      <div class="center-modal-content">
-        <div style="width:48px;height:48px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+</div>
+</div>
+<!-- C. 预约成功居中弹窗 -->
+<div class="modal-overlay" id="booking-success-modal" onclick="closeOverlayOnBackdrop(event, 'booking-success-modal')">
+<div class="center-modal-content">
+<div style="width:48px;height:48px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="26" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="26"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div style="font-size:16px;font-weight:800;color:var(--clr-ink-main);margin-bottom:6px;">私宴预约已成功派发</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:14px;">
+          专属私宴管家与特级大厨已接收您的需求。<br/>大厨将在 15 分钟内通过脱敏虚拟专线电话联系您确认菜品与备餐细节。
         </div>
-        <div style="font-size:16px;font-weight:800;color:var(--clr-ink-main);margin-bottom:6px;">私宴预约已成功派发</div>
-        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:14px;">
-          专属私宴管家与特级大厨已接收您的需求。<br>大厨将在 15 分钟内通过脱敏虚拟专线电话联系您确认菜品与备餐细节。
-        </div>
-        <button class="btn btn-primary" style="width:100%;padding:10px;" onclick="closeBookingSuccessAndGoOrders()">
+<button class="btn btn-primary" onclick="closeBookingSuccessAndGoOrders()" style="width:100%;padding:10px;">
           查看我的服务追踪进度
         </button>
-      </div>
-    </div>
-
-    <!-- D. 联系大厨虚拟号弹窗 -->
-    <div class="modal-overlay" id="contact-modal" onclick="closeOverlayOnBackdrop(event, 'contact-modal')">
-      <div class="center-modal-content">
-        <div style="font-size:15px;font-weight:700;color:var(--clr-ink-main);margin-bottom:6px;">隐私安全虚拟通话</div>
-        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:12px;">
-          已开启号码双向脱敏保护，双方均不可见真实手机号。<br>正在连线大厨专属中间号：<br>
-          <b style="font-size:16px;color:var(--clr-primary);">021-9507**</b>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-outline" style="flex:1;" onclick="closeDrawer('contact-modal')">取消</button>
-          <button class="btn btn-primary" style="flex:1;" onclick="showToast('正在为您建立安全虚拟通话...');closeDrawer('contact-modal');">立即拨打</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- E. 常用地址管理抽屉 -->
-    <div class="modal-overlay" id="address-modal" onclick="closeOverlayOnBackdrop(event, 'address-modal')">
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <div class="drawer-title">常用上门服务地址簿</div>
-          <button class="drawer-close" onclick="closeDrawer('address-modal')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="background-color:var(--clr-surface-subtle);border:1px solid var(--clr-primary);border-radius:var(--radius-sm);padding:10px;cursor:pointer;" onclick="selectAddress('XX社区XX号楼**室')">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼**室</b>
-              <span class="badge-red">默认服务地址</span>
-            </div>
-            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：陈** (138**6688)</div>
-          </div>
-          <div style="background-color:var(--clr-surface);border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:10px;cursor:pointer;" onclick="selectAddress('XX社区XX号楼**室')">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼**室</b>
-              <span style="font-size:11px;color:var(--clr-ink-faint);">设为默认</span>
-            </div>
-            <div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：林** (159**3120)</div>
-          </div>
-        </div>
-        <button class="btn btn-outline" style="width:100%;margin-top:12px;padding:8px;" onclick="showToast('已录入新地址占位模板')">
+</div>
+</div>
+<!-- D. 联系大厨虚拟号弹窗 -->
+<div class="modal-overlay" id="contact-modal" onclick="closeOverlayOnBackdrop(event, 'contact-modal')">
+<div class="center-modal-content">
+<div style="font-size:15px;font-weight:700;color:var(--clr-ink-main);margin-bottom:6px;">隐私安全虚拟通话</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.5;margin-bottom:12px;">
+          已开启号码双向脱敏保护，双方均不可见真实手机号。<br/>正在连线大厨专属中间号：<br/>
+<b style="font-size:16px;color:var(--clr-primary);">021-9507**</b>
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn btn-outline" onclick="closeDrawer('contact-modal')" style="flex:1;">取消</button>
+<button class="btn btn-primary" onclick="showToast('正在为您建立安全虚拟通话...');closeDrawer('contact-modal');" style="flex:1;">立即拨打</button>
+</div>
+</div>
+</div>
+<!-- E. 常用地址管理抽屉 -->
+<div class="modal-overlay" id="address-modal" onclick="closeOverlayOnBackdrop(event, 'address-modal')">
+<div class="drawer-content">
+<div class="drawer-header">
+<div class="drawer-title">常用上门服务地址簿</div>
+<button class="drawer-close" onclick="closeDrawer('address-modal')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<div onclick="selectAddress('XX社区XX号楼**室')" style="background-color:var(--clr-surface-subtle);border:1px solid var(--clr-primary);border-radius:var(--radius-sm);padding:10px;cursor:pointer;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼**室</b>
+<span class="badge-red">默认服务地址</span>
+</div>
+<div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：陈** (138**6688)</div>
+</div>
+<div onclick="selectAddress('XX社区XX号楼**室')" style="background-color:var(--clr-surface);border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:10px;cursor:pointer;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<b style="font-size:13px;color:var(--clr-ink-main);">XX社区XX号楼**室</b>
+<span style="font-size:11px;color:var(--clr-ink-faint);">设为默认</span>
+</div>
+<div style="font-size:11px;color:var(--clr-ink-muted);margin-top:3px;">联系人：林** (159**3120)</div>
+</div>
+</div>
+<button class="btn btn-outline" onclick="showToast('已录入新地址占位模板')" style="width:100%;margin-top:12px;padding:8px;">
           + 添加新服务地址
         </button>
-      </div>
-    </div>
-
-    <!-- F. 退改与保障说明抽屉 -->
-    <div class="modal-overlay" id="policy-modal" onclick="closeOverlayOnBackdrop(event, 'policy-modal')">
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <div class="drawer-title">私宴定制履约与保障须知</div>
-          <button class="drawer-close" onclick="closeDrawer('policy-modal')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </div>
-        <div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
-          <p style="margin-bottom:8px;"><b>1. 免费改期政策：</b>在预约服务开始前 24 小时以上，可享受无条件免费改期服务，食材若尚未采买不产生额外损耗。</p>
-          <p style="margin-bottom:8px;"><b>2. 食材小票机制：</b>代买生鲜严格按照当日正规商超/**市电脑机打小票实报实销，大厨绝不赚取食材差价。</p>
-          <p style="margin-bottom:8px;"><b>3. 厨房深度复原：</b>用餐完成后，大厨负责清洗锅具灶台、擦拭吸油烟机表面油污，并将厨余垃圾规范装袋打包带离。</p>
-          <p><b>4. 食品安全保险：</b>平台为每场宴席投保专有食品安全与人身财产双重责任险，保障全家安心享用。</p>
-        </div>
-        <button class="btn btn-primary" style="width:100%;margin-top:14px;padding:10px;" onclick="closeDrawer('policy-modal')">
+</div>
+</div>
+<!-- F. 退改与保障说明抽屉 -->
+<div class="modal-overlay" id="policy-modal" onclick="closeOverlayOnBackdrop(event, 'policy-modal')">
+<div class="drawer-content">
+<div class="drawer-header">
+<div class="drawer-title">私宴定制履约与保障须知</div>
+<button class="drawer-close" onclick="closeDrawer('policy-modal')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);line-height:1.7;">
+<p style="margin-bottom:8px;"><b>1. 免费改期政策：</b>在预约服务开始前 24 小时以上，可享受无条件免费改期服务，食材若尚未采买不产生额外损耗。</p>
+<p style="margin-bottom:8px;"><b>2. 食材小票机制：</b>代买生鲜严格按照当日正规商超/**市电脑机打小票实报实销，大厨绝不赚取食材差价。</p>
+<p style="margin-bottom:8px;"><b>3. 厨房深度复原：</b>用餐完成后，大厨负责清洗锅具灶台、擦拭吸油烟机表面油污，并将厨余垃圾规范装袋打包带离。</p>
+<p><b>4. 食品安全保险：</b>平台为每场宴席投保专有食品安全与人身财产双重责任险，保障全家安心享用。</p>
+</div>
+<button class="btn btn-primary" onclick="closeDrawer('policy-modal')" style="width:100%;margin-top:14px;padding:10px;">
           我已知晓
         </button>
-      </div>
-    </div>
-
-    <!-- G. 专属私宴管家在线沟通抽屉 -->
-    <div class="modal-overlay" id="concierge-modal" onclick="closeOverlayOnBackdrop(event, 'concierge-modal')">
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <div class="drawer-title">24小时 专属私宴管家</div>
-          <button class="drawer-close" onclick="closeDrawer('concierge-modal')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </button>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background-color:var(--clr-surface-subtle);border-radius:var(--radius-sm);padding:10px;margin-bottom:12px;">
-          <div style="width:40px;height:40px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);display:flex;align-items:center;justify-content:center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
-          </div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);">资深宴会管家 - 林小雅</div>
-            <div style="font-size:11px;color:var(--clr-status-success);">● 在线为您服务中</div>
-          </div>
-        </div>
-        <div style="font-size:12px;color:var(--clr-ink-muted);background-color:var(--clr-page);padding:10px;border-radius:var(--radius-sm);line-height:1.5;margin-bottom:12px;">
+</div>
+</div>
+<!-- G. 专属私宴管家在线沟通抽屉 -->
+<div class="modal-overlay" id="concierge-modal" onclick="closeOverlayOnBackdrop(event, 'concierge-modal')">
+<div class="drawer-content">
+<div class="drawer-header">
+<div class="drawer-title">24小时 专属私宴管家</div>
+<button class="drawer-close" onclick="closeDrawer('concierge-modal')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="display:flex;align-items:center;gap:10px;background-color:var(--clr-surface-subtle);border-radius:var(--radius-sm);padding:10px;margin-bottom:12px;">
+<div style="width:40px;height:40px;border-radius:50%;background-color:var(--clr-primary-soft);color:var(--clr-primary);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--clr-ink-main);">资深宴会管家 - 林小雅</div>
+<div style="font-size:11px;color:var(--clr-status-success);">● 在线为您服务中</div>
+</div>
+</div>
+<div style="font-size:12px;color:var(--clr-ink-muted);background-color:var(--clr-page);padding:10px;border-radius:var(--radius-sm);line-height:1.5;margin-bottom:12px;">
           您好！请问您需要调整今天的就餐人数、特定菜系要求，或是咨询大厨上门动线？我将全程协助协调。
         </div>
-        <div style="display:flex;gap:6px;">
-          <input type="text" id="concierge-input" placeholder="输入您的问题..." style="flex:1;border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;outline:none;">
-          <button class="btn btn-primary btn-sm" onclick="sendConciergeMsg()">发送</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 微信原生风格 Toast 气泡 -->
-    <div class="wx-toast" id="wx-toast-box">轻提示内容</div>
-
-  </div>
-
-  <!-- ==========================================================================
+<div style="display:flex;gap:6px;">
+<input id="concierge-input" placeholder="输入您的问题..." style="flex:1;border:1px solid var(--clr-line);border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;outline:none;" type="text"/>
+<button class="btn btn-primary btn-sm" onclick="sendConciergeMsg()">发送</button>
+</div>
+</div>
+</div>
+<!-- 微信原生风格 Toast 气泡 -->
+<div class="wx-toast" id="wx-toast-box">轻提示内容</div>
+</div>
+<!-- ==========================================================================
        前端纯原生高保真交互与状态控制逻辑 (Zero External Dependency)
        ========================================================================== -->
-  <script>
+<script>
     // 1. 全局数据与菜单状态定义
     const MENU_DATABASE = {
       family: {

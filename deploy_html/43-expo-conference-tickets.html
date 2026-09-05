@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>2026**科技与产业智能大会 - 参会与电子门票</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>2026**科技与产业智能大会 - 参会与电子门票</title>
+<style>
     /* ==========================================================================
        CSS Design Tokens (国际高端科技会展商务视觉体系)
        ========================================================================== */
@@ -1684,783 +1685,699 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- iPhone 15 Pro 微信小程序真机外壳 -->
+<div class="device-shell">
+<!-- 顶部系统状态栏与灵动岛 -->
 
+<!-- 微信小程序顶栏与官方胶囊按键 -->
 
-  <!-- iPhone 15 Pro 微信小程序真机外壳 -->
-  <div class="device-shell">
-    
-    <!-- 顶部系统状态栏与灵动岛 -->
-    <div class="status-bar">
-      <span id="current-sys-time">10:24</span>
-      <div class="dynamic-island"></div>
-      <div class="status-icons">
-        <!-- 信号图标 -->
-        <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M2 20h20L12 4z" fill="currentColor"/></svg>
-        <!-- WiFi 图标 -->
-        <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 13a10 10 0 0 1 14 0"/><path d="M1.5 9.5a15 15 0 0 1 21 0"/></svg>
-        <!-- 电池图标 -->
-        <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序顶栏与官方胶囊按键 -->
-    <div class="mp-header">
-      <div class="mp-title-box">
-        <div class="mp-logo-badge">**</div>
-        <span class="mp-title">**数字科技大会</span>
-      </div>
-      <!-- 微信标准胶囊 -->
-      <div class="wx-capsule" onclick="showMiniProgramMenu()">
-        <div class="wx-capsule-dots">
-          <div class="wx-dot"></div>
-          <div class="wx-dot"></div>
-          <div class="wx-dot"></div>
-        </div>
-        <div class="wx-capsule-sep"></div>
-        <div class="wx-capsule-circle"></div>
-      </div>
-    </div>
-
-    <!-- 小程序主要滚动视口 -->
-    <div class="mp-content">
-      
-      <!-- ====================================================================
+<!-- 小程序主要滚动视口 -->
+<div class="mp-content">
+<!-- ====================================================================
            Tab 0: 大会主页 (Home Pane)
            ==================================================================== -->
-      <div id="view-home" class="view-pane active">
-        
-        <!-- 大会主视觉海报 -->
-        <div class="hero-banner">
-          <div class="hero-badge-row">
-            <span class="hero-tag">
-              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<div class="view-pane active" id="view-home">
+<!-- 大会主视觉海报 -->
+<div class="hero-banner">
+<div class="hero-badge-row">
+<span class="hero-tag">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
               **商业级行业峰会
             </span>
-            <span class="hero-countdown">
-              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<span class="hero-countdown">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               距开幕仅剩 14 天
             </span>
-          </div>
-          <h1 class="hero-title">2026**科技与产业智能大会</h1>
-          <p class="hero-subtitle">汇聚全球顶尖学者、产业领军者与硬核科技展商，共筑下一代智能工业新高地。</p>
-          
-          <div class="hero-meta-grid">
-            <div class="hero-meta-item">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>2026年9月18日 - 9月20日 (为期3天)</span>
-            </div>
-            <div class="hero-meta-item">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>**博览中心 · 1-4号综合馆</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- **区入口 (Quick Nav) -->
-        <div class="quick-nav-grid">
-          <div class="quick-nav-btn" onclick="openTicketSheet()">
-            <div class="quick-nav-icon">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-            </div>
-            <span class="quick-nav-label">立即参会</span>
-          </div>
-          <div class="quick-nav-btn" onclick="switchTab('schedule')">
-            <div class="quick-nav-icon">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <span class="quick-nav-label">大会日程</span>
-          </div>
-          <div class="quick-nav-btn" onclick="switchTab('exhibitor')">
-            <div class="quick-nav-icon">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
-            </div>
-            <span class="quick-nav-label">展位导览</span>
-          </div>
-          <div class="quick-nav-btn" onclick="openGuideModal()">
-            <div class="quick-nav-icon">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            </div>
-            <span class="quick-nav-label">参会指南</span>
-          </div>
-        </div>
-
-        <!-- 票券快速直达卡片 -->
-        <div class="ticket-fast-card">
-          <div class="tfc-info">
-            <h4>
-              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" style="color:var(--conf-gold-accent);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+</div>
+<h1 class="hero-title">2026**科技与产业智能大会</h1>
+<p class="hero-subtitle">汇聚全球顶尖学者、产业领军者与硬核科技展商，共筑下一代智能工业新高地。</p>
+<div class="hero-meta-grid">
+<div class="hero-meta-item">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>2026年9月18日 - 9月20日 (为期3天)</span>
+</div>
+<div class="hero-meta-item">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>**博览中心 · 1-4号综合馆</span>
+</div>
+</div>
+</div>
+<!-- **区入口 (Quick Nav) -->
+<div class="quick-nav-grid">
+<div class="quick-nav-btn" onclick="openTicketSheet()">
+<div class="quick-nav-icon">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+</div>
+<span class="quick-nav-label">立即参会</span>
+</div>
+<div class="quick-nav-btn" onclick="switchTab('schedule')">
+<div class="quick-nav-icon">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+</div>
+<span class="quick-nav-label">大会日程</span>
+</div>
+<div class="quick-nav-btn" onclick="switchTab('exhibitor')">
+<div class="quick-nav-icon">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path></svg>
+</div>
+<span class="quick-nav-label">展位导览</span>
+</div>
+<div class="quick-nav-btn" onclick="openGuideModal()">
+<div class="quick-nav-icon">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+</div>
+<span class="quick-nav-label">参会指南</span>
+</div>
+</div>
+<!-- 票券快速直达卡片 -->
+<div class="ticket-fast-card">
+<div class="tfc-info">
+<h4>
+<svg class="icon" height="16" style="color:var(--conf-gold-accent);" viewbox="0 0 24 24" width="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
               专业观众通票与研讨名额
             </h4>
-            <p>早鸟免费名额已开放 · VIP嘉宾闭门晚宴同步预约</p>
-          </div>
-          <button class="tfc-action-btn" onclick="openTicketSheet()">
-            <span>选票报名</span>
-            <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-
-        <!-- 特邀学者阵容 (Keynote Speakers) -->
-        <div class="section-box">
-          <div class="section-head">
-            <span class="section-title">特邀**与**学者</span>
-            <span class="section-link" onclick="openSpeakerModal('lu')">
+<p>早鸟免费名额已开放 · VIP嘉宾闭门晚宴同步预约</p>
+</div>
+<button class="tfc-action-btn" onclick="openTicketSheet()">
+<span>选票报名</span>
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+<!-- 特邀学者阵容 (Keynote Speakers) -->
+<div class="section-box">
+<div class="section-head">
+<span class="section-title">特邀**与**学者</span>
+<span class="section-link" onclick="openSpeakerModal('lu')">
               详情
-              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-            </span>
-          </div>
-          
-          <div class="speaker-scroll-row">
-            <!-- 嘉宾 1 -->
-            <div class="speaker-card" onclick="openSpeakerModal('lu')">
-              <div class="speaker-avatar">**</div>
-              <div class="speaker-name">**</div>
-              <div class="speaker-title">**</div>
-              <span class="speaker-topic-tag">开幕主旨报告</span>
-            </div>
-            <!-- 嘉宾 2 -->
-            <div class="speaker-card" onclick="openSpeakerModal('su')">
-              <div class="speaker-avatar">**</div>
-              <div class="speaker-name">**</div>
-              <div class="speaker-title">**</div>
-              <span class="speaker-topic-tag">大模型与具身智能</span>
-            </div>
-            <!-- 嘉宾 3 -->
-            <div class="speaker-card" onclick="openSpeakerModal('lin')">
-              <div class="speaker-avatar">**</div>
-              <div class="speaker-name">**</div>
-              <div class="speaker-title">**</div>
-              <span class="speaker-topic-tag">工业物联协议</span>
-            </div>
-            <!-- 嘉宾 4 -->
-            <div class="speaker-card" onclick="openSpeakerModal('zhao')">
-              <div class="speaker-avatar">**</div>
-              <div class="speaker-name">**</div>
-              <div class="speaker-title">**</div>
-              <span class="speaker-topic-tag">算力调度协同</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 精选特色分论坛推荐 -->
-        <div class="section-box">
-          <div class="section-head">
-            <span class="section-title">重磅分论坛与专题研讨</span>
-            <span class="section-link" onclick="switchTab('schedule')">
+              <svg class="icon" height="12" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</span>
+</div>
+<div class="speaker-scroll-row">
+<!-- 嘉宾 1 -->
+<div class="speaker-card" onclick="openSpeakerModal('lu')">
+<div class="speaker-avatar">**</div>
+<div class="speaker-name">**</div>
+<div class="speaker-title">**</div>
+<span class="speaker-topic-tag">开幕主旨报告</span>
+</div>
+<!-- 嘉宾 2 -->
+<div class="speaker-card" onclick="openSpeakerModal('su')">
+<div class="speaker-avatar">**</div>
+<div class="speaker-name">**</div>
+<div class="speaker-title">**</div>
+<span class="speaker-topic-tag">大模型与具身智能</span>
+</div>
+<!-- 嘉宾 3 -->
+<div class="speaker-card" onclick="openSpeakerModal('lin')">
+<div class="speaker-avatar">**</div>
+<div class="speaker-name">**</div>
+<div class="speaker-title">**</div>
+<span class="speaker-topic-tag">工业物联协议</span>
+</div>
+<!-- 嘉宾 4 -->
+<div class="speaker-card" onclick="openSpeakerModal('zhao')">
+<div class="speaker-avatar">**</div>
+<div class="speaker-name">**</div>
+<div class="speaker-title">**</div>
+<span class="speaker-topic-tag">算力调度协同</span>
+</div>
+</div>
+</div>
+<!-- 精选特色分论坛推荐 -->
+<div class="section-box">
+<div class="section-head">
+<span class="section-title">重磅分论坛与专题研讨</span>
+<span class="section-link" onclick="switchTab('schedule')">
               查看全部日程
-              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-            </span>
-          </div>
-
-          <!-- 论坛卡片 1 -->
-          <div class="forum-card" onclick="openForumDetail(1)">
-            <div class="forum-badge-row">
-              <span class="forum-track-tag">产业前沿论坛</span>
-              <span class="forum-time">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg class="icon" height="12" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</span>
+</div>
+<!-- 论坛卡片 1 -->
+<div class="forum-card" onclick="openForumDetail(1)">
+<div class="forum-badge-row">
+<span class="forum-track-tag">产业前沿论坛</span>
+<span class="forum-time">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 9月18日 14:00 - 17:30
               </span>
-            </div>
-            <h3 class="forum-name">全球工业大模型应用落地与边缘计算协同峰会</h3>
-            <div class="forum-venue">
-              <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+</div>
+<h3 class="forum-name">全球工业大模型应用落地与边缘计算协同峰会</h3>
+<div class="forum-venue">
+<svg class="icon" height="13" viewbox="0 0 24 24" width="13"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               **会议中心三层 · **大宴会厅
             </div>
-            <div class="forum-action-row">
-              <span class="forum-capacity">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<div class="forum-action-row">
+<span class="forum-capacity">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 席位尚余 42 席
               </span>
-              <button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
-            </div>
-          </div>
-
-          <!-- 论坛卡片 2 -->
-          <div class="forum-card" onclick="openForumDetail(2)">
-            <div class="forum-badge-row">
-              <span class="forum-track-tag" style="background:var(--conf-success-light); color:var(--conf-success);">智能制造专场</span>
-              <span class="forum-time">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
+</div>
+</div>
+<!-- 论坛卡片 2 -->
+<div class="forum-card" onclick="openForumDetail(2)">
+<div class="forum-badge-row">
+<span class="forum-track-tag" style="background:var(--conf-success-light); color:var(--conf-success);">智能制造专场</span>
+<span class="forum-time">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 9月19日 09:30 - 12:00
               </span>
-            </div>
-            <h3 class="forum-name">下一代智能机器人集群控制与具身智能实践研讨</h3>
-            <div class="forum-venue">
-              <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+</div>
+<h3 class="forum-name">下一代智能机器人集群控制与具身智能实践研讨</h3>
+<div class="forum-venue">
+<svg class="icon" height="13" viewbox="0 0 24 24" width="13"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               **会议中心二层 · 阶梯研讨厅 A
             </div>
-            <div class="forum-action-row">
-              <span class="forum-capacity">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<div class="forum-action-row">
+<span class="forum-capacity">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 席位尚余 18 席
               </span>
-              <button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
+<button class="forum-btn-book" onclick="event.stopPropagation(); openTicketSheet();">锁定研讨席位</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ====================================================================
            Tab 1: 会议日程 (Schedule Pane)
            ==================================================================== -->
-      <div id="view-schedule" class="view-pane">
-        
-        <div class="schedule-header">
-          <div class="day-tabs">
-            <div class="day-tab-btn active" onclick="switchDay(1)">
-              <div class="day-tab-date">9月18日</div>
-              <div class="day-tab-sub">全体大会</div>
-            </div>
-            <div class="day-tab-btn" onclick="switchDay(2)">
-              <div class="day-tab-date">9月19日</div>
-              <div class="day-tab-sub">产业分论坛</div>
-            </div>
-            <div class="day-tab-btn" onclick="switchDay(3)">
-              <div class="day-tab-date">9月20日</div>
-              <div class="day-tab-sub">闭门研讨会</div>
-            </div>
-          </div>
-
-          <div class="schedule-filter-bar">
-            <span>日程安排以现场实际调度为准</span>
-            <button id="filter-bookmarked-btn" class="filter-pill-btn" onclick="toggleBookmarkedFilter()">
-              <svg class="icon" width="12" height="12" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-              <span>仅看我关注的</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="timeline-container" id="timeline-list">
-          <!-- 日程项由 JS 响应式动态渲染与过滤 -->
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
+<div class="view-pane" id="view-schedule">
+<div class="schedule-header">
+<div class="day-tabs">
+<div class="day-tab-btn active" onclick="switchDay(1)">
+<div class="day-tab-date">9月18日</div>
+<div class="day-tab-sub">全体大会</div>
+</div>
+<div class="day-tab-btn" onclick="switchDay(2)">
+<div class="day-tab-date">9月19日</div>
+<div class="day-tab-sub">产业分论坛</div>
+</div>
+<div class="day-tab-btn" onclick="switchDay(3)">
+<div class="day-tab-date">9月20日</div>
+<div class="day-tab-sub">闭门研讨会</div>
+</div>
+</div>
+<div class="schedule-filter-bar">
+<span>日程安排以现场实际调度为准</span>
+<button class="filter-pill-btn" id="filter-bookmarked-btn" onclick="toggleBookmarkedFilter()">
+<svg class="icon" height="12" viewbox="0 0 24 24" width="12"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
+<span>仅看我关注的</span>
+</button>
+</div>
+</div>
+<div class="timeline-container" id="timeline-list">
+<!-- 日程项由 JS 响应式动态渲染与过滤 -->
+</div>
+</div>
+<!-- ====================================================================
            Tab 2: 电子门票与票夹 (Ticket Wallet Pane)
            ==================================================================== -->
-      <div id="view-ticket" class="view-pane">
-        <div class="ticket-container">
-          
-          <!-- 门票与胸卡双视图切换 -->
-          <div class="ticket-mode-toggle">
-            <button id="btn-toggle-ticket" class="ticket-toggle-btn active" onclick="switchTicketView('ticket')">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-              <span>电子门票凭证</span>
-            </button>
-            <button id="btn-toggle-badge" class="ticket-toggle-btn" onclick="switchTicketView('badge')">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M7 20v-1a5 5 0 0 1 10 0v1"/></svg>
-              <span>参会胸卡预览</span>
-            </button>
-          </div>
-
-          <!-- 模式 1: 航空打孔撕边防伪电子门票 -->
-          <div id="ticket-pass-card" class="boarding-pass-card">
-            
-            <div class="pass-header">
-              <div class="pass-header-top">
-                <span class="pass-tier-badge" id="pass-tier-name">VIP 尊享贵宾票</span>
-                <span class="pass-code" id="pass-serial-no">**-2026-T8829-VIP</span>
-              </div>
-              <h2 class="pass-conf-title">2026**科技与产业智能大会</h2>
-            </div>
-
-            <!-- 打孔分界线 -->
-            <div class="pass-perforation">
-              <div class="notch-left"></div>
-              <div class="dash-line"></div>
-              <div class="notch-right"></div>
-            </div>
-
-            <div class="pass-body">
-              <div class="pass-user-info">
-                <div>
-                  <div class="info-label">参会嘉宾</div>
-                  <div class="info-val" id="pass-user-name">**参会嘉宾</div>
-                </div>
-                <div>
-                  <div class="info-label">登记单位</div>
-                  <div class="info-val" id="pass-user-company">**数字科技</div>
-                </div>
-                <div>
-                  <div class="info-label">参会日期</div>
-                  <div class="info-val">2026.09.18 - 09.20</div>
-                </div>
-                <div>
-                  <div class="info-label">入场通道</div>
-                  <div class="info-val">A区 VIP 闸机专属通道</div>
-                </div>
-              </div>
-
-              <!-- 动态入场二维码卡 -->
-              <div class="qr-container" onclick="showFullQrCode()">
-                <!-- 已核销鲜红防伪印章 -->
-                <div id="verified-stamp-seal" class="verified-stamp">已核销 · 入场有效</div>
-                
-                <div class="qr-code-box" id="qr-display-box">
-                  <!-- 纯前端矢量动态二维码 -->
-                  <svg class="qr-code-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" fill="#FFFFFF"/>
-                    <!-- 四角定位标 -->
-                    <rect x="10" y="10" width="24" height="24" rx="3" fill="#0F172A"/>
-                    <rect x="14" y="14" width="16" height="16" rx="2" fill="#FFFFFF"/>
-                    <rect x="18" y="18" width="8" height="8" rx="1" fill="#1E3A8A"/>
-                    
-                    <rect x="66" y="10" width="24" height="24" rx="3" fill="#0F172A"/>
-                    <rect x="70" y="14" width="16" height="16" rx="2" fill="#FFFFFF"/>
-                    <rect x="74" y="18" width="8" height="8" rx="1" fill="#1E3A8A"/>
-
-                    <rect x="10" y="66" width="24" height="24" rx="3" fill="#0F172A"/>
-                    <rect x="14" y="70" width="16" height="16" rx="2" fill="#FFFFFF"/>
-                    <rect x="18" y="74" width="8" height="8" rx="1" fill="#1E3A8A"/>
-
-                    <!-- 仿真编码矩阵点块 -->
-                    <rect x="40" y="12" width="6" height="6" fill="#0F172A"/>
-                    <rect x="52" y="12" width="6" height="6" fill="#0F172A"/>
-                    <rect x="44" y="24" width="8" height="6" fill="#1E3A8A"/>
-                    <rect x="14" y="44" width="6" height="8" fill="#0F172A"/>
-                    <rect x="26" y="40" width="6" height="6" fill="#0F172A"/>
-                    <rect x="40" y="40" width="20" height="20" rx="3" fill="#0F172A"/>
-                    <rect x="44" y="44" width="12" height="12" rx="2" fill="#2563EB"/>
-                    <rect x="66" y="42" width="8" height="6" fill="#0F172A"/>
-                    <rect x="78" y="48" width="8" height="6" fill="#0F172A"/>
-                    <rect x="44" y="68" width="6" height="6" fill="#0F172A"/>
-                    <rect x="56" y="64" width="8" height="6" fill="#0F172A"/>
-                    <rect x="68" y="72" width="6" height="8" fill="#0F172A"/>
-                    <rect x="80" y="68" width="8" height="8" fill="#1E3A8A"/>
-                    <rect x="44" y="80" width="8" height="6" fill="#0F172A"/>
-                    <rect x="60" y="82" width="6" height="6" fill="#0F172A"/>
-                  </svg>
-                </div>
-                
-                <div class="qr-refresh-hint">
-                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-                  <span id="qr-countdown-txt">动态防伪已激活 · 点击放大出示</span>
-                </div>
-              </div>
-
-              <!-- 现场闸机仿真扫码核销按钮 -->
-              <button id="gate-action-btn" class="gate-checkin-btn" onclick="simulateGateCheckin()">
-                <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-                <span id="gate-btn-txt">模拟现场电子闸机扫码核销</span>
-              </button>
-
-              <div style="display:flex; gap:8px; margin-top:10px;">
-                <button style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="copyTicketNumber()">
-                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                  <span>复制票券编号</span>
-                </button>
-                <button style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;" onclick="downloadPassCertificate()">
-                  <svg class="icon" width="13" height="13" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span>保存离线凭证</span>
-                </button>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- 模式 2: 垂直工牌式参会胸卡 (Badge View) -->
-          <div id="badge-pass-card" class="badge-card">
-            <div class="badge-lanyard-hole"></div>
-            <div class="badge-avatar-frame">
-              <svg class="icon" width="38" height="38" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <h3 class="badge-name" id="badge-name-txt">**参会嘉宾</h3>
-            <div class="badge-company" id="badge-company-txt">**科技集团</div>
-            <div class="badge-title-txt" id="badge-title-txt">**</div>
-            
-            <div class="badge-status-bar">
-              <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>VIP GUEST · 全会场贵宾通行</span>
-            </div>
-
-            <div class="barcode-box">
+<div class="view-pane" id="view-ticket">
+<div class="ticket-container">
+<!-- 门票与胸卡双视图切换 -->
+<div class="ticket-mode-toggle">
+<button class="ticket-toggle-btn active" id="btn-toggle-ticket" onclick="switchTicketView('ticket')">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+<span>电子门票凭证</span>
+</button>
+<button class="ticket-toggle-btn" id="btn-toggle-badge" onclick="switchTicketView('badge')">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><rect height="16" rx="3" width="18" x="3" y="4"></rect><circle cx="12" cy="10" r="3"></circle><path d="M7 20v-1a5 5 0 0 1 10 0v1"></path></svg>
+<span>参会胸卡预览</span>
+</button>
+</div>
+<!-- 模式 1: 航空打孔撕边防伪电子门票 -->
+<div class="boarding-pass-card" id="ticket-pass-card">
+<div class="pass-header">
+<div class="pass-header-top">
+<span class="pass-tier-badge" id="pass-tier-name">VIP 尊享贵宾票</span>
+<span class="pass-code" id="pass-serial-no">**-2026-T8829-VIP</span>
+</div>
+<h2 class="pass-conf-title">2026**科技与产业智能大会</h2>
+</div>
+<!-- 打孔分界线 -->
+<div class="pass-perforation">
+<div class="notch-left"></div>
+<div class="dash-line"></div>
+<div class="notch-right"></div>
+</div>
+<div class="pass-body">
+<div class="pass-user-info">
+<div>
+<div class="info-label">参会嘉宾</div>
+<div class="info-val" id="pass-user-name">**参会嘉宾</div>
+</div>
+<div>
+<div class="info-label">登记单位</div>
+<div class="info-val" id="pass-user-company">**数字科技</div>
+</div>
+<div>
+<div class="info-label">参会日期</div>
+<div class="info-val">2026.09.18 - 09.20</div>
+</div>
+<div>
+<div class="info-label">入场通道</div>
+<div class="info-val">A区 VIP 闸机专属通道</div>
+</div>
+</div>
+<!-- 动态入场二维码卡 -->
+<div class="qr-container" onclick="showFullQrCode()">
+<!-- 已核销鲜红防伪印章 -->
+<div class="verified-stamp" id="verified-stamp-seal">已核销 · 入场有效</div>
+<div class="qr-code-box" id="qr-display-box">
+<!-- 纯前端矢量动态二维码 -->
+<svg class="qr-code-svg" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#FFFFFF" height="100" width="100"></rect>
+<!-- 四角定位标 -->
+<rect fill="#0F172A" height="24" rx="3" width="24" x="10" y="10"></rect>
+<rect fill="#FFFFFF" height="16" rx="2" width="16" x="14" y="14"></rect>
+<rect fill="#1E3A8A" height="8" rx="1" width="8" x="18" y="18"></rect>
+<rect fill="#0F172A" height="24" rx="3" width="24" x="66" y="10"></rect>
+<rect fill="#FFFFFF" height="16" rx="2" width="16" x="70" y="14"></rect>
+<rect fill="#1E3A8A" height="8" rx="1" width="8" x="74" y="18"></rect>
+<rect fill="#0F172A" height="24" rx="3" width="24" x="10" y="66"></rect>
+<rect fill="#FFFFFF" height="16" rx="2" width="16" x="14" y="70"></rect>
+<rect fill="#1E3A8A" height="8" rx="1" width="8" x="18" y="74"></rect>
+<!-- 仿真编码矩阵点块 -->
+<rect fill="#0F172A" height="6" width="6" x="40" y="12"></rect>
+<rect fill="#0F172A" height="6" width="6" x="52" y="12"></rect>
+<rect fill="#1E3A8A" height="6" width="8" x="44" y="24"></rect>
+<rect fill="#0F172A" height="8" width="6" x="14" y="44"></rect>
+<rect fill="#0F172A" height="6" width="6" x="26" y="40"></rect>
+<rect fill="#0F172A" height="20" rx="3" width="20" x="40" y="40"></rect>
+<rect fill="#2563EB" height="12" rx="2" width="12" x="44" y="44"></rect>
+<rect fill="#0F172A" height="6" width="8" x="66" y="42"></rect>
+<rect fill="#0F172A" height="6" width="8" x="78" y="48"></rect>
+<rect fill="#0F172A" height="6" width="6" x="44" y="68"></rect>
+<rect fill="#0F172A" height="6" width="8" x="56" y="64"></rect>
+<rect fill="#0F172A" height="8" width="6" x="68" y="72"></rect>
+<rect fill="#1E3A8A" height="8" width="8" x="80" y="68"></rect>
+<rect fill="#0F172A" height="6" width="8" x="44" y="80"></rect>
+<rect fill="#0F172A" height="6" width="6" x="60" y="82"></rect>
+</svg>
+</div>
+<div class="qr-refresh-hint">
+<svg class="icon" height="13" viewbox="0 0 24 24" width="13"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 21h5v-5"></path></svg>
+<span id="qr-countdown-txt">动态防伪已激活 · 点击放大出示</span>
+</div>
+</div>
+<!-- 现场闸机仿真扫码核销按钮 -->
+<button class="gate-checkin-btn" id="gate-action-btn" onclick="simulateGateCheckin()">
+<svg class="icon" height="16" viewbox="0 0 24 24" width="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span id="gate-btn-txt">模拟现场电子闸机扫码核销</span>
+</button>
+<div style="display:flex; gap:8px; margin-top:10px;">
+<button onclick="copyTicketNumber()" style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;">
+<svg class="icon" height="13" viewbox="0 0 24 24" width="13"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+<span>复制票券编号</span>
+</button>
+<button onclick="downloadPassCertificate()" style="flex:1; padding:8px; border-radius:var(--conf-radius-sm); background:var(--conf-bg-ticket-bar); border:1px solid var(--conf-bg-ticket-border); color:var(--conf-bg-subtle); font-size:11.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;">
+<svg class="icon" height="13" viewbox="0 0 24 24" width="13"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+<span>保存离线凭证</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 模式 2: 垂直工牌式参会胸卡 (Badge View) -->
+<div class="badge-card" id="badge-pass-card">
+<div class="badge-lanyard-hole"></div>
+<div class="badge-avatar-frame">
+<svg class="icon" height="38" viewbox="0 0 24 24" width="38"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<h3 class="badge-name" id="badge-name-txt">**参会嘉宾</h3>
+<div class="badge-company" id="badge-company-txt">**科技集团</div>
+<div class="badge-title-txt" id="badge-title-txt">**</div>
+<div class="badge-status-bar">
+<svg class="icon" height="15" viewbox="0 0 24 24" width="15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>VIP GUEST · 全会场贵宾通行</span>
+</div>
+<div class="barcode-box">
               ||| | |||| | ||||| || | |||| ||
               <div style="font-size:10px; margin-top:4px; letter-spacing:1px; color:var(--conf-text-muted);">2026-**-VIP-8829</div>
-            </div>
-            
-            <button style="margin-top:16px; width:100%; padding:10px; border-radius:var(--conf-radius-md); background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); font-size:12px; font-weight:700; color:var(--conf-primary); cursor:pointer;" onclick="switchTicketView('ticket')">
+</div>
+<button onclick="switchTicketView('ticket')" style="margin-top:16px; width:100%; padding:10px; border-radius:var(--conf-radius-md); background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); font-size:12px; font-weight:700; color:var(--conf-primary); cursor:pointer;">
               返回门票条码视图
             </button>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ====================================================================
+</div>
+</div>
+</div>
+<!-- ====================================================================
            Tab 3: 展商与导览 (Exhibitors & Map Pane)
            ==================================================================== -->
-      <div id="view-exhibitor" class="view-pane">
-        
-        <!-- 搜索与类别 -->
-        <div class="exhibitor-search-box">
-          <div class="search-input-wrapper">
-            <svg class="icon search-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="exhibitor-search-input" class="search-input" placeholder="搜索展商名称、展位号或主要展品..." oninput="handleExhibitorSearch(this.value)">
-          </div>
-          
-          <div class="category-pills">
-            <button class="cat-btn active" onclick="filterExhibitorCat('all', this)">全部展商</button>
-            <button class="cat-btn" onclick="filterExhibitorCat('chip', this)">智算芯片</button>
-            <button class="cat-btn" onclick="filterExhibitorCat('iot', this)">工业物联</button>
-            <button class="cat-btn" onclick="filterExhibitorCat('robot', this)">智能装备</button>
-            <button class="cat-btn" onclick="filterExhibitorCat('cloud', this)">行业云平台</button>
-          </div>
-        </div>
-
-        <!-- 展商列表 -->
-        <div class="exhibitor-list" id="exhibitors-container">
-          <!-- JS 动态渲染展商项 -->
-        </div>
-
-        <!-- 脱敏展馆楼层平面矢量图导览 -->
-        <div class="floor-plan-card">
-          <div class="section-head" style="margin-bottom:6px;">
-            <span class="section-title">展馆楼层展位平面示意</span>
-            <span style="font-size:11px; color:var(--conf-text-muted);">**博览中心 1-4号馆</span>
-          </div>
-          <div class="floor-svg-box">
-            <!-- 矢量绘制场馆平面分布 -->
-            <svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="10" width="65" height="100" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
-              <text x="42" y="55" font-size="11" font-weight="700" fill="#1E40AF" text-anchor="middle">1号馆</text>
-              <text x="42" y="70" font-size="9" fill="#64748B" text-anchor="middle">算力与芯片</text>
-
-              <rect x="85" y="10" width="65" height="100" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5"/>
-              <text x="117" y="55" font-size="11" font-weight="700" fill="#1E40AF" text-anchor="middle">2号馆</text>
-              <text x="117" y="70" font-size="9" fill="#64748B" text-anchor="middle">工业物联</text>
-
-              <rect x="160" y="10" width="70" height="100" rx="6" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5"/>
-              <text x="195" y="55" font-size="11" font-weight="700" fill="#065F46" text-anchor="middle">3号馆</text>
-              <text x="195" y="70" font-size="9" fill="#64748B" text-anchor="middle">机器人装备</text>
-
-              <rect x="240" y="10" width="70" height="100" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1.5"/>
-              <text x="275" y="50" font-size="11" font-weight="700" fill="#92400E" text-anchor="middle">4号主馆</text>
-              <text x="275" y="65" font-size="9" fill="#64748B" text-anchor="middle">主旨会议厅</text>
-              <text x="275" y="80" font-size="9" font-weight="600" fill="#D97706" text-anchor="middle">VIP报到处</text>
-
-              <!-- 闸机入口指引线 -->
-              <line x1="10" y1="115" x2="310" y2="115" stroke="#CBD5E1" stroke-dasharray="3 3"/>
-              <circle cx="160" cy="115" r="3" fill="#2563EB"/>
-            </svg>
-          </div>
-          <div style="margin-top:8px; font-size:11px; color:var(--conf-text-muted); display:flex; justify-content:space-between;">
-            <span>观众南门入场 · 设立40通道快速智能闸机</span>
-            <span style="color:var(--conf-accent); font-weight:600; cursor:pointer;" onclick="showToast('已更新场馆指引')">查看路线</span>
-          </div>
-        </div>
-
-        <!-- 交通与会务指引卡片 -->
-        <div class="section-box" style="padding-top:0;">
-          <div class="forum-card">
-            <h4 style="font-size:13px; font-weight:700; color:var(--conf-text-title); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
-              <svg class="icon" width="15" height="15" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+<div class="view-pane" id="view-exhibitor">
+<!-- 搜索与类别 -->
+<div class="exhibitor-search-box">
+<div class="search-input-wrapper">
+<svg class="icon search-icon" height="16" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+<input class="search-input" id="exhibitor-search-input" oninput="handleExhibitorSearch(this.value)" placeholder="搜索展商名称、展位号或主要展品..." type="text"/>
+</div>
+<div class="category-pills">
+<button class="cat-btn active" onclick="filterExhibitorCat('all', this)">全部展商</button>
+<button class="cat-btn" onclick="filterExhibitorCat('chip', this)">智算芯片</button>
+<button class="cat-btn" onclick="filterExhibitorCat('iot', this)">工业物联</button>
+<button class="cat-btn" onclick="filterExhibitorCat('robot', this)">智能装备</button>
+<button class="cat-btn" onclick="filterExhibitorCat('cloud', this)">行业云平台</button>
+</div>
+</div>
+<!-- 展商列表 -->
+<div class="exhibitor-list" id="exhibitors-container">
+<!-- JS 动态渲染展商项 -->
+</div>
+<!-- 脱敏展馆楼层平面矢量图导览 -->
+<div class="floor-plan-card">
+<div class="section-head" style="margin-bottom:6px;">
+<span class="section-title">展馆楼层展位平面示意</span>
+<span style="font-size:11px; color:var(--conf-text-muted);">**博览中心 1-4号馆</span>
+</div>
+<div class="floor-svg-box">
+<!-- 矢量绘制场馆平面分布 -->
+<svg fill="none" height="120" viewbox="0 0 320 120" width="320" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#EFF6FF" height="100" rx="6" stroke="#93C5FD" stroke-width="1.5" width="65" x="10" y="10"></rect>
+<text fill="#1E40AF" font-size="11" font-weight="700" text-anchor="middle" x="42" y="55">1号馆</text>
+<text fill="#64748B" font-size="9" text-anchor="middle" x="42" y="70">算力与芯片</text>
+<rect fill="#EFF6FF" height="100" rx="6" stroke="#93C5FD" stroke-width="1.5" width="65" x="85" y="10"></rect>
+<text fill="#1E40AF" font-size="11" font-weight="700" text-anchor="middle" x="117" y="55">2号馆</text>
+<text fill="#64748B" font-size="9" text-anchor="middle" x="117" y="70">工业物联</text>
+<rect fill="#ECFDF5" height="100" rx="6" stroke="#A7F3D0" stroke-width="1.5" width="70" x="160" y="10"></rect>
+<text fill="#065F46" font-size="11" font-weight="700" text-anchor="middle" x="195" y="55">3号馆</text>
+<text fill="#64748B" font-size="9" text-anchor="middle" x="195" y="70">机器人装备</text>
+<rect fill="#FEF3C7" height="100" rx="6" stroke="#FDE68A" stroke-width="1.5" width="70" x="240" y="10"></rect>
+<text fill="#92400E" font-size="11" font-weight="700" text-anchor="middle" x="275" y="50">4号主馆</text>
+<text fill="#64748B" font-size="9" text-anchor="middle" x="275" y="65">主旨会议厅</text>
+<text fill="#D97706" font-size="9" font-weight="600" text-anchor="middle" x="275" y="80">VIP报到处</text>
+<!-- 闸机入口指引线 -->
+<line stroke="#CBD5E1" stroke-dasharray="3 3" x1="10" x2="310" y1="115" y2="115"></line>
+<circle cx="160" cy="115" fill="#2563EB" r="3"></circle>
+</svg>
+</div>
+<div style="margin-top:8px; font-size:11px; color:var(--conf-text-muted); display:flex; justify-content:space-between;">
+<span>观众南门入场 · 设立40通道快速智能闸机</span>
+<span onclick="showToast('已更新场馆指引')" style="color:var(--conf-accent); font-weight:600; cursor:pointer;">查看路线</span>
+</div>
+</div>
+<!-- 交通与会务指引卡片 -->
+<div class="section-box" style="padding-top:0;">
+<div class="forum-card">
+<h4 style="font-size:13px; font-weight:700; color:var(--conf-text-title); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+<svg class="icon" height="15" viewbox="0 0 24 24" width="15"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
               大会交通与入场须知
             </h4>
-            <p style="font-size:11.5px; color:var(--conf-text-body); line-height:1.6;">
-              • 地铁推荐：乘坐**号线至“**站”**口直通主登机登录大厅。<br>
-              • 自驾停车：展馆地下停车场 P1/P2 开放，出示大会电子门票享全天停车优惠。<br>
+<p style="font-size:11.5px; color:var(--conf-text-body); line-height:1.6;">
+              • 地铁推荐：乘坐**号线至“**站”**口直通主登机登录大厅。<br/>
+              • 自驾停车：展馆地下停车场 P1/P2 开放，出示大会电子门票享全天停车优惠。<br/>
               • 签到开放时间：每日 08:30 - 16:30，请提前打开小程序电子票夹准备扫码。
             </p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 底部微信小程序原生 Tabbar 导航 -->
-    <div class="bottom-tabbar">
-      <div id="tab-home" class="tabbar-item active" onclick="switchTab('home')">
-        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>首页</span>
-      </div>
-      <div id="tab-schedule" class="tabbar-item" onclick="switchTab('schedule')">
-        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>日程</span>
-      </div>
-      <div id="tab-ticket" class="tabbar-item" onclick="switchTab('ticket')">
-        <div class="tabbar-badge-dot" id="ticket-badge-dot" style="display:none;"></div>
-        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-        <span>票夹</span>
-      </div>
-      <div id="tab-exhibitor" class="tabbar-item" onclick="switchTab('exhibitor')">
-        <svg class="icon" width="22" height="22" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
-        <span>展商</span>
-      </div>
-    </div>
-
-    <!-- ======================================================================
+</div>
+</div>
+</div>
+</div>
+<!-- 底部微信小程序原生 Tabbar 导航 -->
+<div class="bottom-tabbar">
+<div class="tabbar-item active" id="tab-home" onclick="switchTab('home')">
+<svg class="icon" height="22" viewbox="0 0 24 24" width="22"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>首页</span>
+</div>
+<div class="tabbar-item" id="tab-schedule" onclick="switchTab('schedule')">
+<svg class="icon" height="22" viewbox="0 0 24 24" width="22"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>日程</span>
+</div>
+<div class="tabbar-item" id="tab-ticket" onclick="switchTab('ticket')">
+<div class="tabbar-badge-dot" id="ticket-badge-dot" style="display:none;"></div>
+<svg class="icon" height="22" viewbox="0 0 24 24" width="22"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+<span>票夹</span>
+</div>
+<div class="tabbar-item" id="tab-exhibitor" onclick="switchTab('exhibitor')">
+<svg class="icon" height="22" viewbox="0 0 24 24" width="22"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path></svg>
+<span>展商</span>
+</div>
+</div>
+<!-- ======================================================================
          模态浮层与抽屉容器 (Modals & Drawers)
          ====================================================================== -->
-
-    <!-- 1. 票种选购与实名报名底抽屉 (Ticket Selector Sheet) -->
-    <div id="modal-ticket-sheet" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-ticket-sheet')">
-      <div class="bottom-sheet" onclick="event.stopPropagation()">
-        
-        <div class="sheet-header">
-          <div>
-            <div class="sheet-title">选择参会门票与登记</div>
-            <div style="font-size:11px; color:var(--conf-text-muted); margin-top:2px;">实名制审核 · 提交后即刻生成专属电子凭证</div>
-          </div>
-          <button class="sheet-close-btn" onclick="closeTicketSheet()">
-            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <!-- 票种列表 -->
-        <div class="ticket-tier-list">
-          
-          <!-- 早鸟票 -->
-          <div class="ticket-tier-card" id="tier-early" onclick="selectTicketTier('early', 0)">
-            <div class="tier-card-head">
-              <span class="tier-name">早鸟观众票</span>
-              <div class="tier-price-box">
-                <span class="tier-price">免费</span>
-                <span class="tier-origin-price">¥199</span>
-              </div>
-            </div>
-            <div class="tier-feature-list">
-              <div class="tier-feature-item">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-success);"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>1-4**区全通权限，现场体验各展商最新技术</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 标准研讨票 -->
-          <div class="ticket-tier-card" id="tier-standard" onclick="selectTicketTier('standard', 499)">
-            <div class="tier-card-head">
-              <span class="tier-name">专业研讨通票</span>
-              <div class="tier-price-box">
-                <span class="tier-price">¥499</span>
-                <span class="tier-origin-price">¥699</span>
-              </div>
-            </div>
-            <div class="tier-feature-list">
-              <div class="tier-feature-item">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-success);"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>**区 + 全部主题分论坛席位 + 官方电子论文集</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- VIP 贵宾票 -->
-          <div class="ticket-tier-card selected" id="tier-vip" onclick="selectTicketTier('vip', 1299)">
-            <div class="tier-card-head">
-              <span class="tier-name" style="color:var(--conf-gold-hover); font-weight:800;">VIP 尊享贵宾通票</span>
-              <div class="tier-price-box">
-                <span class="tier-price" style="color:var(--conf-gold-hover);">¥1,299</span>
-                <span class="tier-origin-price">¥1,699</span>
-              </div>
-            </div>
-            <div class="tier-feature-list">
-              <div class="tier-feature-item">
-                <svg class="icon" width="12" height="12" viewBox="0 0 24 24" style="color:var(--conf-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>前排贵宾专属坐席 + 闭门交流晚宴 + 定制电子胸卡</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 购票数量加减 -->
-        <div class="count-stepper-row">
-          <div>
-            <div style="font-size:13px; font-weight:700; color:var(--conf-text-title);">参会名额数量</div>
-            <div style="font-size:11px; color:var(--conf-text-muted);">单次最多可登记 5 位参会人</div>
-          </div>
-          <div class="stepper-box">
-            <button class="stepper-btn" onclick="changeTicketCount(-1)">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <span class="stepper-val" id="ticket-count-val">1</span>
-            <button class="stepper-btn" onclick="changeTicketCount(1)">
-              <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- 实名报名信息表单 -->
-        <div style="margin-bottom:14px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-            <span style="font-size:13px; font-weight:800; color:var(--conf-text-title);">参会人实名登记</span>
-            <button class="quick-fill-btn" onclick="quickFillForm()">一键快捷填入合规信息</button>
-          </div>
-
-          <div class="form-group">
-            <div class="form-label">
-              <span>姓名</span>
-              <span style="font-size:10px; color:var(--conf-danger);">* 实名入场必填</span>
-            </div>
-            <input type="text" id="reg-name" class="form-input" placeholder="请输入参会嘉宾真实姓名" value="**参会嘉宾">
-          </div>
-
-          <div class="form-group">
-            <div class="form-label">所属单位 / 企业机构</div>
-            <input type="text" id="reg-company" class="form-input" placeholder="请输入企业或科研机构名称" value="**科技集团">
-          </div>
-
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-            <div class="form-group">
-              <div class="form-label">现任职务</div>
-              <input type="text" id="reg-title" class="form-input" placeholder="职务头衔" value="**">
-            </div>
-            <div class="form-group">
-              <div class="form-label">所属行业</div>
-              <select id="reg-industry" class="form-select">
-                <option value="ai">人工智能 / 智算芯片</option>
-                <option value="iot">工业互联网 / 智能制造</option>
-                <option value="robot">人形机器人 / 具身智能</option>
-                <option value="finance">产业金融 / 创投机构</option>
-                <option value="academic">高校院所 / 科研机构</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="form-label">联系手机号码 (接收出票凭证)</div>
-            <input type="tel" id="reg-phone" class="form-input" placeholder="11位手机号码" value="138**6820">
-          </div>
-        </div>
-
-        <!-- 抽屉结算底栏 -->
-        <div class="sheet-footer">
-          <div class="sheet-total-box">
-            <span class="sheet-total-label">应付总额 (展示模拟免付)</span>
-            <span class="sheet-total-amount" id="sheet-total-price">¥1,299</span>
-          </div>
-          <button class="sheet-submit-btn" onclick="submitRegistration()">
-            <span>确认报名并出票</span>
-            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 2. 学者与嘉宾详细弹窗 -->
-    <div id="modal-speaker" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-speaker')">
-      <div class="center-dialog" onclick="event.stopPropagation()">
-        <div style="text-align:center; margin-bottom:14px;">
-          <div id="dialog-speaker-avatar" class="speaker-avatar" style="width:64px; height:64px; font-size:20px;">陆</div>
-          <h3 id="dialog-speaker-name" style="font-size:16px; font-weight:800; color:var(--conf-text-title); margin-bottom:4px;">**</h3>
-          <div id="dialog-speaker-title" style="font-size:12px; color:var(--conf-text-muted);">定位: 行业高保真商业解决方案</div>
-        </div>
-        <div style="background:var(--conf-bg-subtle); padding:12px; border-radius:var(--conf-radius-md); font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:16px;">
-          <b style="color:var(--conf-text-title); display:block; margin-bottom:4px;">主讲议程与方向:</b>
-          <span id="dialog-speaker-desc">将在全体大会发表《新一代工业大模型体系演进与产业自主化范式》主题报告，重点解析面向智能制造的毫秒级高精度实时控制系统。</span>
-        </div>
-        <button style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="closeModal('modal-speaker')">
+<!-- 1. 票种选购与实名报名底抽屉 (Ticket Selector Sheet) -->
+<div class="modal-backdrop" id="modal-ticket-sheet" onclick="handleBackdropClick(event, 'modal-ticket-sheet')">
+<div class="bottom-sheet" onclick="event.stopPropagation()">
+<div class="sheet-header">
+<div>
+<div class="sheet-title">选择参会门票与登记</div>
+<div style="font-size:11px; color:var(--conf-text-muted); margin-top:2px;">实名制审核 · 提交后即刻生成专属电子凭证</div>
+</div>
+<button class="sheet-close-btn" onclick="closeTicketSheet()">
+<svg class="icon" height="16" viewbox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<!-- 票种列表 -->
+<div class="ticket-tier-list">
+<!-- 早鸟票 -->
+<div class="ticket-tier-card" id="tier-early" onclick="selectTicketTier('early', 0)">
+<div class="tier-card-head">
+<span class="tier-name">早鸟观众票</span>
+<div class="tier-price-box">
+<span class="tier-price">免费</span>
+<span class="tier-origin-price">¥199</span>
+</div>
+</div>
+<div class="tier-feature-list">
+<div class="tier-feature-item">
+<svg class="icon" height="12" style="color:var(--conf-success);" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>1-4**区全通权限，现场体验各展商最新技术</span>
+</div>
+</div>
+</div>
+<!-- 标准研讨票 -->
+<div class="ticket-tier-card" id="tier-standard" onclick="selectTicketTier('standard', 499)">
+<div class="tier-card-head">
+<span class="tier-name">专业研讨通票</span>
+<div class="tier-price-box">
+<span class="tier-price">¥499</span>
+<span class="tier-origin-price">¥699</span>
+</div>
+</div>
+<div class="tier-feature-list">
+<div class="tier-feature-item">
+<svg class="icon" height="12" style="color:var(--conf-success);" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>**区 + 全部主题分论坛席位 + 官方电子论文集</span>
+</div>
+</div>
+</div>
+<!-- VIP 贵宾票 -->
+<div class="ticket-tier-card selected" id="tier-vip" onclick="selectTicketTier('vip', 1299)">
+<div class="tier-card-head">
+<span class="tier-name" style="color:var(--conf-gold-hover); font-weight:800;">VIP 尊享贵宾通票</span>
+<div class="tier-price-box">
+<span class="tier-price" style="color:var(--conf-gold-hover);">¥1,299</span>
+<span class="tier-origin-price">¥1,699</span>
+</div>
+</div>
+<div class="tier-feature-list">
+<div class="tier-feature-item">
+<svg class="icon" height="12" style="color:var(--conf-gold);" viewbox="0 0 24 24" width="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>前排贵宾专属坐席 + 闭门交流晚宴 + 定制电子胸卡</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 购票数量加减 -->
+<div class="count-stepper-row">
+<div>
+<div style="font-size:13px; font-weight:700; color:var(--conf-text-title);">参会名额数量</div>
+<div style="font-size:11px; color:var(--conf-text-muted);">单次最多可登记 5 位参会人</div>
+</div>
+<div class="stepper-box">
+<button class="stepper-btn" onclick="changeTicketCount(-1)">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+</button>
+<span class="stepper-val" id="ticket-count-val">1</span>
+<button class="stepper-btn" onclick="changeTicketCount(1)">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+</button>
+</div>
+</div>
+<!-- 实名报名信息表单 -->
+<div style="margin-bottom:14px;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+<span style="font-size:13px; font-weight:800; color:var(--conf-text-title);">参会人实名登记</span>
+<button class="quick-fill-btn" onclick="quickFillForm()">一键快捷填入合规信息</button>
+</div>
+<div class="form-group">
+<div class="form-label">
+<span>姓名</span>
+<span style="font-size:10px; color:var(--conf-danger);">* 实名入场必填</span>
+</div>
+<input class="form-input" id="reg-name" placeholder="请输入参会嘉宾真实姓名" type="text" value="**参会嘉宾"/>
+</div>
+<div class="form-group">
+<div class="form-label">所属单位 / 企业机构</div>
+<input class="form-input" id="reg-company" placeholder="请输入企业或科研机构名称" type="text" value="**科技集团"/>
+</div>
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+<div class="form-group">
+<div class="form-label">现任职务</div>
+<input class="form-input" id="reg-title" placeholder="职务头衔" type="text" value="**"/>
+</div>
+<div class="form-group">
+<div class="form-label">所属行业</div>
+<select class="form-select" id="reg-industry">
+<option value="ai">人工智能 / 智算芯片</option>
+<option value="iot">工业互联网 / 智能制造</option>
+<option value="robot">人形机器人 / 具身智能</option>
+<option value="finance">产业金融 / 创投机构</option>
+<option value="academic">高校院所 / 科研机构</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<div class="form-label">联系手机号码 (接收出票凭证)</div>
+<input class="form-input" id="reg-phone" placeholder="11位手机号码" type="tel" value="138**6820"/>
+</div>
+</div>
+<!-- 抽屉结算底栏 -->
+<div class="sheet-footer">
+<div class="sheet-total-box">
+<span class="sheet-total-label">应付总额 (展示模拟免付)</span>
+<span class="sheet-total-amount" id="sheet-total-price">¥1,299</span>
+</div>
+<button class="sheet-submit-btn" onclick="submitRegistration()">
+<span>确认报名并出票</span>
+<svg class="icon" height="16" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- 2. 学者与嘉宾详细弹窗 -->
+<div class="modal-backdrop" id="modal-speaker" onclick="handleBackdropClick(event, 'modal-speaker')">
+<div class="center-dialog" onclick="event.stopPropagation()">
+<div style="text-align:center; margin-bottom:14px;">
+<div class="speaker-avatar" id="dialog-speaker-avatar" style="width:64px; height:64px; font-size:20px;">陆</div>
+<h3 id="dialog-speaker-name" style="font-size:16px; font-weight:800; color:var(--conf-text-title); margin-bottom:4px;">**</h3>
+<div id="dialog-speaker-title" style="font-size:12px; color:var(--conf-text-muted);">定位: 行业高保真商业解决方案</div>
+</div>
+<div style="background:var(--conf-bg-subtle); padding:12px; border-radius:var(--conf-radius-md); font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:16px;">
+<b style="color:var(--conf-text-title); display:block; margin-bottom:4px;">主讲议程与方向:</b>
+<span id="dialog-speaker-desc">将在全体大会发表《新一代工业大模型体系演进与产业自主化范式》主题报告，重点解析面向智能制造的毫秒级高精度实时控制系统。</span>
+</div>
+<button onclick="closeModal('modal-speaker')" style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;">
           已知晓
         </button>
-      </div>
-    </div>
-
-    <!-- 3. 展商详细弹窗 -->
-    <div id="modal-exhibitor" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-exhibitor')">
-      <div class="center-dialog" onclick="event.stopPropagation()">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-          <div>
-            <span id="dialog-ex-booth" class="ex-booth-badge">展位 Hall 1-A08</span>
-            <h3 id="dialog-ex-name" style="font-size:15px; font-weight:800; color:var(--conf-text-title); margin-top:6px;">**芯片科技公司</h3>
-          </div>
-          <button class="sheet-close-btn" onclick="closeModal('modal-exhibitor')">
-            <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        
-        <p id="dialog-ex-desc" style="font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:12px; background:var(--conf-bg-subtle); padding:10px; border-radius:var(--conf-radius-sm);">
+</div>
+</div>
+<!-- 3. 展商详细弹窗 -->
+<div class="modal-backdrop" id="modal-exhibitor" onclick="handleBackdropClick(event, 'modal-exhibitor')">
+<div class="center-dialog" onclick="event.stopPropagation()">
+<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+<div>
+<span class="ex-booth-badge" id="dialog-ex-booth">展位 Hall 1-A08</span>
+<h3 id="dialog-ex-name" style="font-size:15px; font-weight:800; color:var(--conf-text-title); margin-top:6px;">**芯片科技公司</h3>
+</div>
+<button class="sheet-close-btn" onclick="closeModal('modal-exhibitor')">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<p id="dialog-ex-desc" style="font-size:12px; color:var(--conf-text-body); line-height:1.6; margin-bottom:12px; background:var(--conf-bg-subtle); padding:10px; border-radius:var(--conf-radius-sm);">
           专注于高能效边缘智算推理芯片设计，本次展会将实机动态展示千亿级参数端侧工业质检加速模组。
         </p>
-
-        <div style="font-size:11.5px; color:var(--conf-text-muted); line-height:1.8; margin-bottom:16px;">
-          <div>• 展品类别：端侧算力模组 / 视觉加速卡</div>
-          <div>• 商务联络：**（展位现场提供样片测试）</div>
-          <div>• 展位地点：**博览中心 1号馆 A区中央岛台</div>
-        </div>
-
-        <button style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="showToast('已复制展位号并保存名片')">
+<div style="font-size:11.5px; color:var(--conf-text-muted); line-height:1.8; margin-bottom:16px;">
+<div>• 展品类别：端侧算力模组 / 视觉加速卡</div>
+<div>• 商务联络：**（展位现场提供样片测试）</div>
+<div>• 展位地点：**博览中心 1号馆 A区中央岛台</div>
+</div>
+<button onclick="showToast('已复制展位号并保存名片')" style="width:100%; height:38px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;">
           保存展位信息
         </button>
-      </div>
-    </div>
-
-    <!-- 4. 微信小程序菜单弹窗 (WeChat Action Sheet) -->
-    <div id="modal-wx-menu" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-wx-menu')">
-      <div class="center-dialog" style="text-align:center;" onclick="event.stopPropagation()">
-        <h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">微信小程序快捷面板</h4>
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-bottom:16px;">
-          <div style="cursor:pointer;" onclick="showToast('已生成大会分享海报')">
-            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-primary-light); color:var(--conf-primary); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            </div>
-            <span style="font-size:11px;">转发好友</span>
-          </div>
-          <div style="cursor:pointer;" onclick="showToast('已添加到微信收藏夹')">
-            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-gold-light); color:var(--conf-gold); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <span style="font-size:11px;">添加到收藏</span>
-          </div>
-          <div style="cursor:pointer;" onclick="showToast('已重置并刷新会务数据')">
-            <div style="width:44px; height:44px; border-radius:50%; background:var(--conf-success-light); color:var(--conf-success); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            </div>
-            <span style="font-size:11px;">重新进入</span>
-          </div>
-        </div>
-        <button style="width:100%; height:36px; background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); border-radius:var(--conf-radius-md); font-size:12px; font-weight:700; color:var(--conf-text-muted); cursor:pointer;" onclick="closeModal('modal-wx-menu')">
+</div>
+</div>
+<!-- 4. 微信小程序菜单弹窗 (WeChat Action Sheet) -->
+<div class="modal-backdrop" id="modal-wx-menu" onclick="handleBackdropClick(event, 'modal-wx-menu')">
+<div class="center-dialog" onclick="event.stopPropagation()" style="text-align:center;">
+<h4 style="font-size:14px; font-weight:700; margin-bottom:12px;">微信小程序快捷面板</h4>
+<div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-bottom:16px;">
+<div onclick="showToast('已生成大会分享海报')" style="cursor:pointer;">
+<div style="width:44px; height:44px; border-radius:50%; background:var(--conf-primary-light); color:var(--conf-primary); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+</div>
+<span style="font-size:11px;">转发好友</span>
+</div>
+<div onclick="showToast('已添加到微信收藏夹')" style="cursor:pointer;">
+<div style="width:44px; height:44px; border-radius:50%; background:var(--conf-gold-light); color:var(--conf-gold); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+</div>
+<span style="font-size:11px;">添加到收藏</span>
+</div>
+<div onclick="showToast('已重置并刷新会务数据')" style="cursor:pointer;">
+<div style="width:44px; height:44px; border-radius:50%; background:var(--conf-success-light); color:var(--conf-success); margin:0 auto 6px; display:flex; align-items:center; justify-content:center;">
+<svg class="icon" height="20" viewbox="0 0 24 24" width="20"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+</div>
+<span style="font-size:11px;">重新进入</span>
+</div>
+</div>
+<button onclick="closeModal('modal-wx-menu')" style="width:100%; height:36px; background:var(--conf-bg-subtle); border:1px solid var(--conf-border-light); border-radius:var(--conf-radius-md); font-size:12px; font-weight:700; color:var(--conf-text-muted); cursor:pointer;">
           取消
         </button>
-      </div>
-    </div>
-
-    <!-- 5. 参会指南弹窗 (Conference Guide) -->
-    <div id="modal-guide" class="modal-backdrop" onclick="handleBackdropClick(event, 'modal-guide')">
-      <div class="bottom-sheet" onclick="event.stopPropagation()">
-        <div class="sheet-header">
-          <div class="sheet-title">参会观众与嘉宾指南</div>
-          <button class="sheet-close-btn" onclick="closeModal('modal-guide')">
-            <svg class="icon" width="16" height="16" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="font-size:12.5px; color:var(--conf-text-body); line-height:1.7;">
-          <p><b>一、实名入场与门票核验</b><br>
+</div>
+</div>
+<!-- 5. 参会指南弹窗 (Conference Guide) -->
+<div class="modal-backdrop" id="modal-guide" onclick="handleBackdropClick(event, 'modal-guide')">
+<div class="bottom-sheet" onclick="event.stopPropagation()">
+<div class="sheet-header">
+<div class="sheet-title">参会观众与嘉宾指南</div>
+<button class="sheet-close-btn" onclick="closeModal('modal-guide')">
+<svg class="icon" height="16" viewbox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:12.5px; color:var(--conf-text-body); line-height:1.7;">
+<p><b>一、实名入场与门票核验</b><br/>
           大会实行全员实名制通行。到达**博览中心南大厅后，请提前在微信小程序中打开【电子票夹】，将动态入场二维码对准**区即可秒级验票通行。</p>
-          <br>
-          <p><b>二、电子胸卡佩戴</b><br>
+<br/>
+<p><b>二、电子胸卡佩戴</b><br/>
           在票夹上方点击“参会胸卡预览”可随时调出带头像与企业信息的电子胸卡，进入分会场及晚宴时由安保人员核对身份后入内。</p>
-          <br>
-          <p><b>三、日程订阅与同声传译</b><br>
+<br/>
+<p><b>三、日程订阅与同声传译</b><br/>
           可在“大会日程”中点击星标关注议程，开幕前将接收日程提醒。各主会场服务台凭身份证件可免费借用双语同传耳机。</p>
-        </div>
-        <button style="margin-top:16px; width:100%; height:40px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;" onclick="closeModal('modal-guide')">
+</div>
+<button onclick="closeModal('modal-guide')" style="margin-top:16px; width:100%; height:40px; background:var(--conf-primary); color:var(--conf-text-inverse); border:none; border-radius:var(--conf-radius-md); font-size:13px; font-weight:700; cursor:pointer;">
           我知道了
         </button>
-      </div>
-    </div>
-
-    <!-- 6. 微信轻量 Toast 提示 -->
-    <div id="global-toast" class="toast-box">
-      <svg class="icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-      <span id="toast-text">已为您添加关注</span>
-    </div>
-
-  </div>
-
-  <!-- ========================================================================
+</div>
+</div>
+<!-- 6. 微信轻量 Toast 提示 -->
+<div class="toast-box" id="global-toast">
+<svg class="icon" height="14" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+<span id="toast-text">已为您添加关注</span>
+</div>
+</div>
+<!-- ========================================================================
        前端交互状态机与事件引擎 (Vanilla JS)
        ======================================================================== -->
-  <script>
+<script>
     /* 全局脱敏数据仓库与应用状态 */
     const AppData = {
       activeTab: 'home',
@@ -2973,6 +2890,5 @@
       }, 1900);
     }
   </script>
-
 </body>
 </html>

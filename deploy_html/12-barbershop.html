@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>某工匠男士理发馆 - 小程序演示</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>某工匠男士理发馆 - 小程序演示</title>
+<style>
     :root {
       /* 品牌复古工匠色系 - 去 AI 样态 */
       --color-primary: #B45309;
@@ -1236,873 +1237,786 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 手机真机模拟视口 -->
+<div class="phone-container">
+<!-- 顶部 iOS 状态栏 -->
 
+<!-- 微信小程序原生导航头与胶囊 -->
 
-  <!-- 手机真机模拟视口 -->
-  <div class="phone-container">
-
-    <!-- 顶部 iOS 状态栏 -->
-    <div class="status-bar">
-      <span id="live-time">10:24</span>
-      <div class="status-icons">
-        <!-- 矢量网络与电量图标 -->
-        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <svg class="icon" viewBox="0 0 24 24"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序原生导航头与胶囊 -->
-    <div class="mp-nav-bar">
-      <div class="nav-title">
-        <span>某工匠男士理发馆</span>
-        <span class="nav-badge">认证店</span>
-      </div>
-      <!-- 官方真实 87x30 胶囊按钮组件 -->
-      <div class="wechat-capsule" onclick="toggleCapsuleMenu()">
-        <div class="capsule-dots">
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-        </div>
-        <div class="capsule-divider"></div>
-        <div class="capsule-circle">
-          <div class="capsule-circle-inner"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- **区域 -->
-    <div class="mp-content" id="scrollable-content">
-
-      <!-- ==============================
+<!-- **区域 -->
+<div class="mp-content" id="scrollable-content">
+<!-- ==============================
            TAB 0: 首页 (门店概况与在线叫号排队)
            ============================== -->
-      <div id="pane-0" class="tab-pane active">
-
-        <!-- 门店营业状态卡片 -->
-        <div class="card" style="padding: 12px 14px;">
-          <div class="store-header">
-            <div>
-              <div class="store-name">
-                <span>某工匠男士理发空间</span>
-                <span class="status-pill open">
-                  <span style="width:5px;height:5px;border-radius:50%;background:#059669;"></span>
+<div class="tab-pane active" id="pane-0">
+<!-- 门店营业状态卡片 -->
+<div class="card" style="padding: 12px 14px;">
+<div class="store-header">
+<div>
+<div class="store-name">
+<span>某工匠男士理发空间</span>
+<span class="status-pill open">
+<span style="width:5px;height:5px;border-radius:50%;background:#059669;"></span>
                   营业中
                 </span>
-              </div>
-              <div class="store-meta">
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>今日 10:00 - 21:30</span>
-                <span style="margin:0 2px;">·</span>
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <**街**号工坊B座</span>
-              </div>
-            </div>
-            <button class="btn btn-outline" style="padding: 5px 8px; font-size: 11px;" onclick="showDialModal()">
-              <svg class="icon" style="width:13px;height:13px;" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+</div>
+<div class="store-meta">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>今日 10:00 - 21:30</span>
+<span style="margin:0 2px;">·</span>
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                &lt;**街**号工坊B座
+</div>
+</div>
+<button class="btn btn-outline" onclick="showDialModal()" style="padding: 5px 8px; font-size: 11px;">
+<svg class="icon" style="width:13px;height:13px;" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               咨询
             </button>
-          </div>
-        </div>
-
-        <!-- 实时排号看板 (Queue Board) -->
-        <div class="queue-board">
-          <div class="queue-board-top">
-            <div class="queue-title">
-              <svg class="icon" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>实时叫号与排队看板</span>
-            </div>
-            <button class="queue-refresh-btn" onclick="refreshQueueStatus()">
-              <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-              <span>刷新进度</span>
-            </button>
-          </div>
-
-          <div class="queue-grid">
-            <div>
-              <div class="queue-item-val" id="disp-current-serving">A-15</div>
-              <div class="queue-item-lbl">当前叫号</div>
-            </div>
-            <div>
-              <div class="queue-item-val highlight" id="disp-waiting-count">3 人</div>
-              <div class="queue-item-lbl">等待人数</div>
-            </div>
-            <div>
-              <div class="queue-item-val" id="disp-est-time">约 35 分钟</div>
-              <div class="queue-item-lbl">预计等待</div>
-            </div>
-          </div>
-
-          <!-- **区 (已取号 vs 未取号 动态切换) -->
-          <div id="queue-action-box">
-            <!-- 默认未取号状态 -->
-            <div id="unqueued-view">
-              <button class="btn btn-primary btn-block" onclick="openQueueSheet()">
-                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span>立即在线取号</span>
-              </button>
-            </div>
-            <!-- 已取号状态 -->
-            <div id="queued-view" style="display: none; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <div>
-                  <span style="font-size:11px; color:#CBD5E1;">我的排号：</span>
-                  <b style="font-size:16px; color:var(--color-primary-light);" id="disp-my-ticket">A-16</b>
-                </div>
-                <span style="font-size:11px; color:#A7F3D0; background:rgba(5,150,105,0.25); padding:2px 8px; border-radius:10px;">排队中 (前面 2 人)</span>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-secondary" style="flex:1; padding:7px; font-size:12px;" onclick="switchMpTab(3)">
+</div>
+</div>
+<!-- 实时排号看板 (Queue Board) -->
+<div class="queue-board">
+<div class="queue-board-top">
+<div class="queue-title">
+<svg class="icon" style="width:15px;height:15px;" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>实时叫号与排队看板</span>
+</div>
+<button class="queue-refresh-btn" onclick="refreshQueueStatus()">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+<span>刷新进度</span>
+</button>
+</div>
+<div class="queue-grid">
+<div>
+<div class="queue-item-val" id="disp-current-serving">A-15</div>
+<div class="queue-item-lbl">当前叫号</div>
+</div>
+<div>
+<div class="queue-item-val highlight" id="disp-waiting-count">3 人</div>
+<div class="queue-item-lbl">等待人数</div>
+</div>
+<div>
+<div class="queue-item-val" id="disp-est-time">约 35 分钟</div>
+<div class="queue-item-lbl">预计等待</div>
+</div>
+</div>
+<!-- **区 (已取号 vs 未取号 动态切换) -->
+<div id="queue-action-box">
+<!-- 默认未取号状态 -->
+<div id="unqueued-view">
+<button class="btn btn-primary btn-block" onclick="openQueueSheet()">
+<svg class="icon" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>立即在线取号</span>
+</button>
+</div>
+<!-- 已取号状态 -->
+<div id="queued-view" style="display: none; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+<div>
+<span style="font-size:11px; color:#CBD5E1;">我的排号：</span>
+<b id="disp-my-ticket" style="font-size:16px; color:var(--color-primary-light);">A-16</b>
+</div>
+<span style="font-size:11px; color:#A7F3D0; background:rgba(5,150,105,0.25); padding:2px 8px; border-radius:10px;">排队中 (前面 2 人)</span>
+</div>
+<div style="display:flex; gap:8px;">
+<button class="btn btn-secondary" onclick="switchMpTab(3)" style="flex:1; padding:7px; font-size:12px;">
                   查看核销凭证
                 </button>
-                <button class="btn btn-outline" style="flex:1; padding:7px; font-size:12px; color:#FCA5A5; border-color:rgba(239,68,68,0.4);" onclick="confirmCancelQueue()">
+<button class="btn btn-outline" onclick="confirmCancelQueue()" style="flex:1; padding:7px; font-size:12px; color:#FCA5A5; border-color:rgba(239,68,68,0.4);">
                   取消排号
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 今日在岗**人员 (Horizontal Scroll) -->
-        <div class="section-title-bar">
-          <div class="section-title">
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-            <span>今日在岗手艺人</span>
-          </div>
-          <span style="font-size:11px; color:var(--color-text-sub); cursor:pointer;" onclick="switchMpTab(1)">查看全日排班 ›</span>
-        </div>
-
-        <div class="barber-scroll-box">
-          <!-- 师傅 1 -->
-          <div class="barber-chip-card">
-            <div class="barber-avatar-box">
-              <svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="barber-name">**老师</div>
-            <div class="barber-title">主理人</div>
-            <div class="barber-exp">9年从业 · 评分 4.9</div>
-            <div class="barber-status-tag free">在岗空闲</div>
-            <button class="btn btn-primary" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;" onclick="quickBookBarber('b1')">
+</div>
+</div>
+</div>
+</div>
+<!-- 今日在岗**人员 (Horizontal Scroll) -->
+<div class="section-title-bar">
+<div class="section-title">
+<svg class="icon" viewbox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" x2="8.12" y1="4" y2="15.88"></line><line x1="14.47" x2="20" y1="14.48" y2="20"></line><line x1="8.12" x2="12" y1="8.12" y2="12"></line></svg>
+<span>今日在岗手艺人</span>
+</div>
+<span onclick="switchMpTab(1)" style="font-size:11px; color:var(--color-text-sub); cursor:pointer;">查看全日排班 ›</span>
+</div>
+<div class="barber-scroll-box">
+<!-- 师傅 1 -->
+<div class="barber-chip-card">
+<div class="barber-avatar-box">
+<svg class="icon" style="width:26px;height:26px;" viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div class="barber-name">**老师</div>
+<div class="barber-title">主理人</div>
+<div class="barber-exp">9年从业 · 评分 4.9</div>
+<div class="barber-status-tag free">在岗空闲</div>
+<button class="btn btn-primary" onclick="quickBookBarber('b1')" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;">
               **师傅
             </button>
-          </div>
-
-          <!-- 师傅 2 -->
-          <div class="barber-chip-card">
-            <div class="barber-avatar-box">
-              <svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="barber-name">**师傅</div>
-            <div class="barber-title">造型**</div>
-            <div class="barber-exp">6年从业 · 评分 4.9</div>
-            <div class="barber-status-tag busy">服务中 (预计15m)</div>
-            <button class="btn btn-secondary" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;" onclick="quickBookBarber('b2')">
+</div>
+<!-- 师傅 2 -->
+<div class="barber-chip-card">
+<div class="barber-avatar-box">
+<svg class="icon" style="width:26px;height:26px;" viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div class="barber-name">**师傅</div>
+<div class="barber-title">造型**</div>
+<div class="barber-exp">6年从业 · 评分 4.9</div>
+<div class="barber-status-tag busy">服务中 (预计15m)</div>
+<button class="btn btn-secondary" onclick="quickBookBarber('b2')" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;">
               预约时段
             </button>
-          </div>
-
-          <!-- 师傅 3 -->
-          <div class="barber-chip-card">
-            <div class="barber-avatar-box">
-              <svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="barber-name">Ray老师</div>
-            <div class="barber-title">资深**人员</div>
-            <div class="barber-exp">4年从业 · 评分 4.8</div>
-            <div class="barber-status-tag free">在岗空闲</div>
-            <button class="btn btn-primary" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;" onclick="quickBookBarber('b3')">
+</div>
+<!-- 师傅 3 -->
+<div class="barber-chip-card">
+<div class="barber-avatar-box">
+<svg class="icon" style="width:26px;height:26px;" viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div class="barber-name">Ray老师</div>
+<div class="barber-title">资深**人员</div>
+<div class="barber-exp">4年从业 · 评分 4.8</div>
+<div class="barber-status-tag free">在岗空闲</div>
+<button class="btn btn-primary" onclick="quickBookBarber('b3')" style="padding:4px 10px; font-size:11px; margin-top:8px; width:100%;">
               **师傅
             </button>
-          </div>
-        </div>
-
-        <!-- 精选服务项目卡片 -->
-        <div class="section-title-bar">
-          <div class="section-title">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-            <span>经典招牌项目</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-left">
-            <div class="service-name">经典美式渐变油头造型</div>
-            <div class="service-desc">洁发 + 分线定位 + 渐变推边精修 + 热敷收尾 + 发油造型</div>
-            <div class="service-tags">
-              <span class="tag-item">约45分钟</span>
-              <span class="tag-item">招牌力荐</span>
-            </div>
-            <div class="service-price">¥128</div>
-          </div>
-          <button class="btn btn-primary" onclick="quickBookService('s1')">
+</div>
+</div>
+<!-- 精选服务项目卡片 -->
+<div class="section-title-bar">
+<div class="section-title">
+<svg class="icon" viewbox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+<span>经典招牌项目</span>
+</div>
+</div>
+<div class="service-card">
+<div class="service-left">
+<div class="service-name">经典美式渐变油头造型</div>
+<div class="service-desc">洁发 + 分线定位 + 渐变推边精修 + 热敷收尾 + 发油造型</div>
+<div class="service-tags">
+<span class="tag-item">约45分钟</span>
+<span class="tag-item">招牌力荐</span>
+</div>
+<div class="service-price">¥128</div>
+</div>
+<button class="btn btn-primary" onclick="quickBookService('s1')">
             预约办理
           </button>
-        </div>
-
-        <div class="service-card">
-          <div class="service-left">
-            <div class="service-name">男士手工刀削热敷修面</div>
-            <div class="service-desc">面部温热敷 + 须根软化 + 传统手工精剃 + 须后收敛水养护</div>
-            <div class="service-tags">
-              <span class="tag-item">约30分钟</span>
-              <span class="tag-item">舒缓放松</span>
-            </div>
-            <div class="service-price">¥88</div>
-          </div>
-          <button class="btn btn-primary" onclick="quickBookService('s2')">
+</div>
+<div class="service-card">
+<div class="service-left">
+<div class="service-name">男士手工刀削热敷修面</div>
+<div class="service-desc">面部温热敷 + 须根软化 + 传统手工精剃 + 须后收敛水养护</div>
+<div class="service-tags">
+<span class="tag-item">约30分钟</span>
+<span class="tag-item">舒缓放松</span>
+</div>
+<div class="service-price">¥88</div>
+</div>
+<button class="btn btn-primary" onclick="quickBookService('s2')">
             预约办理
           </button>
-        </div>
-
-        <div class="service-card">
-          <div class="service-left">
-            <div class="service-name">清爽极简纯剪精修</div>
-            <div class="service-desc">发量调节 + 鬓角收拢 + 领口轮廓整理 + 吹风定型</div>
-            <div class="service-tags">
-              <span class="tag-item">约30分钟</span>
-              <span class="tag-item">高性价比</span>
-            </div>
-            <div class="service-price">¥68</div>
-          </div>
-          <button class="btn btn-primary" onclick="quickBookService('s4')">
+</div>
+<div class="service-card">
+<div class="service-left">
+<div class="service-name">清爽极简纯剪精修</div>
+<div class="service-desc">发量调节 + 鬓角收拢 + 领口轮廓整理 + 吹风定型</div>
+<div class="service-tags">
+<span class="tag-item">约30分钟</span>
+<span class="tag-item">高性价比</span>
+</div>
+<div class="service-price">¥68</div>
+</div>
+<button class="btn btn-primary" onclick="quickBookService('s4')">
             预约办理
           </button>
-        </div>
-
-      </div>
-
-
-      <!-- ==============================
+</div>
+</div>
+<!-- ==============================
            TAB 1: 预约 (精准按时段与手艺人预约)
            ============================== -->
-      <div id="pane-1" class="tab-pane">
-
-        <!-- 分类选择药丸 -->
-        <div class="filter-pills-bar">
-          <div class="filter-pill active" onclick="filterServices('all', this)">全部项目</div>
-          <div class="filter-pill" onclick="filterServices('cut', this)">剪发造型</div>
-          <div class="filter-pill" onclick="filterServices('shave', this)">修容修面</div>
-          <div class="filter-pill" onclick="filterServices('care', this)">烫染护理</div>
-        </div>
-
-        <!-- 预约步骤说明卡 -->
-        <div class="card" style="background:#FEF3C7; border-color:#FDE68A; padding:10px 12px; margin-bottom:12px;">
-          <div style="font-size:11px; color:#92400E; display:flex; align-items:center; gap:6px;">
-            <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span><b>预约温馨提示</b>：支持提前3天预约，若行程有变请提前2小时取消。</span>
-          </div>
-        </div>
-
-        <!-- 预约服务清单 -->
-        <div id="services-list-container">
-          <!-- 动态服务卡片 -->
-          <div class="card service-item" data-category="cut">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <b style="font-size:14px; color:var(--color-text-main);">美式硬朗渐变（Low/Mid Fade）</b>
-                <div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
+<div class="tab-pane" id="pane-1">
+<!-- 分类选择药丸 -->
+<div class="filter-pills-bar">
+<div class="filter-pill active" onclick="filterServices('all', this)">全部项目</div>
+<div class="filter-pill" onclick="filterServices('cut', this)">剪发造型</div>
+<div class="filter-pill" onclick="filterServices('shave', this)">修容修面</div>
+<div class="filter-pill" onclick="filterServices('care', this)">烫染护理</div>
+</div>
+<!-- 预约步骤说明卡 -->
+<div class="card" style="background:#FEF3C7; border-color:#FDE68A; padding:10px 12px; margin-bottom:12px;">
+<div style="font-size:11px; color:#92400E; display:flex; align-items:center; gap:6px;">
+<svg class="icon" style="width:14px;height:14px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span><b>预约温馨提示</b>：支持提前3天预约，若行程有变请提前2小时取消。</span>
+</div>
+</div>
+<!-- 预约服务清单 -->
+<div id="services-list-container">
+<!-- 动态服务卡片 -->
+<div class="card service-item" data-category="cut">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<b style="font-size:14px; color:var(--color-text-main);">美式硬朗渐变（Low/Mid Fade）</b>
+<div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
                   采用专业渐变电推，精确分层过渡，包含洗剪吹全流程
                 </div>
-              </div>
-              <b style="font-size:16px; color:var(--color-primary);">¥128</b>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
-              <span style="font-size:11px; color:var(--color-text-sub);">
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<b style="font-size:16px; color:var(--color-primary);">¥128</b>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
+<span style="font-size:11px; color:var(--color-text-sub);">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 耗时 45 分钟
               </span>
-              <button class="btn btn-primary" style="padding:5px 12px; font-size:12px;" onclick="openBookingSheet('s1')">
+<button class="btn btn-primary" onclick="openBookingSheet('s1')" style="padding:5px 12px; font-size:12px;">
                 选时段预约
               </button>
-            </div>
-          </div>
-
-          <div class="card service-item" data-category="shave">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <b style="font-size:14px; color:var(--color-text-main);">传统热毛巾复古修面</b>
-                <div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
+</div>
+</div>
+<div class="card service-item" data-category="shave">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<b style="font-size:14px; color:var(--color-text-main);">传统热毛巾复古修面</b>
+<div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
                   双重热敷蒸汽、手工剃须刮面、面部死皮软化、植物须后水
                 </div>
-              </div>
-              <b style="font-size:16px; color:var(--color-primary);">¥88</b>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
-              <span style="font-size:11px; color:var(--color-text-sub);">
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<b style="font-size:16px; color:var(--color-primary);">¥88</b>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
+<span style="font-size:11px; color:var(--color-text-sub);">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 耗时 30 分钟
               </span>
-              <button class="btn btn-primary" style="padding:5px 12px; font-size:12px;" onclick="openBookingSheet('s2')">
+<button class="btn btn-primary" onclick="openBookingSheet('s2')" style="padding:5px 12px; font-size:12px;">
                 选时段预约
               </button>
-            </div>
-          </div>
-
-          <div class="card service-item" data-category="care">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <b style="font-size:14px; color:var(--color-text-main);">头皮净澈与草本毛囊护理</b>
-                <div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
+</div>
+</div>
+<div class="card service-item" data-category="care">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<b style="font-size:14px; color:var(--color-text-main);">头皮净澈与草本毛囊护理</b>
+<div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
                   深层头皮去油脂清洁、草本精油穴位按摩、发根清爽赋活
                 </div>
-              </div>
-              <b style="font-size:16px; color:var(--color-primary);">¥158</b>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
-              <span style="font-size:11px; color:var(--color-text-sub);">
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<b style="font-size:16px; color:var(--color-primary);">¥158</b>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
+<span style="font-size:11px; color:var(--color-text-sub);">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 耗时 40 分钟
               </span>
-              <button class="btn btn-primary" style="padding:5px 12px; font-size:12px;" onclick="openBookingSheet('s3')">
+<button class="btn btn-primary" onclick="openBookingSheet('s3')" style="padding:5px 12px; font-size:12px;">
                 选时段预约
               </button>
-            </div>
-          </div>
-
-          <div class="card service-item" data-category="cut">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <b style="font-size:14px; color:var(--color-text-main);">经典极简快剪修形</b>
-                <div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
+</div>
+</div>
+<div class="card service-item" data-category="cut">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<b style="font-size:14px; color:var(--color-text-main);">经典极简快剪修形</b>
+<div style="font-size:11px; color:var(--color-text-sub); margin-top:3px;">
                   不含繁复烫染，专注轮廓利落修剪，适合高频修整
                 </div>
-              </div>
-              <b style="font-size:16px; color:var(--color-primary);">¥68</b>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
-              <span style="font-size:11px; color:var(--color-text-sub);">
-                <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+<b style="font-size:16px; color:var(--color-primary);">¥68</b>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #F1F5F9; padding-top:8px;">
+<span style="font-size:11px; color:var(--color-text-sub);">
+<svg class="icon" style="width:12px;height:12px;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 耗时 30 分钟
               </span>
-              <button class="btn btn-primary" style="padding:5px 12px; font-size:12px;" onclick="openBookingSheet('s4')">
+<button class="btn btn-primary" onclick="openBookingSheet('s4')" style="padding:5px 12px; font-size:12px;">
                 选时段预约
               </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- ==============================
+</div>
+</div>
+</div>
+</div>
+<!-- ==============================
            TAB 2: 图鉴 (客照作品瀑布流与同款预约)
            ============================== -->
-      <div id="pane-2" class="tab-pane">
-
-        <!-- 风格标签筛选 -->
-        <div class="filter-pills-bar">
-          <div class="filter-pill active" onclick="filterGallery('all', this)">全部客照</div>
-          <div class="filter-pill" onclick="filterGallery('fade', this)">美式渐变</div>
-          <div class="filter-pill" onclick="filterGallery('pompadour', this)">复古背头</div>
-          <div class="filter-pill" onclick="filterGallery('buzz', this)">清爽寸头</div>
-          <div class="filter-pill" onclick="filterGallery('texture', this)">纹理烫发</div>
-        </div>
-
-        <!-- 作品画廊双列网格 -->
-        <div class="gallery-grid" id="gallery-container">
-
-          <!-- 作品 1 -->
-          <div class="gallery-card" data-style="fade" onclick="openWorkDetail('w1')">
-            <div class="gallery-img-box">
-              <span class="gallery-img-tag">美式渐变</span>
-              <svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-              <div style="font-size:11px; margin-top:4px; font-weight:700;">LOW FADE 客照</div>
-            </div>
-            <div class="gallery-info">
-              <div class="gallery-title">低渐变硬朗侧分</div>
-              <div class="gallery-author">手艺人：**老师</div>
-              <div class="gallery-actions">
-                <span style="font-size:10px; color:#64748B;">适合方脸 / 椭圆脸</span>
-                <button class="like-btn" id="like-btn-w1" onclick="toggleWorkLike('w1', event)">
-                  <svg class="icon" style="width:13px;height:13px;" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                  <span id="like-cnt-w1">42</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 作品 2 -->
-          <div class="gallery-card" data-style="pompadour" onclick="openWorkDetail('w2')">
-            <div class="gallery-img-box">
-              <span class="gallery-img-tag">复古背头</span>
-              <svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <div style="font-size:11px; margin-top:4px; font-weight:700;">CLASSIC POMP</div>
-            </div>
-            <div class="gallery-info">
-              <div class="gallery-title">经典工匠背头油头</div>
-              <div class="gallery-author">手艺人：**师傅</div>
-              <div class="gallery-actions">
-                <span style="font-size:10px; color:#64748B;">商务绅士 / 稳重</span>
-                <button class="like-btn" id="like-btn-w2" onclick="toggleWorkLike('w2', event)">
-                  <svg class="icon" style="width:13px;height:13px;" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                  <span id="like-cnt-w2">68</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 作品 3 -->
-          <div class="gallery-card" data-style="buzz" onclick="openWorkDetail('w3')">
-            <div class="gallery-img-box">
-              <span class="gallery-img-tag">清爽寸头</span>
-              <svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <div style="font-size:11px; margin-top:4px; font-weight:700;">BUZZ CUT</div>
-            </div>
-            <div class="gallery-info">
-              <div class="gallery-title">清爽圆寸雕线修边</div>
-              <div class="gallery-author">手艺人：Ray老师</div>
-              <div class="gallery-actions">
-                <span style="font-size:10px; color:#64748B;">免打理 / 硬汉</span>
-                <button class="like-btn" id="like-btn-w3" onclick="toggleWorkLike('w3', event)">
-                  <svg class="icon" style="width:13px;height:13px;" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                  <span id="like-cnt-w3">35</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 作品 4 -->
-          <div class="gallery-card" data-style="texture" onclick="openWorkDetail('w4')">
-            <div class="gallery-img-box">
-              <span class="gallery-img-tag">纹理质感</span>
-              <svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <div style="font-size:11px; margin-top:4px; font-weight:700;">TEXTURE CROP</div>
-            </div>
-            <div class="gallery-info">
-              <div class="gallery-title">自然法式碎盖纹理</div>
-              <div class="gallery-author">手艺人：**老师</div>
-              <div class="gallery-actions">
-                <span style="font-size:10px; color:#64748B;">修饰发际线 / 潮流</span>
-                <button class="like-btn" id="like-btn-w4" onclick="toggleWorkLike('w4', event)">
-                  <svg class="icon" style="width:13px;height:13px;" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                  <span id="like-cnt-w4">51</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ==============================
+<div class="tab-pane" id="pane-2">
+<!-- 风格标签筛选 -->
+<div class="filter-pills-bar">
+<div class="filter-pill active" onclick="filterGallery('all', this)">全部客照</div>
+<div class="filter-pill" onclick="filterGallery('fade', this)">美式渐变</div>
+<div class="filter-pill" onclick="filterGallery('pompadour', this)">复古背头</div>
+<div class="filter-pill" onclick="filterGallery('buzz', this)">清爽寸头</div>
+<div class="filter-pill" onclick="filterGallery('texture', this)">纹理烫发</div>
+</div>
+<!-- 作品画廊双列网格 -->
+<div class="gallery-grid" id="gallery-container">
+<!-- 作品 1 -->
+<div class="gallery-card" data-style="fade" onclick="openWorkDetail('w1')">
+<div class="gallery-img-box">
+<span class="gallery-img-tag">美式渐变</span>
+<svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewbox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" x2="8.12" y1="4" y2="15.88"></line><line x1="14.47" x2="20" y1="14.48" y2="20"></line><line x1="8.12" x2="12" y1="8.12" y2="12"></line></svg>
+<div style="font-size:11px; margin-top:4px; font-weight:700;">LOW FADE 客照</div>
+</div>
+<div class="gallery-info">
+<div class="gallery-title">低渐变硬朗侧分</div>
+<div class="gallery-author">手艺人：**老师</div>
+<div class="gallery-actions">
+<span style="font-size:10px; color:#64748B;">适合方脸 / 椭圆脸</span>
+<button class="like-btn" id="like-btn-w1" onclick="toggleWorkLike('w1', event)">
+<svg class="icon" style="width:13px;height:13px;" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span id="like-cnt-w1">42</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 作品 2 -->
+<div class="gallery-card" data-style="pompadour" onclick="openWorkDetail('w2')">
+<div class="gallery-img-box">
+<span class="gallery-img-tag">复古背头</span>
+<svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<div style="font-size:11px; margin-top:4px; font-weight:700;">CLASSIC POMP</div>
+</div>
+<div class="gallery-info">
+<div class="gallery-title">经典工匠背头油头</div>
+<div class="gallery-author">手艺人：**师傅</div>
+<div class="gallery-actions">
+<span style="font-size:10px; color:#64748B;">商务绅士 / 稳重</span>
+<button class="like-btn" id="like-btn-w2" onclick="toggleWorkLike('w2', event)">
+<svg class="icon" style="width:13px;height:13px;" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span id="like-cnt-w2">68</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 作品 3 -->
+<div class="gallery-card" data-style="buzz" onclick="openWorkDetail('w3')">
+<div class="gallery-img-box">
+<span class="gallery-img-tag">清爽寸头</span>
+<svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<div style="font-size:11px; margin-top:4px; font-weight:700;">BUZZ CUT</div>
+</div>
+<div class="gallery-info">
+<div class="gallery-title">清爽圆寸雕线修边</div>
+<div class="gallery-author">手艺人：Ray老师</div>
+<div class="gallery-actions">
+<span style="font-size:10px; color:#64748B;">免打理 / 硬汉</span>
+<button class="like-btn" id="like-btn-w3" onclick="toggleWorkLike('w3', event)">
+<svg class="icon" style="width:13px;height:13px;" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span id="like-cnt-w3">35</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 作品 4 -->
+<div class="gallery-card" data-style="texture" onclick="openWorkDetail('w4')">
+<div class="gallery-img-box">
+<span class="gallery-img-tag">纹理质感</span>
+<svg class="icon" style="width:36px;height:36px;color:#CBD5E1;" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+<div style="font-size:11px; margin-top:4px; font-weight:700;">TEXTURE CROP</div>
+</div>
+<div class="gallery-info">
+<div class="gallery-title">自然法式碎盖纹理</div>
+<div class="gallery-author">手艺人：**老师</div>
+<div class="gallery-actions">
+<span style="font-size:10px; color:#64748B;">修饰发际线 / 潮流</span>
+<button class="like-btn" id="like-btn-w4" onclick="toggleWorkLike('w4', event)">
+<svg class="icon" style="width:13px;height:13px;" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span id="like-cnt-w4">51</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==============================
            TAB 3: 我的 (会员凭证、剪发档案与卡券)
            ============================== -->
-      <div id="pane-3" class="tab-pane">
-
-        <!-- 顾客身份名片 (已脱敏) -->
-        <div class="profile-card">
-          <div class="user-info-row">
-            <div class="user-avatar">
-              <span>某</span>
-            </div>
-            <div>
-              <div class="user-name">**先生</div>
-              <div class="user-phone">手机：138**8890</div>
-              <div class="user-badge-row">
-                <span class="vip-tag">VIP 金卡会员</span>
-                <span style="font-size:10px; background:rgba(255,255,255,0.15); padding:2px 6px; border-radius:10px;">已实名绑定</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="profile-assets">
-            <div style="cursor:pointer;" onclick="showToast('会员储值账户已激活')">
-              <div class="asset-val">¥260.00</div>
-              <div class="asset-lbl">账户储值余额</div>
-            </div>
-            <div style="cursor:pointer;" onclick="openCouponsSheet()">
-              <div class="asset-val" id="disp-coupon-count">2 张</div>
-              <div class="asset-lbl">可用洗剪优惠券 ›</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 进行中的服务卡片 (动态渲染 排队凭据 或 预约单) -->
-        <div id="active-service-section">
-          <!-- 动态注入当前排队或预约卡片 -->
-        </div>
-
-        <!-- 专属剪发档案 (行业特色痛点解决) -->
-        <div class="hair-profile-card">
-          <div class="profile-header">
-            <div class="profile-title">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span>专属剪发参数档案</span>
-            </div>
-            <span style="font-size:11px; color:var(--color-primary); cursor:pointer;" onclick="openHairProfileSheet()">查看完整记录 ›</span>
-          </div>
-          <div class="profile-detail-grid">
-            <div class="profile-detail-item">
-              <div class="profile-detail-lbl">两侧渐变推头</div>
-              <div class="profile-detail-val">3mm - 6mm 渐变</div>
-            </div>
-            <div class="profile-detail-item">
-              <div class="profile-detail-lbl">顶发保留长度</div>
-              <div class="profile-detail-val">留长 5cm 适度打薄</div>
-            </div>
-            <div class="profile-detail-item">
-              <div class="profile-detail-lbl">分线偏好</div>
-              <div class="profile-detail-val">自然三七侧分清晰</div>
-            </div>
-            <div class="profile-detail-item">
-              <div class="profile-detail-lbl">发质备注</div>
-              <div class="profile-detail-val">发质偏粗硬 · 鬓角收拢</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 服务功能菜单列表 -->
-        <div class="menu-group">
-          <div class="menu-row" onclick="showAddressModal()">
-            <div class="menu-row-left">
-              <svg class="icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>门店地址与到店指引</span>
-            </div>
-            <span style="color:var(--color-text-muted);">›</span>
-          </div>
-
-          <div class="menu-row" onclick="showGuaranteeModal()">
-            <div class="menu-row-left">
-              <svg class="icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>7天发型微调质保承诺</span>
-            </div>
-            <span style="color:var(--color-text-muted);">›</span>
-          </div>
-
-          <div class="menu-row" onclick="showDialModal()">
-            <div class="menu-row-left">
-              <svg class="icon" style="color:var(--color-primary);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>专属客服与手艺人咨询</span>
-            </div>
-            <span style="color:var(--color-text-muted);">›</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 底部 TabBar 导航 -->
-    <div class="bottom-tab-bar">
-      <div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>首页</span>
-      </div>
-      <div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>预约</span>
-      </div>
-      <div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <span>图鉴</span>
-      </div>
-      <div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的</span>
-      </div>
-    </div>
-
-
-    <!-- ==============================
+<div class="tab-pane" id="pane-3">
+<!-- 顾客身份名片 (已脱敏) -->
+<div class="profile-card">
+<div class="user-info-row">
+<div class="user-avatar">
+<span>某</span>
+</div>
+<div>
+<div class="user-name">**先生</div>
+<div class="user-phone">手机：138**8890</div>
+<div class="user-badge-row">
+<span class="vip-tag">VIP 金卡会员</span>
+<span style="font-size:10px; background:rgba(255,255,255,0.15); padding:2px 6px; border-radius:10px;">已实名绑定</span>
+</div>
+</div>
+</div>
+<div class="profile-assets">
+<div onclick="showToast('会员储值账户已激活')" style="cursor:pointer;">
+<div class="asset-val">¥260.00</div>
+<div class="asset-lbl">账户储值余额</div>
+</div>
+<div onclick="openCouponsSheet()" style="cursor:pointer;">
+<div class="asset-val" id="disp-coupon-count">2 张</div>
+<div class="asset-lbl">可用洗剪优惠券 ›</div>
+</div>
+</div>
+</div>
+<!-- 进行中的服务卡片 (动态渲染 排队凭据 或 预约单) -->
+<div id="active-service-section">
+<!-- 动态注入当前排队或预约卡片 -->
+</div>
+<!-- 专属剪发档案 (行业特色痛点解决) -->
+<div class="hair-profile-card">
+<div class="profile-header">
+<div class="profile-title">
+<svg class="icon" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+<span>专属剪发参数档案</span>
+</div>
+<span onclick="openHairProfileSheet()" style="font-size:11px; color:var(--color-primary); cursor:pointer;">查看完整记录 ›</span>
+</div>
+<div class="profile-detail-grid">
+<div class="profile-detail-item">
+<div class="profile-detail-lbl">两侧渐变推头</div>
+<div class="profile-detail-val">3mm - 6mm 渐变</div>
+</div>
+<div class="profile-detail-item">
+<div class="profile-detail-lbl">顶发保留长度</div>
+<div class="profile-detail-val">留长 5cm 适度打薄</div>
+</div>
+<div class="profile-detail-item">
+<div class="profile-detail-lbl">分线偏好</div>
+<div class="profile-detail-val">自然三七侧分清晰</div>
+</div>
+<div class="profile-detail-item">
+<div class="profile-detail-lbl">发质备注</div>
+<div class="profile-detail-val">发质偏粗硬 · 鬓角收拢</div>
+</div>
+</div>
+</div>
+<!-- 服务功能菜单列表 -->
+<div class="menu-group">
+<div class="menu-row" onclick="showAddressModal()">
+<div class="menu-row-left">
+<svg class="icon" style="color:var(--color-primary);" viewbox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>门店地址与到店指引</span>
+</div>
+<span style="color:var(--color-text-muted);">›</span>
+</div>
+<div class="menu-row" onclick="showGuaranteeModal()">
+<div class="menu-row-left">
+<svg class="icon" style="color:var(--color-primary);" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span>7天发型微调质保承诺</span>
+</div>
+<span style="color:var(--color-text-muted);">›</span>
+</div>
+<div class="menu-row" onclick="showDialModal()">
+<div class="menu-row-left">
+<svg class="icon" style="color:var(--color-primary);" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>专属客服与手艺人咨询</span>
+</div>
+<span style="color:var(--color-text-muted);">›</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 底部 TabBar 导航 -->
+<div class="bottom-tab-bar">
+<div class="tab-item active" id="tab-btn-0" onclick="switchMpTab(0)">
+<svg class="icon" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>首页</span>
+</div>
+<div class="tab-item" id="tab-btn-1" onclick="switchMpTab(1)">
+<svg class="icon" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>预约</span>
+</div>
+<div class="tab-item" id="tab-btn-2" onclick="switchMpTab(2)">
+<svg class="icon" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+<span>图鉴</span>
+</div>
+<div class="tab-item" id="tab-btn-3" onclick="switchMpTab(3)">
+<svg class="icon" viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+</div>
+</div>
+<!-- ==============================
          全局浮层抽屉与弹窗组件
          ============================== -->
-
-    <!-- 1. 在线排队取号抽屉 (Queue Bottom Sheet) -->
-    <div class="modal-overlay" id="queue-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'queue-sheet-overlay')">
-      <div class="bottom-sheet">
-        <div class="sheet-handle"></div>
-        <div class="sheet-header">
-          <div class="sheet-title">在线排队取号</div>
-          <button class="close-sheet-btn" onclick="closeSheet('queue-sheet-overlay')">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div class="sheet-section-title">选择服务项目</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
-          <div class="date-card-btn active" id="queue-srv-1" onclick="selectQueueService('美式油头剪发', this)">
-            <b>剪发精修</b>
-            <div style="font-size:10px; color:#64748B; margin-top:2px;">含洗剪吹造型</div>
-          </div>
-          <div class="date-card-btn" id="queue-srv-2" onclick="selectQueueService('热毛巾修面', this)">
-            <b>热敷修面</b>
-            <div style="font-size:10px; color:#64748B; margin-top:2px;">传统手工精修</div>
-          </div>
-        </div>
-
-        <div class="sheet-section-title">到店人数</div>
-        <div style="display:flex; gap:8px; margin-bottom:14px;">
-          <div class="date-card-btn active" id="queue-p-1" onclick="selectQueuePeople(1, this)">1人</div>
-          <div class="date-card-btn" id="queue-p-2" onclick="selectQueuePeople(2, this)">2人同行</div>
-        </div>
-
-        <div class="card" style="background:#F8FAFC; border-color:#E2E8F0; padding:10px; font-size:11px; color:#64748B; line-height:1.5; margin-bottom:14px;">
+<!-- 1. 在线排队取号抽屉 (Queue Bottom Sheet) -->
+<div class="modal-overlay" id="queue-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'queue-sheet-overlay')">
+<div class="bottom-sheet">
+<div class="sheet-handle"></div>
+<div class="sheet-header">
+<div class="sheet-title">在线排队取号</div>
+<button class="close-sheet-btn" onclick="closeSheet('queue-sheet-overlay')">
+<svg class="icon" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-section-title">选择服务项目</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
+<div class="date-card-btn active" id="queue-srv-1" onclick="selectQueueService('美式油头剪发', this)">
+<b>剪发精修</b>
+<div style="font-size:10px; color:#64748B; margin-top:2px;">含洗剪吹造型</div>
+</div>
+<div class="date-card-btn" id="queue-srv-2" onclick="selectQueueService('热毛巾修面', this)">
+<b>热敷修面</b>
+<div style="font-size:10px; color:#64748B; margin-top:2px;">传统手工精修</div>
+</div>
+</div>
+<div class="sheet-section-title">到店人数</div>
+<div style="display:flex; gap:8px; margin-bottom:14px;">
+<div class="date-card-btn active" id="queue-p-1" onclick="selectQueuePeople(1, this)">1人</div>
+<div class="date-card-btn" id="queue-p-2" onclick="selectQueuePeople(2, this)">2人同行</div>
+</div>
+<div class="card" style="background:#F8FAFC; border-color:#E2E8F0; padding:10px; font-size:11px; color:#64748B; line-height:1.5; margin-bottom:14px;">
           当前等待人数为 3 人，预计等待时间约为 35 分钟。到号时请留意微信小程序消息。
         </div>
-
-        <button class="btn btn-primary btn-block" onclick="executeQueueSubmit()">
+<button class="btn btn-primary btn-block" onclick="executeQueueSubmit()">
           确认提交取号
         </button>
-      </div>
-    </div>
-
-
-    <!-- 2. 时段预约抽屉 (Booking Bottom Sheet) -->
-    <div class="modal-overlay" id="booking-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'booking-sheet-overlay')">
-      <div class="bottom-sheet">
-        <div class="sheet-handle"></div>
-        <div class="sheet-header">
-          <div>
-            <div class="sheet-title" id="booking-sheet-service-name">经典美式渐变油头</div>
-            <div style="font-size:11px; color:var(--color-primary); margin-top:2px;" id="booking-sheet-service-price">¥128 · 约45分钟</div>
-          </div>
-          <button class="close-sheet-btn" onclick="closeSheet('booking-sheet-overlay')">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <!-- 选手艺人 -->
-        <div class="sheet-section-title">选择手艺人</div>
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-bottom:10px;">
-          <div class="date-card-btn active" id="barber-opt-b1" onclick="selectBookingBarber('b1', '**老师 (主理人)', this)">
-            <b>**老师</b>
-            <div style="font-size:10px; color:#64748B;">主理人</div>
-          </div>
-          <div class="date-card-btn" id="barber-opt-b2" onclick="selectBookingBarber('b2', '**师傅 (**)', this)">
-            <b>**师傅</b>
-            <div style="font-size:10px; color:#64748B;">造型**</div>
-          </div>
-          <div class="date-card-btn" id="barber-opt-b3" onclick="selectBookingBarber('b3', 'Ray老师 (资深)', this)">
-            <b>Ray老师</b>
-            <div style="font-size:10px; color:#64748B;">资深**人员</div>
-          </div>
-        </div>
-
-        <!-- 选日期 -->
-        <div class="sheet-section-title">选择预约日期</div>
-        <div class="date-selector-row">
-          <div class="date-card-btn active" id="date-opt-today" onclick="selectBookingDate('今天 9月4日', this)">
-            <b>今天</b>
-            <div style="font-size:10px; color:#64748B;">09-04</div>
-          </div>
-          <div class="date-card-btn" id="date-opt-tomorrow" onclick="selectBookingDate('明天 9月5日', this)">
-            <b>明天</b>
-            <div style="font-size:10px; color:#64748B;">09-05</div>
-          </div>
-          <div class="date-card-btn" id="date-opt-after" onclick="selectBookingDate('后天 9月6日', this)">
-            <b>后天</b>
-            <div style="font-size:10px; color:#64748B;">09-06</div>
-          </div>
-        </div>
-
-        <!-- 选时段 -->
-        <div class="sheet-section-title">选择预约时段 (30分钟档)</div>
-        <div class="time-slot-grid">
-          <div class="time-slot-btn disabled">10:00 (满)</div>
-          <div class="time-slot-btn" onclick="selectBookingSlot('11:00', this)">11:00</div>
-          <div class="time-slot-btn disabled">13:30 (满)</div>
-          <div class="time-slot-btn active" onclick="selectBookingSlot('14:30', this)">14:30</div>
-          <div class="time-slot-btn" onclick="selectBookingSlot('16:00', this)">16:00</div>
-          <div class="time-slot-btn" onclick="selectBookingSlot('17:30', this)">17:30</div>
-          <div class="time-slot-btn" onclick="selectBookingSlot('19:00', this)">19:00</div>
-          <div class="time-slot-btn" onclick="selectBookingSlot('20:00', this)">20:00</div>
-        </div>
-
-        <!-- 发型需求偏好标签 -->
-        <div class="sheet-section-title">发型要求备注 (点击勾选)</div>
-        <div class="pref-tags-box">
-          <span class="pref-tag selected" onclick="togglePrefTag(this)">两侧渐变低推</span>
-          <span class="pref-tag" onclick="togglePrefTag(this)">分线清晰利落</span>
-          <span class="pref-tag" onclick="togglePrefTag(this)">顶发适度打薄</span>
-          <span class="pref-tag" onclick="togglePrefTag(this)">保留自然鬓角</span>
-          <span class="pref-tag" onclick="togglePrefTag(this)">清爽免打理</span>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="executeBookingSubmit()">
+</div>
+</div>
+<!-- 2. 时段预约抽屉 (Booking Bottom Sheet) -->
+<div class="modal-overlay" id="booking-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'booking-sheet-overlay')">
+<div class="bottom-sheet">
+<div class="sheet-handle"></div>
+<div class="sheet-header">
+<div>
+<div class="sheet-title" id="booking-sheet-service-name">经典美式渐变油头</div>
+<div id="booking-sheet-service-price" style="font-size:11px; color:var(--color-primary); margin-top:2px;">¥128 · 约45分钟</div>
+</div>
+<button class="close-sheet-btn" onclick="closeSheet('booking-sheet-overlay')">
+<svg class="icon" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<!-- 选手艺人 -->
+<div class="sheet-section-title">选择手艺人</div>
+<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-bottom:10px;">
+<div class="date-card-btn active" id="barber-opt-b1" onclick="selectBookingBarber('b1', '**老师 (主理人)', this)">
+<b>**老师</b>
+<div style="font-size:10px; color:#64748B;">主理人</div>
+</div>
+<div class="date-card-btn" id="barber-opt-b2" onclick="selectBookingBarber('b2', '**师傅 (**)', this)">
+<b>**师傅</b>
+<div style="font-size:10px; color:#64748B;">造型**</div>
+</div>
+<div class="date-card-btn" id="barber-opt-b3" onclick="selectBookingBarber('b3', 'Ray老师 (资深)', this)">
+<b>Ray老师</b>
+<div style="font-size:10px; color:#64748B;">资深**人员</div>
+</div>
+</div>
+<!-- 选日期 -->
+<div class="sheet-section-title">选择预约日期</div>
+<div class="date-selector-row">
+<div class="date-card-btn active" id="date-opt-today" onclick="selectBookingDate('今天 9月4日', this)">
+<b>今天</b>
+<div style="font-size:10px; color:#64748B;">09-04</div>
+</div>
+<div class="date-card-btn" id="date-opt-tomorrow" onclick="selectBookingDate('明天 9月5日', this)">
+<b>明天</b>
+<div style="font-size:10px; color:#64748B;">09-05</div>
+</div>
+<div class="date-card-btn" id="date-opt-after" onclick="selectBookingDate('后天 9月6日', this)">
+<b>后天</b>
+<div style="font-size:10px; color:#64748B;">09-06</div>
+</div>
+</div>
+<!-- 选时段 -->
+<div class="sheet-section-title">选择预约时段 (30分钟档)</div>
+<div class="time-slot-grid">
+<div class="time-slot-btn disabled">10:00 (满)</div>
+<div class="time-slot-btn" onclick="selectBookingSlot('11:00', this)">11:00</div>
+<div class="time-slot-btn disabled">13:30 (满)</div>
+<div class="time-slot-btn active" onclick="selectBookingSlot('14:30', this)">14:30</div>
+<div class="time-slot-btn" onclick="selectBookingSlot('16:00', this)">16:00</div>
+<div class="time-slot-btn" onclick="selectBookingSlot('17:30', this)">17:30</div>
+<div class="time-slot-btn" onclick="selectBookingSlot('19:00', this)">19:00</div>
+<div class="time-slot-btn" onclick="selectBookingSlot('20:00', this)">20:00</div>
+</div>
+<!-- 发型需求偏好标签 -->
+<div class="sheet-section-title">发型要求备注 (点击勾选)</div>
+<div class="pref-tags-box">
+<span class="pref-tag selected" onclick="togglePrefTag(this)">两侧渐变低推</span>
+<span class="pref-tag" onclick="togglePrefTag(this)">分线清晰利落</span>
+<span class="pref-tag" onclick="togglePrefTag(this)">顶发适度打薄</span>
+<span class="pref-tag" onclick="togglePrefTag(this)">保留自然鬓角</span>
+<span class="pref-tag" onclick="togglePrefTag(this)">清爽免打理</span>
+</div>
+<button class="btn btn-primary btn-block" onclick="executeBookingSubmit()">
           确认提交预约
         </button>
-      </div>
-    </div>
-
-
-    <!-- 3. 发型作品详情弹窗 (Work Detail Sheet) -->
-    <div class="modal-overlay" id="work-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'work-sheet-overlay')">
-      <div class="bottom-sheet">
-        <div class="sheet-handle"></div>
-        <div class="sheet-header">
-          <div class="sheet-title" id="work-detail-title">低渐变硬朗侧分客照</div>
-          <button class="close-sheet-btn" onclick="closeSheet('work-sheet-overlay')">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="background:linear-gradient(135deg, #1E293B, #334155); border-radius:12px; height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#FFFFFF; margin-bottom:12px;">
-          <svg class="icon" style="width:48px;height:48px;color:#CBD5E1;" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-          <div style="font-size:13px; font-weight:700; margin-top:6px;" id="work-detail-img-text">实拍客照 · 360°细节精修</div>
-        </div>
-
-        <div class="card" style="padding:12px; margin-bottom:12px;">
-          <div style="font-size:12px; font-weight:700; color:var(--color-text-main); margin-bottom:6px;">手艺人设计心得</div>
-          <div style="font-size:11px; color:var(--color-text-body); line-height:1.6;" id="work-detail-desc">
+</div>
+</div>
+<!-- 3. 发型作品详情弹窗 (Work Detail Sheet) -->
+<div class="modal-overlay" id="work-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'work-sheet-overlay')">
+<div class="bottom-sheet">
+<div class="sheet-handle"></div>
+<div class="sheet-header">
+<div class="sheet-title" id="work-detail-title">低渐变硬朗侧分客照</div>
+<button class="close-sheet-btn" onclick="closeSheet('work-sheet-overlay')">
+<svg class="icon" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:linear-gradient(135deg, #1E293B, #334155); border-radius:12px; height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#FFFFFF; margin-bottom:12px;">
+<svg class="icon" style="width:48px;height:48px;color:#CBD5E1;" viewbox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" x2="8.12" y1="4" y2="15.88"></line><line x1="14.47" x2="20" y1="14.48" y2="20"></line><line x1="8.12" x2="12" y1="8.12" y2="12"></line></svg>
+<div id="work-detail-img-text" style="font-size:13px; font-weight:700; margin-top:6px;">实拍客照 · 360°细节精修</div>
+</div>
+<div class="card" style="padding:12px; margin-bottom:12px;">
+<div style="font-size:12px; font-weight:700; color:var(--color-text-main); margin-bottom:6px;">手艺人设计心得</div>
+<div id="work-detail-desc" style="font-size:11px; color:var(--color-text-body); line-height:1.6;">
             采用0.5mm到3mm的细腻低渐变过渡，两侧收拢利落，头顶保留自然蓬松长度，搭配哑光发油即可打造利落线条。
           </div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:11px; margin-bottom:14px;">
-          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:8px; border-radius:8px;">
-            <span style="color:#64748B;">适合脸型：</span>
-            <b style="color:#0F172A;" id="work-detail-face">方形脸 / 鹅蛋脸</b>
-          </div>
-          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:8px; border-radius:8px;">
-            <span style="color:#64748B;">建议发质：</span>
-            <b style="color:#0F172A;" id="work-detail-hair">粗硬 / 适中</b>
-          </div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="bookThisWorkStyle()">
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:11px; margin-bottom:14px;">
+<div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:8px; border-radius:8px;">
+<span style="color:#64748B;">适合脸型：</span>
+<b id="work-detail-face" style="color:#0F172A;">方形脸 / 鹅蛋脸</b>
+</div>
+<div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:8px; border-radius:8px;">
+<span style="color:#64748B;">建议发质：</span>
+<b id="work-detail-hair" style="color:#0F172A;">粗硬 / 适中</b>
+</div>
+</div>
+<button class="btn btn-primary btn-block" onclick="bookThisWorkStyle()">
           预约同款发型
         </button>
-      </div>
-    </div>
-
-
-    <!-- 4. 专属剪发档案完整弹窗 (Hair Profile Sheet) -->
-    <div class="modal-overlay" id="profile-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'profile-sheet-overlay')">
-      <div class="bottom-sheet">
-        <div class="sheet-handle"></div>
-        <div class="sheet-header">
-          <div class="sheet-title">专属理发定制档案卡</div>
-          <button class="close-sheet-btn" onclick="closeSheet('profile-sheet-overlay')">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div class="card" style="background:#F8FAFC; border:1px solid #E2E8F0; padding:12px; margin-bottom:12px;">
-          <div style="font-size:12px; font-weight:700; color:#0F172A; margin-bottom:6px;">顾客服务记录卡片</div>
-          <div style="font-size:11px; color:#475569; line-height:1.7;">
-            顾客姓名：**先生 (VIP金卡)<br>
-            上次服务时间：2026-08-15 15:30<br>
-            主理手艺人：**老师 (主理人)<br>
+</div>
+</div>
+<!-- 4. 专属剪发档案完整弹窗 (Hair Profile Sheet) -->
+<div class="modal-overlay" id="profile-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'profile-sheet-overlay')">
+<div class="bottom-sheet">
+<div class="sheet-handle"></div>
+<div class="sheet-header">
+<div class="sheet-title">专属理发定制档案卡</div>
+<button class="close-sheet-btn" onclick="closeSheet('profile-sheet-overlay')">
+<svg class="icon" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="card" style="background:#F8FAFC; border:1px solid #E2E8F0; padding:12px; margin-bottom:12px;">
+<div style="font-size:12px; font-weight:700; color:#0F172A; margin-bottom:6px;">顾客服务记录卡片</div>
+<div style="font-size:11px; color:#475569; line-height:1.7;">
+            顾客姓名：**先生 (VIP金卡)<br/>
+            上次服务时间：2026-08-15 15:30<br/>
+            主理手艺人：**老师 (主理人)<br/>
             服务项目：经典美式渐变油头造型
           </div>
-        </div>
-
-        <div class="sheet-section-title">实测理发参数</div>
-        <div style="display:flex; flex-direction:column; gap:6px; font-size:12px; margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
-            <span style="color:#64748B;">两侧及后颈渐变</span>
-            <b style="color:#0F172A;">3mm - 6mm Low Fade</b>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
-            <span style="color:#64748B;">头顶发长控制</span>
-            <b style="color:#0F172A;">保留约 5.0 cm</b>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
-            <span style="color:#64748B;">习惯打理分线</span>
-            <b style="color:#0F172A;">左侧三七分（自然过渡）</b>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
-            <span style="color:#64748B;">日常打理建议</span>
-            <b style="color:#0F172A;">水基发油，八成干后梳理</b>
-          </div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="closeSheet('profile-sheet-overlay'); quickBookBarber('b1');">
+</div>
+<div class="sheet-section-title">实测理发参数</div>
+<div style="display:flex; flex-direction:column; gap:6px; font-size:12px; margin-bottom:14px;">
+<div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
+<span style="color:#64748B;">两侧及后颈渐变</span>
+<b style="color:#0F172A;">3mm - 6mm Low Fade</b>
+</div>
+<div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
+<span style="color:#64748B;">头顶发长控制</span>
+<b style="color:#0F172A;">保留约 5.0 cm</b>
+</div>
+<div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
+<span style="color:#64748B;">习惯打理分线</span>
+<b style="color:#0F172A;">左侧三七分（自然过渡）</b>
+</div>
+<div style="display:flex; justify-content:space-between; padding:8px; background:#FFF; border:1px solid #E2E8F0; border-radius:8px;">
+<span style="color:#64748B;">日常打理建议</span>
+<b style="color:#0F172A;">水基发油，八成干后梳理</b>
+</div>
+</div>
+<button class="btn btn-primary btn-block" onclick="closeSheet('profile-sheet-overlay'); quickBookBarber('b1');">
           按此档案一键预约
         </button>
-      </div>
-    </div>
-
-
-    <!-- 5. 卡券包弹窗 (Coupons Sheet) -->
-    <div class="modal-overlay" id="coupons-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'coupons-sheet-overlay')">
-      <div class="bottom-sheet">
-        <div class="sheet-handle"></div>
-        <div class="sheet-header">
-          <div class="sheet-title">可用服务卡券包 (2张)</div>
-          <button class="close-sheet-btn" onclick="closeSheet('coupons-sheet-overlay')">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div class="card" style="border-left:4px solid var(--color-primary); padding:12px; margin-bottom:10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <b style="font-size:14px; color:#0F172A;">精选剪发 ¥20 抵扣券</b>
-              <div style="font-size:11px; color:#64748B; margin-top:2px;">满100元可用 · 全场手艺人通用</div>
-              <div style="font-size:10px; color:#94A3B8; margin-top:4px;">有效期至：2026-10-31</div>
-            </div>
-            <button class="btn btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="closeSheet('coupons-sheet-overlay'); switchMpTab(1);">
+</div>
+</div>
+<!-- 5. 卡券包弹窗 (Coupons Sheet) -->
+<div class="modal-overlay" id="coupons-sheet-overlay" onclick="closeSheetOnBackdrop(event, 'coupons-sheet-overlay')">
+<div class="bottom-sheet">
+<div class="sheet-handle"></div>
+<div class="sheet-header">
+<div class="sheet-title">可用服务卡券包 (2张)</div>
+<button class="close-sheet-btn" onclick="closeSheet('coupons-sheet-overlay')">
+<svg class="icon" viewbox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="card" style="border-left:4px solid var(--color-primary); padding:12px; margin-bottom:10px;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<b style="font-size:14px; color:#0F172A;">精选剪发 ¥20 抵扣券</b>
+<div style="font-size:11px; color:#64748B; margin-top:2px;">满100元可用 · 全场手艺人通用</div>
+<div style="font-size:10px; color:#94A3B8; margin-top:4px;">有效期至：2026-10-31</div>
+</div>
+<button class="btn btn-secondary" onclick="closeSheet('coupons-sheet-overlay'); switchMpTab(1);" style="padding:4px 10px; font-size:11px;">
               去使用
             </button>
-          </div>
-        </div>
-
-        <div class="card" style="border-left:4px solid var(--color-primary); padding:12px; margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <b style="font-size:14px; color:#0F172A;">手工热敷修面 8 折体验券</b>
-              <div style="font-size:11px; color:#64748B; margin-top:2px;">修面护理专项 · 单次可用</div>
-              <div style="font-size:10px; color:#94A3B8; margin-top:4px;">有效期至：2026-10-31</div>
-            </div>
-            <button class="btn btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="closeSheet('coupons-sheet-overlay'); quickBookService('s2');">
+</div>
+</div>
+<div class="card" style="border-left:4px solid var(--color-primary); padding:12px; margin-bottom:14px;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<b style="font-size:14px; color:#0F172A;">手工热敷修面 8 折体验券</b>
+<div style="font-size:11px; color:#64748B; margin-top:2px;">修面护理专项 · 单次可用</div>
+<div style="font-size:10px; color:#94A3B8; margin-top:4px;">有效期至：2026-10-31</div>
+</div>
+<button class="btn btn-secondary" onclick="closeSheet('coupons-sheet-overlay'); quickBookService('s2');" style="padding:4px 10px; font-size:11px;">
               去使用
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- 6. 通用确认 Dialog 模态框 -->
-    <div class="modal-overlay" id="dialog-overlay" style="align-items:center;">
-      <div class="dialog-box">
-        <div class="dialog-title" id="dialog-title">提示</div>
-        <div class="dialog-desc" id="dialog-desc">确认执行该操作吗？</div>
-        <div class="dialog-btns">
-          <button class="btn btn-outline" onclick="closeDialog()">取消</button>
-          <button class="btn btn-primary" id="dialog-confirm-btn" onclick="executeDialogConfirm()">确定</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. 微信胶囊菜单 -->
-    <div class="modal-overlay" id="capsule-menu-overlay" onclick="closeSheetOnBackdrop(event, 'capsule-menu-overlay')" style="align-items:center;">
-      <div class="capsule-menu-card">
-        <div class="capsule-menu-item" onclick="showToast('已生成微信分享卡片'); closeSheet('capsule-menu-overlay');">
-          <svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span>转发给好友</span>
-        </div>
-        <div class="capsule-menu-item" onclick="showToast('小程序已刷新'); closeSheet('capsule-menu-overlay');">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-          <span>重新加载</span>
-        </div>
-        <div class="capsule-menu-item" onclick="showToast('已添加到桌面快捷方式'); closeSheet('capsule-menu-overlay');">
-          <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span>添加到“我的小程序”</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 轻量消息 Toast -->
-    <div class="toast-box" id="global-toast">提示内容</div>
-
-  </div>
-
-
-  <!-- ==============================
+</div>
+</div>
+</div>
+</div>
+<!-- 6. 通用确认 Dialog 模态框 -->
+<div class="modal-overlay" id="dialog-overlay" style="align-items:center;">
+<div class="dialog-box">
+<div class="dialog-title" id="dialog-title">提示</div>
+<div class="dialog-desc" id="dialog-desc">确认执行该操作吗？</div>
+<div class="dialog-btns">
+<button class="btn btn-outline" onclick="closeDialog()">取消</button>
+<button class="btn btn-primary" id="dialog-confirm-btn" onclick="executeDialogConfirm()">确定</button>
+</div>
+</div>
+</div>
+<!-- 7. 微信胶囊菜单 -->
+<div class="modal-overlay" id="capsule-menu-overlay" onclick="closeSheetOnBackdrop(event, 'capsule-menu-overlay')" style="align-items:center;">
+<div class="capsule-menu-card">
+<div class="capsule-menu-item" onclick="showToast('已生成微信分享卡片'); closeSheet('capsule-menu-overlay');">
+<svg class="icon" viewbox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span>转发给好友</span>
+</div>
+<div class="capsule-menu-item" onclick="showToast('小程序已刷新'); closeSheet('capsule-menu-overlay');">
+<svg class="icon" viewbox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+<span>重新加载</span>
+</div>
+<div class="capsule-menu-item" onclick="showToast('已添加到桌面快捷方式'); closeSheet('capsule-menu-overlay');">
+<svg class="icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>添加到“我的小程序”</span>
+</div>
+</div>
+</div>
+<!-- 轻量消息 Toast -->
+<div class="toast-box" id="global-toast">提示内容</div>
+</div>
+<!-- ==============================
        前端业务状态机与交互驱动
        ============================== -->
-  <script>
+<script>
     // 全局业务状态机
     const AppState = {
       activeTab: 0,

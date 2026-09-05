@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>校友会·行业协会商会服务云讯录</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>校友会·行业协会商会服务云讯录</title>
+<style>
     :root {
       --color-primary: #1E3A8A;
       --color-primary-dark: #172554;
@@ -1451,820 +1452,748 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 小程序视口机模 -->
+<div class="mp-container">
+<!-- 顶部状态栏 -->
 
+<!-- 自定义微信小程序导航头 -->
 
-  <!-- 小程序视口机模 -->
-  <div class="mp-container">
-    
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-      <span>10:24</span>
-      <div class="status-bar-icons">
-        <!-- WiFi SVG -->
-        <span class="icon" style="width:14px;height:14px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-            <line x1="12" y1="20" x2="12.01" y2="20"/>
-          </svg>
-        </span>
-        <!-- Battery SVG -->
-        <span class="icon" style="width:16px;height:16px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
-            <line x1="22" y1="11" x2="22" y2="13"/>
-            <rect x="5" y="10" width="10" height="4" fill="currentColor"/>
-          </svg>
-        </span>
-      </div>
-    </div>
-
-    <!-- 自定义微信小程序导航头 -->
-    <div class="mp-navbar">
-      <span class="nav-title" id="mpNavTitle">校友会·商会服务云讯录</span>
-      <!-- 微信官方双胶囊 -->
-      <div class="wechat-capsule">
-        <div class="capsule-dots" onclick="showToast('已调起小程序分享菜单')">
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-        </div>
-        <div class="capsule-divider"></div>
-        <div class="capsule-circle" onclick="showToast('当前处于展示版首页')">
-          <div class="capsule-inner-dot"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- **区 -->
-    <div class="mp-body" id="mpBody">
-      
-      <!-- =================== TAB 0: 首页 (Home) =================== -->
-      <div id="pane-0" class="tab-pane active">
-        <!-- 组织风采头图 -->
-        <div class="home-hero">
-          <div class="hero-meta">
-            <span class="icon" style="width:13px;height:13px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </span>
-            <span>官方登记备案 · 数字化会员中心</span>
-          </div>
-          <div class="hero-title">**校友会<br>**商会</div>
-          <div class="hero-tags">
-            <span class="hero-tag">活跃会员 5,200+</span>
-            <span class="hero-tag">覆盖分会 16 个</span>
-            <span class="hero-tag">供需撮合 840+</span>
-          </div>
-        </div>
-
-        <!-- 滚动通知 -->
-        <div class="notice-bar" onclick="openNoticeModal()">
-          <div class="notice-icon-box">
-            <span class="icon" style="width:14px;height:14px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 5 6 9H2v6h4l5 4V5Z"/>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              </svg>
-            </span>
-          </div>
-          <div class="notice-text">【公告】关于举办2026半导体创新产业闭门沙龙的通知</div>
-          <span class="icon" style="width:12px;height:12px;color:var(--color-text-tertiary);">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </span>
-        </div>
-
-        <!-- **区 4 宫格 -->
-        <div class="quick-grid">
-          <div class="quick-item" onclick="switchTab(1)">
-            <div class="quick-icon-wrap">
-              <span class="icon" style="width:18px;height:18px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="14" x="2" y="5" rx="2"/>
-                  <line x1="2" x2="22" y1="10" y2="10"/>
-                </svg>
-              </span>
-            </div>
-            <span class="quick-label">校友名录</span>
-          </div>
-          <div class="quick-item" onclick="switchTab(2)">
-            <div class="quick-icon-wrap">
-              <span class="icon" style="width:18px;height:18px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
-                  <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
-                </svg>
-              </span>
-            </div>
-            <span class="quick-label">**市</span>
-          </div>
-          <div class="quick-item" onclick="scrollToSalon()">
-            <div class="quick-icon-wrap">
-              <span class="icon" style="width:18px;height:18px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
-                  <path d="M9 22v-4h6v4"/>
-                  <path d="M8 6h.01"/>
-                  <path d="M16 6h.01"/>
-                  <path d="M8 10h.01"/>
-                  <path d="M16 10h.01"/>
-                </svg>
-              </span>
-            </div>
-            <span class="quick-label">会长走访</span>
-          </div>
-          <div class="quick-item" onclick="openCertModal()">
-            <div class="quick-icon-wrap">
-              <span class="icon" style="width:18px;height:18px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </span>
-            </div>
-            <span class="quick-label">入会认证</span>
-          </div>
-        </div>
-
-        <!-- 轮值会长与优秀理事卡片流 -->
-        <div class="section-header">
-          <span class="section-title">本期轮值理事会成员</span>
-          <span class="section-more" onclick="switchTab(1)">
+<!-- **区 -->
+<div class="mp-body" id="mpBody">
+<!-- =================== TAB 0: 首页 (Home) =================== -->
+<div class="tab-pane active" id="pane-0">
+<!-- 组织风采头图 -->
+<div class="home-hero">
+<div class="hero-meta">
+<span class="icon" style="width:13px;height:13px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+</span>
+<span>官方登记备案 · 数字化会员中心</span>
+</div>
+<div class="hero-title">**校友会<br/>**商会</div>
+<div class="hero-tags">
+<span class="hero-tag">活跃会员 5,200+</span>
+<span class="hero-tag">覆盖分会 16 个</span>
+<span class="hero-tag">供需撮合 840+</span>
+</div>
+</div>
+<!-- 滚动通知 -->
+<div class="notice-bar" onclick="openNoticeModal()">
+<div class="notice-icon-box">
+<span class="icon" style="width:14px;height:14px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+</svg>
+</span>
+</div>
+<div class="notice-text">【公告】关于举办2026半导体创新产业闭门沙龙的通知</div>
+<span class="icon" style="width:12px;height:12px;color:var(--color-text-tertiary);">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+</div>
+<!-- **区 4 宫格 -->
+<div class="quick-grid">
+<div class="quick-item" onclick="switchTab(1)">
+<div class="quick-icon-wrap">
+<span class="icon" style="width:18px;height:18px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg>
+</span>
+</div>
+<span class="quick-label">校友名录</span>
+</div>
+<div class="quick-item" onclick="switchTab(2)">
+<div class="quick-icon-wrap">
+<span class="icon" style="width:18px;height:18px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"></path>
+<path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"></path>
+</svg>
+</span>
+</div>
+<span class="quick-label">**市</span>
+</div>
+<div class="quick-item" onclick="scrollToSalon()">
+<div class="quick-icon-wrap">
+<span class="icon" style="width:18px;height:18px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="20" rx="2" ry="2" width="16" x="4" y="2"></rect>
+<path d="M9 22v-4h6v4"></path>
+<path d="M8 6h.01"></path>
+<path d="M16 6h.01"></path>
+<path d="M8 10h.01"></path>
+<path d="M16 10h.01"></path>
+</svg>
+</span>
+</div>
+<span class="quick-label">会长走访</span>
+</div>
+<div class="quick-item" onclick="openCertModal()">
+<div class="quick-icon-wrap">
+<span class="icon" style="width:18px;height:18px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+</span>
+</div>
+<span class="quick-label">入会认证</span>
+</div>
+</div>
+<!-- 轮值会长与优秀理事卡片流 -->
+<div class="section-header">
+<span class="section-title">本期轮值理事会成员</span>
+<span class="section-more" onclick="switchTab(1)">
             全部名录
             <span class="icon" style="width:11px;height:11px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-
-        <div class="horizontal-scroll" id="homeCouncilList">
-          <!-- JS 动态渲染理事 -->
-        </div>
-
-        <!-- 近期活动与沙龙 -->
-        <div class="section-header" id="salonSectionAnchor">
-          <span class="section-title">近期分会沙龙与走访</span>
-          <span class="section-more" onclick="showToast('已刷新最新活动排期')">刷新日程</span>
-        </div>
-
-        <!-- 活动 1 -->
-        <div class="event-card">
-          <div class="event-badge-row">
-            <span class="event-type-badge">会长企业走访</span>
-            <span class="event-status">报名中 (限30席)</span>
-          </div>
-          <div class="event-name">走进某半导体科技集团：车规芯片产线深度交流研讨会</div>
-          <div class="event-info-line">
-            <span class="icon" style="width:13px;height:13px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </span>
-            <span>2026年9月18日 14:00 - 17:30</span>
-          </div>
-          <div class="event-info-line">
-            <span class="icon" style="width:13px;height:13px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </span>
-            <span>**·张江集**区某栋会议厅</span>
-          </div>
-          <button class="event-btn" id="eventBtn-1" onclick="toggleEventSignup(1, '走进某半导体科技集团')">
-            <span class="icon" style="width:14px;height:14px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <line x1="19" y1="8" x2="19" y2="14"/>
-                <line x1="22" y1="11" x2="16" y2="11"/>
-              </svg>
-            </span>
-            <span>立即预约席位</span>
-          </button>
-        </div>
-
-        <!-- 活动 2 -->
-        <div class="event-card">
-          <div class="event-badge-row">
-            <span class="event-type-badge">校友学术与投融资论坛</span>
-            <span class="event-status">名额充裕</span>
-          </div>
-          <div class="event-name">2026新材料与智能制造产业发展峰会（秋季闭门会）</div>
-          <div class="event-info-line">
-            <span class="icon" style="width:13px;height:13px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </span>
-            <span>2026年9月26日 09:30 - 16:30</span>
-          </div>
-          <div class="event-info-line">
-            <span class="icon" style="width:13px;height:13px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </span>
-            <span>母校大礼堂国际报告厅 / 线上同步</span>
-          </div>
-          <button class="event-btn" id="eventBtn-2" onclick="toggleEventSignup(2, '新材料与智能制造产业峰会')">
-            <span class="icon" style="width:14px;height:14px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <line x1="19" y1="8" x2="19" y2="14"/>
-                <line x1="22" y1="11" x2="16" y2="11"/>
-              </svg>
-            </span>
-            <span>立即预约席位</span>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- =================== TAB 1: 通讯录 (Directory) =================== -->
-      <div id="pane-1" class="tab-pane">
-        <!-- 搜索与**区 -->
-        <div class="sticky-header">
-          <div class="search-box">
-            <span class="icon" style="width:14px;height:14px;color:var(--color-text-muted);">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-            </span>
-            <input type="text" class="search-input" id="directorySearchInput" placeholder="输入姓名、企业、专业或业务关键词..." oninput="handleSearchInput(this.value)">
-            <span class="search-clear-btn" id="searchClearBtn" onclick="clearSearchInput()">
-              <span class="icon" style="width:14px;height:14px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/>
-                  <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              </span>
-            </span>
-          </div>
-
-          <!-- 分会筛选胶囊 -->
-          <div class="filter-tags-scroll" id="branchFilterBar">
-            <span class="filter-pill active" onclick="setBranchFilter('all', this)">全部分会</span>
-            <span class="filter-pill" onclick="setBranchFilter('**分会', this)">**分会</span>
-            <span class="filter-pill" onclick="setBranchFilter('**分会', this)">**分会</span>
-            <span class="filter-pill" onclick="setBranchFilter('**区联络处', this)">**区联络处</span>
-            <span class="filter-pill" onclick="setBranchFilter('智能制造专委会', this)">智能制造专委会</span>
-          </div>
-
-          <!-- 行业筛选胶囊 -->
-          <div class="filter-tags-scroll" id="industryFilterBar">
-            <span class="filter-pill active" onclick="setIndustryFilter('all', this)">全部行业</span>
-            <span class="filter-pill" onclick="setIndustryFilter('新一代信息技术', this)">新一代信息技术</span>
-            <span class="filter-pill" onclick="setIndustryFilter('高端智能装备', this)">高端智能装备</span>
-            <span class="filter-pill" onclick="setIndustryFilter('生物医药与健康', this)">生物医药与健康</span>
-            <span class="filter-pill" onclick="setIndustryFilter('新能源与新材料', this)">新能源与新材料</span>
-            <span class="filter-pill" onclick="setIndustryFilter('现代金融投资', this)">现代金融投资</span>
-          </div>
-        </div>
-
-        <div class="directory-count-bar">
-          <span id="filteredCountText">显示 10 位脱敏会员</span>
-          <span style="color:var(--color-primary);cursor:pointer;" onclick="resetDirectoryFilters()">重置筛选</span>
-        </div>
-
-        <!-- 真实脱敏会员卡片列表 -->
-        <div id="contactsListContainer">
-          <!-- JS 动态循环渲染 -->
-        </div>
-      </div>
-
-      <!-- =================== TAB 2: **市 (Marketplace) =================== -->
-      <div id="pane-2" class="tab-pane">
-        <!-- 分段选择器 -->
-        <div class="segmented-control">
-          <div class="segment-tab active" id="segTabAll" onclick="setDemandTab('all')">全部供需</div>
-          <div class="segment-tab" id="segTabDemand" onclick="setDemandTab('demand')">找合作 · 提需求</div>
-          <div class="segment-tab" id="segTabSupply" onclick="setDemandTab('supply')">资源库 · 找服务</div>
-        </div>
-
-        <div class="section-header" style="margin-top:10px;">
-          <span class="section-title">组织内部商业与技术对接</span>
-          <span class="section-more" onclick="showToast('已刷新最新供需信息')">实时更新</span>
-        </div>
-
-        <!-- 供需列表容器 -->
-        <div id="demandsListContainer">
-          <!-- JS 动态渲染供需列表 -->
-        </div>
-
-        <!-- 悬浮发供需按钮 (FAB) -->
-        <button class="fab-post-btn" onclick="openPostDemandModal()">
-          <span class="icon" style="width:14px;height:14px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"/>
-              <line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-          </span>
-          <span>发布供需</span>
-        </button>
-      </div>
-
-      <!-- =================== TAB 3: 个人中心 (Mine) =================== -->
-      <div id="pane-3" class="tab-pane">
-        <!-- 会员身份名片大卡 -->
-        <div class="mine-profile-header">
-          <div class="profile-card-top">
-            <div class="my-avatar">李</div>
-            <div>
-              <div class="my-name">李*明</div>
-              <div class="my-duty-tag">常务理事 · 2004级校友</div>
-              <div class="my-corp-info">某产业投资控股集团 · 董事总经理</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4格统计看板 -->
-        <div class="stats-card">
-          <div class="stat-box" onclick="showToast('名片互换累计 18 位校友')">
-            <div class="stat-num" id="statExchangeCount">18</div>
-            <div class="stat-label">名片互换</div>
-          </div>
-          <div class="stat-box" onclick="showToast('已录入名录 42 位成员')">
-            <div class="stat-num">42</div>
-            <div class="stat-label">已录名册</div>
-          </div>
-          <div class="stat-box" onclick="showToast('当前发布供需 3 条')">
-            <div class="stat-num" id="statDemandCount">3</div>
-            <div class="stat-label">我的供需</div>
-          </div>
-          <div class="stat-box" onclick="showToast('参与协会活动 5 场')">
-            <div class="stat-num" id="statEventCount">5</div>
-            <div class="stat-label">参与沙龙</div>
-          </div>
-        </div>
-
-        <!-- 会员功能列表组 -->
-        <div class="weui-cell-group">
-          <!-- 收到名片申请 -->
-          <div class="weui-cell" onclick="openCardRequestsModal()">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="20" height="14" x="2" y="5" rx="2"/>
-                    <line x1="2" x2="22" y1="10" y2="10"/>
-                  </svg>
-                </span>
-              </div>
-              <span>收到的名片互换申请</span>
-            </div>
-            <div class="cell-right">
-              <span class="cell-badge-dot" id="pendingCardBadge">2条待处理</span>
-              <span class="icon" style="width:12px;height:12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-
-          <!-- 我的签到码凭证 -->
-          <div class="weui-cell" onclick="openQrCheckinModal()">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="5" height="5" x="3" y="3" rx="1"/>
-                    <rect width="5" height="5" x="16" y="3" rx="1"/>
-                    <rect width="5" height="5" x="3" y="16" rx="1"/>
-                    <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
-                    <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
-                    <path d="M16 12h1"/>
-                  </svg>
-                </span>
-              </div>
-              <span>活动电子签到核销凭证</span>
-            </div>
-            <div class="cell-right">
-              <span>出示凭证</span>
-              <span class="icon" style="width:12px;height:12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 隐私与展示控制组 -->
-        <div class="weui-cell-group">
-          <div class="weui-cell" style="cursor:default;">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
-                </span>
-              </div>
-              <div>
-                <div style="font-size:13px;font-weight:600;">手机号码脱敏保护</div>
-                <div style="font-size:10px;color:var(--color-text-muted);">仅向已互换名片成员展示真实号码</div>
-              </div>
-            </div>
-            <div class="cell-right">
-              <label class="switch-ui">
-                <input type="checkbox" id="switchMaskPhone" checked onchange="handlePrivacyToggle('maskPhone', this.checked)">
-                <span class="switch-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <div class="weui-cell" style="cursor:default;">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                </span>
-              </div>
-              <div>
-                <div style="font-size:13px;font-weight:600;">仅向实名认证会员公开</div>
-                <div style="font-size:10px;color:var(--color-text-muted);">防止非本会成员检索您的名片履历</div>
-              </div>
-            </div>
-            <div class="cell-right">
-              <label class="switch-ui">
-                <input type="checkbox" id="switchVerifiedOnly" checked onchange="handlePrivacyToggle('verifiedOnly', this.checked)">
-                <span class="switch-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <div class="weui-cell" style="cursor:default;">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
-                    <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
-                  </svg>
-                </span>
-              </div>
-              <div>
-                <div style="font-size:13px;font-weight:600;">接收产业供需精准匹配</div>
-                <div style="font-size:10px;color:var(--color-text-muted);">根据您的主营业务自动推荐上下游资源</div>
-              </div>
-            </div>
-            <div class="cell-right">
-              <label class="switch-ui">
-                <input type="checkbox" id="switchBusinessMatch" checked onchange="handlePrivacyToggle('businessMatch', this.checked)">
-                <span class="switch-slider"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 组织说明与章程 -->
-        <div class="weui-cell-group">
-          <div class="weui-cell" onclick="openCharterModal()">
-            <div class="cell-left">
-              <div class="cell-icon-wrap">
-                <span class="icon" style="width:16px;height:16px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="16" x2="12" y2="12"/>
-                    <line x1="12" y1="8" x2="12.01" y2="8"/>
-                  </svg>
-                </span>
-              </div>
-              <span>关于本会章程与数字化管理说明</span>
-            </div>
-            <div class="cell-right">
-              <span class="icon" style="width:12px;height:12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 底部原生 TabBar -->
-    <div class="bottom-tabbar">
-      <div class="tab-item active" id="tabItem-0" onclick="switchTab(0)">
-        <span class="icon" style="width:20px;height:20px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-        </span>
-        <span class="tab-label">首页动态</span>
-      </div>
-      <div class="tab-item" id="tabItem-1" onclick="switchTab(1)">
-        <span class="icon" style="width:20px;height:20px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="14" x="2" y="5" rx="2"/>
-            <line x1="2" x2="22" y1="10" y2="10"/>
-          </svg>
-        </span>
-        <span class="tab-label">通讯名录</span>
-      </div>
-      <div class="tab-item" id="tabItem-2" onclick="switchTab(2)">
-        <span class="icon" style="width:20px;height:20px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"/>
-            <path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"/>
-          </svg>
-        </span>
-        <span class="tab-label">**市</span>
-      </div>
-      <div class="tab-item" id="tabItem-3" onclick="switchTab(3)">
-        <div class="tab-badge" id="tabBadgeMine"></div>
-        <span class="icon" style="width:20px;height:20px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-        </span>
-        <span class="tab-label">个人中心</span>
-      </div>
-    </div>
-
-    <!-- =================== 全局弹窗层 =================== -->
-
-    <!-- 弹窗 1: 会员电子名片详情抽屉 -->
-    <div class="modal-overlay" id="contactDetailModal" onclick="closeModalOnOverlay(event, 'contactDetailModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">会员电子名片</span>
-          <span class="modal-close-icon" onclick="closeModal('contactDetailModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-
-        <div id="contactDetailBody">
-          <!-- 动态装填名片内容 -->
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 2: 发布供需模态框 -->
-    <div class="modal-overlay" id="postDemandModal" onclick="closeModalOnOverlay(event, 'postDemandModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">发布商机与供需</span>
-          <span class="modal-close-icon" onclick="closeModal('postDemandModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-
-        <div style="font-size:12px;margin-bottom:12px;">
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">供需类型</label>
-          <div style="display:flex;gap:10px;margin-bottom:12px;">
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-              <input type="radio" name="postType" value="demand" checked> 寻找需求 / 采购找人
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+</span>
+</div>
+<div class="horizontal-scroll" id="homeCouncilList">
+<!-- JS 动态渲染理事 -->
+</div>
+<!-- 近期活动与沙龙 -->
+<div class="section-header" id="salonSectionAnchor">
+<span class="section-title">近期分会沙龙与走访</span>
+<span class="section-more" onclick="showToast('已刷新最新活动排期')">刷新日程</span>
+</div>
+<!-- 活动 1 -->
+<div class="event-card">
+<div class="event-badge-row">
+<span class="event-type-badge">会长企业走访</span>
+<span class="event-status">报名中 (限30席)</span>
+</div>
+<div class="event-name">走进某半导体科技集团：车规芯片产线深度交流研讨会</div>
+<div class="event-info-line">
+<span class="icon" style="width:13px;height:13px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="18" rx="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+</span>
+<span>2026年9月18日 14:00 - 17:30</span>
+</div>
+<div class="event-info-line">
+<span class="icon" style="width:13px;height:13px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</span>
+<span>**·张江集**区某栋会议厅</span>
+</div>
+<button class="event-btn" id="eventBtn-1" onclick="toggleEventSignup(1, '走进某半导体科技集团')">
+<span class="icon" style="width:14px;height:14px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<line x1="19" x2="19" y1="8" y2="14"></line>
+<line x1="22" x2="16" y1="11" y2="11"></line>
+</svg>
+</span>
+<span>立即预约席位</span>
+</button>
+</div>
+<!-- 活动 2 -->
+<div class="event-card">
+<div class="event-badge-row">
+<span class="event-type-badge">校友学术与投融资论坛</span>
+<span class="event-status">名额充裕</span>
+</div>
+<div class="event-name">2026新材料与智能制造产业发展峰会（秋季闭门会）</div>
+<div class="event-info-line">
+<span class="icon" style="width:13px;height:13px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="18" rx="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+</span>
+<span>2026年9月26日 09:30 - 16:30</span>
+</div>
+<div class="event-info-line">
+<span class="icon" style="width:13px;height:13px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+</span>
+<span>母校大礼堂国际报告厅 / 线上同步</span>
+</div>
+<button class="event-btn" id="eventBtn-2" onclick="toggleEventSignup(2, '新材料与智能制造产业峰会')">
+<span class="icon" style="width:14px;height:14px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<line x1="19" x2="19" y1="8" y2="14"></line>
+<line x1="22" x2="16" y1="11" y2="11"></line>
+</svg>
+</span>
+<span>立即预约席位</span>
+</button>
+</div>
+</div>
+<!-- =================== TAB 1: 通讯录 (Directory) =================== -->
+<div class="tab-pane" id="pane-1">
+<!-- 搜索与**区 -->
+<div class="sticky-header">
+<div class="search-box">
+<span class="icon" style="width:14px;height:14px;color:var(--color-text-muted);">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</span>
+<input class="search-input" id="directorySearchInput" oninput="handleSearchInput(this.value)" placeholder="输入姓名、企业、专业或业务关键词..." type="text"/>
+<span class="search-clear-btn" id="searchClearBtn" onclick="clearSearchInput()">
+<span class="icon" style="width:14px;height:14px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<!-- 分会筛选胶囊 -->
+<div class="filter-tags-scroll" id="branchFilterBar">
+<span class="filter-pill active" onclick="setBranchFilter('all', this)">全部分会</span>
+<span class="filter-pill" onclick="setBranchFilter('**分会', this)">**分会</span>
+<span class="filter-pill" onclick="setBranchFilter('**分会', this)">**分会</span>
+<span class="filter-pill" onclick="setBranchFilter('**区联络处', this)">**区联络处</span>
+<span class="filter-pill" onclick="setBranchFilter('智能制造专委会', this)">智能制造专委会</span>
+</div>
+<!-- 行业筛选胶囊 -->
+<div class="filter-tags-scroll" id="industryFilterBar">
+<span class="filter-pill active" onclick="setIndustryFilter('all', this)">全部行业</span>
+<span class="filter-pill" onclick="setIndustryFilter('新一代信息技术', this)">新一代信息技术</span>
+<span class="filter-pill" onclick="setIndustryFilter('高端智能装备', this)">高端智能装备</span>
+<span class="filter-pill" onclick="setIndustryFilter('生物医药与健康', this)">生物医药与健康</span>
+<span class="filter-pill" onclick="setIndustryFilter('新能源与新材料', this)">新能源与新材料</span>
+<span class="filter-pill" onclick="setIndustryFilter('现代金融投资', this)">现代金融投资</span>
+</div>
+</div>
+<div class="directory-count-bar">
+<span id="filteredCountText">显示 10 位脱敏会员</span>
+<span onclick="resetDirectoryFilters()" style="color:var(--color-primary);cursor:pointer;">重置筛选</span>
+</div>
+<!-- 真实脱敏会员卡片列表 -->
+<div id="contactsListContainer">
+<!-- JS 动态循环渲染 -->
+</div>
+</div>
+<!-- =================== TAB 2: **市 (Marketplace) =================== -->
+<div class="tab-pane" id="pane-2">
+<!-- 分段选择器 -->
+<div class="segmented-control">
+<div class="segment-tab active" id="segTabAll" onclick="setDemandTab('all')">全部供需</div>
+<div class="segment-tab" id="segTabDemand" onclick="setDemandTab('demand')">找合作 · 提需求</div>
+<div class="segment-tab" id="segTabSupply" onclick="setDemandTab('supply')">资源库 · 找服务</div>
+</div>
+<div class="section-header" style="margin-top:10px;">
+<span class="section-title">组织内部商业与技术对接</span>
+<span class="section-more" onclick="showToast('已刷新最新供需信息')">实时更新</span>
+</div>
+<!-- 供需列表容器 -->
+<div id="demandsListContainer">
+<!-- JS 动态渲染供需列表 -->
+</div>
+<!-- 悬浮发供需按钮 (FAB) -->
+<button class="fab-post-btn" onclick="openPostDemandModal()">
+<span class="icon" style="width:14px;height:14px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</span>
+<span>发布供需</span>
+</button>
+</div>
+<!-- =================== TAB 3: 个人中心 (Mine) =================== -->
+<div class="tab-pane" id="pane-3">
+<!-- 会员身份名片大卡 -->
+<div class="mine-profile-header">
+<div class="profile-card-top">
+<div class="my-avatar">李</div>
+<div>
+<div class="my-name">李*明</div>
+<div class="my-duty-tag">常务理事 · 2004级校友</div>
+<div class="my-corp-info">某产业投资控股集团 · 董事总经理</div>
+</div>
+</div>
+</div>
+<!-- 4格统计看板 -->
+<div class="stats-card">
+<div class="stat-box" onclick="showToast('名片互换累计 18 位校友')">
+<div class="stat-num" id="statExchangeCount">18</div>
+<div class="stat-label">名片互换</div>
+</div>
+<div class="stat-box" onclick="showToast('已录入名录 42 位成员')">
+<div class="stat-num">42</div>
+<div class="stat-label">已录名册</div>
+</div>
+<div class="stat-box" onclick="showToast('当前发布供需 3 条')">
+<div class="stat-num" id="statDemandCount">3</div>
+<div class="stat-label">我的供需</div>
+</div>
+<div class="stat-box" onclick="showToast('参与协会活动 5 场')">
+<div class="stat-num" id="statEventCount">5</div>
+<div class="stat-label">参与沙龙</div>
+</div>
+</div>
+<!-- 会员功能列表组 -->
+<div class="weui-cell-group">
+<!-- 收到名片申请 -->
+<div class="weui-cell" onclick="openCardRequestsModal()">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg>
+</span>
+</div>
+<span>收到的名片互换申请</span>
+</div>
+<div class="cell-right">
+<span class="cell-badge-dot" id="pendingCardBadge">2条待处理</span>
+<span class="icon" style="width:12px;height:12px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+</div>
+</div>
+<!-- 我的签到码凭证 -->
+<div class="weui-cell" onclick="openQrCheckinModal()">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="5" rx="1" width="5" x="3" y="3"></rect>
+<rect height="5" rx="1" width="5" x="16" y="3"></rect>
+<rect height="5" rx="1" width="5" x="3" y="16"></rect>
+<path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+<path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+<path d="M16 12h1"></path>
+</svg>
+</span>
+</div>
+<span>活动电子签到核销凭证</span>
+</div>
+<div class="cell-right">
+<span>出示凭证</span>
+<span class="icon" style="width:12px;height:12px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+</div>
+</div>
+</div>
+<!-- 隐私与展示控制组 -->
+<div class="weui-cell-group">
+<div class="weui-cell" style="cursor:default;">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+</span>
+</div>
+<div>
+<div style="font-size:13px;font-weight:600;">手机号码脱敏保护</div>
+<div style="font-size:10px;color:var(--color-text-muted);">仅向已互换名片成员展示真实号码</div>
+</div>
+</div>
+<div class="cell-right">
+<label class="switch-ui">
+<input checked="" id="switchMaskPhone" onchange="handlePrivacyToggle('maskPhone', this.checked)" type="checkbox"/>
+<span class="switch-slider"></span>
+</label>
+</div>
+</div>
+<div class="weui-cell" style="cursor:default;">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+</span>
+</div>
+<div>
+<div style="font-size:13px;font-weight:600;">仅向实名认证会员公开</div>
+<div style="font-size:10px;color:var(--color-text-muted);">防止非本会成员检索您的名片履历</div>
+</div>
+</div>
+<div class="cell-right">
+<label class="switch-ui">
+<input checked="" id="switchVerifiedOnly" onchange="handlePrivacyToggle('verifiedOnly', this.checked)" type="checkbox"/>
+<span class="switch-slider"></span>
+</label>
+</div>
+</div>
+<div class="weui-cell" style="cursor:default;">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"></path>
+<path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"></path>
+</svg>
+</span>
+</div>
+<div>
+<div style="font-size:13px;font-weight:600;">接收产业供需精准匹配</div>
+<div style="font-size:10px;color:var(--color-text-muted);">根据您的主营业务自动推荐上下游资源</div>
+</div>
+</div>
+<div class="cell-right">
+<label class="switch-ui">
+<input checked="" id="switchBusinessMatch" onchange="handlePrivacyToggle('businessMatch', this.checked)" type="checkbox"/>
+<span class="switch-slider"></span>
+</label>
+</div>
+</div>
+</div>
+<!-- 组织说明与章程 -->
+<div class="weui-cell-group">
+<div class="weui-cell" onclick="openCharterModal()">
+<div class="cell-left">
+<div class="cell-icon-wrap">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" x2="12" y1="16" y2="12"></line>
+<line x1="12" x2="12.01" y1="8" y2="8"></line>
+</svg>
+</span>
+</div>
+<span>关于本会章程与数字化管理说明</span>
+</div>
+<div class="cell-right">
+<span class="icon" style="width:12px;height:12px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 底部原生 TabBar -->
+<div class="bottom-tabbar">
+<div class="tab-item active" id="tabItem-0" onclick="switchTab(0)">
+<span class="icon" style="width:20px;height:20px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</span>
+<span class="tab-label">首页动态</span>
+</div>
+<div class="tab-item" id="tabItem-1" onclick="switchTab(1)">
+<span class="icon" style="width:20px;height:20px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg>
+</span>
+<span class="tab-label">通讯名录</span>
+</div>
+<div class="tab-item" id="tabItem-2" onclick="switchTab(2)">
+<span class="icon" style="width:20px;height:20px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0l-1.7 1.7"></path>
+<path d="m3.5 13.5 4.5-4.5a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 0 1 0-1.4z"></path>
+</svg>
+</span>
+<span class="tab-label">**市</span>
+</div>
+<div class="tab-item" id="tabItem-3" onclick="switchTab(3)">
+<div class="tab-badge" id="tabBadgeMine"></div>
+<span class="icon" style="width:20px;height:20px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+</span>
+<span class="tab-label">个人中心</span>
+</div>
+</div>
+<!-- =================== 全局弹窗层 =================== -->
+<!-- 弹窗 1: 会员电子名片详情抽屉 -->
+<div class="modal-overlay" id="contactDetailModal" onclick="closeModalOnOverlay(event, 'contactDetailModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">会员电子名片</span>
+<span class="modal-close-icon" onclick="closeModal('contactDetailModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div id="contactDetailBody">
+<!-- 动态装填名片内容 -->
+</div>
+</div>
+</div>
+<!-- 弹窗 2: 发布供需模态框 -->
+<div class="modal-overlay" id="postDemandModal" onclick="closeModalOnOverlay(event, 'postDemandModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">发布商机与供需</span>
+<span class="modal-close-icon" onclick="closeModal('postDemandModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div style="font-size:12px;margin-bottom:12px;">
+<label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">供需类型</label>
+<div style="display:flex;gap:10px;margin-bottom:12px;">
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+<input checked="" name="postType" type="radio" value="demand"/> 寻找需求 / 采购找人
             </label>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-              <input type="radio" name="postType" value="supply"> 提供资源 / 产品服务
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+<input name="postType" type="radio" value="supply"/> 提供资源 / 产品服务
             </label>
-          </div>
-
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">需求标题</label>
-          <input type="text" id="postTitleInput" placeholder="例如：寻找某工业视觉检测项目合作方..." style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;">
-
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">所属行业</label>
-          <select id="postIndustrySelect" style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;background:var(--color-white);">
-            <option value="新一代信息技术">新一代信息技术</option>
-            <option value="高端智能装备">高端智能装备</option>
-            <option value="生物医药与健康">生物医药与健康</option>
-            <option value="新能源与新材料">新能源与新材料</option>
-            <option value="现代金融投资">现代金融投资</option>
-          </select>
-
-          <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">详细描述与合作诉求</label>
-          <textarea id="postDescInput" rows="3" placeholder="请详细阐述您的合作方向、技术参数或交付周期..." style="width:100%;border:1px solid var(--color-border);border-radius:6px;padding:8px 10px;font-size:12px;outline:none;margin-bottom:16px;"></textarea>
-
-          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;" onclick="submitNewDemand()">
+</div>
+<label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">需求标题</label>
+<input id="postTitleInput" placeholder="例如：寻找某工业视觉检测项目合作方..." style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;" type="text"/>
+<label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">所属行业</label>
+<select id="postIndustrySelect" style="width:100%;height:36px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;margin-bottom:12px;background:var(--color-white);">
+<option value="新一代信息技术">新一代信息技术</option>
+<option value="高端智能装备">高端智能装备</option>
+<option value="生物医药与健康">生物医药与健康</option>
+<option value="新能源与新材料">新能源与新材料</option>
+<option value="现代金融投资">现代金融投资</option>
+</select>
+<label style="display:block;font-weight:600;margin-bottom:4px;color:var(--color-text-sub);">详细描述与合作诉求</label>
+<textarea id="postDescInput" placeholder="请详细阐述您的合作方向、技术参数或交付周期..." rows="3" style="width:100%;border:1px solid var(--color-border);border-radius:6px;padding:8px 10px;font-size:12px;outline:none;margin-bottom:16px;"></textarea>
+<button onclick="submitNewDemand()" style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;">
             确认提交发布
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 3: 待处理名片申请列表 -->
-    <div class="modal-overlay" id="cardRequestsModal" onclick="closeModalOnOverlay(event, 'cardRequestsModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">收到的名片申请</span>
-          <span class="modal-close-icon" onclick="closeModal('cardRequestsModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-
-        <div id="cardRequestsList">
-          <!-- 动态渲染待处理请求 -->
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 4: 电子签到核销凭证码 -->
-    <div class="modal-overlay" id="qrCheckinModal" onclick="closeModalOnOverlay(event, 'qrCheckinModal')">
-      <div class="modal-sheet" style="text-align:center;">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">沙龙电子签到凭证</span>
-          <span class="modal-close-icon" onclick="closeModal('qrCheckinModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-
-        <div style="padding:10px 0;">
-          <div style="font-size:14px;font-weight:800;color:var(--color-primary);">走进某半导体科技集团·会长企业研讨会</div>
-          <div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">参会人：李*明 (常务理事) · 席位 #08</div>
-
-          <!-- 模拟矢量二维码 -->
-          <div style="width:180px;height:180px;margin:16px auto;background:var(--color-white);border:2px solid var(--color-primary);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;box-shadow:var(--shadow-md);">
-            <div class="icon" style="width:140px;height:140px;color:var(--color-primary);">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="5" height="5" x="3" y="3" rx="1"/>
-                <rect width="5" height="5" x="16" y="3" rx="1"/>
-                <rect width="5" height="5" x="3" y="16" rx="1"/>
-                <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
-                <path d="M21 21v.01"/>
-                <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
-                <path d="M3 12h.01"/>
-                <path d="M12 3h.01"/>
-                <path d="M12 16v.01"/>
-                <path d="M16 12h1"/>
-                <path d="M21 12v.01"/>
-                <path d="M12 21v-1"/>
-              </svg>
-            </div>
-          </div>
-
-          <div style="font-family:monospace;font-size:13px;font-weight:700;color:var(--color-text-sub);letter-spacing:2px;">
+</div>
+</div>
+</div>
+<!-- 弹窗 3: 待处理名片申请列表 -->
+<div class="modal-overlay" id="cardRequestsModal" onclick="closeModalOnOverlay(event, 'cardRequestsModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">收到的名片申请</span>
+<span class="modal-close-icon" onclick="closeModal('cardRequestsModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div id="cardRequestsList">
+<!-- 动态渲染待处理请求 -->
+</div>
+</div>
+</div>
+<!-- 弹窗 4: 电子签到核销凭证码 -->
+<div class="modal-overlay" id="qrCheckinModal" onclick="closeModalOnOverlay(event, 'qrCheckinModal')">
+<div class="modal-sheet" style="text-align:center;">
+<div class="modal-header-row">
+<span class="modal-sheet-title">沙龙电子签到凭证</span>
+<span class="modal-close-icon" onclick="closeModal('qrCheckinModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div style="padding:10px 0;">
+<div style="font-size:14px;font-weight:800;color:var(--color-primary);">走进某半导体科技集团·会长企业研讨会</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:4px;">参会人：李*明 (常务理事) · 席位 #08</div>
+<!-- 模拟矢量二维码 -->
+<div style="width:180px;height:180px;margin:16px auto;background:var(--color-white);border:2px solid var(--color-primary);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;box-shadow:var(--shadow-md);">
+<div class="icon" style="width:140px;height:140px;color:var(--color-primary);">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="5" rx="1" width="5" x="3" y="3"></rect>
+<rect height="5" rx="1" width="5" x="16" y="3"></rect>
+<rect height="5" rx="1" width="5" x="3" y="16"></rect>
+<path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+<path d="M21 21v.01"></path>
+<path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+<path d="M3 12h.01"></path>
+<path d="M12 3h.01"></path>
+<path d="M12 16v.01"></path>
+<path d="M16 12h1"></path>
+<path d="M21 12v.01"></path>
+<path d="M12 21v-1"></path>
+</svg>
+</div>
+</div>
+<div style="font-family:monospace;font-size:13px;font-weight:700;color:var(--color-text-sub);letter-spacing:2px;">
             CHK-2026-9810-8842
           </div>
-          <div style="font-size:10px;color:var(--color-text-muted);margin-top:6px;">
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:6px;">
             请在现场签到台向工作人员出示核销 · 动态防伪已生效
           </div>
-
-          <button style="margin-top:16px;background:var(--color-primary-soft);color:var(--color-primary);border:1px solid var(--color-primary-border);padding:8px 24px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;" onclick="showToast('签到二维码已刷新')">
+<button onclick="showToast('签到二维码已刷新')" style="margin-top:16px;background:var(--color-primary-soft);color:var(--color-primary);border:1px solid var(--color-primary-border);padding:8px 24px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">
             刷新二维码
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 5: 公告详情 -->
-    <div class="modal-overlay" id="noticeModal" onclick="closeModalOnOverlay(event, 'noticeModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">协会要闻公告</span>
-          <span class="modal-close-icon" onclick="closeModal('noticeModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-        <div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
-          <b style="font-size:14px;color:var(--color-text-main);display:block;margin-bottom:6px;">
+</div>
+</div>
+</div>
+<!-- 弹窗 5: 公告详情 -->
+<div class="modal-overlay" id="noticeModal" onclick="closeModalOnOverlay(event, 'noticeModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">协会要闻公告</span>
+<span class="modal-close-icon" onclick="closeModal('noticeModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
+<b style="font-size:14px;color:var(--color-text-main);display:block;margin-bottom:6px;">
             关于举办2026半导体创新产业闭门沙龙的通知
           </b>
-          <p style="margin-bottom:8px;color:var(--color-text-muted);">发布日期：2026年9月03日 · 秘书处</p>
-          <p style="margin-bottom:8px;">各位理事、常务理事及校友同仁：</p>
-          <p style="margin-bottom:8px;">为促进产业链校友企业互助合作与产学研协同创新，商会联合高校校友总会定于9月18日组织走访会长单位某半导体科技集团，实地考察车规芯片测试产线并举办专题研讨。</p>
-          <p style="margin-bottom:12px;">席位有限，请登录小程序进入“近期沙龙”栏目完成实名登记。</p>
-          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('noticeModal');showToast('已确认阅读公告')">
+<p style="margin-bottom:8px;color:var(--color-text-muted);">发布日期：2026年9月03日 · 秘书处</p>
+<p style="margin-bottom:8px;">各位理事、常务理事及校友同仁：</p>
+<p style="margin-bottom:8px;">为促进产业链校友企业互助合作与产学研协同创新，商会联合高校校友总会定于9月18日组织走访会长单位某半导体科技集团，实地考察车规芯片测试产线并举办专题研讨。</p>
+<p style="margin-bottom:12px;">席位有限，请登录小程序进入“近期沙龙”栏目完成实名登记。</p>
+<button onclick="closeModal('noticeModal');showToast('已确认阅读公告')" style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;">
             已知悉
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 6: 入会认证表单 -->
-    <div class="modal-overlay" id="certModal" onclick="closeModalOnOverlay(event, 'certModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">校友/商会会员实名认证</span>
-          <span class="modal-close-icon" onclick="closeModal('certModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-        <div style="font-size:12px;color:var(--color-text-sub);">
-          <p style="margin-bottom:10px;color:var(--color-text-muted);">当前账号已通过常务理事资格认证，如需更新单位信息或申报新增专委会职务，请核对以下资料：</p>
-          
-          <div style="margin-bottom:10px;">
-            <label style="display:block;font-weight:600;margin-bottom:3px;">认证姓名</label>
-            <input type="text" value="李*明" disabled style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;">
-          </div>
-
-          <div style="margin-bottom:10px;">
-            <label style="display:block;font-weight:600;margin-bottom:3px;">所属学院 / 入学年份</label>
-            <input type="text" value="经济管理学院 · 2004级" disabled style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;">
-          </div>
-
-          <div style="margin-bottom:14px;">
-            <label style="display:block;font-weight:600;margin-bottom:3px;">现任企业及职位</label>
-            <input type="text" value="某产业投资控股集团 · 董事总经理" style="width:100%;height:34px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;">
-          </div>
-
-          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('certModal');showToast('信息已向秘书处提交更新')">
+</div>
+</div>
+</div>
+<!-- 弹窗 6: 入会认证表单 -->
+<div class="modal-overlay" id="certModal" onclick="closeModalOnOverlay(event, 'certModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">校友/商会会员实名认证</span>
+<span class="modal-close-icon" onclick="closeModal('certModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div style="font-size:12px;color:var(--color-text-sub);">
+<p style="margin-bottom:10px;color:var(--color-text-muted);">当前账号已通过常务理事资格认证，如需更新单位信息或申报新增专委会职务，请核对以下资料：</p>
+<div style="margin-bottom:10px;">
+<label style="display:block;font-weight:600;margin-bottom:3px;">认证姓名</label>
+<input disabled="" style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;" type="text" value="李*明"/>
+</div>
+<div style="margin-bottom:10px;">
+<label style="display:block;font-weight:600;margin-bottom:3px;">所属学院 / 入学年份</label>
+<input disabled="" style="width:100%;height:34px;background:var(--color-surface-soft);border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;" type="text" value="经济管理学院 · 2004级"/>
+</div>
+<div style="margin-bottom:14px;">
+<label style="display:block;font-weight:600;margin-bottom:3px;">现任企业及职位</label>
+<input style="width:100%;height:34px;border:1px solid var(--color-border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;" type="text" value="某产业投资控股集团 · 董事总经理"/>
+</div>
+<button onclick="closeModal('certModal');showToast('信息已向秘书处提交更新')" style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:10px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;">
             保存认证信息
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 弹窗 7: 章程与数字化说明 -->
-    <div class="modal-overlay" id="charterModal" onclick="closeModalOnOverlay(event, 'charterModal')">
-      <div class="modal-sheet">
-        <div class="modal-header-row">
-          <span class="modal-sheet-title">协会章程与数字化管理说明</span>
-          <span class="modal-close-icon" onclick="closeModal('charterModal')">
-            <span class="icon" style="width:16px;height:16px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </span>
-          </span>
-        </div>
-        <div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
-          <p style="margin-bottom:8px;"><b>第一条</b> 本通讯录仅供本会认证校友与商会会员内部联络互助使用，未经许可严禁用于任何外部商业骚扰或非授权用途。</p>
-          <p style="margin-bottom:8px;"><b>第二条</b> 系统严格执行个人隐私脱敏保护规则，默认对非名片互换成员掩码联系方式。</p>
-          <p style="margin-bottom:12px;"><b>第三条</b> **市信息发布需经秘书处合规核验，严禁发布违规及虚假投融资信息。</p>
-          <button style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;" onclick="closeModal('charterModal')">
+</div>
+</div>
+</div>
+<!-- 弹窗 7: 章程与数字化说明 -->
+<div class="modal-overlay" id="charterModal" onclick="closeModalOnOverlay(event, 'charterModal')">
+<div class="modal-sheet">
+<div class="modal-header-row">
+<span class="modal-sheet-title">协会章程与数字化管理说明</span>
+<span class="modal-close-icon" onclick="closeModal('charterModal')">
+<span class="icon" style="width:16px;height:16px;">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="18" x2="6" y1="6" y2="18"></line>
+<line x1="6" x2="18" y1="6" y2="18"></line>
+</svg>
+</span>
+</span>
+</div>
+<div style="font-size:12px;color:var(--color-text-sub);line-height:1.7;">
+<p style="margin-bottom:8px;"><b>第一条</b> 本通讯录仅供本会认证校友与商会会员内部联络互助使用，未经许可严禁用于任何外部商业骚扰或非授权用途。</p>
+<p style="margin-bottom:8px;"><b>第二条</b> 系统严格执行个人隐私脱敏保护规则，默认对非名片互换成员掩码联系方式。</p>
+<p style="margin-bottom:12px;"><b>第三条</b> **市信息发布需经秘书处合规核验，严禁发布违规及虚假投融资信息。</p>
+<button onclick="closeModal('charterModal')" style="width:100%;background:var(--color-primary);color:var(--color-white);border:none;padding:9px;border-radius:8px;font-weight:600;font-size:12px;cursor:pointer;">
             返回
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 全局微信 Toast 气泡 -->
-    <div class="mp-toast" id="mpToast">
-      <span class="icon" style="width:18px;height:18px;color:var(--color-success-light);">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </span>
-      <span id="mpToastMsg">操作成功</span>
-    </div>
-
-  </div>
-
-  <!-- JavaScript 交互闭环逻辑 -->
-  <script>
+</div>
+</div>
+</div>
+<!-- 全局微信 Toast 气泡 -->
+<div class="mp-toast" id="mpToast">
+<span class="icon" style="width:18px;height:18px;color:var(--color-success-light);">
+<svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</span>
+<span id="mpToastMsg">操作成功</span>
+</div>
+</div>
+<!-- JavaScript 交互闭环逻辑 -->
+<script>
     // =================== 全局脱敏真实数据 ===================
     const contactsData = [
       {

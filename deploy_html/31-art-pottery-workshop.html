@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**美学手作·美学手作空间</title>
-  <!-- Icon System: Lucide SVG Icons -->
-  <!-- Component Ecosystem: shadcn/ui inspired lightweight standalone tokens -->
-  <!-- State Matrix: loading / empty / error / disabled / focus supported -->
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**美学手作·美学手作空间</title>
+<!-- Icon System: Lucide SVG Icons -->
+<!-- Component Ecosystem: shadcn/ui inspired lightweight standalone tokens -->
+<!-- State Matrix: loading / empty / error / disabled / focus supported -->
+<style>
     :root {
       /* 品牌主色: **镇陶土赭红与焦糖泥褐 */
       --color-primary: #B45309;
@@ -772,751 +773,654 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 手机主体视口 -->
+<div class="phone-shell">
+<!-- 顶部状态栏 (iOS 仿真) -->
 
+<!-- 微信小程序原生头部与胶囊按钮 -->
 
-  <!-- 手机主体视口 -->
-  <div class="phone-shell">
-
-    <!-- 顶部状态栏 (iOS 仿真) -->
-    <div class="status-bar">
-      <span>10:24</span>
-      <div class="status-bar-icons">
-        <!-- 矢量 WiFi 图标 -->
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-          <line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <!-- 矢量电池图标 -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
-          <line x1="22" y1="11" x2="22" y2="13"/>
-          <rect x="5" y="10" width="8" height="4" fill="currentColor" stroke="none"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序原生头部与胶囊按钮 -->
-    <header class="mp-header">
-      <div class="header-brand-title" id="page-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        <span>**美学手作手作</span>
-      </div>
-      <!-- 微信胶囊 -->
-      <div class="capsule-btn" onclick="openWechatActionSheet()">
-        <span class="capsule-dots">•••</span>
-        <div class="capsule-sep"></div>
-        <div class="capsule-circle">
-          <div class="capsule-inner-dot"></div>
-        </div>
-      </div>
-    </header>
-
-    <!-- 小程**区 -->
-    <main class="mp-body" id="mp-scroll-body" role="main">
-
-      <!-- ================= Tab 0: 工坊首页 ================= -->
-      <section id="pane-0" class="pane active" aria-labelledby="home-heading">
-        <!-- 意境暖调 Hero Banner -->
-        <div style="background: var(--color-primary-dark); border-radius: var(--radius-md); padding: 18px 16px; color: var(--color-text-inverse); margin-bottom: 12px; box-shadow: var(--shadow-md);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <span class="pill-badge" style="background: rgba(255,255,255,0.2); color:var(--color-text-inverse); border:none;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+<!-- 小程**区 -->
+<main class="mp-body" id="mp-scroll-body" role="main">
+<!-- ================= Tab 0: 工坊首页 ================= -->
+<section aria-labelledby="home-heading" class="pane active" id="pane-0">
+<!-- 意境暖调 Hero Banner -->
+<div style="background: var(--color-primary-dark); border-radius: var(--radius-md); padding: 18px 16px; color: var(--color-text-inverse); margin-bottom: 12px; box-shadow: var(--shadow-md);">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<span class="pill-badge" style="background: rgba(255,255,255,0.2); color:var(--color-text-inverse); border:none;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               今日营业 10:00 - 21:30
             </span>
-            <span style="font-size:11px; opacity:0.9;">余席 4 位</span>
-          </div>
-          <div style="font-size: 18px; font-weight: 800; margin-top: 10px; letter-spacing: 0.5px;">泥土温润 · 笔触生花</div>
-          <div style="font-size: 11px; opacity: 0.88; margin-top: 4px; line-height: 1.5;">远离喧嚣，在慢调时光中感知拉坯旋转与油画厚涂的心流治愈。</div>
-          <div style="display:flex; gap:8px; margin-top:12px;">
-            <button class="btn-secondary" style="background:rgba(255,255,255,0.92); color:var(--color-primary-dark); font-weight:700; border:none; padding:6px 12px;" onclick="switchTab(1)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+<span style="font-size:11px; opacity:0.9;">余席 4 位</span>
+</div>
+<div style="font-size: 18px; font-weight: 800; margin-top: 10px; letter-spacing: 0.5px;">泥土温润 · 笔触生花</div>
+<div style="font-size: 11px; opacity: 0.88; margin-top: 4px; line-height: 1.5;">远离喧嚣，在慢调时光中感知拉坯旋转与油画厚涂的心流治愈。</div>
+<div style="display:flex; gap:8px; margin-top:12px;">
+<button class="btn-secondary" onclick="switchTab(1)" style="background:rgba(255,255,255,0.92); color:var(--color-primary-dark); font-weight:700; border:none; padding:6px 12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
               即刻预约
             </button>
-            <button class="btn-secondary" style="background:rgba(0,0,0,0.25); color:var(--color-text-inverse); border:1px solid rgba(255,255,255,0.3); padding:6px 12px;" onclick="switchTab(2)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+<button class="btn-secondary" onclick="switchTab(2)" style="background:rgba(0,0,0,0.25); color:var(--color-text-inverse); border:1px solid rgba(255,255,255,0.3); padding:6px 12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
               查出窑进度
             </button>
+</div>
+</div>
+<!-- 4 **区 -->
+<div class="art-card" style="padding: 12px 6px; margin-bottom: 12px;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 4px;">
+<div onclick="quickFilterBooking('painting')" style="cursor: pointer;">
+<div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-watercolor-bg); color: var(--color-watercolor-blue); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="13.5" cy="6.5" fill="currentColor" r=".5"></circle><circle cx="17.5" cy="10.5" fill="currentColor" r=".5"></circle><circle cx="8.5" cy="7.5" fill="currentColor" r=".5"></circle><circle cx="6.5" cy="12.5" fill="currentColor" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>
+</div>
+<div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">油画工坊</div>
+</div>
+<div onclick="quickFilterBooking('pottery')" style="cursor: pointer;">
+<div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary-dark); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M7 21h10"></path><path d="M12 21a7 7 0 0 1-7-7c0-2 1-3 3-5 1-1 1-3 1-5a3 3 0 0 1 6 0c0 2 0 4 1 5 2 2 3 3 3 5a7 7 0 0 1-7 7z"></path></svg>
+</div>
+<div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">陶艺拉坯</div>
+</div>
+<div onclick="switchTab(2)" style="cursor: pointer;">
+<div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-kiln-gold); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+</div>
+<div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">出窑看板</div>
+</div>
+<div onclick="openCouponModal()" style="cursor: pointer;">
+<div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-glaze-green-bg); color: var(--color-glaze-green); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+</div>
+<div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">体验礼券</div>
+</div>
+</div>
+</div>
+<!-- 窑炉动态公告 -->
+<div class="art-card" style="padding: 10px 12px; display: flex; align-items: center; gap: 8px; background: var(--color-bg-dashed); border-color: var(--color-border); margin-bottom: 12px;">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+<div style="font-size: 11px; color: var(--color-text-body); flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+<b>【窑讯】</b>第 2609 期高温柴烧作品已出窑质检完毕，请注意查收通知。
           </div>
-        </div>
-
-        <!-- 4 **区 -->
-        <div class="art-card" style="padding: 12px 6px; margin-bottom: 12px;">
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 4px;">
-            <div style="cursor: pointer;" onclick="quickFilterBooking('painting')">
-              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-watercolor-bg); color: var(--color-watercolor-blue); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
-              </div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">油画工坊</div>
-            </div>
-            <div style="cursor: pointer;" onclick="quickFilterBooking('pottery')">
-              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary-dark); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 21h10"/><path d="M12 21a7 7 0 0 1-7-7c0-2 1-3 3-5 1-1 1-3 1-5a3 3 0 0 1 6 0c0 2 0 4 1 5 2 2 3 3 3 5a7 7 0 0 1-7 7z"/></svg>
-              </div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">陶艺拉坯</div>
-            </div>
-            <div style="cursor: pointer;" onclick="switchTab(2)">
-              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-kiln-gold); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-              </div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">出窑看板</div>
-            </div>
-            <div style="cursor: pointer;" onclick="openCouponModal()">
-              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-glaze-green-bg); color: var(--color-glaze-green); margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
-              </div>
-              <div style="font-size: 11px; font-weight: 700; color: var(--color-text-title); margin-top: 5px;">体验礼券</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 窑炉动态公告 -->
-        <div class="art-card" style="padding: 10px 12px; display: flex; align-items: center; gap: 8px; background: var(--color-bg-dashed); border-color: var(--color-border); margin-bottom: 12px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <div style="font-size: 11px; color: var(--color-text-body); flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-            <b>【窑讯】</b>第 2609 期高温柴烧作品已出窑质检完毕，请注意查收通知。
-          </div>
-          <button class="btn-secondary" style="padding: 3px 8px; font-size: 10px; border-radius: 12px;" onclick="switchTab(2)">去核对</button>
-        </div>
-
-        <!-- 本季精选推荐手作 -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin: 14px 2px 8px 2px;">
-          <h2 id="home-heading" style="font-size: 14px; font-weight: 800; color: var(--color-text-title); margin: 0;">本季工坊推荐</h2>
-          <span style="font-size: 11px; color: var(--color-primary); cursor: pointer;" onclick="switchTab(1)">查看全科目 ›</span>
-        </div>
-
-        <!-- 推荐项目卡 1 -->
-        <div class="art-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div>
-              <div style="font-size:14px; font-weight:800; color:var(--color-text-title);">零基础陶艺拉坯 · 双件器物体验</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">专业陶轮一对一辅导 · 含一次素烧+高温釉烧</div>
-            </div>
-            <span class="pill-badge pill-primary">招牌经典</span>
-          </div>
-          <div style="display:flex; gap:6px; margin:8px 0; font-size:11px; color:var(--color-text-muted);">
-            <span>时长 120 分钟</span>
-            <span>·</span>
-            <span>含泥料 2 块与围裙</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:8px; border-top:1px dashed var(--color-border-light);">
-            <div style="font-size:16px; font-weight:800; color:var(--color-primary);">
+<button class="btn-secondary" onclick="switchTab(2)" style="padding: 3px 8px; font-size: 10px; border-radius: 12px;">去核对</button>
+</div>
+<!-- 本季精选推荐手作 -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin: 14px 2px 8px 2px;">
+<h2 id="home-heading" style="font-size: 14px; font-weight: 800; color: var(--color-text-title); margin: 0;">本季工坊推荐</h2>
+<span onclick="switchTab(1)" style="font-size: 11px; color: var(--color-primary); cursor: pointer;">查看全科目 ›</span>
+</div>
+<!-- 推荐项目卡 1 -->
+<div class="art-card">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<div style="font-size:14px; font-weight:800; color:var(--color-text-title);">零基础陶艺拉坯 · 双件器物体验</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">专业陶轮一对一辅导 · 含一次素烧+高温釉烧</div>
+</div>
+<span class="pill-badge pill-primary">招牌经典</span>
+</div>
+<div style="display:flex; gap:6px; margin:8px 0; font-size:11px; color:var(--color-text-muted);">
+<span>时长 120 分钟</span>
+<span>·</span>
+<span>含泥料 2 块与围裙</span>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:8px; border-top:1px dashed var(--color-border-light);">
+<div style="font-size:16px; font-weight:800; color:var(--color-primary);">
               ¥158 <span style="font-size:11px; font-weight:normal; color:var(--color-text-muted);">/ 单人位</span>
-            </div>
-            <button class="btn-clay" style="width:auto; padding:6px 14px; font-size:12px;" onclick="openBookingModal('c1')">
+</div>
+<button class="btn-clay" onclick="openBookingModal('c1')" style="width:auto; padding:6px 14px; font-size:12px;">
               预约体验
             </button>
-          </div>
-        </div>
-
-        <!-- 推荐项目卡 2 -->
-        <div class="art-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div>
-              <div style="font-size:14px; font-weight:800; color:var(--color-text-title);">纯棉布面油画 · 经典沉浸手作</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">30x40cm 精装画布 · 环保颜料 · 赠装裱外框</div>
-            </div>
-            <span class="pill-badge pill-blue">周末疗愈</span>
-          </div>
-          <div style="display:flex; gap:6px; margin:8px 0; font-size:11px; color:var(--color-text-muted);">
-            <span>时长 150 分钟</span>
-            <span>·</span>
-            <span>导师驻场点拨构图</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:8px; border-top:1px dashed var(--color-border-light);">
-            <div style="font-size:16px; font-weight:800; color:var(--color-primary);">
+</div>
+</div>
+<!-- 推荐项目卡 2 -->
+<div class="art-card">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<div style="font-size:14px; font-weight:800; color:var(--color-text-title);">纯棉布面油画 · 经典沉浸手作</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">30x40cm 精装画布 · 环保颜料 · 赠装裱外框</div>
+</div>
+<span class="pill-badge pill-blue">周末疗愈</span>
+</div>
+<div style="display:flex; gap:6px; margin:8px 0; font-size:11px; color:var(--color-text-muted);">
+<span>时长 150 分钟</span>
+<span>·</span>
+<span>导师驻场点拨构图</span>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:8px; border-top:1px dashed var(--color-border-light);">
+<div style="font-size:16px; font-weight:800; color:var(--color-primary);">
               ¥138 <span style="font-size:11px; font-weight:normal; color:var(--color-text-muted);">/ 单人位</span>
-            </div>
-            <button class="btn-clay" style="width:auto; padding:6px 14px; font-size:12px;" onclick="openBookingModal('c2')">
+</div>
+<button class="btn-clay" onclick="openBookingModal('c2')" style="width:auto; padding:6px 14px; font-size:12px;">
               预约体验
             </button>
-          </div>
-        </div>
+</div>
+</div>
+<!-- 导师专栏 (脱敏) -->
+<div class="art-card" style="background: var(--color-bg-subtle);">
+<div style="font-size: 13px; font-weight: 800; color: var(--color-text-title); margin-bottom: 8px;">驻店导师团队</div>
+<div style="display: flex; gap: 10px; align-items: center;">
+<div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-avatar-bg); display:flex; align-items:center; justify-content:center; color: var(--color-text-body); font-weight: 800; font-size: 14px;">陆</div>
+<div style="flex: 1;">
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-title);">陆*生 导师 <span style="font-size:11px; color:var(--color-text-muted); font-weight:normal;">(高级陶艺工艺师)</span></div>
+<div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">**镇陶瓷研习十余载，擅长传统拉坯、柴烧古法与原矿釉料配伍。</div>
+</div>
+</div>
+</div>
+</section></main></div>
 
-        <!-- 导师专栏 (脱敏) -->
-        <div class="art-card" style="background: var(--color-bg-subtle);">
-          <div style="font-size: 13px; font-weight: 800; color: var(--color-text-title); margin-bottom: 8px;">驻店导师团队</div>
-          <div style="display: flex; gap: 10px; align-items: center;">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-avatar-bg); display:flex; align-items:center; justify-content:center; color: var(--color-text-body); font-weight: 800; font-size: 14px;">陆</div>
-            <div style="flex: 1;">
-              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-title);">陆*生 导师 <span style="font-size:11px; color:var(--color-text-muted); font-weight:normal;">(高级陶艺工艺师)</span></div>
-              <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">**镇陶瓷研习十余载，擅长传统拉坯、柴烧古法与原矿釉料配伍。</div>
-            </div>
-          </div>
-        </div>
+<!-- ================= Tab 1: 课程预约 ================= -->
+<section aria-labelledby="booking-heading" class="pane" id="pane-1">
+<!-- 分类 Segment 切换 -->
+<div style="display:flex; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:3px; margin-bottom:12px;">
+<div class="chip-item active" id="filter-all" onclick="filterCategory('all')" style="flex:1; text-align:center; border:none; margin:0;">全部门类 (4)</div>
+<div class="chip-item" id="filter-painting" onclick="filterCategory('painting')" style="flex:1; text-align:center; border:none; margin:0;">油画水彩 (2)</div>
+<div class="chip-item" id="filter-pottery" onclick="filterCategory('pottery')" style="flex:1; text-align:center; border:none; margin:0;">陶艺拉坯 (2)</div>
+</div>
+<div id="courses-container">
+<!-- 动态渲染课程卡片 -->
+</div>
 
-      </div>
-
-      </section>
-
-      <!-- ================= Tab 1: 课程预约 ================= -->
-      <section id="pane-1" class="pane" aria-labelledby="booking-heading">
-        <!-- 分类 Segment 切换 -->
-        <div style="display:flex; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:3px; margin-bottom:12px;">
-          <div id="filter-all" class="chip-item active" style="flex:1; text-align:center; border:none; margin:0;" onclick="filterCategory('all')">全部门类 (4)</div>
-          <div id="filter-painting" class="chip-item" style="flex:1; text-align:center; border:none; margin:0;" onclick="filterCategory('painting')">油画水彩 (2)</div>
-          <div id="filter-pottery" class="chip-item" style="flex:1; text-align:center; border:none; margin:0;" onclick="filterCategory('pottery')">陶艺拉坯 (2)</div>
-        </div>
-
-        <div id="courses-container">
-          <!-- 动态渲染课程卡片 -->
-        </div>
-      </div>
-
-      </section>
-
-      <!-- ================= Tab 2: 出窑通知 ================= -->
-      <section id="pane-2" class="pane" aria-labelledby="kiln-heading">
-        <!-- 编号检索条 -->
-        <div class="art-card" style="margin-bottom: 12px; padding: 12px;">
-          <h2 id="kiln-heading" style="font-size: 13px; font-weight: 800; color: var(--color-text-title); margin-bottom: 6px;">陶艺作品烧制与出窑查询</h2>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="kiln-code-input" value="TY-2026-0902" required pattern="TY-[0-9]{4}-[0-9]{4}" aria-label="作品编号" placeholder="输入作品号如 TY-2026-0902" style="flex: 1; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; outline: none; background: var(--color-bg-card);">
-            <button class="btn-clay" style="width: auto; padding: 8px 14px; font-size: 12px;" onclick="queryKilnCode()">查询</button>
-          </div>
-          <div class="validation-helper" style="display:none;font-size:10px;color:var(--color-alert-red);">请输入格式正确的作品编号</div>
-          <!-- 快捷演示药丸 -->
-          <div style="display: flex; gap: 6px; margin-top: 8px; align-items: center;">
-            <span style="font-size: 11px; color: var(--color-text-muted);">快捷查看:</span>
-            <span class="pill-badge pill-orange" style="cursor: pointer;" onclick="setAndQueryCode('TY-2026-0902')">TY-2026-0902 (烧制中)</span>
-            <span class="pill-badge pill-green" style="cursor: pointer;" onclick="setAndQueryCode('TY-2026-0828')">TY-2026-0828 (已出窑)</span>
-          </div>
-        </div>
-
-        <!-- 作品状态主卡片 -->
-        <div class="art-card" id="kiln-detail-card" style="border-left: 4px solid var(--color-primary);">
-          <!-- 由 JS 渲染作品实时进度与步进轴 -->
-        </div>
-
-        <!-- 到店自提与快递寄送指引 -->
-        <div class="art-card" style="background: var(--color-bg-subtle);">
-          <div style="font-size: 13px; font-weight: 700; color: var(--color-text-title); margin-bottom: 6px;">取件与交付说明</div>
-          <div style="font-size: 11px; color: var(--color-text-muted); line-height: 1.6;">
-            1. 出窑合格作品工坊免费妥善保存 30 天，可随时于营业时段到店提取；<br>
+</section>
+<!-- ================= Tab 2: 出窑通知 ================= -->
+<section aria-labelledby="kiln-heading" class="pane" id="pane-2">
+<!-- 编号检索条 -->
+<div class="art-card" style="margin-bottom: 12px; padding: 12px;">
+<h2 id="kiln-heading" style="font-size: 13px; font-weight: 800; color: var(--color-text-title); margin-bottom: 6px;">陶艺作品烧制与出窑查询</h2>
+<div style="display: flex; gap: 8px;">
+<input aria-label="作品编号" id="kiln-code-input" pattern="TY-[0-9]{4}-[0-9]{4}" placeholder="输入作品号如 TY-2026-0902" required="" style="flex: 1; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; outline: none; background: var(--color-bg-card);" type="text" value="TY-2026-0902"/>
+<button class="btn-clay" onclick="queryKilnCode()" style="width: auto; padding: 8px 14px; font-size: 12px;">查询</button>
+</div>
+<div class="validation-helper" style="display:none;font-size:10px;color:var(--color-alert-red);">请输入格式正确的作品编号</div>
+<!-- 快捷演示药丸 -->
+<div style="display: flex; gap: 6px; margin-top: 8px; align-items: center;">
+<span style="font-size: 11px; color: var(--color-text-muted);">快捷查看:</span>
+<span class="pill-badge pill-orange" onclick="setAndQueryCode('TY-2026-0902')" style="cursor: pointer;">TY-2026-0902 (烧制中)</span>
+<span class="pill-badge pill-green" onclick="setAndQueryCode('TY-2026-0828')" style="cursor: pointer;">TY-2026-0828 (已出窑)</span>
+</div>
+</div>
+<!-- 作品状态主卡片 -->
+<div class="art-card" id="kiln-detail-card" style="border-left: 4px solid var(--color-primary);">
+<!-- 由 JS 渲染作品实时进度与步进轴 -->
+</div>
+<!-- 到店自提与快递寄送指引 -->
+<div class="art-card" style="background: var(--color-bg-subtle);">
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-title); margin-bottom: 6px;">取件与交付说明</div>
+<div style="font-size: 11px; color: var(--color-text-muted); line-height: 1.6;">
+            1. 出窑合格作品工坊免费妥善保存 30 天，可随时于营业时段到店提取；<br/>
             2. 需异地寄送的学员可联系工坊管家，工坊提供专用气泡减震防碎专业打包。
           </div>
-          <button class="btn-secondary" style="margin-top: 10px; width: 100%;" onclick="openPickupModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<button class="btn-secondary" onclick="openPickupModal()" style="margin-top: 10px; width: 100%;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             登记取件方式 / 寄送地址
           </button>
-        </div>
-      </div>
+</div>
 
-      </section>
+</section>
+<!-- ================= Tab 3: 学员艺廊 ================= -->
+<section aria-labelledby="gallery-heading" class="pane" id="pane-3">
+<!-- 筛选标签 -->
+<div class="chip-group" style="margin-top:0;">
+<div class="chip-item active" id="gallery-all" onclick="filterGallery('all')">全部作品</div>
+<div class="chip-item" id="gallery-pottery" onclick="filterGallery('pottery')">陶艺器皿</div>
+<div class="chip-item" id="gallery-oil" onclick="filterGallery('oil')">布面油画</div>
+<div class="chip-item" id="gallery-texture" onclick="filterGallery('texture')">立体肌理</div>
+</div>
+<!-- 瀑布双列流 -->
+<div class="gallery-grid" id="gallery-container">
+<!-- JS 渲染艺廊卡片 -->
+</div>
 
-      <!-- ================= Tab 3: 学员艺廊 ================= -->
-      <section id="pane-3" class="pane" aria-labelledby="gallery-heading">
-        <!-- 筛选标签 -->
-        <div class="chip-group" style="margin-top:0;">
-          <div id="gallery-all" class="chip-item active" onclick="filterGallery('all')">全部作品</div>
-          <div id="gallery-pottery" class="chip-item" onclick="filterGallery('pottery')">陶艺器皿</div>
-          <div id="gallery-oil" class="chip-item" onclick="filterGallery('oil')">布面油画</div>
-          <div id="gallery-texture" class="chip-item" onclick="filterGallery('texture')">立体肌理</div>
-        </div>
-
-        <!-- 瀑布双列流 -->
-        <div class="gallery-grid" id="gallery-container">
-          <!-- JS 渲染艺廊卡片 -->
-        </div>
-      </div>
-
-      </section>
-
-      <!-- ================= Tab 4: 我的工坊 ================= -->
-      <section id="pane-4" class="pane" aria-labelledby="profile-heading">
-        <!-- 会员身份档案卡 -->
-        <div class="art-card" style="background: var(--color-primary-dark); color:var(--color-text-inverse); border: none; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900;">
+</section>
+<!-- ================= Tab 4: 我的工坊 ================= -->
+<section aria-labelledby="profile-heading" class="pane" id="pane-4">
+<!-- 会员身份档案卡 -->
+<div class="art-card" style="background: var(--color-primary-dark); color:var(--color-text-inverse); border: none; margin-bottom: 12px;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900;">
               林
             </div>
-            <div style="flex: 1;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 16px; font-weight: 800;">林*然</span>
-                <span class="pill-badge" style="background: rgba(255,255,255,0.25); color:var(--color-text-inverse); font-size: 10px;">金卡会员</span>
-              </div>
-              <div style="font-size: 11px; opacity: 0.85; margin-top: 3px;">账号：138**8920</div>
-            </div>
-          </div>
-          <div style="display: flex; justify-content: space-around; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); text-align: center;">
-            <div>
-              <div style="font-size: 16px; font-weight: 800;">8</div>
-              <div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">已学课时</div>
-            </div>
-            <div>
-              <div style="font-size: 16px; font-weight: 800;">520</div>
-              <div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">工坊积分</div>
-            </div>
-            <div>
-              <div style="font-size: 16px; font-weight: 800;">2 张</div>
-              <div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">可用卡券</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 订单看板 5 态 Tab -->
-        <div class="art-card" style="padding: 10px 8px; margin-bottom: 12px;">
-          <div style="font-size: 12px; font-weight: 800; color: var(--color-text-title); margin-bottom: 8px; padding-left: 4px;">
+<div style="flex: 1;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 16px; font-weight: 800;">林*然</span>
+<span class="pill-badge" style="background: rgba(255,255,255,0.25); color:var(--color-text-inverse); font-size: 10px;">金卡会员</span>
+</div>
+<div style="font-size: 11px; opacity: 0.85; margin-top: 3px;">账号：138**8920</div>
+</div>
+</div>
+<div style="display: flex; justify-content: space-around; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); text-align: center;">
+<div>
+<div style="font-size: 16px; font-weight: 800;">8</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">已学课时</div>
+</div>
+<div>
+<div style="font-size: 16px; font-weight: 800;">520</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">工坊积分</div>
+</div>
+<div>
+<div style="font-size: 16px; font-weight: 800;">2 张</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">可用卡券</div>
+</div>
+</div>
+</div>
+<!-- 订单看板 5 态 Tab -->
+<div class="art-card" style="padding: 10px 8px; margin-bottom: 12px;">
+<div style="font-size: 12px; font-weight: 800; color: var(--color-text-title); margin-bottom: 8px; padding-left: 4px;">
             手作订单追踪
           </div>
-          <div style="display: flex; justify-content: space-between; text-align: center;">
-            <div id="order-tab-all" class="chip-item active" style="padding:4px 8px; font-size:11px;" onclick="filterOrders('all')">全部</div>
-            <div id="order-tab-unverified" class="chip-item" style="padding:4px 8px; font-size:11px;" onclick="filterOrders('unverified')">待核销(1)</div>
-            <div id="order-tab-firing" class="chip-item" style="padding:4px 8px; font-size:11px;" onclick="filterOrders('firing')">烧制中(1)</div>
-            <div id="order-tab-ready" class="chip-item" style="padding:4px 8px; font-size:11px;" onclick="filterOrders('ready')">待领取(0)</div>
-            <div id="order-tab-done" class="chip-item" style="padding:4px 8px; font-size:11px;" onclick="filterOrders('done')">已完成(1)</div>
-          </div>
-        </div>
+<div style="display: flex; justify-content: space-between; text-align: center;">
+<div class="chip-item active" id="order-tab-all" onclick="filterOrders('all')" style="padding:4px 8px; font-size:11px;">全部</div>
+<div class="chip-item" id="order-tab-unverified" onclick="filterOrders('unverified')" style="padding:4px 8px; font-size:11px;">待核销(1)</div>
+<div class="chip-item" id="order-tab-firing" onclick="filterOrders('firing')" style="padding:4px 8px; font-size:11px;">烧制中(1)</div>
+<div class="chip-item" id="order-tab-ready" onclick="filterOrders('ready')" style="padding:4px 8px; font-size:11px;">待领取(0)</div>
+<div class="chip-item" id="order-tab-done" onclick="filterOrders('done')" style="padding:4px 8px; font-size:11px;">已完成(1)</div>
+</div>
+</div>
+<!-- 订单列表容器 -->
+<div id="orders-list-container">
+<!-- 动态渲染订单列表 -->
+</div>
+<!-- 服务工具箱菜单 -->
+<div class="art-card" style="padding: 4px 14px;">
+<div onclick="openCouponModal()" style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+<div style="display:flex; align-items:center; gap:8px;">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+<span style="font-size:12px; font-weight:600; color:var(--color-text-body);">体验优惠券包 (2张待用)</span>
+</div>
+<span style="color:var(--color-text-muted); font-size:14px;">›</span>
+</div>
+<div onclick="openLocationModal()" style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+<div style="display:flex; align-items:center; gap:8px;">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span style="font-size:12px; font-weight:600; color:var(--color-text-body);">工坊地址与自驾交通指引</span>
+</div>
+<span style="color:var(--color-text-muted); font-size:14px;">›</span>
+</div>
+<div onclick="openSafetyModal()" style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+<div style="display:flex; align-items:center; gap:8px;">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span style="font-size:12px; font-weight:600; color:var(--color-text-body);">新手入坊与衣物防污须知</span>
+</div>
+<span style="color:var(--color-text-muted); font-size:14px;">›</span>
+</div>
+<div onclick="openCustomerServiceModal()" style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+<div style="display:flex; align-items:center; gap:8px;">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span style="font-size:12px; font-weight:600; color:var(--color-text-body);">联系专属手作管家在线答疑</span>
+</div>
+<span style="color:var(--color-text-muted); font-size:14px;">›</span>
+</div>
+</div>
 
-        <!-- 订单列表容器 -->
-        <div id="orders-list-container">
-          <!-- 动态渲染订单列表 -->
-        </div>
 
-        <!-- 服务工具箱菜单 -->
-        <div class="art-card" style="padding: 4px 14px;">
-          <div style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="openCouponModal()">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
-              <span style="font-size:12px; font-weight:600; color:var(--color-text-body);">体验优惠券包 (2张待用)</span>
-            </div>
-            <span style="color:var(--color-text-muted); font-size:14px;">›</span>
-          </div>
+<!-- 微信原生 5-Tab 底部导航 -->
+<nav aria-label="工坊导航" class="bottom-nav" role="navigation">
+<a aria-selected="true" class="nav-tab active" href="javascript:void(0)" id="tab-0" onclick="switchTab(0)" role="tab">
+<div class="nav-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+</div>
+<span>工坊首页</span>
 
-          <div style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="openLocationModal()">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span style="font-size:12px; font-weight:600; color:var(--color-text-body);">工坊地址与自驾交通指引</span>
-            </div>
-            <span style="color:var(--color-text-muted); font-size:14px;">›</span>
-          </div>
+<a aria-selected="false" class="nav-tab" href="javascript:void(0)" id="tab-1" onclick="switchTab(1)" role="tab">
+<div class="nav-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+</div>
+<span>课程预约</span>
 
-          <div style="padding: 12px 0; border-bottom: 1px solid var(--color-border-light); display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="openSafetyModal()">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span style="font-size:12px; font-weight:600; color:var(--color-text-body);">新手入坊与衣物防污须知</span>
-            </div>
-            <span style="color:var(--color-text-muted); font-size:14px;">›</span>
-          </div>
+<a aria-selected="false" class="nav-tab" href="javascript:void(0)" id="tab-2" onclick="switchTab(2)" role="tab">
+<div class="nav-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+</div>
+<span>出窑通知</span>
 
-          <div style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="openCustomerServiceModal()">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span style="font-size:12px; font-weight:600; color:var(--color-text-body);">联系专属手作管家在线答疑</span>
-            </div>
-            <span style="color:var(--color-text-muted); font-size:14px;">›</span>
-          </div>
-        </div>
+<a aria-selected="false" class="nav-tab" href="javascript:void(0)" id="tab-3" onclick="switchTab(3)" role="tab">
+<div class="nav-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+</div>
+<span>学员艺廊</span>
 
-      </div>
-
-    </main>
-
-    <!-- 微信原生 5-Tab 底部导航 -->
-    <nav class="bottom-nav" role="navigation" aria-label="工坊导航">
-      <a class="nav-tab active" id="tab-0" href="javascript:void(0)" onclick="switchTab(0)" role="tab" aria-selected="true">
-        <div class="nav-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <span>工坊首页</span>
-      </div>
-
-      <a class="nav-tab" id="tab-1" href="javascript:void(0)" onclick="switchTab(1)" role="tab" aria-selected="false">
-        <div class="nav-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <span>课程预约</span>
-      </div>
-
-      <a class="nav-tab" id="tab-2" href="javascript:void(0)" onclick="switchTab(2)" role="tab" aria-selected="false">
-        <div class="nav-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-        </div>
-        <span>出窑通知</span>
-      </div>
-
-      <a class="nav-tab" id="tab-3" href="javascript:void(0)" onclick="switchTab(3)" role="tab" aria-selected="false">
-        <div class="nav-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <span>学员艺廊</span>
-      </div>
-
-      <a class="nav-tab" id="tab-4" href="javascript:void(0)" onclick="switchTab(4)" role="tab" aria-selected="false">
-        <div class="nav-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <span>我的工坊</span>
-      </a>
-    </nav>
-
-    <!-- 全局 Toast 提示 -->
-    <div id="app-toast" class="toast-msg">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-success-green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作已完成</span>
-    </div>
-
-    <!-- ================= 模态弹窗 / 抽屉集合 ================= -->
-
-    <!-- 1. 预约确认抽屉 -->
-    <div id="booking-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title" id="book-course-title">预约体验课程</div>
-          <button class="modal-close-btn" onclick="closeModal('booking-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 12px;" id="book-course-desc">
+<a aria-selected="false" class="nav-tab" href="javascript:void(0)" id="tab-4" onclick="switchTab(4)" role="tab">
+<div class="nav-icon-box">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<span>我的工坊</span>
+</a>
+</a></a></a></a></nav>
+<!-- 全局 Toast 提示 -->
+<div class="toast-msg" id="app-toast">
+<svg fill="none" height="14" stroke="var(--color-success-green)" stroke-width="3" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作已完成</span>
+</div>
+<!-- ================= 模态弹窗 / 抽屉集合 ================= -->
+<!-- 1. 预约确认抽屉 -->
+<div class="modal-overlay" id="booking-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title" id="book-course-title">预约体验课程</div>
+<button class="modal-close-btn" onclick="closeModal('booking-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div id="book-course-desc" style="font-size: 11px; color: var(--color-text-muted); margin-bottom: 12px;">
           包含全套耗材与工具使用，驻店导师全程耐心协助指导。
         </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">选择预约日期</div>
-        <div class="chip-group" id="booking-date-chips">
-          <div class="chip-item active" onclick="selectChip(this)">今天 09-04</div>
-          <div class="chip-item" onclick="selectChip(this)">明天 09-05</div>
-          <div class="chip-item" onclick="selectChip(this)">周六 09-06</div>
-          <div class="chip-item" onclick="selectChip(this)">周日 09-07</div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">选择体验时段</div>
-        <div class="chip-group" id="booking-time-chips">
-          <div class="chip-item active" onclick="selectChip(this)">10:30 - 12:30 (余2位)</div>
-          <div class="chip-item" onclick="selectChip(this)">14:00 - 16:30 (余1位)</div>
-          <div class="chip-item" onclick="selectChip(this)">18:30 - 21:00 (余3位)</div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">体验规格</div>
-        <div class="chip-group" id="booking-person-chips">
-          <div class="chip-item active" onclick="selectAttendeeChip(this, 1)">单人静享位</div>
-          <div class="chip-item" onclick="selectAttendeeChip(this, 2)">双人浪漫位 (享9折)</div>
-        </div>
-
-        <div style="background: var(--color-bg-subtle); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin: 12px 0;">
-          <div style="display:flex; justify-content:space-between; font-size:12px;">
-            <span style="color:var(--color-text-muted);">合计费用：</span>
-            <b style="color:var(--color-primary); font-size:15px;" id="book-total-price">¥158</b>
-          </div>
-          <div style="font-size:10px; color:var(--color-glaze-green); margin-top:4px;">
+<div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">选择预约日期</div>
+<div class="chip-group" id="booking-date-chips">
+<div class="chip-item active" onclick="selectChip(this)">今天 09-04</div>
+<div class="chip-item" onclick="selectChip(this)">明天 09-05</div>
+<div class="chip-item" onclick="selectChip(this)">周六 09-06</div>
+<div class="chip-item" onclick="selectChip(this)">周日 09-07</div>
+</div>
+<div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">选择体验时段</div>
+<div class="chip-group" id="booking-time-chips">
+<div class="chip-item active" onclick="selectChip(this)">10:30 - 12:30 (余2位)</div>
+<div class="chip-item" onclick="selectChip(this)">14:00 - 16:30 (余1位)</div>
+<div class="chip-item" onclick="selectChip(this)">18:30 - 21:00 (余3位)</div>
+</div>
+<div style="font-size: 12px; font-weight: 700; color: var(--color-text-title);">体验规格</div>
+<div class="chip-group" id="booking-person-chips">
+<div class="chip-item active" onclick="selectAttendeeChip(this, 1)">单人静享位</div>
+<div class="chip-item" onclick="selectAttendeeChip(this, 2)">双人浪漫位 (享9折)</div>
+</div>
+<div style="background: var(--color-bg-subtle); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin: 12px 0;">
+<div style="display:flex; justify-content:space-between; font-size:12px;">
+<span style="color:var(--color-text-muted);">合计费用：</span>
+<b id="book-total-price" style="color:var(--color-primary); font-size:15px;">¥158</b>
+</div>
+<div style="font-size:10px; color:var(--color-glaze-green); margin-top:4px;">
             • 免在线支付直接确认排期 · 到店核验凭证即可入座体验
           </div>
-        </div>
-
-        <button class="btn-clay" onclick="confirmBooking()">
+</div>
+<button class="btn-clay" onclick="confirmBooking()">
           确认提交预约
         </button>
-      </div>
-    </div>
-
-    <!-- 2. 电子核销码二维码弹窗 -->
-    <div id="qrcode-modal" class="modal-overlay">
-      <div class="modal-drawer" style="text-align: center; max-height: 80%;">
-        <div class="modal-header">
-          <div class="modal-title">电子入坊核销码</div>
-          <button class="modal-close-btn" onclick="closeModal('qrcode-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 12px;" id="qr-order-title">
+</div>
+</div>
+<!-- 2. 电子核销码二维码弹窗 -->
+<div class="modal-overlay" id="qrcode-modal">
+<div class="modal-drawer" style="text-align: center; max-height: 80%;">
+<div class="modal-header">
+<div class="modal-title">电子入坊核销码</div>
+<button class="modal-close-btn" onclick="closeModal('qrcode-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div id="qr-order-title" style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 12px;">
           零基础陶艺拉坯 · 双件器物体验
         </div>
-
-        <!-- 矢量绘制拟真二维码 -->
-        <div style="width: 170px; height: 170px; margin: 0 auto; background: var(--color-bg-card); border: 2px solid var(--color-border); border-radius: var(--radius-md); padding: 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);">
-          <svg width="150" height="150" viewBox="0 0 100 100" fill="none">
-            <!-- 四角定位符号 -->
-            <rect x="5" y="5" width="26" height="26" rx="4" fill="var(--color-phone-rim)"/>
-            <rect x="9" y="9" width="18" height="18" rx="2" fill="var(--color-bg-card)"/>
-            <rect x="13" y="13" width="10" height="10" fill="var(--color-phone-rim)"/>
-
-            <rect x="69" y="5" width="26" height="26" rx="4" fill="var(--color-phone-rim)"/>
-            <rect x="73" y="9" width="18" height="18" rx="2" fill="var(--color-bg-card)"/>
-            <rect x="77" y="13" width="10" height="10" fill="var(--color-phone-rim)"/>
-
-            <rect x="5" y="69" width="26" height="26" rx="4" fill="var(--color-phone-rim)"/>
-            <rect x="9" y="73" width="18" height="18" rx="2" fill="var(--color-bg-card)"/>
-            <rect x="13" y="77" width="10" height="10" fill="var(--color-phone-rim)"/>
-
-            <!-- 内部模拟点阵条块 -->
-            <rect x="36" y="8" width="6" height="14" fill="var(--color-phone-rim)"/>
-            <rect x="46" y="8" width="12" height="6" fill="var(--color-phone-rim)"/>
-            <rect x="36" y="26" width="22" height="6" fill="var(--color-phone-rim)"/>
-
-            <rect x="8" y="36" width="14" height="6" fill="var(--color-phone-rim)"/>
-            <rect x="26" y="36" width="6" height="20" fill="var(--color-phone-rim)"/>
-            <rect x="38" y="38" width="24" height="24" rx="2" fill="var(--color-primary)"/>
-            <rect x="44" y="44" width="12" height="12" fill="var(--color-bg-card)"/>
-
-            <rect x="68" y="36" width="24" height="8" fill="var(--color-phone-rim)"/>
-            <rect x="76" y="48" width="16" height="8" fill="var(--color-phone-rim)"/>
-
-            <rect x="36" y="68" width="8" height="24" fill="var(--color-phone-rim)"/>
-            <rect x="48" y="74" width="18" height="8" fill="var(--color-phone-rim)"/>
-            <rect x="72" y="70" width="20" height="8" fill="var(--color-phone-rim)"/>
-            <rect x="76" y="82" width="16" height="10" fill="var(--color-phone-rim)"/>
-          </svg>
-        </div>
-
-        <div style="font-size: 13px; font-weight: 800; color: var(--color-text-title); letter-spacing: 2px; margin-top: 10px;" id="qr-code-text">
+<!-- 矢量绘制拟真二维码 -->
+<div style="width: 170px; height: 170px; margin: 0 auto; background: var(--color-bg-card); border: 2px solid var(--color-border); border-radius: var(--radius-md); padding: 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);">
+<svg fill="none" height="150" viewbox="0 0 100 100" width="150">
+<!-- 四角定位符号 -->
+<rect fill="var(--color-phone-rim)" height="26" rx="4" width="26" x="5" y="5"></rect>
+<rect fill="var(--color-bg-card)" height="18" rx="2" width="18" x="9" y="9"></rect>
+<rect fill="var(--color-phone-rim)" height="10" width="10" x="13" y="13"></rect>
+<rect fill="var(--color-phone-rim)" height="26" rx="4" width="26" x="69" y="5"></rect>
+<rect fill="var(--color-bg-card)" height="18" rx="2" width="18" x="73" y="9"></rect>
+<rect fill="var(--color-phone-rim)" height="10" width="10" x="77" y="13"></rect>
+<rect fill="var(--color-phone-rim)" height="26" rx="4" width="26" x="5" y="69"></rect>
+<rect fill="var(--color-bg-card)" height="18" rx="2" width="18" x="9" y="73"></rect>
+<rect fill="var(--color-phone-rim)" height="10" width="10" x="13" y="77"></rect>
+<!-- 内部模拟点阵条块 -->
+<rect fill="var(--color-phone-rim)" height="14" width="6" x="36" y="8"></rect>
+<rect fill="var(--color-phone-rim)" height="6" width="12" x="46" y="8"></rect>
+<rect fill="var(--color-phone-rim)" height="6" width="22" x="36" y="26"></rect>
+<rect fill="var(--color-phone-rim)" height="6" width="14" x="8" y="36"></rect>
+<rect fill="var(--color-phone-rim)" height="20" width="6" x="26" y="36"></rect>
+<rect fill="var(--color-primary)" height="24" rx="2" width="24" x="38" y="38"></rect>
+<rect fill="var(--color-bg-card)" height="12" width="12" x="44" y="44"></rect>
+<rect fill="var(--color-phone-rim)" height="8" width="24" x="68" y="36"></rect>
+<rect fill="var(--color-phone-rim)" height="8" width="16" x="76" y="48"></rect>
+<rect fill="var(--color-phone-rim)" height="24" width="8" x="36" y="68"></rect>
+<rect fill="var(--color-phone-rim)" height="8" width="18" x="48" y="74"></rect>
+<rect fill="var(--color-phone-rim)" height="8" width="20" x="72" y="70"></rect>
+<rect fill="var(--color-phone-rim)" height="10" width="16" x="76" y="82"></rect>
+</svg>
+</div>
+<div id="qr-code-text" style="font-size: 13px; font-weight: 800; color: var(--color-text-title); letter-spacing: 2px; margin-top: 10px;">
           VERIFY-882194
         </div>
-        <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">
+<div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">
           请向工坊前台出示该码核销，即可分配工位与材料包
         </div>
-
-        <button class="btn-clay" style="margin-top: 16px;" onclick="simulateVerifyTicket()">
+<button class="btn-clay" onclick="simulateVerifyTicket()" style="margin-top: 16px;">
           模拟前台扫码核销
         </button>
-      </div>
-    </div>
-
-    <!-- 3. 取件与寄送登记抽屉 -->
-    <div id="pickup-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">作品出窑取件登记</div>
-          <button class="modal-close-btn" onclick="closeModal('pickup-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="font-size: 12px; color: var(--color-text-title); font-weight: 700; margin-bottom: 6px;">选择交付方式</div>
-        <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <div id="pick-mode-self" class="chip-item active" style="flex:1; text-align:center;" onclick="togglePickupMode('self')">到店自提 (免费保存30天)</div>
-          <div id="pick-mode-express" class="chip-item" style="flex:1; text-align:center;" onclick="togglePickupMode('express')">快递防震快递寄送</div>
-        </div>
-
-        <div id="self-pick-panel">
-          <div style="font-size:12px; color:var(--color-text-muted); line-height:1.5; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border);">
-            • 自提地址：**区 B 座 302 泥语画舍<br>
-            • 开放时间：每日 10:00 - 21:30 (节假日照常开放)<br>
+</div>
+</div>
+<!-- 3. 取件与寄送登记抽屉 -->
+<div class="modal-overlay" id="pickup-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">作品出窑取件登记</div>
+<button class="modal-close-btn" onclick="closeModal('pickup-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size: 12px; color: var(--color-text-title); font-weight: 700; margin-bottom: 6px;">选择交付方式</div>
+<div style="display:flex; gap:8px; margin-bottom:12px;">
+<div class="chip-item active" id="pick-mode-self" onclick="togglePickupMode('self')" style="flex:1; text-align:center;">到店自提 (免费保存30天)</div>
+<div class="chip-item" id="pick-mode-express" onclick="togglePickupMode('express')" style="flex:1; text-align:center;">快递防震快递寄送</div>
+</div>
+<div id="self-pick-panel">
+<div style="font-size:12px; color:var(--color-text-muted); line-height:1.5; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border);">
+            • 自提地址：**区 B 座 302 泥语画舍<br/>
+            • 开放时间：每日 10:00 - 21:30 (节假日照常开放)<br/>
             • 凭作品流水号直接向前台领取即可。
           </div>
-        </div>
-
-        <div id="express-pick-panel" style="display:none;">
-          <div style="margin-bottom:8px;">
-            <div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">收件人姓名 (已脱敏)</div>
-            <input type="text" value="林*然" style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;">
-          </div>
-          <div style="margin-bottom:8px;">
-            <div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">联系电话</div>
-            <input type="text" value="138**8920" style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;">
-          </div>
-          <div style="margin-bottom:8px;">
-            <div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">详细邮寄地址</div>
-            <input type="text" value="文创国际公寓 3 栋 802 室" style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;">
-          </div>
-        </div>
-
-        <button class="btn-clay" style="margin-top:14px;" onclick="submitPickupPlan()">
+</div>
+<div id="express-pick-panel" style="display:none;">
+<div style="margin-bottom:8px;">
+<div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">收件人姓名 (已脱敏)</div>
+<input style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;" type="text" value="林*然"/>
+</div>
+<div style="margin-bottom:8px;">
+<div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">联系电话</div>
+<input style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;" type="text" value="138**8920"/>
+</div>
+<div style="margin-bottom:8px;">
+<div style="font-size:11px; color:var(--color-text-muted); margin-bottom:3px;">详细邮寄地址</div>
+<input style="width:100%; padding:8px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;" type="text" value="文创国际公寓 3 栋 802 室"/>
+</div>
+</div>
+<button class="btn-clay" onclick="submitPickupPlan()" style="margin-top:14px;">
           提交登记信息
         </button>
-      </div>
-    </div>
-
-    <!-- 4. 艺廊作品高清赏析弹窗 -->
-    <div id="artwork-modal" class="modal-overlay">
-      <div class="modal-drawer" style="max-height:85%;">
-        <div class="modal-header">
-          <div class="modal-title" id="art-modal-title">作品赏析</div>
-          <button class="modal-close-btn" onclick="closeModal('artwork-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</div>
+</div>
+<!-- 4. 艺廊作品高清赏析弹窗 -->
+<div class="modal-overlay" id="artwork-modal">
+<div class="modal-drawer" style="max-height:85%;">
+<div class="modal-header">
+<div class="modal-title" id="art-modal-title">作品赏析</div>
+<button class="modal-close-btn" onclick="closeModal('artwork-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div id="art-modal-img" style="height: 180px; border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center; color:var(--color-text-inverse); font-size:14px; font-weight:700; margin-bottom:12px;">
+<!-- 背景通过 JS 设置 -->
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+<span id="art-modal-author" style="font-size:14px; font-weight:800; color:var(--color-text-title);">学员创作</span>
+<button class="like-btn" id="art-modal-like-btn" onclick="toggleCurrentArtLike()" style="font-size:13px;">
+<svg fill="currentColor" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<span id="art-modal-likes-count">0</span> 点赞
           </button>
-        </div>
-
-        <div id="art-modal-img" style="height: 180px; border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center; color:var(--color-text-inverse); font-size:14px; font-weight:700; margin-bottom:12px;">
-          <!-- 背景通过 JS 设置 -->
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <span style="font-size:14px; font-weight:800; color:var(--color-text-title);" id="art-modal-author">学员创作</span>
-          <button id="art-modal-like-btn" class="like-btn" style="font-size:13px;" onclick="toggleCurrentArtLike()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span id="art-modal-likes-count">0</span> 点赞
-          </button>
-        </div>
-
-        <div style="font-size:12px; color:var(--color-text-body); line-height:1.6; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border);" id="art-modal-desc">
+</div>
+<div id="art-modal-desc" style="font-size:12px; color:var(--color-text-body); line-height:1.6; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border);">
           创作手记详情...
         </div>
-
-        <div style="margin-top:10px; font-size:11px; color:var(--color-text-muted);">
-          <b>导师寄语：</b>笔触厚重有力，器型比例适度，釉面温润微泛哑光，展现了极佳的手作专注力。
+<div style="margin-top:10px; font-size:11px; color:var(--color-text-muted);">
+<b>导师寄语：</b>笔触厚重有力，器型比例适度，釉面温润微泛哑光，展现了极佳的手作专注力。
         </div>
-
-        <button class="btn-clay" style="margin-top:14px;" onclick="closeModal('artwork-modal'); switchTab(1);">
+<button class="btn-clay" onclick="closeModal('artwork-modal'); switchTab(1);" style="margin-top:14px;">
           我也要体验此项目
         </button>
-      </div>
-    </div>
-
-    <!-- 5. 优惠券抽屉 -->
-    <div id="coupon-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">工坊体验礼券</div>
-          <button class="modal-close-btn" onclick="closeModal('coupon-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
+</div>
+</div>
+<!-- 5. 优惠券抽屉 -->
+<div class="modal-overlay" id="coupon-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">工坊体验礼券</div>
+<button class="modal-close-btn" onclick="closeModal('coupon-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<!-- 券 1 -->
+<div class="art-card" style="background: var(--color-bg-dashed); border: 1.5px dashed var(--color-primary); margin-bottom: 10px;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<div style="font-size:14px; font-weight:800; color:var(--color-primary);">新人专享体验减免券</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">全门类油画及陶艺通用 · 满100可用</div>
+</div>
+<div style="font-size:18px; font-weight:900; color:var(--color-primary);">¥20</div>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:10px; color:var(--color-text-subtle);">
+<span>有效期至 2026-10-30</span>
+<span class="pill-badge pill-green" onclick="useCoupon('新人专享券')" style="cursor:pointer;">立即选用</span>
+</div>
+</div>
+<!-- 券 2 -->
+<div class="art-card" style="background: var(--color-bg-dashed); border: 1.5px dashed var(--color-primary); margin-bottom: 10px;">
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<div>
+<div style="font-size:14px; font-weight:800; color:var(--color-primary);">工作日双人同行特惠券</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">双人拉坯或双人油画畅享 · 满200可用</div>
+</div>
+<div style="font-size:18px; font-weight:900; color:var(--color-primary);">¥40</div>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:10px; color:var(--color-text-subtle);">
+<span>有效期至 2026-11-15</span>
+<span class="pill-badge pill-green" onclick="useCoupon('双人同行券')" style="cursor:pointer;">立即选用</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 6. 门店交通指引抽屉 -->
+<div class="modal-overlay" id="location-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">工坊地址与自驾指引</div>
+<button class="modal-close-btn" onclick="closeModal('location-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:13px; font-weight:700; color:var(--color-text-title);">**美学手作·美学手作空间</div>
+<div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">**区 B 座 302 泥语画舍 (景德瓷艺工坊中心)</div>
+<div style="margin:12px 0; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border); font-size:11px; color:var(--color-text-body); line-height:1.6;">
+<span style="font-weight:700;color:var(--color-primary);">[公共交通] </span>轨道交通 2 号线【文创园站】B 出口步行 220 米即达。<br/>
+<span style="font-weight:700;color:var(--color-primary);">[园区泊车] </span>园区地面及地下停车场提供 2 小时免费停车泊位。<br/>
+<span style="font-weight:700;color:var(--color-primary);">[接待时间] </span>周一至周日 10:00 - 21:30 (晚间场需提前预约)。
         </div>
-
-        <!-- 券 1 -->
-        <div class="art-card" style="background: var(--color-bg-dashed); border: 1.5px dashed var(--color-primary); margin-bottom: 10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <div style="font-size:14px; font-weight:800; color:var(--color-primary);">新人专享体验减免券</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">全门类油画及陶艺通用 · 满100可用</div>
-            </div>
-            <div style="font-size:18px; font-weight:900; color:var(--color-primary);">¥20</div>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:10px; color:var(--color-text-subtle);">
-            <span>有效期至 2026-10-30</span>
-            <span class="pill-badge pill-green" style="cursor:pointer;" onclick="useCoupon('新人专享券')">立即选用</span>
-          </div>
-        </div>
-
-        <!-- 券 2 -->
-        <div class="art-card" style="background: var(--color-bg-dashed); border: 1.5px dashed var(--color-primary); margin-bottom: 10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <div style="font-size:14px; font-weight:800; color:var(--color-primary);">工作日双人同行特惠券</div>
-              <div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">双人拉坯或双人油画畅享 · 满200可用</div>
-            </div>
-            <div style="font-size:18px; font-weight:900; color:var(--color-primary);">¥40</div>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid var(--color-border-light); font-size:10px; color:var(--color-text-subtle);">
-            <span>有效期至 2026-11-15</span>
-            <span class="pill-badge pill-green" style="cursor:pointer;" onclick="useCoupon('双人同行券')">立即选用</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. 门店交通指引抽屉 -->
-    <div id="location-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">工坊地址与自驾指引</div>
-          <button class="modal-close-btn" onclick="closeModal('location-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="font-size:13px; font-weight:700; color:var(--color-text-title);">**美学手作·美学手作空间</div>
-        <div style="font-size:11px; color:var(--color-text-muted); margin-top:3px;">**区 B 座 302 泥语画舍 (景德瓷艺工坊中心)</div>
-
-        <div style="margin:12px 0; background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border); font-size:11px; color:var(--color-text-body); line-height:1.6;">
-          <span style="font-weight:700;color:var(--color-primary);">[公共交通] </span>轨道交通 2 号线【文创园站】B 出口步行 220 米即达。<br>
-          <span style="font-weight:700;color:var(--color-primary);">[园区泊车] </span>园区地面及地下停车场提供 2 小时免费停车泊位。<br>
-          <span style="font-weight:700;color:var(--color-primary);">[接待时间] </span>周一至周日 10:00 - 21:30 (晚间场需提前预约)。
-        </div>
-
-        <button class="btn-clay" onclick="showToast('已复制工坊交通指引信息'); closeModal('location-modal');">
+<button class="btn-clay" onclick="showToast('已复制工坊交通指引信息'); closeModal('location-modal');">
           复制地址文本
         </button>
-      </div>
-    </div>
-
-    <!-- 7. 新手须知弹窗 -->
-    <div id="safety-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">新手入坊与衣物防污须知</div>
-          <button class="modal-close-btn" onclick="closeModal('safety-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="font-size:11px; color:var(--color-text-body); line-height:1.7;">
-          1. <b>衣物防护：</b>工坊免费提供加厚棉麻围裙、长袖防污袖套与一次性手套，泥浆为天然高白泥，水洗易除；<br>
-          2. <b>手部修整：</b>拉坯前建议将手指甲稍微修平整，避免旋转拉坯时刮伤泥胚表面；<br>
-          3. <b>工具归位：</b>修坯刀、拉坯刮板、调色盘使用完毕后，请在工坊洗手池清洗放回置物架；<br>
+</div>
+</div>
+<!-- 7. 新手须知弹窗 -->
+<div class="modal-overlay" id="safety-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">新手入坊与衣物防污须知</div>
+<button class="modal-close-btn" onclick="closeModal('safety-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px; color:var(--color-text-body); line-height:1.7;">
+          1. <b>衣物防护：</b>工坊免费提供加厚棉麻围裙、长袖防污袖套与一次性手套，泥浆为天然高白泥，水洗易除；<br/>
+          2. <b>手部修整：</b>拉坯前建议将手指甲稍微修平整，避免旋转拉坯时刮伤泥胚表面；<br/>
+          3. <b>工具归位：</b>修坯刀、拉坯刮板、调色盘使用完毕后，请在工坊洗手池清洗放回置物架；<br/>
           4. <b>安心创作：</b>全程有导师巡回点拨，遇到开裂或塌陷导师会协助补救定型。
         </div>
-
-        <button class="btn-clay" style="margin-top:14px;" onclick="closeModal('safety-modal')">
+<button class="btn-clay" onclick="closeModal('safety-modal')" style="margin-top:14px;">
           我已了解须知
         </button>
-      </div>
-    </div>
-
-    <!-- 8. 在线客服抽屉 -->
-    <div id="service-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">手作管家在线答疑</div>
-          <button class="modal-close-btn" onclick="closeModal('service-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border); font-size:11px; color:var(--color-text-muted); margin-bottom:12px;">
+</div>
+</div>
+<!-- 8. 在线客服抽屉 -->
+<div class="modal-overlay" id="service-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">手作管家在线答疑</div>
+<button class="modal-close-btn" onclick="closeModal('service-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:var(--color-bg-subtle); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--color-border); font-size:11px; color:var(--color-text-muted); margin-bottom:12px;">
           您好！我是陶然工坊当值管家小陈。如有团体团建定制、特殊釉色烧制咨询，欢迎随时留言。
         </div>
+<div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+<div onclick="askFaq('零基础第一次来能做出完整杯子吗？')" style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;">
+<span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 零基础第一次来能做出完整杯子吗？
+          </div>
+<div onclick="askFaq('陶艺作品大概多久能够烧好拿走？')" style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;">
+<span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 陶艺作品大概多久能够烧好拿走？
+          </div>
+<div onclick="askFaq('画好的油画当天可以直接带回家吗？')" style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;">
+<span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 画好的油画当天可以直接带回家吗？
+          </div>
+</div>
+<div style="display:flex; gap:8px;">
+<input aria-label="咨询内容" id="chat-input" placeholder="输入你想咨询的问题..." required="" style="flex:1; padding:8px 12px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;" type="text"/>
+<button class="btn-clay" onclick="sendChatMessage()" style="width:auto; padding:8px 14px;">发送</button>
+</div>
+</div>
+</div>
+<!-- 9. 微信胶囊浮层菜单 -->
+<div class="modal-overlay" id="wechat-menu-modal">
+<div class="modal-drawer">
+<div class="modal-header">
+<div class="modal-title">小程序功能选项</div>
+<button class="modal-close-btn" onclick="closeModal('wechat-menu-modal')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="display:flex; flex-direction:column; gap:10px;">
+<div onclick="showToast('已添加到我的小程序收藏'); closeModal('wechat-menu-modal');" style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span style="font-size:13px; font-weight:600;">添加到我的小程序</span>
+</div>
+<div onclick="showToast('已生成分享卡片'); closeModal('wechat-menu-modal');" style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span style="font-size:13px; font-weight:600;">转发给好友或群聊</span>
+</div>
+<div onclick="showToast('已刷新工坊实时排期'); closeModal('wechat-menu-modal');" style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+<span style="font-size:13px; font-weight:600;">重新进入小程序</span>
+</div>
+</div>
+</div>
+</div>
 
-        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
-          <div style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;" onclick="askFaq('零基础第一次来能做出完整杯子吗？')">
-            <span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 零基础第一次来能做出完整杯子吗？
-          </div>
-          <div style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;" onclick="askFaq('陶艺作品大概多久能够烧好拿走？')">
-            <span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 陶艺作品大概多久能够烧好拿走？
-          </div>
-          <div style="background:var(--color-bg-card); border:1px solid var(--color-border); padding:8px 12px; border-radius:var(--radius-sm); font-size:12px; cursor:pointer;" onclick="askFaq('画好的油画当天可以直接带回家吗？')">
-            <span style="font-weight:800; color:var(--color-primary); margin-right:4px;">Q:</span> 画好的油画当天可以直接带回家吗？
-          </div>
-        </div>
-
-        <div style="display:flex; gap:8px;">
-          <input type="text" id="chat-input" placeholder="输入你想咨询的问题..." required aria-label="咨询内容" style="flex:1; padding:8px 12px; border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; outline:none;">
-          <button class="btn-clay" style="width:auto; padding:8px 14px;" onclick="sendChatMessage()">发送</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. 微信胶囊浮层菜单 -->
-    <div id="wechat-menu-modal" class="modal-overlay">
-      <div class="modal-drawer">
-        <div class="modal-header">
-          <div class="modal-title">小程序功能选项</div>
-          <button class="modal-close-btn" onclick="closeModal('wechat-menu-modal')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;" onclick="showToast('已添加到我的小程序收藏'); closeModal('wechat-menu-modal');">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span style="font-size:13px; font-weight:600;">添加到我的小程序</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;" onclick="showToast('已生成分享卡片'); closeModal('wechat-menu-modal');">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            <span style="font-size:13px; font-weight:600;">转发给好友或群聊</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px; padding:8px; cursor:pointer;" onclick="showToast('已刷新工坊实时排期'); closeModal('wechat-menu-modal');">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            <span style="font-size:13px; font-weight:600;">重新进入小程序</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
+<script>
     // 全局数据状态 (Store)
     const AppState = {
       activeTab: 0,
@@ -2172,5 +2076,5 @@
       });
     });
   </script>
-</body>
+</section></body>
 </html>

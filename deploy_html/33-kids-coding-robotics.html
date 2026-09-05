@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**科创中心少儿科创中心</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**科创中心少儿科创中心</title>
+<style>
     :root {
       --color-primary: #2563EB;
       --color-primary-dark: #1D4ED8;
@@ -1010,790 +1011,733 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- WeChat Mini Program Container -->
+<div class="mp-container">
+<!-- Top Status Bar -->
 
+<!-- Mini Program Header Bar with Native Capsule -->
 
-  <!-- WeChat Mini Program Container -->
-  <div class="mp-container">
-
-    <!-- Top Status Bar -->
-    <div class="status-bar">
-      <span>10:24</span>
-      <div class="status-bar-icons">
-        <!-- Wifi Icon -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <!-- Battery Icon -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- Mini Program Header Bar with Native Capsule -->
-    <div class="mp-header">
-      <div class="header-brand">
-        <!-- Bot Icon -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
-        <span>**科创中心科创中心</span>
-      </div>
-      <div class="header-capsule">
-        <div class="capsule-dots">
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-        </div>
-        <div class="capsule-divider"></div>
-        <div class="capsule-circle"></div>
-      </div>
-    </div>
-
-    <!-- Scrollable Content Body -->
-    <div class="mp-content">
-
-      <!-- ================= TAB 0: 课程试听 ================= -->
-      <div id="pane-0" class="tab-pane active">
-        
-        <!-- Campus & Navigation Bar -->
-        <div class="campus-bar">
-          <div class="campus-info">
-            <!-- MapPin Icon -->
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>**区 · 营业中</span>
-          </div>
-          <div class="campus-route-btn" onclick="openDrawer('drawer-campus')">
-            <span>到校指引</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-        <!-- 4-Stage Age Filter Grid -->
-        <div class="age-grid">
-          <div class="age-pill active" onclick="filterAgeGroup('all', this)">
-            <div class="age-pill-title">全部体系</div>
-            <div class="age-pill-desc">4-16岁</div>
-          </div>
-          <div class="age-pill" onclick="filterAgeGroup('lego', this)">
-            <div class="age-pill-title">机械搭建</div>
-            <div class="age-pill-desc">4-6岁</div>
-          </div>
-          <div class="age-pill" onclick="filterAgeGroup('scratch', this)">
-            <div class="age-pill-title">图形化编程</div>
-            <div class="age-pill-desc">7-9岁</div>
-          </div>
-          <div class="age-pill" onclick="filterAgeGroup('hardware', this)">
-            <div class="age-pill-title">Python创客</div>
-            <div class="age-pill-desc">10-12岁</div>
-          </div>
-        </div>
-
-        <!-- Courses List -->
-        <div id="course-list">
-          
-          <!-- Course Card 1 -->
-          <div class="course-card" data-category="lego">
-            <div class="course-header">
-              <div>
-                <div class="course-name">乐高大颗粒机械启蒙 · 动力齿轮探秘</div>
-                <div class="course-tags">
-                  <span class="course-tag">适龄 4-6 岁</span>
-                  <span class="course-tag">双师小班制 (4-6人)</span>
-                </div>
-              </div>
-              <span class="badge badge-accent">热门试听</span>
-            </div>
-            <div class="course-desc">
+<!-- Scrollable Content Body -->
+<div class="mp-content">
+<!-- ================= TAB 0: 课程试听 ================= -->
+<div class="tab-pane active" id="pane-0">
+<!-- Campus & Navigation Bar -->
+<div class="campus-bar">
+<div class="campus-info">
+<!-- MapPin Icon -->
+<svg fill="none" height="14" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>**区 · 营业中</span>
+</div>
+<div class="campus-route-btn" onclick="openDrawer('drawer-campus')">
+<span>到校指引</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<!-- 4-Stage Age Filter Grid -->
+<div class="age-grid">
+<div class="age-pill active" onclick="filterAgeGroup('all', this)">
+<div class="age-pill-title">全部体系</div>
+<div class="age-pill-desc">4-16岁</div>
+</div>
+<div class="age-pill" onclick="filterAgeGroup('lego', this)">
+<div class="age-pill-title">机械搭建</div>
+<div class="age-pill-desc">4-6岁</div>
+</div>
+<div class="age-pill" onclick="filterAgeGroup('scratch', this)">
+<div class="age-pill-title">图形化编程</div>
+<div class="age-pill-desc">7-9岁</div>
+</div>
+<div class="age-pill" onclick="filterAgeGroup('hardware', this)">
+<div class="age-pill-title">Python创客</div>
+<div class="age-pill-desc">10-12岁</div>
+</div>
+</div>
+<!-- Courses List -->
+<div id="course-list">
+<!-- Course Card 1 -->
+<div class="course-card" data-category="lego">
+<div class="course-header">
+<div>
+<div class="course-name">乐高大颗粒机械启蒙 · 动力齿轮探秘</div>
+<div class="course-tags">
+<span class="course-tag">适龄 4-6 岁</span>
+<span class="course-tag">双师小班制 (4-6人)</span>
+</div>
+</div>
+<span class="badge badge-accent">热门试听</span>
+</div>
+<div class="course-desc">
               基于乐高STEAM教育教具，围绕杠杆原理、齿轮传动比与空间连杆机构开展趣味实操，启蒙三维空间思维与精细动作能力。
             </div>
-            <div class="course-meta">
-              <div class="course-highlight">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>体验时长 90 分钟 · 赠搭建模型</span>
-              </div>
-              <button class="btn-primary" onclick="openBookingDrawer('乐高大颗粒机械启蒙 · 动力齿轮探秘', '4-6岁')">
-                <span>预约试听</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Course Card 2 -->
-          <div class="course-card" data-category="scratch">
-            <div class="course-header">
-              <div>
-                <div class="course-name">少儿 Scratch 创意游戏工坊 · 逻辑探索</div>
-                <div class="course-tags">
-                  <span class="course-tag">适龄 7-9 岁</span>
-                  <span class="course-tag">计算机逻辑思维</span>
-                </div>
-              </div>
-              <span class="badge badge-primary">旗舰课程</span>
-            </div>
-            <div class="course-desc">
+<div class="course-meta">
+<div class="course-highlight">
+<svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>体验时长 90 分钟 · 赠搭建模型</span>
+</div>
+<button class="btn-primary" onclick="openBookingDrawer('乐高大颗粒机械启蒙 · 动力齿轮探秘', '4-6岁')">
+<span>预约试听</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="course-card" data-category="scratch">
+<div class="course-header">
+<div>
+<div class="course-name">少儿 Scratch 创意游戏工坊 · 逻辑探索</div>
+<div class="course-tags">
+<span class="course-tag">适龄 7-9 岁</span>
+<span class="course-tag">计算机逻辑思维</span>
+</div>
+</div>
+<span class="badge badge-primary">旗舰课程</span>
+</div>
+<div class="course-desc">
               通过图形化积木指令学习顺序、分支判断、事件监听与循环结构。每堂课完成一款可玩度高的小游戏，建立扎实编程直觉。
             </div>
-            <div class="course-meta">
-              <div class="course-highlight">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                <span>独立完成 1 款益智星际逃生游戏</span>
-              </div>
-              <button class="btn-primary" onclick="openBookingDrawer('少儿 Scratch 创意游戏工坊 · 逻辑探索', '7-9岁')">
-                <span>预约试听</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Course Card 3 -->
-          <div class="course-card" data-category="hardware">
-            <div class="course-header">
-              <div>
-                <div class="course-name">Python 软硬件创客 · 智能机器人避障</div>
-                <div class="course-tags">
-                  <span class="course-tag">适龄 10-12 岁</span>
-                  <span class="course-tag">软硬件结合</span>
-                </div>
-              </div>
-              <span class="badge badge-success">考级赛项</span>
-            </div>
-            <div class="course-desc">
+<div class="course-meta">
+<div class="course-highlight">
+<svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="13"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+<span>独立完成 1 款益智星际逃生游戏</span>
+</div>
+<button class="btn-primary" onclick="openBookingDrawer('少儿 Scratch 创意游戏工坊 · 逻辑探索', '7-9岁')">
+<span>预约试听</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="course-card" data-category="hardware">
+<div class="course-header">
+<div>
+<div class="course-name">Python 软硬件创客 · 智能机器人避障</div>
+<div class="course-tags">
+<span class="course-tag">适龄 10-12 岁</span>
+<span class="course-tag">软硬件结合</span>
+</div>
+</div>
+<span class="badge badge-success">考级赛项</span>
+</div>
+<div class="course-desc">
               结合 Micro:bit 与开源主板，学习超声波避障、红外巡线及电机PID控制算法，衔接全国青少年等级考试与人工智能赛事。
             </div>
-            <div class="course-meta">
-              <div class="course-highlight">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                <span>对标全国青少年等级考试考纲</span>
-              </div>
-              <button class="btn-primary" onclick="openBookingDrawer('Python 软硬件创客 · 智能机器人避障', '10-12岁')">
-                <span>预约试听</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Institute Feature Card -->
-        <div class="card" style="background: var(--color-primary-light); border-color: var(--color-primary-edge);">
-          <div class="card-title-row">
-            <div class="card-title" style="color: var(--color-primary-dark);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>中心教学保障体系</span>
-            </div>
-            <span class="badge badge-primary" onclick="openDrawer('drawer-guarantee')" style="cursor:pointer;">查看资质详情</span>
-          </div>
-          <div style="font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
-            • 授课师资：100% 计算机/自动化理工背景，持高级编程教师认证<br>
-            • 教学环境：新风恒温无尘搭建室，标准 STEAM 赛事级调试场地<br>
+<div class="course-meta">
+<div class="course-highlight">
+<svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+<span>对标全国青少年等级考试考纲</span>
+</div>
+<button class="btn-primary" onclick="openBookingDrawer('Python 软硬件创客 · 智能机器人避障', '10-12岁')">
+<span>预约试听</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Institute Feature Card -->
+<div class="card" style="background: var(--color-primary-light); border-color: var(--color-primary-edge);">
+<div class="card-title-row">
+<div class="card-title" style="color: var(--color-primary-dark);">
+<svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span>中心教学保障体系</span>
+</div>
+<span class="badge badge-primary" onclick="openDrawer('drawer-guarantee')" style="cursor:pointer;">查看资质详情</span>
+</div>
+<div style="font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
+            • 授课师资：100% 计算机/自动化理工背景，持高级编程教师认证<br/>
+            • 教学环境：新风恒温无尘搭建室，标准 STEAM 赛事级调试场地<br/>
             • 教学随堂：课后 1v1 随堂报告与成长雷达图深度剖析
           </div>
-        </div>
-
-      </div>
-
-      <!-- ================= TAB 1: 作品展厅 ================= -->
-      <div id="pane-1" class="tab-pane">
-        
-        <!-- Filter Pills -->
-        <div class="filter-pills">
-          <button class="filter-btn active" onclick="filterWorks('all', this)">全部精选</button>
-          <button class="filter-btn" onclick="filterWorks('lego', this)">乐高机械结构</button>
-          <button class="filter-btn" onclick="filterWorks('scratch', this)">Scratch创意游戏</button>
-          <button class="filter-btn" onclick="filterWorks('hardware', this)">智能硬件创客</button>
-        </div>
-
-        <!-- Work Item 1 -->
-        <div class="work-card" data-type="lego">
-          <div class="work-preview">
-            <div class="work-diagram">
-              <span class="work-diagram-node">超声波传感器</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node">双电机差速转向</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node">自动避障巡线</span>
-            </div>
-            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">实物教具运行图解 · 距离识别反馈小于 0.05 秒</div>
-          </div>
-          <div class="work-info">
-            <div class="work-author-row">
-              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能双轨避障巡线小车</div>
-              <button class="work-likes-btn" id="like-btn-1" onclick="toggleWorkLike(1)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span id="like-cnt-1">128</span>
-              </button>
-            </div>
-            <div class="work-author">作者：乐*小朋友 (7岁) · 指导**人员：张*博</div>
-            <div class="work-action-row">
-              <span class="badge badge-accent">机械结构 + 红外传感</span>
-              <div style="display: flex; gap: 6px;">
-                <button class="btn-outline" onclick="openPrincipleModal('lego1')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  <span>编程原理</span>
-                </button>
-                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                  <span>分享</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Work Item 2 -->
-        <div class="work-card" data-type="scratch">
-          <div class="work-preview" style="background: var(--color-code-bg);">
-            <div class="work-diagram">
-              <span class="work-diagram-node" style="background: var(--color-scratch-purple);">碰撞检测事件</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node" style="background: var(--color-scratch-orange);">得分计数器++</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node" style="background: var(--color-scratch-blue);">动态音效播放</span>
-            </div>
-            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Scratch 3.0 积木脚本 · 独立逻辑构建</div>
-          </div>
-          <div class="work-info">
-            <div class="work-author-row">
-              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">太空陨石防御战 · 互动游戏</div>
-              <button class="work-likes-btn" id="like-btn-2" onclick="toggleWorkLike(2)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span id="like-cnt-2">214</span>
-              </button>
-            </div>
-            <div class="work-author">作者：晨*小朋友 (8岁) · 指导主管：林*婷</div>
-            <div class="work-action-row">
-              <span class="badge badge-primary">图形化编程 · 循环与分支</span>
-              <div style="display: flex; gap: 6px;">
-                <button class="btn-outline" onclick="openPrincipleModal('scratch1')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                  <span>积木指令</span>
-                </button>
-                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                  <span>分享</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Work Item 3 -->
-        <div class="work-card" data-type="hardware">
-          <div class="work-preview" style="background: var(--color-hardware-bg);">
-            <div class="work-diagram">
-              <span class="work-diagram-node" style="background: var(--color-hardware-teal);">土壤湿度检测</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node" style="background: var(--color-hardware-green);">阈值中断触发</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              <span class="work-diagram-node" style="background: var(--color-hardware-teal);">微型水泵启闭</span>
-            </div>
-            <div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Micro:bit 智慧农业系统 · Python 脚本控制</div>
-          </div>
-          <div class="work-info">
-            <div class="work-author-row">
-              <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能自动浇灌生态微农场</div>
-              <button class="work-likes-btn" id="like-btn-3" onclick="toggleWorkLike(3)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span id="like-cnt-3">186</span>
-              </button>
-            </div>
-            <div class="work-author">作者：昊*小朋友 (10岁) · 指导**人员：周*宇</div>
-            <div class="work-action-row">
-              <span class="badge badge-success">智能物联网与Python代码</span>
-              <div style="display: flex; gap: 6px;">
-                <button class="btn-outline" onclick="openPrincipleModal('hardware1')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-                  <span>硬件逻辑</span>
-                </button>
-                <button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                  <span>分享</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= TAB 2: 学习课表 ================= -->
-      <div id="pane-2" class="tab-pane">
-        
-        <!-- Week Strip -->
-        <div class="week-strip">
-          <div class="week-day" onclick="selectWeekDay(0, this)"><span class="week-day-title">周一</span><span class="week-day-num">01</span></div>
-          <div class="week-day" onclick="selectWeekDay(1, this)"><span class="week-day-title">周二</span><span class="week-day-num">02</span></div>
-          <div class="week-day" onclick="selectWeekDay(2, this)"><span class="week-day-title">周三</span><span class="week-day-num">03</span></div>
-          <div class="week-day" onclick="selectWeekDay(3, this)"><span class="week-day-title">周四</span><span class="week-day-num">04</span></div>
-          <div class="week-day" onclick="selectWeekDay(4, this)"><span class="week-day-title">周五</span><span class="week-day-num">05</span></div>
-          <div class="week-day active" onclick="selectWeekDay(5, this)"><span class="week-day-title">周六</span><span class="week-day-num">06</span><div class="week-day-dot"></div></div>
-          <div class="week-day" onclick="selectWeekDay(6, this)"><span class="week-day-title">周日</span><span class="week-day-num">07</span><div class="week-day-dot"></div></div>
-        </div>
-
-        <!-- Timetable Item -->
-        <div class="timetable-card">
-          <div class="card-title-row" style="margin-bottom: 4px;">
-            <div class="timetable-time">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>周六 10:00 - 11:30</span>
-            </div>
-            <span class="badge badge-primary" id="schedule-status-badge">正常上课</span>
-          </div>
-          <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main); margin-bottom: 4px;">
+</div>
+</div>
+<!-- ================= TAB 1: 作品展厅 ================= -->
+<div class="tab-pane" id="pane-1">
+<!-- Filter Pills -->
+<div class="filter-pills">
+<button class="filter-btn active" onclick="filterWorks('all', this)">全部精选</button>
+<button class="filter-btn" onclick="filterWorks('lego', this)">乐高机械结构</button>
+<button class="filter-btn" onclick="filterWorks('scratch', this)">Scratch创意游戏</button>
+<button class="filter-btn" onclick="filterWorks('hardware', this)">智能硬件创客</button>
+</div>
+<!-- Work Item 1 -->
+<div class="work-card" data-type="lego">
+<div class="work-preview">
+<div class="work-diagram">
+<span class="work-diagram-node">超声波传感器</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node">双电机差速转向</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node">自动避障巡线</span>
+</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">实物教具运行图解 · 距离识别反馈小于 0.05 秒</div>
+</div>
+<div class="work-info">
+<div class="work-author-row">
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能双轨避障巡线小车</div>
+<button class="work-likes-btn" id="like-btn-1" onclick="toggleWorkLike(1)">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<span id="like-cnt-1">128</span>
+</button>
+</div>
+<div class="work-author">作者：乐*小朋友 (7岁) · 指导**人员：张*博</div>
+<div class="work-action-row">
+<span class="badge badge-accent">机械结构 + 红外传感</span>
+<div style="display: flex; gap: 6px;">
+<button class="btn-outline" onclick="openPrincipleModal('lego1')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span>编程原理</span>
+</button>
+<button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span>分享</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Work Item 2 -->
+<div class="work-card" data-type="scratch">
+<div class="work-preview" style="background: var(--color-code-bg);">
+<div class="work-diagram">
+<span class="work-diagram-node" style="background: var(--color-scratch-purple);">碰撞检测事件</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node" style="background: var(--color-scratch-orange);">得分计数器++</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node" style="background: var(--color-scratch-blue);">动态音效播放</span>
+</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Scratch 3.0 积木脚本 · 独立逻辑构建</div>
+</div>
+<div class="work-info">
+<div class="work-author-row">
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">太空陨石防御战 · 互动游戏</div>
+<button class="work-likes-btn" id="like-btn-2" onclick="toggleWorkLike(2)">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<span id="like-cnt-2">214</span>
+</button>
+</div>
+<div class="work-author">作者：晨*小朋友 (8岁) · 指导主管：林*婷</div>
+<div class="work-action-row">
+<span class="badge badge-primary">图形化编程 · 循环与分支</span>
+<div style="display: flex; gap: 6px;">
+<button class="btn-outline" onclick="openPrincipleModal('scratch1')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+<span>积木指令</span>
+</button>
+<button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span>分享</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Work Item 3 -->
+<div class="work-card" data-type="hardware">
+<div class="work-preview" style="background: var(--color-hardware-bg);">
+<div class="work-diagram">
+<span class="work-diagram-node" style="background: var(--color-hardware-teal);">土壤湿度检测</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node" style="background: var(--color-hardware-green);">阈值中断触发</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><line x1="5" x2="19" y1="12" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+<span class="work-diagram-node" style="background: var(--color-hardware-teal);">微型水泵启闭</span>
+</div>
+<div style="font-size: 10px; opacity: 0.8; margin-top: 8px;">Micro:bit 智慧农业系统 · Python 脚本控制</div>
+</div>
+<div class="work-info">
+<div class="work-author-row">
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">智能自动浇灌生态微农场</div>
+<button class="work-likes-btn" id="like-btn-3" onclick="toggleWorkLike(3)">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+<span id="like-cnt-3">186</span>
+</button>
+</div>
+<div class="work-author">作者：昊*小朋友 (10岁) · 指导**人员：周*宇</div>
+<div class="work-action-row">
+<span class="badge badge-success">智能物联网与Python代码</span>
+<div style="display: flex; gap: 6px;">
+<button class="btn-outline" onclick="openPrincipleModal('hardware1')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><rect height="16" rx="2" width="16" x="4" y="4"></rect><rect height="6" width="6" x="9" y="9"></rect><line x1="9" x2="9" y1="1" y2="4"></line><line x1="15" x2="15" y1="1" y2="4"></line><line x1="9" x2="9" y1="20" y2="23"></line><line x1="15" x2="15" y1="20" y2="23"></line><line x1="20" x2="23" y1="9" y2="9"></line><line x1="20" x2="23" y1="14" y2="14"></line><line x1="1" x2="4" y1="9" y2="9"></line><line x1="1" x2="4" y1="14" y2="14"></line></svg>
+<span>硬件逻辑</span>
+</button>
+<button class="btn-outline" onclick="showToast('已复制作品展示卡链接')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span>分享</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= TAB 2: 学习课表 ================= -->
+<div class="tab-pane" id="pane-2">
+<!-- Week Strip -->
+<div class="week-strip">
+<div class="week-day" onclick="selectWeekDay(0, this)"><span class="week-day-title">周一</span><span class="week-day-num">01</span></div>
+<div class="week-day" onclick="selectWeekDay(1, this)"><span class="week-day-title">周二</span><span class="week-day-num">02</span></div>
+<div class="week-day" onclick="selectWeekDay(2, this)"><span class="week-day-title">周三</span><span class="week-day-num">03</span></div>
+<div class="week-day" onclick="selectWeekDay(3, this)"><span class="week-day-title">周四</span><span class="week-day-num">04</span></div>
+<div class="week-day" onclick="selectWeekDay(4, this)"><span class="week-day-title">周五</span><span class="week-day-num">05</span></div>
+<div class="week-day active" onclick="selectWeekDay(5, this)"><span class="week-day-title">周六</span><span class="week-day-num">06</span><div class="week-day-dot"></div></div>
+<div class="week-day" onclick="selectWeekDay(6, this)"><span class="week-day-title">周日</span><span class="week-day-num">07</span><div class="week-day-dot"></div></div>
+</div>
+<!-- Timetable Item -->
+<div class="timetable-card">
+<div class="card-title-row" style="margin-bottom: 4px;">
+<div class="timetable-time">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>周六 10:00 - 11:30</span>
+</div>
+<span class="badge badge-primary" id="schedule-status-badge">正常上课</span>
+</div>
+<div style="font-size: 14px; font-weight: 700; color: var(--color-text-main); margin-bottom: 4px;">
             Scratch趣味进阶 · 第8讲《多角色碰撞与坐标变换》
           </div>
-          <div class="timetable-meta">
-            • **区：**区 B203 创客实验室<br>
-            • 主讲**人员：林*婷 教研主管 (国家中级软件工程师)<br>
+<div class="timetable-meta">
+            • **区：**区 B203 创客实验室<br/>
+            • 主讲**人员：林*婷 教研主管 (国家中级软件工程师)<br/>
             • 上课学员：<b id="schedule-student-name">乐* (7岁)</b> · 消耗 1 课时
           </div>
-          <div class="timetable-actions">
-            <button class="btn-outline" onclick="openDrawer('drawer-reschedule')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-              <span>申请调课</span>
-            </button>
-            <button class="btn-outline" onclick="openDrawer('drawer-leave')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              <span>请假登记</span>
-            </button>
-            <button class="btn-outline" onclick="showToast('已完成到校核销签到')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>到校签到</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Growth Report Card with 5-Dim Radar Chart -->
-        <div class="card">
-          <div class="card-title-row">
-            <div class="card-title">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-              <span>随堂成长测评报告 (上周随堂)</span>
-            </div>
-            <span class="badge badge-success">测评优秀</span>
-          </div>
-
-          <div class="radar-container">
-            <svg class="radar-svg" viewBox="0 0 300 220">
-              <!-- Radar Background Polygons -->
-              <polygon points="150,30 250,75 210,185 90,185 50,75" fill="none" stroke="#CBD5E1" stroke-width="1"/>
-              <polygon points="150,60 215,90 190,160 110,160 85,90" fill="none" stroke="#E2E8F0" stroke-width="1"/>
-              <polygon points="150,90 180,105 170,140 130,140 120,105" fill="none" stroke="#E2E8F0" stroke-width="1"/>
-              <!-- Axis lines -->
-              <line x1="150" y1="120" x2="150" y2="30" stroke="#E2E8F0" stroke-width="1"/>
-              <line x1="150" y1="120" x2="250" y2="75" stroke="#E2E8F0" stroke-width="1"/>
-              <line x1="150" y1="120" x2="210" y2="185" stroke="#E2E8F0" stroke-width="1"/>
-              <line x1="150" y1="120" x2="90" y2="185" stroke="#E2E8F0" stroke-width="1"/>
-              <line x1="150" y1="120" x2="50" y2="75" stroke="#E2E8F0" stroke-width="1"/>
-              <!-- Student Data Shape -->
-              <polygon points="150,42 238,82 198,172 102,175 62,80" fill="rgba(37, 99, 235, 0.22)" stroke="#2563EB" stroke-width="2"/>
-              <!-- Points -->
-              <circle cx="150" cy="42" r="3.5" fill="#2563EB"/>
-              <circle cx="238" cy="82" r="3.5" fill="#2563EB"/>
-              <circle cx="198" cy="172" r="3.5" fill="#2563EB"/>
-              <circle cx="102" cy="175" r="3.5" fill="#2563EB"/>
-              <circle cx="62" cy="80" r="3.5" fill="#2563EB"/>
-              <!-- Labels -->
-              <text x="150" y="20" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">逻辑思维 (92)</text>
-              <text x="260" y="80" text-anchor="start" font-size="11" font-weight="600" fill="#0F172A">空间构型 (88)</text>
-              <text x="210" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">动手搭建 (90)</text>
-              <text x="90" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A">算法理解 (86)</text>
-              <text x="40" y="80" text-anchor="end" font-size="11" font-weight="600" fill="#0F172A">专注耐心 (95)</text>
-            </svg>
-          </div>
-
-          <div style="background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
-            <b>主讲**人员随堂点评：</b><br>
+<div class="timetable-actions">
+<button class="btn-outline" onclick="openDrawer('drawer-reschedule')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+<span>申请调课</span>
+</button>
+<button class="btn-outline" onclick="openDrawer('drawer-leave')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><line x1="15" x2="9" y1="9" y2="15"></line><line x1="9" x2="15" y1="9" y2="15"></line></svg>
+<span>请假登记</span>
+</button>
+<button class="btn-outline" onclick="showToast('已完成到校核销签到')">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>到校签到</span>
+</button>
+</div>
+</div>
+<!-- Growth Report Card with 5-Dim Radar Chart -->
+<div class="card">
+<div class="card-title-row">
+<div class="card-title">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+<span>随堂成长测评报告 (上周随堂)</span>
+</div>
+<span class="badge badge-success">测评优秀</span>
+</div>
+<div class="radar-container">
+<svg class="radar-svg" viewbox="0 0 300 220">
+<!-- Radar Background Polygons -->
+<polygon fill="none" points="150,30 250,75 210,185 90,185 50,75" stroke="#CBD5E1" stroke-width="1"></polygon>
+<polygon fill="none" points="150,60 215,90 190,160 110,160 85,90" stroke="#E2E8F0" stroke-width="1"></polygon>
+<polygon fill="none" points="150,90 180,105 170,140 130,140 120,105" stroke="#E2E8F0" stroke-width="1"></polygon>
+<!-- Axis lines -->
+<line stroke="#E2E8F0" stroke-width="1" x1="150" x2="150" y1="120" y2="30"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="150" x2="250" y1="120" y2="75"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="150" x2="210" y1="120" y2="185"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="150" x2="90" y1="120" y2="185"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="150" x2="50" y1="120" y2="75"></line>
+<!-- Student Data Shape -->
+<polygon fill="rgba(37, 99, 235, 0.22)" points="150,42 238,82 198,172 102,175 62,80" stroke="#2563EB" stroke-width="2"></polygon>
+<!-- Points -->
+<circle cx="150" cy="42" fill="#2563EB" r="3.5"></circle>
+<circle cx="238" cy="82" fill="#2563EB" r="3.5"></circle>
+<circle cx="198" cy="172" fill="#2563EB" r="3.5"></circle>
+<circle cx="102" cy="175" fill="#2563EB" r="3.5"></circle>
+<circle cx="62" cy="80" fill="#2563EB" r="3.5"></circle>
+<!-- Labels -->
+<text fill="#0F172A" font-size="11" font-weight="600" text-anchor="middle" x="150" y="20">逻辑思维 (92)</text>
+<text fill="#0F172A" font-size="11" font-weight="600" text-anchor="start" x="260" y="80">空间构型 (88)</text>
+<text fill="#0F172A" font-size="11" font-weight="600" text-anchor="middle" x="210" y="205">动手搭建 (90)</text>
+<text fill="#0F172A" font-size="11" font-weight="600" text-anchor="middle" x="90" y="205">算法理解 (86)</text>
+<text fill="#0F172A" font-size="11" font-weight="600" text-anchor="end" x="40" y="80">专注耐心 (95)</text>
+</svg>
+</div>
+<div style="background: var(--color-bg-page); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 11px; color: var(--color-text-sub); line-height: 1.6;">
+<b>主讲**人员随堂点评：</b><br/>
             孩子在第7讲针对复杂坐标系与事件嵌套掌握非常扎实。在遇到障碍物碰撞反弹逻辑时，能够自主利用“如果...那么...”积木完成闭环调试，专注度与探究耐心尤为突出！
           </div>
-        </div>
-
-      </div>
-
-      <!-- ================= TAB 3: 学员中心 ================= -->
-      <div id="pane-3" class="tab-pane">
-        
-        <!-- Multi-Child Switcher -->
-        <div class="profile-card">
-          <div class="child-switcher">
-            <div class="child-tab active" id="child-tab-0" onclick="switchChild(0)">
+</div>
+</div>
+<!-- ================= TAB 3: 学员中心 ================= -->
+<div class="tab-pane" id="pane-3">
+<!-- Multi-Child Switcher -->
+<div class="profile-card">
+<div class="child-switcher">
+<div class="child-tab active" id="child-tab-0" onclick="switchChild(0)">
               大宝 · 乐* (7岁)
             </div>
-            <div class="child-tab" id="child-tab-1" onclick="switchChild(1)">
+<div class="child-tab" id="child-tab-1" onclick="switchChild(1)">
               二宝 · 诺* (5岁)
             </div>
-          </div>
-
-          <div class="profile-header">
-            <div class="profile-avatar" id="child-avatar">乐</div>
-            <div>
-              <div class="profile-text-name" id="child-profile-name">乐*小朋友 (小学二年级)</div>
-              <div class="profile-text-desc" id="child-profile-desc">主修：Scratch 图形化创意编程进阶班</div>
-            </div>
-          </div>
-
-          <div class="stats-grid">
-            <div>
-              <div class="stat-num" id="stat-remain">24</div>
-              <div class="stat-label">剩余课时</div>
-            </div>
-            <div>
-              <div class="stat-num" id="stat-done">24</div>
-              <div class="stat-label">已消课时</div>
-            </div>
-            <div>
-              <div class="stat-num" id="stat-works">6</div>
-              <div class="stat-label">产出作品</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Active Booking / Appointment Slip -->
-        <div class="card" style="border-left: 4px solid var(--color-accent);">
-          <div class="card-title-row">
-            <div class="card-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>预约到校试听凭证</span>
-            </div>
-            <span class="badge badge-accent" id="booking-badge">待到校</span>
-          </div>
-          <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6;" id="booking-info-text">
-            单号：#BK-339021<br>
-            项目：少儿 Scratch 创意工坊 · 逻辑探索体验课<br>
-            时间：2026-09-06 (周六) 14:30 - 16:00<br>
+</div>
+<div class="profile-header">
+<div class="profile-avatar" id="child-avatar">乐</div>
+<div>
+<div class="profile-text-name" id="child-profile-name">乐*小朋友 (小学二年级)</div>
+<div class="profile-text-desc" id="child-profile-desc">主修：Scratch 图形化创意编程进阶班</div>
+</div>
+</div>
+<div class="stats-grid">
+<div>
+<div class="stat-num" id="stat-remain">24</div>
+<div class="stat-label">剩余课时</div>
+</div>
+<div>
+<div class="stat-num" id="stat-done">24</div>
+<div class="stat-label">已消课时</div>
+</div>
+<div>
+<div class="stat-num" id="stat-works">6</div>
+<div class="stat-label">产出作品</div>
+</div>
+</div>
+</div>
+<!-- Active Booking / Appointment Slip -->
+<div class="card" style="border-left: 4px solid var(--color-accent);">
+<div class="card-title-row">
+<div class="card-title">
+<svg fill="none" height="14" stroke="var(--color-accent-dark)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>预约到校试听凭证</span>
+</div>
+<span class="badge badge-accent" id="booking-badge">待到校</span>
+</div>
+<div id="booking-info-text" style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6;">
+            单号：#BK-339021<br/>
+            项目：少儿 Scratch 创意工坊 · 逻辑探索体验课<br/>
+            时间：2026-09-06 (周六) 14:30 - 16:00<br/>
             校区：**区 · 创客接待厅
           </div>
-          <div style="display: flex; gap: 8px; margin-top: 10px;">
-            <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="openModal('modal-qrcode')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              <span>出示核销二维码</span>
-            </button>
-            <button class="btn-outline" onclick="cancelBooking()">
-              <span>取消预约</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Service Menu -->
-        <div class="menu-group">
-          <div class="menu-row" onclick="openDrawer('drawer-competition')">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-              <span>全国等级考试与白名单赛事直通</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-row" onclick="openDrawer('drawer-advisor')">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>专属课程**咨询服务 (脱敏专线)</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="menu-row" onclick="openDrawer('drawer-campus')">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>**区分布与接送停车指引</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- WeChat Mini Program Bottom 4-Tab Navigation -->
-    <div class="mp-tabbar">
-      <div class="tab-item active" id="tab-btn-0" onclick="switchTab(0)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span>课程试听</span>
-      </div>
-      <div class="tab-item" id="tab-btn-1" onclick="switchTab(1)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <span>作品展厅</span>
-      </div>
-      <div class="tab-item" id="tab-btn-2" onclick="switchTab(2)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>学习课表</span>
-      </div>
-      <div class="tab-item" id="tab-btn-3" onclick="switchTab(3)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>学员中心</span>
-      </div>
-    </div>
-
-    <!-- ================= MODALS & DRAWERS ================= -->
-
-    <!-- Global Mask Overlay -->
-    <div id="overlay" class="overlay" onclick="closeAllDrawersAndModals()"></div>
-
-    <!-- Drawer 1: Trial Class Booking -->
-    <div id="drawer-booking" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">预约到校试听体验课</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-booking')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">试听课程项</label>
-        <input type="text" id="booking-course-input" readonly style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-main); font-weight: 600;">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">选择参与试听的孩子</label>
-        <div class="option-chips" id="booking-child-chips">
-          <div class="option-chip selected" onclick="selectChip(this)">大宝 · 乐* (7岁)</div>
-          <div class="option-chip" onclick="selectChip(this)">二宝 · 诺* (5岁)</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">选**区</label>
-        <div class="option-chips" id="booking-campus-chips">
-          <div class="option-chip selected" onclick="selectChip(this)">**区</div>
-          <div class="option-chip" onclick="selectChip(this)">**区</div>
-          <div class="option-chip" onclick="selectChip(this)">天府**区</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">选择试听预约时段</label>
-        <div class="option-chips" id="booking-slot-chips">
-          <div class="option-chip selected" onclick="selectChip(this)">周六 10:00 - 11:30</div>
-          <div class="option-chip" onclick="selectChip(this)">周六 14:30 - 16:00</div>
-          <div class="option-chip" onclick="selectChip(this)">周日 10:00 - 11:30</div>
-          <div class="option-chip" onclick="selectChip(this)">周日 15:00 - 16:30</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">家长联系方式 (已脱敏保护)</label>
-        <input type="text" value="138**8890 (陈*女士)" readonly style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-sub);">
-      </div>
-
-      <button class="btn-primary" style="width: 100%; padding: 12px; font-size: 14px; justify-content: center; margin-top: 10px;" onclick="confirmBooking()">
-        <span>确认预约 · 获取体验凭单</span>
-      </button>
-    </div>
-
-    <!-- Drawer 2: Campus Guide & Parking -->
-    <div id="drawer-campus" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">校区交通与停车指引</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-campus')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
-        <b style="color: var(--color-text-main); font-size: 13px;">1. **区 (旗舰基地)</b><br>
-        • 地址：**区科创大道**号天府**园区D座2楼<br>
-        • 地铁：**号线天府三街站 A 出口步行 350 米<br>
-        • 停车：地下车库提供 2 小时免费停车券 (可至前台扫码领取)<br>
-        <br>
-        <b style="color: var(--color-text-main); font-size: 13px;">2. **区</b><br>
-        • 地址：**市奥体南路**号体育中心少儿科创城3层<br>
+<div style="display: flex; gap: 8px; margin-top: 10px;">
+<button class="btn-primary" onclick="openModal('modal-qrcode')" style="flex: 1; justify-content: center;">
+<svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="13"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+<span>出示核销二维码</span>
+</button>
+<button class="btn-outline" onclick="cancelBooking()">
+<span>取消预约</span>
+</button>
+</div>
+</div>
+<!-- Service Menu -->
+<div class="menu-group">
+<div class="menu-row" onclick="openDrawer('drawer-competition')">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+<span>全国等级考试与白名单赛事直通</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-muted)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-row" onclick="openDrawer('drawer-advisor')">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span>专属课程**咨询服务 (脱敏专线)</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-muted)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-row" onclick="openDrawer('drawer-campus')">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>**区分布与接送停车指引</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-muted)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- WeChat Mini Program Bottom 4-Tab Navigation -->
+<div class="mp-tabbar">
+<div class="tab-item active" id="tab-btn-0" onclick="switchTab(0)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+<span>课程试听</span>
+</div>
+<div class="tab-item" id="tab-btn-1" onclick="switchTab(1)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>作品展厅</span>
+</div>
+<div class="tab-item" id="tab-btn-2" onclick="switchTab(2)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span>学习课表</span>
+</div>
+<div class="tab-item" id="tab-btn-3" onclick="switchTab(3)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>学员中心</span>
+</div>
+</div>
+<!-- ================= MODALS & DRAWERS ================= -->
+<!-- Global Mask Overlay -->
+<div class="overlay" id="overlay" onclick="closeAllDrawersAndModals()"></div>
+<!-- Drawer 1: Trial Class Booking -->
+<div class="drawer" id="drawer-booking">
+<div class="drawer-header">
+<div class="drawer-title">预约到校试听体验课</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-booking')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="form-group">
+<label class="form-label">试听课程项</label>
+<input id="booking-course-input" readonly="" style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-main); font-weight: 600;" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label">选择参与试听的孩子</label>
+<div class="option-chips" id="booking-child-chips">
+<div class="option-chip selected" onclick="selectChip(this)">大宝 · 乐* (7岁)</div>
+<div class="option-chip" onclick="selectChip(this)">二宝 · 诺* (5岁)</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">选**区</label>
+<div class="option-chips" id="booking-campus-chips">
+<div class="option-chip selected" onclick="selectChip(this)">**区</div>
+<div class="option-chip" onclick="selectChip(this)">**区</div>
+<div class="option-chip" onclick="selectChip(this)">天府**区</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">选择试听预约时段</label>
+<div class="option-chips" id="booking-slot-chips">
+<div class="option-chip selected" onclick="selectChip(this)">周六 10:00 - 11:30</div>
+<div class="option-chip" onclick="selectChip(this)">周六 14:30 - 16:00</div>
+<div class="option-chip" onclick="selectChip(this)">周日 10:00 - 11:30</div>
+<div class="option-chip" onclick="selectChip(this)">周日 15:00 - 16:30</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">家长联系方式 (已脱敏保护)</label>
+<input readonly="" style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; background: var(--color-bg-page); color: var(--color-text-sub);" type="text" value="138**8890 (陈*女士)"/>
+</div>
+<button class="btn-primary" onclick="confirmBooking()" style="width: 100%; padding: 12px; font-size: 14px; justify-content: center; margin-top: 10px;">
+<span>确认预约 · 获取体验凭单</span>
+</button>
+</div>
+<!-- Drawer 2: Campus Guide & Parking -->
+<div class="drawer" id="drawer-campus">
+<div class="drawer-header">
+<div class="drawer-title">校区交通与停车指引</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-campus')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+<b style="color: var(--color-text-main); font-size: 13px;">1. **区 (旗舰基地)</b><br/>
+        • 地址：**区科创大道**号天府**园区D座2楼<br/>
+        • 地铁：**号线天府三街站 A 出口步行 350 米<br/>
+        • 停车：地下车库提供 2 小时免费停车券 (可至前台扫码领取)<br/>
+<br/>
+<b style="color: var(--color-text-main); font-size: 13px;">2. **区</b><br/>
+        • 地址：**市奥体南路**号体育中心少儿科创城3层<br/>
         • 专线咨询：400-**-6818
       </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 16px;" onclick="closeDrawer('drawer-campus'); showToast('**区导航指引发送至微信服务通知')">
-        <span>获取短信导航指引</span>
-      </button>
-    </div>
-
-    <!-- Drawer 3: Reschedule Timetable -->
-    <div id="drawer-reschedule" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">申请调整上课时段</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-reschedule')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="form-group">
-        <label class="form-label">当前待改课程</label>
-        <div style="font-size: 12px; color: var(--color-text-main); background: var(--color-bg-page); padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+<button class="btn-primary" onclick="closeDrawer('drawer-campus'); showToast('**区导航指引发送至微信服务通知')" style="width: 100%; padding: 10px; justify-content: center; margin-top: 16px;">
+<span>获取短信导航指引</span>
+</button>
+</div>
+<!-- Drawer 3: Reschedule Timetable -->
+<div class="drawer" id="drawer-reschedule">
+<div class="drawer-header">
+<div class="drawer-title">申请调整上课时段</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-reschedule')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="form-group">
+<label class="form-label">当前待改课程</label>
+<div style="font-size: 12px; color: var(--color-text-main); background: var(--color-bg-page); padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
           Scratch趣味进阶 · 第8讲 (原周六 10:00)
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">选择拟改约时段</label>
-        <div class="option-chips">
-          <div class="option-chip selected" onclick="selectChip(this)">下周三 18:30 - 20:00 (B班)</div>
-          <div class="option-chip" onclick="selectChip(this)">下周日 10:00 - 11:30 (C班)</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">调课事由</label>
-        <div class="option-chips">
-          <div class="option-chip selected" onclick="selectChip(this)">学校校内活动冲突</div>
-          <div class="option-chip" onclick="selectChip(this)">家庭外出日程</div>
-          <div class="option-chip" onclick="selectChip(this)">身体不适休养</div>
-        </div>
-      </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;" onclick="confirmReschedule()">
-        <span>提交调课申请</span>
-      </button>
-    </div>
-
-    <!-- Drawer 4: Leave Application -->
-    <div id="drawer-leave" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">请假登记与补课预留</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-leave')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6; margin-bottom: 12px;">
+</div>
+<div class="form-group">
+<label class="form-label">选择拟改约时段</label>
+<div class="option-chips">
+<div class="option-chip selected" onclick="selectChip(this)">下周三 18:30 - 20:00 (B班)</div>
+<div class="option-chip" onclick="selectChip(this)">下周日 10:00 - 11:30 (C班)</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">调课事由</label>
+<div class="option-chips">
+<div class="option-chip selected" onclick="selectChip(this)">学校校内活动冲突</div>
+<div class="option-chip" onclick="selectChip(this)">家庭外出日程</div>
+<div class="option-chip" onclick="selectChip(this)">身体不适休养</div>
+</div>
+</div>
+<button class="btn-primary" onclick="confirmReschedule()" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;">
+<span>提交调课申请</span>
+</button>
+</div>
+<!-- Drawer 4: Leave Application -->
+<div class="drawer" id="drawer-leave">
+<div class="drawer-header">
+<div class="drawer-title">请假登记与补课预留</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-leave')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.6; margin-bottom: 12px;">
         根据中心教务规范，开课前 2 小时完成请假登记不扣减课时，并自动生成 1 次专属补课额度。
       </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center;" onclick="confirmLeave()">
-        <span>确认完成请假登记</span>
-      </button>
-    </div>
-
-    <!-- Drawer 5: Competition & Certification Guide -->
-    <div id="drawer-competition" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">白名单赛事与等级考级指南</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-competition')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
-        <b style="color: var(--color-text-main);">1. 全国青少年软件编程等级考试 (中国电子学会)</b><br>
-        • 适用级别：Scratch 1-4级 / Python 1-6级<br>
-        • 考期安排：每年 3月、6月、9月、12月，本中心为官方指定考点。<br>
-        <br>
-        <b style="color: var(--color-text-main);">2. 蓝桥杯全国软件和信息技术专业人才大赛 (青少组)</b><br>
-        • 赛项设置：计算思维、Scratch创意设计、Python编程。<br>
-        <br>
-        <b style="color: var(--color-text-main);">3. 世界机器人大赛 (WRC) / FLL 挑战赛</b><br>
+<button class="btn-primary" onclick="confirmLeave()" style="width: 100%; padding: 10px; justify-content: center;">
+<span>确认完成请假登记</span>
+</button>
+</div>
+<!-- Drawer 5: Competition & Certification Guide -->
+<div class="drawer" id="drawer-competition">
+<div class="drawer-header">
+<div class="drawer-title">白名单赛事与等级考级指南</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-competition')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+<b style="color: var(--color-text-main);">1. 全国青少年软件编程等级考试 (中国电子学会)</b><br/>
+        • 适用级别：Scratch 1-4级 / Python 1-6级<br/>
+        • 考期安排：每年 3月、6月、9月、12月，本中心为官方指定考点。<br/>
+<br/>
+<b style="color: var(--color-text-main);">2. 蓝桥杯全国软件和信息技术专业人才大赛 (青少组)</b><br/>
+        • 赛项设置：计算思维、Scratch创意设计、Python编程。<br/>
+<br/>
+<b style="color: var(--color-text-main);">3. 世界机器人大赛 (WRC) / FLL 挑战赛</b><br/>
         • 本中心历年集训队累计获国家级一等奖 28 项。
       </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;" onclick="closeDrawer('drawer-competition'); showToast('已登记考级备赛咨询，**老师将稍后联络')">
-        <span>登记考级集训规划咨询</span>
-      </button>
-    </div>
-
-    <!-- Drawer 6: Advisor Inquiry -->
-    <div id="drawer-advisor" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">专属课程**咨询</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-advisor')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: var(--color-bg-page); padding: 10px; border-radius: var(--radius-md);">
-        <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: 700;">苏</div>
-        <div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">苏*晴 (金牌课程学业规划师)</div>
-          <div style="font-size: 11px; color: var(--color-text-muted);">服务学员 420+ · 答复时长 < 5分钟</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">快速留言咨询</label>
-        <input type="text" id="advisor-msg-input" placeholder="请输入您的咨询问题，如孩子阶段规划..." style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; margin-bottom: 8px;">
-      </div>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn-primary" style="flex: 1; justify-content: center;" onclick="sendAdvisorMsg()">
-          <span>发送在线咨询留言</span>
-        </button>
-        <button class="btn-outline" onclick="showToast('已拨打服务专线: 400-**-6818')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>致电热线</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Drawer 7: Guarantee Details -->
-    <div id="drawer-guarantee" class="drawer">
-      <div class="drawer-header">
-        <div class="drawer-title">中心办学资质与教研保障</div>
-        <button class="drawer-close" onclick="closeDrawer('drawer-guarantee')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
-        • 具备正规少儿科技类校外培训机构办学许可证编号：教培科创-2024-**号<br>
-        • 中国电子学会全国青少年软件编程等级考试官方指定服务网点<br>
-        • 乐高教育官方器材与自主研发生态教具认证合作机构<br>
+<button class="btn-primary" onclick="closeDrawer('drawer-competition'); showToast('已登记考级备赛咨询，**老师将稍后联络')" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;">
+<span>登记考级集训规划咨询</span>
+</button>
+</div>
+<!-- Drawer 6: Advisor Inquiry -->
+<div class="drawer" id="drawer-advisor">
+<div class="drawer-header">
+<div class="drawer-title">专属课程**咨询</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-advisor')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: var(--color-bg-page); padding: 10px; border-radius: var(--radius-md);">
+<div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: 700;">苏</div>
+<div>
+<div style="font-size: 13px; font-weight: 700; color: var(--color-text-main);">苏*晴 (金牌课程学业规划师)</div>
+<div style="font-size: 11px; color: var(--color-text-muted);">服务学员 420+ · 答复时长 &lt; 5分钟</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">快速留言咨询</label>
+<input id="advisor-msg-input" placeholder="请输入您的咨询问题，如孩子阶段规划..." style="width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px; margin-bottom: 8px;" type="text"/>
+</div>
+<div style="display: flex; gap: 8px;">
+<button class="btn-primary" onclick="sendAdvisorMsg()" style="flex: 1; justify-content: center;">
+<span>发送在线咨询留言</span>
+</button>
+<button class="btn-outline" onclick="showToast('已拨打服务专线: 400-**-6818')">
+<svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>致电热线</span>
+</button>
+</div>
+</div>
+<!-- Drawer 7: Guarantee Details -->
+<div class="drawer" id="drawer-guarantee">
+<div class="drawer-header">
+<div class="drawer-title">中心办学资质与教研保障</div>
+<button class="drawer-close" onclick="closeDrawer('drawer-guarantee')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size: 12px; color: var(--color-text-sub); line-height: 1.7;">
+        • 具备正规少儿科技类校外培训机构办学许可证编号：教培科创-2024-**号<br/>
+        • 中国电子学会全国青少年软件编程等级考试官方指定服务网点<br/>
+        • 乐高教育官方器材与自主研发生态教具认证合作机构<br/>
         • 学员消课透明：支持随时在线查阅每一次上课打卡与导师评测报告
       </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;" onclick="closeDrawer('drawer-guarantee')">
-        <span>了解完毕</span>
-      </button>
-    </div>
-
-    <!-- Modal: Verification QR Code -->
-    <div id="modal-qrcode" class="modal">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main);">试听到校核销电子码</div>
-        <button class="drawer-close" onclick="closeModal('modal-qrcode')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div style="display: flex; flex-direction: column; align-items: center; padding: 10px 0;">
-        <!-- Mock QR Code SVG -->
-        <svg width="150" height="150" viewBox="0 0 100 100" fill="#0F172A">
-          <rect x="5" y="5" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
-          <rect x="11" y="11" width="13" height="13"/>
-          <rect x="70" y="5" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
-          <rect x="76" y="11" width="13" height="13"/>
-          <rect x="5" y="70" width="25" height="25" rx="3" fill="none" stroke="#0F172A" stroke-width="4"/>
-          <rect x="11" y="76" width="13" height="13"/>
-          <rect x="40" y="10" width="6" height="6"/>
-          <rect x="52" y="10" width="6" height="6"/>
-          <rect x="40" y="24" width="6" height="6"/>
-          <rect x="45" y="45" width="10" height="10" fill="#2563EB"/>
-          <rect x="10" y="40" width="6" height="6"/>
-          <rect x="24" y="52" width="6" height="6"/>
-          <rect x="70" y="40" width="6" height="6"/>
-          <rect x="84" y="52" width="6" height="6"/>
-          <rect x="40" y="70" width="6" height="6"/>
-          <rect x="52" y="84" width="6" height="6"/>
-          <rect x="70" y="70" width="6" height="6"/>
-          <rect x="80" y="80" width="6" height="6"/>
-        </svg>
-        <div style="font-size: 14px; font-weight: 800; color: var(--color-primary); letter-spacing: 2px; margin-top: 10px;">
+<button class="btn-primary" onclick="closeDrawer('drawer-guarantee')" style="width: 100%; padding: 10px; justify-content: center; margin-top: 14px;">
+<span>了解完毕</span>
+</button>
+</div>
+<!-- Modal: Verification QR Code -->
+<div class="modal" id="modal-qrcode">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div style="font-size: 14px; font-weight: 700; color: var(--color-text-main);">试听到校核销电子码</div>
+<button class="drawer-close" onclick="closeModal('modal-qrcode')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; padding: 10px 0;">
+<!-- Mock QR Code SVG -->
+<svg fill="#0F172A" height="150" viewbox="0 0 100 100" width="150">
+<rect fill="none" height="25" rx="3" stroke="#0F172A" stroke-width="4" width="25" x="5" y="5"></rect>
+<rect height="13" width="13" x="11" y="11"></rect>
+<rect fill="none" height="25" rx="3" stroke="#0F172A" stroke-width="4" width="25" x="70" y="5"></rect>
+<rect height="13" width="13" x="76" y="11"></rect>
+<rect fill="none" height="25" rx="3" stroke="#0F172A" stroke-width="4" width="25" x="5" y="70"></rect>
+<rect height="13" width="13" x="11" y="76"></rect>
+<rect height="6" width="6" x="40" y="10"></rect>
+<rect height="6" width="6" x="52" y="10"></rect>
+<rect height="6" width="6" x="40" y="24"></rect>
+<rect fill="#2563EB" height="10" width="10" x="45" y="45"></rect>
+<rect height="6" width="6" x="10" y="40"></rect>
+<rect height="6" width="6" x="24" y="52"></rect>
+<rect height="6" width="6" x="70" y="40"></rect>
+<rect height="6" width="6" x="84" y="52"></rect>
+<rect height="6" width="6" x="40" y="70"></rect>
+<rect height="6" width="6" x="52" y="84"></rect>
+<rect height="6" width="6" x="70" y="70"></rect>
+<rect height="6" width="6" x="80" y="80"></rect>
+</svg>
+<div style="font-size: 14px; font-weight: 800; color: var(--color-primary); letter-spacing: 2px; margin-top: 10px;">
           8821 - 9902
         </div>
-        <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">
+<div style="font-size: 11px; color: var(--color-text-muted); margin-top: 4px;">
           到校请出示给前**老师扫描核销
         </div>
-      </div>
-      <button class="btn-primary" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;" onclick="closeModal('modal-qrcode'); showToast('核销码已刷新')">
-        <span>刷新电子码</span>
-      </button>
-    </div>
-
-    <!-- Modal: Scratch & LEGO Code Principle -->
-    <div id="modal-principle" class="modal">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <div style="font-size: 14px; font-weight: 700; color: var(--color-text-main);" id="principle-modal-title">作品编程与机械逻辑解析</div>
-        <button class="drawer-close" onclick="closeModal('modal-principle')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div id="principle-modal-content" style="max-height: 280px; overflow-y: auto; font-size: 11px; line-height: 1.6;">
-        <!-- Dynamically injected blocks -->
-      </div>
-      <button class="btn-primary" style="width: 100%; padding: 8px; justify-content: center; margin-top: 12px;" onclick="closeModal('modal-principle')">
-        <span>完成研读</span>
-      </button>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作已完成</span>
-    </div>
-
-  </div>
-
-  <script>
+</div>
+<button class="btn-primary" onclick="closeModal('modal-qrcode'); showToast('核销码已刷新')" style="width: 100%; padding: 10px; justify-content: center; margin-top: 10px;">
+<span>刷新电子码</span>
+</button>
+</div>
+<!-- Modal: Scratch & LEGO Code Principle -->
+<div class="modal" id="modal-principle">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<div id="principle-modal-title" style="font-size: 14px; font-weight: 700; color: var(--color-text-main);">作品编程与机械逻辑解析</div>
+<button class="drawer-close" onclick="closeModal('modal-principle')">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div id="principle-modal-content" style="max-height: 280px; overflow-y: auto; font-size: 11px; line-height: 1.6;">
+<!-- Dynamically injected blocks -->
+</div>
+<button class="btn-primary" onclick="closeModal('modal-principle')" style="width: 100%; padding: 8px; justify-content: center; margin-top: 12px;">
+<span>完成研读</span>
+</button>
+</div>
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作已完成</span>
+</div>
+</div>
+<script>
     // App State Management
     const AppState = {
       activeTab: 0,

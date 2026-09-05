@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**小儿推拿 · 小儿推拿与产后康复中心</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**小儿推拿 · 小儿推拿与产后康复中心</title>
+<style>
     /* ==========================================================================
        设计令牌与基础重置 (Design Tokens & Reset)
        严格执行去 AI 样式、温润草本自然色调、零外链字体依赖
@@ -1141,917 +1142,813 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 小程序独立手机视口容器 (无外部侧边栏、无非业务标语) -->
+<div class="mp-container">
+<!-- 1. 微信原生顶部状态栏 -->
 
+<!-- 2. 小程序顶部导航栏与原生胶囊 -->
 
-  <!-- 小程序独立手机视口容器 (无外部侧边栏、无非业务标语) -->
-  <div class="mp-container">
-
-    <!-- 1. 微信原生顶部状态栏 -->
-    <div class="mp-status-bar">
-      <span>10:24</span>
-      <div class="status-icons">
-        <!-- Wifi SVG -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-          <line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <!-- Battery SVG -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/>
-          <line x1="22" y1="11" x2="22" y2="13"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- 2. 小程序顶部导航栏与原生胶囊 -->
-    <div class="mp-nav-bar">
-      <div class="nav-title">
-        <span>**小儿推拿 · 母婴调理</span>
-      </div>
-      <div class="wechat-capsule" onclick="handleCapsuleClick()">
-        <div class="capsule-dots">
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-        </div>
-        <div class="capsule-divider"></div>
-        <div class="capsule-circle">
-          <div class="capsule-inner-dot"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. 小程序主体滚动视口 -->
-    <div class="mp-body">
-
-      <!-- ===================================================================
+<!-- 3. 小程序主体滚动视口 -->
+<div class="mp-body">
+<!-- ===================================================================
            TAB 0: 首页 / 精选调理
            =================================================================== -->
-      <div id="tab-0" class="tab-view active">
-        
-        <!-- 门店快速名片条 -->
-        <div class="store-bar" onclick="openStoreModal()">
-          <div class="store-info-left">
-            <span class="store-badge">旗舰院</span>
-            <div>
-              <div class="store-name">高新技术**园区旗舰院</div>
-              <div style="font-size:10px;color:var(--color-text-muted);margin-top:1px;">09:00 - 20:30 · 支持绿色到店核销</div>
-            </div>
-          </div>
-          <div class="store-link">
-            <span>导航/电话</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-        <!-- 顶部温和中医草本 Banner -->
-        <div class="home-hero-banner">
-          <div class="hero-tag">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>绿色疗法 · 未病先防</span>
-          </div>
-          <div class="hero-title">小儿推拿与产后康复中心</div>
-          <div class="hero-subtitle">传承中医经典推拿穴位调理，结合现代产后机能循证康复，守护母婴全周期身心健康。</div>
-        </div>
-
-        <!-- **区 4 大快捷入口 -->
-        <div class="quick-grid">
-          <!-- 儿推 -->
-          <div class="grid-btn" onclick="quickNavService('pediatric')">
-            <div class="grid-icon-wrap" style="background:var(--color-primary-soft);color:var(--color-primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.5 1.5.5 2 0"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg>
-            </div>
-            <div class="grid-label">小儿推拿</div>
-            <div class="grid-desc">消积/止咳/助长</div>
-          </div>
-          <!-- 产康 -->
-          <div class="grid-btn" onclick="quickNavService('postpartum')">
-            <div class="grid-icon-wrap" style="background:var(--color-mother-soft);color:var(--color-mother);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </div>
-            <div class="grid-label">产后康复</div>
-            <div class="grid-desc">腹直肌/骨盆修复</div>
-          </div>
-          <!-- 体质测评 -->
-          <div class="grid-btn" onclick="openAssessmentModal()">
-            <div class="grid-icon-wrap" style="background:var(--color-warm-soft);color:var(--color-warm-amber);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div class="grid-label">体质测评</div>
-            <div class="grid-desc">中医智能自测</div>
-          </div>
-          <!-- **排班 -->
-          <div class="grid-btn" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">
-            <div class="grid-icon-wrap" style="background:var(--color-doctor-blue-soft);color:var(--color-doctor-blue);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="grid-label">预约挂号</div>
-            <div class="grid-desc">7天排班直通</div>
-          </div>
-        </div>
-
-        <!-- 当季节气养护专栏 -->
-        <div class="seasonal-card" onclick="openSeasonalTipModal()">
-          <div class="seasonal-info">
-            <div class="seasonal-badge">节气<br>专栏</div>
-            <div>
-              <div class="seasonal-title">白露润燥 · 小儿防外感与润肺护脾</div>
-              <div class="seasonal-tip">秋燥渐起，宜运八卦、揉迎香，点此查看居家养护要决</div>
-            </div>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-amber-accent)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-
-        <!-- 资深**区 -->
-        <div class="section-header">
-          <div class="section-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>资深**人员团队</span>
-          </div>
-          <div class="section-more" onclick="switchTab(1)">全部项目 ›</div>
-        </div>
-
-        <div class="doctor-scroll">
-          <!-- **人员 1 -->
-          <div class="doctor-card">
-            <div class="doctor-avatar">苏</div>
-            <div class="doctor-name">苏主管**人员</div>
-            <div class="doctor-role">12年母婴中医</div>
-            <div class="doctor-specialty">擅长小儿厌食消积、脾胃虚寒推拿</div>
-            <button class="doctor-book-btn" onclick="openBookingWithDoctor('苏主管**人员', '小儿消积化滞健脾推拿', 138)">预约排班</button>
-          </div>
-          <!-- **人员 2 -->
-          <div class="doctor-card">
-            <div class="doctor-avatar" style="color:var(--color-mother);background:var(--color-mother-soft);border-color:var(--color-mother-edge);">张</div>
-            <div class="doctor-name">张高级产康师</div>
-            <div class="doctor-role" style="color:var(--color-mother);background:var(--color-mother-soft);">产后康复认证</div>
-            <div class="doctor-specialty">专攻腹直肌分离手法、盆底肌机能激活</div>
-            <button class="doctor-book-btn" onclick="openBookingWithDoctor('张高级产康师', '产后腹直肌分离闭合修复', 268)">预约排班</button>
-          </div>
-          <!-- **人员 3 -->
-          <div class="doctor-card">
-            <div class="doctor-avatar" style="color:var(--color-doctor-blue);background:var(--color-doctor-blue-soft);border-color:var(--color-doctor-blue-edge);">林</div>
-            <div class="doctor-name">林资深推拿师</div>
-            <div class="doctor-role" style="color:var(--color-doctor-blue);background:var(--color-doctor-blue-soft);">儿推学术委员会</div>
-            <div class="doctor-specialty">擅长小儿外感风寒咳嗽、清**水推拿</div>
-            <button class="doctor-book-btn" onclick="openBookingWithDoctor('林资深推拿师', '小儿宣肺止咳穴位贴敷推拿', 158)">预约排班</button>
-          </div>
-        </div>
-
-        <!-- 热门推荐服务卡片 -->
-        <div class="section-header">
-          <div class="section-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>精选推荐调理</span>
-          </div>
-        </div>
-
-        <!-- 推荐卡 1 -->
-        <div class="service-item-card highlight">
-          <div class="service-card-header">
-            <div class="service-title">小儿消积化滞健脾推拿</div>
-            <span class="service-duration-badge">40分钟</span>
-          </div>
-          <div class="service-desc">专调小儿不思饮食、腹胀便秘、舌苔厚腻。采用揉板门、运内八卦、清**水与捏脊四步经典手法。</div>
-          <div class="service-tags">
-            <span class="service-tag">调理脾胃</span>
-            <span class="service-tag">绿色物理疗法</span>
-            <span class="service-tag">草本通窍</span>
-          </div>
-          <div class="service-card-footer">
-            <div>
-              <span class="service-price">¥138</span>
-              <span class="service-price-unit">/次</span>
-            </div>
-            <div class="service-actions">
-              <button class="btn-outline" onclick="openFlowModal('小儿消积化滞健脾推拿')">查看流程</button>
-              <button class="btn-solid" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">立即预约</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 推荐卡 2 -->
-        <div class="service-item-card highlight">
-          <div class="service-card-header">
-            <div class="service-title">产后腹直肌分离闭合修复</div>
-            <span class="service-duration-badge">60分钟</span>
-          </div>
-          <div class="service-desc">采用手法筋膜松解结合生物仿生微电流，促进白线纤维组织重塑收紧，改善小腹松垮下垂与腹壁无力。</div>
-          <div class="service-tags">
-            <span class="service-tag">手法微创松解</span>
-            <span class="service-tag">骨盆评估联调</span>
-            <span class="service-tag">数据化建档</span>
-          </div>
-          <div class="service-card-footer">
-            <div>
-              <span class="service-price">¥268</span>
-              <span class="service-price-unit">/次</span>
-            </div>
-            <div class="service-actions">
-              <button class="btn-outline" onclick="openFlowModal('产后腹直肌分离闭合修复')">查看流程</button>
-              <button class="btn-solid" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)">立即预约</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- ===================================================================
+<div class="tab-view active" id="tab-0">
+<!-- 门店快速名片条 -->
+<div class="store-bar" onclick="openStoreModal()">
+<div class="store-info-left">
+<span class="store-badge">旗舰院</span>
+<div>
+<div class="store-name">高新技术**园区旗舰院</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:1px;">09:00 - 20:30 · 支持绿色到店核销</div>
+</div>
+</div>
+<div class="store-link">
+<span>导航/电话</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<!-- 顶部温和中医草本 Banner -->
+<div class="home-hero-banner">
+<div class="hero-tag">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span>绿色疗法 · 未病先防</span>
+</div>
+<div class="hero-title">小儿推拿与产后康复中心</div>
+<div class="hero-subtitle">传承中医经典推拿穴位调理，结合现代产后机能循证康复，守护母婴全周期身心健康。</div>
+</div>
+<!-- **区 4 大快捷入口 -->
+<div class="quick-grid">
+<!-- 儿推 -->
+<div class="grid-btn" onclick="quickNavService('pediatric')">
+<div class="grid-icon-wrap" style="background:var(--color-primary-soft);color:var(--color-primary);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M10 16c.5.5 1.5.5 2 0"></path><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path></svg>
+</div>
+<div class="grid-label">小儿推拿</div>
+<div class="grid-desc">消积/止咳/助长</div>
+</div>
+<!-- 产康 -->
+<div class="grid-btn" onclick="quickNavService('postpartum')">
+<div class="grid-icon-wrap" style="background:var(--color-mother-soft);color:var(--color-mother);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+</div>
+<div class="grid-label">产后康复</div>
+<div class="grid-desc">腹直肌/骨盆修复</div>
+</div>
+<!-- 体质测评 -->
+<div class="grid-btn" onclick="openAssessmentModal()">
+<div class="grid-icon-wrap" style="background:var(--color-warm-soft);color:var(--color-warm-amber);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+</div>
+<div class="grid-label">体质测评</div>
+<div class="grid-desc">中医智能自测</div>
+</div>
+<!-- **排班 -->
+<div class="grid-btn" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">
+<div class="grid-icon-wrap" style="background:var(--color-doctor-blue-soft);color:var(--color-doctor-blue);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+</div>
+<div class="grid-label">预约挂号</div>
+<div class="grid-desc">7天排班直通</div>
+</div>
+</div>
+<!-- 当季节气养护专栏 -->
+<div class="seasonal-card" onclick="openSeasonalTipModal()">
+<div class="seasonal-info">
+<div class="seasonal-badge">节气<br/>专栏</div>
+<div>
+<div class="seasonal-title">白露润燥 · 小儿防外感与润肺护脾</div>
+<div class="seasonal-tip">秋燥渐起，宜运八卦、揉迎香，点此查看居家养护要决</div>
+</div>
+</div>
+<svg fill="none" height="16" stroke="var(--color-amber-accent)" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<!-- 资深**区 -->
+<div class="section-header">
+<div class="section-title">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>资深**人员团队</span>
+</div>
+<div class="section-more" onclick="switchTab(1)">全部项目 ›</div>
+</div>
+<div class="doctor-scroll">
+<!-- **人员 1 -->
+<div class="doctor-card">
+<div class="doctor-avatar">苏</div>
+<div class="doctor-name">苏主管**人员</div>
+<div class="doctor-role">12年母婴中医</div>
+<div class="doctor-specialty">擅长小儿厌食消积、脾胃虚寒推拿</div>
+<button class="doctor-book-btn" onclick="openBookingWithDoctor('苏主管**人员', '小儿消积化滞健脾推拿', 138)">预约排班</button>
+</div>
+<!-- **人员 2 -->
+<div class="doctor-card">
+<div class="doctor-avatar" style="color:var(--color-mother);background:var(--color-mother-soft);border-color:var(--color-mother-edge);">张</div>
+<div class="doctor-name">张高级产康师</div>
+<div class="doctor-role" style="color:var(--color-mother);background:var(--color-mother-soft);">产后康复认证</div>
+<div class="doctor-specialty">专攻腹直肌分离手法、盆底肌机能激活</div>
+<button class="doctor-book-btn" onclick="openBookingWithDoctor('张高级产康师', '产后腹直肌分离闭合修复', 268)">预约排班</button>
+</div>
+<!-- **人员 3 -->
+<div class="doctor-card">
+<div class="doctor-avatar" style="color:var(--color-doctor-blue);background:var(--color-doctor-blue-soft);border-color:var(--color-doctor-blue-edge);">林</div>
+<div class="doctor-name">林资深推拿师</div>
+<div class="doctor-role" style="color:var(--color-doctor-blue);background:var(--color-doctor-blue-soft);">儿推学术委员会</div>
+<div class="doctor-specialty">擅长小儿外感风寒咳嗽、清**水推拿</div>
+<button class="doctor-book-btn" onclick="openBookingWithDoctor('林资深推拿师', '小儿宣肺止咳穴位贴敷推拿', 158)">预约排班</button>
+</div>
+</div>
+<!-- 热门推荐服务卡片 -->
+<div class="section-header">
+<div class="section-title">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+<span>精选推荐调理</span>
+</div>
+</div>
+<!-- 推荐卡 1 -->
+<div class="service-item-card highlight">
+<div class="service-card-header">
+<div class="service-title">小儿消积化滞健脾推拿</div>
+<span class="service-duration-badge">40分钟</span>
+</div>
+<div class="service-desc">专调小儿不思饮食、腹胀便秘、舌苔厚腻。采用揉板门、运内八卦、清**水与捏脊四步经典手法。</div>
+<div class="service-tags">
+<span class="service-tag">调理脾胃</span>
+<span class="service-tag">绿色物理疗法</span>
+<span class="service-tag">草本通窍</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥138</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('小儿消积化滞健脾推拿')">查看流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">立即预约</button>
+</div>
+</div>
+</div>
+<!-- 推荐卡 2 -->
+<div class="service-item-card highlight">
+<div class="service-card-header">
+<div class="service-title">产后腹直肌分离闭合修复</div>
+<span class="service-duration-badge">60分钟</span>
+</div>
+<div class="service-desc">采用手法筋膜松解结合生物仿生微电流，促进白线纤维组织重塑收紧，改善小腹松垮下垂与腹壁无力。</div>
+<div class="service-tags">
+<span class="service-tag">手法微创松解</span>
+<span class="service-tag">骨盆评估联调</span>
+<span class="service-tag">数据化建档</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥268</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('产后腹直肌分离闭合修复')">查看流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)">立即预约</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ===================================================================
            TAB 1: 特色项目专科库
            =================================================================== -->
-      <div id="tab-1" class="tab-view">
-        
-        <!-- 分类选择胶囊条 -->
-        <div class="filter-tabs">
-          <div class="filter-pill active" id="pill-all" onclick="filterServices('all')">全部服务 (7)</div>
-          <div class="filter-pill" id="pill-pediatric" onclick="filterServices('pediatric')">小儿推拿专科 (4)</div>
-          <div class="filter-pill" id="pill-postpartum" onclick="filterServices('postpartum')">产后康复专科 (3)</div>
-        </div>
-
-        <!-- 服务列表容器 (由 JS 控制过滤) -->
-        <div id="service-list-container">
-          
-          <!-- 项目 1: 儿推 -->
-          <div class="service-item-card" data-category="pediatric">
-            <div class="service-card-header">
-              <div class="service-title">小儿消积化滞健脾推拿</div>
-              <span class="service-duration-badge">40分钟</span>
-            </div>
-            <div class="service-desc">适应症：食积厌食、脘腹胀满、大便干结或酸臭、睡卧不宁。结合揉腹与分推腹阴阳，调理脾胃气机。</div>
-            <div class="service-tags">
-              <span class="service-tag">食积便秘</span>
-              <span class="service-tag">运八卦</span>
-              <span class="service-tag">清胃经</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥138</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('小儿消积化滞健脾推拿')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 2: 儿推 -->
-          <div class="service-item-card" data-category="pediatric">
-            <div class="service-card-header">
-              <div class="service-title">小儿宣肺止咳贴敷推拿</div>
-              <span class="service-duration-badge">45分钟</span>
-            </div>
-            <div class="service-desc">适应症：风热或风寒咳嗽、咽痛痰多。推肺经、揉肺俞、揉膻中，辅以纯天然道地草本穴位敷贴。</div>
-            <div class="service-tags">
-              <span class="service-tag">外感咳嗽</span>
-              <span class="service-tag">止咳化痰</span>
-              <span class="service-tag">草本贴敷</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥158</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('小儿宣肺止咳贴敷推拿')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('小儿宣肺止咳贴敷推拿', '45分钟', 158)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 3: 儿推 -->
-          <div class="service-item-card" data-category="pediatric">
-            <div class="service-card-header">
-              <div class="service-title">小儿节气助长益智推拿</div>
-              <span class="service-duration-badge">50分钟</span>
-            </div>
-            <div class="service-desc">适应症：个矮偏瘦、营养吸收迟缓。通过补脾经、补肾经、揉足三里与循经督脉捏脊，激发骨骼生长机能。</div>
-            <div class="service-tags">
-              <span class="service-tag">骨骼发育</span>
-              <span class="service-tag">强健体质</span>
-              <span class="service-tag">督脉捏脊</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥188</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('小儿节气助长益智推拿')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('小儿节气助长益智推拿', '50分钟', 188)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 4: 儿推 -->
-          <div class="service-item-card" data-category="pediatric">
-            <div class="service-card-header">
-              <div class="service-title">小儿安神定志夜啼推拿</div>
-              <span class="service-duration-badge">35分钟</span>
-            </div>
-            <div class="service-desc">适应症：婴儿夜啼不安、易惊惕啼哭、入睡困难。推坎宫、揉太阳、清心经、捣小天心，平肝潜阳宁心。</div>
-            <div class="service-tags">
-              <span class="service-tag">宁心安神</span>
-              <span class="service-tag">夜啼哭闹</span>
-              <span class="service-tag">平抚情绪</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥128</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('小儿安神定志夜啼推拿')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('小儿安神定志夜啼推拿', '35分钟', 128)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 5: 产康 -->
-          <div class="service-item-card" data-category="postpartum">
-            <div class="service-card-header">
-              <div class="service-title">产后腹直肌分离闭合修复</div>
-              <span class="service-duration-badge">60分钟</span>
-            </div>
-            <div class="service-desc">适应症：产后腹壁松垮、腹白线分离>2指。专业呼吸训练配合手法松解腹横肌与仿生低频电刺激。</div>
-            <div class="service-tags">
-              <span class="service-tag">收窄指缝</span>
-              <span class="service-tag">核心激活</span>
-              <span class="service-tag">平坦腹壁</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥268</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('产后腹直肌分离闭合修复')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 6: 产康 -->
-          <div class="service-item-card" data-category="postpartum">
-            <div class="service-card-header">
-              <div class="service-title">产后盆底肌筋膜松解与肌力修复</div>
-              <span class="service-duration-badge">60分钟</span>
-            </div>
-            <div class="service-desc">适应症：咳嗽打喷嚏漏尿、盆底坠胀酸麻。生物反馈评估，针对 I 类慢肌与 II 类快肌进行耐力与爆发力恢复。</div>
-            <div class="service-tags">
-              <span class="service-tag">改善漏尿</span>
-              <span class="service-tag">肌力评级</span>
-              <span class="service-tag">私密养护</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥298</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('产后盆底肌筋膜松解与肌力修复')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('产后盆底肌筋膜松解与肌力修复', '60分钟', 298)">预约</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 项目 7: 产康 -->
-          <div class="service-item-card" data-category="postpartum">
-            <div class="service-card-header">
-              <div class="service-title">满月古法中药温经散寒发汗</div>
-              <span class="service-duration-badge">75分钟</span>
-            </div>
-            <div class="service-desc">适应症：产后多虚多瘀、畏寒怕风、关节酸困。精选艾叶、当归、川芎等道地药材，恒温中药熏蒸驱寒排湿。</div>
-            <div class="service-tags">
-              <span class="service-tag">满月排湿</span>
-              <span class="service-tag">通络止痛</span>
-              <span class="service-tag">恢复元气</span>
-            </div>
-            <div class="service-card-footer">
-              <div>
-                <span class="service-price">¥218</span>
-                <span class="service-price-unit">/次</span>
-              </div>
-              <div class="service-actions">
-                <button class="btn-outline" onclick="openFlowModal('满月古法中药温经散寒发汗')">调理流程</button>
-                <button class="btn-solid" onclick="openBookingDrawer('满月古法中药温经散寒发汗', '75分钟', 218)">预约</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ===================================================================
+<div class="tab-view" id="tab-1">
+<!-- 分类选择胶囊条 -->
+<div class="filter-tabs">
+<div class="filter-pill active" id="pill-all" onclick="filterServices('all')">全部服务 (7)</div>
+<div class="filter-pill" id="pill-pediatric" onclick="filterServices('pediatric')">小儿推拿专科 (4)</div>
+<div class="filter-pill" id="pill-postpartum" onclick="filterServices('postpartum')">产后康复专科 (3)</div>
+</div>
+<!-- 服务列表容器 (由 JS 控制过滤) -->
+<div id="service-list-container">
+<!-- 项目 1: 儿推 -->
+<div class="service-item-card" data-category="pediatric">
+<div class="service-card-header">
+<div class="service-title">小儿消积化滞健脾推拿</div>
+<span class="service-duration-badge">40分钟</span>
+</div>
+<div class="service-desc">适应症：食积厌食、脘腹胀满、大便干结或酸臭、睡卧不宁。结合揉腹与分推腹阴阳，调理脾胃气机。</div>
+<div class="service-tags">
+<span class="service-tag">食积便秘</span>
+<span class="service-tag">运八卦</span>
+<span class="service-tag">清胃经</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥138</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('小儿消积化滞健脾推拿')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 2: 儿推 -->
+<div class="service-item-card" data-category="pediatric">
+<div class="service-card-header">
+<div class="service-title">小儿宣肺止咳贴敷推拿</div>
+<span class="service-duration-badge">45分钟</span>
+</div>
+<div class="service-desc">适应症：风热或风寒咳嗽、咽痛痰多。推肺经、揉肺俞、揉膻中，辅以纯天然道地草本穴位敷贴。</div>
+<div class="service-tags">
+<span class="service-tag">外感咳嗽</span>
+<span class="service-tag">止咳化痰</span>
+<span class="service-tag">草本贴敷</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥158</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('小儿宣肺止咳贴敷推拿')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿宣肺止咳贴敷推拿', '45分钟', 158)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 3: 儿推 -->
+<div class="service-item-card" data-category="pediatric">
+<div class="service-card-header">
+<div class="service-title">小儿节气助长益智推拿</div>
+<span class="service-duration-badge">50分钟</span>
+</div>
+<div class="service-desc">适应症：个矮偏瘦、营养吸收迟缓。通过补脾经、补肾经、揉足三里与循经督脉捏脊，激发骨骼生长机能。</div>
+<div class="service-tags">
+<span class="service-tag">骨骼发育</span>
+<span class="service-tag">强健体质</span>
+<span class="service-tag">督脉捏脊</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥188</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('小儿节气助长益智推拿')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿节气助长益智推拿', '50分钟', 188)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 4: 儿推 -->
+<div class="service-item-card" data-category="pediatric">
+<div class="service-card-header">
+<div class="service-title">小儿安神定志夜啼推拿</div>
+<span class="service-duration-badge">35分钟</span>
+</div>
+<div class="service-desc">适应症：婴儿夜啼不安、易惊惕啼哭、入睡困难。推坎宫、揉太阳、清心经、捣小天心，平肝潜阳宁心。</div>
+<div class="service-tags">
+<span class="service-tag">宁心安神</span>
+<span class="service-tag">夜啼哭闹</span>
+<span class="service-tag">平抚情绪</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥128</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('小儿安神定志夜啼推拿')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿安神定志夜啼推拿', '35分钟', 128)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 5: 产康 -->
+<div class="service-item-card" data-category="postpartum">
+<div class="service-card-header">
+<div class="service-title">产后腹直肌分离闭合修复</div>
+<span class="service-duration-badge">60分钟</span>
+</div>
+<div class="service-desc">适应症：产后腹壁松垮、腹白线分离&gt;2指。专业呼吸训练配合手法松解腹横肌与仿生低频电刺激。</div>
+<div class="service-tags">
+<span class="service-tag">收窄指缝</span>
+<span class="service-tag">核心激活</span>
+<span class="service-tag">平坦腹壁</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥268</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('产后腹直肌分离闭合修复')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 6: 产康 -->
+<div class="service-item-card" data-category="postpartum">
+<div class="service-card-header">
+<div class="service-title">产后盆底肌筋膜松解与肌力修复</div>
+<span class="service-duration-badge">60分钟</span>
+</div>
+<div class="service-desc">适应症：咳嗽打喷嚏漏尿、盆底坠胀酸麻。生物反馈评估，针对 I 类慢肌与 II 类快肌进行耐力与爆发力恢复。</div>
+<div class="service-tags">
+<span class="service-tag">改善漏尿</span>
+<span class="service-tag">肌力评级</span>
+<span class="service-tag">私密养护</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥298</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('产后盆底肌筋膜松解与肌力修复')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('产后盆底肌筋膜松解与肌力修复', '60分钟', 298)">预约</button>
+</div>
+</div>
+</div>
+<!-- 项目 7: 产康 -->
+<div class="service-item-card" data-category="postpartum">
+<div class="service-card-header">
+<div class="service-title">满月古法中药温经散寒发汗</div>
+<span class="service-duration-badge">75分钟</span>
+</div>
+<div class="service-desc">适应症：产后多虚多瘀、畏寒怕风、关节酸困。精选艾叶、当归、川芎等道地药材，恒温中药熏蒸驱寒排湿。</div>
+<div class="service-tags">
+<span class="service-tag">满月排湿</span>
+<span class="service-tag">通络止痛</span>
+<span class="service-tag">恢复元气</span>
+</div>
+<div class="service-card-footer">
+<div>
+<span class="service-price">¥218</span>
+<span class="service-price-unit">/次</span>
+</div>
+<div class="service-actions">
+<button class="btn-outline" onclick="openFlowModal('满月古法中药温经散寒发汗')">调理流程</button>
+<button class="btn-solid" onclick="openBookingDrawer('满月古法中药温经散寒发汗', '75分钟', 218)">预约</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===================================================================
            TAB 2: 双轨健康成长与康复档案
            =================================================================== -->
-      <div id="tab-2" class="tab-view">
-        
-        <!-- 双卡片切换条 -->
-        <div class="record-toggle-bar">
-          <div class="record-toggle-item active" id="rec-btn-baby" onclick="switchRecordView('baby')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M9.5 15a3.5 3.5 0 0 0 5 0"/></svg>
-            <span>宝宝推拿成长卡</span>
-          </div>
-          <div class="record-toggle-item" id="rec-btn-mother" onclick="switchRecordView('mother')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            <span>妈妈产后康复卡</span>
-          </div>
-        </div>
-
-        <!-- 视图 1: 宝宝成长卡 -->
-        <div id="record-view-baby">
-          <div class="card" style="border-top: 3px solid var(--color-primary);">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <div>
-                <span style="font-size:14px;font-weight:800;color:var(--color-text-title);">陈*宇 (小宝)</span>
-                <span style="font-size:10px;background:var(--color-primary-soft);color:var(--color-primary);padding:2px 6px;border-radius:4px;margin-left:4px;font-weight:700;">2岁4个月</span>
-              </div>
-              <span style="font-size:10px;color:var(--color-text-muted);">档案号 #BB-0914</span>
+<div class="tab-view" id="tab-2">
+<!-- 双卡片切换条 -->
+<div class="record-toggle-bar">
+<div class="record-toggle-item active" id="rec-btn-baby" onclick="switchRecordView('baby')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="9"></circle><path d="M10 10h.01"></path><path d="M14 10h.01"></path><path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path></svg>
+<span>宝宝推拿成长卡</span>
+</div>
+<div class="record-toggle-item" id="rec-btn-mother" onclick="switchRecordView('mother')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+<span>妈妈产后康复卡</span>
+</div>
+</div>
+<!-- 视图 1: 宝宝成长卡 -->
+<div id="record-view-baby">
+<div class="card" style="border-top: 3px solid var(--color-primary);">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div>
+<span style="font-size:14px;font-weight:800;color:var(--color-text-title);">陈*宇 (小宝)</span>
+<span style="font-size:10px;background:var(--color-primary-soft);color:var(--color-primary);padding:2px 6px;border-radius:4px;margin-left:4px;font-weight:700;">2岁4个月</span>
+</div>
+<span style="font-size:10px;color:var(--color-text-muted);">档案号 #BB-0914</span>
+</div>
+<!-- 体质指数雷达概况 -->
+<div style="background:var(--color-bg-viewport);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:var(--color-text-title);margin-bottom:6px;">中医体质辨识：脾胃积热型 (改善中)</div>
+<div class="metric-row">
+<span class="metric-name">脾胃运化评分</span>
+<span class="metric-val" style="color:var(--color-primary);">84 分 (+22%)</span>
+</div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 84%;"></div></div>
+<div class="metric-row">
+<span class="metric-name">睡眠安稳指数</span>
+<span class="metric-val" style="color:var(--color-primary);">88 分 (+15%)</span>
+</div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 88%;"></div></div>
+<div class="metric-row">
+<span class="metric-name">肺经抗邪指标</span>
+<span class="metric-val" style="color:var(--color-warm-amber);">76 分</span>
+</div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 76%;background:var(--color-warm-amber);"></div></div>
+</div>
+<!-- 近期推拿记录概况 -->
+<div style="font-size:11px;color:var(--color-text-body);line-height:1.6;margin-bottom:12px;">
+<b>调理总结：</b>近30天累计调理 5 次，食欲不振已显著减轻，夜啼减少。苏主管**人员建议下周继续巩固 1 次健脾捏脊。
             </div>
-
-            <!-- 体质指数雷达概况 -->
-            <div style="background:var(--color-bg-viewport);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;">
-              <div style="font-size:11px;font-weight:700;color:var(--color-text-title);margin-bottom:6px;">中医体质辨识：脾胃积热型 (改善中)</div>
-              
-              <div class="metric-row">
-                <span class="metric-name">脾胃运化评分</span>
-                <span class="metric-val" style="color:var(--color-primary);">84 分 (+22%)</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 84%;"></div></div>
-
-              <div class="metric-row">
-                <span class="metric-name">睡眠安稳指数</span>
-                <span class="metric-val" style="color:var(--color-primary);">88 分 (+15%)</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 88%;"></div></div>
-
-              <div class="metric-row">
-                <span class="metric-name">肺经抗邪指标</span>
-                <span class="metric-val" style="color:var(--color-warm-amber);">76 分</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 76%;background:var(--color-warm-amber);"></div></div>
-            </div>
-
-            <!-- 近期推拿记录概况 -->
-            <div style="font-size:11px;color:var(--color-text-body);line-height:1.6;margin-bottom:12px;">
-              <b>调理总结：</b>近30天累计调理 5 次，食欲不振已显著减轻，夜啼减少。苏主管**人员建议下周继续巩固 1 次健脾捏脊。
-            </div>
-
-            <div style="display:flex;gap:8px;">
-              <button class="btn-outline" style="flex:1;" onclick="openCareGuideModal()">捏脊护理指引</button>
-              <button class="btn-solid" style="flex:1;" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)">预约下周推拿</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 视图 2: 妈妈产康卡 -->
-        <div id="record-view-mother" style="display:none;">
-          <div class="card" style="border-top: 3px solid var(--color-mother);">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <div>
-                <span style="font-size:14px;font-weight:800;color:var(--color-text-title);">苏*晴 (宝妈)</span>
-                <span style="font-size:10px;background:var(--color-mother-soft);color:var(--color-mother);padding:2px 6px;border-radius:4px;margin-left:4px;font-weight:700;">产后108天</span>
-              </div>
-              <span style="font-size:10px;color:var(--color-text-muted);">档案号 #MK-0802</span>
-            </div>
-
-            <div style="background:var(--color-mother-soft);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;border:1px solid var(--color-mother-edge);">
-              <div style="font-size:11px;font-weight:700;color:var(--color-mother-deep);margin-bottom:6px;">腹直肌与盆底肌康复进程 (阶段 2/3)</div>
-              
-              <div class="metric-row">
-                <span class="metric-name">腹直肌分离度 (初诊2.8指 至 现1.4指)</span>
-                <span class="metric-val" style="color:var(--color-mother);">已闭合 50%</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 72%;background:linear-gradient(90deg, #FB7185, var(--color-mother));"></div></div>
-
-              <div class="metric-row">
-                <span class="metric-name">盆底肌肌电评分 (初诊 52分 至 现 81分)</span>
-                <span class="metric-val" style="color:var(--color-mother);">良好 (达标)</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 81%;background:linear-gradient(90deg, #FB7185, var(--color-mother));"></div></div>
-
-              <div class="metric-row">
-                <span class="metric-name">疗程执行进度</span>
-                <span class="metric-val" style="color:var(--color-text-title);">第 6 次 / 共 10 次</span>
-              </div>
-            </div>
-
-            <div style="display:flex;gap:8px;">
-              <button class="btn-outline" style="flex:1;border-color:var(--color-mother);color:var(--color-mother);" onclick="confirmCheckInAction()">确认到期复查</button>
-              <button class="btn-solid" style="flex:1;background:var(--color-mother);border-color:var(--color-mother);" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)">预约产康疗程</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- ===================================================================
+<div style="display:flex;gap:8px;">
+<button class="btn-outline" onclick="openCareGuideModal()" style="flex:1;">捏脊护理指引</button>
+<button class="btn-solid" onclick="openBookingDrawer('小儿消积化滞健脾推拿', '40分钟', 138)" style="flex:1;">预约下周推拿</button>
+</div>
+</div>
+</div>
+<!-- 视图 2: 妈妈产康卡 -->
+<div id="record-view-mother" style="display:none;">
+<div class="card" style="border-top: 3px solid var(--color-mother);">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div>
+<span style="font-size:14px;font-weight:800;color:var(--color-text-title);">苏*晴 (宝妈)</span>
+<span style="font-size:10px;background:var(--color-mother-soft);color:var(--color-mother);padding:2px 6px;border-radius:4px;margin-left:4px;font-weight:700;">产后108天</span>
+</div>
+<span style="font-size:10px;color:var(--color-text-muted);">档案号 #MK-0802</span>
+</div>
+<div style="background:var(--color-mother-soft);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;border:1px solid var(--color-mother-edge);">
+<div style="font-size:11px;font-weight:700;color:var(--color-mother-deep);margin-bottom:6px;">腹直肌与盆底肌康复进程 (阶段 2/3)</div>
+<div class="metric-row">
+<span class="metric-name">腹直肌分离度 (初诊2.8指 至 现1.4指)</span>
+<span class="metric-val" style="color:var(--color-mother);">已闭合 50%</span>
+</div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 72%;background:linear-gradient(90deg, #FB7185, var(--color-mother));"></div></div>
+<div class="metric-row">
+<span class="metric-name">盆底肌肌电评分 (初诊 52分 至 现 81分)</span>
+<span class="metric-val" style="color:var(--color-mother);">良好 (达标)</span>
+</div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 81%;background:linear-gradient(90deg, #FB7185, var(--color-mother));"></div></div>
+<div class="metric-row">
+<span class="metric-name">疗程执行进度</span>
+<span class="metric-val" style="color:var(--color-text-title);">第 6 次 / 共 10 次</span>
+</div>
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn-outline" onclick="confirmCheckInAction()" style="flex:1;border-color:var(--color-mother);color:var(--color-mother);">确认到期复查</button>
+<button class="btn-solid" onclick="openBookingDrawer('产后腹直肌分离闭合修复', '60分钟', 268)" style="flex:1;background:var(--color-mother);border-color:var(--color-mother);">预约产康疗程</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ===================================================================
            TAB 3: 服务中心 / 我的看板
            =================================================================== -->
-      <div id="tab-3" class="tab-view">
-        
-        <!-- 用户身份卡片 -->
-        <div class="user-profile-card">
-          <div class="user-meta-left">
-            <div class="user-avatar-wrap">苏</div>
-            <div>
-              <div class="user-title-row">
-                <span class="user-name">苏*晴 女士</span>
-                <span class="vip-tag">金牌会员</span>
-              </div>
-              <div class="user-phone">手机：138**6721 · 已绑定2位就诊人</div>
-            </div>
-          </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </div>
-
-        <!-- 订单看板 4 宫格 -->
-        <div class="order-status-grid">
-          <div class="status-tab-btn active" id="btn-status-all" onclick="filterOrderStatus('all')">
-            <span class="status-badge-count" id="count-all">2</span>
-            <span class="status-label">全部单据</span>
-          </div>
-          <div class="status-tab-btn" id="btn-status-pending" onclick="filterOrderStatus('pending')">
-            <span class="status-badge-count" id="count-pending">1</span>
-            <span class="status-label">待服务</span>
-          </div>
-          <div class="status-tab-btn" id="btn-status-completed" onclick="filterOrderStatus('completed')">
-            <span class="status-badge-count" id="count-completed">1</span>
-            <span class="status-label">已完成</span>
-          </div>
-          <div class="status-tab-btn" id="btn-status-evaluated" onclick="filterOrderStatus('evaluated')">
-            <span class="status-badge-count" id="count-evaluated">0</span>
-            <span class="status-label">待评价</span>
-          </div>
-        </div>
-
-        <!-- 单据列表容器 -->
-        <div id="orders-list-wrap">
-          <!-- 动态渲染单据列表 -->
-        </div>
-
-        <!-- 常用功能矩阵 -->
-        <div class="menu-card-list">
-          <div class="menu-row" onclick="openMemberModal()">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>常用服务人管理 (苏*晴 / 陈*宇)</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-
-          <div class="menu-row" onclick="openCouponsModal()">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-              <span>健康卡券包 (2张可用)</span>
-            </div>
-            <span style="font-size:11px;color:var(--color-primary);font-weight:700;">满200减50 ›</span>
-          </div>
-
-          <div class="menu-row" onclick="openCustomerServiceDrawer()">
-            <div class="menu-row-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>母婴健康管家 在线咨询</span>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 4. 底部 4-Tab 原生导航栏 -->
-    <div class="mp-bottom-tabbar">
-      <!-- Tab 0 -->
-      <div class="tabbar-item active" id="nav-0" onclick="switchTab(0)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>精选推荐</span>
-      </div>
-      <!-- Tab 1 -->
-      <div class="tabbar-item" id="nav-1" onclick="switchTab(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        <span>特色项目</span>
-      </div>
-      <!-- Tab 2 -->
-      <div class="tabbar-item" id="nav-2" onclick="switchTab(2)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2"/><path d="M8 17h8"/><path d="M14 13h2"/></svg>
-        <span>健康档案</span>
-      </div>
-      <!-- Tab 3 -->
-      <div class="tabbar-item" id="nav-3" onclick="switchTab(3)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>服务中心</span>
-      </div>
-    </div>
-
-    <!-- ===================================================================
+<div class="tab-view" id="tab-3">
+<!-- 用户身份卡片 -->
+<div class="user-profile-card">
+<div class="user-meta-left">
+<div class="user-avatar-wrap">苏</div>
+<div>
+<div class="user-title-row">
+<span class="user-name">苏*晴 女士</span>
+<span class="vip-tag">金牌会员</span>
+</div>
+<div class="user-phone">手机：138**6721 · 已绑定2位就诊人</div>
+</div>
+</div>
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+</div>
+<!-- 订单看板 4 宫格 -->
+<div class="order-status-grid">
+<div class="status-tab-btn active" id="btn-status-all" onclick="filterOrderStatus('all')">
+<span class="status-badge-count" id="count-all">2</span>
+<span class="status-label">全部单据</span>
+</div>
+<div class="status-tab-btn" id="btn-status-pending" onclick="filterOrderStatus('pending')">
+<span class="status-badge-count" id="count-pending">1</span>
+<span class="status-label">待服务</span>
+</div>
+<div class="status-tab-btn" id="btn-status-completed" onclick="filterOrderStatus('completed')">
+<span class="status-badge-count" id="count-completed">1</span>
+<span class="status-label">已完成</span>
+</div>
+<div class="status-tab-btn" id="btn-status-evaluated" onclick="filterOrderStatus('evaluated')">
+<span class="status-badge-count" id="count-evaluated">0</span>
+<span class="status-label">待评价</span>
+</div>
+</div>
+<!-- 单据列表容器 -->
+<div id="orders-list-wrap">
+<!-- 动态渲染单据列表 -->
+</div>
+<!-- 常用功能矩阵 -->
+<div class="menu-card-list">
+<div class="menu-row" onclick="openMemberModal()">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>常用服务人管理 (苏*晴 / 陈*宇)</span>
+</div>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-row" onclick="openCouponsModal()">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="14" rx="2" width="20" x="2" y="5"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+<span>健康卡券包 (2张可用)</span>
+</div>
+<span style="font-size:11px;color:var(--color-primary);font-weight:700;">满200减50 ›</span>
+</div>
+<div class="menu-row" onclick="openCustomerServiceDrawer()">
+<div class="menu-row-left">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span>母婴健康管家 在线咨询</span>
+</div>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. 底部 4-Tab 原生导航栏 -->
+<div class="mp-bottom-tabbar">
+<!-- Tab 0 -->
+<div class="tabbar-item active" id="nav-0" onclick="switchTab(0)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>精选推荐</span>
+</div>
+<!-- Tab 1 -->
+<div class="tabbar-item" id="nav-1" onclick="switchTab(1)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+<span>特色项目</span>
+</div>
+<!-- Tab 2 -->
+<div class="tabbar-item" id="nav-2" onclick="switchTab(2)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M8 13h2"></path><path d="M8 17h8"></path><path d="M14 13h2"></path></svg>
+<span>健康档案</span>
+</div>
+<!-- Tab 3 -->
+<div class="tabbar-item" id="nav-3" onclick="switchTab(3)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>服务中心</span>
+</div>
+</div>
+<!-- ===================================================================
          全局模态框与抽屉系统 (Modals & Drawers)
          =================================================================== -->
-    
-    <!-- 抽屉 A: 预约排班抽屉 (Booking Drawer) -->
-    <div class="drawer-mask" id="drawer-booking">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title" id="booking-drawer-service-title">服务项目预约排班</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-booking')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="background:var(--color-primary-soft);border:1px solid var(--color-primary-edge);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-size:12px;font-weight:700;color:var(--color-primary);" id="booking-service-name">小儿消积化滞健脾推拿</div>
-            <div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">时长：<span id="booking-service-duration">40分钟</span> · 绿色无抗调理</div>
-          </div>
-          <div style="font-size:15px;font-weight:800;color:var(--color-primary);" id="booking-service-price">¥138</div>
-        </div>
-
-        <!-- **人员选择 -->
-        <div class="form-group-title">选择**人员</div>
-        <div style="display:flex;gap:6px;margin-bottom:12px;" id="booking-doctor-selector">
-          <div class="filter-pill active" onclick="selectDoctor('苏主管**人员')">苏主管 (12年母婴中医)</div>
-          <div class="filter-pill" onclick="selectDoctor('张高级产康师')">张产康师 (产后专修)</div>
-          <div class="filter-pill" onclick="selectDoctor('林资深推拿师')">林推拿师 (儿推名师)</div>
-        </div>
-
-        <!-- 未来 7 天排班日历 -->
-        <div class="form-group-title">预约日期 (未来7天排班)</div>
-        <div class="calendar-dates-scroll" id="calendar-scroll-container">
-          <!-- 动态生成 7 天 -->
-        </div>
-
-        <!-- 服务时段选择 -->
-        <div class="form-group-title">选择服务时段</div>
-        <div class="slots-grid" id="slots-container">
-          <div class="slot-item active" onclick="selectSlot(this)">09:30 - 10:30</div>
-          <div class="slot-item" onclick="selectSlot(this)">10:45 - 11:45</div>
-          <div class="slot-item" onclick="selectSlot(this)">14:00 - 15:00</div>
-          <div class="slot-item" onclick="selectSlot(this)">15:30 - 16:30</div>
-          <div class="slot-item" onclick="selectSlot(this)">17:00 - 18:00</div>
-          <div class="slot-item" onclick="selectSlot(this)">19:00 - 20:00</div>
-        </div>
-
-        <!-- 服务就诊人选择 -->
-        <div class="form-group-title">选择服务对象</div>
-        <div style="display:flex;gap:10px;margin-bottom:18px;">
-          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
-            <input type="radio" name="patientSelect" value="陈*宇 (宝宝)" checked>
-            <span>陈*宇 (宝宝 · 2岁4个月)</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
-            <input type="radio" name="patientSelect" value="苏*晴 (宝妈)">
-            <span>苏*晴 (宝妈)</span>
-          </label>
-        </div>
-
-        <button class="btn-solid" style="width:100%;padding:12px 0;font-size:13px;" onclick="submitBookingForm()">
+<!-- 抽屉 A: 预约排班抽屉 (Booking Drawer) -->
+<div class="drawer-mask" id="drawer-booking">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title" id="booking-drawer-service-title">服务项目预约排班</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-booking')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="background:var(--color-primary-soft);border:1px solid var(--color-primary-edge);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div id="booking-service-name" style="font-size:12px;font-weight:700;color:var(--color-primary);">小儿消积化滞健脾推拿</div>
+<div style="font-size:10px;color:var(--color-text-muted);margin-top:2px;">时长：<span id="booking-service-duration">40分钟</span> · 绿色无抗调理</div>
+</div>
+<div id="booking-service-price" style="font-size:15px;font-weight:800;color:var(--color-primary);">¥138</div>
+</div>
+<!-- **人员选择 -->
+<div class="form-group-title">选择**人员</div>
+<div id="booking-doctor-selector" style="display:flex;gap:6px;margin-bottom:12px;">
+<div class="filter-pill active" onclick="selectDoctor('苏主管**人员')">苏主管 (12年母婴中医)</div>
+<div class="filter-pill" onclick="selectDoctor('张高级产康师')">张产康师 (产后专修)</div>
+<div class="filter-pill" onclick="selectDoctor('林资深推拿师')">林推拿师 (儿推名师)</div>
+</div>
+<!-- 未来 7 天排班日历 -->
+<div class="form-group-title">预约日期 (未来7天排班)</div>
+<div class="calendar-dates-scroll" id="calendar-scroll-container">
+<!-- 动态生成 7 天 -->
+</div>
+<!-- 服务时段选择 -->
+<div class="form-group-title">选择服务时段</div>
+<div class="slots-grid" id="slots-container">
+<div class="slot-item active" onclick="selectSlot(this)">09:30 - 10:30</div>
+<div class="slot-item" onclick="selectSlot(this)">10:45 - 11:45</div>
+<div class="slot-item" onclick="selectSlot(this)">14:00 - 15:00</div>
+<div class="slot-item" onclick="selectSlot(this)">15:30 - 16:30</div>
+<div class="slot-item" onclick="selectSlot(this)">17:00 - 18:00</div>
+<div class="slot-item" onclick="selectSlot(this)">19:00 - 20:00</div>
+</div>
+<!-- 服务就诊人选择 -->
+<div class="form-group-title">选择服务对象</div>
+<div style="display:flex;gap:10px;margin-bottom:18px;">
+<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
+<input checked="" name="patientSelect" type="radio" value="陈*宇 (宝宝)"/>
+<span>陈*宇 (宝宝 · 2岁4个月)</span>
+</label>
+<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
+<input name="patientSelect" type="radio" value="苏*晴 (宝妈)"/>
+<span>苏*晴 (宝妈)</span>
+</label>
+</div>
+<button class="btn-solid" onclick="submitBookingForm()" style="width:100%;padding:12px 0;font-size:13px;">
           确认提交预约 (到店核销)
         </button>
-      </div>
-    </div>
-
-    <!-- 抽屉 B: 临床 5 步流程说明抽屉 (Clinical Flow) -->
-    <div class="drawer-mask" id="drawer-flow">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title" id="flow-modal-title">标准临床调理 5 步服务流程</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-flow')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-        
-        <div style="padding:4px 0 14px 0;">
-          <div style="display:flex;gap:12px;margin-bottom:12px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">1</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">望闻问切与体质辨析</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">查舌苔、指纹、腹部按诊，询问宝宝饮食排便或妈妈孕产恢复状态，精准定穴。</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:12px;margin-bottom:12px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">2</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">经络循行开穴松解</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">开天门、推坎宫或腰骶部筋膜轻柔理顺，唤醒脏腑气血运行。</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:12px;margin-bottom:12px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">3</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">核心穴位手法/现代仿生调理</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">严格按规范频次施术（儿推200-300次/穴；产康微电流激活），保证调理深度。</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:12px;margin-bottom:12px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">4</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">道地中药草本固护敷贴</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">神阙穴温敷健脾贴或神阙暖宫草本敷包，巩固手法调理效果。</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:12px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">5</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">居家养护与节气食疗指导</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">出具当季小儿居家捏脊方案或产康腹式呼吸训练建议，建立健康跟踪卡。</div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn-solid" style="width:100%;padding:10px 0;font-size:12px;" onclick="closeDrawer('drawer-flow')">我知道了</button>
-      </div>
-    </div>
-
-    <!-- 抽屉 C: 电子核销凭证弹窗 (QR Modal) -->
-    <div class="drawer-mask" id="drawer-qr">
-      <div class="drawer-content" style="text-align:center;">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title">到店电子核销凭证</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-qr')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">请向旗舰院前台**人员出示此码核销就诊</div>
-        
-        <!-- 矢量仿真二维码 -->
-        <div style="background:var(--color-bg-viewport);border:1px dashed var(--color-border-light);border-radius:16px;padding:16px;display:inline-block;margin-bottom:12px;">
-          <svg width="150" height="150" viewBox="0 0 100 100" fill="none">
-            <rect width="100" height="100" fill="var(--color-white)" rx="8"/>
-            <rect x="10" y="10" width="26" height="26" fill="var(--color-qr-dark)"/>
-            <rect x="14" y="14" width="18" height="18" fill="var(--color-white)"/>
-            <rect x="18" y="18" width="10" height="10" fill="var(--color-qr-dark)"/>
-            
-            <rect x="64" y="10" width="26" height="26" fill="var(--color-qr-dark)"/>
-            <rect x="68" y="14" width="18" height="18" fill="var(--color-white)"/>
-            <rect x="72" y="18" width="10" height="10" fill="var(--color-qr-dark)"/>
-            
-            <rect x="10" y="64" width="26" height="26" fill="var(--color-qr-dark)"/>
-            <rect x="14" y="68" width="18" height="18" fill="var(--color-white)"/>
-            <rect x="18" y="72" width="10" height="10" fill="var(--color-qr-dark)"/>
-
-            <rect x="42" y="14" width="8" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="52" y="24" width="8" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="42" y="34" width="18" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="42" y="44" width="8" height="18" fill="var(--color-qr-dark)"/>
-            <rect x="52" y="54" width="14" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="68" y="44" width="18" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="42" y="72" width="14" height="18" fill="var(--color-qr-dark)"/>
-            <rect x="60" y="72" width="8" height="8" fill="var(--color-qr-dark)"/>
-            <rect x="72" y="64" width="14" height="24" fill="var(--color-qr-dark)"/>
-          </svg>
-        </div>
-
-        <div style="font-size:16px;font-weight:900;letter-spacing:2px;color:var(--color-primary);margin-bottom:6px;" id="qr-code-text">8892 0149 2618</div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:16px;">单号：<span id="qr-order-id">#TK-20260904-01</span> · 动态验证中</div>
-
-        <button class="btn-solid" style="width:100%;padding:10px 0;font-size:12px;" onclick="closeDrawer('drawer-qr')">完成</button>
-      </div>
-    </div>
-
-    <!-- 抽屉 D: 门店地址与交通指引 (Store Modal) -->
-    <div class="drawer-mask" id="drawer-store">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title">门店交通与营业指南</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-store')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:12px;line-height:1.7;color:var(--color-text-body);margin-bottom:16px;">
-          <p><b>机构全称：</b>**小儿推拿 · 小儿推拿与产后康复中心 (高新旗舰院)</p>
-          <p><b>门诊地址：<**路**号健康**区2号楼1层102室</p>
-          <p><b>营业时间：</b>周一至周日 09:00 - 20:30 (节假日无休)</p>
-          <p><b>服务热线：</b>010-8288**(点击下方按钮可复制)</p>
-          <p style="margin-top:6px;font-size:11px;color:var(--color-text-muted);">注：院内设有专属**区、母婴哺乳室及负离子恒温新风系统。</p>
-        </div>
-
-        <div style="display:flex;gap:8px;">
-          <button class="btn-outline" style="flex:1;" onclick="copyPhone()">复制服务电话</button>
-          <button class="btn-solid" style="flex:1;" onclick="copyAddress()">复制门店地址</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 抽屉 E: 体质快速测评 (Assessment Modal) -->
-    <div class="drawer-mask" id="drawer-assessment">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title">中医母婴体质自测问卷</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-assessment')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:12px;color:var(--color-text-body);line-height:1.6;margin-bottom:14px;">
-          <div class="form-group-title">1. 宝宝或妈妈近期的主要不适？</div>
-          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
-            <label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" checked> 胃纳不佳、易积食、口臭舌苔白厚</label>
-            <label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox"> 夜间易惊醒、入睡翻滚出汗多</label>
-            <label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox"> 产后小腹突出、咳嗽腹肌分离无力</label>
-          </div>
-        </div>
-
-        <button class="btn-solid" style="width:100%;padding:10px 0;font-size:12px;" onclick="finishAssessment()">生成测评评估并推荐方案</button>
-      </div>
-    </div>
-
-    <!-- 抽屉 F: 母婴健康管家客服在线问答 (Customer Service Drawer) -->
-    <div class="drawer-mask" id="drawer-cs">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title">母婴健康管家 · 在线咨询答疑</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-cs')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="max-height:220px;overflow-y:auto;background:var(--color-bg-viewport);border-radius:12px;padding:10px;margin-bottom:12px;font-size:11px;display:flex;flex-direction:column;gap:8px;" id="cs-chat-box">
-          <div style="background:var(--color-bg-card);padding:8px 10px;border-radius:8px;border:1px solid var(--color-border-light);align-self:flex-start;max-width:85%;">
+</div>
+</div>
+<!-- 抽屉 B: 临床 5 步流程说明抽屉 (Clinical Flow) -->
+<div class="drawer-mask" id="drawer-flow">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title" id="flow-modal-title">标准临床调理 5 步服务流程</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-flow')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="padding:4px 0 14px 0;">
+<div style="display:flex;gap:12px;margin-bottom:12px;">
+<div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">1</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">望闻问切与体质辨析</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">查舌苔、指纹、腹部按诊，询问宝宝饮食排便或妈妈孕产恢复状态，精准定穴。</div>
+</div>
+</div>
+<div style="display:flex;gap:12px;margin-bottom:12px;">
+<div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">2</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">经络循行开穴松解</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">开天门、推坎宫或腰骶部筋膜轻柔理顺，唤醒脏腑气血运行。</div>
+</div>
+</div>
+<div style="display:flex;gap:12px;margin-bottom:12px;">
+<div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">3</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">核心穴位手法/现代仿生调理</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">严格按规范频次施术（儿推200-300次/穴；产康微电流激活），保证调理深度。</div>
+</div>
+</div>
+<div style="display:flex;gap:12px;margin-bottom:12px;">
+<div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">4</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">道地中药草本固护敷贴</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">神阙穴温敷健脾贴或神阙暖宫草本敷包，巩固手法调理效果。</div>
+</div>
+</div>
+<div style="display:flex;gap:12px;">
+<div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);color:var(--color-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">5</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">居家养护与节气食疗指导</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">出具当季小儿居家捏脊方案或产康腹式呼吸训练建议，建立健康跟踪卡。</div>
+</div>
+</div>
+</div>
+<button class="btn-solid" onclick="closeDrawer('drawer-flow')" style="width:100%;padding:10px 0;font-size:12px;">我知道了</button>
+</div>
+</div>
+<!-- 抽屉 C: 电子核销凭证弹窗 (QR Modal) -->
+<div class="drawer-mask" id="drawer-qr">
+<div class="drawer-content" style="text-align:center;">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title">到店电子核销凭证</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-qr')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">请向旗舰院前台**人员出示此码核销就诊</div>
+<!-- 矢量仿真二维码 -->
+<div style="background:var(--color-bg-viewport);border:1px dashed var(--color-border-light);border-radius:16px;padding:16px;display:inline-block;margin-bottom:12px;">
+<svg fill="none" height="150" viewbox="0 0 100 100" width="150">
+<rect fill="var(--color-white)" height="100" rx="8" width="100"></rect>
+<rect fill="var(--color-qr-dark)" height="26" width="26" x="10" y="10"></rect>
+<rect fill="var(--color-white)" height="18" width="18" x="14" y="14"></rect>
+<rect fill="var(--color-qr-dark)" height="10" width="10" x="18" y="18"></rect>
+<rect fill="var(--color-qr-dark)" height="26" width="26" x="64" y="10"></rect>
+<rect fill="var(--color-white)" height="18" width="18" x="68" y="14"></rect>
+<rect fill="var(--color-qr-dark)" height="10" width="10" x="72" y="18"></rect>
+<rect fill="var(--color-qr-dark)" height="26" width="26" x="10" y="64"></rect>
+<rect fill="var(--color-white)" height="18" width="18" x="14" y="68"></rect>
+<rect fill="var(--color-qr-dark)" height="10" width="10" x="18" y="72"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="8" x="42" y="14"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="8" x="52" y="24"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="18" x="42" y="34"></rect>
+<rect fill="var(--color-qr-dark)" height="18" width="8" x="42" y="44"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="14" x="52" y="54"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="18" x="68" y="44"></rect>
+<rect fill="var(--color-qr-dark)" height="18" width="14" x="42" y="72"></rect>
+<rect fill="var(--color-qr-dark)" height="8" width="8" x="60" y="72"></rect>
+<rect fill="var(--color-qr-dark)" height="24" width="14" x="72" y="64"></rect>
+</svg>
+</div>
+<div id="qr-code-text" style="font-size:16px;font-weight:900;letter-spacing:2px;color:var(--color-primary);margin-bottom:6px;">8892 0149 2618</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:16px;">单号：<span id="qr-order-id">#TK-20260904-01</span> · 动态验证中</div>
+<button class="btn-solid" onclick="closeDrawer('drawer-qr')" style="width:100%;padding:10px 0;font-size:12px;">完成</button>
+</div>
+</div>
+<!-- 抽屉 D: 门店地址与交通指引 (Store Modal) -->
+<div class="drawer-mask" id="drawer-store">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title">门店交通与营业指南</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-store')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="font-size:12px;line-height:1.7;color:var(--color-text-body);margin-bottom:16px;">
+<p><b>机构全称：</b>**小儿推拿 · 小儿推拿与产后康复中心 (高新旗舰院)</p>
+<p><b>门诊地址：&lt;**路**号健康**区2号楼1层102室</b></p>
+<p><b>营业时间：</b>周一至周日 09:00 - 20:30 (节假日无休)</p>
+<p><b>服务热线：</b>010-8288**(点击下方按钮可复制)</p>
+<p style="margin-top:6px;font-size:11px;color:var(--color-text-muted);">注：院内设有专属**区、母婴哺乳室及负离子恒温新风系统。</p>
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn-outline" onclick="copyPhone()" style="flex:1;">复制服务电话</button>
+<button class="btn-solid" onclick="copyAddress()" style="flex:1;">复制门店地址</button>
+</div>
+</div>
+</div>
+<!-- 抽屉 E: 体质快速测评 (Assessment Modal) -->
+<div class="drawer-mask" id="drawer-assessment">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title">中医母婴体质自测问卷</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-assessment')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="font-size:12px;color:var(--color-text-body);line-height:1.6;margin-bottom:14px;">
+<div class="form-group-title">1. 宝宝或妈妈近期的主要不适？</div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+<label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input checked="" type="checkbox"/> 胃纳不佳、易积食、口臭舌苔白厚</label>
+<label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox"/> 夜间易惊醒、入睡翻滚出汗多</label>
+<label style="font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox"/> 产后小腹突出、咳嗽腹肌分离无力</label>
+</div>
+</div>
+<button class="btn-solid" onclick="finishAssessment()" style="width:100%;padding:10px 0;font-size:12px;">生成测评评估并推荐方案</button>
+</div>
+</div>
+<!-- 抽屉 F: 母婴健康管家客服在线问答 (Customer Service Drawer) -->
+<div class="drawer-mask" id="drawer-cs">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title">母婴健康管家 · 在线咨询答疑</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-cs')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div id="cs-chat-box" style="max-height:220px;overflow-y:auto;background:var(--color-bg-viewport);border-radius:12px;padding:10px;margin-bottom:12px;font-size:11px;display:flex;flex-direction:column;gap:8px;">
+<div style="background:var(--color-bg-card);padding:8px 10px;border-radius:8px;border:1px solid var(--color-border-light);align-self:flex-start;max-width:85%;">
             您好！我是旗舰院在线母婴调理**。您可以点击下方高频问题直接咨询，或拨打前台电话。
           </div>
-        </div>
-
-        <div class="form-group-title">常见问题快捷咨询：</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <div class="filter-pill" onclick="sendCsQuestion('宝宝推拿后需要注意什么？')">推拿后护理要点</div>
-          <div class="filter-pill" onclick="sendCsQuestion('腹直肌分离多久开始修复最佳？')">腹直肌黄金恢复期</div>
-          <div class="filter-pill" onclick="sendCsQuestion('预约到店后需要自备浴巾吗？')">到店准备事项</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 抽屉 G: 常用就诊人管理抽屉 -->
-    <div class="drawer-mask" id="drawer-member">
-      <div class="drawer-content">
-        <div class="drawer-handle"></div>
-        <div class="drawer-header">
-          <div class="drawer-title">常用服务人管理</div>
-          <div class="drawer-close-btn" onclick="closeDrawer('drawer-member')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-          <div style="background:var(--color-primary-soft);border:1px solid var(--color-primary-edge);border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:12px;font-weight:700;color:var(--color-primary);">陈*宇 (宝宝 · 2岁4个月)</div>
-              <div style="font-size:10px;color:var(--color-text-muted);">档案号 #BB-0914 · 默认儿推就诊人</div>
-            </div>
-            <span style="font-size:11px;color:var(--color-primary);font-weight:700;">已默认</span>
-          </div>
-
-          <div style="background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">苏*晴 (宝妈 · 产后108天)</div>
-              <div style="font-size:10px;color:var(--color-text-muted);">档案号 #MK-0802 · 默认产康就诊人</div>
-            </div>
-            <button class="btn-outline" style="padding:3px 8px;font-size:10px;" onclick="showToast('已设为当前首选项')">设为默认</button>
-          </div>
-        </div>
-
-        <button class="btn-solid" style="width:100%;padding:10px 0;font-size:12px;" onclick="showToast('演示模式支持直接调阅现有就诊人')">添加新就诊人</button>
-      </div>
-    </div>
-
-    <!-- 微信原生轻提示 Toast -->
-    <div class="mp-toast" id="mp-toast">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-check-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作已完成</span>
-    </div>
-
-  </div>
-
-  <!-- ===================================================================
+</div>
+<div class="form-group-title">常见问题快捷咨询：</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<div class="filter-pill" onclick="sendCsQuestion('宝宝推拿后需要注意什么？')">推拿后护理要点</div>
+<div class="filter-pill" onclick="sendCsQuestion('腹直肌分离多久开始修复最佳？')">腹直肌黄金恢复期</div>
+<div class="filter-pill" onclick="sendCsQuestion('预约到店后需要自备浴巾吗？')">到店准备事项</div>
+</div>
+</div>
+</div>
+<!-- 抽屉 G: 常用就诊人管理抽屉 -->
+<div class="drawer-mask" id="drawer-member">
+<div class="drawer-content">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title">常用服务人管理</div>
+<div class="drawer-close-btn" onclick="closeDrawer('drawer-member')">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+<div style="background:var(--color-primary-soft);border:1px solid var(--color-primary-edge);border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="font-size:12px;font-weight:700;color:var(--color-primary);">陈*宇 (宝宝 · 2岁4个月)</div>
+<div style="font-size:10px;color:var(--color-text-muted);">档案号 #BB-0914 · 默认儿推就诊人</div>
+</div>
+<span style="font-size:11px;color:var(--color-primary);font-weight:700;">已默认</span>
+</div>
+<div style="background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">苏*晴 (宝妈 · 产后108天)</div>
+<div style="font-size:10px;color:var(--color-text-muted);">档案号 #MK-0802 · 默认产康就诊人</div>
+</div>
+<button class="btn-outline" onclick="showToast('已设为当前首选项')" style="padding:3px 8px;font-size:10px;">设为默认</button>
+</div>
+</div>
+<button class="btn-solid" onclick="showToast('演示模式支持直接调阅现有就诊人')" style="width:100%;padding:10px 0;font-size:12px;">添加新就诊人</button>
+</div>
+</div>
+<!-- 微信原生轻提示 Toast -->
+<div class="mp-toast" id="mp-toast">
+<svg fill="none" height="16" stroke="var(--color-check-green)" stroke-width="2.5" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作已完成</span>
+</div>
+</div>
+<!-- ===================================================================
        交互逻辑与内存状态驱动 (Vanilla ES6 State Store)
        =================================================================== -->
-  <script>
+<script>
     // 集中式状态机 (AppState)
     const AppState = {
       activeTab: 0,

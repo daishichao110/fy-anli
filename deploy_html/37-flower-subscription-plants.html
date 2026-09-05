@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**鲜花绿植</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**鲜花绿植</title>
+<style>
     :root {
       --color-primary: #1E4D3B;
       --color-primary-dark: #143528;
@@ -1349,986 +1350,894 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 小程序安全视口框架 (模拟微信小程序真实客户端环境) -->
+<div class="mp-viewport-wrapper">
+<!-- 微信原生状态栏 -->
 
+<!-- 微信小程序导航栏 (含品牌名称与官方双胶囊) -->
 
-  <!-- 小程序安全视口框架 (模拟微信小程序真实客户端环境) -->
-  <div class="mp-viewport-wrapper">
-    
-    <!-- 微信原生状态栏 -->
-    <div class="mp-status-bar">
-      <span>09:41</span>
-      <div class="mp-status-bar-icons">
-        <!-- 蜂窝信号图标 -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/>
-        </svg>
-        <!-- WiFi 图标 -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <!-- 电池图标 -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序导航栏 (含品牌名称与官方双胶囊) -->
-    <div class="mp-nav-bar">
-      <div class="mp-nav-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22v-7"/><path d="M9 7.5a4.5 4.5 0 0 1 6 0"/><path d="M6 10a7 7 0 0 1 12 0"/>
-          <circle cx="12" cy="7" r="2.5"/>
-        </svg>
-        <span id="nav-title-text">**鲜花绿植</span>
-      </div>
-      <div class="mp-nav-capsule">
-        <button class="mp-capsule-btn" title="更多操作" onclick="showToast('已载入小程序更多设置')">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/>
-          </svg>
-        </button>
-        <div class="mp-capsule-divider"></div>
-        <button class="mp-capsule-btn" title="返回主页" onclick="switchTab(0); showToast('已返回鲜花订阅首页')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- **区域 -->
-    <div class="mp-body" id="mp-scroll-container">
-
-      <!-- ================= View 0: 鲜花订阅 ================= -->
-      <div id="view-0" class="mp-pane active">
-        <!-- 当季主推限定展台 -->
-        <div class="hero-banner">
-          <div class="hero-meta">
-            <span class="hero-tag">当季限定花单</span>
-            <span style="font-size:10px;opacity:0.85;">产地冷链直达 · 快递晨送</span>
-          </div>
-          <div class="hero-title">重瓣洋桔梗 · 纯白恋曲</div>
-          <div class="hero-desc">清雅双色洋桔梗搭配特级尤加利与初醒洋甘菊，附赠北欧极简花瓶与保鲜营养剂。</div>
-          <div class="hero-action">
-            <button class="btn btn-gold" style="padding:6px 14px;font-size:11px;" onclick="openFloralTastingModal()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+<!-- **区域 -->
+<div class="mp-body" id="mp-scroll-container">
+<!-- ================= View 0: 鲜花订阅 ================= -->
+<div class="mp-pane active" id="view-0">
+<!-- 当季主推限定展台 -->
+<div class="hero-banner">
+<div class="hero-meta">
+<span class="hero-tag">当季限定花单</span>
+<span style="font-size:10px;opacity:0.85;">产地冷链直达 · 快递晨送</span>
+</div>
+<div class="hero-title">重瓣洋桔梗 · 纯白恋曲</div>
+<div class="hero-desc">清雅双色洋桔梗搭配特级尤加利与初醒洋甘菊，附赠北欧极简花瓶与保鲜营养剂。</div>
+<div class="hero-action">
+<button class="btn btn-gold" onclick="openFloralTastingModal()" style="padding:6px 14px;font-size:11px;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
               查看本期花单
             </button>
-            <button class="btn btn-secondary" style="padding:6px 14px;font-size:11px;background:rgba(255,255,255,0.9);" onclick="openSubscriptionDrawer('FLW-HERO')">
+<button class="btn btn-secondary" onclick="openSubscriptionDrawer('FLW-HERO')" style="padding:6px 14px;font-size:11px;background:rgba(255,255,255,0.9);">
               立即定制
             </button>
-          </div>
-        </div>
-
-        <!-- 分类滚动分段选择器 -->
-        <div class="category-scroll">
-          <button class="pill-tab active" onclick="filterFlowerCategory('all', this)">全部花品</button>
-          <button class="pill-tab" onclick="filterFlowerCategory('single', this)">单品悦己</button>
-          <button class="pill-tab" onclick="filterFlowerCategory('mixed', this)">精选混合</button>
-          <button class="pill-tab" onclick="filterFlowerCategory('master', this)">大师手作</button>
-          <button class="pill-tab" onclick="filterFlowerCategory('gift', this)">节日礼赠</button>
-        </div>
-
-        <!-- 鲜花订阅商品列表 -->
-        <div id="flower-list-container">
-          <!-- 商品卡片 1 -->
-          <div class="product-card" data-cat="mixed">
-            <div class="product-cover-box" style="background:var(--color-primary-subtle);">
-              <!-- 真实矢量花卉景观呈现 -->
-              <svg class="product-cover-svg" viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="360" height="140" fill="#E8F1EC"/>
-                <circle cx="90" cy="70" r="48" fill="#CDE1D6"/>
-                <path d="M180 140 C175 100, 185 70, 180 35" stroke="#2D6A4F" stroke-width="3"/>
-                <path d="M180 85 C160 75, 145 80, 140 70 C140 60, 160 65, 180 80" fill="#40916C"/>
-                <path d="M180 65 C200 55, 215 60, 220 50 C220 40, 200 45, 180 60" fill="#52B788"/>
-                <circle cx="180" cy="35" r="16" fill="#F4A261"/>
-                <circle cx="172" cy="30" r="12" fill="#E76F51"/>
-                <circle cx="188" cy="30" r="12" fill="#E9C46A"/>
-                <circle cx="180" cy="22" r="12" fill="#F4A261"/>
-              </svg>
-              <div class="product-badge-corner">周花精选</div>
-              <button class="product-like-btn" onclick="toggleLike(this, '晨露维也纳')">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              </button>
-            </div>
-            <div class="product-info">
-              <div class="product-header">
-                <div>
-                  <div class="product-name">晨露维也纳 · 混合花艺周花月卡</div>
-                  <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">每月4期 · 每周一或周六配送</div>
-                </div>
-                <div class="product-price-box">
-                  <div class="product-price">¥168 <span class="product-unit">/月</span></div>
-                  <span class="badge badge-primary">赠轻奢花瓶</span>
-                </div>
-              </div>
-              <div class="flower-recipe">
-                <span class="recipe-chip">卡罗拉红玫瑰</span>
-                <span class="recipe-chip">重瓣洋桔梗</span>
-                <span class="recipe-chip">尤加利叶</span>
-                <span class="recipe-chip">多头乒乓菊</span>
-              </div>
-              <div class="product-footer">
-                <span class="product-extra-note">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+</div>
+</div>
+<!-- 分类滚动分段选择器 -->
+<div class="category-scroll">
+<button class="pill-tab active" onclick="filterFlowerCategory('all', this)">全部花品</button>
+<button class="pill-tab" onclick="filterFlowerCategory('single', this)">单品悦己</button>
+<button class="pill-tab" onclick="filterFlowerCategory('mixed', this)">精选混合</button>
+<button class="pill-tab" onclick="filterFlowerCategory('master', this)">大师手作</button>
+<button class="pill-tab" onclick="filterFlowerCategory('gift', this)">节日礼赠</button>
+</div>
+<!-- 鲜花订阅商品列表 -->
+<div id="flower-list-container">
+<!-- 商品卡片 1 -->
+<div class="product-card" data-cat="mixed">
+<div class="product-cover-box" style="background:var(--color-primary-subtle);">
+<!-- 真实矢量花卉景观呈现 -->
+<svg class="product-cover-svg" fill="none" viewbox="0 0 360 140" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#E8F1EC" height="140" width="360"></rect>
+<circle cx="90" cy="70" fill="#CDE1D6" r="48"></circle>
+<path d="M180 140 C175 100, 185 70, 180 35" stroke="#2D6A4F" stroke-width="3"></path>
+<path d="M180 85 C160 75, 145 80, 140 70 C140 60, 160 65, 180 80" fill="#40916C"></path>
+<path d="M180 65 C200 55, 215 60, 220 50 C220 40, 200 45, 180 60" fill="#52B788"></path>
+<circle cx="180" cy="35" fill="#F4A261" r="16"></circle>
+<circle cx="172" cy="30" fill="#E76F51" r="12"></circle>
+<circle cx="188" cy="30" fill="#E9C46A" r="12"></circle>
+<circle cx="180" cy="22" fill="#F4A261" r="12"></circle>
+</svg>
+<div class="product-badge-corner">周花精选</div>
+<button class="product-like-btn" onclick="toggleLike(this, '晨露维也纳')">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+</button>
+</div>
+<div class="product-info">
+<div class="product-header">
+<div>
+<div class="product-name">晨露维也纳 · 混合花艺周花月卡</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">每月4期 · 每周一或周六配送</div>
+</div>
+<div class="product-price-box">
+<div class="product-price">¥168 <span class="product-unit">/月</span></div>
+<span class="badge badge-primary">赠轻奢花瓶</span>
+</div>
+</div>
+<div class="flower-recipe">
+<span class="recipe-chip">卡罗拉红玫瑰</span>
+<span class="recipe-chip">重瓣洋桔梗</span>
+<span class="recipe-chip">尤加利叶</span>
+<span class="recipe-chip">多头乒乓菊</span>
+</div>
+<div class="product-footer">
+<span class="product-extra-note">
+<svg fill="none" height="13" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                   枯损24h保鲜包赔
                 </span>
-                <button class="btn btn-primary" style="padding:6px 14px;font-size:11px;" onclick="openSubscriptionDrawer('FLW-01')">
+<button class="btn btn-primary" onclick="openSubscriptionDrawer('FLW-01')" style="padding:6px 14px;font-size:11px;">
                   定制订阅
                 </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 商品卡片 2 -->
-          <div class="product-card" data-cat="single">
-            <div class="product-cover-box" style="background:var(--color-accent-subtle);">
-              <svg class="product-cover-svg" viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="360" height="140" fill="#F8F3EA"/>
-                <circle cx="280" cy="65" r="50" fill="#EAE0CE"/>
-                <path d="M160 140 C165 95, 155 60, 160 30" stroke="#2D6A4F" stroke-width="3"/>
-                <circle cx="160" cy="30" r="22" fill="#E9C46A"/>
-                <circle cx="160" cy="30" r="10" fill="#7F4F24"/>
-                <path d="M160 80 C140 70, 130 75, 125 65" fill="#52B788"/>
-              </svg>
-              <div class="product-badge-corner" style="background:var(--color-accent);">悦己单品</div>
-              <button class="product-like-btn" onclick="toggleLike(this, '金色骄阳向日葵')">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              </button>
-            </div>
-            <div class="product-info">
-              <div class="product-header">
-                <div>
-                  <div class="product-name">金色骄阳 · 梵高向日葵单品订阅</div>
-                  <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">南美向日葵纯单品 · 纯净能量</div>
-                </div>
-                <div class="product-price-box">
-                  <div class="product-price">¥128 <span class="product-unit">/月</span></div>
-                  <span class="badge badge-gold">首期9折</span>
-                </div>
-              </div>
-              <div class="flower-recipe">
-                <span class="recipe-chip">多头向日葵 5枝</span>
-                <span class="recipe-chip">进口保鲜剂 4包</span>
-              </div>
-              <div class="product-footer">
-                <span class="product-extra-note">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B38A58" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+</div>
+</div>
+<!-- 商品卡片 2 -->
+<div class="product-card" data-cat="single">
+<div class="product-cover-box" style="background:var(--color-accent-subtle);">
+<svg class="product-cover-svg" fill="none" viewbox="0 0 360 140" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F8F3EA" height="140" width="360"></rect>
+<circle cx="280" cy="65" fill="#EAE0CE" r="50"></circle>
+<path d="M160 140 C165 95, 155 60, 160 30" stroke="#2D6A4F" stroke-width="3"></path>
+<circle cx="160" cy="30" fill="#E9C46A" r="22"></circle>
+<circle cx="160" cy="30" fill="#7F4F24" r="10"></circle>
+<path d="M160 80 C140 70, 130 75, 125 65" fill="#52B788"></path>
+</svg>
+<div class="product-badge-corner" style="background:var(--color-accent);">悦己单品</div>
+<button class="product-like-btn" onclick="toggleLike(this, '金色骄阳向日葵')">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+</button>
+</div>
+<div class="product-info">
+<div class="product-header">
+<div>
+<div class="product-name">金色骄阳 · 梵高向日葵单品订阅</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">南美向日葵纯单品 · 纯净能量</div>
+</div>
+<div class="product-price-box">
+<div class="product-price">¥128 <span class="product-unit">/月</span></div>
+<span class="badge badge-gold">首期9折</span>
+</div>
+</div>
+<div class="flower-recipe">
+<span class="recipe-chip">多头向日葵 5枝</span>
+<span class="recipe-chip">进口保鲜剂 4包</span>
+</div>
+<div class="product-footer">
+<span class="product-extra-note">
+<svg fill="none" height="13" stroke="#B38A58" stroke-width="2" viewbox="0 0 24 24" width="13"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   可随时一键顺延
                 </span>
-                <button class="btn btn-primary" style="padding:6px 14px;font-size:11px;" onclick="openSubscriptionDrawer('FLW-02')">
+<button class="btn btn-primary" onclick="openSubscriptionDrawer('FLW-02')" style="padding:6px 14px;font-size:11px;">
                   定制订阅
                 </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- 商品卡片 3 -->
-          <div class="product-card" data-cat="master">
-            <div class="product-cover-box" style="background:var(--color-primary-subtle);">
-              <svg class="product-cover-svg" viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="360" height="140" fill="#EDEBF2"/>
-                <circle cx="110" cy="70" r="45" fill="#D8D4E2"/>
-                <path d="M200 140 C195 90, 205 60, 200 35" stroke="#3A2D4F" stroke-width="3"/>
-                <circle cx="200" cy="35" r="18" fill="#8E7DBE"/>
-                <circle cx="190" cy="40" r="12" fill="#B3A2D4"/>
-                <circle cx="210" cy="38" r="12" fill="#6A5694"/>
-              </svg>
-              <div class="product-badge-corner" style="background:var(--color-primary-dark);">大师臻选</div>
-              <button class="product-like-btn" onclick="toggleLike(this, '格拉斯香颂')">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-              </button>
-            </div>
-            <div class="product-info">
-              <div class="product-header">
-                <div>
-                  <div class="product-name">格拉斯香颂 · 稀缺进口大师花艺季卡</div>
-                  <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">厄瓜多尔玫瑰 + 帝王花搭配</div>
-                </div>
-                <div class="product-price-box">
-                  <div class="product-price">¥468 <span class="product-unit">/季</span></div>
-                  <span class="badge badge-primary">大师定制</span>
-                </div>
-              </div>
-              <div class="flower-recipe">
-                <span class="recipe-chip">厄瓜多尔黑巴克玫瑰</span>
-                <span class="recipe-chip">粉雪帝王花</span>
-                <span class="recipe-chip">荷兰紫罗兰</span>
-              </div>
-              <div class="product-footer">
-                <span class="product-extra-note">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+</div>
+</div>
+</div>
+<!-- 商品卡片 3 -->
+<div class="product-card" data-cat="master">
+<div class="product-cover-box" style="background:var(--color-primary-subtle);">
+<svg class="product-cover-svg" fill="none" viewbox="0 0 360 140" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#EDEBF2" height="140" width="360"></rect>
+<circle cx="110" cy="70" fill="#D8D4E2" r="45"></circle>
+<path d="M200 140 C195 90, 205 60, 200 35" stroke="#3A2D4F" stroke-width="3"></path>
+<circle cx="200" cy="35" fill="#8E7DBE" r="18"></circle>
+<circle cx="190" cy="40" fill="#B3A2D4" r="12"></circle>
+<circle cx="210" cy="38" fill="#6A5694" r="12"></circle>
+</svg>
+<div class="product-badge-corner" style="background:var(--color-primary-dark);">大师臻选</div>
+<button class="product-like-btn" onclick="toggleLike(this, '格拉斯香颂')">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+</button>
+</div>
+<div class="product-info">
+<div class="product-header">
+<div>
+<div class="product-name">格拉斯香颂 · 稀缺进口大师花艺季卡</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">厄瓜多尔玫瑰 + 帝王花搭配</div>
+</div>
+<div class="product-price-box">
+<div class="product-price">¥468 <span class="product-unit">/季</span></div>
+<span class="badge badge-primary">大师定制</span>
+</div>
+</div>
+<div class="flower-recipe">
+<span class="recipe-chip">厄瓜多尔黑巴克玫瑰</span>
+<span class="recipe-chip">粉雪帝王花</span>
+<span class="recipe-chip">荷兰紫罗兰</span>
+</div>
+<div class="product-footer">
+<span class="product-extra-note">
+<svg fill="none" height="13" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="13"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                   赠手工皮质手提花篮
                 </span>
-                <button class="btn btn-primary" style="padding:6px 14px;font-size:11px;" onclick="openSubscriptionDrawer('FLW-03')">
+<button class="btn btn-primary" onclick="openSubscriptionDrawer('FLW-03')" style="padding:6px 14px;font-size:11px;">
                   定制订阅
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= View 1: 绿植租摆 ================= -->
-      <div id="view-1" class="mp-pane">
-        <!-- 场景快速切换导航 -->
-        <div class="space-tabs-grid">
-          <div class="space-tab-btn active" onclick="switchSpaceScene(0, this)">前台迎宾</div>
-          <div class="space-tab-btn" onclick="switchSpaceScene(1, this)">开放工位</div>
-          <div class="space-tab-btn" onclick="switchSpaceScene(2, this)">会议洽谈</div>
-          <div class="space-tab-btn" onclick="switchSpaceScene(3, this)">总裁独立办</div>
-        </div>
-
-        <!-- 场景详情卡片 -->
-        <div class="card" id="space-scene-detail" style="margin-top:6px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <b style="font-size:14px;color:var(--color-text-title);" id="scene-title">前台迎宾空间 · 气度生机方案</b>
-            <span class="badge badge-primary" id="scene-tag">高透气 · 强视觉</span>
-          </div>
-          <div style="font-size:11px;color:var(--color-text-muted);line-height:1.5;margin-bottom:10px;" id="scene-desc">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= View 1: 绿植租摆 ================= -->
+<div class="mp-pane" id="view-1">
+<!-- 场景快速切换导航 -->
+<div class="space-tabs-grid">
+<div class="space-tab-btn active" onclick="switchSpaceScene(0, this)">前台迎宾</div>
+<div class="space-tab-btn" onclick="switchSpaceScene(1, this)">开放工位</div>
+<div class="space-tab-btn" onclick="switchSpaceScene(2, this)">会议洽谈</div>
+<div class="space-tab-btn" onclick="switchSpaceScene(3, this)">总裁独立办</div>
+</div>
+<!-- 场景详情卡片 -->
+<div class="card" id="space-scene-detail" style="margin-top:6px;">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+<b id="scene-title" style="font-size:14px;color:var(--color-text-title);">前台迎宾空间 · 气度生机方案</b>
+<span class="badge badge-primary" id="scene-tag">高透气 · 强视觉</span>
+</div>
+<div id="scene-desc" style="font-size:11px;color:var(--color-text-muted);line-height:1.5;margin-bottom:10px;">
             采用大型阔叶绿植构建第一视觉焦点，吸收室内浮尘，提升企业接待门厅第一生机质感。
           </div>
-          <div class="flower-recipe" id="scene-plants">
-            <span class="recipe-chip">1.8米特级天堂鸟</span>
-            <span class="recipe-chip">双杆琴叶榕</span>
-            <span class="recipe-chip">景天科多肉组合迎宾盆</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;background:var(--color-bg-page);padding:8px 10px;border-radius:var(--radius-sm);margin-top:8px;">
-            <span style="font-size:11px;color:var(--color-text-muted);">空气净化率 / 湿度增益</span>
-            <span style="font-size:12px;font-weight:700;color:var(--color-primary);">93.5% · +28% RH</span>
-          </div>
-        </div>
-
-        <!-- 绿植空间智能测算器 -->
-        <div class="calc-box">
-          <div class="calc-title">
-            <span>空间绿植智能测算器</span>
-            <span style="font-size:10px;color:var(--color-text-muted);font-weight:normal;">即时预算生成</span>
-          </div>
-          
-          <div class="form-label">选择企业或居室面积 (㎡)</div>
-          <div class="calc-segment">
-            <div class="calc-seg-opt" onclick="updatePlantCalc(0, this)">50㎡ 敏捷</div>
-            <div class="calc-seg-opt active" onclick="updatePlantCalc(1, this)">120㎡ 标准</div>
-            <div class="calc-seg-opt" onclick="updatePlantCalc(2, this)">300㎡ 中型</div>
-            <div class="calc-seg-opt" onclick="updatePlantCalc(3, this)">600㎡ 独栋</div>
-          </div>
-
-          <div class="form-label">采光通风环境</div>
-          <div class="calc-segment">
-            <div class="calc-seg-opt active" onclick="updateLightCondition(0, this)">充足散射光</div>
-            <div class="calc-seg-opt" onclick="updateLightCondition(1, this)">明亮日光</div>
-            <div class="calc-seg-opt" onclick="updateLightCondition(2, this)">**区</div>
-          </div>
-
-          <!-- 测算输出面板 -->
-          <div class="calc-result-panel">
-            <div class="result-metric">
-              <span class="result-val" id="calc-large">6 盆</span>
-              <span class="result-lbl">落地大绿植</span>
-            </div>
-            <div style="width:1px;height:30px;background:rgba(30,77,59,0.15);"></div>
-            <div class="result-metric">
-              <span class="result-val" id="calc-desk">12 盆</span>
-              <span class="result-lbl">桌面微景观</span>
-            </div>
-            <div style="width:1px;height:30px;background:rgba(30,77,59,0.15);"></div>
-            <div class="result-metric">
-              <span class="result-val" id="calc-price">¥580<span style="font-size:10px;font-weight:normal;">/月</span></span>
-              <span class="result-lbl">全包月租金</span>
-            </div>
-          </div>
-
-          <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="openPlantReserveModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+<div class="flower-recipe" id="scene-plants">
+<span class="recipe-chip">1.8米特级天堂鸟</span>
+<span class="recipe-chip">双杆琴叶榕</span>
+<span class="recipe-chip">景天科多肉组合迎宾盆</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between;background:var(--color-bg-page);padding:8px 10px;border-radius:var(--radius-sm);margin-top:8px;">
+<span style="font-size:11px;color:var(--color-text-muted);">空气净化率 / 湿度增益</span>
+<span style="font-size:12px;font-weight:700;color:var(--color-primary);">93.5% · +28% RH</span>
+</div>
+</div>
+<!-- 绿植空间智能测算器 -->
+<div class="calc-box">
+<div class="calc-title">
+<span>空间绿植智能测算器</span>
+<span style="font-size:10px;color:var(--color-text-muted);font-weight:normal;">即时预算生成</span>
+</div>
+<div class="form-label">选择企业或居室面积 (㎡)</div>
+<div class="calc-segment">
+<div class="calc-seg-opt" onclick="updatePlantCalc(0, this)">50㎡ 敏捷</div>
+<div class="calc-seg-opt active" onclick="updatePlantCalc(1, this)">120㎡ 标准</div>
+<div class="calc-seg-opt" onclick="updatePlantCalc(2, this)">300㎡ 中型</div>
+<div class="calc-seg-opt" onclick="updatePlantCalc(3, this)">600㎡ 独栋</div>
+</div>
+<div class="form-label">采光通风环境</div>
+<div class="calc-segment">
+<div class="calc-seg-opt active" onclick="updateLightCondition(0, this)">充足散射光</div>
+<div class="calc-seg-opt" onclick="updateLightCondition(1, this)">明亮日光</div>
+<div class="calc-seg-opt" onclick="updateLightCondition(2, this)">**区</div>
+</div>
+<!-- 测算输出面板 -->
+<div class="calc-result-panel">
+<div class="result-metric">
+<span class="result-val" id="calc-large">6 盆</span>
+<span class="result-lbl">落地大绿植</span>
+</div>
+<div style="width:1px;height:30px;background:rgba(30,77,59,0.15);"></div>
+<div class="result-metric">
+<span class="result-val" id="calc-desk">12 盆</span>
+<span class="result-lbl">桌面微景观</span>
+</div>
+<div style="width:1px;height:30px;background:rgba(30,77,59,0.15);"></div>
+<div class="result-metric">
+<span class="result-val" id="calc-price">¥580<span style="font-size:10px;font-weight:normal;">/月</span></span>
+<span class="result-lbl">全包月租金</span>
+</div>
+</div>
+<button class="btn btn-primary btn-block" onclick="openPlantReserveModal()" style="margin-top:14px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
             免费预约上门勘测与方案出具
           </button>
-        </div>
-
-        <!-- 3 大标准化服务保障 -->
-        <div class="service-guarantees">
-          <div class="guarantee-item">
-            <div class="guarantee-icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="guarantee-title">72h枯黄换新</div>
-            <div class="guarantee-sub">全程长势无忧兜底</div>
-          </div>
-          <div class="guarantee-item">
-            <div class="guarantee-icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-            </div>
-            <div class="guarantee-title">每周持证巡检</div>
-            <div class="guarantee-sub">浇灌修剪叶面除尘</div>
-          </div>
-          <div class="guarantee-item">
-            <div class="guarantee-icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </div>
-            <div class="guarantee-title">电子工单存证</div>
-            <div class="guarantee-sub">每次巡检实景留档</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= View 2: 养护日志 ================= -->
-      <div id="view-2" class="mp-pane">
-        <!-- 鲜花订阅本期排期时间轴 -->
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <b style="font-size:14px;color:var(--color-text-title);">九月周花履约排期</b>
-            <span class="badge badge-primary">4期 / 剩余2期</span>
-          </div>
-
-          <div class="timeline-wrap">
-            <!-- 节点 1 -->
-            <div class="timeline-node">
-              <div class="node-icon-box node-icon-done">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <div class="node-content">
-                <div class="node-header">
-                  <span class="node-title">第1期 · 维也纳晨露 (已签收)</span>
-                  <span class="node-date">09月01日</span>
-                </div>
-                <div class="node-desc">卡罗拉红玫瑰 + 尤加利叶，已于周一 09:18 完成办公室交付。</div>
-              </div>
-            </div>
-
-            <!-- 节点 2 -->
-            <div class="timeline-node">
-              <div class="node-icon-box node-icon-active">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              </div>
-              <div class="node-content">
-                <div class="node-header">
-                  <span class="node-title">第2期 · 纯白恋曲 (冷链在途)</span>
-                  <span class="node-date">今日送达</span>
-                </div>
-                <div class="node-desc">快递冷运车【SF1890**7721】温控 12℃ 恒温箱，正在派送中。</div>
-                <div class="node-actions">
-                  <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="showToast('已向派件员发送加急提醒')">催单提醒</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 节点 3 -->
-            <div class="timeline-node">
-              <div class="node-icon-box node-icon-pending" id="node-icon-3">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-              </div>
-              <div class="node-content">
-                <div class="node-header">
-                  <span class="node-title" id="node-title-3">第3期 · 金色骄阳向日葵</span>
-                  <span class="node-date" id="node-date-3">09月15日</span>
-                </div>
-                <div class="node-desc" id="node-desc-3">预计 09月15日 晨间送达。若您外出出差或休假，可随时自主顺延。</div>
-                <div class="node-actions">
-                  <button class="btn btn-outline" id="btn-pause-3" style="padding:4px 10px;font-size:10px;" onclick="togglePauseDelivery()">
+</div>
+<!-- 3 大标准化服务保障 -->
+<div class="service-guarantees">
+<div class="guarantee-item">
+<div class="guarantee-icon-wrap">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<div class="guarantee-title">72h枯黄换新</div>
+<div class="guarantee-sub">全程长势无忧兜底</div>
+</div>
+<div class="guarantee-item">
+<div class="guarantee-icon-wrap">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+</div>
+<div class="guarantee-title">每周持证巡检</div>
+<div class="guarantee-sub">浇灌修剪叶面除尘</div>
+</div>
+<div class="guarantee-item">
+<div class="guarantee-icon-wrap">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+</div>
+<div class="guarantee-title">电子工单存证</div>
+<div class="guarantee-sub">每次巡检实景留档</div>
+</div>
+</div>
+</div>
+<!-- ================= View 2: 养护日志 ================= -->
+<div class="mp-pane" id="view-2">
+<!-- 鲜花订阅本期排期时间轴 -->
+<div class="card">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+<b style="font-size:14px;color:var(--color-text-title);">九月周花履约排期</b>
+<span class="badge badge-primary">4期 / 剩余2期</span>
+</div>
+<div class="timeline-wrap">
+<!-- 节点 1 -->
+<div class="timeline-node">
+<div class="node-icon-box node-icon-done">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div class="node-content">
+<div class="node-header">
+<span class="node-title">第1期 · 维也纳晨露 (已签收)</span>
+<span class="node-date">09月01日</span>
+</div>
+<div class="node-desc">卡罗拉红玫瑰 + 尤加利叶，已于周一 09:18 完成办公室交付。</div>
+</div>
+</div>
+<!-- 节点 2 -->
+<div class="timeline-node">
+<div class="node-icon-box node-icon-active">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><rect height="13" width="15" x="1" y="3"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+</div>
+<div class="node-content">
+<div class="node-header">
+<span class="node-title">第2期 · 纯白恋曲 (冷链在途)</span>
+<span class="node-date">今日送达</span>
+</div>
+<div class="node-desc">快递冷运车【SF1890**7721】温控 12℃ 恒温箱，正在派送中。</div>
+<div class="node-actions">
+<button class="btn btn-secondary" onclick="showToast('已向派件员发送加急提醒')" style="padding:4px 10px;font-size:10px;">催单提醒</button>
+</div>
+</div>
+</div>
+<!-- 节点 3 -->
+<div class="timeline-node">
+<div class="node-icon-box node-icon-pending" id="node-icon-3">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+</div>
+<div class="node-content">
+<div class="node-header">
+<span class="node-title" id="node-title-3">第3期 · 金色骄阳向日葵</span>
+<span class="node-date" id="node-date-3">09月15日</span>
+</div>
+<div class="node-desc" id="node-desc-3">预计 09月15日 晨间送达。若您外出出差或休假，可随时自主顺延。</div>
+<div class="node-actions">
+<button class="btn btn-outline" id="btn-pause-3" onclick="togglePauseDelivery()" style="padding:4px 10px;font-size:10px;">
                     顺延本期
                   </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 节点 4 -->
-            <div class="timeline-node">
-              <div class="node-icon-box node-icon-pending">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-              </div>
-              <div class="node-content">
-                <div class="node-header">
-                  <span class="node-title">第4期 · 初雪睡莲主题</span>
-                  <span class="node-date">09月22日</span>
-                </div>
-                <div class="node-desc">基地精选特供，排期预定中。</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 绿植巡检实录工单卡片 -->
-        <div class="inspection-card">
-          <div class="inspector-header">
-            <div class="inspector-avatar">林</div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:var(--color-text-title);">08号园艺管家 · 林*工</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">高级园艺巡检师 · 工号 YG-0881</div>
-            </div>
-            <span class="badge badge-success" style="margin-left:auto;">健康评级 A</span>
-          </div>
-
-          <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:8px;">
+</div>
+</div>
+</div>
+<!-- 节点 4 -->
+<div class="timeline-node">
+<div class="node-icon-box node-icon-pending">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle></svg>
+</div>
+<div class="node-content">
+<div class="node-header">
+<span class="node-title">第4期 · 初雪睡莲主题</span>
+<span class="node-date">09月22日</span>
+</div>
+<div class="node-desc">基地精选特供，排期预定中。</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 绿植巡检实录工单卡片 -->
+<div class="inspection-card">
+<div class="inspector-header">
+<div class="inspector-avatar">林</div>
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);">08号园艺管家 · 林*工</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">高级园艺巡检师 · 工号 YG-0881</div>
+</div>
+<span class="badge badge-success" style="margin-left:auto;">健康评级 A</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:8px;">
             最近一次巡检服务：2026-09-02 14:30 (**区)
           </div>
-
-          <div class="check-grid">
-            <div class="check-item">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>叶面清洁除尘完成</span>
-            </div>
-            <div class="check-item">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>土壤含水率 46% 适度</span>
-            </div>
-            <div class="check-item">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>老叶塑形修枝修剪</span>
-            </div>
-            <div class="check-item">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>进口缓释花粮已施</span>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:8px;margin-top:10px;">
-            <button class="btn btn-outline" style="flex:1;padding:6px;font-size:11px;" onclick="openInspectionPhotoModal()">
+<div class="check-grid">
+<div class="check-item">
+<svg fill="none" height="13" stroke="#10B981" stroke-width="2.5" viewbox="0 0 24 24" width="13"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>叶面清洁除尘完成</span>
+</div>
+<div class="check-item">
+<svg fill="none" height="13" stroke="#10B981" stroke-width="2.5" viewbox="0 0 24 24" width="13"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>土壤含水率 46% 适度</span>
+</div>
+<div class="check-item">
+<svg fill="none" height="13" stroke="#10B981" stroke-width="2.5" viewbox="0 0 24 24" width="13"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>老叶塑形修枝修剪</span>
+</div>
+<div class="check-item">
+<svg fill="none" height="13" stroke="#10B981" stroke-width="2.5" viewbox="0 0 24 24" width="13"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>进口缓释花粮已施</span>
+</div>
+</div>
+<div style="display:flex;gap:8px;margin-top:10px;">
+<button class="btn btn-outline" onclick="openInspectionPhotoModal()" style="flex:1;padding:6px;font-size:11px;">
               查看现场实景打卡照
             </button>
-            <button class="btn btn-secondary" style="flex:1;padding:6px;font-size:11px;" onclick="openReplacementModal()">
+<button class="btn btn-secondary" onclick="openReplacementModal()" style="flex:1;padding:6px;font-size:11px;">
               申请枯黄免费换新
             </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= View 3: 服务中心 ================= -->
-      <div id="view-3" class="mp-pane">
-        <!-- VIP 黑金用户资产卡 -->
-        <div class="vip-card">
-          <div class="vip-header">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div>
-                <div style="font-size:15px;font-weight:700;">林*晨 <span style="font-size:10px;background:var(--color-accent);color:var(--color-text-inverse);padding:1px 6px;border-radius:10px;margin-left:4px;">黑金会员</span></div>
-                <div style="font-size:11px;opacity:0.8;margin-top:2px;">手机：138**5621</div>
-              </div>
-            </div>
-            <button class="btn" style="background:rgba(255,255,255,0.18);color:var(--color-text-inverse);padding:4px 10px;font-size:10px;" onclick="showToast('已同步最新会员专属权益')">
+</div>
+</div>
+</div>
+<!-- ================= View 3: 服务中心 ================= -->
+<div class="mp-pane" id="view-3">
+<!-- VIP 黑金用户资产卡 -->
+<div class="vip-card">
+<div class="vip-header">
+<div class="user-profile">
+<div class="user-avatar">
+<svg fill="none" height="24" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+<div>
+<div style="font-size:15px;font-weight:700;">林*晨 <span style="font-size:10px;background:var(--color-accent);color:var(--color-text-inverse);padding:1px 6px;border-radius:10px;margin-left:4px;">黑金会员</span></div>
+<div style="font-size:11px;opacity:0.8;margin-top:2px;">手机：138**5621</div>
+</div>
+</div>
+<button class="btn" onclick="showToast('已同步最新会员专属权益')" style="background:rgba(255,255,255,0.18);color:var(--color-text-inverse);padding:4px 10px;font-size:10px;">
               会员权益
             </button>
-          </div>
-
-          <div class="vip-stats">
-            <div>
-              <div class="vip-stat-num" id="stat-flower-count">6 束</div>
-              <div class="vip-stat-lbl">鲜花剩余权益</div>
-            </div>
-            <div>
-              <div class="vip-stat-num">1 处</div>
-              <div class="vip-stat-lbl">绿植在摆空间</div>
-            </div>
-            <div>
-              <div class="vip-stat-num">3 张</div>
-              <div class="vip-stat-lbl">专属礼券</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 订单状态 5 宫格 -->
-        <div class="order-status-bar">
-          <div class="order-status-tab active" onclick="filterOrderList('all', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            <span>全部订单</span>
-          </div>
-          <div class="order-status-tab" onclick="filterOrderList('unpaid', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            <span>待付款(0)</span>
-          </div>
-          <div class="order-status-tab" onclick="filterOrderList('serving', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            <span>履约中(2)</span>
-          </div>
-          <div class="order-status-tab" onclick="filterOrderList('eval', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>待评价(1)</span>
-          </div>
-          <div class="order-status-tab" onclick="filterOrderList('refund', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-            <span>售后(0)</span>
-          </div>
-        </div>
-
-        <!-- 正在履约中的专属追踪卡 -->
-        <div class="card" id="order-card-list">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <span style="font-size:11px;color:var(--color-text-muted);">单号：ORD-20260901-0812</span>
-            <span class="badge badge-success">履约服务中</span>
-          </div>
-          <div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-bottom:4px;">
+</div>
+<div class="vip-stats">
+<div>
+<div class="vip-stat-num" id="stat-flower-count">6 束</div>
+<div class="vip-stat-lbl">鲜花剩余权益</div>
+</div>
+<div>
+<div class="vip-stat-num">1 处</div>
+<div class="vip-stat-lbl">绿植在摆空间</div>
+</div>
+<div>
+<div class="vip-stat-num">3 张</div>
+<div class="vip-stat-lbl">专属礼券</div>
+</div>
+</div>
+</div>
+<!-- 订单状态 5 宫格 -->
+<div class="order-status-bar">
+<div class="order-status-tab active" onclick="filterOrderList('all', this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg>
+<span>全部订单</span>
+</div>
+<div class="order-status-tab" onclick="filterOrderList('unpaid', this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="16" rx="2" ry="2" width="22" x="1" y="4"></rect><line x1="1" x2="23" y1="10" y2="10"></line></svg>
+<span>待付款(0)</span>
+</div>
+<div class="order-status-tab" onclick="filterOrderList('serving', this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="13" width="15" x="1" y="3"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+<span>履约中(2)</span>
+</div>
+<div class="order-status-tab" onclick="filterOrderList('eval', this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>待评价(1)</span>
+</div>
+<div class="order-status-tab" onclick="filterOrderList('refund', this)">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>
+<span>售后(0)</span>
+</div>
+</div>
+<!-- 正在履约中的专属追踪卡 -->
+<div class="card" id="order-card-list">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+<span style="font-size:11px;color:var(--color-text-muted);">单号：ORD-20260901-0812</span>
+<span class="badge badge-success">履约服务中</span>
+</div>
+<div style="font-size:13px;font-weight:700;color:var(--color-text-title);margin-bottom:4px;">
             晨露维也纳 · 混合花艺周花月卡 (4期)
           </div>
-          <div style="font-size:11px;color:var(--color-text-muted);line-height:1.5;">
-            配送计划：每周一送达 · 已完成 1 期，第 2 期冷链配送中<br>
+<div style="font-size:11px;color:var(--color-text-muted);line-height:1.5;">
+            配送计划：每周一送达 · 已完成 1 期，第 2 期冷链配送中<br/>
             收件人：林*晨 (138**5621)
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border-light);">
-            <span style="font-size:13px;font-weight:800;color:var(--color-primary);">¥168.00</span>
-            <div style="display:flex;gap:6px;">
-              <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="showToast('冷链单号：SF1890**7721 (恒温12℃)')">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--color-border-light);">
+<span style="font-size:13px;font-weight:800;color:var(--color-primary);">¥168.00</span>
+<div style="display:flex;gap:6px;">
+<button class="btn btn-outline" onclick="showToast('冷链单号：SF1890**7721 (恒温12℃)')" style="padding:4px 10px;font-size:11px;">
                 查看物流
               </button>
-              <button class="btn btn-secondary" style="padding:4px 10px;font-size:11px;" onclick="openInspectionDetailModal()">
+<button class="btn btn-secondary" onclick="openInspectionDetailModal()" style="padding:4px 10px;font-size:11px;">
                 电子养护卡
               </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 常用功能入口列表 -->
-        <div class="menu-group">
-          <div class="menu-item" onclick="openAddressModal()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>常用收花地址管理</span>
-            </div>
-            <span style="color:var(--color-text-muted);font-size:12px;">**区 ›</span>
-          </div>
-          <div class="menu-item" onclick="openInvoiceModal()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              <span>企业增值税发票管理</span>
-            </div>
-            <span style="color:var(--color-text-muted);font-size:12px;">增值税专票/普票 ›</span>
-          </div>
-          <div class="menu-item" onclick="openGuideModal()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span>鲜花醒花与绿植养护知识</span>
-            </div>
-            <span style="color:var(--color-text-muted);font-size:12px;">花艺课堂 ›</span>
-          </div>
-          <div class="menu-item" onclick="openCustomerServiceModal()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E4D3B" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>专属在线园艺**</span>
-            </div>
-            <span style="color:var(--color-text-muted);font-size:12px;">9:00 - 21:00 ›</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 微信原生底部导航 TabBar -->
-    <div class="mp-tab-bar">
-      <div class="tab-item active" id="tab-0" onclick="switchTab(0)">
-        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22v-7"/><path d="M9 7.5a4.5 4.5 0 0 1 6 0"/><path d="M6 10a7 7 0 0 1 12 0"/><circle cx="12" cy="7" r="2.5"/>
-        </svg>
-        <span>鲜花订阅</span>
-      </div>
-      <div class="tab-item" id="tab-1" onclick="switchTab(1)">
-        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3"/><path d="M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3"/><line x1="12" y1="22" x2="12" y2="10"/>
-        </svg>
-        <span>绿植租摆</span>
-      </div>
-      <div class="tab-item" id="tab-2" onclick="switchTab(2)">
-        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/>
-        </svg>
-        <span>养护日志</span>
-        <span class="tab-badge">2</span>
-      </div>
-      <div class="tab-item" id="tab-3" onclick="switchTab(3)">
-        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span>服务中心</span>
-      </div>
-    </div>
-
-    <!-- ================= 交互抽屉: 鲜花定制订购选配 ================= -->
-    <div class="drawer-overlay" id="drawer-subscription" onclick="handleBackdropClick(event, 'drawer-subscription')">
-      <div class="drawer-container">
-        <div class="drawer-header">
-          <div>
-            <div class="drawer-title" id="drawer-product-title">鲜花定制订阅选配</div>
-            <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">依生活节奏，自由定制送花周期与配件</div>
-          </div>
-          <button class="close-btn" onclick="closeDrawer('drawer-subscription')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <!-- 订阅周期选择 -->
-        <div class="form-label">订阅时长选择</div>
-        <div class="cycle-grid">
-          <div class="cycle-card selected" id="cycle-0" onclick="selectCycle(0, 4, 168, 1)">
-            <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">月卡 (4期)</div>
-            <div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥168</div>
-            <div style="font-size:9px;color:var(--color-text-muted);">尝鲜首选</div>
-          </div>
-          <div class="cycle-card" id="cycle-1" onclick="selectCycle(1, 12, 458, 0.9)">
-            <div class="cycle-tag">享9折</div>
-            <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">季卡 (12期)</div>
-            <div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥458</div>
-            <div style="font-size:9px;color:var(--color-text-muted);">省 ¥46</div>
-          </div>
-          <div class="cycle-card" id="cycle-2" onclick="selectCycle(2, 48, 1570, 0.78)">
-            <div class="cycle-tag">享7.8折</div>
-            <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">年卡 (48期)</div>
-            <div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥1,570</div>
-            <div style="font-size:9px;color:var(--color-text-muted);">全年陪伴</div>
-          </div>
-        </div>
-
-        <!-- 配送偏好 -->
-        <div class="form-label">配送偏好设定</div>
-        <div class="day-selector">
-          <div class="day-opt selected" id="day-mon" onclick="selectDeliveryDay('mon')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <div>
-              <div style="font-weight:700;color:var(--color-text-title);">周一送达</div>
-              <div style="font-size:9px;color:var(--color-text-muted);">点亮一周职场好心情</div>
-            </div>
-          </div>
-          <div class="day-opt" id="day-sat" onclick="selectDeliveryDay('sat')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 8 14"/></svg>
-            <div>
-              <div style="font-weight:700;color:var(--color-text-title);">周六送达</div>
-              <div style="font-size:9px;color:var(--color-text-muted);">装点周末居家慢时光</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 增值加购配件 -->
-        <div class="form-label">加购与专属赠礼</div>
-        <div class="addon-item">
-          <div>
-            <div style="font-weight:600;color:var(--color-text-title);">北欧条纹极简玻璃花瓶</div>
-            <div style="font-size:10px;color:var(--color-text-muted);">首期新用户专属赠礼</div>
-          </div>
-          <span class="badge badge-primary">已赠送 ¥0</span>
-        </div>
-        <div class="addon-item">
-          <div>
-            <div style="font-weight:600;color:var(--color-text-title);">进口专业精钢修枝花剪</div>
-            <div style="font-size:10px;color:var(--color-text-muted);">平滑斜切，大幅延长花期</div>
-          </div>
-          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥19</span>
-            <input type="checkbox" id="addon-shears" name="addon-shears" onchange="toggleAddon('shears', 19)">
-          </label>
-        </div>
-        <div class="addon-item">
-          <div>
-            <div style="font-weight:600;color:var(--color-text-title);">花卉速效保鲜浓缩包 (半年量)</div>
-            <div style="font-size:10px;color:var(--color-text-muted);">抑菌保鲜，花蕾饱满长盛</div>
-          </div>
-          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥9</span>
-            <input type="checkbox" id="addon-food" name="addon-food" onchange="toggleAddon('food', 9)">
-          </label>
-        </div>
-
-        <!-- 手写心意贺卡定制 -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px 0;">
-          <span class="form-label" style="margin-bottom:0;">定制心意手写贺卡</span>
-          <button class="btn btn-outline" style="padding:2px 8px;font-size:10px;" onclick="openGreetingCardModal()">
+</div>
+</div>
+</div>
+<!-- 常用功能入口列表 -->
+<div class="menu-group">
+<div class="menu-item" onclick="openAddressModal()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>常用收花地址管理</span>
+</div>
+<span style="color:var(--color-text-muted);font-size:12px;">**区 ›</span>
+</div>
+<div class="menu-item" onclick="openInvoiceModal()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
+<span>企业增值税发票管理</span>
+</div>
+<span style="color:var(--color-text-muted);font-size:12px;">增值税专票/普票 ›</span>
+</div>
+<div class="menu-item" onclick="openGuideModal()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+<span>鲜花醒花与绿植养护知识</span>
+</div>
+<span style="color:var(--color-text-muted);font-size:12px;">花艺课堂 ›</span>
+</div>
+<div class="menu-item" onclick="openCustomerServiceModal()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="#1E4D3B" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>专属在线园艺**</span>
+</div>
+<span style="color:var(--color-text-muted);font-size:12px;">9:00 - 21:00 ›</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 微信原生底部导航 TabBar -->
+<div class="mp-tab-bar">
+<div class="tab-item active" id="tab-0" onclick="switchTab(0)">
+<svg class="tab-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 22v-7"></path><path d="M9 7.5a4.5 4.5 0 0 1 6 0"></path><path d="M6 10a7 7 0 0 1 12 0"></path><circle cx="12" cy="7" r="2.5"></circle>
+</svg>
+<span>鲜花订阅</span>
+</div>
+<div class="tab-item" id="tab-1" onclick="switchTab(1)">
+<svg class="tab-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 10a6 6 0 0 0-6-6H3v2a6 6 0 0 0 6 6h3"></path><path d="M12 14a6 6 0 0 1 6-6h3v2a6 6 0 0 1-6 6h-3"></path><line x1="12" x2="12" y1="22" y2="10"></line>
+</svg>
+<span>绿植租摆</span>
+</div>
+<div class="tab-item" id="tab-2" onclick="switchTab(2)">
+<svg class="tab-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line><path d="m9 16 2 2 4-4"></path>
+</svg>
+<span>养护日志</span>
+<span class="tab-badge">2</span>
+</div>
+<div class="tab-item" id="tab-3" onclick="switchTab(3)">
+<svg class="tab-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span>服务中心</span>
+</div>
+</div>
+<!-- ================= 交互抽屉: 鲜花定制订购选配 ================= -->
+<div class="drawer-overlay" id="drawer-subscription" onclick="handleBackdropClick(event, 'drawer-subscription')">
+<div class="drawer-container">
+<div class="drawer-header">
+<div>
+<div class="drawer-title" id="drawer-product-title">鲜花定制订阅选配</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">依生活节奏，自由定制送花周期与配件</div>
+</div>
+<button class="close-btn" onclick="closeDrawer('drawer-subscription')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<!-- 订阅周期选择 -->
+<div class="form-label">订阅时长选择</div>
+<div class="cycle-grid">
+<div class="cycle-card selected" id="cycle-0" onclick="selectCycle(0, 4, 168, 1)">
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">月卡 (4期)</div>
+<div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥168</div>
+<div style="font-size:9px;color:var(--color-text-muted);">尝鲜首选</div>
+</div>
+<div class="cycle-card" id="cycle-1" onclick="selectCycle(1, 12, 458, 0.9)">
+<div class="cycle-tag">享9折</div>
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">季卡 (12期)</div>
+<div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥458</div>
+<div style="font-size:9px;color:var(--color-text-muted);">省 ¥46</div>
+</div>
+<div class="cycle-card" id="cycle-2" onclick="selectCycle(2, 48, 1570, 0.78)">
+<div class="cycle-tag">享7.8折</div>
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">年卡 (48期)</div>
+<div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">¥1,570</div>
+<div style="font-size:9px;color:var(--color-text-muted);">全年陪伴</div>
+</div>
+</div>
+<!-- 配送偏好 -->
+<div class="form-label">配送偏好设定</div>
+<div class="day-selector">
+<div class="day-opt selected" id="day-mon" onclick="selectDeliveryDay('mon')">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<div>
+<div style="font-weight:700;color:var(--color-text-title);">周一送达</div>
+<div style="font-size:9px;color:var(--color-text-muted);">点亮一周职场好心情</div>
+</div>
+</div>
+<div class="day-opt" id="day-sat" onclick="selectDeliveryDay('sat')">
+<svg fill="none" height="15" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 8 14"></polyline></svg>
+<div>
+<div style="font-weight:700;color:var(--color-text-title);">周六送达</div>
+<div style="font-size:9px;color:var(--color-text-muted);">装点周末居家慢时光</div>
+</div>
+</div>
+</div>
+<!-- 增值加购配件 -->
+<div class="form-label">加购与专属赠礼</div>
+<div class="addon-item">
+<div>
+<div style="font-weight:600;color:var(--color-text-title);">北欧条纹极简玻璃花瓶</div>
+<div style="font-size:10px;color:var(--color-text-muted);">首期新用户专属赠礼</div>
+</div>
+<span class="badge badge-primary">已赠送 ¥0</span>
+</div>
+<div class="addon-item">
+<div>
+<div style="font-weight:600;color:var(--color-text-title);">进口专业精钢修枝花剪</div>
+<div style="font-size:10px;color:var(--color-text-muted);">平滑斜切，大幅延长花期</div>
+</div>
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+<span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥19</span>
+<input id="addon-shears" name="addon-shears" onchange="toggleAddon('shears', 19)" type="checkbox"/>
+</label>
+</div>
+<div class="addon-item">
+<div>
+<div style="font-weight:600;color:var(--color-text-title);">花卉速效保鲜浓缩包 (半年量)</div>
+<div style="font-size:10px;color:var(--color-text-muted);">抑菌保鲜，花蕾饱满长盛</div>
+</div>
+<label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+<span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥9</span>
+<input id="addon-food" name="addon-food" onchange="toggleAddon('food', 9)" type="checkbox"/>
+</label>
+</div>
+<!-- 手写心意贺卡定制 -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px 0;">
+<span class="form-label" style="margin-bottom:0;">定制心意手写贺卡</span>
+<button class="btn btn-outline" onclick="openGreetingCardModal()" style="padding:2px 8px;font-size:10px;">
             编辑寄语
           </button>
-        </div>
-        <div class="card-preview-paper" id="drawer-card-preview">
+</div>
+<div class="card-preview-paper" id="drawer-card-preview">
           “愿生活如花绽放，常伴清欢与芬芳。”
         </div>
-
-        <!-- 结算提交按钮 -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px solid var(--color-border-light);">
-          <div>
-            <div style="font-size:10px;color:var(--color-text-muted);">合计费用 (极速包邮)</div>
-            <div style="font-size:18px;font-weight:800;color:var(--color-primary);" id="drawer-total-price">¥168.00</div>
-          </div>
-          <button class="btn btn-primary" id="btn-confirm-sub" style="padding:10px 22px;" onclick="submitSubscriptionOrder()">
+<!-- 结算提交按钮 -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px solid var(--color-border-light);">
+<div>
+<div style="font-size:10px;color:var(--color-text-muted);">合计费用 (极速包邮)</div>
+<div id="drawer-total-price" style="font-size:18px;font-weight:800;color:var(--color-primary);">¥168.00</div>
+</div>
+<button class="btn btn-primary" id="btn-confirm-sub" onclick="submitSubscriptionOrder()" style="padding:10px 22px;">
             立即开通订阅
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 手写贺卡定制 ================= -->
-    <div class="modal-overlay" id="modal-greeting-card" onclick="handleBackdropClick(event, 'modal-greeting-card')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">定制手写体心意贺卡</div>
-          <button class="close-btn" onclick="closeModal('modal-greeting-card')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:10px;">随首期花束打印为高级米色特种纸手写字体卡片。</div>
-        
-        <div class="form-label">快速预设寄语</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
-          <button class="btn btn-outline" style="padding:4px 8px;font-size:10px;" onclick="applyGreetingPreset('愿生活如花绽放，常伴清欢与芬芳。')">生活清欢</button>
-          <button class="btn btn-outline" style="padding:4px 8px;font-size:10px;" onclick="applyGreetingPreset('生日快乐！愿每一天都如繁花般灿烂明亮。')">生日祝福</button>
-          <button class="btn btn-outline" style="padding:4px 8px;font-size:10px;" onclick="applyGreetingPreset('感谢一路相伴与支持，祝工作顺意，前程繁花！')">职场感恩</button>
-        </div>
-
-        <div class="form-label">自定义寄语内容 (限50字)</div>
-        <textarea class="form-textarea" id="card-textarea" name="card-textarea" rows="3" placeholder="在此输入您想传递的心意寄语...">愿生活如花绽放，常伴清欢与芬芳。</textarea>
-
-        <button class="btn btn-primary btn-block" onclick="saveGreetingCard()">
+</div>
+</div>
+</div>
+<!-- ================= 模态弹窗: 手写贺卡定制 ================= -->
+<div class="modal-overlay" id="modal-greeting-card" onclick="handleBackdropClick(event, 'modal-greeting-card')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">定制手写体心意贺卡</div>
+<button class="close-btn" onclick="closeModal('modal-greeting-card')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:10px;">随首期花束打印为高级米色特种纸手写字体卡片。</div>
+<div class="form-label">快速预设寄语</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+<button class="btn btn-outline" onclick="applyGreetingPreset('愿生活如花绽放，常伴清欢与芬芳。')" style="padding:4px 8px;font-size:10px;">生活清欢</button>
+<button class="btn btn-outline" onclick="applyGreetingPreset('生日快乐！愿每一天都如繁花般灿烂明亮。')" style="padding:4px 8px;font-size:10px;">生日祝福</button>
+<button class="btn btn-outline" onclick="applyGreetingPreset('感谢一路相伴与支持，祝工作顺意，前程繁花！')" style="padding:4px 8px;font-size:10px;">职场感恩</button>
+</div>
+<div class="form-label">自定义寄语内容 (限50字)</div>
+<textarea class="form-textarea" id="card-textarea" name="card-textarea" placeholder="在此输入您想传递的心意寄语..." rows="3">愿生活如花绽放，常伴清欢与芬芳。</textarea>
+<button class="btn btn-primary btn-block" onclick="saveGreetingCard()">
           保存并应用贺卡
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 当季花材品鉴 ================= -->
-    <div class="modal-overlay" id="modal-floral-tasting" onclick="handleBackdropClick(event, 'modal-floral-tasting')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">本期当季花材品鉴详情</div>
-          <button class="close-btn" onclick="closeModal('modal-floral-tasting')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">花艺**精选 · 云南昆明产地直发冷链温控直达</div>
-        
-        <div class="card-sm" style="margin:0 0 8px 0;background:var(--color-bg-page);border:none;">
-          <b style="font-size:12px;color:var(--color-primary);">重瓣纯白洋桔梗 (Eustoma)</b>
-          <div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">花语：永恒真诚的爱。花瓣层叠如丝绢，花期长达 12~14 天。</div>
-        </div>
-
-        <div class="card-sm" style="margin:0 0 8px 0;background:var(--color-bg-page);border:none;">
-          <b style="font-size:12px;color:var(--color-primary);">原生小圆叶尤加利 (Eucalyptus)</b>
-          <div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">带天然天然桉树精油清香，提神醒脑，可自然风干制成干花。</div>
-        </div>
-
-        <div class="card-sm" style="margin:0 0 12px 0;background:var(--color-bg-page);border:none;">
-          <b style="font-size:12px;color:var(--color-primary);">初醒洋甘菊 (Matricaria)</b>
-          <div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">花语：逆境中的坚强与活力，小巧灵动，点亮案头生机。</div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="closeModal('modal-floral-tasting'); openSubscriptionDrawer('FLW-HERO');">
+</div>
+</div>
+<!-- ================= 模态弹窗: 当季花材品鉴 ================= -->
+<div class="modal-overlay" id="modal-floral-tasting" onclick="handleBackdropClick(event, 'modal-floral-tasting')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">本期当季花材品鉴详情</div>
+<button class="close-btn" onclick="closeModal('modal-floral-tasting')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">花艺**精选 · 云南昆明产地直发冷链温控直达</div>
+<div class="card-sm" style="margin:0 0 8px 0;background:var(--color-bg-page);border:none;">
+<b style="font-size:12px;color:var(--color-primary);">重瓣纯白洋桔梗 (Eustoma)</b>
+<div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">花语：永恒真诚的爱。花瓣层叠如丝绢，花期长达 12~14 天。</div>
+</div>
+<div class="card-sm" style="margin:0 0 8px 0;background:var(--color-bg-page);border:none;">
+<b style="font-size:12px;color:var(--color-primary);">原生小圆叶尤加利 (Eucalyptus)</b>
+<div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">带天然天然桉树精油清香，提神醒脑，可自然风干制成干花。</div>
+</div>
+<div class="card-sm" style="margin:0 0 12px 0;background:var(--color-bg-page);border:none;">
+<b style="font-size:12px;color:var(--color-primary);">初醒洋甘菊 (Matricaria)</b>
+<div style="font-size:11px;color:var(--color-text-body);margin-top:2px;">花语：逆境中的坚强与活力，小巧灵动，点亮案头生机。</div>
+</div>
+<button class="btn btn-primary btn-block" onclick="closeModal('modal-floral-tasting'); openSubscriptionDrawer('FLW-HERO');">
           立即以此花材开通订阅
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 绿植上门勘测预约 ================= -->
-    <div class="modal-overlay" id="modal-plant-reserve" onclick="handleBackdropClick(event, 'modal-plant-reserve')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">预约专业园艺师上门勘测</div>
-          <button class="close-btn" onclick="closeModal('modal-plant-reserve')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">免费上门实测光照温湿度，48小时内出具 3D 绿植效果图。</div>
-
-        <div class="form-label">公司或机构名称 (已脱敏保护)</div>
-        <input type="text" class="form-input" id="reserve-company" name="reserve-company" value="江城某**智能科技有限责任公司">
-
-        <div class="form-label">期望上门勘测日期</div>
-        <select class="form-select" id="reserve-date" name="reserve-date">
-          <option>明天 (09月05日) 10:00 - 12:00</option>
-          <option>明天 (09月05日) 14:00 - 17:00</option>
-          <option>后天 (09月06日) 10:00 - 12:00</option>
-          <option>后天 (09月06日) 14:00 - 17:00</option>
-        </select>
-
-        <div class="form-label">联系电话</div>
-        <input type="text" class="form-input" id="reserve-phone" name="reserve-phone" value="138**5621 (林*晨 先生)">
-
-        <button class="btn btn-primary btn-block" onclick="submitPlantReservation()">
+</div>
+</div>
+<!-- ================= 模态弹窗: 绿植上门勘测预约 ================= -->
+<div class="modal-overlay" id="modal-plant-reserve" onclick="handleBackdropClick(event, 'modal-plant-reserve')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">预约专业园艺师上门勘测</div>
+<button class="close-btn" onclick="closeModal('modal-plant-reserve')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:12px;">免费上门实测光照温湿度，48小时内出具 3D 绿植效果图。</div>
+<div class="form-label">公司或机构名称 (已脱敏保护)</div>
+<input class="form-input" id="reserve-company" name="reserve-company" type="text" value="江城某**智能科技有限责任公司"/>
+<div class="form-label">期望上门勘测日期</div>
+<select class="form-select" id="reserve-date" name="reserve-date">
+<option>明天 (09月05日) 10:00 - 12:00</option>
+<option>明天 (09月05日) 14:00 - 17:00</option>
+<option>后天 (09月06日) 10:00 - 12:00</option>
+<option>后天 (09月06日) 14:00 - 17:00</option>
+</select>
+<div class="form-label">联系电话</div>
+<input class="form-input" id="reserve-phone" name="reserve-phone" type="text" value="138**5621 (林*晨 先生)"/>
+<button class="btn btn-primary btn-block" onclick="submitPlantReservation()">
           确认提交免费预约
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 现场实景打卡照查看 ================= -->
-    <div class="modal-overlay" id="modal-inspection-photo" onclick="handleBackdropClick(event, 'modal-inspection-photo')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">园艺师实景巡检留档</div>
-          <button class="close-btn" onclick="closeModal('modal-inspection-photo')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="background:var(--color-primary-subtle);border-radius:var(--radius-md);height:180px;position:relative;overflow:hidden;margin-bottom:10px;">
-          <svg viewBox="0 0 320 180" fill="none" style="width:100%;height:100%;">
-            <rect width="320" height="180" fill="#E8F1EC"/>
-            <path d="M160 180 L160 80" stroke="#2D6A4F" stroke-width="6"/>
-            <circle cx="160" cy="70" r="40" fill="#40916C"/>
-            <circle cx="130" cy="85" r="30" fill="#52B788"/>
-            <circle cx="190" cy="85" r="30" fill="#52B788"/>
-            <circle cx="160" cy="50" r="28" fill="#74C69D"/>
-            <rect x="135" y="140" width="50" height="40" rx="4" fill="#8B5A2B"/>
-            <rect x="10" y="10" width="130" height="26" rx="6" fill="rgba(30,77,59,0.85)"/>
-            <text x="18" y="27" fill="#FFFFFF" font-size="11" font-weight="bold">实景打卡 · 现场正常</text>
-          </svg>
-        </div>
-
-        <div style="font-size:11px;color:var(--color-text-body);line-height:1.5;margin-bottom:12px;">
-          打卡点位：**区绿谷创新园B座402前台<br>
+</div>
+</div>
+<!-- ================= 模态弹窗: 现场实景打卡照查看 ================= -->
+<div class="modal-overlay" id="modal-inspection-photo" onclick="handleBackdropClick(event, 'modal-inspection-photo')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">园艺师实景巡检留档</div>
+<button class="close-btn" onclick="closeModal('modal-inspection-photo')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:var(--color-primary-subtle);border-radius:var(--radius-md);height:180px;position:relative;overflow:hidden;margin-bottom:10px;">
+<svg fill="none" style="width:100%;height:100%;" viewbox="0 0 320 180">
+<rect fill="#E8F1EC" height="180" width="320"></rect>
+<path d="M160 180 L160 80" stroke="#2D6A4F" stroke-width="6"></path>
+<circle cx="160" cy="70" fill="#40916C" r="40"></circle>
+<circle cx="130" cy="85" fill="#52B788" r="30"></circle>
+<circle cx="190" cy="85" fill="#52B788" r="30"></circle>
+<circle cx="160" cy="50" fill="#74C69D" r="28"></circle>
+<rect fill="#8B5A2B" height="40" rx="4" width="50" x="135" y="140"></rect>
+<rect fill="rgba(30,77,59,0.85)" height="26" rx="6" width="130" x="10" y="10"></rect>
+<text fill="#FFFFFF" font-size="11" font-weight="bold" x="18" y="27">实景打卡 · 现场正常</text>
+</svg>
+</div>
+<div style="font-size:11px;color:var(--color-text-body);line-height:1.5;margin-bottom:12px;">
+          打卡点位：**区绿谷创新园B座402前台<br/>
           巡检记录：植株叶面光泽度佳，根系水分适宜，已喷洒植物营养液。
         </div>
-
-        <button class="btn btn-primary btn-block" onclick="closeModal('modal-inspection-photo')">
+<button class="btn btn-primary btn-block" onclick="closeModal('modal-inspection-photo')">
           已阅并确认工单
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 枯损免费换新申请 ================= -->
-    <div class="modal-overlay" id="modal-plant-replace" onclick="handleBackdropClick(event, 'modal-plant-replace')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">申请绿植枯黄免费换新</div>
-          <button class="close-btn" onclick="closeModal('modal-plant-replace')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        <div style="font-size:11px;color:var(--color-text-muted);margin-bottom:10px;">
+</div>
+</div>
+<!-- ================= 模态弹窗: 枯损免费换新申请 ================= -->
+<div class="modal-overlay" id="modal-plant-replace" onclick="handleBackdropClick(event, 'modal-plant-replace')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">申请绿植枯黄免费换新</div>
+<button class="close-btn" onclick="closeModal('modal-plant-replace')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-bottom:10px;">
           践行 72 小时无忧承诺，专属管家核验后将安排健康同款绿植上门调换。
         </div>
-
-        <div class="form-label">选择需要更换的植株</div>
-        <select class="form-select" id="replace-plant-name" name="replace-plant-name">
-          <option>前台 1.8米特级天堂鸟 (偶发黄叶)</option>
-          <option>会议室 双杆琴叶榕 (株型瘦弱)</option>
-          <option>**区 桌面多肉微景观 (长势减退)</option>
-        </select>
-
-        <div class="form-label">植株状态描述</div>
-        <textarea class="form-textarea" id="replace-desc" name="replace-desc" rows="2" placeholder="简要说明枯损现象，如底部叶片变黄、落叶等...">前台天堂鸟下方两片老叶自然泛黄，申请例行健康换新。</textarea>
-
-        <button class="btn btn-primary btn-block" onclick="submitPlantReplacement()">
+<div class="form-label">选择需要更换的植株</div>
+<select class="form-select" id="replace-plant-name" name="replace-plant-name">
+<option>前台 1.8米特级天堂鸟 (偶发黄叶)</option>
+<option>会议室 双杆琴叶榕 (株型瘦弱)</option>
+<option>**区 桌面多肉微景观 (长势减退)</option>
+</select>
+<div class="form-label">植株状态描述</div>
+<textarea class="form-textarea" id="replace-desc" name="replace-desc" placeholder="简要说明枯损现象，如底部叶片变黄、落叶等..." rows="2">前台天堂鸟下方两片老叶自然泛黄，申请例行健康换新。</textarea>
+<button class="btn btn-primary btn-block" onclick="submitPlantReplacement()">
           提交换新工单并安排上门
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 常用地址管理 ================= -->
-    <div class="modal-overlay" id="modal-address" onclick="handleBackdropClick(event, 'modal-address')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">常用收花地址管理</div>
-          <button class="close-btn" onclick="closeModal('modal-address')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        
-        <div class="card-sm" style="margin:0 0 8px 0;border:1.5px solid var(--color-primary);background:var(--color-primary-subtle);">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
-            <b style="font-size:12px;color:var(--color-text-title);">林*晨 (138**5621)</b>
-            <span class="badge badge-primary">当前默认</span>
-          </div>
-          <div style="font-size:11px;color:var(--color-text-muted);">
+</div>
+</div>
+<!-- ================= 模态弹窗: 常用地址管理 ================= -->
+<div class="modal-overlay" id="modal-address" onclick="handleBackdropClick(event, 'modal-address')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">常用收花地址管理</div>
+<button class="close-btn" onclick="closeModal('modal-address')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="card-sm" style="margin:0 0 8px 0;border:1.5px solid var(--color-primary);background:var(--color-primary-subtle);">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+<b style="font-size:12px;color:var(--color-text-title);">林*晨 (138**5621)</b>
+<span class="badge badge-primary">当前默认</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);">
             **路**号绿谷创新园B座402室
           </div>
-        </div>
-
-        <div class="card-sm" style="margin:0 0 12px 0;background:var(--color-bg-page);border:1px solid var(--color-border-light);">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
-            <b style="font-size:12px;color:var(--color-text-title);">周*涵 (159**8832)</b>
-            <button class="btn btn-outline" style="padding:2px 8px;font-size:9px;" onclick="showToast('已切换默认地址')">设为默认</button>
-          </div>
-          <div style="font-size:11px;color:var(--color-text-muted);">
+</div>
+<div class="card-sm" style="margin:0 0 12px 0;background:var(--color-bg-page);border:1px solid var(--color-border-light);">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+<b style="font-size:12px;color:var(--color-text-title);">周*涵 (159**8832)</b>
+<button class="btn btn-outline" onclick="showToast('已切换默认地址')" style="padding:2px 8px;font-size:9px;">设为默认</button>
+</div>
+<div style="font-size:11px;color:var(--color-text-muted);">
             **省**市**区**小区**号楼**单元**室
           </div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="showToast('已进入地址新增流程'); closeModal('modal-address');">
+</div>
+<button class="btn btn-primary btn-block" onclick="showToast('已进入地址新增流程'); closeModal('modal-address');">
           + 新增收花地址
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 发票管理 ================= -->
-    <div class="modal-overlay" id="modal-invoice" onclick="handleBackdropClick(event, 'modal-invoice')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">增值税发票抬头</div>
-          <button class="close-btn" onclick="closeModal('modal-invoice')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div class="card-sm" style="margin:0 0 10px 0;background:var(--color-bg-page);">
-          <div style="font-size:12px;font-weight:700;color:var(--color-text-title);">江城某**智能科技有限责任公司</div>
-          <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">
-            税号：91320192MA1**982<br>
+</div>
+</div>
+<!-- ================= 模态弹窗: 发票管理 ================= -->
+<div class="modal-overlay" id="modal-invoice" onclick="handleBackdropClick(event, 'modal-invoice')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">增值税发票抬头</div>
+<button class="close-btn" onclick="closeModal('modal-invoice')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="card-sm" style="margin:0 0 10px 0;background:var(--color-bg-page);">
+<div style="font-size:12px;font-weight:700;color:var(--color-text-title);">江城某**智能科技有限责任公司</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">
+            税号：91320192MA1**982<br/>
             开户行：江城发展银行高新支行
           </div>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="showToast('已发送电子发票至预留企业邮箱'); closeModal('modal-invoice');">
+</div>
+<button class="btn btn-primary btn-block" onclick="showToast('已发送电子发票至预留企业邮箱'); closeModal('modal-invoice');">
           申请开具近期月度租摆发票
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 养护指南 ================= -->
-    <div class="modal-overlay" id="modal-guide" onclick="handleBackdropClick(event, 'modal-guide')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">花艺与绿植养护常识</div>
-          <button class="close-btn" onclick="closeModal('modal-guide')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-        
-        <div style="max-height:220px;overflow-y:auto;font-size:11px;color:var(--color-text-body);line-height:1.6;">
-          <b style="color:var(--color-primary);">1. 鲜花到货后如何醒花？</b><br>
-          将根部 45 度角斜剪 2~3cm，摘除浸水叶片，插于配备保鲜剂的清水瓶中，静置阴凉处 3 小时充分饮水。<br><br>
-          <b style="color:var(--color-primary);">2. 室内办公绿植浇水原则？</b><br>
+</div>
+</div>
+<!-- ================= 模态弹窗: 养护指南 ================= -->
+<div class="modal-overlay" id="modal-guide" onclick="handleBackdropClick(event, 'modal-guide')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">花艺与绿植养护常识</div>
+<button class="close-btn" onclick="closeModal('modal-guide')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="max-height:220px;overflow-y:auto;font-size:11px;color:var(--color-text-body);line-height:1.6;">
+<b style="color:var(--color-primary);">1. 鲜花到货后如何醒花？</b><br/>
+          将根部 45 度角斜剪 2~3cm，摘除浸水叶片，插于配备保鲜剂的清水瓶中，静置阴凉处 3 小时充分饮水。<br/><br/>
+<b style="color:var(--color-primary);">2. 室内办公绿植浇水原则？</b><br/>
           “见干见湿，不干不浇”。每周专职园艺师上门检测土壤湿度，日常避免茶叶水等碱性液体倒入盆土中。
         </div>
-
-        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="closeModal('modal-guide')">
+<button class="btn btn-primary btn-block" onclick="closeModal('modal-guide')" style="margin-top:12px;">
           已知晓
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 模态弹窗: 在线客服 ================= -->
-    <div class="modal-overlay" id="modal-cs" onclick="handleBackdropClick(event, 'modal-cs')">
-      <div class="modal-card">
-        <div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
-          <div class="drawer-title">专属园艺**客服</div>
-          <button class="close-btn" onclick="closeModal('modal-cs')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <div style="background:var(--color-bg-page);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;font-size:11px;color:var(--color-text-body);line-height:1.5;">
-          <b>**鲜花绿植客服管家：</b><br>
+</div>
+</div>
+<!-- ================= 模态弹窗: 在线客服 ================= -->
+<div class="modal-overlay" id="modal-cs" onclick="handleBackdropClick(event, 'modal-cs')">
+<div class="modal-card">
+<div class="drawer-header" style="border-bottom:none;margin-bottom:8px;">
+<div class="drawer-title">专属园艺**客服</div>
+<button class="close-btn" onclick="closeModal('modal-cs')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div style="background:var(--color-bg-page);border-radius:var(--radius-md);padding:10px;margin-bottom:12px;font-size:11px;color:var(--color-text-body);line-height:1.5;">
+<b>**鲜花绿植客服管家：</b><br/>
           您好，**先生！我是您的专属养护**。请问有什么可以为您效劳？（鲜花配送、绿植巡检或换新均可为您即时处理）
         </div>
-
-        <div style="display:flex;gap:6px;">
-          <button class="btn btn-outline" style="flex:1;font-size:11px;" onclick="showToast('已拨通专线电话：400-880-9921')">
+<div style="display:flex;gap:6px;">
+<button class="btn btn-outline" onclick="showToast('已拨通专线电话：400-880-9921')" style="flex:1;font-size:11px;">
             拨打专属电话
           </button>
-          <button class="btn btn-primary" style="flex:1;font-size:11px;" onclick="showToast('已为您接通在线人工客服')">
+<button class="btn btn-primary" onclick="showToast('已为您接通在线人工客服')" style="flex:1;font-size:11px;">
             在线文字咨询
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 全局轻量 Toast 提示框 -->
-    <div class="toast-box" id="global-toast">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">操作已完成</span>
-    </div>
-
-  </div>
-
-  <script>
+</div>
+</div>
+</div>
+<!-- 全局轻量 Toast 提示框 -->
+<div class="toast-box" id="global-toast">
+<svg fill="none" height="15" stroke="#34D399" stroke-width="2.5" viewbox="0 0 24 24" width="15"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">操作已完成</span>
+</div>
+</div>
+<script>
     // ================= 全局状态管理 =================
     const AppState = {
       activeTab: 0,

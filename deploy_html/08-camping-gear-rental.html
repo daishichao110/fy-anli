@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>森野行者·户外装备营</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/app-client.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>森野行者·户外装备营</title>
+<link href="css/main.css" rel="stylesheet"/>
+<link href="css/app-client.css" rel="stylesheet"/>
 <style>
     /* ===== Mobile Universal Responsive Adaptation ===== */
     @media (max-width: 768px) {
@@ -112,371 +113,337 @@
       }
     }
 </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<div class="app-viewport-wrapper">
+<!-- 微信小程序真机外壳容器 -->
+<div class="mp-shell">
+<!-- 微信小程序系统状态栏 (iOS 拟真时间与信号) -->
 
+<!-- 顶部自定义导航条与微信官方胶囊 -->
 
-  <div class="app-viewport-wrapper">
-    <!-- 微信小程序真机外壳容器 -->
-    <div class="mp-shell">
-
-      <!-- 微信小程序系统状态栏 (iOS 拟真时间与信号) -->
-      <div class="mp-status-bar">
-        <span id="status-bar-time">09:41</span>
-        <div class="status-right">
-          <!-- 信号强度 -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h20L12 4z"/></svg>
-          <!-- Wi-Fi -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-          <!-- 电池 -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-        </div>
-      </div>
-
-      <!-- 顶部自定义导航条与微信官方胶囊 -->
-      <div class="mp-nav-bar">
-        <div class="mp-nav-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>森野行者·户外装备营</span>
-        </div>
-        <div class="mp-capsule">
-          <button class="mp-capsule-btn" onclick="app.openCapsuleMenu()" title="小程序选项">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-          </button>
-          <div class="mp-capsule-divider"></div>
-          <button class="mp-capsule-btn" onclick="app.store.showToast('已最小化到微信悬浮窗')" title="关闭或退出">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- 小程序主滚动容器 -->
-      <div class="mp-body">
-
-        <!-- Tab 0: 探索首页 (Home) -->
-        <div id="pane-home" class="mp-pane active">
-          <!-- 搜索与快捷推荐 -->
-          <div class="search-container">
-            <div class="search-input-box">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="text" id="search-input" placeholder="搜索黑胶天幕、户外电源、卡式炉...">
-            </div>
-            <div class="search-tags-row">
-              <span class="search-tag" onclick="app.store.setSearchKeyword('黑胶天幕');app.store.switchTab(1);">黑胶天幕</span>
-              <span class="search-tag" onclick="app.store.setSearchKeyword('卡式炉');app.store.switchTab(1);">卡式炉野炊</span>
-              <span class="search-tag" onclick="app.store.setSearchKeyword('户外电源');app.store.switchTab(1);">1000W移动电源</span>
-              <span class="search-tag" onclick="app.store.setSearchKeyword('蛋卷桌');app.store.switchTab(1);">折叠桌椅</span>
-            </div>
-          </div>
-
-          <!-- 租期快捷条 -->
-          <div class="rental-date-bar" onclick="app.openDateModal()">
-            <div class="rental-date-left">
-              <div class="rental-date-icon-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
-              </div>
-              <div class="rental-date-info" id="home-date-bar-info">
-                <!-- 由 JS 渲染已选起止日期 -->
-              </div>
-            </div>
-            <div class="rental-date-badge">修改档期 ›</div>
-          </div>
-
-          <!-- 芝麻信用免押金横幅 -->
-          <div class="trust-banner" onclick="app.openZhimaCreditModal()">
-            <div class="trust-banner-left">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
-              <span>芝麻信用 745 分 (享有 ¥5,000 免押额度)</span>
-            </div>
-            <span class="trust-banner-right">已免押金</span>
-          </div>
-
-          <!-- **区 5 大品类 -->
-          <div class="category-quick-grid" id="home-category-grid">
-            <!-- 由 JS 渲染 -->
-          </div>
-
-          <!-- 爆款营地套组 -->
-          <div id="home-hero-card-container">
-            <!-- 由 JS 渲染 -->
-          </div>
-
-          <!-- 热门单品精选 -->
-          <div style="font-size:14px;font-weight:800;color:var(--color-text-title);margin:16px 0 8px;display:flex;align-items:center;justify-content:space-between;">
-            <span>热门精选散租</span>
-            <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="app.store.switchTab(1)">查看全部 ›</span>
-          </div>
-          <div id="home-hot-list-container" style="display:flex;flex-direction:column;gap:10px;">
-            <!-- 由 JS 渲染 -->
-          </div>
-        </div>
-
-        <!-- Tab 1: 装备分类 (Categories) -->
-        <div id="pane-category" class="mp-pane">
-          <div class="category-split-layout">
-            <!-- 左侧垂直类目栏 -->
-            <div class="category-sidebar" id="category-sidebar">
-              <!-- 由 JS 渲染 -->
-            </div>
-
-            <!-- 右侧排序与商品网格 -->
-            <div class="category-main-content">
-              <div class="category-sort-bar">
-                <span class="sort-item active" onclick="app.store.setSortType('default')">综合排序</span>
-                <span class="sort-item" onclick="app.store.setSortType('price_asc')">日租金升序</span>
-                <span class="sort-item" onclick="app.store.setSortType('price_desc')">日租金降序</span>
-              </div>
-              <div id="category-product-list" style="display:flex;flex-direction:column;gap:10px;">
-                <!-- 由 JS 渲染 -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 2: 租赁清单 (Cart) -->
-        <div id="pane-cart" class="mp-pane">
-          <div id="cart-items-container" style="display:flex;flex-direction:column;gap:10px;">
-            <!-- 由 JS 渲染购物车项 -->
-          </div>
-          <div class="mp-card" id="cart-summary-card" style="margin-top:12px;">
-            <div id="cart-totals-box">
-              <!-- 由 JS 渲染结算明细与免押下单按钮 -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab 3: 订单中心 (Orders) -->
-        <div id="pane-orders" class="mp-pane">
-          <!-- 订单状态分类选项卡 -->
-          <div class="order-tabs-row" id="order-tabs-row">
-            <!-- 由 JS 渲染 -->
-          </div>
-          <div id="orders-list-container" style="display:flex;flex-direction:column;gap:12px;">
-            <!-- 由 JS 渲染各订单卡片 -->
-          </div>
-        </div>
-
-        <!-- Tab 4: 个人中心 (Profile) -->
-        <div id="pane-profile" class="mp-pane">
-          <!-- 用户个人卡片 -->
-          <div class="mp-card" id="profile-user-card" style="padding:16px;">
-            <!-- 由 JS 渲染 -->
-          </div>
-
-          <!-- 资产与优惠券 -->
-          <div class="mp-card" id="profile-assets-card" style="padding:12px;">
-            <!-- 由 JS 渲染 -->
-          </div>
-
-          <!-- 订单快捷入口 -->
-          <div class="mp-card" style="padding:12px 6px;">
-            <div style="font-size:12px;font-weight:800;color:var(--color-text-title);margin-bottom:10px;padding-left:8px;">
+<!-- 小程序主滚动容器 -->
+<div class="mp-body">
+<!-- Tab 0: 探索首页 (Home) -->
+<div class="mp-pane active" id="pane-home">
+<!-- 搜索与快捷推荐 -->
+<div class="search-container">
+<div class="search-input-box">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+<input id="search-input" placeholder="搜索黑胶天幕、户外电源、卡式炉..." type="text"/>
+</div>
+<div class="search-tags-row">
+<span class="search-tag" onclick="app.store.setSearchKeyword('黑胶天幕');app.store.switchTab(1);">黑胶天幕</span>
+<span class="search-tag" onclick="app.store.setSearchKeyword('卡式炉');app.store.switchTab(1);">卡式炉野炊</span>
+<span class="search-tag" onclick="app.store.setSearchKeyword('户外电源');app.store.switchTab(1);">1000W移动电源</span>
+<span class="search-tag" onclick="app.store.setSearchKeyword('蛋卷桌');app.store.switchTab(1);">折叠桌椅</span>
+</div>
+</div>
+<!-- 租期快捷条 -->
+<div class="rental-date-bar" onclick="app.openDateModal()">
+<div class="rental-date-left">
+<div class="rental-date-icon-box">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>
+</div>
+<div class="rental-date-info" id="home-date-bar-info">
+<!-- 由 JS 渲染已选起止日期 -->
+</div>
+</div>
+<div class="rental-date-badge">修改档期 ›</div>
+</div>
+<!-- 芝麻信用免押金横幅 -->
+<div class="trust-banner" onclick="app.openZhimaCreditModal()">
+<div class="trust-banner-left">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+<span>芝麻信用 745 分 (享有 ¥5,000 免押额度)</span>
+</div>
+<span class="trust-banner-right">已免押金</span>
+</div>
+<!-- **区 5 大品类 -->
+<div class="category-quick-grid" id="home-category-grid">
+<!-- 由 JS 渲染 -->
+</div>
+<!-- 爆款营地套组 -->
+<div id="home-hero-card-container">
+<!-- 由 JS 渲染 -->
+</div>
+<!-- 热门单品精选 -->
+<div style="font-size:14px;font-weight:800;color:var(--color-text-title);margin:16px 0 8px;display:flex;align-items:center;justify-content:space-between;">
+<span>热门精选散租</span>
+<span onclick="app.store.switchTab(1)" style="font-size:11px;color:var(--color-primary);cursor:pointer;">查看全部 ›</span>
+</div>
+<div id="home-hot-list-container" style="display:flex;flex-direction:column;gap:10px;">
+<!-- 由 JS 渲染 -->
+</div>
+</div>
+<!-- Tab 1: 装备分类 (Categories) -->
+<div class="mp-pane" id="pane-category">
+<div class="category-split-layout">
+<!-- 左侧垂直类目栏 -->
+<div class="category-sidebar" id="category-sidebar">
+<!-- 由 JS 渲染 -->
+</div>
+<!-- 右侧排序与商品网格 -->
+<div class="category-main-content">
+<div class="category-sort-bar">
+<span class="sort-item active" onclick="app.store.setSortType('default')">综合排序</span>
+<span class="sort-item" onclick="app.store.setSortType('price_asc')">日租金升序</span>
+<span class="sort-item" onclick="app.store.setSortType('price_desc')">日租金降序</span>
+</div>
+<div id="category-product-list" style="display:flex;flex-direction:column;gap:10px;">
+<!-- 由 JS 渲染 -->
+</div>
+</div>
+</div>
+</div>
+<!-- Tab 2: 租赁清单 (Cart) -->
+<div class="mp-pane" id="pane-cart">
+<div id="cart-items-container" style="display:flex;flex-direction:column;gap:10px;">
+<!-- 由 JS 渲染购物车项 -->
+</div>
+<div class="mp-card" id="cart-summary-card" style="margin-top:12px;">
+<div id="cart-totals-box">
+<!-- 由 JS 渲染结算明细与免押下单按钮 -->
+</div>
+</div>
+</div>
+<!-- Tab 3: 订单中心 (Orders) -->
+<div class="mp-pane" id="pane-orders">
+<!-- 订单状态分类选项卡 -->
+<div class="order-tabs-row" id="order-tabs-row">
+<!-- 由 JS 渲染 -->
+</div>
+<div id="orders-list-container" style="display:flex;flex-direction:column;gap:12px;">
+<!-- 由 JS 渲染各订单卡片 -->
+</div>
+</div>
+<!-- Tab 4: 个人中心 (Profile) -->
+<div class="mp-pane" id="pane-profile">
+<!-- 用户个人卡片 -->
+<div class="mp-card" id="profile-user-card" style="padding:16px;">
+<!-- 由 JS 渲染 -->
+</div>
+<!-- 资产与优惠券 -->
+<div class="mp-card" id="profile-assets-card" style="padding:12px;">
+<!-- 由 JS 渲染 -->
+</div>
+<!-- 订单快捷入口 -->
+<div class="mp-card" style="padding:12px 6px;">
+<div style="font-size:12px;font-weight:800;color:var(--color-text-title);margin-bottom:10px;padding-left:8px;">
               露营租赁订单看板
             </div>
-            <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:4px;text-align:center;">
-              <div style="cursor:pointer;" onclick="app.store.filterOrders('shipping');app.store.switchTab(3);">
-                <div style="color:var(--color-primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div>
-                <div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">待发货</div>
-              </div>
-              <div style="cursor:pointer;" onclick="app.store.filterOrders('renting');app.store.switchTab(3);">
-                <div style="color:var(--color-primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20 10 4"/><path d="m5 20 9-16"/><path d="M3 20h18"/><path d="m12 15-3 5"/><path d="m12 15 3 5"/></svg></div>
-                <div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">租用中</div>
-              </div>
-              <div style="cursor:pointer;" onclick="app.store.filterOrders('returning');app.store.switchTab(3);">
-                <div style="color:var(--color-primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
-                <div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">待归还</div>
-              </div>
-              <div style="cursor:pointer;" onclick="app.store.filterOrders('finished');app.store.switchTab(3);">
-                <div style="color:var(--color-primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>
-                <div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">已结单</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 服务与支持列表 -->
-          <div class="profile-service-list">
-            <div class="service-row-item" onclick="app.openAddressDrawer()">
-              <div class="service-row-left">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>收货与自提地址管理</span>
-              </div>
-              <div class="service-row-right">
-                <span>**旗舰仓</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-              </div>
-            </div>
-
-            <div class="service-row-item" onclick="app.openTutorialModal()">
-              <div class="service-row-left">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                <span>黑胶天幕 3分钟搭建视频指南</span>
-              </div>
-              <div class="service-row-right">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-              </div>
-            </div>
-
-            <div class="service-row-item" onclick="app.openRepairDrawer()">
-              <div class="service-row-left">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                <span>设备损坏报修 / 损耗责任申报</span>
-              </div>
-              <div class="service-row-right">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-              </div>
-            </div>
-
-            <div class="service-row-item" onclick="app.openCustomerServiceModal()">
-              <div class="service-row-left">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                <span>24h 露营急救 / 在线客服</span>
-              </div>
-              <div class="service-row-right">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 微信小程序标准 5 栏底部 TabBar -->
-      <div class="mp-tab-bar">
-        <div class="mp-tab-item active" onclick="app.store.switchTab(0)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>探索</span>
-        </div>
-        <div class="mp-tab-item" onclick="app.store.switchTab(1)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-          <span>分类</span>
-        </div>
-        <div class="mp-tab-item" onclick="app.store.switchTab(2)" style="position:relative;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span>租赁清单</span>
-          <span class="tab-badge" id="cart-tab-badge" style="display:none;">0</span>
-        </div>
-        <div class="mp-tab-item" onclick="app.store.switchTab(3)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-          <span>订单</span>
-        </div>
-        <div class="mp-tab-item" onclick="app.store.switchTab(4)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>我的</span>
-        </div>
-      </div>
-
-      <!-- ==================== 全局抽屉与弹窗遮罩层 ==================== -->
-
-      <!-- 1. 租期日历选择抽屉 -->
-      <div class="modal-overlay" id="date-modal">
-        <div class="modal-drawer">
-          <div class="drawer-header">
-            <span class="drawer-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:4px;text-align:center;">
+<div onclick="app.store.filterOrders('shipping');app.store.switchTab(3);" style="cursor:pointer;">
+<div style="color:var(--color-primary);"><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="17" cy="18" r="2"></circle><circle cx="7" cy="18" r="2"></circle></svg></div>
+<div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">待发货</div>
+</div>
+<div onclick="app.store.filterOrders('renting');app.store.switchTab(3);" style="cursor:pointer;">
+<div style="color:var(--color-primary);"><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M19 20 10 4"></path><path d="m5 20 9-16"></path><path d="M3 20h18"></path><path d="m12 15-3 5"></path><path d="m12 15 3 5"></path></svg></div>
+<div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">租用中</div>
+</div>
+<div onclick="app.store.filterOrders('returning');app.store.switchTab(3);" style="cursor:pointer;">
+<div style="color:var(--color-primary);"><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg></div>
+<div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">待归还</div>
+</div>
+<div onclick="app.store.filterOrders('finished');app.store.switchTab(3);" style="cursor:pointer;">
+<div style="color:var(--color-primary);"><svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg></div>
+<div style="font-size:11px;color:var(--color-text-main);margin-top:2px;">已结单</div>
+</div>
+</div>
+</div>
+<!-- 服务与支持列表 -->
+<div class="profile-service-list">
+<div class="service-row-item" onclick="app.openAddressDrawer()">
+<div class="service-row-left">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>收货与自提地址管理</span>
+</div>
+<div class="service-row-right">
+<span>**旗舰仓</span>
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="service-row-item" onclick="app.openTutorialModal()">
+<div class="service-row-left">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+<span>黑胶天幕 3分钟搭建视频指南</span>
+</div>
+<div class="service-row-right">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="service-row-item" onclick="app.openRepairDrawer()">
+<div class="service-row-left">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+<span>设备损坏报修 / 损耗责任申报</span>
+</div>
+<div class="service-row-right">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="service-row-item" onclick="app.openCustomerServiceModal()">
+<div class="service-row-left">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+<span>24h 露营急救 / 在线客服</span>
+</div>
+<div class="service-row-right">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 微信小程序标准 5 栏底部 TabBar -->
+<div class="mp-tab-bar">
+<div class="mp-tab-item active" onclick="app.store.switchTab(0)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span>探索</span>
+</div>
+<div class="mp-tab-item" onclick="app.store.switchTab(1)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg>
+<span>分类</span>
+</div>
+<div class="mp-tab-item" onclick="app.store.switchTab(2)" style="position:relative;">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+<span>租赁清单</span>
+<span class="tab-badge" id="cart-tab-badge" style="display:none;">0</span>
+</div>
+<div class="mp-tab-item" onclick="app.store.switchTab(3)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+<span>订单</span>
+</div>
+<div class="mp-tab-item" onclick="app.store.switchTab(4)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+</div>
+</div>
+<!-- ==================== 全局抽屉与弹窗遮罩层 ==================== -->
+<!-- 1. 租期日历选择抽屉 -->
+<div class="modal-overlay" id="date-modal">
+<div class="modal-drawer">
+<div class="drawer-header">
+<span class="drawer-title">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>
               选择露营租期档期
             </span>
-            <button class="drawer-close-btn" onclick="app.closeOverlay('date-modal')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-          </div>
-          <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:12px;">
+<button class="drawer-close-btn" onclick="app.closeOverlay('date-modal')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="font-size:12px;color:var(--color-text-muted);margin-bottom:12px;">
             露营租赁按天计费，我们为所有装备提供提前1天送达与快递上门取还的充裕缓冲期。
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
-            <button class="spec-chip highlight" style="padding:12px;text-align:left;font-size:13px;" onclick="app.selectDatePreset('weekend')">
-              <div style="font-weight:700;">本周末畅玩 2 天 (推荐)</div>
-              <div style="font-size:11px;color:var(--color-primary);margin-top:2px;">2026-09-05 至 2026-09-07 · 享受周末特惠</div>
-            </button>
-            <button class="spec-chip" style="padding:12px;text-align:left;font-size:13px;" onclick="app.selectDatePreset('next_weekend')">
-              <div style="font-weight:700;">下周末出行 2 天</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">2026-09-12 至 2026-09-14 · 锁定热门帐篷库存</div>
-            </button>
-            <button class="spec-chip" style="padding:12px;text-align:left;font-size:13px;" onclick="app.selectDatePreset('holiday')">
-              <div style="font-weight:700;">假期深度露营 3 天</div>
-              <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">2026-09-18 至 2026-09-21 · 赠送户外气罐</div>
-            </button>
-          </div>
-          <button class="btn-primary" style="width:100%;padding:12px;" onclick="app.closeOverlay('date-modal')">确定已选档期</button>
-        </div>
-      </div>
-
-      <!-- 2. 装备规格选配抽屉 -->
-      <div class="modal-overlay" id="spec-drawer">
-        <div class="modal-drawer">
-          <div class="drawer-header">
-            <span class="drawer-title">装备选配与借用明细</span>
-            <button class="drawer-close-btn" onclick="app.closeOverlay('spec-drawer')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-          </div>
-          <div id="spec-drawer-content">
-            <!-- 由 JS 渲染 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. 免押结算确认面板 (ActionSheet) -->
-      <div class="modal-overlay" id="checkout-sheet">
-        <div class="modal-drawer">
-          <div class="drawer-header">
-            <span class="drawer-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+<button class="spec-chip highlight" onclick="app.selectDatePreset('weekend')" style="padding:12px;text-align:left;font-size:13px;">
+<div style="font-weight:700;">本周末畅玩 2 天 (推荐)</div>
+<div style="font-size:11px;color:var(--color-primary);margin-top:2px;">2026-09-05 至 2026-09-07 · 享受周末特惠</div>
+</button>
+<button class="spec-chip" onclick="app.selectDatePreset('next_weekend')" style="padding:12px;text-align:left;font-size:13px;">
+<div style="font-weight:700;">下周末出行 2 天</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">2026-09-12 至 2026-09-14 · 锁定热门帐篷库存</div>
+</button>
+<button class="spec-chip" onclick="app.selectDatePreset('holiday')" style="padding:12px;text-align:left;font-size:13px;">
+<div style="font-weight:700;">假期深度露营 3 天</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">2026-09-18 至 2026-09-21 · 赠送户外气罐</div>
+</button>
+</div>
+<button class="btn-primary" onclick="app.closeOverlay('date-modal')" style="width:100%;padding:12px;">确定已选档期</button>
+</div>
+</div>
+<!-- 2. 装备规格选配抽屉 -->
+<div class="modal-overlay" id="spec-drawer">
+<div class="modal-drawer">
+<div class="drawer-header">
+<span class="drawer-title">装备选配与借用明细</span>
+<button class="drawer-close-btn" onclick="app.closeOverlay('spec-drawer')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div id="spec-drawer-content">
+<!-- 由 JS 渲染 -->
+</div>
+</div>
+</div>
+<!-- 3. 免押结算确认面板 (ActionSheet) -->
+<div class="modal-overlay" id="checkout-sheet">
+<div class="modal-drawer">
+<div class="drawer-header">
+<span class="drawer-title">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
               免押金预定确认
             </span>
-            <button class="drawer-close-btn" onclick="app.closeOverlay('checkout-sheet')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-          </div>
-          <div id="checkout-sheet-content">
-            <!-- 由 JS 渲染 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. 快递上门取件归还抽屉 -->
-      <div class="modal-overlay" id="return-drawer">
-        <div class="modal-drawer">
-          <div class="drawer-header">
-            <span class="drawer-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+<button class="drawer-close-btn" onclick="app.closeOverlay('checkout-sheet')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div id="checkout-sheet-content">
+<!-- 由 JS 渲染 -->
+</div>
+</div>
+</div>
+<!-- 4. 快递上门取件归还抽屉 -->
+<div class="modal-overlay" id="return-drawer">
+<div class="modal-drawer">
+<div class="drawer-header">
+<span class="drawer-title">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="17" cy="18" r="2"></circle><circle cx="7" cy="18" r="2"></circle></svg>
               预约快递上门取件归还
             </span>
-            <button class="drawer-close-btn" onclick="app.closeOverlay('return-drawer')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-          </div>
-          <div id="return-drawer-content">
-            <!-- 由 JS 渲染 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. 通用居中对话框 (用于核销凭证、物流、芝麻信用、搭建教程、报修、客服) -->
-      <div class="modal-overlay center-mode" id="center-modal">
-        <div class="modal-center-dialog">
-          <div id="extend-modal-content">
-            <!-- 由 JS 动态替换 -->
-          </div>
-        </div>
-      </div>
-
-      <!-- 全局轻提示 Toast -->
-      <div class="mp-toast" id="global-toast">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-        <span id="toast-text">操作成功</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 脚本引入 -->
-  <script src="js/mock-data.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/client-app.js"></script>
+<button class="drawer-close-btn" onclick="app.closeOverlay('return-drawer')">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div id="return-drawer-content">
+<!-- 由 JS 渲染 -->
+</div>
+</div>
+</div>
+<!-- 5. 通用居中对话框 (用于核销凭证、物流、芝麻信用、搭建教程、报修、客服) -->
+<div class="modal-overlay center-mode" id="center-modal">
+<div class="modal-center-dialog">
+<div id="extend-modal-content">
+<!-- 由 JS 动态替换 -->
+</div>
+</div>
+</div>
+<!-- 全局轻提示 Toast -->
+<div class="mp-toast" id="global-toast">
+<svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+<span id="toast-text">操作成功</span>
+</div>
+</div>
+</div>
+<!-- 脚本引入 -->
+<script src="js/mock-data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/client-app.js"></script>
 </body>
 </html>

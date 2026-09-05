@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>XX潮玩轰趴·无人沉浸剧本馆</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>XX潮玩轰趴·无人沉浸剧本馆</title>
+<style>
     :root {
       --bg-canvas: #090a0f;
       --bg-phone: #12141d;
@@ -971,549 +972,504 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- WeChat Mini-Program Container -->
+<div class="mp-container">
+<!-- Top Floating Toast Notification -->
+<div class="toast-capsule" id="toast">
+<svg fill="none" height="16" id="toast-icon" stroke="#f59e0b" stroke-width="2.5" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span id="toast-msg">操作成功</span>
+</div>
+<!-- WeChat Mini-Program Status Bar -->
 
+<!-- WeChat Mini-Program Navigation Bar -->
 
-  <!-- WeChat Mini-Program Container -->
-  <div class="mp-container">
-
-    <!-- Top Floating Toast Notification -->
-    <div id="toast" class="toast-capsule">
-      <svg id="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span id="toast-msg">操作成功</span>
-    </div>
-
-    <!-- WeChat Mini-Program Status Bar -->
-    <div class="status-bar">
-      <span id="clock-display">21:40</span>
-      <div class="status-icons">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="11" x2="23" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- WeChat Mini-Program Navigation Bar -->
-    <div class="nav-bar">
-      <div class="store-badge" id="btn-switch-store" onclick="openStoreSelector()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span id="current-store-name">XX商圈旗舰店</span>
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
-      </div>
-      <div class="capsule-btn" onclick="showToast('已进入小程序官方安全运行环境', 'info')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><circle cx="5" cy="12" r="3"/></svg>
-        <div class="capsule-sep"></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
-      </div>
-    </div>
-
-    <!-- Main Scrollable Body -->
-    <div class="mp-body">
-
-      <!-- ==================== TAB 1: 包厢选订 ==================== -->
-      <div id="pane-rooms" class="view-pane active">
-        <!-- Store Address Strip -->
-        <div class="store-info-box">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:14px;font-weight:800;color:var(--text-primary);" id="banner-store-title">XX潮玩轰趴·无人沉浸剧本馆 (XX商圈旗舰店)</div>
-              <div style="display:flex;gap:6px;margin-top:5px;">
-                <span class="tag tag-amber">24H营业</span>
-                <span class="tag tag-green">智能物联</span>
-                <span class="tag tag-blue">免押畅玩</span>
-              </div>
-            </div>
-            <button class="btn-secondary btn-sm" onclick="showStoreDetailModal()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+<!-- Main Scrollable Body -->
+<div class="mp-body">
+<!-- ==================== TAB 1: 包厢选订 ==================== -->
+<div class="view-pane active" id="pane-rooms">
+<!-- Store Address Strip -->
+<div class="store-info-box">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<div id="banner-store-title" style="font-size:14px;font-weight:800;color:var(--text-primary);">XX潮玩轰趴·无人沉浸剧本馆 (XX商圈旗舰店)</div>
+<div style="display:flex;gap:6px;margin-top:5px;">
+<span class="tag tag-amber">24H营业</span>
+<span class="tag tag-green">智能物联</span>
+<span class="tag tag-blue">免押畅玩</span>
+</div>
+</div>
+<button class="btn-secondary btn-sm" onclick="showStoreDetailModal()">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
               门店详情
             </button>
-          </div>
-          <div class="store-address-row">
-            <span id="banner-store-address"**路**号XX大厦3层</span>
-            <span style="color:var(--color-primary);cursor:pointer;display:inline-flex;align-items:center;gap:3px;" onclick="showToast('已复制门店详细导航指引', 'success')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+</div>
+<div class="store-address-row">
+<span **路**号xx大厦3层<="" id="banner-store-address" span="">
+<span onclick="showToast('已复制门店详细导航指引', 'success')" style="color:var(--color-primary);cursor:pointer;display:inline-flex;align-items:center;gap:3px;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
               复制指引
             </span>
-          </div>
-        </div>
-
-        <!-- Time Slot Pills -->
-        <div style="margin-bottom:8px;font-size:12px;font-weight:700;color:var(--text-secondary);display:flex;justify-content:space-between;align-items:center;">
-          <span>预订时段模式</span>
-          <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="showToast('今日各场次均支持提早30分钟进场准备', 'info')">预约规则说明</span>
-        </div>
-        <div class="scroll-row">
-          <div class="chip active" data-slot="all" onclick="filterSlot(this, 'all')">全部时段</div>
-          <div class="chip" data-slot="morning" onclick="filterSlot(this, 'morning')">早鸟特惠 09:00-13:00</div>
-          <div class="chip" data-slot="afternoon" onclick="filterSlot(this, 'afternoon')">下午欢乐 13:30-18:00</div>
-          <div class="chip" data-slot="night" onclick="filterSlot(this, 'night')">黄金晚场 18:30-23:30</div>
-          <div class="chip" data-slot="overnight" onclick="filterSlot(this, 'overnight')">通宵狂欢 00:00-08:00</div>
-        </div>
-
-        <!-- Room Type Filter Chips -->
-        <div class="scroll-row" style="margin-bottom:12px;">
-          <div class="chip active" data-roomtype="all" onclick="filterRoomType(this, 'all')">全部包厢 (4)</div>
-          <div class="chip" data-roomtype="gufeng" onclick="filterRoomType(this, 'gufeng')">沉浸剧场</div>
-          <div class="chip" data-roomtype="cyber" onclick="filterRoomType(this, 'cyber')">赛博推理舱</div>
-          <div class="chip" data-roomtype="party" onclick="filterRoomType(this, 'party')">巨幕轰趴大厅</div>
-          <div class="chip" data-roomtype="lounge" onclick="filterRoomType(this, 'lounge')">微醺私语小包</div>
-        </div>
-
-        <!-- Rooms List -->
-        <div id="rooms-list-container">
-          <!-- Dynamically injected via JS -->
-        </div>
-      </div>
-
-      <!-- ==================== TAB 2: 剧本大厅 ==================== -->
-      <div id="pane-scripts" class="view-pane">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <div>
-            <div style="font-size:16px;font-weight:800;color:var(--text-primary);">沉浸剧本库</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">精选脱敏推理剧本 · 支持一键发起组局拼车</div>
-          </div>
-          <button class="btn-secondary btn-sm" onclick="showToast('已更新本周剧本热度榜单', 'success')">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+</span></div>
+</div>
+<!-- Time Slot Pills -->
+<div style="margin-bottom:8px;font-size:12px;font-weight:700;color:var(--text-secondary);display:flex;justify-content:space-between;align-items:center;">
+<span>预订时段模式</span>
+<span onclick="showToast('今日各场次均支持提早30分钟进场准备', 'info')" style="font-size:11px;color:var(--color-primary);cursor:pointer;">预约规则说明</span>
+</div>
+<div class="scroll-row">
+<div class="chip active" data-slot="all" onclick="filterSlot(this, 'all')">全部时段</div>
+<div class="chip" data-slot="morning" onclick="filterSlot(this, 'morning')">早鸟特惠 09:00-13:00</div>
+<div class="chip" data-slot="afternoon" onclick="filterSlot(this, 'afternoon')">下午欢乐 13:30-18:00</div>
+<div class="chip" data-slot="night" onclick="filterSlot(this, 'night')">黄金晚场 18:30-23:30</div>
+<div class="chip" data-slot="overnight" onclick="filterSlot(this, 'overnight')">通宵狂欢 00:00-08:00</div>
+</div>
+<!-- Room Type Filter Chips -->
+<div class="scroll-row" style="margin-bottom:12px;">
+<div class="chip active" data-roomtype="all" onclick="filterRoomType(this, 'all')">全部包厢 (4)</div>
+<div class="chip" data-roomtype="gufeng" onclick="filterRoomType(this, 'gufeng')">沉浸剧场</div>
+<div class="chip" data-roomtype="cyber" onclick="filterRoomType(this, 'cyber')">赛博推理舱</div>
+<div class="chip" data-roomtype="party" onclick="filterRoomType(this, 'party')">巨幕轰趴大厅</div>
+<div class="chip" data-roomtype="lounge" onclick="filterRoomType(this, 'lounge')">微醺私语小包</div>
+</div>
+<!-- Rooms List -->
+<div id="rooms-list-container">
+<!-- Dynamically injected via JS -->
+</div>
+</div>
+<!-- ==================== TAB 2: 剧本大厅 ==================== -->
+<div class="view-pane" id="pane-scripts">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+<div>
+<div style="font-size:16px;font-weight:800;color:var(--text-primary);">沉浸剧本库</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">精选脱敏推理剧本 · 支持一键发起组局拼车</div>
+</div>
+<button class="btn-secondary btn-sm" onclick="showToast('已更新本周剧本热度榜单', 'success')">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
             热度榜
           </button>
-        </div>
-
-        <!-- Script Genre Chips -->
-        <div class="scroll-row">
-          <div class="chip active" data-genre="all" onclick="filterScriptGenre(this, 'all')">全部题材</div>
-          <div class="chip" data-genre="推理" onclick="filterScriptGenre(this, '推理')">硬核推理</div>
-          <div class="chip" data-genre="悬疑" onclick="filterScriptGenre(this, '悬疑')">悬疑惊悚</div>
-          <div class="chip" data-genre="情感" onclick="filterScriptGenre(this, '情感')">情感沉浸</div>
-          <div class="chip" data-genre="机制" onclick="filterScriptGenre(this, '机制')">阵营机制</div>
-          <div class="chip" data-genre="微醺" onclick="filterScriptGenre(this, '微醺')">微醺私语</div>
-        </div>
-
-        <!-- Script Player Filter -->
-        <div class="scroll-row" style="margin-bottom:12px;">
-          <div class="chip active" data-player="all" onclick="filterScriptPlayer(this, 'all')">全部人数</div>
-          <div class="chip" data-player="5" onclick="filterScriptPlayer(this, '5')">5人本</div>
-          <div class="chip" data-player="6" onclick="filterScriptPlayer(this, '6')">6人本</div>
-          <div class="chip" data-player="7" onclick="filterScriptPlayer(this, '7')">7人本</div>
-          <div class="chip" data-player="8" onclick="filterScriptPlayer(this, '8')">8人本</div>
-        </div>
-
-        <!-- Scripts List -->
-        <div id="scripts-list-container">
-          <!-- Dynamically injected via JS -->
-        </div>
-      </div>
-
-      <!-- ==================== TAB 3: 组局拼车 ==================== -->
-      <div id="pane-carpool" class="view-pane">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <div>
-            <div style="font-size:16px;font-weight:800;color:var(--text-primary);">组局拼车大厅</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">在线锁定角色 · 满员自动锁房</div>
-          </div>
-          <button class="btn-primary btn-sm" onclick="openCreateCarpoolModal()">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</div>
+<!-- Script Genre Chips -->
+<div class="scroll-row">
+<div class="chip active" data-genre="all" onclick="filterScriptGenre(this, 'all')">全部题材</div>
+<div class="chip" data-genre="推理" onclick="filterScriptGenre(this, '推理')">硬核推理</div>
+<div class="chip" data-genre="悬疑" onclick="filterScriptGenre(this, '悬疑')">悬疑惊悚</div>
+<div class="chip" data-genre="情感" onclick="filterScriptGenre(this, '情感')">情感沉浸</div>
+<div class="chip" data-genre="机制" onclick="filterScriptGenre(this, '机制')">阵营机制</div>
+<div class="chip" data-genre="微醺" onclick="filterScriptGenre(this, '微醺')">微醺私语</div>
+</div>
+<!-- Script Player Filter -->
+<div class="scroll-row" style="margin-bottom:12px;">
+<div class="chip active" data-player="all" onclick="filterScriptPlayer(this, 'all')">全部人数</div>
+<div class="chip" data-player="5" onclick="filterScriptPlayer(this, '5')">5人本</div>
+<div class="chip" data-player="6" onclick="filterScriptPlayer(this, '6')">6人本</div>
+<div class="chip" data-player="7" onclick="filterScriptPlayer(this, '7')">7人本</div>
+<div class="chip" data-player="8" onclick="filterScriptPlayer(this, '8')">8人本</div>
+</div>
+<!-- Scripts List -->
+<div id="scripts-list-container">
+<!-- Dynamically injected via JS -->
+</div>
+</div>
+<!-- ==================== TAB 3: 组局拼车 ==================== -->
+<div class="view-pane" id="pane-carpool">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+<div>
+<div style="font-size:16px;font-weight:800;color:var(--text-primary);">组局拼车大厅</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">在线锁定角色 · 满员自动锁房</div>
+</div>
+<button class="btn-primary btn-sm" onclick="openCreateCarpoolModal()">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
             发起新拼车
           </button>
-        </div>
-
-        <!-- Carpool Filter Chips -->
-        <div class="scroll-row" style="margin-bottom:12px;">
-          <div class="chip active" data-cpstatus="all" onclick="filterCarpool(this, 'all')">全部车次 (4)</div>
-          <div class="chip" data-cpstatus="recruiting" onclick="filterCarpool(this, 'recruiting')">正在招募 (3)</div>
-          <div class="chip" data-cpstatus="full" onclick="filterCarpool(this, 'full')">已满员待发 (1)</div>
-        </div>
-
-        <!-- Carpools List -->
-        <div id="carpools-list-container">
-          <!-- Dynamically injected via JS -->
-        </div>
-      </div>
-
-      <!-- ==================== TAB 4: 无人智控 ==================== -->
-      <div id="pane-iot" class="view-pane">
-        <!-- Active Room Header Card -->
-        <div class="iot-header">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <span class="tag tag-green">当前正在使用</span>
-              <div style="font-size:16px;font-weight:800;margin-top:6px;" id="iot-room-name">XX古风沉浸剧场</div>
-              <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;" id="iot-store-name">XX商圈旗舰店 · 包厢01</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:10px;color:var(--text-secondary);">使用倒计时</div>
-              <div style="font-size:16px;font-weight:800;color:var(--color-primary);font-family:monospace;margin-top:2px;" id="iot-countdown">03:27:54</div>
-            </div>
-          </div>
-
-          <!-- Dynamic Door Passcode -->
-          <div class="passcode-box">
-            <div>
-              <div style="font-size:10px;color:var(--text-secondary);">智能门禁动态密码 (每分钟刷新)</div>
-              <div class="passcode-val" id="iot-passcode">839215</div>
-            </div>
-            <button class="btn-secondary btn-sm" onclick="copyPasscode()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+</div>
+<!-- Carpool Filter Chips -->
+<div class="scroll-row" style="margin-bottom:12px;">
+<div class="chip active" data-cpstatus="all" onclick="filterCarpool(this, 'all')">全部车次 (4)</div>
+<div class="chip" data-cpstatus="recruiting" onclick="filterCarpool(this, 'recruiting')">正在招募 (3)</div>
+<div class="chip" data-cpstatus="full" onclick="filterCarpool(this, 'full')">已满员待发 (1)</div>
+</div>
+<!-- Carpools List -->
+<div id="carpools-list-container">
+<!-- Dynamically injected via JS -->
+</div>
+</div>
+<!-- ==================== TAB 4: 无人智控 ==================== -->
+<div class="view-pane" id="pane-iot">
+<!-- Active Room Header Card -->
+<div class="iot-header">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<span class="tag tag-green">当前正在使用</span>
+<div id="iot-room-name" style="font-size:16px;font-weight:800;margin-top:6px;">XX古风沉浸剧场</div>
+<div id="iot-store-name" style="font-size:11px;color:var(--text-secondary);margin-top:2px;">XX商圈旗舰店 · 包厢01</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:10px;color:var(--text-secondary);">使用倒计时</div>
+<div id="iot-countdown" style="font-size:16px;font-weight:800;color:var(--color-primary);font-family:monospace;margin-top:2px;">03:27:54</div>
+</div>
+</div>
+<!-- Dynamic Door Passcode -->
+<div class="passcode-box">
+<div>
+<div style="font-size:10px;color:var(--text-secondary);">智能门禁动态密码 (每分钟刷新)</div>
+<div class="passcode-val" id="iot-passcode">839215</div>
+</div>
+<button class="btn-secondary btn-sm" onclick="copyPasscode()">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
               复制密码
             </button>
-          </div>
-
-          <!-- Giant Remote Unlock Pulse Button -->
-          <div class="unlock-btn-container">
-            <button id="btn-remote-unlock" class="unlock-pulse-btn" onclick="triggerRemoteUnlock()">
-              <svg id="unlock-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span id="unlock-label">一键远程开门解锁</span>
-            </button>
-            <span style="font-size:10px;color:var(--text-muted);margin-top:6px;" id="unlock-subtext">如遇门锁未弹开，可在门禁面板直接输入上方6位密码</span>
-          </div>
-        </div>
-
-        <!-- 6 Lighting & Atmosphere Modes -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+</div>
+<!-- Giant Remote Unlock Pulse Button -->
+<div class="unlock-btn-container">
+<button class="unlock-pulse-btn" id="btn-remote-unlock" onclick="triggerRemoteUnlock()">
+<svg fill="none" height="20" id="unlock-icon" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+<span id="unlock-label">一键远程开门解锁</span>
+</button>
+<span id="unlock-subtext" style="font-size:10px;color:var(--text-muted);margin-top:6px;">如遇门锁未弹开，可在门禁面板直接输入上方6位密码</span>
+</div>
+</div>
+<!-- 6 Lighting & Atmosphere Modes -->
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<svg fill="none" height="16" stroke="#f59e0b" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
               全屋声光电氛围联动
             </div>
-            <span class="tag tag-amber" id="current-scene-tag">当前：剧本推理</span>
-          </div>
-          <div class="scene-grid">
-            <div class="scene-pill active" onclick="switchScene(this, 'reasoning', '剧本推理')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">剧本推理</div>
-                <div style="font-size:10px;color:var(--text-muted);">柔和聚焦白光</div>
-              </div>
-            </div>
-
-            <div class="scene-pill" onclick="switchScene(this, 'mystery', '沉浸悬疑')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M12 6v6l4 2"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">沉浸悬疑</div>
-                <div style="font-size:10px;color:var(--text-muted);">幽蓝弱光低音</div>
-              </div>
-            </div>
-
-            <div class="scene-pill" onclick="switchScene(this, 'ktv', 'KTV狂欢')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">KTV狂欢</div>
-                <div style="font-size:10px;color:var(--text-muted);">RGB律动音响开</div>
-              </div>
-            </div>
-
-            <div class="scene-pill" onclick="switchScene(this, 'cinema', '巨幕影院')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="15" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">巨幕影院</div>
-                <div style="font-size:10px;color:var(--text-muted);">熄灯降幕布</div>
-              </div>
-            </div>
-
-            <div class="scene-pill" onclick="switchScene(this, 'bright', '聚会明亮')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">聚会明亮</div>
-                <div style="font-size:10px;color:var(--text-muted);">全开3000K暖光</div>
-              </div>
-            </div>
-
-            <div class="scene-pill" onclick="switchScene(this, 'clean', '离场清洁')">
-              <div class="scene-pill-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 12 5-5-4-4-5 5"/><path d="m9 18-5 5 4 4 5-5"/><path d="M14.5 17.5 7 10"/></svg>
-              </div>
-              <div>
-                <div style="font-size:12px;font-weight:700;">离场清洁</div>
-                <div style="font-size:10px;color:var(--text-muted);">高亮查漏退房</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hardware Micro-Controls -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+<span class="tag tag-amber" id="current-scene-tag">当前：剧本推理</span>
+</div>
+<div class="scene-grid">
+<div class="scene-pill active" onclick="switchScene(this, 'reasoning', '剧本推理')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">剧本推理</div>
+<div style="font-size:10px;color:var(--text-muted);">柔和聚焦白光</div>
+</div>
+</div>
+<div class="scene-pill" onclick="switchScene(this, 'mystery', '沉浸悬疑')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"></path><path d="M12 6v6l4 2"></path></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">沉浸悬疑</div>
+<div style="font-size:10px;color:var(--text-muted);">幽蓝弱光低音</div>
+</div>
+</div>
+<div class="scene-pill" onclick="switchScene(this, 'ktv', 'KTV狂欢')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">KTV狂欢</div>
+<div style="font-size:10px;color:var(--text-muted);">RGB律动音响开</div>
+</div>
+</div>
+<div class="scene-pill" onclick="switchScene(this, 'cinema', '巨幕影院')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="15" rx="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">巨幕影院</div>
+<div style="font-size:10px;color:var(--text-muted);">熄灯降幕布</div>
+</div>
+</div>
+<div class="scene-pill" onclick="switchScene(this, 'bright', '聚会明亮')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">聚会明亮</div>
+<div style="font-size:10px;color:var(--text-muted);">全开3000K暖光</div>
+</div>
+</div>
+<div class="scene-pill" onclick="switchScene(this, 'clean', '离场清洁')">
+<div class="scene-pill-icon">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="m15 12 5-5-4-4-5 5"></path><path d="m9 18-5 5 4 4 5-5"></path><path d="M14.5 17.5 7 10"></path></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:700;">离场清洁</div>
+<div style="font-size:10px;color:var(--text-muted);">高亮查漏退房</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Hardware Micro-Controls -->
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<svg fill="none" height="16" stroke="#6366f1" stroke-width="2.5" viewbox="0 0 24 24" width="16"><line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line><line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line><line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line><line x1="1" x2="7" y1="14" y2="14"></line><line x1="9" x2="15" y1="8" y2="8"></line><line x1="17" x2="23" y1="16" y2="16"></line></svg>
               空间硬件微调
             </div>
-            <span style="font-size:11px;color:var(--text-muted);">实时联动下发</span>
-          </div>
-
-          <!-- AC Temp -->
-          <div class="device-row">
-            <div>
-              <div style="font-size:13px;font-weight:600;">中央空调温控</div>
-              <div style="font-size:11px;color:var(--text-muted);" id="ac-status-text">制冷运行中 · 风速适中</div>
-            </div>
-            <div class="stepper">
-              <div class="stepper-btn" onclick="adjustAc(-1)">-</div>
-              <span style="font-size:14px;font-weight:800;color:var(--color-primary);min-width:32px;text-align:center;" id="ac-temp-val">24°C</span>
-              <div class="stepper-btn" onclick="adjustAc(1)">+</div>
-              <div class="switch-toggle on" id="ac-power-toggle" onclick="toggleAcPower()">
-                <div class="switch-handle"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Fan Ventilation -->
-          <div class="device-row">
-            <div>
-              <div style="font-size:13px;font-weight:600;">智能新风排气</div>
-              <div style="font-size:11px;color:var(--text-muted);">空气循环与除味净化</div>
-            </div>
-            <div class="chip active" id="btn-fan-speed" onclick="cycleFanSpeed()">强档循环</div>
-          </div>
-
-          <!-- Screen Curtain -->
-          <div class="device-row">
-            <div>
-              <div style="font-size:13px;font-weight:600;">电动全景幕布</div>
-              <div style="font-size:11px;color:var(--text-muted);" id="curtain-text">状态：升起收起</div>
-            </div>
-            <button class="btn-secondary btn-sm" id="btn-toggle-curtain" onclick="toggleCurtain()">降下幕布</button>
-          </div>
-        </div>
-
-        <!-- Electronic DM Assistant -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<span style="font-size:11px;color:var(--text-muted);">实时联动下发</span>
+</div>
+<!-- AC Temp -->
+<div class="device-row">
+<div>
+<div style="font-size:13px;font-weight:600;">中央空调温控</div>
+<div id="ac-status-text" style="font-size:11px;color:var(--text-muted);">制冷运行中 · 风速适中</div>
+</div>
+<div class="stepper">
+<div class="stepper-btn" onclick="adjustAc(-1)">-</div>
+<span id="ac-temp-val" style="font-size:14px;font-weight:800;color:var(--color-primary);min-width:32px;text-align:center;">24°C</span>
+<div class="stepper-btn" onclick="adjustAc(1)">+</div>
+<div class="switch-toggle on" id="ac-power-toggle" onclick="toggleAcPower()">
+<div class="switch-handle"></div>
+</div>
+</div>
+</div>
+<!-- Fan Ventilation -->
+<div class="device-row">
+<div>
+<div style="font-size:13px;font-weight:600;">智能新风排气</div>
+<div style="font-size:11px;color:var(--text-muted);">空气循环与除味净化</div>
+</div>
+<div class="chip active" id="btn-fan-speed" onclick="cycleFanSpeed()">强档循环</div>
+</div>
+<!-- Screen Curtain -->
+<div class="device-row">
+<div>
+<div style="font-size:13px;font-weight:600;">电动全景幕布</div>
+<div id="curtain-text" style="font-size:11px;color:var(--text-muted);">状态：升起收起</div>
+</div>
+<button class="btn-secondary btn-sm" id="btn-toggle-curtain" onclick="toggleCurtain()">降下幕布</button>
+</div>
+</div>
+<!-- Electronic DM Assistant -->
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<svg fill="none" height="16" stroke="#10b981" stroke-width="2.5" viewbox="0 0 24 24" width="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
               电子DM流程与线索下发
             </div>
-            <span class="tag tag-green" onclick="showToast('已切换至下一幕背景音效', 'success')">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+<span class="tag tag-green" onclick="showToast('已切换至下一幕背景音效', 'success')">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="10"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
               BGM播放中
             </span>
-          </div>
-
-          <!-- DM Stepper -->
-          <div class="dm-stepper">
-            <div class="dm-step-item" onclick="setDmStep(1)">
-              <div class="dm-step-circle">1</div>
-              <div class="dm-step-text">开幕读本</div>
-            </div>
-            <div class="dm-step-item active" onclick="setDmStep(2)">
-              <div class="dm-step-circle">2</div>
-              <div class="dm-step-text">搜证公聊</div>
-            </div>
-            <div class="dm-step-item" onclick="setDmStep(3)">
-              <div class="dm-step-circle">3</div>
-              <div class="dm-step-text">私聊对线</div>
-            </div>
-            <div class="dm-step-item" onclick="setDmStep(4)">
-              <div class="dm-step-circle">4</div>
-              <div class="dm-step-text">投票决案</div>
-            </div>
-          </div>
-
-          <div style="display:flex;gap:8px;margin-top:10px;">
-            <button class="btn-secondary" style="flex:1;" onclick="openCluesDrawer()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
+</div>
+<!-- DM Stepper -->
+<div class="dm-stepper">
+<div class="dm-step-item" onclick="setDmStep(1)">
+<div class="dm-step-circle">1</div>
+<div class="dm-step-text">开幕读本</div>
+</div>
+<div class="dm-step-item active" onclick="setDmStep(2)">
+<div class="dm-step-circle">2</div>
+<div class="dm-step-text">搜证公聊</div>
+</div>
+<div class="dm-step-item" onclick="setDmStep(3)">
+<div class="dm-step-circle">3</div>
+<div class="dm-step-text">私聊对线</div>
+</div>
+<div class="dm-step-item" onclick="setDmStep(4)">
+<div class="dm-step-circle">4</div>
+<div class="dm-step-text">投票决案</div>
+</div>
+</div>
+<div style="display:flex;gap:8px;margin-top:10px;">
+<button class="btn-secondary" onclick="openCluesDrawer()" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="13"><rect height="18" rx="2" width="18" x="3" y="3"></rect><path d="M7 7h10"></path><path d="M7 12h10"></path><path d="M7 17h10"></path></svg>
               查看公共线索卡 (5)
             </button>
-            <button class="btn-secondary" style="flex:1;" onclick="showToast('已向所有探员手机广播搜证警报', 'info')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+<button class="btn-secondary" onclick="showToast('已向所有探员手机广播搜证警报', 'info')" style="flex:1;">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
               全员搜证播报
             </button>
-          </div>
-        </div>
-
-        <!-- In-Room Service Bar -->
-        <div style="display:flex;gap:10px;margin-bottom:12px;">
-          <button class="btn-primary" style="flex:1;padding:12px;" onclick="openAddTimeModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+</div>
+</div>
+<!-- In-Room Service Bar -->
+<div style="display:flex;gap:10px;margin-bottom:12px;">
+<button class="btn-primary" onclick="openAddTimeModal()" style="flex:1;padding:12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             加钟续时申请
           </button>
-          <button class="btn-secondary" style="flex:1;padding:12px;" onclick="openCallHelpModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+<button class="btn-secondary" onclick="openCallHelpModal()" style="flex:1;padding:12px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
             呼叫云端管家
           </button>
-        </div>
-      </div>
-
-      <!-- ==================== TAB 5: 个人中心 ==================== -->
-      <div id="pane-profile" class="view-pane">
-        <!-- Profile Card -->
-        <div class="profile-card">
-          <div class="profile-avatar">顾</div>
-          <div style="flex:1;">
-            <div style="display:flex;align-items:center;gap:6px;">
-              <span style="font-size:16px;font-weight:800;color:var(--text-primary);">探员·顾XX</span>
-              <span class="tag tag-amber">黄金大侦探 Lv.4</span>
-            </div>
-            <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">138**8899</div>
-          </div>
-          <button class="btn-secondary btn-sm" onclick="showToast('探员实名安全凭证已核验有效', 'success')">已实名</button>
-        </div>
-
-        <!-- Assets Matrix -->
-        <div class="assets-grid">
-          <div class="asset-box" onclick="showToast('账户储值余额：¥280.00', 'info')">
-            <div style="font-size:10px;color:var(--text-muted);">储值金库</div>
-            <div style="font-size:16px;font-weight:800;color:var(--color-primary);margin-top:3px;">¥280.00</div>
-          </div>
-          <div class="asset-box" onclick="openCouponsDrawer()">
-            <div style="font-size:10px;color:var(--text-muted);">可用优惠券</div>
-            <div style="font-size:16px;font-weight:800;color:var(--color-success);margin-top:3px;">3 张</div>
-          </div>
-          <div class="asset-box" onclick="showToast('当前推理积分：1,240点，可兑换加钟时长', 'info')">
-            <div style="font-size:10px;color:var(--text-muted);">推理积分</div>
-            <div style="font-size:16px;font-weight:800;color:var(--color-accent);margin-top:3px;">1,240</div>
-          </div>
-        </div>
-
-        <!-- Badges Card -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+</div>
+</div>
+<!-- ==================== TAB 5: 个人中心 ==================== -->
+<div class="view-pane" id="pane-profile">
+<!-- Profile Card -->
+<div class="profile-card">
+<div class="profile-avatar">顾</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:16px;font-weight:800;color:var(--text-primary);">探员·顾XX</span>
+<span class="tag tag-amber">黄金大侦探 Lv.4</span>
+</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">138**8899</div>
+</div>
+<button class="btn-secondary btn-sm" onclick="showToast('探员实名安全凭证已核验有效', 'success')">已实名</button>
+</div>
+<!-- Assets Matrix -->
+<div class="assets-grid">
+<div class="asset-box" onclick="showToast('账户储值余额：¥280.00', 'info')">
+<div style="font-size:10px;color:var(--text-muted);">储值金库</div>
+<div style="font-size:16px;font-weight:800;color:var(--color-primary);margin-top:3px;">¥280.00</div>
+</div>
+<div class="asset-box" onclick="openCouponsDrawer()">
+<div style="font-size:10px;color:var(--text-muted);">可用优惠券</div>
+<div style="font-size:16px;font-weight:800;color:var(--color-success);margin-top:3px;">3 张</div>
+</div>
+<div class="asset-box" onclick="showToast('当前推理积分：1,240点，可兑换加钟时长', 'info')">
+<div style="font-size:10px;color:var(--text-muted);">推理积分</div>
+<div style="font-size:16px;font-weight:800;color:var(--color-accent);margin-top:3px;">1,240</div>
+</div>
+</div>
+<!-- Badges Card -->
+<div class="card">
+<div class="card-header">
+<div class="card-title">
+<svg fill="none" height="16" stroke="#f59e0b" stroke-width="2.5" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
               探员成就徽章
             </div>
-            <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="showToast('已点亮 4 枚核心荣誉徽章', 'info')">查看全部</span>
-          </div>
-          <div style="display:flex;gap:8px;overflow-x:auto;">
-            <div class="tag tag-amber" style="padding:6px 10px;">神探MVP</div>
-            <div class="tag tag-green" style="padding:6px 10px;">硬核推土机</div>
-            <div class="tag tag-blue" style="padding:6px 10px;">夜行守望者</div>
-            <div class="tag tag-rose" style="padding:6px 10px;">组局常胜车头</div>
-          </div>
-        </div>
-
-        <!-- Menu List -->
-        <div style="margin-bottom:14px;">
-          <div class="menu-item" onclick="openMyOrdersDrawer()">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span style="font-size:13px;font-weight:600;">我的包厢预订</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
-              <span>进行中 1 笔</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-            </div>
-          </div>
-
-          <div class="menu-item" onclick="openMyCarpoolDrawer()">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span style="font-size:13px;font-weight:600;">我的拼车车队</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
-              <span>在途 1 局</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-            </div>
-          </div>
-
-          <div class="menu-item" onclick="openSnacksDrawer()">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-              <span style="font-size:13px;font-weight:600;">智能零食精酿柜</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
-              <span>扫码自提</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-            </div>
-          </div>
-
-          <div class="menu-item" onclick="showRulesModal()">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span style="font-size:13px;font-weight:600;">24小时无人安全守则</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
-              <span>须知</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Bottom Tab Bar -->
-    <div class="bottom-tab-bar">
-      <div class="tab-item active" data-tab="rooms" onclick="switchTab('rooms')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-        <span>选订</span>
-        <div class="tab-indicator"></div>
-      </div>
-
-      <div class="tab-item" data-tab="scripts" onclick="switchTab('scripts')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
-        <span>找本</span>
-        <div class="tab-indicator"></div>
-      </div>
-
-      <div class="tab-item" data-tab="carpool" onclick="switchTab('carpool')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>拼车</span>
-        <div class="tab-indicator"></div>
-      </div>
-
-      <div class="tab-item" data-tab="iot" onclick="switchTab('iot')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>智控</span>
-        <div class="tab-indicator"></div>
-      </div>
-
-      <div class="tab-item" data-tab="profile" onclick="switchTab('profile')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的</span>
-        <div class="tab-indicator"></div>
-      </div>
-    </div>
-
-    <!-- Global Bottom Drawer -->
-    <div id="drawer-overlay" class="overlay-backdrop" onclick="closeDrawer(event)">
-      <div class="drawer-content" onclick="event.stopPropagation()">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <span style="font-size:15px;font-weight:700;color:var(--text-primary);" id="drawer-title">抽屉标题</span>
-          <div style="cursor:pointer;padding:4px;color:var(--text-muted);" onclick="closeDrawer()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-        <div id="drawer-body">
-          <!-- Injected dynamically -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Global Center Modal -->
-    <div id="modal-overlay" class="overlay-backdrop center" onclick="closeModal(event)">
-      <div class="modal-box" onclick="event.stopPropagation()">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <span style="font-size:15px;font-weight:700;color:var(--text-primary);" id="modal-title">弹窗标题</span>
-          <div style="cursor:pointer;padding:4px;color:var(--text-muted);" onclick="closeModal()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </div>
-        </div>
-        <div id="modal-body" style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">
-          <!-- Injected dynamically -->
-        </div>
-        <div style="display:flex;gap:10px;justify-content:flex-end;" id="modal-actions">
-          <!-- Injected dynamically -->
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
+<span onclick="showToast('已点亮 4 枚核心荣誉徽章', 'info')" style="font-size:11px;color:var(--color-primary);cursor:pointer;">查看全部</span>
+</div>
+<div style="display:flex;gap:8px;overflow-x:auto;">
+<div class="tag tag-amber" style="padding:6px 10px;">神探MVP</div>
+<div class="tag tag-green" style="padding:6px 10px;">硬核推土机</div>
+<div class="tag tag-blue" style="padding:6px 10px;">夜行守望者</div>
+<div class="tag tag-rose" style="padding:6px 10px;">组局常胜车头</div>
+</div>
+</div>
+<!-- Menu List -->
+<div style="margin-bottom:14px;">
+<div class="menu-item" onclick="openMyOrdersDrawer()">
+<div style="display:flex;align-items:center;gap:10px;">
+<svg fill="none" height="16" stroke="#f59e0b" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<span style="font-size:13px;font-weight:600;">我的包厢预订</span>
+</div>
+<div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+<span>进行中 1 笔</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="menu-item" onclick="openMyCarpoolDrawer()">
+<div style="display:flex;align-items:center;gap:10px;">
+<svg fill="none" height="16" stroke="#10b981" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span style="font-size:13px;font-weight:600;">我的拼车车队</span>
+</div>
+<div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+<span>在途 1 局</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="menu-item" onclick="openSnacksDrawer()">
+<div style="display:flex;align-items:center;gap:10px;">
+<svg fill="none" height="16" stroke="#6366f1" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+<span style="font-size:13px;font-weight:600;">智能零食精酿柜</span>
+</div>
+<div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+<span>扫码自提</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+<div class="menu-item" onclick="showRulesModal()">
+<div style="display:flex;align-items:center;gap:10px;">
+<svg fill="none" height="16" stroke="#f43f5e" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span style="font-size:13px;font-weight:600;">24小时无人安全守则</span>
+</div>
+<div style="display:flex;align-items:center;gap:4px;color:var(--text-muted);font-size:12px;">
+<span>须知</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Tab Bar -->
+<div class="bottom-tab-bar">
+<div class="tab-item active" data-tab="rooms" onclick="switchTab('rooms')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+<span>选订</span>
+<div class="tab-indicator"></div>
+</div>
+<div class="tab-item" data-tab="scripts" onclick="switchTab('scripts')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+<span>找本</span>
+<div class="tab-indicator"></div>
+</div>
+<div class="tab-item" data-tab="carpool" onclick="switchTab('carpool')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>拼车</span>
+<div class="tab-indicator"></div>
+</div>
+<div class="tab-item" data-tab="iot" onclick="switchTab('iot')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+<span>智控</span>
+<div class="tab-indicator"></div>
+</div>
+<div class="tab-item" data-tab="profile" onclick="switchTab('profile')">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="20"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+<div class="tab-indicator"></div>
+</div>
+</div>
+<!-- Global Bottom Drawer -->
+<div class="overlay-backdrop" id="drawer-overlay" onclick="closeDrawer(event)">
+<div class="drawer-content" onclick="event.stopPropagation()">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+<span id="drawer-title" style="font-size:15px;font-weight:700;color:var(--text-primary);">抽屉标题</span>
+<div onclick="closeDrawer()" style="cursor:pointer;padding:4px;color:var(--text-muted);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div id="drawer-body">
+<!-- Injected dynamically -->
+</div>
+</div>
+</div>
+<!-- Global Center Modal -->
+<div class="overlay-backdrop center" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal-box" onclick="event.stopPropagation()">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+<span id="modal-title" style="font-size:15px;font-weight:700;color:var(--text-primary);">弹窗标题</span>
+<div onclick="closeModal()" style="cursor:pointer;padding:4px;color:var(--text-muted);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</div>
+</div>
+<div id="modal-body" style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">
+<!-- Injected dynamically -->
+</div>
+<div id="modal-actions" style="display:flex;gap:10px;justify-content:flex-end;">
+<!-- Injected dynamically -->
+</div>
+</div>
+</div>
+</div>
+<script>
     /* =========================================================================
        1. Reactive Application State & Datasets (Strictly Desensitized)
        ========================================================================= */

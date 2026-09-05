@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**美学工作室 - 微信小程序</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**美学工作室 - 微信小程序</title>
+<style>
     /* ==========================================================================
        设计系统 Token (CSS Variables) - 莫兰迪日式沙龙高奢色系
        严格遵循 UIUX 规范：0 Emoji / 0 紫粉渐变 / 0 机器占位文字
@@ -1407,717 +1408,653 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 纯净移动端真机小程序容器 (390px × 844px) -->
+<div class="phone-viewport">
+<!-- 顶部状态栏 -->
 
+<!-- 微信小程序顶层导航栏 (Semantic Header) -->
 
-  <!-- 纯净移动端真机小程序容器 (390px × 844px) -->
-  <div class="phone-viewport">
-
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-      <span>10:24</span>
-      <div class="island-pill"></div>
-      <div class="status-icons">
-        <!-- 信号 SVG -->
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
-        <!-- Wi-Fi SVG -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <!-- 电池 SVG -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
-      </div>
-    </div>
-
-    <!-- 微信小程序顶层导航栏 (Semantic Header) -->
-    <header class="mp-navbar">
-      <div class="mp-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        <span>**美学工作室</span>
-      </div>
-      <!-- 微信标准双胶囊 -->
-      <div class="mp-capsule">
-        <button class="capsule-btn" onclick="openMiniMenu()" title="小程序选项">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-        </button>
-        <div class="capsule-divider"></div>
-        <button class="capsule-btn" onclick="showToast('已最小化至微信浮窗')" title="最小化/关闭">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- 主视**区 (Semantic Main) -->
-    <main class="mp-scroll-content">
-
-      <!-- ==============================================================
+<!-- 主视**区 (Semantic Main) -->
+<main class="mp-scroll-content">
+<!-- ==============================================================
            Tab 0: 【甄选】首页
            ============================================================== -->
-      <div id="tab-0" class="tab-pane active">
-        
-        <!-- 门店轻卡片 -->
-        <section class="salon-section">
-          <div class="salon-banner-card">
-            <div class="salon-name-row">
-              <div class="salon-title">**美学工作室</div>
-              <div class="salon-badge">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>4.9 甄选沙龙</span>
-              </div>
-            </div>
-            <div class="salon-meta">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>营业时间：10:00 - 21:30（支持提档错峰预约）</span>
-            </div>
-            <div class="salon-address-row">
-              <div style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" style="flex-shrink:0;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>XX区XX路XX商务中心A座2层</span>
-              </div>
-              <button class="copy-chip-btn" onclick="copySalonAddress()">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <span>复制地址</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- **区 4 宫格导航 (直接联动至款式库不同分类) -->
-        <section class="salon-section">
-          <div class="grid-nav">
-            <div class="grid-nav-item" onclick="switchCategoryFromHome('nail')">
-              <div class="grid-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              </div>
-              <span class="grid-nav-label">日式美甲</span>
-            </div>
-            <div class="grid-nav-item" onclick="switchCategoryFromHome('lash')">
-              <div class="grid-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <span class="grid-nav-label">轻羽美睫</span>
-            </div>
-            <div class="grid-nav-item" onclick="switchCategoryFromHome('care')">
-              <div class="grid-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M19 12a7 7 0 0 0-14 0"/><path d="M12 3v2"/></svg>
-              </div>
-              <span class="grid-nav-label">手足护理</span>
-            </div>
-            <div class="grid-nav-item" onclick="switchCategoryFromHome('removal')">
-              <div class="grid-icon-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-              </div>
-              <span class="grid-nav-label">温和卸除</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- 专属特惠礼券卡片 -->
-        <section class="salon-section">
-          <div class="coupon-banner">
-            <div class="coupon-info-left">
-              <div class="coupon-amount"><span>¥</span>30</div>
-              <div>
-                <div class="coupon-desc-title">新人首单立减礼遇券</div>
-                <div class="coupon-desc-sub">满 120 可用 · 全店美甲美睫通用</div>
-              </div>
-            </div>
-            <button id="home-coupon-btn" class="coupon-action-btn" onclick="claimHomeCoupon()">立即领取</button>
-          </div>
-        </section>
-
-        <!-- 今日当值手艺人横滑 -->
-        <section class="salon-section">
-          <div class="section-header">
-            <h2 class="section-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span>金牌手艺人 · 当值排班</span>
-            </h2>
-            <div class="section-more-link" onclick="switchTab(2)">
-              <span>排期表</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-          <div class="technician-scroll-wrap">
-            <div class="tech-card">
-              <div class="tech-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div class="tech-name">静* 导师</div>
-              <div class="tech-role">主理人 / 8年</div>
-              <div class="tech-specialty">擅长复杂日式手绘、高阶建构加固</div>
-              <button class="tech-book-btn" onclick="bookWithTech('t1')">预约档期</button>
-            </div>
-            <div class="tech-card">
-              <div class="tech-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div class="tech-name">林* 导师</div>
-              <div class="tech-role">美睫** / 6年</div>
-              <div class="tech-specialty">擅长山茶花绽放嫁接、空气扁毛</div>
-              <button class="tech-book-btn" onclick="bookWithTech('t2')">预约档期</button>
-            </div>
-            <div class="tech-card">
-              <div class="tech-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div class="tech-name">欣* **人员</div>
-              <div class="tech-role">高级手绘师 / 4年</div>
-              <div class="tech-specialty">擅长法式微光渐变、冰透猫眼</div>
-              <button class="tech-book-btn" onclick="bookWithTech('t3')">预约档期</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- 当季热选款式推荐 -->
-        <section class="salon-section">
-          <div class="section-header">
-            <h2 class="section-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>沙龙当季热选 · 顾客好评款</span>
-            </h2>
-            <div class="section-more-link" onclick="switchTab(1)">
-              <span>全部款式</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-          <div id="home-featured-list">
-            <!-- 动态渲染 3 个精选爆款 -->
-          </div>
-        </section>
-
-      </div>
-
-
-      <!-- ==============================================================
+<div class="tab-pane active" id="tab-0">
+<!-- 门店轻卡片 -->
+<section class="salon-section">
+<div class="salon-banner-card">
+<div class="salon-name-row">
+<div class="salon-title">**美学工作室</div>
+<div class="salon-badge">
+<svg fill="currentColor" height="11" viewbox="0 0 24 24" width="11"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>4.9 甄选沙龙</span>
+</div>
+</div>
+<div class="salon-meta">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>营业时间：10:00 - 21:30（支持提档错峰预约）</span>
+</div>
+<div class="salon-address-row">
+<div style="display:flex;align-items:center;gap:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+<svg fill="none" height="12" stroke="var(--color-primary)" stroke-width="2" style="flex-shrink:0;" viewbox="0 0 24 24" width="12"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>XX区XX路XX商务中心A座2层</span>
+</div>
+<button class="copy-chip-btn" onclick="copySalonAddress()">
+<svg fill="none" height="11" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="11"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+<span>复制地址</span>
+</button>
+</div>
+</div>
+</section>
+<!-- **区 4 宫格导航 (直接联动至款式库不同分类) -->
+<section class="salon-section">
+<div class="grid-nav">
+<div class="grid-nav-item" onclick="switchCategoryFromHome('nail')">
+<div class="grid-icon-box">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+</div>
+<span class="grid-nav-label">日式美甲</span>
+</div>
+<div class="grid-nav-item" onclick="switchCategoryFromHome('lash')">
+<div class="grid-icon-box">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</div>
+<span class="grid-nav-label">轻羽美睫</span>
+</div>
+<div class="grid-nav-item" onclick="switchCategoryFromHome('care')">
+<div class="grid-icon-box">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path><path d="M19 12a7 7 0 0 0-14 0"></path><path d="M12 3v2"></path></svg>
+</div>
+<span class="grid-nav-label">手足护理</span>
+</div>
+<div class="grid-nav-item" onclick="switchCategoryFromHome('removal')">
+<div class="grid-icon-box">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" x2="8.12" y1="4" y2="15.88"></line><line x1="14.47" x2="20" y1="14.48" y2="20"></line><line x1="8.12" x2="12" y1="8.12" y2="12"></line></svg>
+</div>
+<span class="grid-nav-label">温和卸除</span>
+</div>
+</div>
+</section>
+<!-- 专属特惠礼券卡片 -->
+<section class="salon-section">
+<div class="coupon-banner">
+<div class="coupon-info-left">
+<div class="coupon-amount"><span>¥</span>30</div>
+<div>
+<div class="coupon-desc-title">新人首单立减礼遇券</div>
+<div class="coupon-desc-sub">满 120 可用 · 全店美甲美睫通用</div>
+</div>
+</div>
+<button class="coupon-action-btn" id="home-coupon-btn" onclick="claimHomeCoupon()">立即领取</button>
+</div>
+</section>
+<!-- 今日当值手艺人横滑 -->
+<section class="salon-section">
+<div class="section-header">
+<h2 class="section-title">
+<svg fill="none" height="14" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span>金牌手艺人 · 当值排班</span>
+</h2>
+<div class="section-more-link" onclick="switchTab(2)">
+<span>排期表</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div class="technician-scroll-wrap">
+<div class="tech-card">
+<div class="tech-avatar">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div class="tech-name">静* 导师</div>
+<div class="tech-role">主理人 / 8年</div>
+<div class="tech-specialty">擅长复杂日式手绘、高阶建构加固</div>
+<button class="tech-book-btn" onclick="bookWithTech('t1')">预约档期</button>
+</div>
+<div class="tech-card">
+<div class="tech-avatar">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div class="tech-name">林* 导师</div>
+<div class="tech-role">美睫** / 6年</div>
+<div class="tech-specialty">擅长山茶花绽放嫁接、空气扁毛</div>
+<button class="tech-book-btn" onclick="bookWithTech('t2')">预约档期</button>
+</div>
+<div class="tech-card">
+<div class="tech-avatar">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div class="tech-name">欣* **人员</div>
+<div class="tech-role">高级手绘师 / 4年</div>
+<div class="tech-specialty">擅长法式微光渐变、冰透猫眼</div>
+<button class="tech-book-btn" onclick="bookWithTech('t3')">预约档期</button>
+</div>
+</div>
+</section>
+<!-- 当季热选款式推荐 -->
+<section class="salon-section">
+<div class="section-header">
+<h2 class="section-title">
+<svg fill="none" height="14" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span>沙龙当季热选 · 顾客好评款</span>
+</h2>
+<div class="section-more-link" onclick="switchTab(1)">
+<span>全部款式</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div id="home-featured-list">
+<!-- 动态渲染 3 个精选爆款 -->
+</div>
+</section>
+</div>
+<!-- ==============================================================
            Tab 1: 【款式】分类与规格详情库
            ============================================================== -->
-      <div id="tab-1" class="tab-pane">
-        <!-- 顶部二级风格过滤横条 -->
-        <div class="catalog-filter-bar" id="tag-filter-bar">
-          <div class="filter-chip active" onclick="filterByTag('all', this)">全部风格</div>
-          <div class="filter-chip" onclick="filterByTag('white', this)">显白热选</div>
-          <div class="filter-chip" onclick="filterByTag('commute', this)">通勤气质</div>
-          <div class="filter-chip" onclick="filterByTag('diamond', this)">轻奢微闪</div>
-          <div class="filter-chip" onclick="filterByTag('natural', this)">自然素雅</div>
-        </div>
-
-        <!-- 左右分栏联动容器 -->
-        <div class="catalog-split-box">
-          <!-- 左侧一级分类 -->
-          <div class="catalog-left-menu" id="category-sidebar">
-            <div class="catalog-left-item active" onclick="switchCategory('all', this)">全部分类</div>
-            <div class="catalog-left-item" onclick="switchCategory('nail', this)">日式美甲</div>
-            <div class="catalog-left-item" onclick="switchCategory('lash', this)">轻羽美睫</div>
-            <div class="catalog-left-item" onclick="switchCategory('care', this)">手足SPA</div>
-            <div class="catalog-left-item" onclick="switchCategory('removal', this)">温和卸除</div>
-          </div>
-          <!-- 右侧款式列表 -->
-          <div class="catalog-right-list" id="catalog-items-container">
-            <!-- 动态渲染款式列表 -->
-          </div>
-        </div>
-      </div>
-
-
-      <!-- ==============================================================
+<div class="tab-pane" id="tab-1">
+<!-- 顶部二级风格过滤横条 -->
+<div class="catalog-filter-bar" id="tag-filter-bar">
+<div class="filter-chip active" onclick="filterByTag('all', this)">全部风格</div>
+<div class="filter-chip" onclick="filterByTag('white', this)">显白热选</div>
+<div class="filter-chip" onclick="filterByTag('commute', this)">通勤气质</div>
+<div class="filter-chip" onclick="filterByTag('diamond', this)">轻奢微闪</div>
+<div class="filter-chip" onclick="filterByTag('natural', this)">自然素雅</div>
+</div>
+<!-- 左右分栏联动容器 -->
+<div class="catalog-split-box">
+<!-- 左侧一级分类 -->
+<div class="catalog-left-menu" id="category-sidebar">
+<div class="catalog-left-item active" onclick="switchCategory('all', this)">全部分类</div>
+<div class="catalog-left-item" onclick="switchCategory('nail', this)">日式美甲</div>
+<div class="catalog-left-item" onclick="switchCategory('lash', this)">轻羽美睫</div>
+<div class="catalog-left-item" onclick="switchCategory('care', this)">手足SPA</div>
+<div class="catalog-left-item" onclick="switchCategory('removal', this)">温和卸除</div>
+</div>
+<!-- 右侧款式列表 -->
+<div class="catalog-right-list" id="catalog-items-container">
+<!-- 动态渲染款式列表 -->
+</div>
+</div>
+</div>
+<!-- ==============================================================
            Tab 2: 【档期】排期与预约表单
            ============================================================== -->
-      <div id="tab-2" class="tab-pane">
-        
-        <!-- 手艺人指定 -->
-        <section class="salon-section">
-          <h3 class="form-group-label">
-            <span>1. 选择服务手艺人</span>
-            <span style="font-size:10px;color:var(--color-primary);font-weight:normal;">根据擅长智能匹配</span>
-          </h3>
-          <div class="tech-pick-grid" id="tech-selector-grid">
-            <div class="tech-pick-cell active" onclick="selectBookingTech('t0', this)">
-              <div class="tech-pick-avatar">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-              </div>
-              <div>
-                <div class="tech-pick-title">智能分配</div>
-                <div class="tech-pick-desc">服务不等待</div>
-              </div>
-            </div>
-            <div class="tech-pick-cell" onclick="selectBookingTech('t1', this)">
-              <div class="tech-pick-avatar">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div>
-                <div class="tech-pick-title">静* 导师</div>
-                <div class="tech-pick-desc">主理人·手绘</div>
-              </div>
-            </div>
-            <div class="tech-pick-cell" onclick="selectBookingTech('t2', this)">
-              <div class="tech-pick-avatar">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div>
-                <div class="tech-pick-title">林* 导师</div>
-                <div class="tech-pick-desc">美睫**</div>
-              </div>
-            </div>
-            <div class="tech-pick-cell" onclick="selectBookingTech('t3', this)">
-              <div class="tech-pick-avatar">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-              <div>
-                <div class="tech-pick-title">欣* **人员</div>
-                <div class="tech-pick-desc">微光猫眼</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 7天日历横滑条 -->
-        <section class="salon-section">
-          <h3 class="form-group-label">
-            <span>2. 选择到店日期</span>
-            <span style="font-size:10px;color:var(--color-status-success);font-weight:normal;">支持提前7天预约</span>
-          </h3>
-          <div class="calendar-strip" id="calendar-strip">
-            <!-- 动态渲染未来 7 天日历 -->
-          </div>
-        </section>
-
-        <!-- 时间段芯片网格 -->
-        <section class="salon-section">
-          <h3 class="form-group-label">
-            <span>3. 选择预约时段</span>
-            <span style="font-size:10px;color:var(--color-text-secondary);font-weight:normal;">每时段限额预约</span>
-          </h3>
-          <div class="time-slot-grid" id="time-slot-grid">
-            <!-- 动态渲染时间槽 -->
-          </div>
-        </section>
-
-        <!-- 当前预订款式摘要 -->
-        <section class="salon-section">
-          <div class="card" style="margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-              <span style="font-size:12px;font-weight:700;">已选服务项目</span>
-              <span style="font-size:11px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(1)">更换款式 ›</span>
-            </div>
-            <div style="font-size:13px;font-weight:700;color:var(--color-primary);" id="booking-item-title">
+<div class="tab-pane" id="tab-2">
+<!-- 手艺人指定 -->
+<section class="salon-section">
+<h3 class="form-group-label">
+<span>1. 选择服务手艺人</span>
+<span style="font-size:10px;color:var(--color-primary);font-weight:normal;">根据擅长智能匹配</span>
+</h3>
+<div class="tech-pick-grid" id="tech-selector-grid">
+<div class="tech-pick-cell active" onclick="selectBookingTech('t0', this)">
+<div class="tech-pick-avatar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+</div>
+<div>
+<div class="tech-pick-title">智能分配</div>
+<div class="tech-pick-desc">服务不等待</div>
+</div>
+</div>
+<div class="tech-pick-cell" onclick="selectBookingTech('t1', this)">
+<div class="tech-pick-avatar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div>
+<div class="tech-pick-title">静* 导师</div>
+<div class="tech-pick-desc">主理人·手绘</div>
+</div>
+</div>
+<div class="tech-pick-cell" onclick="selectBookingTech('t2', this)">
+<div class="tech-pick-avatar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div>
+<div class="tech-pick-title">林* 导师</div>
+<div class="tech-pick-desc">美睫**</div>
+</div>
+</div>
+<div class="tech-pick-cell" onclick="selectBookingTech('t3', this)">
+<div class="tech-pick-avatar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+</div>
+<div>
+<div class="tech-pick-title">欣* **人员</div>
+<div class="tech-pick-desc">微光猫眼</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 7天日历横滑条 -->
+<section class="salon-section">
+<h3 class="form-group-label">
+<span>2. 选择到店日期</span>
+<span style="font-size:10px;color:var(--color-status-success);font-weight:normal;">支持提前7天预约</span>
+</h3>
+<div class="calendar-strip" id="calendar-strip">
+<!-- 动态渲染未来 7 天日历 -->
+</div>
+</section>
+<!-- 时间段芯片网格 -->
+<section class="salon-section">
+<h3 class="form-group-label">
+<span>3. 选择预约时段</span>
+<span style="font-size:10px;color:var(--color-text-secondary);font-weight:normal;">每时段限额预约</span>
+</h3>
+<div class="time-slot-grid" id="time-slot-grid">
+<!-- 动态渲染时间槽 -->
+</div>
+</section>
+<!-- 当前预订款式摘要 -->
+<section class="salon-section">
+<div class="card" style="margin-bottom:12px;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+<span style="font-size:12px;font-weight:700;">已选服务项目</span>
+<span onclick="switchTab(1)" style="font-size:11px;color:var(--color-primary);cursor:pointer;">更换款式 ›</span>
+</div>
+<div id="booking-item-title" style="font-size:13px;font-weight:700;color:var(--color-primary);">
               极光冰透贝母渐变美甲
             </div>
-            <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;" id="booking-item-meta">
+<div id="booking-item-meta" style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;">
               包含基础俄式修甘皮与本甲强化 · 耗时约 90 分钟
             </div>
-          </div>
-        </section>
-
-        <!-- 附加贴心选项 -->
-        <section class="salon-section">
-          <h3 class="form-group-label">
-            <span>4. 附加与到店偏好</span>
-          </h3>
-          <div class="option-pill-group">
-            <div class="option-pill" id="opt-removal" onclick="toggleOption('removal')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-              <span>本甲需卸除 (+¥30)</span>
-            </div>
-            <div class="option-pill" id="opt-reinforce" onclick="toggleOption('reinforce')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-              <span>本甲建构加固 (+¥20)</span>
-            </div>
-            <div class="option-pill" id="opt-tea-1" onclick="toggleTea('英国红茶')">
-              <span>英式红茶</span>
-            </div>
-            <div class="option-pill active" id="opt-tea-2" onclick="toggleTea('玫瑰花茶')">
-              <span>玫瑰花茶</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- 联系人脱敏表单 -->
-        <section class="salon-section">
-          <h3 class="form-group-label">
-            <span>5. 预约到店联系信息</span>
-          </h3>
-          <div class="card" style="padding:4px 14px;margin-bottom:8px;">
-            <div class="input-row">
-              <label for="booking-contact-name">预约姓名</label>
-              <input type="text" class="input-field" id="booking-contact-name" value="沈*女士" placeholder="请输入预约称谓" oninput="clearFormError('name')">
-            </div>
-            <div class="form-error-tip" id="error-name">请输入有效的预约人称谓（如：沈*女士）</div>
-            
-            <div class="input-row">
-              <label for="booking-contact-phone">联系电话</label>
-              <input type="text" class="input-field" id="booking-contact-phone" value="138**9217" placeholder="请输入联系手机" oninput="clearFormError('phone')">
-            </div>
-            <div class="form-error-tip" id="error-phone">请输入11位手机号码或脱敏手机号（如：138**9217）</div>
-
-            <div class="input-row">
-              <label for="booking-contact-remark">特殊备注</label>
-              <input type="text" class="input-field" id="booking-contact-remark" placeholder="如：指甲较软、喜好短圆甲等">
-            </div>
-          </div>
-
-          <!-- 确认提交按钮 -->
-          <button class="submit-booking-btn" onclick="submitBookingForm()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>确认提交预约 · 到店出示核销</span>
-          </button>
-        </section>
-
-      </div>
-
-
-      <!-- ==============================================================
+</div>
+</section>
+<!-- 附加贴心选项 -->
+<section class="salon-section">
+<h3 class="form-group-label">
+<span>4. 附加与到店偏好</span>
+</h3>
+<div class="option-pill-group">
+<div class="option-pill" id="opt-removal" onclick="toggleOption('removal')">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle></svg>
+<span>本甲需卸除 (+¥30)</span>
+</div>
+<div class="option-pill" id="opt-reinforce" onclick="toggleOption('reinforce')">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle></svg>
+<span>本甲建构加固 (+¥20)</span>
+</div>
+<div class="option-pill" id="opt-tea-1" onclick="toggleTea('英国红茶')">
+<span>英式红茶</span>
+</div>
+<div class="option-pill active" id="opt-tea-2" onclick="toggleTea('玫瑰花茶')">
+<span>玫瑰花茶</span>
+</div>
+</div>
+</section>
+<!-- 联系人脱敏表单 -->
+<section class="salon-section">
+<h3 class="form-group-label">
+<span>5. 预约到店联系信息</span>
+</h3>
+<div class="card" style="padding:4px 14px;margin-bottom:8px;">
+<div class="input-row">
+<label for="booking-contact-name">预约姓名</label>
+<input class="input-field" id="booking-contact-name" oninput="clearFormError('name')" placeholder="请输入预约称谓" type="text" value="沈*女士"/>
+</div>
+<div class="form-error-tip" id="error-name">请输入有效的预约人称谓（如：沈*女士）</div>
+<div class="input-row">
+<label for="booking-contact-phone">联系电话</label>
+<input class="input-field" id="booking-contact-phone" oninput="clearFormError('phone')" placeholder="请输入联系手机" type="text" value="138**9217"/>
+</div>
+<div class="form-error-tip" id="error-phone">请输入11位手机号码或脱敏手机号（如：138**9217）</div>
+<div class="input-row">
+<label for="booking-contact-remark">特殊备注</label>
+<input class="input-field" id="booking-contact-remark" placeholder="如：指甲较软、喜好短圆甲等" type="text"/>
+</div>
+</div>
+<!-- 确认提交按钮 -->
+<button class="submit-booking-btn" onclick="submitBookingForm()">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span>确认提交预约 · 到店出示核销</span>
+</button>
+</section>
+</div>
+<!-- ==============================================================
            Tab 3: 【我的】个人中心与预约看板
            ============================================================== -->
-      <div id="tab-3" class="tab-pane">
-
-        <!-- 黑金会员卡片 (全脱敏信息) -->
-        <section class="salon-section">
-          <div class="vip-card">
-            <div class="vip-header">
-              <div class="vip-avatar">沈</div>
-              <div class="vip-user-info">
-                <div class="vip-name-row">
-                  <span class="vip-name">沈*女士</span>
-                  <span class="vip-badge">黑金甄选会员</span>
-                </div>
-                <div class="vip-phone">手机：138**9217 | 已绑定专属美丽管家</div>
-              </div>
-            </div>
-            <div class="vip-stats-row">
-              <div class="vip-stat-col" onclick="showCouponsDialog()">
-                <div class="vip-stat-num" id="my-coupons-count">2 张</div>
-                <div class="vip-stat-label">可用卡券</div>
-              </div>
-              <div class="vip-stat-col" onclick="showToast('当前积分 380pt，到店可抵扣精油手部护理')">
-                <div class="vip-stat-num">380 pt</div>
-                <div class="vip-stat-label">会员积分</div>
-              </div>
-              <div class="vip-stat-col" onclick="showToast('黑金会员享全场正价项目 8.8 折专享优惠')">
-                <div class="vip-stat-num">8.8 折</div>
-                <div class="vip-stat-label">沙龙特权</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 订单状态过滤器 -->
-        <section class="salon-section">
-          <div class="order-filter-tabs">
-            <div class="order-tab-btn active" onclick="filterOrders('all', this)">全部预约</div>
-            <div class="order-tab-btn" onclick="filterOrders('pending', this)">待到店</div>
-            <div class="order-tab-btn" onclick="filterOrders('serving', this)">服务中</div>
-            <div class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</div>
-          </div>
-
-          <!-- 预约工单动态容器 -->
-          <div id="orders-list-container">
-            <!-- 动态渲染预约单卡片 -->
-          </div>
-        </section>
-
-        <!-- 沙龙管家专属服务功能菜单 -->
-        <section class="salon-section">
-          <div class="menu-list-card">
-            <div class="menu-item-row" onclick="openCareGuideDialog()">
-              <div class="menu-item-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>美甲美睫日常养护指南</span>
-              </div>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="menu-item-row" onclick="openContactDialog()">
-              <div class="menu-item-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span>24h 沙龙专属在线客服</span>
-              </div>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="menu-item-row" onclick="showToast('常用联系人：沈*女士 (138**9217)')">
-              <div class="menu-item-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>常用到店人信息管理</span>
-              </div>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="menu-item-row" onclick="openAboutDialog()">
-              <div class="menu-item-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span>关于**美学工作室</span>
-              </div>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-secondary)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-    </main>
-
-    <!-- 底部原生微动效 TabBar (Semantic Nav) -->
-    <nav class="mp-tabbar" aria-label="小程序主导航">
-      <a href="javascript:void(0)" class="tabbar-item active" id="tabbar-btn-0" onclick="switchTab(0)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        <span>甄选</span>
-      </a>
-      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-1" onclick="switchTab(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2Z"/></svg>
-        <span>款式</span>
-      </a>
-      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-2" onclick="switchTab(2)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
-        <span>档期</span>
-      </a>
-      <a href="javascript:void(0)" class="tabbar-item" id="tabbar-btn-3" onclick="switchTab(3)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的</span>
-      </a>
-    </nav>
-
-
-    <!-- ==============================================================
+<div class="tab-pane" id="tab-3">
+<!-- 黑金会员卡片 (全脱敏信息) -->
+<section class="salon-section">
+<div class="vip-card">
+<div class="vip-header">
+<div class="vip-avatar">沈</div>
+<div class="vip-user-info">
+<div class="vip-name-row">
+<span class="vip-name">沈*女士</span>
+<span class="vip-badge">黑金甄选会员</span>
+</div>
+<div class="vip-phone">手机：138**9217 | 已绑定专属美丽管家</div>
+</div>
+</div>
+<div class="vip-stats-row">
+<div class="vip-stat-col" onclick="showCouponsDialog()">
+<div class="vip-stat-num" id="my-coupons-count">2 张</div>
+<div class="vip-stat-label">可用卡券</div>
+</div>
+<div class="vip-stat-col" onclick="showToast('当前积分 380pt，到店可抵扣精油手部护理')">
+<div class="vip-stat-num">380 pt</div>
+<div class="vip-stat-label">会员积分</div>
+</div>
+<div class="vip-stat-col" onclick="showToast('黑金会员享全场正价项目 8.8 折专享优惠')">
+<div class="vip-stat-num">8.8 折</div>
+<div class="vip-stat-label">沙龙特权</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 订单状态过滤器 -->
+<section class="salon-section">
+<div class="order-filter-tabs">
+<div class="order-tab-btn active" onclick="filterOrders('all', this)">全部预约</div>
+<div class="order-tab-btn" onclick="filterOrders('pending', this)">待到店</div>
+<div class="order-tab-btn" onclick="filterOrders('serving', this)">服务中</div>
+<div class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</div>
+</div>
+<!-- 预约工单动态容器 -->
+<div id="orders-list-container">
+<!-- 动态渲染预约单卡片 -->
+</div>
+</section>
+<!-- 沙龙管家专属服务功能菜单 -->
+<section class="salon-section">
+<div class="menu-list-card">
+<div class="menu-item-row" onclick="openCareGuideDialog()">
+<div class="menu-item-left">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span>美甲美睫日常养护指南</span>
+</div>
+<svg fill="none" height="12" stroke="var(--color-text-secondary)" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item-row" onclick="openContactDialog()">
+<div class="menu-item-left">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span>24h 沙龙专属在线客服</span>
+</div>
+<svg fill="none" height="12" stroke="var(--color-text-secondary)" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item-row" onclick="showToast('常用联系人：沈*女士 (138**9217)')">
+<div class="menu-item-left">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>常用到店人信息管理</span>
+</div>
+<svg fill="none" height="12" stroke="var(--color-text-secondary)" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div class="menu-item-row" onclick="openAboutDialog()">
+<div class="menu-item-left">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span>关于**美学工作室</span>
+</div>
+<svg fill="none" height="12" stroke="var(--color-text-secondary)" stroke-width="2" viewbox="0 0 24 24" width="12"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- 底部原生微动效 TabBar (Semantic Nav) -->
+<nav aria-label="小程序主导航" class="mp-tabbar">
+<a class="tabbar-item active" href="javascript:void(0)" id="tabbar-btn-0" onclick="switchTab(0)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+<span>甄选</span>
+</a>
+<a class="tabbar-item" href="javascript:void(0)" id="tabbar-btn-1" onclick="switchTab(1)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><circle cx="13.5" cy="6.5" fill="currentColor" r=".5"></circle><circle cx="17.5" cy="10.5" fill="currentColor" r=".5"></circle><circle cx="8.5" cy="7.5" fill="currentColor" r=".5"></circle><circle cx="6.5" cy="12.5" fill="currentColor" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2Z"></path></svg>
+<span>款式</span>
+</a>
+<a class="tabbar-item" href="javascript:void(0)" id="tabbar-btn-2" onclick="switchTab(2)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path></svg>
+<span>档期</span>
+</a>
+<a class="tabbar-item" href="javascript:void(0)" id="tabbar-btn-3" onclick="switchTab(3)">
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的</span>
+</a>
+</nav>
+<!-- ==============================================================
          全局浮层 1: 款式详情规格抽屉 (Bottom Drawer)
          ============================================================== -->
-    <div class="modal-overlay" id="drawer-overlay" onclick="closeDrawer(event)">
-      <div class="bottom-drawer-content" onclick="event.stopPropagation()">
-        <div class="drawer-header">
-          <h3 class="drawer-title" id="drawer-item-title">极光冰透贝母渐变美甲</h3>
-          <button class="drawer-close-btn" onclick="closeDrawer()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <!-- 价格与耗时 -->
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
-          <div style="font-size:20px;font-weight:800;color:var(--color-primary);" id="drawer-price-display">¥168</div>
-          <div style="font-size:11px;color:var(--color-text-secondary);" id="drawer-time-display">预计耗时 90 分钟</div>
-          <div style="font-size:10px;background:var(--color-primary-light);color:var(--color-primary);padding:2px 8px;border-radius:var(--radius-xs);margin-left:auto;">
+<div class="modal-overlay" id="drawer-overlay" onclick="closeDrawer(event)">
+<div class="bottom-drawer-content" onclick="event.stopPropagation()">
+<div class="drawer-header">
+<h3 class="drawer-title" id="drawer-item-title">极光冰透贝母渐变美甲</h3>
+<button class="drawer-close-btn" onclick="closeDrawer()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<!-- 价格与耗时 -->
+<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
+<div id="drawer-price-display" style="font-size:20px;font-weight:800;color:var(--color-primary);">¥168</div>
+<div id="drawer-time-display" style="font-size:11px;color:var(--color-text-secondary);">预计耗时 90 分钟</div>
+<div style="font-size:10px;background:var(--color-primary-light);color:var(--color-primary);padding:2px 8px;border-radius:var(--radius-xs);margin-left:auto;">
             7天免费修补
           </div>
-        </div>
-
-        <!-- 服务5步标准化拆解 -->
-        <div class="card" style="background:var(--color-surface-subtle);margin-bottom:12px;padding:10px;">
-          <div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:6px;">标准日式沙龙工序：</div>
-          <div style="font-size:10px;color:var(--color-text-regular);line-height:1.6;">
-            1. 医用手部消毒与游离缘修型<br>
-            2. 俄式无痛精密剪甘皮修整<br>
-            3. 日本进口强化建构底胶打底<br>
-            4. 考究渐变彩绘/多层晶透封层<br>
+</div>
+<!-- 服务5步标准化拆解 -->
+<div class="card" style="background:var(--color-surface-subtle);margin-bottom:12px;padding:10px;">
+<div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:6px;">标准日式沙龙工序：</div>
+<div style="font-size:10px;color:var(--color-text-regular);line-height:1.6;">
+            1. 医用手部消毒与游离缘修型<br/>
+            2. 俄式无痛精密剪甘皮修整<br/>
+            3. 日本进口强化建构底胶打底<br/>
+            4. 考究渐变彩绘/多层晶透封层<br/>
             5. 天然玫瑰果指缘精油渗透养护
           </div>
-        </div>
-
-        <!-- 加选选项 -->
-        <div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:8px;">选配加享项目：</div>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;" onclick="toggleDrawerAddon('removal')">
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
-              <input type="checkbox" id="drawer-check-removal" style="pointer-events:none;">
-              <span>温和无痛卸除旧甲</span>
-            </div>
-            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥30</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;" onclick="toggleDrawerAddon('reinforce')">
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
-              <input type="checkbox" id="drawer-check-reinforce" style="pointer-events:none;">
-              <span>本甲高阶建构加固底胶</span>
-            </div>
-            <span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥20</span>
-          </div>
-        </div>
-
-        <!-- 底部吸底按钮条 -->
-        <div style="display:flex;gap:8px;margin-top:auto;">
-          <button style="flex:1;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;" onclick="openContactDialog()">
+</div>
+<!-- 加选选项 -->
+<div style="font-size:11px;font-weight:700;color:var(--color-text-main);margin-bottom:8px;">选配加享项目：</div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+<div onclick="toggleDrawerAddon('removal')" style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;">
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+<input id="drawer-check-removal" style="pointer-events:none;" type="checkbox"/>
+<span>温和无痛卸除旧甲</span>
+</div>
+<span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥30</span>
+</div>
+<div onclick="toggleDrawerAddon('reinforce')" style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--color-surface-card);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);cursor:pointer;">
+<div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+<input id="drawer-check-reinforce" style="pointer-events:none;" type="checkbox"/>
+<span>本甲高阶建构加固底胶</span>
+</div>
+<span style="font-size:11px;font-weight:700;color:var(--color-primary);">+¥20</span>
+</div>
+</div>
+<!-- 底部吸底按钮条 -->
+<div style="display:flex;gap:8px;margin-top:auto;">
+<button onclick="openContactDialog()" style="flex:1;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;">
             咨询管家
           </button>
-          <button style="flex:2;background:var(--color-primary);border:none;color:var(--color-pure-white);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(158,103,106,0.3);" onclick="confirmDrawerBooking()">
+<button onclick="confirmDrawerBooking()" style="flex:2;background:var(--color-primary);border:none;color:var(--color-pure-white);padding:10px 0;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(158,103,106,0.3);">
             立即预约此款
           </button>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 2: 预约成功 / 到店核销码弹窗 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-booking-success">
-      <div class="dialog-card">
-        <div style="width:44px;height:44px;border-radius:50%;background:var(--color-status-success-light);color:var(--color-status-success);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div style="font-size:15px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
+<div class="center-dialog-overlay" id="dialog-booking-success">
+<div class="dialog-card">
+<div style="width:44px;height:44px;border-radius:50%;background:var(--color-status-success-light);color:var(--color-status-success);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+</div>
+<div style="font-size:15px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
           预约锁定成功
         </div>
-        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">
+<div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;">
           沙龙已为您预留专属工位，无需等待
         </div>
-        <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px;text-align:left;font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:14px;" id="dialog-success-details">
-          <!-- 动态注入单号与信息 -->
-        </div>
-        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:10px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;" onclick="closeSuccessAndGoOrders()">
+<div id="dialog-success-details" style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px;text-align:left;font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:14px;">
+<!-- 动态注入单号与信息 -->
+</div>
+<button onclick="closeSuccessAndGoOrders()" style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:10px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;cursor:pointer;">
           查看我的预约单
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 3: 核销二维码展示弹窗 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-verify-code">
-      <div class="dialog-card">
-        <div style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
+<div class="center-dialog-overlay" id="dialog-verify-code">
+<div class="dialog-card">
+<div style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:4px;">
           出示到店核销凭证
         </div>
-        <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:12px;">
+<div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:12px;">
           到店请向手艺人或前台出示该凭据
         </div>
-        <!-- 模拟条码与二维码 (纯 SVG 矢量) -->
-        <div style="background:var(--color-bg-canvas);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;">
-          <!-- 模拟条码线条 -->
-          <svg width="180" height="36" viewBox="0 0 180 36" fill="currentColor" style="color:var(--color-barcode-dark);margin-bottom:8px;">
-            <rect x="0" y="0" width="4" height="36"/><rect x="8" y="0" width="2" height="36"/><rect x="14" y="0" width="6" height="36"/><rect x="24" y="0" width="3" height="36"/><rect x="32" y="0" width="8" height="36"/><rect x="44" y="0" width="2" height="36"/><rect x="50" y="0" width="5" height="36"/><rect x="60" y="0" width="3" height="36"/><rect x="68" y="0" width="7" height="36"/><rect x="80" y="0" width="4" height="36"/><rect x="90" y="0" width="3" height="36"/><rect x="98" y="0" width="6" height="36"/><rect x="110" y="0" width="2" height="36"/><rect x="116" y="0" width="8" height="36"/><rect x="128" y="0" width="4" height="36"/><rect x="138" y="0" width="3" height="36"/><rect x="146" y="0" width="6" height="36"/><rect x="156" y="0" width="4" height="36"/><rect x="166" y="0" width="3" height="36"/><rect x="174" y="0" width="5" height="36"/>
-          </svg>
-          <div style="font-size:16px;font-weight:800;letter-spacing:3px;color:var(--color-primary);margin-bottom:8px;" id="verify-code-num">
+<!-- 模拟条码与二维码 (纯 SVG 矢量) -->
+<div style="background:var(--color-bg-canvas);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;">
+<!-- 模拟条码线条 -->
+<svg fill="currentColor" height="36" style="color:var(--color-barcode-dark);margin-bottom:8px;" viewbox="0 0 180 36" width="180">
+<rect height="36" width="4" x="0" y="0"></rect><rect height="36" width="2" x="8" y="0"></rect><rect height="36" width="6" x="14" y="0"></rect><rect height="36" width="3" x="24" y="0"></rect><rect height="36" width="8" x="32" y="0"></rect><rect height="36" width="2" x="44" y="0"></rect><rect height="36" width="5" x="50" y="0"></rect><rect height="36" width="3" x="60" y="0"></rect><rect height="36" width="7" x="68" y="0"></rect><rect height="36" width="4" x="80" y="0"></rect><rect height="36" width="3" x="90" y="0"></rect><rect height="36" width="6" x="98" y="0"></rect><rect height="36" width="2" x="110" y="0"></rect><rect height="36" width="8" x="116" y="0"></rect><rect height="36" width="4" x="128" y="0"></rect><rect height="36" width="3" x="138" y="0"></rect><rect height="36" width="6" x="146" y="0"></rect><rect height="36" width="4" x="156" y="0"></rect><rect height="36" width="3" x="166" y="0"></rect><rect height="36" width="5" x="174" y="0"></rect>
+</svg>
+<div id="verify-code-num" style="font-size:16px;font-weight:800;letter-spacing:3px;color:var(--color-primary);margin-bottom:8px;">
             8921
           </div>
-          <!-- 模拟二维码小矩阵 -->
-          <svg width="100" height="100" viewBox="0 0 100 100" fill="currentColor" style="color:var(--color-barcode-dark);">
-            <rect x="0" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-            <rect x="8" y="8" width="14" height="14"/><rect x="70" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-            <rect x="78" y="8" width="14" height="14"/><rect x="0" y="70" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-            <rect x="8" y="78" width="14" height="14"/><rect x="36" y="10" width="8" height="8"/><rect x="48" y="18" width="8" height="8"/><rect x="36" y="36" width="28" height="28"/><rect x="72" y="44" width="10" height="10"/><rect x="44" y="76" width="12" height="12"/><rect x="72" y="72" width="18" height="18"/>
-          </svg>
-        </div>
-        <button style="width:100%;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;" onclick="closeVerifyDialog()">
+<!-- 模拟二维码小矩阵 -->
+<svg fill="currentColor" height="100" style="color:var(--color-barcode-dark);" viewbox="0 0 100 100" width="100">
+<rect fill="none" height="30" stroke="currentColor" stroke-width="6" width="30" x="0" y="0"></rect>
+<rect height="14" width="14" x="8" y="8"></rect><rect fill="none" height="30" stroke="currentColor" stroke-width="6" width="30" x="70" y="0"></rect>
+<rect height="14" width="14" x="78" y="8"></rect><rect fill="none" height="30" stroke="currentColor" stroke-width="6" width="30" x="0" y="70"></rect>
+<rect height="14" width="14" x="8" y="78"></rect><rect height="8" width="8" x="36" y="10"></rect><rect height="8" width="8" x="48" y="18"></rect><rect height="28" width="28" x="36" y="36"></rect><rect height="10" width="10" x="72" y="44"></rect><rect height="12" width="12" x="44" y="76"></rect><rect height="18" width="18" x="72" y="72"></rect>
+</svg>
+</div>
+<button onclick="closeVerifyDialog()" style="width:100%;background:var(--color-surface-subtle);border:1px solid var(--color-border-subtle);color:var(--color-text-main);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;">
           完成并关闭
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 4: 美甲美睫日常养护指南 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-care-guide">
-      <div class="dialog-card" style="text-align:left;max-height:80%;overflow-y:auto;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);">沙龙级养护指南</h3>
-          <span style="font-size:18px;cursor:pointer;color:var(--color-text-secondary);" onclick="closeCareDialog()">×</span>
-        </div>
-        <div style="font-size:11px;color:var(--color-text-regular);line-height:1.7;">
-          <p style="margin-bottom:6px;"><b>1. 美睫后 6 小时内：</b>请勿让睫毛接触水分，避免温泉、桑拿或剧烈出汗运动，以保证植物胶水充分固化。</p>
-          <p style="margin-bottom:6px;"><b>2. 美甲日常保护：</b>开罐拉环或敲击键盘时请尽量使用指腹，避免直接用指尖边缘硬性撬物，防止顶端起翘。</p>
-          <p style="margin-bottom:6px;"><b>3. 避免接触强酸强碱：</b>做家务或接触清洁剂时建议佩戴橡胶手套，防止封层被腐蚀失去晶透光泽。</p>
-          <p style="margin-bottom:6px;"><b>4. 严禁徒手暴力撕甲：</b>若发生轻微翘边，请随时预约到店免费专业卸除，徒手撕甲会损伤真甲表面角质层。</p>
-          <p><b>5. 免费售后保障：</b>到店服务 7 天内如遇非人为饰品脱落或睫毛非正常脱落，均享免费无忧补做一次。</p>
-        </div>
-        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;margin-top:12px;" onclick="closeCareDialog()">
+<div class="center-dialog-overlay" id="dialog-care-guide">
+<div class="dialog-card" style="text-align:left;max-height:80%;overflow-y:auto;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);">沙龙级养护指南</h3>
+<span onclick="closeCareDialog()" style="font-size:18px;cursor:pointer;color:var(--color-text-secondary);">×</span>
+</div>
+<div style="font-size:11px;color:var(--color-text-regular);line-height:1.7;">
+<p style="margin-bottom:6px;"><b>1. 美睫后 6 小时内：</b>请勿让睫毛接触水分，避免温泉、桑拿或剧烈出汗运动，以保证植物胶水充分固化。</p>
+<p style="margin-bottom:6px;"><b>2. 美甲日常保护：</b>开罐拉环或敲击键盘时请尽量使用指腹，避免直接用指尖边缘硬性撬物，防止顶端起翘。</p>
+<p style="margin-bottom:6px;"><b>3. 避免接触强酸强碱：</b>做家务或接触清洁剂时建议佩戴橡胶手套，防止封层被腐蚀失去晶透光泽。</p>
+<p style="margin-bottom:6px;"><b>4. 严禁徒手暴力撕甲：</b>若发生轻微翘边，请随时预约到店免费专业卸除，徒手撕甲会损伤真甲表面角质层。</p>
+<p><b>5. 免费售后保障：</b>到店服务 7 天内如遇非人为饰品脱落或睫毛非正常脱落，均享免费无忧补做一次。</p>
+</div>
+<button onclick="closeCareDialog()" style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;margin-top:12px;">
           我已知晓
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 5: 微信胶囊操作菜单 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-mini-menu">
-      <div class="dialog-card">
-        <h3 style="font-size:13px;font-weight:800;color:var(--color-text-main);margin-bottom:12px;">
+<div class="center-dialog-overlay" id="dialog-mini-menu">
+<div class="dialog-card">
+<h3 style="font-size:13px;font-weight:800;color:var(--color-text-main);margin-bottom:12px;">
           **美学工作室
         </h3>
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:14px;">
-          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="showToast('已复制小程序链接，可分享给好友')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            <span style="font-size:10px;">转发分享</span>
-          </div>
-          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="showToast('已成功添加到我的小程序')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span style="font-size:10px;">添加收藏</span>
-          </div>
-          <div style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;" onclick="openAboutDialog()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span style="font-size:10px;">沙龙介绍</span>
-          </div>
-        </div>
-        <button style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;" onclick="closeMiniMenu()">
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:14px;">
+<div onclick="showToast('已复制小程序链接，可分享给好友')" style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;" viewbox="0 0 24 24" width="18"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+<span style="font-size:10px;">转发分享</span>
+</div>
+<div onclick="showToast('已成功添加到我的小程序')" style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;" viewbox="0 0 24 24" width="18"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<span style="font-size:10px;">添加收藏</span>
+</div>
+<div onclick="openAboutDialog()" style="background:var(--color-surface-subtle);border-radius:var(--radius-sm);padding:10px 4px;cursor:pointer;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" style="margin:0 auto 4px;display:block;" viewbox="0 0 24 24" width="18"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span style="font-size:10px;">沙龙介绍</span>
+</div>
+</div>
+<button onclick="closeMiniMenu()" style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;">
           取消
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 6: 客服在线咨询模拟 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-contact">
-      <div class="dialog-card" style="text-align:left;">
-        <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:6px;">
+<div class="center-dialog-overlay" id="dialog-contact">
+<div class="dialog-card" style="text-align:left;">
+<h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:6px;">
           专属沙龙管家在线咨询
         </h3>
-        <div style="background:var(--color-surface-subtle);padding:10px;border-radius:var(--radius-sm);font-size:11px;color:var(--color-text-regular);margin-bottom:12px;line-height:1.5;">
+<div style="background:var(--color-surface-subtle);padding:10px;border-radius:var(--radius-sm);font-size:11px;color:var(--color-text-regular);margin-bottom:12px;line-height:1.5;">
           您好！我是沙龙值班管家。请问有什么可以协助您？如需款式定制、加急排期或改期，可随时告知。
         </div>
-        <div style="display:flex;gap:6px;margin-bottom:12px;">
-          <input type="text" id="chat-input" placeholder="输入您要咨询的问题..." style="flex:1;border:1px solid var(--color-border-subtle);border-radius:var(--radius-xs);padding:6px 8px;font-size:11px;outline:none;">
-          <button style="background:var(--color-primary);color:var(--color-pure-white);border:none;padding:6px 12px;border-radius:var(--radius-xs);font-size:11px;cursor:pointer;" onclick="sendChatMessage()">
+<div style="display:flex;gap:6px;margin-bottom:12px;">
+<input id="chat-input" placeholder="输入您要咨询的问题..." style="flex:1;border:1px solid var(--color-border-subtle);border-radius:var(--radius-xs);padding:6px 8px;font-size:11px;outline:none;" type="text"/>
+<button onclick="sendChatMessage()" style="background:var(--color-primary);color:var(--color-pure-white);border:none;padding:6px 12px;border-radius:var(--radius-xs);font-size:11px;cursor:pointer;">
             发送
           </button>
-        </div>
-        <button style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:6px;border-radius:var(--radius-sm);font-size:11px;cursor:pointer;" onclick="closeContactDialog()">
+</div>
+<button onclick="closeContactDialog()" style="width:100%;background:none;border:1px solid var(--color-border-subtle);padding:6px;border-radius:var(--radius-sm);font-size:11px;cursor:pointer;">
           稍后沟通
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局浮层 7: 关于沙龙介绍 (Modal)
          ============================================================== -->
-    <div class="center-dialog-overlay" id="dialog-about">
-      <div class="dialog-card" style="text-align:left;">
-        <h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:8px;">
+<div class="center-dialog-overlay" id="dialog-about">
+<div class="dialog-card" style="text-align:left;">
+<h3 style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-bottom:8px;">
           关于 **美学工作室
         </h3>
-        <div style="font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:12px;">
+<div style="font-size:11px;color:var(--color-text-regular);line-height:1.6;margin-bottom:12px;">
           本店秉持日式严选职人精神，全套引进进口无害树脂与医用级美睫耗材。实行一客一用独立灭菌耗材包，致力于在优雅宁静的沙龙环境中，为每一位顾客提供兼具审美调性与持久健康的定制美学服务。
         </div>
-        <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:14px;">
-          营业认证编号：#ML-2026-0904-BEIJING<br>
+<div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:14px;">
+          营业认证编号：#ML-2026-0904-BEIJING<br/>
           沙龙地址：XX区XX路XX商务中心A座2层
         </div>
-        <button style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;" onclick="closeAboutDialog()">
+<button onclick="closeAboutDialog()" style="width:100%;background:var(--color-primary);color:var(--color-pure-white);border:none;padding:8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700;cursor:pointer;">
           关闭
         </button>
-      </div>
-    </div>
-
-
-    <!-- ==============================================================
+</div>
+</div>
+<!-- ==============================================================
          全局轻提示 Toast 组件
          ============================================================== -->
-    <div class="toast-pill" id="global-toast">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toast-text">已为您选定档期</span>
-    </div>
-
-  </div>
-
-
-  <!-- ==============================================================
+<div class="toast-pill" id="global-toast">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toast-text">已为您选定档期</span>
+</div>
+</div>
+<!-- ==============================================================
        纯前端交互与内存状态机 JavaScript
        ============================================================== -->
-  <script>
+<script>
     // -------------------------------------------------------------
     // 1. 数据模型与状态管理中心 (AppStore)
     // -------------------------------------------------------------

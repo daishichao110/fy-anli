@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>华裳锦瑟 - 汉服礼服演出服租赁</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>华裳锦瑟 - 汉服礼服演出服租赁</title>
+<style>
     /* ============================================================
        DESIGN SYSTEM TOKENS (遵从 output/*-uiux.md 规范)
        严禁硬编码 Hex 色值，严格采用 Design Tokens
@@ -1043,700 +1044,611 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- 微信小程序纯真机模拟视口 -->
+<div class="mp-container">
+<!-- 1. 状态栏 (iOS 规范) -->
 
+<!-- 2. 小程序顶部导航条与微信胶囊菜单 -->
 
-  <!-- 微信小程序纯真机模拟视口 -->
-  <div class="mp-container">
-
-    <!-- 1. 状态栏 (iOS 规范) -->
-    <div class="mp-status-bar">
-      <span id="statusBarClock">10:24</span>
-      <div class="status-icons">
-        <!-- 5G 信号 SVG -->
-        <svg width="14" height="12" viewBox="0 0 16 12" fill="currentColor">
-          <rect x="0" y="8" width="2.5" height="4" rx="0.5"/>
-          <rect x="4.5" y="6" width="2.5" height="6" rx="0.5"/>
-          <rect x="9" y="3" width="2.5" height="9" rx="0.5"/>
-          <rect x="13.5" y="0" width="2.5" height="12" rx="0.5"/>
-        </svg>
-        <!-- WiFi SVG -->
-        <svg width="14" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-          <line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <!-- 电池 SVG -->
-        <svg width="18" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <rect x="1" y="5" width="19" height="14" rx="3" ry="3"/>
-          <rect x="3" y="7" width="12" height="10" rx="1.5" fill="currentColor"/>
-          <line x1="23" y1="10" x2="23" y2="14"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- 2. 小程序顶部导航条与微信胶囊菜单 -->
-    <div class="mp-nav-bar">
-      <div style="display:flex;align-items:center;gap:6px;">
-        <span class="mp-nav-title" id="pageNavTitle">华裳精选</span>
-      </div>
-      
-      <!-- 微信官方胶囊控制台 -->
-      <div class="mp-capsule">
-        <button class="capsule-btn" onclick="openCapsuleMenu()" title="小程序选项">
-          <!-- 三点 SVG -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <circle cx="5" cy="12" r="2.5"/>
-            <circle cx="12" cy="12" r="2.5"/>
-            <circle cx="19" cy="12" r="2.5"/>
-          </svg>
-        </button>
-        <div class="capsule-divider"></div>
-        <button class="capsule-btn" onclick="triggerMiniProgramMinimize()" title="关闭/最小化">
-          <!-- 靶心圆圈 SVG -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="12" cy="12" r="9"/>
-            <circle cx="12" cy="12" r="3" fill="currentColor"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- 3. 主视口内容 (4 大业务 Tab) -->
-    <div class="mp-viewport">
-
-      <!-- ================= TAB 0: 华裳精选 (首页) ================= -->
-      <div id="view-tab-0" class="tab-pane active">
-        
-        <!-- 搜索与联想胶囊 -->
-        <div class="search-box">
-          <div class="search-bar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-placeholder)" stroke-width="2.5">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="searchInput" class="search-input" placeholder="搜索汉服/晚礼服/马面裙/演出服..." oninput="handleSearchInput(this.value)">
-            <button id="searchClearBtn" style="display:none;background:none;border:none;cursor:pointer;color:var(--color-text-placeholder);" onclick="clearSearch()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-          <div class="keyword-pills">
-            <div class="keyword-pill active" onclick="applyKeywordFilter(this, '')">全部推荐</div>
-            <div class="keyword-pill" onclick="applyKeywordFilter(this, '明制')">明制马面裙</div>
-            <div class="keyword-pill" onclick="applyKeywordFilter(this, '礼服')">晚宴礼服</div>
-            <div class="keyword-pill" onclick="applyKeywordFilter(this, '唐制')">大唐襦裙</div>
-            <div class="keyword-pill" onclick="applyKeywordFilter(this, '少儿')">少儿舞蹈服</div>
-          </div>
-        </div>
-
-        <div class="section-box">
-          <!-- 轮播大片展位 -->
-          <div class="hero-banner" onclick="handleBannerClick()">
-            <div class="banner-slide" id="heroSlide">
-              <div>
-                <div class="badge-gold">重工织锦特辑</div>
-                <div class="banner-title" style="margin-top:6px;">秋水长天 · 盛世华服</div>
-                <div class="banner-sub">明制妆花马面 · 信用免押 · 快递到家</div>
-              </div>
-              <!-- 典雅折扇/华服装饰 SVG -->
-              <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
-                <circle cx="32" cy="32" r="30" fill="var(--color-gold-light)" stroke="var(--color-gold)" stroke-width="1.5"/>
-                <path d="M16 42C24 22 40 22 48 42" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M32 18V42M22 24L32 42M42 24L32 42" stroke="var(--color-gold-dark)" stroke-width="1.5"/>
-                <circle cx="32" cy="44" r="2.5" fill="var(--color-primary)"/>
-              </svg>
-            </div>
-            <div class="banner-dots">
-              <div class="banner-dot active" onclick="event.stopPropagation();switchBanner(0)"></div>
-              <div class="banner-dot" onclick="event.stopPropagation();switchBanner(1)"></div>
-              <div class="banner-dot" onclick="event.stopPropagation();switchBanner(2)"></div>
-            </div>
-          </div>
-
-          <!-- 四大金刚分类入口 -->
-          <div class="category-grid">
-            <div class="category-card" onclick="quickNavCategory('hanfu')">
-              <div class="category-icon-box">
-                <!-- 汉服袍服 SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 3L4 9v12h16V9l-8-6z"/><path d="M12 3v18"/><path d="M8 9l4 4 4-4"/>
-                </svg>
-              </div>
-              <span class="category-name">汉服华裳</span>
-              <span class="category-desc">唐宋明晋</span>
-            </div>
-
-            <div class="category-card" onclick="quickNavCategory('dress')">
-              <div class="category-icon-box" style="background-color:var(--color-gold-light);color:var(--color-gold-dark);">
-                <!-- 晚礼服裙摆 SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 3h6l2 5-3 3 4 10H6l4-10-3-3 2-5z"/><line x1="9" y1="3" x2="15" y2="3"/>
-                </svg>
-              </div>
-              <span class="category-name">高端礼服</span>
-              <span class="category-desc">年会晚宴</span>
-            </div>
-
-            <div class="category-card" onclick="quickNavCategory('stage')">
-              <div class="category-icon-box" style="background-color:var(--color-teal-light);color:var(--color-teal);">
-                <!-- 舞台面具/帷幕 SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
-                </svg>
-              </div>
-              <span class="category-name">舞台演艺</span>
-              <span class="category-desc">舞蹈剧目</span>
-            </div>
-
-            <div class="category-card" onclick="quickNavCategory('acc')">
-              <div class="category-icon-box" style="background-color:var(--color-primary-light);color:var(--color-primary);">
-                <!-- 步摇冠冕 SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 18l3-10 5 6 5-6 3 10H4z"/><circle cx="12" cy="6" r="2"/>
-                </svg>
-              </div>
-              <span class="category-name">头冠配饰</span>
-              <span class="category-desc">云肩发簪</span>
-            </div>
-          </div>
-
-          <!-- 场景化横滑胶囊栏 -->
-          <div class="scene-chips">
-            <div class="scene-chip active" onclick="filterByScene(this, 'all')">全部甄选</div>
-            <div class="scene-chip" onclick="filterByScene(this, 'photo')">古风旅拍</div>
-            <div class="scene-chip" onclick="filterByScene(this, 'annual')">年会红毯</div>
-            <div class="scene-chip" onclick="filterByScene(this, 'stage')">舞台剧目</div>
-            <div class="scene-chip" onclick="filterByScene(this, 'wedding')">伴娘轻礼</div>
-          </div>
-
-          <!-- 精选服饰双列瀑布流 -->
-          <div class="garment-grid" id="homeGarmentGrid">
-            <!-- 动态渲染服饰卡片 -->
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= TAB 1: 服装图鉴 (分类与选款) ================= -->
-      <div id="view-tab-1" class="tab-pane">
-        
-        <!-- 图鉴筛选与排序控制条 -->
-        <div class="catalog-bar">
-          <div class="catalog-select">
-            <span class="catalog-tab active" onclick="switchCatalogCategory(this, 'all')">全部</span>
-            <span class="catalog-tab" onclick="switchCatalogCategory(this, 'hanfu')">汉服</span>
-            <span class="catalog-tab" onclick="switchCatalogCategory(this, 'dress')">礼服</span>
-            <span class="catalog-tab" onclick="switchCatalogCategory(this, 'stage')">演艺</span>
-          </div>
-          <div class="sort-control" onclick="toggleSortOrder()">
-            <!-- 排序漏斗 SVG -->
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M3 6h18M6 12h12M10 18h4"/>
-            </svg>
-            <span id="sortOrderLabel">推荐排序</span>
-          </div>
-        </div>
-
-        <div class="section-box" id="catalogListContainer">
-          <!-- 动态渲染图鉴列表 -->
-        </div>
-
-      </div>
-
-      <!-- ================= TAB 2: 到店试穿 (档期与三围测算) ================= -->
-      <div id="view-tab-2" class="tab-pane">
-        <div class="section-box">
-          
-          <!-- 门店切换 -->
-          <div class="store-switch-card">
-            <div style="font-size:11px;color:var(--color-text-sub);margin-bottom:6px;">选择试穿体验门店：</div>
-            <div class="store-tabs">
-              <div class="store-tab-btn active" id="storeBtn0" onclick="switchStore(0)">华裳会馆·**旗舰馆</div>
-              <div class="store-tab-btn" id="storeBtn1" onclick="switchStore(1)">锦瑟定制·**研学院</div>
-            </div>
-            <div style="font-size:11px;color:var(--color-text-sub);display:flex;align-items:center;gap:4px;margin-top:6px;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span id="storeAddressText">**市**区**区8号 (营业时间: 10:00-21:00)</span>
-            </div>
-          </div>
-
-          <!-- 当前拟试穿服饰 -->
-          <div class="card" style="display:flex;gap:12px;align-items:center;">
-            <div id="tryGarmentPreview" style="width:58px;height:58px;background:var(--color-bg-subtle);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8"><path d="M12 3L4 9v12h16V9l-8-6z"/></svg>
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:10px;" class="badge-primary" id="tryGarmentTag">已选款式</div>
-              <div style="font-size:13px;font-weight:700;margin-top:3px;" id="tryGarmentTitle">明制织金马面裙【青鸾赋】</div>
-              <div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">租金参考: ¥128/天 (0押金免押)</div>
-            </div>
-            <button class="btn-sm-outline" onclick="switchMpTab(1)">更换</button>
-          </div>
-
-          <!-- 14天档期日历选择 -->
-          <div class="calendar-container">
-            <div class="calendar-header">
-              <span>选择预约到店日期</span>
-              <span style="font-size:10px;color:var(--color-text-sub);">绿色表示档期充裕</span>
-            </div>
-            <div class="calendar-scroll" id="calendarScrollTrack">
-              <!-- 动态生成 14 天 -->
-            </div>
-
-            <div style="font-size:11px;font-weight:700;margin:12px 0 6px;">选择到店时段：</div>
-            <div class="time-slot-grid">
-              <div class="time-slot-btn" onclick="selectTimeSlot(this, '10:00-11:30')">10:00-11:30</div>
-              <div class="time-slot-btn active" onclick="selectTimeSlot(this, '14:00-15:30')">14:00-15:30 (热)</div>
-              <div class="time-slot-btn" onclick="selectTimeSlot(this, '16:00-17:30')">16:00-17:30</div>
-              <div class="time-slot-btn" onclick="selectTimeSlot(this, '18:30-20:00')">18:30-20:00</div>
-              <div class="time-slot-btn" onclick="selectTimeSlot(this, '20:00-21:00')">20:00-21:00</div>
-            </div>
-          </div>
-
-          <!-- 三围身材智能匹配器 -->
-          <div class="sizing-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <div style="font-size:13px;font-weight:800;color:var(--color-primary);">三围量体与尺码建议</div>
-              <span class="badge-gold" id="sizingBadgeResult">推荐: M 码 (98% 贴合)</span>
-            </div>
-
-            <div class="sizing-row">
-              <span style="color:var(--color-text-sub);min-width:40px;">身高</span>
-              <input type="range" class="sizing-slider" id="sliderHeight" min="150" max="185" value="165" oninput="updateSizingCalc()">
-              <b id="valHeight" style="min-width:45px;text-align:right;">165 cm</b>
-            </div>
-
-            <div class="sizing-row">
-              <span style="color:var(--color-text-sub);min-width:40px;">胸围</span>
-              <input type="range" class="sizing-slider" id="sliderBust" min="70" max="110" value="84" oninput="updateSizingCalc()">
-              <b id="valBust" style="min-width:45px;text-align:right;">84 cm</b>
-            </div>
-
-            <div class="sizing-row">
-              <span style="color:var(--color-text-sub);min-width:40px;">腰围</span>
-              <input type="range" class="sizing-slider" id="sliderWaist" min="55" max="95" value="66" oninput="updateSizingCalc()">
-              <b id="valWaist" style="min-width:45px;text-align:right;">66 cm</b>
-            </div>
-
-            <div style="background:var(--color-surface);border-radius:var(--radius-sm);padding:8px;font-size:10px;color:var(--color-text-sub);margin-top:6px;line-height:1.5;" id="fitAdviceText">
+<!-- 3. 主视口内容 (4 大业务 Tab) -->
+<div class="mp-viewport">
+<!-- ================= TAB 0: 华裳精选 (首页) ================= -->
+<div class="tab-pane active" id="view-tab-0">
+<!-- 搜索与联想胶囊 -->
+<div class="search-box">
+<div class="search-bar">
+<svg fill="none" height="14" stroke="var(--color-text-placeholder)" stroke-width="2.5" viewbox="0 0 24 24" width="14">
+<circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<input class="search-input" id="searchInput" oninput="handleSearchInput(this.value)" placeholder="搜索汉服/晚礼服/马面裙/演出服..." type="text"/>
+<button id="searchClearBtn" onclick="clearSearch()" style="display:none;background:none;border:none;cursor:pointer;color:var(--color-text-placeholder);">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="12"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="keyword-pills">
+<div class="keyword-pill active" onclick="applyKeywordFilter(this, '')">全部推荐</div>
+<div class="keyword-pill" onclick="applyKeywordFilter(this, '明制')">明制马面裙</div>
+<div class="keyword-pill" onclick="applyKeywordFilter(this, '礼服')">晚宴礼服</div>
+<div class="keyword-pill" onclick="applyKeywordFilter(this, '唐制')">大唐襦裙</div>
+<div class="keyword-pill" onclick="applyKeywordFilter(this, '少儿')">少儿舞蹈服</div>
+</div>
+</div>
+<div class="section-box">
+<!-- 轮播大片展位 -->
+<div class="hero-banner" onclick="handleBannerClick()">
+<div class="banner-slide" id="heroSlide">
+<div>
+<div class="badge-gold">重工织锦特辑</div>
+<div class="banner-title" style="margin-top:6px;">秋水长天 · 盛世华服</div>
+<div class="banner-sub">明制妆花马面 · 信用免押 · 快递到家</div>
+</div>
+<!-- 典雅折扇/华服装饰 SVG -->
+<svg fill="none" height="56" viewbox="0 0 64 64" width="56">
+<circle cx="32" cy="32" fill="var(--color-gold-light)" r="30" stroke="var(--color-gold)" stroke-width="1.5"></circle>
+<path d="M16 42C24 22 40 22 48 42" stroke="var(--color-primary)" stroke-linecap="round" stroke-width="3"></path>
+<path d="M32 18V42M22 24L32 42M42 24L32 42" stroke="var(--color-gold-dark)" stroke-width="1.5"></path>
+<circle cx="32" cy="44" fill="var(--color-primary)" r="2.5"></circle>
+</svg>
+</div>
+<div class="banner-dots">
+<div class="banner-dot active" onclick="event.stopPropagation();switchBanner(0)"></div>
+<div class="banner-dot" onclick="event.stopPropagation();switchBanner(1)"></div>
+<div class="banner-dot" onclick="event.stopPropagation();switchBanner(2)"></div>
+</div>
+</div>
+<!-- 四大金刚分类入口 -->
+<div class="category-grid">
+<div class="category-card" onclick="quickNavCategory('hanfu')">
+<div class="category-icon-box">
+<!-- 汉服袍服 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M12 3L4 9v12h16V9l-8-6z"></path><path d="M12 3v18"></path><path d="M8 9l4 4 4-4"></path>
+</svg>
+</div>
+<span class="category-name">汉服华裳</span>
+<span class="category-desc">唐宋明晋</span>
+</div>
+<div class="category-card" onclick="quickNavCategory('dress')">
+<div class="category-icon-box" style="background-color:var(--color-gold-light);color:var(--color-gold-dark);">
+<!-- 晚礼服裙摆 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M9 3h6l2 5-3 3 4 10H6l4-10-3-3 2-5z"></path><line x1="9" x2="15" y1="3" y2="3"></line>
+</svg>
+</div>
+<span class="category-name">高端礼服</span>
+<span class="category-desc">年会晚宴</span>
+</div>
+<div class="category-card" onclick="quickNavCategory('stage')">
+<div class="category-icon-box" style="background-color:var(--color-teal-light);color:var(--color-teal);">
+<!-- 舞台面具/帷幕 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle>
+</svg>
+</div>
+<span class="category-name">舞台演艺</span>
+<span class="category-desc">舞蹈剧目</span>
+</div>
+<div class="category-card" onclick="quickNavCategory('acc')">
+<div class="category-icon-box" style="background-color:var(--color-primary-light);color:var(--color-primary);">
+<!-- 步摇冠冕 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M4 18l3-10 5 6 5-6 3 10H4z"></path><circle cx="12" cy="6" r="2"></circle>
+</svg>
+</div>
+<span class="category-name">头冠配饰</span>
+<span class="category-desc">云肩发簪</span>
+</div>
+</div>
+<!-- 场景化横滑胶囊栏 -->
+<div class="scene-chips">
+<div class="scene-chip active" onclick="filterByScene(this, 'all')">全部甄选</div>
+<div class="scene-chip" onclick="filterByScene(this, 'photo')">古风旅拍</div>
+<div class="scene-chip" onclick="filterByScene(this, 'annual')">年会红毯</div>
+<div class="scene-chip" onclick="filterByScene(this, 'stage')">舞台剧目</div>
+<div class="scene-chip" onclick="filterByScene(this, 'wedding')">伴娘轻礼</div>
+</div>
+<!-- 精选服饰双列瀑布流 -->
+<div class="garment-grid" id="homeGarmentGrid">
+<!-- 动态渲染服饰卡片 -->
+</div>
+</div>
+</div>
+<!-- ================= TAB 1: 服装图鉴 (分类与选款) ================= -->
+<div class="tab-pane" id="view-tab-1">
+<!-- 图鉴筛选与排序控制条 -->
+<div class="catalog-bar">
+<div class="catalog-select">
+<span class="catalog-tab active" onclick="switchCatalogCategory(this, 'all')">全部</span>
+<span class="catalog-tab" onclick="switchCatalogCategory(this, 'hanfu')">汉服</span>
+<span class="catalog-tab" onclick="switchCatalogCategory(this, 'dress')">礼服</span>
+<span class="catalog-tab" onclick="switchCatalogCategory(this, 'stage')">演艺</span>
+</div>
+<div class="sort-control" onclick="toggleSortOrder()">
+<!-- 排序漏斗 SVG -->
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12">
+<path d="M3 6h18M6 12h12M10 18h4"></path>
+</svg>
+<span id="sortOrderLabel">推荐排序</span>
+</div>
+</div>
+<div class="section-box" id="catalogListContainer">
+<!-- 动态渲染图鉴列表 -->
+</div>
+</div>
+<!-- ================= TAB 2: 到店试穿 (档期与三围测算) ================= -->
+<div class="tab-pane" id="view-tab-2">
+<div class="section-box">
+<!-- 门店切换 -->
+<div class="store-switch-card">
+<div style="font-size:11px;color:var(--color-text-sub);margin-bottom:6px;">选择试穿体验门店：</div>
+<div class="store-tabs">
+<div class="store-tab-btn active" id="storeBtn0" onclick="switchStore(0)">华裳会馆·**旗舰馆</div>
+<div class="store-tab-btn" id="storeBtn1" onclick="switchStore(1)">锦瑟定制·**研学院</div>
+</div>
+<div style="font-size:11px;color:var(--color-text-sub);display:flex;align-items:center;gap:4px;margin-top:6px;">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span id="storeAddressText">**市**区**区8号 (营业时间: 10:00-21:00)</span>
+</div>
+</div>
+<!-- 当前拟试穿服饰 -->
+<div class="card" style="display:flex;gap:12px;align-items:center;">
+<div id="tryGarmentPreview" style="width:58px;height:58px;background:var(--color-bg-subtle);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+<svg fill="none" height="28" stroke="var(--color-primary)" stroke-width="1.8" viewbox="0 0 24 24" width="28"><path d="M12 3L4 9v12h16V9l-8-6z"></path></svg>
+</div>
+<div style="flex:1;">
+<div class="badge-primary" id="tryGarmentTag" style="font-size:10px;">已选款式</div>
+<div id="tryGarmentTitle" style="font-size:13px;font-weight:700;margin-top:3px;">明制织金马面裙【青鸾赋】</div>
+<div style="font-size:11px;color:var(--color-primary);font-weight:700;margin-top:2px;">租金参考: ¥128/天 (0押金免押)</div>
+</div>
+<button class="btn-sm-outline" onclick="switchMpTab(1)">更换</button>
+</div>
+<!-- 14天档期日历选择 -->
+<div class="calendar-container">
+<div class="calendar-header">
+<span>选择预约到店日期</span>
+<span style="font-size:10px;color:var(--color-text-sub);">绿色表示档期充裕</span>
+</div>
+<div class="calendar-scroll" id="calendarScrollTrack">
+<!-- 动态生成 14 天 -->
+</div>
+<div style="font-size:11px;font-weight:700;margin:12px 0 6px;">选择到店时段：</div>
+<div class="time-slot-grid">
+<div class="time-slot-btn" onclick="selectTimeSlot(this, '10:00-11:30')">10:00-11:30</div>
+<div class="time-slot-btn active" onclick="selectTimeSlot(this, '14:00-15:30')">14:00-15:30 (热)</div>
+<div class="time-slot-btn" onclick="selectTimeSlot(this, '16:00-17:30')">16:00-17:30</div>
+<div class="time-slot-btn" onclick="selectTimeSlot(this, '18:30-20:00')">18:30-20:00</div>
+<div class="time-slot-btn" onclick="selectTimeSlot(this, '20:00-21:00')">20:00-21:00</div>
+</div>
+</div>
+<!-- 三围身材智能匹配器 -->
+<div class="sizing-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div style="font-size:13px;font-weight:800;color:var(--color-primary);">三围量体与尺码建议</div>
+<span class="badge-gold" id="sizingBadgeResult">推荐: M 码 (98% 贴合)</span>
+</div>
+<div class="sizing-row">
+<span style="color:var(--color-text-sub);min-width:40px;">身高</span>
+<input class="sizing-slider" id="sliderHeight" max="185" min="150" oninput="updateSizingCalc()" type="range" value="165"/>
+<b id="valHeight" style="min-width:45px;text-align:right;">165 cm</b>
+</div>
+<div class="sizing-row">
+<span style="color:var(--color-text-sub);min-width:40px;">胸围</span>
+<input class="sizing-slider" id="sliderBust" max="110" min="70" oninput="updateSizingCalc()" type="range" value="84"/>
+<b id="valBust" style="min-width:45px;text-align:right;">84 cm</b>
+</div>
+<div class="sizing-row">
+<span style="color:var(--color-text-sub);min-width:40px;">腰围</span>
+<input class="sizing-slider" id="sliderWaist" max="95" min="55" oninput="updateSizingCalc()" type="range" value="66"/>
+<b id="valWaist" style="min-width:45px;text-align:right;">66 cm</b>
+</div>
+<div id="fitAdviceText" style="background:var(--color-surface);border-radius:var(--radius-sm);padding:8px;font-size:10px;color:var(--color-text-sub);margin-top:6px;line-height:1.5;">
               明制马面裙系带可自由调节，当前腰围穿戴版型平整；裙长适中，建议搭配 3-5cm 古风绣花鞋。
             </div>
-          </div>
-
-          <!-- 增值服务项 -->
-          <div class="card" style="font-size:11px;">
-            <div style="font-weight:700;margin-bottom:8px;">搭配增值服务：</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-                <span>基础试穿辅导 (免费协助穿戴)</span>
-                <input type="checkbox" checked disabled accent-color="var(--color-primary)">
-              </label>
-              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-                <span>古风经典发髻与簪花妆造 (+¥68)</span>
-                <input type="checkbox" id="addonMakeup" onchange="calcBookingTotal()" accent-color="var(--color-primary)">
-              </label>
-              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-                <span>专属量体与腰围微调锁边 (+¥38)</span>
-                <input type="checkbox" id="addonAlter" onchange="calcBookingTotal()" accent-color="var(--color-primary)">
-              </label>
-            </div>
-          </div>
-
-          <!-- 预约人脱敏信息 -->
-          <div class="card" style="font-size:11px;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-              <span style="color:var(--color-text-sub);">预约姓名</span>
-              <b>** (实名已认证)</b>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-              <span style="color:var(--color-text-sub);">联系电话</span>
-              <b>138**6821</b>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--color-border-light);">
-              <span style="font-size:12px;font-weight:700;">合计预订费用</span>
-              <b style="font-size:16px;color:var(--color-primary);" id="bookingTotalFee">¥0.00</b>
-            </div>
-            <div style="font-size:10px;color:var(--color-success);margin-top:4px;">享有 VIP 免押金预约试穿权益</div>
-          </div>
-
-          <!-- 提交预约按钮 -->
-          <button style="width:100%;background-color:var(--color-primary);color:var(--color-text-white);border:none;padding:12px;border-radius:var(--radius-pill);font-size:13px;font-weight:700;cursor:pointer;box-shadow:var(--shadow-card);" onclick="submitBookingReservation()">
+</div>
+<!-- 增值服务项 -->
+<div class="card" style="font-size:11px;">
+<div style="font-weight:700;margin-bottom:8px;">搭配增值服务：</div>
+<div style="display:flex;flex-direction:column;gap:8px;">
+<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+<span>基础试穿辅导 (免费协助穿戴)</span>
+<input accent-color="var(--color-primary)" checked="" disabled="" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+<span>古风经典发髻与簪花妆造 (+¥68)</span>
+<input accent-color="var(--color-primary)" id="addonMakeup" onchange="calcBookingTotal()" type="checkbox"/>
+</label>
+<label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+<span>专属量体与腰围微调锁边 (+¥38)</span>
+<input accent-color="var(--color-primary)" id="addonAlter" onchange="calcBookingTotal()" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- 预约人脱敏信息 -->
+<div class="card" style="font-size:11px;">
+<div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+<span style="color:var(--color-text-sub);">预约姓名</span>
+<b>** (实名已认证)</b>
+</div>
+<div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+<span style="color:var(--color-text-sub);">联系电话</span>
+<b>138**6821</b>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--color-border-light);">
+<span style="font-size:12px;font-weight:700;">合计预订费用</span>
+<b id="bookingTotalFee" style="font-size:16px;color:var(--color-primary);">¥0.00</b>
+</div>
+<div style="font-size:10px;color:var(--color-success);margin-top:4px;">享有 VIP 免押金预约试穿权益</div>
+</div>
+<!-- 提交预约按钮 -->
+<button onclick="submitBookingReservation()" style="width:100%;background-color:var(--color-primary);color:var(--color-text-white);border:none;padding:12px;border-radius:var(--radius-pill);font-size:13px;font-weight:700;cursor:pointer;box-shadow:var(--shadow-card);">
             确认提交到店试穿预约
           </button>
-        </div>
-      </div>
-
-      <!-- ================= TAB 3: 我的服务 (个人中心与订单) ================= -->
-      <div id="view-tab-3" class="tab-pane">
-        <div class="section-box">
-          
-          <!-- 会员卡片 -->
-          <div class="user-profile-header">
-            <div class="profile-top">
-              <div class="user-avatar">
-                <!-- 华服刺绣图腾 SVG -->
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                </svg>
-              </div>
-              <div style="flex:1;">
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:16px;font-weight:800;">**</span>
-                  <span style="font-size:10px;background:rgba(255,255,255,0.22);padding:2px 8px;border-radius:var(--radius-pill);font-weight:600;">金卡会员</span>
-                </div>
-                <div style="font-size:11px;opacity:0.85;margin-top:2px;">手机：138**6821 | VIP-88910</div>
-              </div>
-              <button style="background:rgba(255,255,255,0.2);border:none;color:#FFF;padding:4px 10px;border-radius:var(--radius-pill);font-size:10px;cursor:pointer;" onclick="openCouponModal()">
+</div>
+</div>
+<!-- ================= TAB 3: 我的服务 (个人中心与订单) ================= -->
+<div class="tab-pane" id="view-tab-3">
+<div class="section-box">
+<!-- 会员卡片 -->
+<div class="user-profile-header">
+<div class="profile-top">
+<div class="user-avatar">
+<!-- 华服刺绣图腾 SVG -->
+<svg fill="none" height="26" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="26">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+</svg>
+</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:16px;font-weight:800;">**</span>
+<span style="font-size:10px;background:rgba(255,255,255,0.22);padding:2px 8px;border-radius:var(--radius-pill);font-weight:600;">金卡会员</span>
+</div>
+<div style="font-size:11px;opacity:0.85;margin-top:2px;">手机：138**6821 | VIP-88910</div>
+</div>
+<button onclick="openCouponModal()" style="background:rgba(255,255,255,0.2);border:none;color:#FFF;padding:4px 10px;border-radius:var(--radius-pill);font-size:10px;cursor:pointer;">
                 卡券
               </button>
-            </div>
-
-            <!-- 资产看板 -->
-            <div class="profile-stats">
-              <div style="cursor:pointer;" onclick="showMiniToast('免押特权已生效，授信额度充足', 'check')">
-                <div class="stat-val">¥3,000</div>
-                <div class="stat-label">免押授信</div>
-              </div>
-              <div style="cursor:pointer;" onclick="openCouponModal()">
-                <div class="stat-val">2 张</div>
-                <div class="stat-label">优惠券包</div>
-              </div>
-              <div style="cursor:pointer;" onclick="openRentListModal()">
-                <div class="stat-val" id="myBagCount">3 件</div>
-                <div class="stat-label">选衣清单</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 订单全生命周期看板 -->
-          <div style="font-size:12px;font-weight:700;margin-bottom:8px;padding-left:4px;">租赁订单看板</div>
-          
-          <div class="order-status-nav">
-            <div class="status-tab active" onclick="filterOrderStatus(this, 'all')">
-              <span>全部</span>
-              <span style="font-size:9px;">(4)</span>
-            </div>
-            <div class="status-tab" onclick="filterOrderStatus(this, 'pending')">
-              <span>待试穿</span>
-              <span style="font-size:9px;">(1)</span>
-            </div>
-            <div class="status-tab" onclick="filterOrderStatus(this, 'using')">
-              <span>租用中</span>
-              <span style="font-size:9px;">(1)</span>
-            </div>
-            <div class="status-tab" onclick="filterOrderStatus(this, 'to_return')">
-              <span>待归还</span>
-              <span style="font-size:9px;">(1)</span>
-            </div>
-            <div class="status-tab" onclick="filterOrderStatus(this, 'refunded')">
-              <span>已退押</span>
-              <span style="font-size:9px;">(1)</span>
-            </div>
-          </div>
-
-          <!-- 订单卡片列表容器 -->
-          <div id="ordersListContainer">
-            <!-- 动态渲染订单列表 -->
-          </div>
-
-          <!-- 实用服务入口列表 -->
-          <div class="card" style="padding:4px 14px;margin-top:14px;">
-            <div style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openAddressModal()">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>常用收货与归还地址管理</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-sub)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-
-            <div style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openPolicyModal()">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <span>租赁服务细则与污损赔付标准</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-sub)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-
-            <div style="padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openCustomerService()">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span>24h 专属在线客服与妆造**</span>
-              </div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-sub)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 4. 底部沉浸式 TabBar (4 Tabs) -->
-    <div class="mp-tabbar">
-      <div class="tab-item active" id="tabNav0" onclick="switchMpTab(0)">
-        <!-- 首页 Sparkles SVG -->
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M12 2l2.4 7.2L21 12l-6.6 2.8L12 22l-2.4-7.2L3 12l6.6-2.8z"/>
-        </svg>
-        <span>华裳精选</span>
-      </div>
-
-      <div class="tab-item" id="tabNav1" onclick="switchMpTab(1)">
-        <!-- 图鉴衣架 SVG -->
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M12 4a2 2 0 0 1 2 2c0 1.5-1.5 2.5-2 3.5L2 17h20L14 9.5c-.5-1-2-2-2-3.5a2 2 0 0 1 2-2z"/>
-          <line x1="2" y1="17" x2="2" y2="20"/>
-          <line x1="22" y1="17" x2="22" y2="20"/>
-        </svg>
-        <span>服装图鉴</span>
-      </div>
-
-      <div class="tab-item" id="tabNav2" onclick="switchMpTab(2)">
-        <!-- 试穿日历 SVG -->
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/>
-          <line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        <span>到店试穿</span>
-      </div>
-
-      <div class="tab-item" id="tabNav3" onclick="switchMpTab(3)">
-        <!-- 个人中心 User SVG -->
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span class="tab-badge" id="tabBadgeOrder">1</span>
-        <span>我的服务</span>
-      </div>
-    </div>
-
-    <!-- ================= 规格选择半屏抽屉 (Half Sheet) ================= -->
-    <div class="sheet-overlay" id="detailSheetOverlay" onclick="closeDetailSheet()"></div>
-    <div class="half-sheet" id="detailHalfSheet">
-      <div class="sheet-header">
-        <div>
-          <div style="font-size:10px;" class="badge-primary" id="sheetCategoryTag">明制汉服</div>
-          <div style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-top:4px;" id="sheetTitle">明制织金马面裙【青鸾赋】</div>
-        </div>
-        <button style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);padding:4px;" onclick="closeDetailSheet()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="sheet-body">
-        <!-- 多视角缩略切换 -->
-        <div style="display:flex;gap:8px;margin-bottom:12px;">
-          <div class="badge-primary" style="cursor:pointer;" onclick="showMiniToast('已切换至正面整体展示', 'check')">正面全景</div>
-          <div class="badge-gold" style="cursor:pointer;" onclick="showMiniToast('已切换至织金暗纹特写', 'check')">织金暗纹</div>
-          <div class="badge-primary" style="cursor:pointer;" onclick="showMiniToast('已切换至背部形制版型', 'check')">背面形制</div>
-        </div>
-
-        <!-- 租期梯队选择 -->
-        <div style="font-size:12px;font-weight:700;">选择租用天数阶梯：</div>
-        <div class="tier-grid">
-          <div class="tier-box" id="tierBox1" onclick="selectRentTier(1, 128)">
-            <div style="font-size:11px;font-weight:700;">1天体验租</div>
-            <div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥128</div>
-            <div style="font-size:9px;color:var(--color-text-sub);">影棚拍摄首选</div>
-          </div>
-          <div class="tier-box active" id="tierBox3" onclick="selectRentTier(3, 268)">
-            <div style="font-size:11px;font-weight:700;">3天标准租</div>
-            <div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥268</div>
-            <div style="font-size:9px;color:var(--color-text-sub);">外景周末推荐</div>
-          </div>
-          <div class="tier-box" id="tierBox7" onclick="selectRentTier(7, 498)">
-            <div style="font-size:11px;font-weight:700;">7天深度租</div>
-            <div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥498</div>
-            <div style="font-size:9px;color:var(--color-text-sub);">跨城旅拍超值</div>
-          </div>
-        </div>
-
-        <!-- 尺码选择 -->
-        <div style="font-size:12px;font-weight:700;margin-top:10px;">选择尺码规格：</div>
-        <div class="size-chips">
-          <div class="size-chip" onclick="selectGarmentSize(this, 'S')">S码 (155-160cm)</div>
-          <div class="size-chip active" onclick="selectGarmentSize(this, 'M')">M码 (160-165cm)</div>
-          <div class="size-chip" onclick="selectGarmentSize(this, 'L')">L码 (165-170cm)</div>
-        </div>
-
-        <!-- 尺码测量对照表 -->
-        <div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:10px;font-size:10px;color:var(--color-text-regular);border:1px solid var(--color-border-light);">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-            <span>裙长/衣长: <b>98 cm</b></span>
-            <span>通袖长: <b>162 cm</b></span>
-            <span>腰围适用: <b>62-74 cm</b></span>
-          </div>
-          <div style="color:var(--color-success);font-weight:600;margin-top:4px;">
+</div>
+<!-- 资产看板 -->
+<div class="profile-stats">
+<div onclick="showMiniToast('免押特权已生效，授信额度充足', 'check')" style="cursor:pointer;">
+<div class="stat-val">¥3,000</div>
+<div class="stat-label">免押授信</div>
+</div>
+<div onclick="openCouponModal()" style="cursor:pointer;">
+<div class="stat-val">2 张</div>
+<div class="stat-label">优惠券包</div>
+</div>
+<div onclick="openRentListModal()" style="cursor:pointer;">
+<div class="stat-val" id="myBagCount">3 件</div>
+<div class="stat-label">选衣清单</div>
+</div>
+</div>
+</div>
+<!-- 订单全生命周期看板 -->
+<div style="font-size:12px;font-weight:700;margin-bottom:8px;padding-left:4px;">租赁订单看板</div>
+<div class="order-status-nav">
+<div class="status-tab active" onclick="filterOrderStatus(this, 'all')">
+<span>全部</span>
+<span style="font-size:9px;">(4)</span>
+</div>
+<div class="status-tab" onclick="filterOrderStatus(this, 'pending')">
+<span>待试穿</span>
+<span style="font-size:9px;">(1)</span>
+</div>
+<div class="status-tab" onclick="filterOrderStatus(this, 'using')">
+<span>租用中</span>
+<span style="font-size:9px;">(1)</span>
+</div>
+<div class="status-tab" onclick="filterOrderStatus(this, 'to_return')">
+<span>待归还</span>
+<span style="font-size:9px;">(1)</span>
+</div>
+<div class="status-tab" onclick="filterOrderStatus(this, 'refunded')">
+<span>已退押</span>
+<span style="font-size:9px;">(1)</span>
+</div>
+</div>
+<!-- 订单卡片列表容器 -->
+<div id="ordersListContainer">
+<!-- 动态渲染订单列表 -->
+</div>
+<!-- 实用服务入口列表 -->
+<div class="card" style="padding:4px 14px;margin-top:14px;">
+<div onclick="openAddressModal()" style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:12px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>常用收货与归还地址管理</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-sub)" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div onclick="openPolicyModal()" style="padding:12px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:12px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+<span>租赁服务细则与污损赔付标准</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-sub)" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+<div onclick="openCustomerService()" style="padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:12px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<span>24h 专属在线客服与妆造**</span>
+</div>
+<svg fill="none" height="14" stroke="var(--color-text-sub)" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. 底部沉浸式 TabBar (4 Tabs) -->
+<div class="mp-tabbar">
+<div class="tab-item active" id="tabNav0" onclick="switchMpTab(0)">
+<!-- 首页 Sparkles SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24" width="20">
+<path d="M12 2l2.4 7.2L21 12l-6.6 2.8L12 22l-2.4-7.2L3 12l6.6-2.8z"></path>
+</svg>
+<span>华裳精选</span>
+</div>
+<div class="tab-item" id="tabNav1" onclick="switchMpTab(1)">
+<!-- 图鉴衣架 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24" width="20">
+<path d="M12 4a2 2 0 0 1 2 2c0 1.5-1.5 2.5-2 3.5L2 17h20L14 9.5c-.5-1-2-2-2-3.5a2 2 0 0 1 2-2z"></path>
+<line x1="2" x2="2" y1="17" y2="20"></line>
+<line x1="22" x2="22" y1="17" y2="20"></line>
+</svg>
+<span>服装图鉴</span>
+</div>
+<div class="tab-item" id="tabNav2" onclick="switchMpTab(2)">
+<!-- 试穿日历 SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24" width="20">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+<span>到店试穿</span>
+</div>
+<div class="tab-item" id="tabNav3" onclick="switchMpTab(3)">
+<!-- 个人中心 User SVG -->
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-width="2.2" viewbox="0 0 24 24" width="20">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span class="tab-badge" id="tabBadgeOrder">1</span>
+<span>我的服务</span>
+</div>
+</div>
+<!-- ================= 规格选择半屏抽屉 (Half Sheet) ================= -->
+<div class="sheet-overlay" id="detailSheetOverlay" onclick="closeDetailSheet()"></div>
+<div class="half-sheet" id="detailHalfSheet">
+<div class="sheet-header">
+<div>
+<div class="badge-primary" id="sheetCategoryTag" style="font-size:10px;">明制汉服</div>
+<div id="sheetTitle" style="font-size:14px;font-weight:800;color:var(--color-text-main);margin-top:4px;">明制织金马面裙【青鸾赋】</div>
+</div>
+<button onclick="closeDetailSheet()" style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);padding:4px;">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-body">
+<!-- 多视角缩略切换 -->
+<div style="display:flex;gap:8px;margin-bottom:12px;">
+<div class="badge-primary" onclick="showMiniToast('已切换至正面整体展示', 'check')" style="cursor:pointer;">正面全景</div>
+<div class="badge-gold" onclick="showMiniToast('已切换至织金暗纹特写', 'check')" style="cursor:pointer;">织金暗纹</div>
+<div class="badge-primary" onclick="showMiniToast('已切换至背部形制版型', 'check')" style="cursor:pointer;">背面形制</div>
+</div>
+<!-- 租期梯队选择 -->
+<div style="font-size:12px;font-weight:700;">选择租用天数阶梯：</div>
+<div class="tier-grid">
+<div class="tier-box" id="tierBox1" onclick="selectRentTier(1, 128)">
+<div style="font-size:11px;font-weight:700;">1天体验租</div>
+<div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥128</div>
+<div style="font-size:9px;color:var(--color-text-sub);">影棚拍摄首选</div>
+</div>
+<div class="tier-box active" id="tierBox3" onclick="selectRentTier(3, 268)">
+<div style="font-size:11px;font-weight:700;">3天标准租</div>
+<div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥268</div>
+<div style="font-size:9px;color:var(--color-text-sub);">外景周末推荐</div>
+</div>
+<div class="tier-box" id="tierBox7" onclick="selectRentTier(7, 498)">
+<div style="font-size:11px;font-weight:700;">7天深度租</div>
+<div style="font-size:12px;color:var(--color-primary);font-weight:800;margin-top:2px;">¥498</div>
+<div style="font-size:9px;color:var(--color-text-sub);">跨城旅拍超值</div>
+</div>
+</div>
+<!-- 尺码选择 -->
+<div style="font-size:12px;font-weight:700;margin-top:10px;">选择尺码规格：</div>
+<div class="size-chips">
+<div class="size-chip" onclick="selectGarmentSize(this, 'S')">S码 (155-160cm)</div>
+<div class="size-chip active" onclick="selectGarmentSize(this, 'M')">M码 (160-165cm)</div>
+<div class="size-chip" onclick="selectGarmentSize(this, 'L')">L码 (165-170cm)</div>
+</div>
+<!-- 尺码测量对照表 -->
+<div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:10px;font-size:10px;color:var(--color-text-regular);border:1px solid var(--color-border-light);">
+<div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+<span>裙长/衣长: <b>98 cm</b></span>
+<span>通袖长: <b>162 cm</b></span>
+<span>腰围适用: <b>62-74 cm</b></span>
+</div>
+<div style="color:var(--color-success);font-weight:600;margin-top:4px;">
             包含套件：立领主上衫 + 织金马面裙 + 披帛 + 纯银色发簪1套
           </div>
-        </div>
-
-        <!-- 信用免押提醒条 -->
-        <div style="background:var(--color-primary-light);border-radius:var(--radius-sm);padding:8px 10px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-size:11px;color:var(--color-primary);font-weight:600;">已授权微信信用免押金</div>
-          <span style="font-size:10px;color:var(--color-primary);">押金 ¥0</span>
-        </div>
-      </div>
-
-      <div class="sheet-footer">
-        <button class="btn-sm-outline" style="flex:1;padding:10px;font-size:12px;font-weight:700;" onclick="addToRentalCart()">
+</div>
+<!-- 信用免押提醒条 -->
+<div style="background:var(--color-primary-light);border-radius:var(--radius-sm);padding:8px 10px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
+<div style="font-size:11px;color:var(--color-primary);font-weight:600;">已授权微信信用免押金</div>
+<span style="font-size:10px;color:var(--color-primary);">押金 ¥0</span>
+</div>
+</div>
+<div class="sheet-footer">
+<button class="btn-sm-outline" onclick="addToRentalCart()" style="flex:1;padding:10px;font-size:12px;font-weight:700;">
           加入选衣清单
         </button>
-        <button class="btn-sm-primary" style="flex:1.2;padding:10px;font-size:12px;font-weight:700;" onclick="jumpToTryOnFromDetail()">
+<button class="btn-sm-primary" onclick="jumpToTryOnFromDetail()" style="flex:1.2;padding:10px;font-size:12px;font-weight:700;">
           预约到店试穿
         </button>
-      </div>
-    </div>
-
-    <!-- ================= 微信在线客服抽屉 ================= -->
-    <div class="sheet-overlay" id="csOverlay" onclick="closeCustomerService()"></div>
-    <div class="half-sheet" id="csSheet" style="max-height:78%;">
-      <div class="sheet-header">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:28px;height:28px;border-radius:var(--radius-pill);background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div>
-            <div style="font-size:13px;font-weight:700;">华裳在线** · 小锦</div>
-            <div style="font-size:10px;color:var(--color-success);">在线为您提供服饰与档期咨询</div>
-          </div>
-        </div>
-        <button style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);" onclick="closeCustomerService()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="sheet-body" id="chatMessageBody">
-        <div class="chat-bubble-received">
+</div>
+</div>
+<!-- ================= 微信在线客服抽屉 ================= -->
+<div class="sheet-overlay" id="csOverlay" onclick="closeCustomerService()"></div>
+<div class="half-sheet" id="csSheet" style="max-height:78%;">
+<div class="sheet-header">
+<div style="display:flex;align-items:center;gap:8px;">
+<div style="width:28px;height:28px;border-radius:var(--radius-pill);background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:700;">华裳在线** · 小锦</div>
+<div style="font-size:10px;color:var(--color-success);">在线为您提供服饰与档期咨询</div>
+</div>
+</div>
+<button onclick="closeCustomerService()" style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-body" id="chatMessageBody">
+<div class="chat-bubble-received">
           您好！我是华裳馆在线**。请问您需要了解汉服形制、礼服档期还是到店试穿安排呢？
         </div>
-        
-        <div style="font-size:10px;color:var(--color-text-sub);margin:8px 0 4px;">快捷咨询常见问题：</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-          <div class="badge-primary" style="cursor:pointer;" onclick="sendQuickQuery('免押金资格如何申请？')">免押金资格如何申请？</div>
-          <div class="badge-gold" style="cursor:pointer;" onclick="sendQuickQuery('如果不小心弄脏怎么办？')">如果不小心弄脏怎么办？</div>
-          <div class="badge-primary" style="cursor:pointer;" onclick="sendQuickQuery('支持快递上门取件归还吗？')">支持快递上门归还吗？</div>
-        </div>
-      </div>
-
-      <div style="padding:10px 14px;border-top:1px solid var(--color-border-light);display:flex;gap:8px;">
-        <input type="text" id="csInput" placeholder="输入您想咨询的问题..." style="flex:1;border:1px solid var(--color-border);border-radius:var(--radius-pill);padding:6px 12px;font-size:12px;outline:none;">
-        <button class="btn-sm-primary" onclick="sendCustomMessage()">发送</button>
-      </div>
-    </div>
-
-    <!-- ================= 电子凭证核销码模态框 ================= -->
-    <div class="sheet-overlay" id="qrModalOverlay" onclick="closeQrModal()"></div>
-    <div class="half-sheet" id="qrModalSheet" style="max-height:60%;">
-      <div class="sheet-header">
-        <div style="font-size:13px;font-weight:700;" id="qrModalTitle">电子取衣核销码</div>
-        <button style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);" onclick="closeQrModal()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="sheet-body" style="text-align:center;padding:20px 16px;">
-        <div style="font-size:11px;color:var(--color-text-sub);margin-bottom:10px;">请向店内造型师或店员出示核销：</div>
-        <!-- 仿真条形码 SVG -->
-        <div style="display:flex;justify-content:center;margin-bottom:12px;">
-          <svg width="220" height="46" viewBox="0 0 220 46" fill="var(--color-text-main)">
-            <rect x="0" y="0" width="4" height="46"/>
-            <rect x="8" y="0" width="2" height="46"/>
-            <rect x="14" y="0" width="6" height="46"/>
-            <rect x="24" y="0" width="2" height="46"/>
-            <rect x="30" y="0" width="4" height="46"/>
-            <rect x="38" y="0" width="2" height="46"/>
-            <rect x="44" y="0" width="8" height="46"/>
-            <rect x="56" y="0" width="4" height="46"/>
-            <rect x="64" y="0" width="2" height="46"/>
-            <rect x="70" y="0" width="6" height="46"/>
-            <rect x="80" y="0" width="4" height="46"/>
-            <rect x="88" y="0" width="8" height="46"/>
-            <rect x="100" y="0" width="2" height="46"/>
-            <rect x="106" y="0" width="6" height="46"/>
-            <rect x="116" y="0" width="4" height="46"/>
-            <rect x="124" y="0" width="2" height="46"/>
-            <rect x="130" y="0" width="6" height="46"/>
-            <rect x="140" y="0" width="4" height="46"/>
-            <rect x="148" y="0" width="2" height="46"/>
-            <rect x="154" y="0" width="8" height="46"/>
-            <rect x="166" y="0" width="2" height="46"/>
-            <rect x="172" y="0" width="4" height="46"/>
-            <rect x="180" y="0" width="6" height="46"/>
-            <rect x="190" y="0" width="2" height="46"/>
-            <rect x="196" y="0" width="8" height="46"/>
-            <rect x="208" y="0" width="4" height="46"/>
-            <rect x="216" y="0" width="4" height="46"/>
-          </svg>
-        </div>
-        <div style="font-family:monospace;font-size:14px;font-weight:800;letter-spacing:2px;" id="qrCodeText">HS-8801-VERIFY</div>
-        <div style="font-size:10px;color:var(--color-success);margin-top:12px;">动态凭证 · 每分钟自动刷新安全防伪</div>
-      </div>
-    </div>
-
-    <!-- ================= 微信官方胶囊功能弹窗 ================= -->
-    <div class="sheet-overlay" id="capsuleOverlay" onclick="closeCapsuleMenu()"></div>
-    <div class="half-sheet" id="capsuleSheet" style="max-height:48%;">
-      <div class="sheet-header">
-        <div style="font-size:13px;font-weight:700;">小程序功能导航</div>
-        <button style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);" onclick="closeCapsuleMenu()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="sheet-body" style="font-size:12px;">
-        <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;" onclick="showMiniToast('已生成微信分享卡片', 'check');closeCapsuleMenu();">
+<div style="font-size:10px;color:var(--color-text-sub);margin:8px 0 4px;">快捷咨询常见问题：</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+<div class="badge-primary" onclick="sendQuickQuery('免押金资格如何申请？')" style="cursor:pointer;">免押金资格如何申请？</div>
+<div class="badge-gold" onclick="sendQuickQuery('如果不小心弄脏怎么办？')" style="cursor:pointer;">如果不小心弄脏怎么办？</div>
+<div class="badge-primary" onclick="sendQuickQuery('支持快递上门取件归还吗？')" style="cursor:pointer;">支持快递上门归还吗？</div>
+</div>
+</div>
+<div style="padding:10px 14px;border-top:1px solid var(--color-border-light);display:flex;gap:8px;">
+<input id="csInput" placeholder="输入您想咨询的问题..." style="flex:1;border:1px solid var(--color-border);border-radius:var(--radius-pill);padding:6px 12px;font-size:12px;outline:none;" type="text"/>
+<button class="btn-sm-primary" onclick="sendCustomMessage()">发送</button>
+</div>
+</div>
+<!-- ================= 电子凭证核销码模态框 ================= -->
+<div class="sheet-overlay" id="qrModalOverlay" onclick="closeQrModal()"></div>
+<div class="half-sheet" id="qrModalSheet" style="max-height:60%;">
+<div class="sheet-header">
+<div id="qrModalTitle" style="font-size:13px;font-weight:700;">电子取衣核销码</div>
+<button onclick="closeQrModal()" style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-body" style="text-align:center;padding:20px 16px;">
+<div style="font-size:11px;color:var(--color-text-sub);margin-bottom:10px;">请向店内造型师或店员出示核销：</div>
+<!-- 仿真条形码 SVG -->
+<div style="display:flex;justify-content:center;margin-bottom:12px;">
+<svg fill="var(--color-text-main)" height="46" viewbox="0 0 220 46" width="220">
+<rect height="46" width="4" x="0" y="0"></rect>
+<rect height="46" width="2" x="8" y="0"></rect>
+<rect height="46" width="6" x="14" y="0"></rect>
+<rect height="46" width="2" x="24" y="0"></rect>
+<rect height="46" width="4" x="30" y="0"></rect>
+<rect height="46" width="2" x="38" y="0"></rect>
+<rect height="46" width="8" x="44" y="0"></rect>
+<rect height="46" width="4" x="56" y="0"></rect>
+<rect height="46" width="2" x="64" y="0"></rect>
+<rect height="46" width="6" x="70" y="0"></rect>
+<rect height="46" width="4" x="80" y="0"></rect>
+<rect height="46" width="8" x="88" y="0"></rect>
+<rect height="46" width="2" x="100" y="0"></rect>
+<rect height="46" width="6" x="106" y="0"></rect>
+<rect height="46" width="4" x="116" y="0"></rect>
+<rect height="46" width="2" x="124" y="0"></rect>
+<rect height="46" width="6" x="130" y="0"></rect>
+<rect height="46" width="4" x="140" y="0"></rect>
+<rect height="46" width="2" x="148" y="0"></rect>
+<rect height="46" width="8" x="154" y="0"></rect>
+<rect height="46" width="2" x="166" y="0"></rect>
+<rect height="46" width="4" x="172" y="0"></rect>
+<rect height="46" width="6" x="180" y="0"></rect>
+<rect height="46" width="2" x="190" y="0"></rect>
+<rect height="46" width="8" x="196" y="0"></rect>
+<rect height="46" width="4" x="208" y="0"></rect>
+<rect height="46" width="4" x="216" y="0"></rect>
+</svg>
+</div>
+<div id="qrCodeText" style="font-family:monospace;font-size:14px;font-weight:800;letter-spacing:2px;">HS-8801-VERIFY</div>
+<div style="font-size:10px;color:var(--color-success);margin-top:12px;">动态凭证 · 每分钟自动刷新安全防伪</div>
+</div>
+</div>
+<!-- ================= 微信官方胶囊功能弹窗 ================= -->
+<div class="sheet-overlay" id="capsuleOverlay" onclick="closeCapsuleMenu()"></div>
+<div class="half-sheet" id="capsuleSheet" style="max-height:48%;">
+<div class="sheet-header">
+<div style="font-size:13px;font-weight:700;">小程序功能导航</div>
+<button onclick="closeCapsuleMenu()" style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-body" style="font-size:12px;">
+<div onclick="showMiniToast('已生成微信分享卡片', 'check');closeCapsuleMenu();" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;">
           转发给朋友
         </div>
-        <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;" onclick="showMiniToast('已生成精美朋友圈海报', 'check');closeCapsuleMenu();">
+<div onclick="showMiniToast('已生成精美朋友圈海报', 'check');closeCapsuleMenu();" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;">
           分享到朋友圈
         </div>
-        <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;" onclick="showMiniToast('已添加至【我的小程序】', 'check');closeCapsuleMenu();">
+<div onclick="showMiniToast('已添加至【我的小程序】', 'check');closeCapsuleMenu();" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);cursor:pointer;">
           添加到桌面与我的小程序
         </div>
-        <div style="padding:10px 0;cursor:pointer;" onclick="location.reload();">
+<div onclick="location.reload();" style="padding:10px 0;cursor:pointer;">
           重新载入当前页面
         </div>
-      </div>
-    </div>
-
-    <!-- ================= 优惠券包与清单简单浮层 ================= -->
-    <div class="sheet-overlay" id="simpleModalOverlay" onclick="closeSimpleModal()"></div>
-    <div class="half-sheet" id="simpleModalSheet" style="max-height:55%;">
-      <div class="sheet-header">
-        <div style="font-size:13px;font-weight:700;" id="simpleModalTitle">卡券包</div>
-        <button style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);" onclick="closeSimpleModal()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="sheet-body" id="simpleModalBody">
-        <!-- 动态装载简易列表 -->
-      </div>
-    </div>
-
-    <!-- ================= 仿微信原生居中 Toast ================= -->
-    <div class="mp-toast" id="globalToast">
-      <div id="toastIconBox">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
-      <div id="toastMsg">操作成功</div>
-    </div>
-
-  </div>
-
-  <!-- ============================================================
+</div>
+</div>
+<!-- ================= 优惠券包与清单简单浮层 ================= -->
+<div class="sheet-overlay" id="simpleModalOverlay" onclick="closeSimpleModal()"></div>
+<div class="half-sheet" id="simpleModalSheet" style="max-height:55%;">
+<div class="sheet-header">
+<div id="simpleModalTitle" style="font-size:13px;font-weight:700;">卡券包</div>
+<button onclick="closeSimpleModal()" style="background:none;border:none;cursor:pointer;color:var(--color-text-sub);">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="18"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="sheet-body" id="simpleModalBody">
+<!-- 动态装载简易列表 -->
+</div>
+</div>
+<!-- ================= 仿微信原生居中 Toast ================= -->
+<div class="mp-toast" id="globalToast">
+<div id="toastIconBox">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</div>
+<div id="toastMsg">操作成功</div>
+</div>
+</div>
+<!-- ============================================================
        VANILLA ES6 交互引擎 (自闭环高仿真状态机)
        ============================================================ -->
-  <script>
+<script>
     // 1. 脱敏真实商品数据集 (去 AI 虚构化，覆盖汉服/礼服/演出服三大场景)
     const GARMENT_DATABASE = [
       {

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**动物医疗中心 - 官方挂号与免疫预约</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**动物医疗中心 - 官方挂号与免疫预约</title>
+<style>
     /* ==========================================================================
        1. 设计令牌 (Design Tokens) - 严禁硬编码颜色，严格遵循专业医疗配色体系
        ========================================================================== */
@@ -517,949 +518,860 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
-
-
-  <!-- ==========================================================================
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- ==========================================================================
        微信小程序手机外壳 (Mini-Program Viewport)
        ========================================================================== -->
-  <div class="mp-container">
+<div class="mp-container">
+<!-- 顶部状态栏 -->
 
-    <!-- 顶部状态栏 -->
-    <div class="mp-status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/></svg>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="12" x="2" y="6" rx="2"/><path d="M22 11v2"/></svg>
-      </div>
-    </div>
+<!-- 微信小程序顶栏 -->
 
-    <!-- 微信小程序顶栏 -->
-    <header class="mp-header">
-      <div class="header-brand" onclick="openBranchDrawer()">
-        <span>**动物医疗中心</span>
-        <span class="branch-pill">
-          XX总院
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
-        </span>
-      </div>
-      <div class="wx-capsule" onclick="showCapsuleAction()">
-        <span class="capsule-dots">•••</span>
-        <span class="capsule-sep"></span>
-        <span class="capsule-circle"></span>
-      </div>
-    </header>
-
-    <!-- **区 -->
-    <div class="mp-body" id="mpBody">
-
-      <!-- ======================================================================
+<!-- **区 -->
+<div class="mp-body" id="mpBody">
+<!-- ======================================================================
            TAB 1: 门诊挂号 (首页)
            ====================================================================== -->
-      <div id="pane-0" class="pane active">
-        <!-- 院区公告栏 -->
-        <div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);padding:10px 12px;margin-bottom:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="display:flex;align-items:center;gap:6px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-              <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-primary-dark);">就诊提示：专病门诊支持分时段预约</span>
-            </div>
-            <span class="badge-primary" style="cursor:pointer;" onclick="openTrafficDrawer()">交通指引</span>
-          </div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:4px;line-height:1.4;">
+<div class="pane active" id="pane-0">
+<!-- 院区公告栏 -->
+<div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);padding:10px 12px;margin-bottom:8px;">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div style="display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="14" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-primary-dark);">就诊提示：专病门诊支持分时段预约</span>
+</div>
+<span class="badge-primary" onclick="openTrafficDrawer()" style="cursor:pointer;">交通指引</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:4px;line-height:1.4;">
             院址：XX市XX区XX路XX号XX大厦 · 接诊时间 09:00-21:00
           </div>
-        </div>
-
-        <!-- 4**区快捷服务 -->
-        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;margin-bottom:10px;">
-          <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="switchMpTab(1);setSpaySegment('neuter');">
-            <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-            </div>
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">微创绝育</div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">吸入麻醉</div>
-          </div>
-
-          <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="switchMpTab(1);setSpaySegment('vaccine');">
-            <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-.4.4-1 .6-1.6.6H3v-4.1c0-.6.2-1.2.6-1.6L14 3.9"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>
-            </div>
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">预防免疫</div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫三联/狂犬</div>
-          </div>
-
-          <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="scrollToDoctors()">
-            <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 3h2v4a3 3 0 0 0 6 0V3h2M6.5 19a4.5 4.5 0 0 1-4.5-4.5V13h9v1.5A4.5 4.5 0 0 1 6.5 19zM18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0v5a3 3 0 0 1-3 3h-2"/></svg>
-            </div>
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">**挂号</div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">副**团队</div>
-          </div>
-
-          <div class="ui-card" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;" onclick="openHealthCheckDrawer()">
-            <div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">健康体检</div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">生化五分类</div>
-          </div>
-        </div>
-
-        <!-- 专科**区 -->
-        <div id="doctorSectionTitle" style="display:flex;justify-content:space-between;align-items:center;margin:12px 2px 8px;">
-          <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+</div>
+<!-- 4**区快捷服务 -->
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;margin-bottom:10px;">
+<div class="ui-card" onclick="switchMpTab(1);setSpaySegment('neuter');" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;">
+<div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+</div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">微创绝育</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">吸入麻醉</div>
+</div>
+<div class="ui-card" onclick="switchMpTab(1);setSpaySegment('vaccine');" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;">
+<div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="m18 2 4 4"></path><path d="m17 7 3-3"></path><path d="M19 9 8.7 19.3c-.4.4-1 .6-1.6.6H3v-4.1c0-.6.2-1.2.6-1.6L14 3.9"></path><path d="m9 11 4 4"></path><path d="m5 19-3 3"></path><path d="m14 4 6 6"></path></svg>
+</div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">预防免疫</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫三联/狂犬</div>
+</div>
+<div class="ui-card" onclick="scrollToDoctors()" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;">
+<div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M4.5 3h2v4a3 3 0 0 0 6 0V3h2M6.5 19a4.5 4.5 0 0 1-4.5-4.5V13h9v1.5A4.5 4.5 0 0 1 6.5 19zM18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0v5a3 3 0 0 1-3 3h-2"></path></svg>
+</div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">**挂号</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">副**团队</div>
+</div>
+<div class="ui-card" onclick="openHealthCheckDrawer()" style="margin-bottom:0;padding:10px 4px;text-align:center;cursor:pointer;">
+<div style="width:36px;height:36px;background:var(--color-primary-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;color:var(--color-primary);">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+</div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">健康体检</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">生化五分类</div>
+</div>
+</div>
+<!-- 专科**区 -->
+<div id="doctorSectionTitle" style="display:flex;justify-content:space-between;align-items:center;margin:12px 2px 8px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             专科执业医师排班挂号
           </div>
-          <span style="font-size:var(--font-2xs);color:var(--color-primary);cursor:pointer;" onclick="openNoticeModal()">挂号须知</span>
-        </div>
-
-        <!-- 排班日期切换 -->
-        <div class="segmented-control" style="margin-bottom:10px;">
-          <div class="segmented-item active" id="dateTab-0" onclick="switchDateTab(0)">今日出诊</div>
-          <div class="segmented-item" id="dateTab-1" onclick="switchDateTab(1)">明日出诊</div>
-          <div class="segmented-item" id="dateTab-2" onclick="switchDateTab(2)">后天出诊</div>
-        </div>
-
-        <!-- **人员卡片 1 -->
-        <div class="ui-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="display:flex;gap:10px;">
-              <div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
+<span onclick="openNoticeModal()" style="font-size:var(--font-2xs);color:var(--color-primary);cursor:pointer;">挂号须知</span>
+</div>
+<!-- 排班日期切换 -->
+<div class="segmented-control" style="margin-bottom:10px;">
+<div class="segmented-item active" id="dateTab-0" onclick="switchDateTab(0)">今日出诊</div>
+<div class="segmented-item" id="dateTab-1" onclick="switchDateTab(1)">明日出诊</div>
+<div class="segmented-item" id="dateTab-2" onclick="switchDateTab(2)">后天出诊</div>
+</div>
+<!-- **人员卡片 1 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div style="display:flex;gap:10px;">
+<div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
                 周
               </div>
-              <div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">周*远</span>
-                  <span class="badge-primary">副**人员师</span>
-                </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">外科** · 软组织微创/复杂骨科 · 从业14年</div>
-              </div>
-            </div>
-            <span class="badge-success">就诊可约</span>
-          </div>
-          <div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-            <div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="chip-item" onclick="openBookingDrawer('周*远', '09:30-10:00', '软组织微创外科')">09:30-10:00</button>
-              <button class="chip-item" onclick="openBookingDrawer('周*远', '11:00-11:30', '软组织微创外科')">11:00-11:30</button>
-              <button class="chip-item" onclick="openBookingDrawer('周*远', '14:30-15:00', '软组织微创外科')">14:30-15:00</button>
-              <button class="chip-item" onclick="openBookingDrawer('周*远', '16:00-16:30', '软组织微创外科')">16:00-16:30</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- **人员卡片 2 -->
-        <div class="ui-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="display:flex;gap:10px;">
-              <div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">周*远</span>
+<span class="badge-primary">副**人员师</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">外科** · 软组织微创/复杂骨科 · 从业14年</div>
+</div>
+</div>
+<span class="badge-success">就诊可约</span>
+</div>
+<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="chip-item" onclick="openBookingDrawer('周*远', '09:30-10:00', '软组织微创外科')">09:30-10:00</button>
+<button class="chip-item" onclick="openBookingDrawer('周*远', '11:00-11:30', '软组织微创外科')">11:00-11:30</button>
+<button class="chip-item" onclick="openBookingDrawer('周*远', '14:30-15:00', '软组织微创外科')">14:30-15:00</button>
+<button class="chip-item" onclick="openBookingDrawer('周*远', '16:00-16:30', '软组织微创外科')">16:00-16:30</button>
+</div>
+</div>
+</div>
+<!-- **人员卡片 2 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div style="display:flex;gap:10px;">
+<div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
                 林
               </div>
-              <div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">林*婷</span>
-                  <span class="badge-primary">主治**人员师</span>
-                </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫科专科组长 · 国际猫友好认证**人员 · 从业8年</div>
-              </div>
-            </div>
-            <span class="badge-success">就诊可约</span>
-          </div>
-          <div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-            <div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="chip-item" onclick="openBookingDrawer('林*婷', '10:00-10:30', '猫科友好门诊')">10:00-10:30</button>
-              <button class="chip-item" onclick="openBookingDrawer('林*婷', '13:30-14:00', '猫科友好门诊')">13:30-14:00</button>
-              <button class="chip-item" onclick="openBookingDrawer('林*婷', '15:00-15:30', '猫科友好门诊')">15:00-15:30</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- **人员卡片 3 -->
-        <div class="ui-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="display:flex;gap:10px;">
-              <div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">林*婷</span>
+<span class="badge-primary">主治**人员师</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫科专科组长 · 国际猫友好认证**人员 · 从业8年</div>
+</div>
+</div>
+<span class="badge-success">就诊可约</span>
+</div>
+<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="chip-item" onclick="openBookingDrawer('林*婷', '10:00-10:30', '猫科友好门诊')">10:00-10:30</button>
+<button class="chip-item" onclick="openBookingDrawer('林*婷', '13:30-14:00', '猫科友好门诊')">13:30-14:00</button>
+<button class="chip-item" onclick="openBookingDrawer('林*婷', '15:00-15:30', '猫科友好门诊')">15:00-15:30</button>
+</div>
+</div>
+</div>
+<!-- **人员卡片 3 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div style="display:flex;gap:10px;">
+<div style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-primary-soft);border:1.5px solid var(--color-primary-edge);display:flex;align-items:center;justify-content:center;color:var(--color-primary-dark);font-weight:800;font-size:var(--font-base);">
                 陈
               </div>
-              <div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">陈*峰</span>
-                  <span class="badge-primary">执业**人员师</span>
-                </div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防**人员学主管 · 免疫驱虫与幼宠健康 · 从业6年</div>
-              </div>
-            </div>
-            <span class="badge-success">就诊可约</span>
-          </div>
-          <div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-            <div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="chip-item" onclick="openBookingDrawer('陈*峰', '09:00-09:30', '预防医学与疫苗')">09:00-09:30</button>
-              <button class="chip-item" onclick="openBookingDrawer('陈*峰', '10:30-11:00', '预防医学与疫苗')">10:30-11:00</button>
-              <button class="chip-item" onclick="openBookingDrawer('陈*峰', '14:00-14:30', '预防医学与疫苗')">14:00-14:30</button>
-              <button class="chip-item" onclick="openBookingDrawer('陈*峰', '16:30-17:00', '预防医学与疫苗')">16:30-17:00</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================================
+<div>
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">陈*峰</span>
+<span class="badge-primary">执业**人员师</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防**人员学主管 · 免疫驱虫与幼宠健康 · 从业6年</div>
+</div>
+</div>
+<span class="badge-success">就诊可约</span>
+</div>
+<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<div style="font-size:var(--font-2xs);color:var(--color-text-light);margin-bottom:6px;">选择时段预约（到院核销就诊）：</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="chip-item" onclick="openBookingDrawer('陈*峰', '09:00-09:30', '预防医学与疫苗')">09:00-09:30</button>
+<button class="chip-item" onclick="openBookingDrawer('陈*峰', '10:30-11:00', '预防医学与疫苗')">10:30-11:00</button>
+<button class="chip-item" onclick="openBookingDrawer('陈*峰', '14:00-14:30', '预防医学与疫苗')">14:00-14:30</button>
+<button class="chip-item" onclick="openBookingDrawer('陈*峰', '16:30-17:00', '预防医学与疫苗')">16:30-17:00</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================================
            TAB 2: **区
            ====================================================================== -->
-      <div id="pane-1" class="pane">
-        <!-- 专区分段控制器 -->
-        <div class="segmented-control">
-          <div class="segmented-item active" id="spaySeg-0" onclick="setSpaySegment('neuter')">微创绝育手术中心</div>
-          <div class="segmented-item" id="spaySeg-1" onclick="setSpaySegment('vaccine')">预防免疫与驱虫</div>
-        </div>
-
-        <!-- **区 -->
-        <div id="subViewNeuter">
-          <!-- 术前须知提示 -->
-          <div class="info-bar" style="cursor:pointer;" onclick="openPreOpNoticeModal()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-            <span style="flex:1;">术前需严格禁食8小时、禁水4小时，点击查看详情须知</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <!-- 绝育套餐定制卡 -->
-          <div class="ui-card" style="border:1.5px solid var(--color-primary-edge);">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <div>
-                <span class="badge-primary">重点临床套餐</span>
-                <div style="font-size:var(--font-md);font-weight:800;color:var(--color-text-title);margin-top:4px;" id="neuterTitle">母猫微创吸入麻醉绝育套餐</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">含术前生化五分类、免拆线皮内缝合、心电监护</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:var(--font-lg);font-weight:900;color:var(--color-primary);" id="neuterPrice">¥480</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-light);">到院免押核销</div>
-              </div>
-            </div>
-
-            <!-- 参数选择器 1: 宠物类型与性别 -->
-            <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--color-border-light);">
-              <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">手术对象：</div>
-              <div class="chip-group">
-                <span class="chip-item active" id="chip-spay-0" onclick="updateSpayType('cat_female', '母猫微创绝育套餐', 480, 0)">母猫微创绝育</span>
-                <span class="chip-item" id="chip-spay-1" onclick="updateSpayType('cat_male', '公猫常规绝育套餐', 280, 1)">公猫常规绝育</span>
-                <span class="chip-item" id="chip-spay-2" onclick="updateSpayType('dog_spay', '中小型犬微创绝育套餐', 680, 2)">中小型犬绝育</span>
-              </div>
-            </div>
-
-            <!-- 参数选择器 2: **区间 -->
-            <div style="margin-top:8px;">
-              <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">爱宠当前体重：</div>
-              <div class="chip-group">
-                <span class="chip-item active" id="chip-weight-0" onclick="updateSpayWeight(0, 0)">≤ 5.0 kg</span>
-                <span class="chip-item" id="chip-weight-1" onclick="updateSpayWeight(60, 1)">5.1 - 10.0 kg (+¥60)</span>
-                <span class="chip-item" id="chip-weight-2" onclick="updateSpayWeight(120, 2)">> 10.0 kg (+¥120)</span>
-              </div>
-            </div>
-
-            <!-- 参数选择器 3: 麻醉方式升级 -->
-            <div style="margin-top:8px;">
-              <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">麻醉监护方案：</div>
-              <div class="chip-group">
-                <span class="chip-item active" id="chip-anes-0" onclick="updateSpayAnes(0, 0)">进口异氟烷吸入麻醉 (推荐)</span>
-                <span class="chip-item" id="chip-anes-1" onclick="updateSpayAnes(-80, 1)">基础注射麻醉 (-¥80)</span>
-              </div>
-            </div>
-
-            <!-- 附加检查勾选 -->
-            <div style="margin-top:10px;background:var(--color-bg-page);padding:8px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleHeartEcho()">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <input type="checkbox" id="checkHeartEcho" checked style="accent-color:var(--color-primary);cursor:pointer;" onclick="event.stopPropagation();updateSpayPrice();">
-                <label for="checkHeartEcho" style="font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);cursor:pointer;">加做术前心脏超声初筛 (+¥150)</label>
-              </div>
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">排查心肌肥大</span>
-            </div>
-
-            <!-- 包含明细清单 -->
-            <div style="margin-top:12px;font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.6;background:var(--color-primary-soft);padding:8px 10px;border-radius:var(--radius-sm);">
+<div class="pane" id="pane-1">
+<!-- 专区分段控制器 -->
+<div class="segmented-control">
+<div class="segmented-item active" id="spaySeg-0" onclick="setSpaySegment('neuter')">微创绝育手术中心</div>
+<div class="segmented-item" id="spaySeg-1" onclick="setSpaySegment('vaccine')">预防免疫与驱虫</div>
+</div>
+<!-- **区 -->
+<div id="subViewNeuter">
+<!-- 术前须知提示 -->
+<div class="info-bar" onclick="openPreOpNoticeModal()" style="cursor:pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+<span style="flex:1;">术前需严格禁食8小时、禁水4小时，点击查看详情须知</span>
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+<!-- 绝育套餐定制卡 -->
+<div class="ui-card" style="border:1.5px solid var(--color-primary-edge);">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<span class="badge-primary">重点临床套餐</span>
+<div id="neuterTitle" style="font-size:var(--font-md);font-weight:800;color:var(--color-text-title);margin-top:4px;">母猫微创吸入麻醉绝育套餐</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">含术前生化五分类、免拆线皮内缝合、心电监护</div>
+</div>
+<div style="text-align:right;">
+<div id="neuterPrice" style="font-size:var(--font-lg);font-weight:900;color:var(--color-primary);">¥480</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-light);">到院免押核销</div>
+</div>
+</div>
+<!-- 参数选择器 1: 宠物类型与性别 -->
+<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--color-border-light);">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">手术对象：</div>
+<div class="chip-group">
+<span class="chip-item active" id="chip-spay-0" onclick="updateSpayType('cat_female', '母猫微创绝育套餐', 480, 0)">母猫微创绝育</span>
+<span class="chip-item" id="chip-spay-1" onclick="updateSpayType('cat_male', '公猫常规绝育套餐', 280, 1)">公猫常规绝育</span>
+<span class="chip-item" id="chip-spay-2" onclick="updateSpayType('dog_spay', '中小型犬微创绝育套餐', 680, 2)">中小型犬绝育</span>
+</div>
+</div>
+<!-- 参数选择器 2: **区间 -->
+<div style="margin-top:8px;">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">爱宠当前体重：</div>
+<div class="chip-group">
+<span class="chip-item active" id="chip-weight-0" onclick="updateSpayWeight(0, 0)">≤ 5.0 kg</span>
+<span class="chip-item" id="chip-weight-1" onclick="updateSpayWeight(60, 1)">5.1 - 10.0 kg (+¥60)</span>
+<span class="chip-item" id="chip-weight-2" onclick="updateSpayWeight(120, 2)">&gt; 10.0 kg (+¥120)</span>
+</div>
+</div>
+<!-- 参数选择器 3: 麻醉方式升级 -->
+<div style="margin-top:8px;">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">麻醉监护方案：</div>
+<div class="chip-group">
+<span class="chip-item active" id="chip-anes-0" onclick="updateSpayAnes(0, 0)">进口异氟烷吸入麻醉 (推荐)</span>
+<span class="chip-item" id="chip-anes-1" onclick="updateSpayAnes(-80, 1)">基础注射麻醉 (-¥80)</span>
+</div>
+</div>
+<!-- 附加检查勾选 -->
+<div onclick="toggleHeartEcho()" style="margin-top:10px;background:var(--color-bg-page);padding:8px 10px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:6px;">
+<input checked="" id="checkHeartEcho" onclick="event.stopPropagation();updateSpayPrice();" style="accent-color:var(--color-primary);cursor:pointer;" type="checkbox"/>
+<label for="checkHeartEcho" style="font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);cursor:pointer;">加做术前心脏超声初筛 (+¥150)</label>
+</div>
+<span style="font-size:var(--font-2xs);color:var(--color-text-muted);">排查心肌肥大</span>
+</div>
+<!-- 包含明细清单 -->
+<div style="margin-top:12px;font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.6;background:var(--color-primary-soft);padding:8px 10px;border-radius:var(--radius-sm);">
               包含服务：术前血液常规五分类 + 术中多参数监护 + 可吸收免拆皮内缝合 + **镇痛苏醒观察。
             </div>
-
-            <button class="btn-action" style="width:100%;margin-top:12px;padding:10px;" onclick="openSpayBookingDrawer()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+<button class="btn-action" onclick="openSpayBookingDrawer()" style="width:100%;margin-top:12px;padding:10px;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>
               立即预约该绝育套餐
             </button>
-          </div>
-        </div>
-
-        <!-- **区 -->
-        <div id="subViewVaccine" style="display:none;">
-          <!-- 疫苗 1 -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <div>
-                <span class="badge-primary">猫咪核心免疫</span>
-                <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">猫三联核心疫苗 (妙三多正品溯源)</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防猫瘟、猫鼻支、猫杯状病毒 · 扫码验真</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥110<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
-                <span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种要求：精神良好，未发热，接种后留观15分钟</span>
-              <button class="btn-action" onclick="openVaccineBookingDrawer('猫三联核心疫苗')">预约接种</button>
-            </div>
-          </div>
-
-          <!-- 疫苗 2 -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <div>
-                <span class="badge-primary">犬类综合免疫</span>
-                <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">犬卫佳捌联疫苗 (进口原装)</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">防犬瘟热、细小、腺病毒、冠状、副流感等</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥130<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
-                <span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种建议：适龄幼犬第8周起接种，连打三针</span>
-              <button class="btn-action" onclick="openVaccineBookingDrawer('犬卫佳捌联疫苗')">预约接种</button>
-            </div>
-          </div>
-
-          <!-- 疫苗 3 -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <div>
-                <span class="badge-primary">狂犬预防</span>
-                <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">狂犬病灭活疫苗 (法定接种认证)</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫犬通用 · 赠送官方电子免疫认证抗体标识</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥80<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
-                <span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种间隔：3月龄以上接种，每年加强一次</span>
-              <button class="btn-action" onclick="openVaccineBookingDrawer('狂犬病灭活疫苗')">预约接种</button>
-            </div>
-          </div>
-
-          <!-- 驱虫服务 -->
-          <div class="ui-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <div>
-                <span class="badge-primary">驱虫护理</span>
-                <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">进口体内外全效同驱滴剂</div>
-                <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">驱除跳蚤、蜱虫、蛔虫、钩虫、心丝虫幼虫</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥75<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/支</span></div>
-                <span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
-              <span style="font-size:var(--font-2xs);color:var(--color-text-muted);">服务支持：**护士专业到院代滴与体重称量</span>
-              <button class="btn-action" onclick="openVaccineBookingDrawer('体内外同驱滴剂')">预约滴服</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================================
+</div>
+</div>
+<!-- **区 -->
+<div id="subViewVaccine" style="display:none;">
+<!-- 疫苗 1 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<span class="badge-primary">猫咪核心免疫</span>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">猫三联核心疫苗 (妙三多正品溯源)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">预防猫瘟、猫鼻支、猫杯状病毒 · 扫码验真</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥110<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
+<span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种要求：精神良好，未发热，接种后留观15分钟</span>
+<button class="btn-action" onclick="openVaccineBookingDrawer('猫三联核心疫苗')">预约接种</button>
+</div>
+</div>
+<!-- 疫苗 2 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<span class="badge-primary">犬类综合免疫</span>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">犬卫佳捌联疫苗 (进口原装)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">防犬瘟热、细小、腺病毒、冠状、副流感等</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥130<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
+<span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种建议：适龄幼犬第8周起接种，连打三针</span>
+<button class="btn-action" onclick="openVaccineBookingDrawer('犬卫佳捌联疫苗')">预约接种</button>
+</div>
+</div>
+<!-- 疫苗 3 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<span class="badge-primary">狂犬预防</span>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">狂犬病灭活疫苗 (法定接种认证)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">猫犬通用 · 赠送官方电子免疫认证抗体标识</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥80<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/针</span></div>
+<span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<span style="font-size:var(--font-2xs);color:var(--color-text-muted);">接种间隔：3月龄以上接种，每年加强一次</span>
+<button class="btn-action" onclick="openVaccineBookingDrawer('狂犬病灭活疫苗')">预约接种</button>
+</div>
+</div>
+<!-- 驱虫服务 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+<div>
+<span class="badge-primary">驱虫护理</span>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);margin-top:4px;">进口体内外全效同驱滴剂</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">驱除跳蚤、蜱虫、蛔虫、钩虫、心丝虫幼虫</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:var(--font-md);font-weight:800;color:var(--color-primary);">¥75<span style="font-size:var(--font-2xs);font-weight:normal;color:var(--color-text-muted);">/支</span></div>
+<span class="badge-success" style="margin-top:4px;display:inline-block;">现货充足</span>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);">
+<span style="font-size:var(--font-2xs);color:var(--color-text-muted);">服务支持：**护士专业到院代滴与体重称量</span>
+<button class="btn-action" onclick="openVaccineBookingDrawer('体内外同驱滴剂')">预约滴服</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ======================================================================
            TAB 3: 免疫健康历与电子病历
            ====================================================================== -->
-      <div id="pane-2" class="pane">
-        <!-- 宠物切换选择卡 -->
-        <div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">当前健康档案主体：</div>
-            <button class="btn-action-outline" style="padding:3px 8px;font-size:var(--font-2xs);" onclick="openSwitchPetDrawer()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+<div class="pane" id="pane-2">
+<!-- 宠物切换选择卡 -->
+<div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">当前健康档案主体：</div>
+<button class="btn-action-outline" onclick="openSwitchPetDrawer()" style="padding:3px 8px;font-size:var(--font-2xs);">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="12"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 21h5v-5"></path></svg>
               切换爱宠
             </button>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
-            <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-pure-white);border:2px solid var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--font-md);font-weight:900;color:var(--color-primary);" id="ehrAvatar">
+</div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
+<div id="ehrAvatar" style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-pure-white);border:2px solid var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--font-md);font-weight:900;color:var(--color-primary);">
               布
             </div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);" id="ehrPetName">布* (英国短毛猫 · 银渐层)</span>
-                <span class="badge-warning" id="ehrSpayBadge">待绝育</span>
-              </div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:3px;" id="ehrPetMeta">
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span id="ehrPetName" style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">布* (英国短毛猫 · 银渐层)</span>
+<span class="badge-warning" id="ehrSpayBadge">待绝育</span>
+</div>
+<div id="ehrPetMeta" style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:3px;">
                 性别：母 | 年龄：1岁4个月 | 体重：4.2 kg
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 疫苗驱虫日历看板 -->
-        <div class="ui-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.2"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+</div>
+</div>
+</div>
+<!-- 疫苗驱虫日历看板 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect height="18" rx="2" width="18" x="3" y="4"></rect><path d="M3 10h18"></path></svg>
               免疫接种与驱虫进度
             </div>
-            <span class="badge-primary" style="cursor:pointer;" onclick="switchMpTab(1);setSpaySegment('vaccine');">去补种</span>
-          </div>
-
-          <!-- 时间轴条目 1 -->
-          <div style="display:flex;gap:10px;margin-bottom:10px;">
-            <div style="display:flex;flex-direction:column;align-items:center;">
-              <div style="width:18px;height:18px;border-radius:50%;background:var(--color-success-light);color:var(--color-success);display:flex;align-items:center;justify-content:center;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
-              </div>
-              <div style="width:2px;height:26px;background:var(--color-divider);margin:2px 0;"></div>
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">猫三联核心疫苗 (第1/2针) - 已完成</div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">接种于：2026-06-15 · 执业**人员：陈*峰</div>
-            </div>
-          </div>
-
-          <!-- 时间轴条目 2 -->
-          <div style="display:flex;gap:10px;margin-bottom:10px;">
-            <div style="display:flex;flex-direction:column;align-items:center;">
-              <div style="width:18px;height:18px;border-radius:50%;background:var(--color-warning-light);color:var(--color-warning);display:flex;align-items:center;justify-content:center;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <div style="width:2px;height:26px;background:var(--color-divider);margin:2px 0;"></div>
-            </div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">狂犬疫苗年度加强针 - 建议近期接种</span>
-                <span class="badge-warning">距应种剩14天</span>
-              </div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">推荐时段：2026-09-18 前接种以维持抗体滴度</div>
-            </div>
-          </div>
-
-          <!-- 时间轴条目 3 -->
-          <div style="display:flex;gap:10px;">
-            <div style="display:flex;flex-direction:column;align-items:center;">
-              <div style="width:18px;height:18px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-              </div>
-            </div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">体外驱虫提醒 (下一剂)</span>
-                <span class="badge-primary">还剩12天</span>
-              </div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">上次用药：2026-08-16 (进口滴剂)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 历史门诊与电子化验报告 -->
-        <div class="ui-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+<span class="badge-primary" onclick="switchMpTab(1);setSpaySegment('vaccine');" style="cursor:pointer;">去补种</span>
+</div>
+<!-- 时间轴条目 1 -->
+<div style="display:flex;gap:10px;margin-bottom:10px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="width:18px;height:18px;border-radius:50%;background:var(--color-success-light);color:var(--color-success);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" width="10"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+<div style="width:2px;height:26px;background:var(--color-divider);margin:2px 0;"></div>
+</div>
+<div style="flex:1;">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">猫三联核心疫苗 (第1/2针) - 已完成</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">接种于：2026-06-15 · 执业**人员：陈*峰</div>
+</div>
+</div>
+<!-- 时间轴条目 2 -->
+<div style="display:flex;gap:10px;margin-bottom:10px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="width:18px;height:18px;border-radius:50%;background:var(--color-warning-light);color:var(--color-warning);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="10"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+</div>
+<div style="width:2px;height:26px;background:var(--color-divider);margin:2px 0;"></div>
+</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">狂犬疫苗年度加强针 - 建议近期接种</span>
+<span class="badge-warning">距应种剩14天</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">推荐时段：2026-09-18 前接种以维持抗体滴度</div>
+</div>
+</div>
+<!-- 时间轴条目 3 -->
+<div style="display:flex;gap:10px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="width:18px;height:18px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="10" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="10"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+</div>
+</div>
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">体外驱虫提醒 (下一剂)</span>
+<span class="badge-primary">还剩12天</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:1px;">上次用药：2026-08-16 (进口滴剂)</div>
+</div>
+</div>
+</div>
+<!-- 历史门诊与电子化验报告 -->
+<div class="ui-card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);display:flex;align-items:center;gap:6px;">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2.2" viewbox="0 0 24 24" width="15"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
               电子病历与化验单据
             </div>
-            <span style="font-size:var(--font-2xs);color:var(--color-text-light);">共2份记录</span>
-          </div>
-
-          <!-- 病历卡 1 -->
-          <div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:8px;border:1px solid var(--color-border-light);">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">门诊初诊：轻度毛球呕吐检查</span>
-              <span class="badge-success">已出院</span>
-            </div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:4px;line-height:1.4;">
-              单号：#EMR-20260710-8812 | 接诊科室：猫科专科 (林*婷 主治医师)<br>
+<span style="font-size:var(--font-2xs);color:var(--color-text-light);">共2份记录</span>
+</div>
+<!-- 病历卡 1 -->
+<div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:8px;border:1px solid var(--color-border-light);">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">门诊初诊：轻度毛球呕吐检查</span>
+<span class="badge-success">已出院</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:4px;line-height:1.4;">
+              单号：#EMR-20260710-8812 | 接诊科室：猫科专科 (林*婷 主治医师)<br/>
               处方意见：化毛膏日常调理，体温38.4℃正常，无需输液。
             </div>
-          </div>
-
-          <!-- 化验单卡 2 -->
-          <div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:8px 10px;border:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">全血细胞五分类与生化初筛报告单</div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
+</div>
+<!-- 化验单卡 2 -->
+<div style="background:var(--color-bg-page);border-radius:var(--radius-sm);padding:8px 10px;border:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;">
+<div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);">全血细胞五分类与生化初筛报告单</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
                 化验时间：2026-07-10 11:20 | 采样**人员：林*婷
               </div>
-            </div>
-            <button class="btn-action-outline" style="padding:4px 8px;font-size:var(--font-2xs);" onclick="openLabReportModal()">
+</div>
+<button class="btn-action-outline" onclick="openLabReportModal()" style="padding:4px 8px;font-size:var(--font-2xs);">
               查看检验单
             </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================================
+</div>
+</div>
+</div>
+<!-- ======================================================================
            TAB 4: 我的就诊 (个人中心)
            ====================================================================== -->
-      <div id="pane-3" class="pane">
-        <!-- 宠主个人信息卡 -->
-        <div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);padding:14px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-primary);color:var(--color-pure-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--font-md);">
+<div class="pane" id="pane-3">
+<!-- 宠主个人信息卡 -->
+<div class="ui-card" style="background:var(--color-primary-soft);border-color:var(--color-primary-edge);padding:14px;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-primary);color:var(--color-pure-white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--font-md);">
               赵
             </div>
-            <div style="flex:1;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:var(--font-md);font-weight:800;color:var(--color-text-title);">赵*女士</span>
-                <span class="badge-primary">金卡健康会员</span>
-              </div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
+<div style="flex:1;">
+<div style="display:flex;align-items:center;gap:6px;">
+<span style="font-size:var(--font-md);font-weight:800;color:var(--color-text-title);">赵*女士</span>
+<span class="badge-primary">金卡健康会员</span>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">
                 绑定手机：138**8920 · 已绑定爱宠 2 只
               </div>
-            </div>
-            <button class="btn-action-outline" style="padding:4px 8px;font-size:var(--font-2xs);" onclick="openEditProfileDrawer()">编辑资料</button>
-          </div>
-        </div>
-
-        <!-- 预约订单状态过滤器 -->
-        <div class="segmented-control" style="margin-bottom:8px;">
-          <div class="segmented-item active" id="orderFilter-0" onclick="filterAppointments('all', 0)">全部预约</div>
-          <div class="segmented-item" id="orderFilter-1" onclick="filterAppointments('pending', 1)">待就诊 (1)</div>
-          <div class="segmented-item" id="orderFilter-2" onclick="filterAppointments('done', 2)">已就诊 (1)</div>
-          <div class="segmented-item" id="orderFilter-3" onclick="filterAppointments('cancel', 3)">已取消 (0)</div>
-        </div>
-
-        <!-- 预约列表容器 (动态响应) -->
-        <div id="appointmentListContainer">
-          <!-- 默认展示的进行中预约卡片 -->
-          <div class="ui-card appt-item" data-status="pending" style="border:1.5px solid var(--color-primary-edge);">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-              <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-muted);">单号 #PH-20260904-9102</span>
-              <span class="badge-warning">待到院就诊</span>
-            </div>
-            <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">
+</div>
+<button class="btn-action-outline" onclick="openEditProfileDrawer()" style="padding:4px 8px;font-size:var(--font-2xs);">编辑资料</button>
+</div>
+</div>
+<!-- 预约订单状态过滤器 -->
+<div class="segmented-control" style="margin-bottom:8px;">
+<div class="segmented-item active" id="orderFilter-0" onclick="filterAppointments('all', 0)">全部预约</div>
+<div class="segmented-item" id="orderFilter-1" onclick="filterAppointments('pending', 1)">待就诊 (1)</div>
+<div class="segmented-item" id="orderFilter-2" onclick="filterAppointments('done', 2)">已就诊 (1)</div>
+<div class="segmented-item" id="orderFilter-3" onclick="filterAppointments('cancel', 3)">已取消 (0)</div>
+</div>
+<!-- 预约列表容器 (动态响应) -->
+<div id="appointmentListContainer">
+<!-- 默认展示的进行中预约卡片 -->
+<div class="ui-card appt-item" data-status="pending" style="border:1.5px solid var(--color-primary-edge);">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-muted);">单号 #PH-20260904-9102</span>
+<span class="badge-warning">待到院就诊</span>
+</div>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">
               猫科门诊挂号 - 布* (英国短毛猫)
             </div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;line-height:1.5;">
-              主诊**人员：周*远 (副**人员师)<br>
-              预约时间：2026-09-05 09:30-10:00<br>
+<div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;line-height:1.5;">
+              主诊**人员：周*远 (副**人员师)<br/>
+              预约时间：2026-09-05 09:30-10:00<br/>
               院区门诊：**动物医疗中心XX总院 (1楼门诊2室)
             </div>
-            <div style="display:flex;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);justify-content:flex-end;">
-              <button class="btn-action-outline" style="font-size:var(--font-2xs);color:var(--color-danger);border-color:var(--color-divider);" onclick="cancelCurrentAppointment(this)">取消预约</button>
-              <button class="btn-action" style="font-size:var(--font-2xs);" onclick="openVoucherModal('#PH-20260904-9102', '猫科门诊挂号', '布*', '2026-09-05 09:30')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/></svg>
+<div style="display:flex;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--color-border-light);justify-content:flex-end;">
+<button class="btn-action-outline" onclick="cancelCurrentAppointment(this)" style="font-size:var(--font-2xs);color:var(--color-danger);border-color:var(--color-divider);">取消预约</button>
+<button class="btn-action" onclick="openVoucherModal('#PH-20260904-9102', '猫科门诊挂号', '布*', '2026-09-05 09:30')" style="font-size:var(--font-2xs);">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="12"><rect height="5" rx="1" width="5" x="3" y="3"></rect><rect height="5" rx="1" width="5" x="16" y="3"></rect><rect height="5" rx="1" width="5" x="3" y="16"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path></svg>
                 出示就诊凭单
               </button>
-            </div>
-          </div>
-
-          <!-- 已就诊记录 -->
-          <div class="ui-card appt-item" data-status="done">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-              <span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-muted);">单号 #PH-20260615-4421</span>
-              <span class="badge-success">已核销完成</span>
-            </div>
-            <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">
+</div>
+</div>
+<!-- 已就诊记录 -->
+<div class="ui-card appt-item" data-status="done">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+<span style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-muted);">单号 #PH-20260615-4421</span>
+<span class="badge-success">已核销完成</span>
+</div>
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">
               猫三联核心疫苗首免第1针 - 布*
             </div>
-            <div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;">
+<div style="font-size:var(--font-2xs);color:var(--color-text-body);margin-top:4px;">
               接诊**人员：陈*峰 (执业**人员师) · 接种完成且留观无不良反应
             </div>
-            <div style="display:flex;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--color-border-light);justify-content:flex-end;">
-              <button class="btn-action-outline" style="font-size:var(--font-2xs);" onclick="switchMpTab(2)">查看免疫记录</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 常用业务服务入口菜单 -->
-        <div class="ui-card" style="padding:4px 12px;margin-top:12px;">
-          <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openSwitchPetDrawer()">
-            <div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+<div style="display:flex;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--color-border-light);justify-content:flex-end;">
+<button class="btn-action-outline" onclick="switchMpTab(2)" style="font-size:var(--font-2xs);">查看免疫记录</button>
+</div>
+</div>
+</div>
+<!-- 常用业务服务入口菜单 -->
+<div class="ui-card" style="padding:4px 12px;margin-top:12px;">
+<div onclick="openSwitchPetDrawer()" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               我的爱宠档案管理
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openTrafficDrawer()">
-            <div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+<svg fill="none" height="14" stroke="var(--color-text-light)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+<div onclick="openTrafficDrawer()" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
               到院交通指引与停车指南
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openHospitalLicenceModal()">
-            <div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+<svg fill="none" height="14" stroke="var(--color-text-light)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+<div onclick="openHospitalLicenceModal()" style="padding:10px 0;border-bottom:1px solid var(--color-border-light);display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
               动物诊疗许可证与脱敏公示
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-
-          <div style="padding:10px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="openContactSupportDrawer()">
-            <div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+<svg fill="none" height="14" stroke="var(--color-text-light)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+<div onclick="openContactSupportDrawer()" style="padding:10px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+<div style="display:flex;align-items:center;gap:8px;font-size:var(--font-xs);font-weight:600;color:var(--color-text-title);">
+<svg fill="none" height="15" stroke="var(--color-primary)" stroke-width="2" viewbox="0 0 24 24" width="15"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               院内导诊咨询与24h急诊热线
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- 底部 TabBar -->
-    <nav class="mp-tabbar">
-      <div class="tab-item active" id="tabNav-0" onclick="switchMpTab(0)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 3h2v4a3 3 0 0 0 6 0V3h2M6.5 19a4.5 4.5 0 0 1-4.5-4.5V13h9v1.5A4.5 4.5 0 0 1 6.5 19zM18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0v5a3 3 0 0 1-3 3h-2"/></svg>
-        <span>门诊挂号</span>
-      </div>
-
-      <div class="tab-item" id="tabNav-1" onclick="switchMpTab(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-.4.4-1 .6-1.6.6H3v-4.1c0-.6.2-1.2.6-1.6L14 3.9"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>
-        <span>绝育疫苗</span>
-      </div>
-
-      <div class="tab-item" id="tabNav-2" onclick="switchMpTab(2)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-        <span>健康档案</span>
-      </div>
-
-      <div class="tab-item" id="tabNav-3" onclick="switchMpTab(3)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>我的就诊</span>
-      </div>
-    </nav>
-
-    <!-- ======================================================================
+<svg fill="none" height="14" stroke="var(--color-text-light)" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- 底部 TabBar -->
+<nav class="mp-tabbar">
+<div class="tab-item active" id="tabNav-0" onclick="switchMpTab(0)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4.5 3h2v4a3 3 0 0 0 6 0V3h2M6.5 19a4.5 4.5 0 0 1-4.5-4.5V13h9v1.5A4.5 4.5 0 0 1 6.5 19zM18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0v5a3 3 0 0 1-3 3h-2"></path></svg>
+<span>门诊挂号</span>
+</div>
+<div class="tab-item" id="tabNav-1" onclick="switchMpTab(1)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="m18 2 4 4"></path><path d="m17 7 3-3"></path><path d="M19 9 8.7 19.3c-.4.4-1 .6-1.6.6H3v-4.1c0-.6.2-1.2.6-1.6L14 3.9"></path><path d="m9 11 4 4"></path><path d="m5 19-3 3"></path><path d="m14 4 6 6"></path></svg>
+<span>绝育疫苗</span>
+</div>
+<div class="tab-item" id="tabNav-2" onclick="switchMpTab(2)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+<span>健康档案</span>
+</div>
+<div class="tab-item" id="tabNav-3" onclick="switchMpTab(3)">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+<span>我的就诊</span>
+</div>
+</nav>
+<!-- ======================================================================
          全局抽屉与模态浮层系统 (Drawer & Modal System)
          ====================================================================== -->
-
-    <!-- 1. 挂号预约确认抽屉 -->
-    <div class="overlay" id="bookingDrawerOverlay">
-      <div class="drawer-content">
-        <div class="sheet-header">
-          <div class="sheet-title" id="drawerDoctorName">门诊预约挂号确认</div>
-          <div class="sheet-close" onclick="closeOverlay('bookingDrawerOverlay')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-xs);color:var(--color-text-muted);margin-bottom:12px;" id="drawerDoctorInfo">
+<!-- 1. 挂号预约确认抽屉 -->
+<div class="overlay" id="bookingDrawerOverlay">
+<div class="drawer-content">
+<div class="sheet-header">
+<div class="sheet-title" id="drawerDoctorName">门诊预约挂号确认</div>
+<div class="sheet-close" onclick="closeOverlay('bookingDrawerOverlay')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div id="drawerDoctorInfo" style="font-size:var(--font-xs);color:var(--color-text-muted);margin-bottom:12px;">
           就诊科室：软组织微创外科 · 预约时段：09:30-10:00
         </div>
-
-        <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">选择就诊爱宠：</div>
-        <div class="chip-group">
-          <span class="chip-item active" id="chipPetBooking-0" onclick="selectBookingPet(0, '布* (英国短毛猫)')">布* (英国短毛猫)</span>
-          <span class="chip-item" id="chipPetBooking-1" onclick="selectBookingPet(1, '波* (威尔士柯基犬)')">波* (威尔士柯基犬)</span>
-        </div>
-
-        <div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin:10px 0 6px;">就诊主要症状说明 (选填)：</div>
-        <input type="text" id="bookingSymptomInput" placeholder="如：食欲欠佳、日常例行体检等" style="width:100%;padding:8px 10px;border:1px solid var(--color-divider);border-radius:var(--radius-sm);font-size:var(--font-xs);outline:none;">
-
-        <div style="margin-top:12px;background:var(--color-primary-soft);padding:8px 10px;border-radius:var(--radius-sm);font-size:var(--font-2xs);color:var(--color-primary-dark);line-height:1.5;">
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin-bottom:6px;">选择就诊爱宠：</div>
+<div class="chip-group">
+<span class="chip-item active" id="chipPetBooking-0" onclick="selectBookingPet(0, '布* (英国短毛猫)')">布* (英国短毛猫)</span>
+<span class="chip-item" id="chipPetBooking-1" onclick="selectBookingPet(1, '波* (威尔士柯基犬)')">波* (威尔士柯基犬)</span>
+</div>
+<div style="font-size:var(--font-xs);font-weight:700;color:var(--color-text-title);margin:10px 0 6px;">就诊主要症状说明 (选填)：</div>
+<input id="bookingSymptomInput" placeholder="如：食欲欠佳、日常例行体检等" style="width:100%;padding:8px 10px;border:1px solid var(--color-divider);border-radius:var(--radius-sm);font-size:var(--font-xs);outline:none;" type="text"/>
+<div style="margin-top:12px;background:var(--color-primary-soft);padding:8px 10px;border-radius:var(--radius-sm);font-size:var(--font-2xs);color:var(--color-primary-dark);line-height:1.5;">
           挂号费：¥0.00 (线上提前锁定号源，到院后在前台凭流水号直接核销取号就诊)
         </div>
-
-        <button class="btn-action" style="width:100%;margin-top:14px;padding:10px;" onclick="confirmDoctorAppointment()">
+<button class="btn-action" onclick="confirmDoctorAppointment()" style="width:100%;margin-top:14px;padding:10px;">
           确认生成到院就诊凭单
         </button>
-      </div>
-    </div>
-
-    <!-- 2. 就诊核销凭证弹窗 -->
-    <div class="overlay modal-center" id="voucherModalOverlay">
-      <div class="modal-box" style="text-align:center;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">电子预约挂号凭单</div>
-          <div class="sheet-close" onclick="closeOverlay('voucherModalOverlay')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <!-- 模拟二维码/条形码 -->
-        <div style="background:var(--color-bg-page);border-radius:var(--radius-md);padding:14px;margin:8px 0;border:1px dashed var(--color-divider);">
-          <div style="width:120px;height:120px;margin:0 auto;background:var(--color-pure-white);border:1px solid var(--color-divider);padding:8px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;">
-            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-title)" stroke-width="1.8"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
-          </div>
-          <div style="font-size:var(--font-sm);font-weight:800;letter-spacing:2px;color:var(--color-text-title);margin-top:8px;" id="voucherCodeText">#PH-20260904-9102</div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">到院请向导医出示此码核销接诊</div>
-        </div>
-
-        <div style="font-size:var(--font-2xs);color:var(--color-text-muted);text-align:left;line-height:1.6;margin-bottom:12px;" id="voucherDetails">
-          项目名称：猫科门诊挂号<br>
-          接诊爱宠：布* (英国短毛猫)<br>
-          就诊时段：2026-09-05 09:30-10:00<br>
+</div>
+</div>
+<!-- 2. 就诊核销凭证弹窗 -->
+<div class="overlay modal-center" id="voucherModalOverlay">
+<div class="modal-box" style="text-align:center;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">电子预约挂号凭单</div>
+<div class="sheet-close" onclick="closeOverlay('voucherModalOverlay')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<!-- 模拟二维码/条形码 -->
+<div style="background:var(--color-bg-page);border-radius:var(--radius-md);padding:14px;margin:8px 0;border:1px dashed var(--color-divider);">
+<div style="width:120px;height:120px;margin:0 auto;background:var(--color-pure-white);border:1px solid var(--color-divider);padding:8px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;">
+<svg fill="none" height="100" stroke="var(--color-text-title)" stroke-width="1.8" viewbox="0 0 24 24" width="100"><rect height="5" rx="1" width="5" x="3" y="3"></rect><rect height="5" rx="1" width="5" x="16" y="3"></rect><rect height="5" rx="1" width="5" x="3" y="16"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></svg>
+</div>
+<div id="voucherCodeText" style="font-size:var(--font-sm);font-weight:800;letter-spacing:2px;color:var(--color-text-title);margin-top:8px;">#PH-20260904-9102</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">到院请向导医出示此码核销接诊</div>
+</div>
+<div id="voucherDetails" style="font-size:var(--font-2xs);color:var(--color-text-muted);text-align:left;line-height:1.6;margin-bottom:12px;">
+          项目名称：猫科门诊挂号<br/>
+          接诊爱宠：布* (英国短毛猫)<br/>
+          就诊时段：2026-09-05 09:30-10:00<br/>
           院区地址：**动物医疗中心XX总院
         </div>
-
-        <button class="btn-action" style="width:100%;" onclick="closeOverlay('voucherModalOverlay');showToast('凭单已保存至【我的就诊】');">
+<button class="btn-action" onclick="closeOverlay('voucherModalOverlay');showToast('凭单已保存至【我的就诊】');" style="width:100%;">
           完成并关闭
         </button>
-      </div>
-    </div>
-
-    <!-- 3. 术前须知与禁食禁水弹窗 -->
-    <div class="overlay modal-center" id="preOpModalOverlay">
-      <div class="modal-box">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">绝育手术术前知情同意须知</div>
-          <div class="sheet-close" onclick="closeOverlay('preOpModalOverlay')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;max-height:260px;overflow-y:auto;padding-right:4px;">
-          <p><b>1. 禁食禁水规范：</b></p>
-          <p style="color:var(--color-warning);margin-bottom:8px;">为防止麻醉过程中发生胃内容物反流误吸导致窒息，术前须严格禁食8小时、禁水4小时。</p>
-          <p><b>2. 疫苗与体征要求：</b></p>
-          <p style="margin-bottom:8px;">手术前须已完成全套核心联苗接种，处于健康无发热状态（发情期母犬猫建议推迟至发情结束后1周实施）。</p>
-          <p><b>3. 术前血液化验：</b></p>
-          <p style="margin-bottom:8px;">本院微创套餐已标配血常规五分类与生化指标，确保凝血功能及肝肾代谢正常。</p>
-          <p><b>4. 术后佩戴伊丽莎白圈：</b></p>
-          <p>术后佩戴项圈至少7天，避免爱宠舔舐伤口造成感染。</p>
-        </div>
-
-        <button class="btn-action" style="width:100%;margin-top:14px;" onclick="closeOverlay('preOpModalOverlay');showToast('已确认阅读术前知情同意');">
+</div>
+</div>
+<!-- 3. 术前须知与禁食禁水弹窗 -->
+<div class="overlay modal-center" id="preOpModalOverlay">
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">绝育手术术前知情同意须知</div>
+<div class="sheet-close" onclick="closeOverlay('preOpModalOverlay')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;max-height:260px;overflow-y:auto;padding-right:4px;">
+<p><b>1. 禁食禁水规范：</b></p>
+<p style="color:var(--color-warning);margin-bottom:8px;">为防止麻醉过程中发生胃内容物反流误吸导致窒息，术前须严格禁食8小时、禁水4小时。</p>
+<p><b>2. 疫苗与体征要求：</b></p>
+<p style="margin-bottom:8px;">手术前须已完成全套核心联苗接种，处于健康无发热状态（发情期母犬猫建议推迟至发情结束后1周实施）。</p>
+<p><b>3. 术前血液化验：</b></p>
+<p style="margin-bottom:8px;">本院微创套餐已标配血常规五分类与生化指标，确保凝血功能及肝肾代谢正常。</p>
+<p><b>4. 术后佩戴伊丽莎白圈：</b></p>
+<p>术后佩戴项圈至少7天，避免爱宠舔舐伤口造成感染。</p>
+</div>
+<button class="btn-action" onclick="closeOverlay('preOpModalOverlay');showToast('已确认阅读术前知情同意');" style="width:100%;margin-top:14px;">
           我已充分知晓并同意
         </button>
-      </div>
-    </div>
-
-    <!-- 4. 电子血液生化报告单弹窗 -->
-    <div class="overlay modal-center" id="labReportModalOverlay">
-      <div class="modal-box">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">临床血液检验分析单</div>
-          <div class="sheet-close" onclick="closeOverlay('labReportModalOverlay')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-bottom:8px;">
+</div>
+</div>
+<!-- 4. 电子血液生化报告单弹窗 -->
+<div class="overlay modal-center" id="labReportModalOverlay">
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">临床血液检验分析单</div>
+<div class="sheet-close" onclick="closeOverlay('labReportModalOverlay')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-bottom:8px;">
           受检爱宠：布* | 采样日期：2026-07-10 | 检验师：林*婷
         </div>
-
-        <table style="width:100%;border-collapse:collapse;font-size:var(--font-xs);text-align:left;margin-bottom:12px;">
-          <thead>
-            <tr style="background:var(--color-bg-page);border-bottom:1px solid var(--color-divider);">
-              <th style="padding:6px;">检验指标</th>
-              <th style="padding:6px;">测定结果</th>
-              <th style="padding:6px;">**区间</th>
-              <th style="padding:6px;">状态</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom:1px solid var(--color-border-light);">
-              <td style="padding:6px;font-weight:600;">WBC 白细胞</td>
-              <td style="padding:6px;">7.85</td>
-              <td style="padding:6px;color:var(--color-text-muted);">5.5 - 19.5</td>
-              <td style="padding:6px;"><span class="badge-success">正常</span></td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--color-border-light);">
-              <td style="padding:6px;font-weight:600;">RBC 红细胞</td>
-              <td style="padding:6px;">8.92</td>
-              <td style="padding:6px;color:var(--color-text-muted);">5.0 - 10.0</td>
-              <td style="padding:6px;"><span class="badge-success">正常</span></td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--color-border-light);">
-              <td style="padding:6px;font-weight:600;">ALT 谷丙转氨酶</td>
-              <td style="padding:6px;">38.0</td>
-              <td style="padding:6px;color:var(--color-text-muted);">12 - 130</td>
-              <td style="padding:6px;"><span class="badge-success">正常</span></td>
-            </tr>
-            <tr>
-              <td style="padding:6px;font-weight:600;">CREA 肌酐</td>
-              <td style="padding:6px;">95.0</td>
-              <td style="padding:6px;color:var(--color-text-muted);">71 - 212</td>
-              <td style="padding:6px;"><span class="badge-success">正常</span></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div style="font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.4;margin-bottom:12px;">
+<table style="width:100%;border-collapse:collapse;font-size:var(--font-xs);text-align:left;margin-bottom:12px;">
+<thead>
+<tr style="background:var(--color-bg-page);border-bottom:1px solid var(--color-divider);">
+<th style="padding:6px;">检验指标</th>
+<th style="padding:6px;">测定结果</th>
+<th style="padding:6px;">**区间</th>
+<th style="padding:6px;">状态</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--color-border-light);">
+<td style="padding:6px;font-weight:600;">WBC 白细胞</td>
+<td style="padding:6px;">7.85</td>
+<td style="padding:6px;color:var(--color-text-muted);">5.5 - 19.5</td>
+<td style="padding:6px;"><span class="badge-success">正常</span></td>
+</tr>
+<tr style="border-bottom:1px solid var(--color-border-light);">
+<td style="padding:6px;font-weight:600;">RBC 红细胞</td>
+<td style="padding:6px;">8.92</td>
+<td style="padding:6px;color:var(--color-text-muted);">5.0 - 10.0</td>
+<td style="padding:6px;"><span class="badge-success">正常</span></td>
+</tr>
+<tr style="border-bottom:1px solid var(--color-border-light);">
+<td style="padding:6px;font-weight:600;">ALT 谷丙转氨酶</td>
+<td style="padding:6px;">38.0</td>
+<td style="padding:6px;color:var(--color-text-muted);">12 - 130</td>
+<td style="padding:6px;"><span class="badge-success">正常</span></td>
+</tr>
+<tr>
+<td style="padding:6px;font-weight:600;">CREA 肌酐</td>
+<td style="padding:6px;">95.0</td>
+<td style="padding:6px;color:var(--color-text-muted);">71 - 212</td>
+<td style="padding:6px;"><span class="badge-success">正常</span></td>
+</tr>
+</tbody>
+</table>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);line-height:1.4;margin-bottom:12px;">
           诊断意见：血液生化生理指标均**区间，可安全支持绝育微创麻醉及常规疫苗免疫。
         </div>
-
-        <button class="btn-action" style="width:100%;" onclick="closeOverlay('labReportModalOverlay')">返回病历</button>
-      </div>
-    </div>
-
-    <!-- 5. 切换爱宠档案抽屉 -->
-    <div class="overlay" id="petSwitchDrawerOverlay">
-      <div class="drawer-content">
-        <div class="sheet-header">
-          <div class="sheet-title">切换已绑定爱宠档案</div>
-          <div class="sheet-close" onclick="closeOverlay('petSwitchDrawerOverlay')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <!-- 宠物选项 1 -->
-        <div class="ui-card" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--color-primary-edge);" onclick="choosePetProfile('pet_001')">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-weight:800;">
+<button class="btn-action" onclick="closeOverlay('labReportModalOverlay')" style="width:100%;">返回病历</button>
+</div>
+</div>
+<!-- 5. 切换爱宠档案抽屉 -->
+<div class="overlay" id="petSwitchDrawerOverlay">
+<div class="drawer-content">
+<div class="sheet-header">
+<div class="sheet-title">切换已绑定爱宠档案</div>
+<div class="sheet-close" onclick="closeOverlay('petSwitchDrawerOverlay')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<!-- 宠物选项 1 -->
+<div class="ui-card" onclick="choosePetProfile('pet_001')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--color-primary-edge);">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-weight:800;">
               布
             </div>
-            <div>
-              <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">布* (英国短毛猫 · 银渐层)</div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">母 | 1岁4个月 | 4.2 kg | 待绝育</div>
-            </div>
-          </div>
-          <span class="badge-primary" id="petIndicator-0">当前选中</span>
-        </div>
-
-        <!-- 宠物选项 2 -->
-        <div class="ui-card" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="choosePetProfile('pet_002')">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--color-border-light);color:var(--color-text-title);display:flex;align-items:center;justify-content:center;font-weight:800;">
+<div>
+<div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">布* (英国短毛猫 · 银渐层)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">母 | 1岁4个月 | 4.2 kg | 待绝育</div>
+</div>
+</div>
+<span class="badge-primary" id="petIndicator-0">当前选中</span>
+</div>
+<!-- 宠物选项 2 -->
+<div class="ui-card" onclick="choosePetProfile('pet_002')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:10px;">
+<div style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--color-border-light);color:var(--color-text-title);display:flex;align-items:center;justify-content:center;font-weight:800;">
               波
             </div>
-            <div>
-              <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">波* (威尔士柯基犬)</div>
-              <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">公 | 2岁1个月 | 11.5 kg | 已绝育</div>
-            </div>
-          </div>
-          <span class="badge-success" id="petIndicator-1" style="display:none;">已选中</span>
-        </div>
-
-        <button class="btn-action-outline" style="width:100%;margin-top:10px;" onclick="closeOverlay('petSwitchDrawerOverlay');showToast('可前往前台登记绑定更多爱宠');">
+<div>
+<div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">波* (威尔士柯基犬)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">公 | 2岁1个月 | 11.5 kg | 已绝育</div>
+</div>
+</div>
+<span class="badge-success" id="petIndicator-1" style="display:none;">已选中</span>
+</div>
+<button class="btn-action-outline" onclick="closeOverlay('petSwitchDrawerOverlay');showToast('可前往前台登记绑定更多爱宠');" style="width:100%;margin-top:10px;">
           + 绑定新增爱宠
         </button>
-      </div>
-    </div>
-
-    <!-- 6. 到院交通与停车指引抽屉 -->
-    <div class="overlay" id="trafficDrawerOverlay">
-      <div class="drawer-content">
-        <div class="sheet-header">
-          <div class="sheet-title">到院路线与就诊停车指引</div>
-          <div class="sheet-close" onclick="closeOverlay('trafficDrawerOverlay')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;">
-          <div style="margin-bottom:10px;">
-            <div style="font-weight:700;color:var(--color-text-title);">院区全称与地址：</div>
-            <div style="color:var(--color-text-muted);margin-top:2px;">**动物医疗中心（高新旗舰总院）<br>XX市XX区XX路XX号XX大厦首层</div>
-          </div>
-
-          <div style="margin-bottom:10px;">
-            <div style="font-weight:700;color:var(--color-text-title);">地铁公共交通路线：</div>
-            <div style="color:var(--color-text-muted);margin-top:2px;">轨道交通**号线【XX路站】C出口向南步行约280米即达。</div>
-          </div>
-
-          <div style="margin-bottom:10px;">
-            <div style="font-weight:700;color:var(--color-text-title);">自驾与携宠停车位：</div>
-            <div style="color:var(--color-text-muted);margin-top:2px;">大厦地下停车场设有【宠物就诊专属绿色车位】，凭就诊凭单可享2小时免费停车。</div>
-          </div>
-        </div>
-
-        <button class="btn-action" style="width:100%;margin-top:10px;" onclick="closeOverlay('trafficDrawerOverlay');showToast('已复制脱敏就诊地址');">
+</div>
+</div>
+<!-- 6. 到院交通与停车指引抽屉 -->
+<div class="overlay" id="trafficDrawerOverlay">
+<div class="drawer-content">
+<div class="sheet-header">
+<div class="sheet-title">到院路线与就诊停车指引</div>
+<div class="sheet-close" onclick="closeOverlay('trafficDrawerOverlay')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;">
+<div style="margin-bottom:10px;">
+<div style="font-weight:700;color:var(--color-text-title);">院区全称与地址：</div>
+<div style="color:var(--color-text-muted);margin-top:2px;">**动物医疗中心（高新旗舰总院）<br/>XX市XX区XX路XX号XX大厦首层</div>
+</div>
+<div style="margin-bottom:10px;">
+<div style="font-weight:700;color:var(--color-text-title);">地铁公共交通路线：</div>
+<div style="color:var(--color-text-muted);margin-top:2px;">轨道交通**号线【XX路站】C出口向南步行约280米即达。</div>
+</div>
+<div style="margin-bottom:10px;">
+<div style="font-weight:700;color:var(--color-text-title);">自驾与携宠停车位：</div>
+<div style="color:var(--color-text-muted);margin-top:2px;">大厦地下停车场设有【宠物就诊专属绿色车位】，凭就诊凭单可享2小时免费停车。</div>
+</div>
+</div>
+<button class="btn-action" onclick="closeOverlay('trafficDrawerOverlay');showToast('已复制脱敏就诊地址');" style="width:100%;margin-top:10px;">
           **区脱敏地址
         </button>
-      </div>
-    </div>
-
-    <!-- 7. 医院资质脱敏公示模态框 -->
-    <div class="overlay modal-center" id="licenceModalOverlay">
-      <div class="modal-box">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">动物诊疗机构资质公示</div>
-          <div class="sheet-close" onclick="closeOverlay('licenceModalOverlay')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-xs);color:var(--color-text-muted);line-height:1.7;">
-          机构名称：**动物医疗中心（XX总院）<br>
-          动物诊疗许可证：(高新)动诊许字第2024**09号<br>
-          放射诊疗许可：(省)辐卫许字第2023**11号<br>
-          法定代表人：陈*明<br>
-          技术**：周*远 (副**人员师)<br>
+</div>
+</div>
+<!-- 7. 医院资质脱敏公示模态框 -->
+<div class="overlay modal-center" id="licenceModalOverlay">
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<div style="font-size:var(--font-base);font-weight:800;color:var(--color-text-title);">动物诊疗机构资质公示</div>
+<div class="sheet-close" onclick="closeOverlay('licenceModalOverlay')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div style="font-size:var(--font-xs);color:var(--color-text-muted);line-height:1.7;">
+          机构名称：**动物医疗中心（XX总院）<br/>
+          动物诊疗许可证：(高新)动诊许字第2024**09号<br/>
+          放射诊疗许可：(省)辐卫许字第2023**11号<br/>
+          法定代表人：陈*明<br/>
+          技术**：周*远 (副**人员师)<br/>
           执业**人员配置：高级执业**人员师6名、主治**人员师12名
         </div>
-
-        <button class="btn-action" style="width:100%;margin-top:14px;" onclick="closeOverlay('licenceModalOverlay')">
+<button class="btn-action" onclick="closeOverlay('licenceModalOverlay')" style="width:100%;margin-top:14px;">
           已知晓合规信息
         </button>
-      </div>
-    </div>
-
-    <!-- 8. 客服与急诊电话抽屉 -->
-    <div class="overlay" id="contactDrawerOverlay">
-      <div class="drawer-content">
-        <div class="sheet-header">
-          <div class="sheet-title">联系导医与急诊咨询</div>
-          <div class="sheet-close" onclick="closeOverlay('contactDrawerOverlay')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;">
-          <div style="padding:10px;background:var(--color-bg-page);border-radius:var(--radius-sm);margin-bottom:8px;">
-            <div style="font-weight:700;color:var(--color-text-title);">日间常规门诊热线：</div>
-            <div style="color:var(--color-primary);font-size:var(--font-base);font-weight:800;margin-top:2px;">400-**-8820 (09:00 - 21:00)</div>
-          </div>
-
-          <div style="padding:10px;background:var(--color-warning-light);border-radius:var(--radius-sm);margin-bottom:8px;">
-            <div style="font-weight:700;color:var(--color-warning);">24小时急症急救绿色通道：</div>
-            <div style="color:var(--color-warning);font-size:var(--font-base);font-weight:800;margin-top:2px;">021-**8999 (急症夜诊)</div>
-          </div>
-        </div>
-
-        <button class="btn-action" style="width:100%;margin-top:10px;" onclick="closeOverlay('contactDrawerOverlay');showToast('模拟拨打脱敏热线成功');">
+</div>
+</div>
+<!-- 8. 客服与急诊电话抽屉 -->
+<div class="overlay" id="contactDrawerOverlay">
+<div class="drawer-content">
+<div class="sheet-header">
+<div class="sheet-title">联系导医与急诊咨询</div>
+<div class="sheet-close" onclick="closeOverlay('contactDrawerOverlay')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div style="font-size:var(--font-xs);color:var(--color-text-body);line-height:1.6;">
+<div style="padding:10px;background:var(--color-bg-page);border-radius:var(--radius-sm);margin-bottom:8px;">
+<div style="font-weight:700;color:var(--color-text-title);">日间常规门诊热线：</div>
+<div style="color:var(--color-primary);font-size:var(--font-base);font-weight:800;margin-top:2px;">400-**-8820 (09:00 - 21:00)</div>
+</div>
+<div style="padding:10px;background:var(--color-warning-light);border-radius:var(--radius-sm);margin-bottom:8px;">
+<div style="font-weight:700;color:var(--color-warning);">24小时急症急救绿色通道：</div>
+<div style="color:var(--color-warning);font-size:var(--font-base);font-weight:800;margin-top:2px;">021-**8999 (急症夜诊)</div>
+</div>
+</div>
+<button class="btn-action" onclick="closeOverlay('contactDrawerOverlay');showToast('模拟拨打脱敏热线成功');" style="width:100%;margin-top:10px;">
           拨打客服咨询
         </button>
-      </div>
-    </div>
-
-    <!-- 9. 院区切换抽屉 -->
-    <div class="overlay" id="branchDrawerOverlay">
-      <div class="drawer-content">
-        <div class="sheet-header">
-          <div class="sheet-title">选**区</div>
-          <div class="sheet-close" onclick="closeOverlay('branchDrawerOverlay')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          </div>
-        </div>
-
-        <div class="ui-card" style="cursor:pointer;border:1.5px solid var(--color-primary-edge);" onclick="closeOverlay('branchDrawerOverlay');showToast('已选定高新旗舰总院');">
-          <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">高新旗舰总院 (**区)</div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">**区科技南路**号 · 具备CT/核磁/专科手术室</div>
-        </div>
-
-        <div class="ui-card" style="cursor:pointer;" onclick="closeOverlay('branchDrawerOverlay');showToast('已切换至滨江科技分院');">
-          <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">滨江科技分院</div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">XX市XX路XX号 · 猫科友好门诊/日间手术</div>
-        </div>
-
-        <div class="ui-card" style="cursor:pointer;" onclick="closeOverlay('branchDrawerOverlay');showToast('已切换至金融城中心分院');">
-          <div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">金融城中心分院</div>
-          <div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">XX市XX路XX号 · 预防免疫与常规门诊</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 全局悬浮轻提示 Toast -->
-    <div class="toast-box" id="globalToast">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-      <span id="toastMsg">操作成功</span>
-    </div>
-
-  </div>
-
-  <!-- ==========================================================================
+</div>
+</div>
+<!-- 9. 院区切换抽屉 -->
+<div class="overlay" id="branchDrawerOverlay">
+<div class="drawer-content">
+<div class="sheet-header">
+<div class="sheet-title">选**区</div>
+<div class="sheet-close" onclick="closeOverlay('branchDrawerOverlay')">
+<svg fill="none" height="18" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</div>
+</div>
+<div class="ui-card" onclick="closeOverlay('branchDrawerOverlay');showToast('已选定高新旗舰总院');" style="cursor:pointer;border:1.5px solid var(--color-primary-edge);">
+<div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">高新旗舰总院 (**区)</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">**区科技南路**号 · 具备CT/核磁/专科手术室</div>
+</div>
+<div class="ui-card" onclick="closeOverlay('branchDrawerOverlay');showToast('已切换至滨江科技分院');" style="cursor:pointer;">
+<div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">滨江科技分院</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">XX市XX路XX号 · 猫科友好门诊/日间手术</div>
+</div>
+<div class="ui-card" onclick="closeOverlay('branchDrawerOverlay');showToast('已切换至金融城中心分院');" style="cursor:pointer;">
+<div style="font-size:var(--font-sm);font-weight:800;color:var(--color-text-title);">金融城中心分院</div>
+<div style="font-size:var(--font-2xs);color:var(--color-text-muted);margin-top:2px;">XX市XX路XX号 · 预防免疫与常规门诊</div>
+</div>
+</div>
+</div>
+<!-- 全局悬浮轻提示 Toast -->
+<div class="toast-box" id="globalToast">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M20 6 9 17l-5-5"></path></svg>
+<span id="toastMsg">操作成功</span>
+</div>
+</div>
+<!-- ==========================================================================
        前端纯原生响应式状态中心与事件驱动逻辑 (JavaScript Store)
        ========================================================================== -->
-  <script>
+<script>
     // 1. 全局状态存储中心
     const AppStore = {
       activeTab: 0,

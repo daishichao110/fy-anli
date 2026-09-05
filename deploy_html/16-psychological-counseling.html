@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>**心理咨询工作室</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>**心理咨询工作室</title>
+<style>
     /* ==========================================================================
        1. Design Tokens & Global Reset
        ========================================================================== */
@@ -1359,659 +1360,592 @@
     }
 
   </style>
+
+<style id="hide-top-bar-style">
+    .ios-status-bar,
+    .status-bar,
+    .phone-status-bar,
+    .wechat-status-bar,
+    .mp-status-bar,
+    .mp-header,
+    .mp-nav-bar,
+    .mp-navbar,
+    .wechat-nav-bar,
+    .wechat-header,
+    .wechat-nav-header,
+    .nav-bar,
+    .mp-top-header {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Global Return to Hall Button -->
-  <a href="index.html" class="global-hall-back-btn" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#1e293b';this.style.transform='none';">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>返回 50 场景大厅</span>
-  </a>
-
-
-  <!-- ========================================================================
+<!-- Global Return to Hall Button -->
+<a class="global-hall-back-btn" href="index.html" onmouseout="this.style.background='#1e293b';this.style.transform='none';" onmouseover="this.style.background='#334155';this.style.transform='translateY(-1px)';" style="position: fixed; top: 16px; left: 16px; z-index: 999999; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: #1e293b; color: #ffffff; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.25); transition: all 0.2s ease; cursor: pointer;">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+<span>返回 50 场景大厅</span>
+</a>
+<!-- ========================================================================
        Mini-Program Realistic Bezel & Container
        ======================================================================== -->
-  <div class="phone-container">
+<div class="phone-container">
+<!-- 1. Native Status Bar -->
 
-    <!-- 1. Native Status Bar -->
-    <div class="status-bar">
-      <span>09:41</span>
-      <div class="status-icons">
-        <!-- Signal -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V4"/>
-        </svg>
-        <!-- Wifi -->
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <!-- Battery -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/>
-        </svg>
-      </div>
-    </div>
+<!-- 2. WeChat Header with Standard Capsule -->
 
-    <!-- 2. WeChat Header with Standard Capsule -->
-    <div class="mp-header">
-      <div class="header-title-box">
-        <span class="header-title">**心理咨询工作室</span>
-        <span class="header-badge">专业认证</span>
-      </div>
-      <div class="wechat-capsule" onclick="showToast('微信小程序选项面板')">
-        <div class="capsule-dots">
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-          <div class="capsule-dot"></div>
-        </div>
-        <div class="capsule-divider"></div>
-        <div class="capsule-circle"></div>
-      </div>
-    </div>
-
-    <!-- 3. Mini-Program Scrollable Viewport -->
-    <div class="mp-body" id="mainScroll">
-
-      <!-- ====================================================================
+<!-- 3. Mini-Program Scrollable Viewport -->
+<div class="mp-body" id="mainScroll">
+<!-- ====================================================================
            TAB 0: 首页 (Home)
            ==================================================================== -->
-      <div class="tab-pane active" id="pane-home">
-        
-        <!-- Welcome Banner -->
-        <div class="welcome-banner">
-          <div class="welcome-sub">Holding Space · Professional Care</div>
-          <div class="welcome-heading">在此刻，倾听内心的声音</div>
-          <div class="welcome-desc">国家认证心理**人员团队 · 严格恪守专业伦理保密守则</div>
-        </div>
-
-        <!-- Mood Tracker Card -->
-        <div class="card">
-          <div class="card-title">
-            <div class="card-title-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
-              </svg>
-              <span>今日心情树洞</span>
-            </div>
-            <span style="font-size:11px;color:var(--color-text-muted);">点选记录感受</span>
-          </div>
-          <div class="mood-capsules">
-            <div class="mood-chip active" onclick="selectMood('calm', this)">平静</div>
-            <div class="mood-chip" onclick="selectMood('anxious', this)">焦虑</div>
-            <div class="mood-chip" onclick="selectMood('tired', this)">疲惫</div>
-            <div class="mood-chip" onclick="selectMood('down', this)">低落</div>
-            <div class="mood-chip" onclick="selectMood('fulfilled', this)">充实</div>
-          </div>
-          <div class="mood-quote-box" id="moodQuoteText">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;">
-              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
-            </svg>
-            <span id="quoteContent">接纳此刻的呼吸，安住于当下的安宁。允许一切如其所是。</span>
-          </div>
-        </div>
-
-        <!-- 4 Core Themes -->
-        <div class="theme-grid">
-          <div class="theme-card" onclick="jumpToCategory('emotion')">
-            <div class="theme-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-              </svg>
-            </div>
-            <div class="theme-info">
-              <h4>情绪减压</h4>
-              <p>抑郁焦虑 / 睡眠改善</p>
-            </div>
-          </div>
-
-          <div class="theme-card" onclick="jumpToCategory('relation')">
-            <div class="theme-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-              </svg>
-            </div>
-            <div class="theme-info">
-              <h4>亲密关系</h4>
-              <p>伴侣沟通 / 依恋创伤</p>
-            </div>
-          </div>
-
-          <div class="theme-card" onclick="jumpToCategory('growth')">
-            <div class="theme-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              </svg>
-            </div>
-            <div class="theme-info">
-              <h4>个人成长</h4>
-              <p>自我探索 / 自尊重建</p>
-            </div>
-          </div>
-
-          <div class="theme-card" onclick="jumpToCategory('career')">
-            <div class="theme-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-              </svg>
-            </div>
-            <div class="theme-info">
-              <h4>职场人际</h4>
-              <p>职业倦怠 / 社交边界</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Featured Consultants -->
-        <div class="card">
-          <div class="card-title">
-            <div class="card-title-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-              <span>精选执业**人员</span>
-            </div>
-            <span style="font-size:11.5px;color:var(--color-primary);cursor:pointer;" onclick="switchTab(1)">查看全部 ›</span>
-          </div>
-
-          <!-- Consultant 1 -->
-          <div class="consultant-item">
-            <div class="consultant-head">
-              <div class="consultant-avatar">林</div>
-              <div class="consultant-meta">
-                <div class="consultant-name-row">
-                  <span class="consultant-name">林*（**人员）</span>
-                  <span class="consultant-tag">个案 2800+ 小时</span>
-                </div>
-                <div class="consultant-cert">中国心理学会注册心理师 · X-19-**</div>
-                <div class="consultant-chips">
-                  <span class="skill-chip">精神动力学</span>
-                  <span class="skill-chip">人本聚焦</span>
-                  <span class="skill-chip">深层情绪困扰</span>
-                </div>
-              </div>
-            </div>
-            <div class="consultant-foot">
-              <div>
-                <span class="consultant-price">¥450</span>
-                <span class="consultant-price-sub">/ 50分钟</span>
-              </div>
-              <div class="action-btn-group">
-                <button class="btn-secondary" onclick="showBioModal('c1')">详细履历</button>
-                <button class="btn-primary" onclick="openBookingDrawer('c1')">预约排班</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Consultant 2 -->
-          <div class="consultant-item" style="margin-bottom:0;">
-            <div class="consultant-head">
-              <div class="consultant-avatar" style="background:var(--color-avatar-bg-2);">周</div>
-              <div class="consultant-meta">
-                <div class="consultant-name-row">
-                  <span class="consultant-name">周*敏（资深**人员）</span>
-                  <span class="consultant-tag">个案 1900+ 小时</span>
-                </div>
-                <div class="consultant-cert">国家二级心理**人员 · 180100**3290</div>
-                <div class="consultant-chips">
-                  <span class="skill-chip">认知行为 (CBT)</span>
-                  <span class="skill-chip">职场适应</span>
-                  <span class="skill-chip">亲密关系</span>
-                </div>
-              </div>
-            </div>
-            <div class="consultant-foot">
-              <div>
-                <span class="consultant-price">¥380</span>
-                <span class="consultant-price-sub">/ 50分钟</span>
-              </div>
-              <div class="action-btn-group">
-                <button class="btn-secondary" onclick="showBioModal('c2')">详细履历</button>
-                <button class="btn-primary" onclick="openBookingDrawer('c2')">预约排班</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Consultation 3-Step Guide -->
-        <div class="card">
-          <div class="card-title">
-            <div class="card-title-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-              </svg>
-              <span>新手咨询服务路径</span>
-            </div>
-          </div>
-          <div class="flow-steps">
-            <div class="flow-step" onclick="showFlowDetail(1)">
-              <div class="step-num-circle">1</div>
-              <div class="step-label">明确诉求</div>
-              <div class="step-desc">初步梳理困扰</div>
-            </div>
-            <div class="flow-step" onclick="showFlowDetail(2)">
-              <div class="step-num-circle">2</div>
-              <div class="step-label">选择流派</div>
-              <div class="step-desc">匹配适合师资</div>
-            </div>
-            <div class="flow-step" onclick="showFlowDetail(3)">
-              <div class="step-num-circle">3</div>
-              <div class="step-label">排班面询</div>
-              <div class="step-desc">线上或面对面</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Assurance Banner -->
-        <div class="card" style="background:var(--color-primary-subtle);border-color:var(--color-border);cursor:pointer;" onclick="openEthicsModal()">
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
-              </svg>
-              <div>
-                <div style="font-size:13px;font-weight:600;color:var(--color-text-title);">严格遵循心理咨询工作伦理守则</div>
-                <div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">信息加密存储 · 保密例外告知 · 知情同意书保障</div>
-              </div>
-            </div>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
+<div class="tab-pane active" id="pane-home">
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+<div class="welcome-sub">Holding Space · Professional Care</div>
+<div class="welcome-heading">在此刻，倾听内心的声音</div>
+<div class="welcome-desc">国家认证心理**人员团队 · 严格恪守专业伦理保密守则</div>
+</div>
+<!-- Mood Tracker Card -->
+<div class="card">
+<div class="card-title">
+<div class="card-title-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line>
+</svg>
+<span>今日心情树洞</span>
+</div>
+<span style="font-size:11px;color:var(--color-text-muted);">点选记录感受</span>
+</div>
+<div class="mood-capsules">
+<div class="mood-chip active" onclick="selectMood('calm', this)">平静</div>
+<div class="mood-chip" onclick="selectMood('anxious', this)">焦虑</div>
+<div class="mood-chip" onclick="selectMood('tired', this)">疲惫</div>
+<div class="mood-chip" onclick="selectMood('down', this)">低落</div>
+<div class="mood-chip" onclick="selectMood('fulfilled', this)">充实</div>
+</div>
+<div class="mood-quote-box" id="moodQuoteText">
+<svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="flex-shrink:0;margin-top:2px;" viewbox="0 0 24 24" width="15">
+<circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line>
+</svg>
+<span id="quoteContent">接纳此刻的呼吸，安住于当下的安宁。允许一切如其所是。</span>
+</div>
+</div>
+<!-- 4 Core Themes -->
+<div class="theme-grid">
+<div class="theme-card" onclick="jumpToCategory('emotion')">
+<div class="theme-icon-wrap">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18">
+<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+</svg>
+</div>
+<div class="theme-info">
+<h4>情绪减压</h4>
+<p>抑郁焦虑 / 睡眠改善</p>
+</div>
+</div>
+<div class="theme-card" onclick="jumpToCategory('relation')">
+<div class="theme-icon-wrap">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18">
+<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+</svg>
+</div>
+<div class="theme-info">
+<h4>亲密关系</h4>
+<p>伴侣沟通 / 依恋创伤</p>
+</div>
+</div>
+<div class="theme-card" onclick="jumpToCategory('growth')">
+<div class="theme-icon-wrap">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18">
+<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+</svg>
+</div>
+<div class="theme-info">
+<h4>个人成长</h4>
+<p>自我探索 / 自尊重建</p>
+</div>
+</div>
+<div class="theme-card" onclick="jumpToCategory('career')">
+<div class="theme-icon-wrap">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18">
+<rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+</svg>
+</div>
+<div class="theme-info">
+<h4>职场人际</h4>
+<p>职业倦怠 / 社交边界</p>
+</div>
+</div>
+</div>
+<!-- Featured Consultants -->
+<div class="card">
+<div class="card-title">
+<div class="card-title-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span>精选执业**人员</span>
+</div>
+<span onclick="switchTab(1)" style="font-size:11.5px;color:var(--color-primary);cursor:pointer;">查看全部 ›</span>
+</div>
+<!-- Consultant 1 -->
+<div class="consultant-item">
+<div class="consultant-head">
+<div class="consultant-avatar">林</div>
+<div class="consultant-meta">
+<div class="consultant-name-row">
+<span class="consultant-name">林*（**人员）</span>
+<span class="consultant-tag">个案 2800+ 小时</span>
+</div>
+<div class="consultant-cert">中国心理学会注册心理师 · X-19-**</div>
+<div class="consultant-chips">
+<span class="skill-chip">精神动力学</span>
+<span class="skill-chip">人本聚焦</span>
+<span class="skill-chip">深层情绪困扰</span>
+</div>
+</div>
+</div>
+<div class="consultant-foot">
+<div>
+<span class="consultant-price">¥450</span>
+<span class="consultant-price-sub">/ 50分钟</span>
+</div>
+<div class="action-btn-group">
+<button class="btn-secondary" onclick="showBioModal('c1')">详细履历</button>
+<button class="btn-primary" onclick="openBookingDrawer('c1')">预约排班</button>
+</div>
+</div>
+</div>
+<!-- Consultant 2 -->
+<div class="consultant-item" style="margin-bottom:0;">
+<div class="consultant-head">
+<div class="consultant-avatar" style="background:var(--color-avatar-bg-2);">周</div>
+<div class="consultant-meta">
+<div class="consultant-name-row">
+<span class="consultant-name">周*敏（资深**人员）</span>
+<span class="consultant-tag">个案 1900+ 小时</span>
+</div>
+<div class="consultant-cert">国家二级心理**人员 · 180100**3290</div>
+<div class="consultant-chips">
+<span class="skill-chip">认知行为 (CBT)</span>
+<span class="skill-chip">职场适应</span>
+<span class="skill-chip">亲密关系</span>
+</div>
+</div>
+</div>
+<div class="consultant-foot">
+<div>
+<span class="consultant-price">¥380</span>
+<span class="consultant-price-sub">/ 50分钟</span>
+</div>
+<div class="action-btn-group">
+<button class="btn-secondary" onclick="showBioModal('c2')">详细履历</button>
+<button class="btn-primary" onclick="openBookingDrawer('c2')">预约排班</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Consultation 3-Step Guide -->
+<div class="card">
+<div class="card-title">
+<div class="card-title-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+<span>新手咨询服务路径</span>
+</div>
+</div>
+<div class="flow-steps">
+<div class="flow-step" onclick="showFlowDetail(1)">
+<div class="step-num-circle">1</div>
+<div class="step-label">明确诉求</div>
+<div class="step-desc">初步梳理困扰</div>
+</div>
+<div class="flow-step" onclick="showFlowDetail(2)">
+<div class="step-num-circle">2</div>
+<div class="step-label">选择流派</div>
+<div class="step-desc">匹配适合师资</div>
+</div>
+<div class="flow-step" onclick="showFlowDetail(3)">
+<div class="step-num-circle">3</div>
+<div class="step-label">排班面询</div>
+<div class="step-desc">线上或面对面</div>
+</div>
+</div>
+</div>
+<!-- Assurance Banner -->
+<div class="card" onclick="openEthicsModal()" style="background:var(--color-primary-subtle);border-color:var(--color-border);cursor:pointer;">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:10px;">
+<svg fill="none" height="22" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline>
+</svg>
+<div>
+<div style="font-size:13px;font-weight:600;color:var(--color-text-title);">严格遵循心理咨询工作伦理守则</div>
+<div style="font-size:11px;color:var(--color-text-muted);margin-top:2px;">信息加密存储 · 保密例外告知 · 知情同意书保障</div>
+</div>
+</div>
+<svg fill="none" height="16" stroke="var(--color-text-muted)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</div>
+</div>
+</div>
+<!-- ====================================================================
            TAB 1: 找**人员 (Consultants & Filter)
            ==================================================================== -->
-      <div class="tab-pane" id="pane-consult">
-        
-        <!-- Filter Controls -->
-        <div class="card" style="padding:14px;">
-          <!-- Issue Filter -->
-          <div class="filter-section">
-            <div class="filter-label">困扰议题</div>
-            <div class="filter-chips" id="issueFilterGroup">
-              <button class="filter-btn active" onclick="setIssueFilter('all', this)">全部</button>
-              <button class="filter-btn" onclick="setIssueFilter('emotion', this)">情绪压力</button>
-              <button class="filter-btn" onclick="setIssueFilter('relation', this)">亲密关系</button>
-              <button class="filter-btn" onclick="setIssueFilter('growth', this)">自我探索</button>
-              <button class="filter-btn" onclick="setIssueFilter('career', this)">职场发展</button>
-            </div>
-          </div>
-
-          <!-- School Filter -->
-          <div class="filter-section" style="margin-bottom:0;">
-            <div class="filter-label">理论流派</div>
-            <div class="filter-chips" id="schoolFilterGroup">
-              <button class="filter-btn active" onclick="setSchoolFilter('all', this)">全部流派</button>
-              <button class="filter-btn" onclick="setSchoolFilter('cbt', this)">认知行为 (CBT)</button>
-              <button class="filter-btn" onclick="setSchoolFilter('psychodynamic', this)">精神动力学</button>
-              <button class="filter-btn" onclick="setSchoolFilter('humanistic', this)">人本聚焦</button>
-              <button class="filter-btn" onclick="setSchoolFilter('family', this)">家庭治疗</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Consultants Dynamic List -->
-        <div id="consultantListContainer">
-          <!-- Dynamically populated by JS -->
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
+<div class="tab-pane" id="pane-consult">
+<!-- Filter Controls -->
+<div class="card" style="padding:14px;">
+<!-- Issue Filter -->
+<div class="filter-section">
+<div class="filter-label">困扰议题</div>
+<div class="filter-chips" id="issueFilterGroup">
+<button class="filter-btn active" onclick="setIssueFilter('all', this)">全部</button>
+<button class="filter-btn" onclick="setIssueFilter('emotion', this)">情绪压力</button>
+<button class="filter-btn" onclick="setIssueFilter('relation', this)">亲密关系</button>
+<button class="filter-btn" onclick="setIssueFilter('growth', this)">自我探索</button>
+<button class="filter-btn" onclick="setIssueFilter('career', this)">职场发展</button>
+</div>
+</div>
+<!-- School Filter -->
+<div class="filter-section" style="margin-bottom:0;">
+<div class="filter-label">理论流派</div>
+<div class="filter-chips" id="schoolFilterGroup">
+<button class="filter-btn active" onclick="setSchoolFilter('all', this)">全部流派</button>
+<button class="filter-btn" onclick="setSchoolFilter('cbt', this)">认知行为 (CBT)</button>
+<button class="filter-btn" onclick="setSchoolFilter('psychodynamic', this)">精神动力学</button>
+<button class="filter-btn" onclick="setSchoolFilter('humanistic', this)">人本聚焦</button>
+<button class="filter-btn" onclick="setSchoolFilter('family', this)">家庭治疗</button>
+</div>
+</div>
+</div>
+<!-- Consultants Dynamic List -->
+<div id="consultantListContainer">
+<!-- Dynamically populated by JS -->
+</div>
+</div>
+<!-- ====================================================================
            TAB 2: 心理测评 (Assessments)
            ==================================================================== -->
-      <div class="tab-pane" id="pane-assess">
-        
-        <div style="margin-bottom:12px;">
-          <div style="font-size:15px;font-weight:600;color:var(--color-text-title);">标准化专业心理量表</div>
-          <div style="font-size:11.5px;color:var(--color-text-muted);margin-top:2px;">科学循证量表自检 · 提供分级心理建议</div>
-        </div>
-
-        <!-- Scale 1: PHQ-9 -->
-        <div class="scale-card">
-          <div class="scale-header">
-            <span class="scale-badge">国际标准量表</span>
-            <span style="font-size:11px;color:var(--color-text-muted);">约 3 分钟</span>
-          </div>
-          <div class="scale-title">PHQ-9 抑郁症状群筛查问卷</div>
-          <div class="scale-desc">由国际精神医学团队开发，用于评估过去两周内情绪动力、低落感及生活兴趣程度。</div>
-          <div class="scale-meta-row">
-            <span class="scale-stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-              </svg>
-              <span>9 道标准题项 · 计分反馈</span>
-            </span>
-            <button class="btn-primary" onclick="startQuiz('phq9')">开始自评</button>
-          </div>
-        </div>
-
-        <!-- Scale 2: GAD-7 -->
-        <div class="scale-card">
-          <div class="scale-header">
-            <span class="scale-badge">国际标准量表</span>
-            <span style="font-size:11px;color:var(--color-text-muted);">约 2 分钟</span>
-          </div>
-          <div class="scale-title">GAD-7 广泛性焦虑障碍量表</div>
-          <div class="scale-desc">用于快速测评紧张不安、过度担忧、惊恐感及躯体焦虑反应程度。</div>
-          <div class="scale-meta-row">
-            <span class="scale-stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-              </svg>
-              <span>7 道标准题项 · 实时分析</span>
-            </span>
-            <button class="btn-primary" onclick="startQuiz('gad7')">开始自评</button>
-          </div>
-        </div>
-
-        <!-- Scale 3: Attachment -->
-        <div class="scale-card">
-          <div class="scale-header">
-            <span class="scale-badge" style="background:var(--color-primary-light);color:var(--color-primary);">人际与情感</span>
-            <span style="font-size:11px;color:var(--color-text-muted);">约 4 分钟</span>
-          </div>
-          <div class="scale-title">成人依恋风格与亲密关系测验</div>
-          <div class="scale-desc">探索自己在亲密关系中属于安全型、焦虑型还是回避型，理解深层沟通模式。</div>
-          <div class="scale-meta-row">
-            <span class="scale-stat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-              </svg>
-              <span>6 道代表题项 · 风格解析</span>
-            </span>
-            <button class="btn-primary" onclick="startQuiz('attachment')">开始测评</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ====================================================================
+<div class="tab-pane" id="pane-assess">
+<div style="margin-bottom:12px;">
+<div style="font-size:15px;font-weight:600;color:var(--color-text-title);">标准化专业心理量表</div>
+<div style="font-size:11.5px;color:var(--color-text-muted);margin-top:2px;">科学循证量表自检 · 提供分级心理建议</div>
+</div>
+<!-- Scale 1: PHQ-9 -->
+<div class="scale-card">
+<div class="scale-header">
+<span class="scale-badge">国际标准量表</span>
+<span style="font-size:11px;color:var(--color-text-muted);">约 3 分钟</span>
+</div>
+<div class="scale-title">PHQ-9 抑郁症状群筛查问卷</div>
+<div class="scale-desc">由国际精神医学团队开发，用于评估过去两周内情绪动力、低落感及生活兴趣程度。</div>
+<div class="scale-meta-row">
+<span class="scale-stat">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>
+</svg>
+<span>9 道标准题项 · 计分反馈</span>
+</span>
+<button class="btn-primary" onclick="startQuiz('phq9')">开始自评</button>
+</div>
+</div>
+<!-- Scale 2: GAD-7 -->
+<div class="scale-card">
+<div class="scale-header">
+<span class="scale-badge">国际标准量表</span>
+<span style="font-size:11px;color:var(--color-text-muted);">约 2 分钟</span>
+</div>
+<div class="scale-title">GAD-7 广泛性焦虑障碍量表</div>
+<div class="scale-desc">用于快速测评紧张不安、过度担忧、惊恐感及躯体焦虑反应程度。</div>
+<div class="scale-meta-row">
+<span class="scale-stat">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>
+</svg>
+<span>7 道标准题项 · 实时分析</span>
+</span>
+<button class="btn-primary" onclick="startQuiz('gad7')">开始自评</button>
+</div>
+</div>
+<!-- Scale 3: Attachment -->
+<div class="scale-card">
+<div class="scale-header">
+<span class="scale-badge" style="background:var(--color-primary-light);color:var(--color-primary);">人际与情感</span>
+<span style="font-size:11px;color:var(--color-text-muted);">约 4 分钟</span>
+</div>
+<div class="scale-title">成人依恋风格与亲密关系测验</div>
+<div class="scale-desc">探索自己在亲密关系中属于安全型、焦虑型还是回避型，理解深层沟通模式。</div>
+<div class="scale-meta-row">
+<span class="scale-stat">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14">
+<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+</svg>
+<span>6 道代表题项 · 风格解析</span>
+</span>
+<button class="btn-primary" onclick="startQuiz('attachment')">开始测评</button>
+</div>
+</div>
+</div>
+<!-- ====================================================================
            TAB 3: 我的中心 (Profile)
            ==================================================================== -->
-      <div class="tab-pane" id="pane-profile">
-        
-        <!-- User Profile Card -->
-        <div class="profile-card">
-          <div class="profile-avatar">屿</div>
-          <div class="profile-info">
-            <h3>来访者 · 屿光</h3>
-            <div class="profile-phone">手机：138**9201 · 档案编号：QX-081</div>
-            <div class="profile-badge-row">
-              <span class="profile-pill">已签署保密协议</span>
-              <span class="profile-pill">加密档案</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Appointment Order Card List -->
-        <div class="card">
-          <div class="card-title" style="margin-bottom:8px;">
-            <div class="card-title-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-              <span>我的咨询预约</span>
-            </div>
-          </div>
-
-          <!-- Order Status Tab -->
-          <div class="order-tabs">
-            <button class="order-tab-btn active" onclick="filterOrders('all', this)">全部</button>
-            <button class="order-tab-btn" onclick="filterOrders('confirmed', this)">待面询</button>
-            <button class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</button>
-            <button class="order-tab-btn" onclick="filterOrders('cancelled', this)">已取消</button>
-          </div>
-
-          <!-- Dynamic Orders Container -->
-          <div id="ordersContainer">
-            <!-- Dynamically populated by JS -->
-          </div>
-        </div>
-
-        <!-- Settings & Compliance Menu -->
-        <div class="menu-group">
-          <div class="menu-item" onclick="openEthicsModal()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-              </svg>
-              <span>知情同意与保密伦理规范</span>
-            </div>
-            <div class="menu-right">
-              <span>查看条款</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              <span>来访隐私高保密模式</span>
-            </div>
-            <div class="menu-right">
-              <label class="switch-wrap">
-                <input type="checkbox" checked onchange="togglePrivacy(this)">
-                <span class="switch-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <div class="menu-item" onclick="callCrisisHotline()">
-            <div class="menu-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              <span style="color:var(--color-accent);font-weight:600;">24小时全国心理危机援助热线</span>
-            </div>
-            <div class="menu-right">
-              <span>紧急求助</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 4. Native Mini-Program TabBar -->
-    <div class="mp-tabbar">
-      <div class="tab-item active" id="tabBtn0" onclick="switchTab(0)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-        <span>首页</span>
-      </div>
-      <div class="tab-item" id="tabBtn1" onclick="switchTab(1)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <span>找**人员</span>
-      </div>
-      <div class="tab-item" id="tabBtn2" onclick="switchTab(2)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-        </svg>
-        <span>心理测评</span>
-      </div>
-      <div class="tab-item" id="tabBtn3" onclick="switchTab(3)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span>我的中心</span>
-      </div>
-    </div>
-
-    <!-- Home Indicator -->
-    <div class="home-indicator"></div>
-
-    <!-- ======================================================================
+<div class="tab-pane" id="pane-profile">
+<!-- User Profile Card -->
+<div class="profile-card">
+<div class="profile-avatar">屿</div>
+<div class="profile-info">
+<h3>来访者 · 屿光</h3>
+<div class="profile-phone">手机：138**9201 · 档案编号：QX-081</div>
+<div class="profile-badge-row">
+<span class="profile-pill">已签署保密协议</span>
+<span class="profile-pill">加密档案</span>
+</div>
+</div>
+</div>
+<!-- Appointment Order Card List -->
+<div class="card">
+<div class="card-title" style="margin-bottom:8px;">
+<div class="card-title-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+<span>我的咨询预约</span>
+</div>
+</div>
+<!-- Order Status Tab -->
+<div class="order-tabs">
+<button class="order-tab-btn active" onclick="filterOrders('all', this)">全部</button>
+<button class="order-tab-btn" onclick="filterOrders('confirmed', this)">待面询</button>
+<button class="order-tab-btn" onclick="filterOrders('completed', this)">已完成</button>
+<button class="order-tab-btn" onclick="filterOrders('cancelled', this)">已取消</button>
+</div>
+<!-- Dynamic Orders Container -->
+<div id="ordersContainer">
+<!-- Dynamically populated by JS -->
+</div>
+</div>
+<!-- Settings & Compliance Menu -->
+<div class="menu-group">
+<div class="menu-item" onclick="openEthicsModal()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>
+</svg>
+<span>知情同意与保密伦理规范</span>
+</div>
+<div class="menu-right">
+<span>查看条款</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+<div class="menu-item">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-primary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+<span>来访隐私高保密模式</span>
+</div>
+<div class="menu-right">
+<label class="switch-wrap">
+<input checked="" onchange="togglePrivacy(this)" type="checkbox"/>
+<span class="switch-slider"></span>
+</label>
+</div>
+</div>
+<div class="menu-item" onclick="callCrisisHotline()">
+<div class="menu-left">
+<svg fill="none" height="16" stroke="var(--color-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16">
+<path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+</svg>
+<span style="color:var(--color-accent);font-weight:600;">24小时全国心理危机援助热线</span>
+</div>
+<div class="menu-right">
+<span>紧急求助</span>
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Native Mini-Program TabBar -->
+<div class="mp-tabbar">
+<div class="tab-item active" id="tabBtn0" onclick="switchTab(0)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span>首页</span>
+</div>
+<div class="tab-item" id="tabBtn1" onclick="switchTab(1)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<span>找**人员</span>
+</div>
+<div class="tab-item" id="tabBtn2" onclick="switchTab(2)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line>
+</svg>
+<span>心理测评</span>
+</div>
+<div class="tab-item" id="tabBtn3" onclick="switchTab(3)">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span>我的中心</span>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+<!-- ======================================================================
          5. Overlays, Modals, Drawers & Toast
          ====================================================================== -->
-    <!-- Backdrop -->
-    <div class="modal-backdrop" id="modalBackdrop" onclick="closeAllOverlays()"></div>
-
-    <!-- Booking Drawer -->
-    <div class="booking-drawer" id="bookingDrawer">
-      <div class="drawer-handle"></div>
-      <div class="drawer-header">
-        <div class="drawer-title" id="drawerTitle">预约咨询排班</div>
-        <button class="drawer-close" onclick="closeBookingDrawer()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="drawer-body">
-        
-        <!-- Consultant Summary in Drawer -->
-        <div style="background:var(--color-bg-subtle);padding:10px 12px;border-radius:var(--radius-md);margin-bottom:14px;display:flex;align-items:center;gap:10px;">
-          <div id="drawerAvatar" class="consultant-avatar" style="width:38px;height:38px;font-size:14px;">林</div>
-          <div style="flex:1;">
-            <div id="drawerConsultantName" style="font-size:13.5px;font-weight:600;color:var(--color-text-title);">林* · **人员</div>
-            <div id="drawerConsultantCert" style="font-size:11px;color:var(--color-text-muted);">国家注册心理师 · 50分钟/节</div>
-          </div>
-          <div id="drawerPrice" style="font-size:14px;font-weight:700;color:var(--color-primary);">¥450</div>
-        </div>
-
-        <!-- Date Selection -->
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择咨询日期</div>
-        <div class="date-row">
-          <div class="date-btn active" onclick="selectDate('今天 (09-04)', this)">
-            <div class="date-name">今天</div>
-            <div class="date-day">09月04日</div>
-          </div>
-          <div class="date-btn" onclick="selectDate('明天 (09-05)', this)">
-            <div class="date-name">明天</div>
-            <div class="date-day">09月05日</div>
-          </div>
-          <div class="date-btn" onclick="selectDate('后天 (09-06)', this)">
-            <div class="date-name">后天</div>
-            <div class="date-day">09月06日</div>
-          </div>
-        </div>
-
-        <!-- Time Slot Selection -->
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择可约时段</div>
-        <div class="slot-grid">
-          <div class="slot-btn" onclick="selectSlot('10:00 - 10:50', this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>10:00 - 10:50</span>
-          </div>
-          <div class="slot-btn active" onclick="selectSlot('14:00 - 14:50', this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>14:00 - 14:50</span>
-          </div>
-          <div class="slot-btn" onclick="selectSlot('16:00 - 16:50', this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>16:00 - 16:50</span>
-          </div>
-          <div class="slot-btn" onclick="selectSlot('19:00 - 19:50', this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>19:00 - 19:50</span>
-          </div>
-        </div>
-
-        <!-- Consultation Format -->
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询形式</div>
-        <div style="display:flex;gap:8px;margin-bottom:14px;">
-          <button class="filter-btn active" id="formatBtn1" onclick="selectFormat('视频连线 (加密专线)', this)">视频连线</button>
-          <button class="filter-btn" id="formatBtn2" onclick="selectFormat('语音深度倾听', this)">语音通话</button>
-          <button class="filter-btn" id="formatBtn3" onclick="selectFormat('面对面咨询 (工作室面询)', this)">面对面面询</button>
-        </div>
-
-        <!-- Service Intent -->
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询诉求阶段</div>
-        <div style="display:flex;gap:8px;margin-bottom:18px;">
-          <button class="filter-btn active" onclick="selectStage('初次访谈评估', this)">首次访谈评估</button>
-          <button class="filter-btn" onclick="selectStage('阶段深度咨询', this)">持续阶段咨询</button>
-        </div>
-
-        <!-- Submit Button -->
-        <button class="btn-primary" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);" onclick="submitBookingOrder()">
+<!-- Backdrop -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeAllOverlays()"></div>
+<!-- Booking Drawer -->
+<div class="booking-drawer" id="bookingDrawer">
+<div class="drawer-handle"></div>
+<div class="drawer-header">
+<div class="drawer-title" id="drawerTitle">预约咨询排班</div>
+<button class="drawer-close" onclick="closeBookingDrawer()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="drawer-body">
+<!-- Consultant Summary in Drawer -->
+<div style="background:var(--color-bg-subtle);padding:10px 12px;border-radius:var(--radius-md);margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+<div class="consultant-avatar" id="drawerAvatar" style="width:38px;height:38px;font-size:14px;">林</div>
+<div style="flex:1;">
+<div id="drawerConsultantName" style="font-size:13.5px;font-weight:600;color:var(--color-text-title);">林* · **人员</div>
+<div id="drawerConsultantCert" style="font-size:11px;color:var(--color-text-muted);">国家注册心理师 · 50分钟/节</div>
+</div>
+<div id="drawerPrice" style="font-size:14px;font-weight:700;color:var(--color-primary);">¥450</div>
+</div>
+<!-- Date Selection -->
+<div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择咨询日期</div>
+<div class="date-row">
+<div class="date-btn active" onclick="selectDate('今天 (09-04)', this)">
+<div class="date-name">今天</div>
+<div class="date-day">09月04日</div>
+</div>
+<div class="date-btn" onclick="selectDate('明天 (09-05)', this)">
+<div class="date-name">明天</div>
+<div class="date-day">09月05日</div>
+</div>
+<div class="date-btn" onclick="selectDate('后天 (09-06)', this)">
+<div class="date-name">后天</div>
+<div class="date-day">09月06日</div>
+</div>
+</div>
+<!-- Time Slot Selection -->
+<div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">选择可约时段</div>
+<div class="slot-grid">
+<div class="slot-btn" onclick="selectSlot('10:00 - 10:50', this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>10:00 - 10:50</span>
+</div>
+<div class="slot-btn active" onclick="selectSlot('14:00 - 14:50', this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>14:00 - 14:50</span>
+</div>
+<div class="slot-btn" onclick="selectSlot('16:00 - 16:50', this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>16:00 - 16:50</span>
+</div>
+<div class="slot-btn" onclick="selectSlot('19:00 - 19:50', this)">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>19:00 - 19:50</span>
+</div>
+</div>
+<!-- Consultation Format -->
+<div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询形式</div>
+<div style="display:flex;gap:8px;margin-bottom:14px;">
+<button class="filter-btn active" id="formatBtn1" onclick="selectFormat('视频连线 (加密专线)', this)">视频连线</button>
+<button class="filter-btn" id="formatBtn2" onclick="selectFormat('语音深度倾听', this)">语音通话</button>
+<button class="filter-btn" id="formatBtn3" onclick="selectFormat('面对面咨询 (工作室面询)', this)">面对面面询</button>
+</div>
+<!-- Service Intent -->
+<div style="font-size:12px;font-weight:600;color:var(--color-text-title);margin-bottom:6px;">咨询诉求阶段</div>
+<div style="display:flex;gap:8px;margin-bottom:18px;">
+<button class="filter-btn active" onclick="selectStage('初次访谈评估', this)">首次访谈评估</button>
+<button class="filter-btn" onclick="selectStage('阶段深度咨询', this)">持续阶段咨询</button>
+</div>
+<!-- Submit Button -->
+<button class="btn-primary" onclick="submitBookingOrder()" style="width:100%;padding:12px;font-size:14px;border-radius:var(--radius-md);">
           确认提交预约申请
         </button>
-
-      </div>
-    </div>
-
-    <!-- Quiz Interactive Modal -->
-    <div class="quiz-modal" id="quizModal">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <span class="scale-badge" id="quizModalBadge">心理自评量表</span>
-          <span style="font-size:12px;color:var(--color-text-muted);margin-left:6px;" id="quizStepText">第 1 / 5 题</span>
-        </div>
-        <button class="drawer-close" onclick="closeQuizModal()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="quizProgressBar"></div>
-      </div>
-
-      <!-- Question Box -->
-      <div id="quizQuestionBox" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-        <div style="font-size:11px;color:var(--color-primary);font-weight:600;margin-bottom:6px;">过去两周内，您是否存在以下感受：</div>
-        <div id="quizQuestionTitle" style="font-size:16px;font-weight:600;color:var(--color-text-title);line-height:1.5;">
+</div>
+</div>
+<!-- Quiz Interactive Modal -->
+<div class="quiz-modal" id="quizModal">
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<span class="scale-badge" id="quizModalBadge">心理自评量表</span>
+<span id="quizStepText" style="font-size:12px;color:var(--color-text-muted);margin-left:6px;">第 1 / 5 题</span>
+</div>
+<button class="drawer-close" onclick="closeQuizModal()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="progress-bar-wrap">
+<div class="progress-bar-fill" id="quizProgressBar"></div>
+</div>
+<!-- Question Box -->
+<div id="quizQuestionBox" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+<div style="font-size:11px;color:var(--color-primary);font-weight:600;margin-bottom:6px;">过去两周内，您是否存在以下感受：</div>
+<div id="quizQuestionTitle" style="font-size:16px;font-weight:600;color:var(--color-text-title);line-height:1.5;">
           做事时提不起劲或没有乐趣？
         </div>
-
-        <div class="quiz-options" id="quizOptionsContainer">
-          <!-- Options populated by JS -->
-        </div>
-      </div>
-
-      <!-- Result Card Box (Hidden during quiz) -->
-      <div id="quizResultBox" style="display:none;flex:1;flex-direction:column;justify-content:center;text-align:center;padding:10px;">
-        <div style="width:60px;height:60px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 12px auto;">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div style="font-size:13px;color:var(--color-text-muted);">测评得分总览</div>
-        <div id="quizScoreDisplay" style="font-size:32px;font-weight:700;color:var(--color-primary);margin:4px 0 6px 0;">
+<div class="quiz-options" id="quizOptionsContainer">
+<!-- Options populated by JS -->
+</div>
+</div>
+<!-- Result Card Box (Hidden during quiz) -->
+<div id="quizResultBox" style="display:none;flex:1;flex-direction:column;justify-content:center;text-align:center;padding:10px;">
+<div style="width:60px;height:60px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;margin:0 auto 12px auto;">
+<svg fill="none" height="30" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="30"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+</div>
+<div style="font-size:13px;color:var(--color-text-muted);">测评得分总览</div>
+<div id="quizScoreDisplay" style="font-size:32px;font-weight:700;color:var(--color-primary);margin:4px 0 6px 0;">
           3 <span style="font-size:14px;font-weight:normal;color:var(--color-text-muted);">分</span>
-        </div>
-        <div id="quizLevelBadge" style="font-size:13px;font-weight:600;color:var(--color-primary);background:var(--color-primary-light);padding:4px 12px;border-radius:var(--radius-full);display:inline-block;margin:0 auto 12px auto;">
+</div>
+<div id="quizLevelBadge" style="font-size:13px;font-weight:600;color:var(--color-primary);background:var(--color-primary-light);padding:4px 12px;border-radius:var(--radius-full);display:inline-block;margin:0 auto 12px auto;">
           情绪良好 · 状态平稳
         </div>
-        <div id="quizAdviceText" style="font-size:12px;color:var(--color-text-body);line-height:1.6;background:var(--color-bg-subtle);padding:12px;border-radius:var(--radius-md);margin-bottom:18px;text-align:left;">
+<div id="quizAdviceText" style="font-size:12px;color:var(--color-text-body);line-height:1.6;background:var(--color-bg-subtle);padding:12px;border-radius:var(--radius-md);margin-bottom:18px;text-align:left;">
           您的情绪基调较为平衡，日常偶有轻微压力属于正常心理弹性反应。建议保持良好作息与户外散步习惯。
         </div>
-        <div style="display:flex;gap:10px;">
-          <button class="btn-secondary" style="flex:1;padding:10px;" onclick="restartCurrentQuiz()">重新测试</button>
-          <button class="btn-primary" style="flex:1;padding:10px;" onclick="finishQuiz()">保存并返回</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Generic Modal Dialog -->
-    <div class="dialog-box" id="dialogBox">
-      <div class="dialog-title" id="dialogTitle">提示</div>
-      <div class="dialog-content" id="dialogContent">内容...</div>
-      <div class="dialog-actions">
-        <button class="btn-secondary" id="dialogSecondaryBtn" onclick="closeDialog()">关闭</button>
-        <button class="btn-primary" id="dialogPrimaryBtn" onclick="closeDialog()">确定</button>
-      </div>
-    </div>
-
-    <!-- WeChat Style Toast -->
-    <div class="mp-toast" id="mpToast">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-white)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      <span id="toastMessage">操作成功</span>
-    </div>
-
-  </div>
-
-  <!-- ========================================================================
+<div style="display:flex;gap:10px;">
+<button class="btn-secondary" onclick="restartCurrentQuiz()" style="flex:1;padding:10px;">重新测试</button>
+<button class="btn-primary" onclick="finishQuiz()" style="flex:1;padding:10px;">保存并返回</button>
+</div>
+</div>
+</div>
+<!-- Generic Modal Dialog -->
+<div class="dialog-box" id="dialogBox">
+<div class="dialog-title" id="dialogTitle">提示</div>
+<div class="dialog-content" id="dialogContent">内容...</div>
+<div class="dialog-actions">
+<button class="btn-secondary" id="dialogSecondaryBtn" onclick="closeDialog()">关闭</button>
+<button class="btn-primary" id="dialogPrimaryBtn" onclick="closeDialog()">确定</button>
+</div>
+</div>
+<!-- WeChat Style Toast -->
+<div class="mp-toast" id="mpToast">
+<svg fill="none" height="18" stroke="var(--color-text-white)" stroke-width="2.5" viewbox="0 0 24 24" width="18"><polyline points="20 6 9 17 4 12"></polyline></svg>
+<span id="toastMessage">操作成功</span>
+</div>
+</div>
+<!-- ========================================================================
        6. Reactive Logic & Data Controller (Zero Emoji, Pure SVG)
        ======================================================================== -->
-  <script>
+<script>
     // State Container
     const AppState = {
       currentTab: 0,
