@@ -1300,6 +1300,112 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* ===== Mobile Universal Responsive Adaptation ===== */
+    @media (max-width: 768px) {
+      body {
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Outer Viewport Wrapper Reset */
+      .app-viewport-wrapper,
+      .simulator-container,
+      .viewport-container,
+      .simulator-wrapper {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+      }
+
+      /* Sticky Top Navigation & Header Controls */
+      .global-header,
+      .top-bar,
+      .top-bar-container {
+        padding: 8px 12px !important;
+        gap: 8px !important;
+        flex-wrap: wrap !important;
+      }
+
+      .header-brand,
+      .brand {
+        font-size: 13.5px !important;
+        gap: 6px !important;
+      }
+
+      .header-brand-title,
+      .brand-title {
+        font-size: 14px !important;
+      }
+
+      .header-actions,
+      .header-actions-group {
+        gap: 6px !important;
+      }
+
+      .view-switch-btn,
+      .reset-data-btn,
+      .back-btn,
+      .global-hall-back-btn {
+        padding: 5px 10px !important;
+        font-size: 11px !important;
+      }
+
+      /* Mobile Full-Bleed Simulator Viewport (Remove Fake Desktop Phone Borders) */
+      .mobile-frame,
+      .phone-shell,
+      .phone-simulator,
+      .phone-container,
+      .phone-frame,
+      .device-shell,
+      .mp-shell,
+      .mp-container,
+      .mp-viewport-wrapper,
+      .phone-viewport,
+      .mp-phone-frame,
+      .app-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: calc(100vh - 46px) !important;
+        height: calc(100dvh - 46px) !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+      }
+
+      /* WeChat Capsule & Status Bar Adaptation */
+      .ios-status-bar,
+      .status-bar,
+      .mp-status-bar,
+      .wechat-status-bar,
+      .phone-status-bar {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+
+      .mp-header,
+      .mp-nav-bar,
+      .wechat-nav-bar {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+
+      /* Bottom Navigation & TabBar Safe Area Offset */
+      .mp-tabbar,
+      .bottom-nav,
+      .wx-tabbar,
+      .wechat-tabbar,
+      .mp-bottom-tabbar,
+      .bottom-tab-bar {
+        padding-bottom: max(6px, env(safe-area-inset-bottom)) !important;
+      }
+    }
+
   </style>
 </head>
 <body>
