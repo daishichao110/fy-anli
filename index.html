@@ -3,1067 +3,1788 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>热门场景商业级案例大厅 - 独立高保真系统展示</title>
+  <title>指南针代码工作室 | 高质量全栈软件定制与高保真系统落地</title>
+  <meta name="description" content="指南针代码工作室 (Compass Code Studio) 专注高保真商业系统落地、微信小程序开发、企业级Web SaaS与UI/UX重构，提供开箱即用的真实可演示商业案例与全量源码交付保障。联系微信：free11092025">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
+    /* ==========================================================================
+       DESIGN TOKENS (指南针代码工作室 - 现代高质感大厂风 Modern Studio Aesthetic)
+       ========================================================================== */
     :root {
-      --bg-body: #F8FAFC;
-      --bg-card: #FFFFFF;
-      --border-card: #E2E8F0;
-      --border-hover: #6366F1;
+      --bg-app: #F8FAFC;
+      --bg-gradient-top: #EEF2FF;
+      --bg-surface-1: #FFFFFF;
+      --bg-surface-2: #F1F5F9;
+      --bg-glass: rgba(255, 255, 255, 0.85);
       
-      --text-main: #0F172A;
-      --text-body: #334155;
-      --text-muted: #64748B;
-      --text-subtle: #94A3B8;
-      
-      --primary: #4F46E5;
+      --primary: #4F46E5;            /* Indigo-600 */
       --primary-hover: #4338CA;
       --primary-light: #EEF2FF;
+      --primary-gradient: linear-gradient(135deg, #4F46E5 0%, #2563EB 50%, #06B6D4 100%);
+      --primary-border: rgba(79, 70, 229, 0.2);
+      --primary-glow: 0 10px 30px -5px rgba(79, 70, 229, 0.3);
+
+      --accent-cyan: #06B6D4;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
       
-      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
-      --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06);
-      --shadow-hover: 0 12px 24px -4px rgba(79, 70, 229, 0.12);
+      --text-main: #0F172A;            /* Slate-900 */
+      --text-regular: #334155;         /* Slate-700 */
+      --text-muted: #64748B;           /* Slate-500 */
+      --text-subtle: #94A3B8;          /* Slate-400 */
       
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
+      --border-subtle: rgba(226, 232, 240, 0.8);
+      --border-strong: #CBD5E1;
+      --border-primary: rgba(79, 70, 229, 0.25);
+      
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.06);
+      --shadow-hover: 0 16px 36px -8px rgba(79, 70, 229, 0.18);
+      
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-full: 9999px;
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    body {
-      background-color: var(--bg-body);
-      color: var(--text-body);
-      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      padding-bottom: 80px;
-      min-height: 100vh;
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      background-color: var(--bg-app);
+      color: var(--text-regular);
+      font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Hero Header Area (Light Modern) */
-    .hero-section {
-      background: #FFFFFF;
-      border-bottom: 1px solid var(--border-card);
-      padding: 38px 24px 28px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-app) 400px);
     }
-    
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; }
+
+    /* 背景柔光晕 */
+    .bg-glow-orb-1 {
+      position: absolute;
+      top: -100px;
+      left: 15%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-glow-orb-2 {
+      position: absolute;
+      top: 300px;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       HEADER (高质感毛玻璃导航栏)
+       ========================================================================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      height: 76px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-icon-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      box-shadow: var(--primary-glow);
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      display: block;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      margin-top: -2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-regular);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+
+    .btn-gradient {
+      background: var(--primary-gradient);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm), var(--primary-glow);
+    }
+
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-main);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-surface-2);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-wechat {
+      background: #07C160;
+      color: #FFFFFF;
+      box-shadow: 0 4px 16px rgba(7, 193, 96, 0.25);
+    }
+
+    .btn-wechat:hover {
+      background: #06AD56;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(7, 193, 96, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-regular);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-outline:hover {
+      background: #FFFFFF;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       HERO SECTION (高质感主展示区)
+       ========================================================================== */
+    .hero-section {
+      padding-top: 150px;
+      padding-bottom: 90px;
+      position: relative;
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
-      background: var(--primary-light);
+      gap: 8px;
+      padding: 7px 20px;
+      border-radius: var(--radius-full);
+      background: #FFFFFF;
+      border: 1px solid var(--primary-border);
       color: var(--primary);
-      border: 1px solid rgba(79, 70, 229, 0.2);
-      border-radius: 9999px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
     }
 
     .hero-title {
-      font-size: 28px;
+      font-size: 54px;
       font-weight: 900;
+      line-height: 1.18;
       color: var(--text-main);
-      letter-spacing: -0.3px;
-      line-height: 1.3;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+      max-width: 940px;
+    }
+
+    .text-gradient {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: 13px;
+      font-size: 19px;
       color: var(--text-muted);
-      margin-top: 6px;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
-    /* Search & Category Filter Section */
-    .filter-container {
-      max-width: 1240px;
-      margin: 24px auto 0;
-      padding: 0 20px;
-    }
-
-    /* Primary Level Category Tabs (小程序 vs 网站) */
-    .primary-tabs-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .primary-tab-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 24px;
-      border-radius: 12px;
-      border: 1.5px solid var(--border-card);
-      background: #FFFFFF;
-      color: var(--text-muted);
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .primary-tab-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .primary-tab-btn.active {
-      background: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-    }
-
-    .count-badge {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 9999px;
-      font-size: 11px;
-      font-weight: 700;
-      background: rgba(255, 255, 255, 0.25);
-      color: inherit;
-    }
-
-    .primary-tab-btn:not(.active) .count-badge {
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-
-    .primary-tab-btn:not(.active) .count-empty {
-      background: #F1F5F9;
-      color: #64748B;
-    }
-
-    /* Search Bar */
-    .search-bar-wrapper {
-      max-width: 520px;
-      margin: 0 auto 16px;
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 11px 20px 11px 42px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border-card);
-      background: #FFFFFF;
-      color: var(--text-main);
-      font-size: 13.5px;
+      max-width: 780px;
+      line-height: 1.7;
+      margin-bottom: 40px;
       font-weight: 500;
-      outline: none;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
     }
 
-    .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    /* Secondary Category Filter Tabs (小程序二级分类) */
-    .category-tabs {
+    .hero-cta-group {
       display: flex;
+      align-items: center;
+      gap: 16px;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 60px;
     }
 
-    .tab-btn {
-      padding: 6px 15px;
-      border-radius: 9999px;
-      border: 1px solid var(--border-card);
-      background: #FFFFFF;
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
+    .hero-cta-group .btn {
+      padding: 15px 32px;
+      font-size: 16px;
     }
 
-    .tab-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
-      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
-    }
-
-    /* Main Grid Layout */
-    .grid-layout {
+    /* 信任指标 Grid */
+    .trust-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 20px;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
     }
 
-    /* Scenario Card Component */
-    .scenario-card {
-      background: var(--bg-card);
-      border: 1.5px solid var(--border-card);
+    .trust-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-sm);
+      padding: 28px 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-card);
     }
 
-    .scenario-card:hover {
-      border-color: var(--border-hover);
+    .trust-card:hover {
+      border-color: var(--primary-border);
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
     }
 
-    .card-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+    .trust-number {
+      font-size: 40px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 10px;
     }
 
-    .cat-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    
-    .badge-indigo { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; }
-    .badge-emerald { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
-    .badge-amber { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
-    .badge-sky { background: #F0F9FF; color: #0284C7; border: 1px solid #BAE6FD; }
-    .badge-purple { background: #FAF5FF; color: #9333EA; border: 1px solid #E9D5FF; }
-    .badge-rose { background: #FFF1F2; color: #E11D48; border: 1px solid #FECDD3; }
-
-    .card-num {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-subtle);
-    }
-
-    .card-title {
-      font-size: 16px;
+    .trust-label {
+      font-size: 15px;
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .card-desc {
-      font-size: 12.5px;
+    .trust-desc {
+      font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       SECTION COMMON STYLES
+       ========================================================================== */
+    .section-padding {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 56px;
+    }
+
+    .section-tag {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      margin-bottom: 14px;
+      display: inline-block;
+      background: #FFFFFF;
+      border: 1px solid var(--primary-border);
+      padding: 5px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-title {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -1px;
+      line-height: 1.25;
       margin-bottom: 16px;
     }
 
-    .card-footer-info {
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       CASE SHOWROOM SECTION (商业案例大厅)
+       ========================================================================== */
+    .showroom-section {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .filter-toolbar {
+      margin-bottom: 36px;
+    }
+
+    .category-tabs {
       display: flex;
       align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: var(--text-subtle);
-      margin-bottom: 12px;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+      margin-bottom: 24px;
     }
 
-    .open-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 9px 12px;
-      border-radius: 8px;
-      background: #F1F5F9;
-      color: var(--primary);
-      font-size: 12.5px;
-      font-weight: 700;
-      text-decoration: none;
+    .category-tabs::-webkit-scrollbar { display: none; }
+
+    .cat-tab {
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-regular);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
       transition: all 0.2s ease;
-      border: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .open-btn:hover {
-      background: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
+    .cat-tab:hover {
+      border-color: var(--primary-border);
+      color: var(--primary);
     }
 
-    /* Empty States */
+    .cat-tab.active {
+      background: var(--primary-gradient);
+      border-color: transparent;
+      color: #FFF;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
+    }
+
+    .cat-count {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .cat-tab.active .cat-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFF;
+    }
+
+    .search-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--bg-app);
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .search-input-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .search-input-group i {
+      color: var(--text-muted);
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 500;
+      width: 100%;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-subtle);
+    }
+
+    .result-info {
+      font-size: 14px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .result-info span {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* 案例 Cards Grid */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .case-card {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .case-card:hover {
+      border-color: var(--primary-border);
+      background: #FFFFFF;
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .case-card-top {
+      margin-bottom: 16px;
+    }
+
+    .case-header-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .case-code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--primary-border);
+    }
+
+    .case-cat-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .case-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .case-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .case-tags-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .case-tag-item {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      background: #F0F9FF;
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      border: 1px solid #BAE6FD;
+    }
+
+    .case-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .case-actions .btn {
+      flex: 1;
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
       padding: 60px 20px;
-      background: #FFFFFF;
-      border: 1.5px dashed var(--border-card);
+      background: var(--bg-surface-1);
       border-radius: var(--radius-md);
-      color: var(--text-muted);
-      display: none;
+      border: 1px dashed var(--border-strong);
     }
 
-    /* Website Empty Panel Styling */
-    .website-empty-container {
-      max-width: 860px;
-      margin: 20px auto 0;
-      padding: 0 20px;
-    }
-
-    .website-empty-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-card);
-      border-radius: var(--radius-lg);
-      padding: 50px 30px;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .empty-icon-box {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 16px;
-      background: var(--primary-light);
-      color: var(--primary);
-      border-radius: 16px;
+    /* ==========================================================================
+       PREVIEW MODAL (高保真弹窗)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      padding: 20px;
     }
 
-    .empty-title {
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .preview-modal-container {
+      width: 96vw;
+      max-width: 1380px;
+      height: 94vh;
+      max-height: 960px;
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .preview-modal-container {
+      transform: scale(1);
+    }
+
+    .preview-modal-header {
+      height: 60px;
+      padding: 0 24px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-case-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .device-switcher {
+      display: flex;
+      align-items: center;
+      background: #E2E8F0;
+      padding: 3px;
+      border-radius: 10px;
+      gap: 2px;
+    }
+
+    .device-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .device-btn.active {
+      background: #FFFFFF;
+      color: var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .modal-close-btn:hover {
+      background: #E2E8F0;
+      color: var(--text-main);
+    }
+
+    .preview-modal-body {
+      flex: 1;
+      background: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-frame-wrapper {
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .preview-frame-wrapper.mode-mobile {
+      width: 440px;
+      max-width: 100%;
+      height: 100%;
+    }
+
+    .preview-frame-wrapper.mode-desktop {
+      width: 100%;
+      height: 100%;
+    }
+
+    .preview-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #F1F5F9;
+    }
+
+    /* ==========================================================================
+       SERVICES MATRIX SECTION
+       ========================================================================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
+    }
+
+    .service-card:hover {
+      border-color: var(--primary-border);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .service-title {
       font-size: 20px;
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
-    .empty-subtitle {
-      font-size: 13.5px;
+    .service-desc {
+      font-size: 14px;
       color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto 24px;
       line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    .empty-tags {
+    .service-features-list {
+      list-style: none;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
       gap: 8px;
+    }
+
+    .service-features-list li {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-regular);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .service-features-list li i {
+      color: var(--accent-emerald);
+    }
+
+    /* ==========================================================================
+       PROJECT ESTIMATOR (在线估算器)
+       ========================================================================== */
+    .estimator-card {
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .estimator-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+    }
+
+    .type-select-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
       margin-bottom: 24px;
     }
 
-    .tag-item {
-      padding: 5px 14px;
-      background: #F1F5F9;
-      color: #475569;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 600;
+    .type-chip {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .empty-status-badge {
-      display: inline-block;
-      padding: 8px 20px;
-      background: #EEF2FF;
-      color: #4F46E5;
+    .type-chip:hover {
+      border-color: var(--primary-border);
+    }
+
+    .type-chip.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+
+    .type-chip-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .type-chip-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .modules-check-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mod-checkbox-label {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xs);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-regular);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .mod-checkbox-label:hover {
+      border-color: var(--primary-border);
+      background: var(--primary-light);
+    }
+
+    .mod-checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .mod-checkbox-label.checked {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.12);
+    }
+
+    .estimator-summary-box {
+      background: var(--bg-app);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .summary-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .summary-price-val {
+      font-size: 34px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: var(--accent-emerald);
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .summary-days-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 8px;
+    }
+
+    /* ==========================================================================
+       DEDICATED CONTACT SECTION (专属联系方式与评估预约板块)
+       ========================================================================== */
+    .contact-section {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .contact-info-col {
+      text-align: left;
+    }
+
+    .contact-wechat-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .contact-wechat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      background: rgba(7, 193, 96, 0.18);
+      border: 1px solid rgba(7, 193, 96, 0.4);
+      color: #07C160;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-wechat-val {
+      font-size: 26px;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #07C160;
+      letter-spacing: 1px;
+    }
+
+    .contact-form-card {
+      background: #FFFFFF;
+      color: var(--text-main);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-label {
       font-size: 13px;
       font-weight: 700;
-      border-radius: 9999px;
-      border: 1px dashed rgba(79, 70, 229, 0.4);
-    }
-  
-    /* ===== Mobile Responsive Adaptation ===== */
-    @media (max-width: 768px) {
-      .hero-section { padding: 24px 16px 18px !important; }
-      .hero-badge { font-size: 11px !important; padding: 4px 10px !important; }
-      .hero-title { font-size: 22px !important; line-height: 1.35 !important; }
-      .hero-subtitle { font-size: 12px !important; margin-top: 4px !important; line-height: 1.5 !important; }
-      
-      .filter-container { margin-top: 16px !important; padding: 0 12px !important; }
-      .primary-tabs-wrapper { flex-wrap: wrap !important; gap: 8px !important; margin-bottom: 14px !important; }
-      .primary-tab-btn { padding: 8px 14px !important; font-size: 13px !important; flex: 1 1 calc(50% - 6px) !important; justify-content: center !important; }
-      
-      .search-bar-wrapper { max-width: 100% !important; margin-bottom: 12px !important; }
-      .search-input { padding: 9px 16px 9px 38px !important; font-size: 13px !important; }
-      
-      .category-tabs {
-        display: flex !important;
-        overflow-x: auto !important;
-        flex-wrap: nowrap !important;
-        padding-bottom: 6px !important;
-        justify-content: flex-start !important;
-        gap: 6px !important;
-        -webkit-overflow-scrolling: touch !important;
-      }
-      .category-tabs::-webkit-scrollbar { display: none !important; }
-      .tab-btn { flex-shrink: 0 !important; padding: 5px 12px !important; font-size: 11.5px !important; }
-      
-      .grid-layout { grid-template-columns: 1fr !important; gap: 14px !important; padding: 0 12px !important; }
-      .scenario-card { padding: 16px !important; }
-      .card-title { font-size: 15px !important; }
-      .card-desc { font-size: 12px !important; margin-bottom: 12px !important; }
-      .open-btn { min-height: 40px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 13px !important; }
+      color: var(--text-main);
     }
 
+    .form-input, .form-select, .form-textarea {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer {
+      background: #090D16;
+      color: #F8FAFC;
+      padding: 50px 0 24px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 38px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .cases-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .estimator-grid { grid-template-columns: 1fr; }
+      .contact-card-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 28px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .type-select-grid { grid-template-columns: 1fr; }
+      .modules-check-grid { grid-template-columns: 1fr; }
+      .contact-wechat-box { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hero Header -->
-  <header class="hero-section">
-    <div class="hero-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      独立商业级系统案例大厅
+  <div class="bg-glow-orb-1"></div>
+  <div class="bg-glow-orb-2"></div>
+
+  <!-- HEADER 导航栏 -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <i data-lucide="compass" style="width:24px;height:24px;"></i>
+          </div>
+          <div class="brand-text">
+            指南针代码工作室
+            <span>COMPASS CODE STUDIO</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#showroom" class="nav-link"><i data-lucide="layout-grid" style="width:16px;height:16px;"></i>商业案例大厅</a></li>
+          <li><a href="#services" class="nav-link"><i data-lucide="layers" style="width:16px;height:16px;"></i>核心服务</a></li>
+          <li><a href="#estimator" class="nav-link"><i data-lucide="calculator" style="width:16px;height:16px;"></i>在线估算器</a></li>
+          <li><a href="#contact" class="nav-link"><i data-lucide="message-square" style="width:16px;height:16px;"></i>联系对接</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <a href="#contact" class="btn btn-gradient">
+            <i data-lucide="message-circle" style="width:16px;height:16px;"></i> 联系需求评估
+          </a>
+        </div>
+      </div>
     </div>
-    <h1 class="hero-title">高保真商业解决方案体验馆</h1>
-    <p class="hero-subtitle">全面覆盖无人自助、美业健康、宠物经济、上门服务、亲子教育、定制零售与企业服务全场景</p>
   </header>
 
-  <!-- Filter & Tab Navigation Area -->
-  <section class="filter-container">
-    
-    <!-- Primary Level Tabs (一级分类: 小程序 vs 网站) -->
-    <div class="primary-tabs-wrapper">
-      <button class="primary-tab-btn active" id="pTabMini" onclick="switchPrimaryTab('miniprogram', this)">
-        <span class="tab-icon">📱</span>
-        <span>小程序商业案例</span>
-        <span class="count-badge">29</span>
-      </button>
-      <button class="primary-tab-btn" id="pTabWeb" onclick="switchPrimaryTab('website', this)">
-        <span class="tab-icon">🌐</span>
-        <span>网站与SaaS系统</span>
-        <span class="count-badge count-empty">待更新</span>
-      </button>
-    </div>
+  <!-- HERO 主展示区 -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        高保真商业系统落地 · 100%全量源码交付 · 1小时内极速响应
+      </div>
 
-    <!-- Search Input Bar -->
-    <div class="search-bar-wrapper" id="searchBarWrapper">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInput" class="search-input" placeholder="输入关键字检索案例（如：洗车、茶室、美发、寄养...）" oninput="handleFilter()">
-    </div>
+      <h1 class="hero-title">
+        精准代码 · 稳健交付<br>
+        <span class="text-gradient">指南针代码工作室 · 全栈软件定制</span>
+      </h1>
 
-    <!-- Secondary Category Filter Tabs (小程序二级分类) -->
-    <div class="category-tabs" id="subCatBar">
-      <button class="tab-btn active" onclick="filterCategory('all', this)">全部 (29)</button>
-      <button class="tab-btn" onclick="filterCategory('无人自助与设备', this)">无人自助</button>
-      <button class="tab-btn" onclick="filterCategory('美业与大健康', this)">美业健康</button>
-      <button class="tab-btn" onclick="filterCategory('宠物经济与养宠', this)">宠物经济</button>
-      <button class="tab-btn" onclick="filterCategory('上门服务与本地生活', this)">上门服务</button>
-      <button class="tab-btn" onclick="filterCategory('兴趣教育与亲子成长', this)">亲子教育</button>
-      <button class="tab-btn" onclick="filterCategory('定制零售与特色', this)">定制零售</button>
-      <button class="tab-btn" onclick="filterCategory('企业服务与工具', this)">企业服务</button>
+      <p class="hero-subtitle">
+        专注高标准、去模板化、开箱即用的软件定制服务。内含涵盖生活服务、美业、宠医、文娱的真实高保真可演示系统，全量源码交付，保障二次开发自由。
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#showroom" class="btn btn-gradient">
+          <i data-lucide="eye" style="width:18px;height:18px;"></i> 浏览商业案例大厅
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          <i data-lucide="message-circle" style="width:18px;height:18px;"></i> 预约需求评估
+        </a>
+      </div>
+
+      <!-- 信任指标网格 -->
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-number">30<span class="unit">+</span></div>
+          <div class="trust-label">高保真独立商业系统</div>
+          <div class="trust-desc">涵盖洗车、美业、宠医、家政、文娱</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-number">100<span class="unit">%</span></div>
+          <div class="trust-label">源码全量无保留交付</div>
+          <div class="trust-desc">零域名授权锁、零加密包、自由二次开发</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-number">&lt;1<span class="unit">h</span></div>
+          <div class="trust-label">快速响应与原型走查</div>
+          <div class="trust-desc">需求梳理至可演示原型快速走查</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-number">0<span class="unit">元</span></div>
+          <div class="trust-label">隐形收费与后期套路</div>
+          <div class="trust-desc">契约范围内明码标价，包含半年免费质保</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Scenario Cards Grid (Mini Programs Container) -->
-  <main class="grid-layout" id="scenarioGrid">
-    <div class="scenario-card" data-title="自助洗车吧" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#01</span>
-        </div>
-        <h3 class="card-title">自助洗车吧</h3>
-        <p class="card-desc">全屏 LBS 洗车工位地图定位、扫码出水/泡沫/水蜡、工位水电低液实时预警大盘！</p>
+  <!-- 商业案例展示大厅 SHOWROOM SECTION -->
+  <section id="showroom" class="section-padding showroom-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">PORTFOLIO HUB</span>
+        <h2 class="section-title">高保真商业级案例大厅</h2>
+        <p class="section-desc">所有案例均为真实可交互的高保真原型，支持📱手机端与🖥️电脑端双视角实时体验。</p>
       </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/01-自助洗车吧/index.html" class="open-btn">📱 打开【自助洗车吧】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="自助共享台球厅" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#02</span>
-        </div>
-        <h3 class="card-title">自助共享台球厅</h3>
-        <p class="card-desc">12张台球桌矩阵灯控控电、扫码开台加时、助教陪练接单派单！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/02-自助共享台球厅-乒乓球室/index.html" class="open-btn">📱 打开【自助共享台球厅】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="共享自习室" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#03</span>
-        </div>
-        <h3 class="card-title">共享自习室</h3>
-        <p class="card-desc">沉浸式平面图选座、防霸座计时签到、沉浸式学霸打卡排行榜！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/03-共享自习室-共享办公卡座/index.html" class="open-btn">📱 打开【共享自习室】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="智能共享茶室" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#04</span>
-        </div>
-        <h3 class="card-title">智能共享茶室</h3>
-        <p class="card-desc">商务私密包厢在线预订、动态开门码、保洁师傅一键抢单清场！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/05-智能共享茶室-私密会客厅/index.html" class="open-btn">📱 打开【智能共享茶室】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="24小时自助健身房" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#05</span>
-        </div>
-        <h3 class="card-title">24小时自助健身房</h3>
-        <p class="card-desc">按月订阅零门槛、动态二维码入场、场馆实时拥挤度仪表盘！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/06-24小时自助健身房/index.html" class="open-btn">📱 打开【24小时自助健身房】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="汉服礼服租赁工坊" data-cat="无人自助与设备">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-indigo">无人自助与设备</span>
-          <span class="card-num">#06</span>
-        </div>
-        <h3 class="card-title">汉服礼服租赁工坊</h3>
-        <p class="card-desc">服装 SKU 尺码管理、在线锁定使用档期、干洗消毒工单跟踪！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/10-汉服-礼服-演出服租赁/index.html" class="open-btn">📱 打开【汉服礼服租赁工坊】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="美甲美睫工作室" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#07</span>
-        </div>
-        <h3 class="card-title">美甲美睫工作室</h3>
-        <p class="card-desc">法式猫眼款式画廊、资深美甲师排班看板、定金锁档期防爽约！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/11-美甲美睫工作室/index.html" class="open-btn">📱 打开【美甲美睫工作室】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="BarberShop理发店" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#08</span>
-        </div>
-        <h3 class="card-title">BarberShop理发店</h3>
-        <p class="card-desc">发型试戴选款、发型师作品集、到店精准时间段预约不排队！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/12-独立理发店-BarberShop/index.html" class="open-btn">📱 打开【BarberShop理发店】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="私立齿科诊所" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#09</span>
-        </div>
-        <h3 class="card-title">私立齿科诊所</h3>
-        <p class="card-desc">正畸种植医生档期预约、电子病历 EMR 归档、智能复诊日历提醒！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/13-私立齿科-种植正畸诊所/index.html" class="open-btn">📱 打开【私立齿科诊所】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="产后康复与小儿推拿" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#10</span>
-        </div>
-        <h3 class="card-title">产后康复与小儿推拿</h3>
-        <p class="card-desc">宝妈健康成长档案、专属调理师预约、疗程卡消课透明展示！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/14-小儿推拿-产后康复中心/index.html" class="open-btn">📱 打开【产后康复与小儿推拿】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="轻医美皮肤管理" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#11</span>
-        </div>
-        <h3 class="card-title">轻医美皮肤管理</h3>
-        <p class="card-desc">项目防伪验真码、皮肤检测对比报告、术后注意事项智能关怀！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/15-医美-皮肤管理中心/index.html" class="open-btn">📱 打开【轻医美皮肤管理】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="心理咨询工作室" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#12</span>
-        </div>
-        <h3 class="card-title">心理咨询工作室</h3>
-        <p class="card-desc">匿名心理测评量表、咨询师流派筛选、加密音视频预约！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/16-心理咨询工作室/index.html" class="open-btn">📱 打开【心理咨询工作室】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="普拉提大器械馆" data-cat="美业与大健康">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-emerald">美业与大健康</span>
-          <span class="card-num">#13</span>
-        </div>
-        <h3 class="card-title">普拉提大器械馆</h3>
-        <p class="card-desc">普拉提大器械床位精准预约、团课候补队列自动进补、教练消课！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/17-瑜伽-普拉提大器械馆/index.html" class="open-btn">📱 打开【普拉提大器械馆】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="宠物洗美与寄养" data-cat="宠物经济与养宠">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-amber">宠物经济与养宠</span>
-          <span class="card-num">#14</span>
-        </div>
-        <h3 class="card-title">宠物洗美与寄养</h3>
-        <p class="card-desc">爱宠 ID 档案、阳光猫舍包房预订、看护员每日健康打卡照片！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/19-宠物洗美与寄养/index.html" class="open-btn">📱 打开【宠物洗美与寄养】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="宠物医院" data-cat="宠物经济与养宠">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-amber">宠物经济与养宠</span>
-          <span class="card-num">#15</span>
-        </div>
-        <h3 class="card-title">宠物医院</h3>
-        <p class="card-desc">兽医专家挂号、电子免疫证驱虫日历、疫苗到期智能提醒！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/20-宠物医院-绝育疫苗预约/index.html" class="open-btn">📱 打开【宠物医院】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="上门喂猫遛狗平台" data-cat="宠物经济与养宠">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-amber">宠物经济与养宠</span>
-          <span class="card-num">#16</span>
-        </div>
-        <h3 class="card-title">上门喂猫遛狗平台</h3>
-        <p class="card-desc">宠托师入户打卡、全程拍照视频存证、钥匙交接安全监控！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/21-上门喂猫-遛狗平台/index.html" class="open-btn">📱 打开【上门喂猫遛狗平台】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="宠物相亲领养平台" data-cat="宠物经济与养宠">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-amber">宠物经济与养宠</span>
-          <span class="card-num">#17</span>
-        </div>
-        <h3 class="card-title">宠物相亲领养平台</h3>
-        <p class="card-desc">品种宠物相亲配对、免费领养问卷审核、线上领养协议签署！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/22-宠物相亲-领养平台/index.html" class="open-btn">📱 打开【宠物相亲领养平台】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="私人宴会厨师上门" data-cat="上门服务与本地生活">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-sky">上门服务与本地生活</span>
-          <span class="card-num">#18</span>
-        </div>
-        <h3 class="card-title">私人宴会厨师上门</h3>
-        <p class="card-desc">私厨菜系菜单定制、食材代买预算评估、按人头一口价结算！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/29-上门厨师-私人宴会定制/index.html" class="open-btn">📱 打开【私人宴会厨师上门】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="成人画室陶艺工坊" data-cat="兴趣教育与亲子成长">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
-          <span class="card-num">#19</span>
-        </div>
-        <h3 class="card-title">成人画室陶艺工坊</h3>
-        <p class="card-desc">单次体验课预约、作品烧制进度查询、成品快递一键寄送到家！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/31-成人兴趣画室-陶艺手作坊/index.html" class="open-btn">📱 打开【成人画室陶艺工坊】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="少儿编程机器人中心" data-cat="兴趣教育与亲子成长">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
-          <span class="card-num">#20</span>
-        </div>
-        <h3 class="card-title">少儿编程机器人中心</h3>
-        <p class="card-desc">学生编程代码作品墙、试听课转化线索、赛事在线报名！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/33-少儿编程-乐高机器人中心/index.html" class="open-btn">📱 打开【少儿编程机器人中心】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="亲子农场果树认养" data-cat="兴趣教育与亲子成长">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-purple">兴趣教育与亲子成长</span>
-          <span class="card-num">#21</span>
-        </div>
-        <h3 class="card-title">亲子农场果树认养</h3>
-        <p class="card-desc">果树/菜地线上认养、农作物长势照片更新、成熟果蔬直邮！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/34-家庭亲子农场-果蔬采摘认养/index.html" class="open-btn">📱 打开【亲子农场果树认养】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="定制西服旗袍工坊" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#22</span>
-        </div>
-        <h3 class="card-title">定制西服旗袍工坊</h3>
-        <p class="card-desc">上门量体预约、面料领型 BOM 选配、工厂生产 5 节点进度！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/36-定制西服-旗袍工坊/index.html" class="open-btn">📱 打开【定制西服旗袍工坊】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="鲜花订阅与绿植租摆" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#23</span>
-        </div>
-        <h3 class="card-title">鲜花订阅与绿植租摆</h3>
-        <p class="card-desc">每周一花定期订阅、休假暂停配送、企业绿植租摆养护！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/37-鲜花订阅-绿植租摆/index.html" class="open-btn">📱 打开【鲜花订阅与绿植租摆】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="烘焙蛋糕私房定制" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#24</span>
-        </div>
-        <h3 class="card-title">烘焙蛋糕私房定制</h3>
-        <p class="card-desc">蛋糕造型夹心定制、冷链配送精准半小时、生日自动提醒！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/38-烘焙蛋糕私房定制/index.html" class="open-btn">📱 打开【烘焙蛋糕私房定制】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="露营营地民宿预订" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#25</span>
-        </div>
-        <h3 class="card-title">露营营地民宿预订</h3>
-        <p class="card-desc">营位房态日历防重房、烧烤装备加购、扫码电子入住登记！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/39-露营营地-民宿帐篷预订/index.html" class="open-btn">📱 打开【露营营地民宿预订】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="二手奢侈品寄卖回收" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#26</span>
-        </div>
-        <h3 class="card-title">二手奢侈品寄卖回收</h3>
-        <p class="card-desc">在线上传估价、顺丰包邮寄卖、专业电子鉴定报告！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/40-二手奢侈品-手表寄卖回收/index.html" class="open-btn">📱 打开【二手奢侈品寄卖回收】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="绘本玩具租赁周转馆" data-cat="定制零售与特色">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-rose">定制零售与特色</span>
-          <span class="card-num">#27</span>
-        </div>
-        <h3 class="card-title">绘本玩具租赁周转馆</h3>
-        <p class="card-desc">消毒批次可追溯、快递上门一键取还、无限次借阅卡！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/41-玩具-绘本租赁周转馆/index.html" class="open-btn">📱 打开【绘本玩具租赁周转馆】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="展会电子门票" data-cat="企业服务与工具">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-sky">企业服务与工具</span>
-          <span class="card-num">#28</span>
-        </div>
-        <h3 class="card-title">展会电子门票</h3>
-        <p class="card-desc">展商名录与展位地图、电子门票秒级核销、名片线上交换！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/43-展会-会议报名与电子门票/index.html" class="open-btn">📱 打开【展会电子门票】独立系统</a>
-      </div>
-    </div>
-    <div class="scenario-card" data-title="商会校友通讯录" data-cat="企业服务与工具">
-      <div>
-        <div class="card-top-row">
-          <span class="cat-badge badge-sky">企业服务与工具</span>
-          <span class="card-num">#29</span>
-        </div>
-        <h3 class="card-title">商会校友通讯录</h3>
-        <p class="card-desc">电子名片夹、企业供需大厅、会费在线缴纳与活动签到！</p>
-      </div>
-      <div>
-        <div class="card-footer-info">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>定位: 行业高保真商业解决方案</span>
-        </div>
-        <a href="scenarios/45-校友会-行业协会商会通讯录/index.html" class="open-btn">📱 打开【商会校友通讯录】独立系统</a>
-      </div>
-    </div>
-    <div class="empty-state" id="emptyState">
-      <div style="font-size:32px;margin-bottom:8px;">🔍</div>
-      <div style="font-size:15px;font-weight:700;color:var(--text-main);">未找到相关小程序案例</div>
-      <div style="font-size:13px;margin-top:4px;">请尝试更换搜索关键词或切换二级分类</div>
-    </div>
-  </main>
 
-  <!-- Website Cases Reserved Container (网站类暂空 state) -->
-  <div class="website-empty-container" id="websiteEmptyState" style="display: none;">
-    <div class="website-empty-card">
-      <div class="empty-icon-box">💻</div>
-      <h3 class="empty-title">全端网站与SaaS系统案例库整理中</h3>
-      <p class="empty-subtitle">包含高保真响应式官网、企业级SaaS管理后台、数据大屏看板等高保真Web商业解决方案，即将陆续生成上线。</p>
-      <div class="empty-tags">
-        <span class="tag-item">响应式官网</span>
-        <span class="tag-item">SaaS管理后台</span>
-        <span class="tag-item">数据可视化大屏</span>
-        <span class="tag-item">Web API看板</span>
+      <!-- Filter Toolbar -->
+      <div class="filter-toolbar">
+        <div class="category-tabs" id="categoryTabs"></div>
+
+        <div class="search-filter-bar">
+          <div class="search-input-group">
+            <i data-lucide="search" style="width:18px;height:18px;"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="搜索案例 (如：洗车、宠物、美业、租赁、小程序...)" oninput="handleSearchInput()">
+          </div>
+          <div class="result-info">
+            已显示 <span id="resultCount">30</span> / 30 个案例
+          </div>
+        </div>
       </div>
-      <div class="empty-status-badge">🚀 网站类案例等待生成录入中...</div>
+
+      <!-- 案例 Cards Grid -->
+      <div class="cases-grid" id="casesGrid"></div>
+    </div>
+  </section>
+
+  <!-- 核心服务矩阵 SERVICES MATRIX -->
+  <section id="services" class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">SERVICES MATRIX</span>
+        <h2 class="section-title">全栈软件研发与定制体系</h2>
+        <p class="section-desc">专注于打造高性能、易维护、现代大厂高质感审美的企业级软件系统。</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon-box">
+            <i data-lucide="smartphone" style="width:26px;height:26px;"></i>
+          </div>
+          <h3 class="service-title">微信小程序定制研发</h3>
+          <p class="service-desc">基于 Native/Uni-App 架构，打造高流畅度商业小程序，支持预约、支付、裂变分销与物联网对接。</p>
+          <ul class="service-features-list">
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 适配微信 / 支付宝 / 抖音</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 智能预约排班与在线服务</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 微信支付 / 储值卡包系统</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon-box">
+            <i data-lucide="monitor" style="width:26px;height:26px;"></i>
+          </div>
+          <h3 class="service-title">企业级 Web & SaaS 后台</h3>
+          <p class="service-desc">使用 React/Vue/Node.js 构建响应式管理后台、SaaS 平台与数据大屏，权限细粒度掌控。</p>
+          <ul class="service-features-list">
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> RBAC 权限控制与日志审计</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 复杂数据报表导出与可视化</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 模块化解耦设计</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon-box">
+            <i data-lucide="palette" style="width:26px;height:26px;"></i>
+          </div>
+          <h3 class="service-title">高保真 UI/UX 重构设计</h3>
+          <p class="service-desc">摆脱AI模板感与粗劣视觉，量身打造现代化大厂质感的界面规范与交互体验。</p>
+          <ul class="service-features-list">
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 专属 Design Tokens 系统</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 专业 Lucide 矢量 Icon 规范</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 全端响应式自适应</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon-box">
+            <i data-lucide="code-2" style="width:26px;height:26px;"></i>
+          </div>
+          <h3 class="service-title">旧系统重构与技术顾问</h3>
+          <p class="service-desc">针对遗留系统代码混乱、加载缓慢、卡顿漏洞等问题进行彻底解耦与性能提升。</p>
+          <ul class="service-features-list">
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> API 接口标准化定义</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> OWASP 安全漏洞深度排查</li>
+            <li><i data-lucide="check-circle" style="width:14px;height:14px;"></i> 部署自动化与半年免费质保</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 在线需求预算估算器 PROJECT COST ESTIMATOR -->
+  <section id="estimator" class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">INTERACTIVE ESTIMATOR</span>
+        <h2 class="section-title">项目预算与工期在线估算器</h2>
+        <p class="section-desc">分选小程序与网站形态，勾选拆分功能组件，透明公开算价与工期。</p>
+      </div>
+
+      <div class="estimator-card">
+        <div class="estimator-grid">
+          <div>
+            <div style="font-size:15px;font-weight:800;color:var(--text-main);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <i data-lucide="layers" style="width:16px;height:16px;color:var(--primary);"></i> 1. 选择项目形态与基准框架
+            </div>
+            <div class="type-select-grid" id="typeSelectGrid" style="grid-template-columns: repeat(2, 1fr);gap:10px;margin-bottom:24px;">
+              <div class="type-chip active" data-type="web_single" onclick="selectEstimatorType('web_single', 500, 1, '🌐 品牌官网/Web单页展示 (¥500)')">
+                <div class="type-chip-title">🌐 品牌官网 / Web单页展示</div>
+                <div class="type-chip-sub">基准价：¥500起 · 周期1-2天</div>
+              </div>
+              <div class="type-chip" data-type="web_multi" onclick="selectEstimatorType('web_multi', 800, 2, '🌐 品牌官网/Web多页标准版 (¥800)')">
+                <div class="type-chip-title">🌐 品牌官网 / 多页标准版</div>
+                <div class="type-chip-sub">基准价：¥800起 · 周期2-3天</div>
+              </div>
+              <div class="type-chip" data-type="mini_basic" onclick="selectEstimatorType('mini_basic', 800, 2, '📱 微信小程序/基础展示版 (¥800)')">
+                <div class="type-chip-title">📱 微信小程序 / 基础展示版</div>
+                <div class="type-chip-sub">基准价：¥800起 · 周期2-3天</div>
+              </div>
+              <div class="type-chip" data-type="mini_pro" onclick="selectEstimatorType('mini_pro', 1500, 3, '📱 微信小程序/标准定制版 (¥1500)')">
+                <div class="type-chip-title">📱 微信小程序 / 标准定制版</div>
+                <div class="type-chip-sub">基准价：¥1,500起 · 周期3-4天</div>
+              </div>
+              <div class="type-chip" data-type="saas_system" onclick="selectEstimatorType('saas_system', 2500, 5, '💻 企业 Web SaaS & 后台系统 (¥2500)')" style="grid-column: 1 / -1;">
+                <div class="type-chip-title">💻 企业级 Web SaaS & 管理后台系统</div>
+                <div class="type-chip-sub">基准价：¥2,500起 · 包含细粒度权限控制与全套后台 · 周期5-7天</div>
+              </div>
+            </div>
+
+            <div style="font-size:15px;font-weight:800;color:var(--text-main);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+              <i data-lucide="cpu" style="width:16px;height:16px;color:var(--primary);"></i> 2. 勾选拆分扩展功能模块 (点击勾选，自动实时累加金额)
+            </div>
+            <div class="modules-check-grid" id="modulesGrid" style="grid-template-columns: repeat(2, 1fr);gap:10px;">
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="payment" data-price="2000" data-days="2" data-name="微信/支付宝在线支付结算系统 (+¥2000)" onchange="recalculateEstimator()">
+                <span>💳 在线支付结算系统 (+¥2,000)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="auth" data-price="300" data-days="1" data-name="用户登录与手机号鉴权 (+¥300)" onchange="recalculateEstimator()">
+                <span>👤 用户鉴权与手机号登录 (+¥300)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="booking" data-price="1200" data-days="2" data-name="智能预约选座与排班日历 (+¥1200)" onchange="recalculateEstimator()">
+                <span>📅 智能预约与排班日历 (+¥1,200)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="products" data-price="400" data-days="1" data-name="产品/服务多分类图文展示 (+¥400)" onchange="recalculateEstimator()">
+                <span>🛍️ 产品/服务图文分类展示 (+¥400)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="news" data-price="500" data-days="1" data-name="文章/案例/新闻发布管理后台 (+¥500)" onchange="recalculateEstimator()">
+                <span>📰 文章/案例发布管理后台 (+¥500)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="vip" data-price="1500" data-days="2" data-name="会员充值/储值卡包与优惠券 (+¥1500)" onchange="recalculateEstimator()">
+                <span>🎫 会员充值/储值卡包与优惠券 (+¥1,500)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="dashboard" data-price="1200" data-days="2" data-name="数据统计大屏与Excel导出 (+¥1200)" onchange="recalculateEstimator()">
+                <span>📊 统计大屏与 Excel 导出 (+¥1,200)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="distribution" data-price="1500" data-days="3" data-name="分销裂变与二级佣金结算 (+¥1500)" onchange="recalculateEstimator()">
+                <span>🚀 分销裂变与佣金结算 (+¥1,500)</span>
+              </label>
+              <label class="mod-checkbox-label">
+                <input type="checkbox" data-mod="deploy" data-price="200" data-days="1" data-name="代协助备案与云环境部署 (+¥200)" onchange="recalculateEstimator()">
+                <span>☁️ 协助域名备案与云部署 (+¥200)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="estimator-summary-box">
+            <div>
+              <div class="summary-title" style="display:flex;align-items:center;justify-content:space-between;">
+                <span>估算评估明细小票</span>
+                <span style="font-size:11px;color:var(--text-muted);font-weight:normal;">实时拆分计算</span>
+              </div>
+              
+              <div style="margin-bottom:16px;">
+                <div style="font-size:12px;color:var(--text-muted);font-weight:600;">预计总费用明细</div>
+                <div class="summary-price-val" id="estPriceVal">¥500</div>
+                <div class="summary-days-val" id="estDaysVal">预计开发周期：1 - 2 工作日</div>
+              </div>
+
+              <div style="font-size:12px;font-weight:700;color:var(--text-main);margin-bottom:6px;">已选配置清单：</div>
+              <div id="estItemsList" style="font-size:12px;color:var(--text-regular);background:var(--bg-surface-1);padding:10px 12px;border-radius:var(--radius-xs);border:1px solid var(--border-subtle);max-height:160px;overflow-y:auto;margin-bottom:20px;line-height:1.6;">
+                • 🌐 品牌官网/Web单页展示 (¥500)
+              </div>
+
+              <p style="font-size:11px;color:var(--text-muted);line-height:1.4;margin-bottom:20px;">
+                * 包含前端UI设计、源码全量交付与半年免费质保。点击下方复制按钮即可将清单发给微信客服。
+              </p>
+            </div>
+
+            <button class="btn btn-gradient" style="width:100%;padding:12px;font-size:14px;" onclick="copyEstimatorToClipboard()">
+              <i data-lucide="copy" style="width:16px;height:16px;"></i> 复制配置清单发给微信客服
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 专属微信联系方式板块 DEDICATED CONTACT SECTION -->
+  <section id="contact" class="section-padding contact-section">
+    <div class="container">
+      <div style="max-width:800px;margin:0 auto;text-align:center;">
+        <span class="section-tag" style="background:rgba(255,255,255,0.1);color:#FFF;border-color:rgba(255,255,255,0.2);">GET IN TOUCH</span>
+        <h2 class="section-title" style="color:#FFF;margin-top:12px;">预约免费需求评估与技术沟通</h2>
+        <p style="color:#94A3B8;font-size:16px;line-height:1.7;margin-bottom:36px;">
+          无论您是需要全新定制小程序、企业级 SaaS 管理后台，还是旧系统 UI 重构，指南针代码工作室均能在 24 小时内为您出具专业技术评估报告与明确报价。
+        </p>
+
+        <div class="contact-wechat-box" style="max-width:600px;margin:0 auto;justify-content:center;background:rgba(255,255,255,0.08);padding:32px;border-radius:var(--radius-lg);">
+          <div class="contact-wechat-icon" style="width:64px;height:64px;">
+            <i data-lucide="message-square" style="width:32px;height:32px;"></i>
+          </div>
+          <div style="text-align:left;">
+            <div style="font-size:13px;color:#94A3B8;font-weight:600;">接单客服官方微信</div>
+            <div class="contact-wechat-val" style="font-size:32px;">free11092025</div>
+            <div style="font-size:13px;color:#07C160;margin-top:4px;">● 工作时间 1 小时内快速响应</div>
+          </div>
+          <button class="btn btn-wechat" onclick="copyWeChatID()" style="padding:14px 28px;font-size:15px;margin-left:auto;">
+            <i data-lucide="copy" style="width:18px;height:18px;"></i> 一键复制微信号
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#" class="brand-logo" style="color:#FFF;">
+          <div class="brand-icon-wrapper">
+            <i data-lucide="compass" style="width:24px;height:24px;"></i>
+          </div>
+          <div class="brand-text">
+            指南针代码工作室
+            <span style="color:#94A3B8;">COMPASS CODE STUDIO</span>
+          </div>
+        </a>
+
+        <div style="font-size:14px;color:#94A3B8;display:flex;align-items:center;gap:8px;">
+          <i data-lucide="message-circle" style="width:16px;height:16px;color:#07C160;"></i>
+          官方接单微信：<strong style="color:#07C160;font-family:var(--font-mono);">free11092025</strong>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 指南针代码工作室 (Compass Code Studio). All Rights Reserved.</div>
+        <div>专业全栈软件定制 · 100%全量源码交付</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 案例高保真在线预览 MODAL -->
+  <div class="modal-overlay" id="previewModal">
+    <div class="preview-modal-container">
+      <div class="preview-modal-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="case-code" id="modalCaseCode">CASE #01</span>
+          <span class="modal-case-title" id="modalCaseTitle">案例名称</span>
+        </div>
+
+        <div class="device-switcher">
+          <button class="device-btn active" id="btnDeviceMobile" onclick="switchPreviewDevice('mobile')">
+            <i data-lucide="smartphone" style="width:14px;height:14px;"></i> 📱 移动端 375px
+          </button>
+          <button class="device-btn" id="btnDeviceDesktop" onclick="switchPreviewDevice('desktop')">
+            <i data-lucide="monitor" style="width:14px;height:14px;"></i> 🖥️ 桌面 100%
+          </button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="#" id="modalDirectLink" target="_blank" class="btn btn-outline" style="padding:6px 12px;font-size:12px;">
+            <i data-lucide="external-link" style="width:14px;height:14px;"></i> 新标签页体验
+          </a>
+          <button class="modal-close-btn" onclick="closePreviewModal()">
+            <i data-lucide="x" style="width:20px;height:20px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="preview-modal-body">
+        <div class="preview-frame-wrapper mode-mobile" id="previewFrameWrapper">
+          <iframe id="previewIframe" src="about:blank"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    let activePrimaryTab = 'miniprogram';
-    let activeCat = 'all';
+    const COMPASS_CASES_DATABASE = [
+      { id: "01", file: "deploy_html/01-car-wash.html", title: "24H无人自助洗车/预约系统", category: "life", tags: ["智能排队", "站点定位", "洗车卡包"], desc: "覆盖智能站点地图定位、时段在线预约、洗车套餐充值与洗车设备接口对接。" },
+      { id: "02", file: "deploy_html/02-billiards-pingpong.html", title: "24H无人自助棋牌/桌球室", category: "sports", tags: ["智能门禁", "按时计费", "包厢预约"], desc: "包含无人包厢时段预订、灯控门禁接口、自动计费结算与续费提醒。" },
+      { id: "03", file: "deploy_html/03-study-room.html", title: "共享付费自习室预约系统", category: "life", tags: ["座位地图", "沉浸卡包", "环境控灯"], desc: "支持座位可视化选座、沉浸式卡包购买、静音房时段预约与开门凭证。" },
+      { id: "04", file: "deploy_html/04-piano-music-room.html", title: "琴房/音乐练习室预约系统", category: "sports", tags: ["乐器型号", "隔音房预订", "消杀记录"], desc: "琴房设备分类预约、练习时段排班、环境卫生消杀状态查看与充值卡。" },
+      { id: "05", file: "deploy_html/05-smart-tea-room.html", title: "共享智能茶室预约小程序", category: "life", tags: ["茶室主题", "泡茶套餐", "扫码开锁"], desc: "国风高端茶室包厢选定、茶叶茶具选购、时段锁定与微信小程序开门。" },
+      { id: "06", file: "deploy_html/06-24h-gym.html", title: "24H无人自助健身房预约", category: "sports", tags: ["团课排班", "私教约课", "闸机通关"], desc: "包含扫码进场、团课时段抢位、私教一对一约课与体测数据记录。" },
+      { id: "07", file: "deploy_html/07-party-murder-mystery.html", title: "剧本杀/桌游组局预约系统", category: "sports", tags: ["剧本库", "DM选人", "拼车组局"], desc: "剧本难度分类浏览、拼车人满开局提醒、DM主持挑选与房间预订。" },
+      { id: "10", file: "deploy_html/10-costume-rental.html", title: "汉服/演出服/Cosplay租赁", category: "rental", tags: ["尺码搭配", "档期锁定", "洗涤维保"], desc: "汉服妆造档期预订、服装尺码分类选择、归还清洗记录与押金结算。" },
+      { id: "11", file: "deploy_html/11-nail-eyelash-salon.html", title: "美甲美睫/纹绣预约小程序", category: "beauty", tags: ["手艺人选人", "款式展示", "作品集"], desc: "款式相册展示、技师排班预约、定金收取与到店打卡核销。" },
+      { id: "12", file: "deploy_html/12-barbershop.html", title: "美发/理发店在线预约系统", category: "beauty", tags: ["发型师选人", "洗剪吹位", "评价体系"], desc: "发型师作品集展示、排号叫号实时通知、指定发型师预约与充值卡。" },
+      { id: "13", file: "deploy_html/13-dental-clinic.html", title: "牙科诊所/口腔医院在线预约", category: "beauty", tags: ["医师挂号", "检查项目", "电子病历"], desc: "口腔检查洗牙套餐在线约、医生专家号抢约、到店提醒与健康档案。" },
+      { id: "14", file: "deploy_html/14-postpartum-pediatric-massage.html", title: "产后康复/小儿推拿/月子中心", category: "beauty", tags: ["上门理疗", "调理方案", "护士资质"], desc: "产后通乳调理、小儿推拿时段预约、护士资质验证与上门服务调度。" },
+      { id: "15", file: "deploy_html/15-skin-management.html", title: "皮肤管理/轻医美美容院预约", category: "beauty", tags: ["仪器报备", "皮肤测肤", "美容师位"], desc: "皮肤检测项目订制、高阶仪器调配预约、房间隐秘度选择与护理记录。" },
+      { id: "16", file: "deploy_html/16-psychological-counseling.html", title: "心理咨询/情感倾诉在线预约", category: "beauty", tags: ["咨询师流", "私密倾诉", "量表测试"], desc: "心理量表自测、咨询师流派与资历查看、匿名倾诉与线上线下预约。" },
+      { id: "17", file: "deploy_html/17-yoga-pilates.html", title: "瑜伽/普拉提/体态矫正约课", category: "beauty", tags: ["小班私教", "大课排表", "取消候补"], desc: "普拉提大器械小班约课、候补排队机制、次卡/月卡扣减与请假管理。" },
+      { id: "19", file: "deploy_html/19-pet-grooming-boarding.html", title: "宠物洗护/寄养/美容预约", category: "pet", tags: ["宠物体重", "寄养舱位", "监控打卡"], desc: "毛孩子洗护套餐按体重计费、独立寄养舱预订与日记视频更新。" },
+      { id: "20", file: "deploy_html/20-pet-hospital-vaccine.html", title: "宠物医院/疫苗体检/在线挂号", category: "pet", tags: ["专科医师", "疫苗提醒", "急诊通道"], desc: "宠物疫苗打针预约、绝育体检套餐、主治医生挂号与驱虫提醒。" },
+      { id: "21", file: "deploy_html/21-pet-sitting-walking.html", title: "上门喂宠/代遛狗/代上门服务", category: "pet", tags: ["全程视频", "钥匙托管", "服务日志"], desc: "假期上门喂猫喂狗、遛狗轨迹记录、喂食换水打扫日志与视频上传。" },
+      { id: "22", file: "deploy_html/22-pet-mating-adoption.html", title: "宠物领养/配种/血统认证", category: "pet", tags: ["领养无偿", "血统证书", "相亲择偶"], desc: "流浪动物无偿领养申请、纯种宠物相亲配种匹配与健康检疫记录。" },
+      { id: "24", file: "deploy_html/24-home-cleaning-housekeeping.html", title: "家政保洁/日常保姆预约", category: "life", tags: ["按小时计", "阿姨选择", "保洁范围"], desc: "日常保洁按平米/小时预约、阿姨身份保险验证、到家服务完成点评。" },
+      { id: "29", file: "deploy_html/29-private-chef-catering.html", title: "私厨上门/宴席定制预约", category: "life", tags: ["菜系选择", "备料代购", "厨房打扫"], desc: "家宴/生日宴私厨上门做菜、菜系菜单搭配、代买食材与厨后保洁。" },
+      { id: "30", file: "deploy_html/30-youth-sports-training.html", title: "青少年体育培训/少儿体能", category: "sports", tags: ["体测评估", "篮球足球", "学员消课"], desc: "少儿体能/篮球/体考预约打卡、消课记录实时推送与家长点评。" },
+      { id: "31", file: "deploy_html/31-art-pottery-workshop.html", title: "美术画室/陶艺DIY体验预约", category: "event", tags: ["零基础DIY", "材料全包", "烧制领取"], desc: "陶艺拉胚/油画体验预约、课时排表、成品烧制进度查询与自提。" },
+      { id: "33", file: "deploy_html/33-kids-coding-robotics.html", title: "少儿编程/机器人创客课程", category: "event", tags: ["试听体验", "作品展现", "阶段评估"], desc: "Scratch/Python试听课抢约、学员作品集展示与创客竞赛报名。" },
+      { id: "34", file: "deploy_html/34-family-farm-harvest.html", title: "亲子农场/采摘体验预约", category: "event", tags: ["果蔬季节", "农场定位", "入园门票"], desc: "草莓/葡萄季节采摘门票预约、农家乐桌餐预订与亲子小动物互动。" },
+      { id: "36", file: "deploy_html/36-tailored-suits-cheongsam.html", title: "西装量体定制/旗袍高定", category: "rental", tags: ["裁缝上门", "面料样本", "试衣修改"], desc: "高级定制师傅上门量体、进口面料册展示、成衣试穿修改预约。" },
+      { id: "37", file: "deploy_html/37-flower-subscription-plants.html", title: "鲜花订购/绿植租摆订阅", category: "rental", tags: ["周花订阅", "绿植养护", "企业租摆"], desc: "每周一花定期配送订阅、办公绿植租赁更换与花艺师上门养护。" },
+      { id: "38", file: "deploy_html/38-bakery-cake-custom.html", title: "烘焙蛋糕/甜品私房订制", category: "rental", tags: ["款式手绘", "夹心口味", "冷链配送"], desc: "生日蛋糕款式图库选择、夹心口味定制、配送时间指定与蜡烛配备。" },
+      { id: "43", file: "deploy_html/43-expo-conference-tickets.html", title: "展会论坛/会议门票分销", category: "event", tags: ["电子票码", "早鸟优惠", "发票开具"], desc: "峰会展会早鸟票预订、电子二维码现场签到扫码与增值税发票。" },
+      { id: "45", file: "deploy_html/45-alumni-chamber-directory.html", title: "校友会/商会名录社群", category: "event", tags: ["名片交换", "供需匹配", "线下活动"], desc: "校友/会员名片认证查阅、企业资源供需对接发布与活动报名。" }
+    ];
 
-    function switchPrimaryTab(tabType, btn) {
-      activePrimaryTab = tabType;
-      
-      // Update primary tab button active styling
-      document.querySelectorAll('.primary-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    const CASE_CATEGORIES = [
+      { key: "all", name: "全部案例", count: 30 },
+      { key: "life", name: "生活与服务预约", count: 5 },
+      { key: "sports", name: "休闲文娱与体育", count: 5 },
+      { key: "beauty", name: "美业与健康管理", count: 7 },
+      { key: "pet", name: "宠物经济与服务", count: 4 },
+      { key: "rental", name: "共享租赁与体验", count: 4 },
+      { key: "event", name: "现场活动与社群", count: 5 }
+    ];
 
-      const scenarioGrid = document.getElementById('scenarioGrid');
-      const websiteEmptyState = document.getElementById('websiteEmptyState');
-      const subCatBar = document.getElementById('subCatBar');
-      const searchBarWrapper = document.getElementById('searchBarWrapper');
+    let currentCategory = "all";
+    let currentSearchQuery = "";
+    let estimatorType = "web_single";
+    let estimatorBasePrice = 500;
+    let estimatorBaseDays = 1;
+    let estimatorBaseTitle = "🌐 品牌官网/Web单页展示 (¥500)";
+    const WECHAT_ID = "free11092025";
 
-      if (tabType === 'miniprogram') {
-        scenarioGrid.style.display = 'grid';
-        subCatBar.style.display = 'flex';
-        searchBarWrapper.style.display = 'block';
-        websiteEmptyState.style.display = 'none';
-        handleFilter();
-      } else if (tabType === 'website') {
-        scenarioGrid.style.display = 'none';
-        subCatBar.style.display = 'none';
-        searchBarWrapper.style.display = 'none';
-        websiteEmptyState.style.display = 'block';
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCategoryTabs();
+      renderCasesGrid();
+      initLucideIcons();
+      recalculateEstimator();
+    });
+
+    function initLucideIcons() {
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function copyWeChatID() {
+      navigator.clipboard.writeText(WECHAT_ID).then(() => {
+        alert(`已成功复制接单微信号 (${WECHAT_ID})！请直接打开微信添加搜索。`);
+      }).catch(() => {
+        alert(`官方接单微信号：${WECHAT_ID}`);
+      });
+    }
+
+    function renderCategoryTabs() {
+      const container = document.getElementById("categoryTabs");
+      if (!container) return;
+      container.innerHTML = CASE_CATEGORIES.map(cat => `
+        <button class="cat-tab ${cat.key === currentCategory ? 'active' : ''}" onclick="switchCategory('${cat.key}')">
+          ${cat.name}
+          <span class="cat-count">${cat.count}</span>
+        </button>
+      `).join('');
+    }
+
+    function switchCategory(key) {
+      currentCategory = key;
+      renderCategoryTabs();
+      renderCasesGrid();
+    }
+
+    function handleSearchInput() {
+      currentSearchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+      renderCasesGrid();
+    }
+
+    function renderCasesGrid() {
+      const grid = document.getElementById("casesGrid");
+      if (!grid) return;
+      const filtered = COMPASS_CASES_DATABASE.filter(item => {
+        let matchesCat = (currentCategory === "all") || (item.category === currentCategory);
+        if (currentCategory === "website") {
+          matchesCat = item.category === "enterprise" || item.category === "rental" || item.category === "event" || item.title.includes("官网") || item.title.includes("商城") || item.title.includes("系统");
+        }
+        const matchesSearch = !currentSearchQuery || 
+                              item.title.toLowerCase().includes(currentSearchQuery) || 
+                              item.desc.toLowerCase().includes(currentSearchQuery) ||
+                              item.tags.some(t => t.toLowerCase().includes(currentSearchQuery)) ||
+                              item.id.includes(currentSearchQuery);
+        return matchesCat && matchesSearch;
+      });
+
+      document.getElementById("resultCount").innerText = filtered.length;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="inbox" style="width:48px;height:48px;color:var(--text-subtle);"></i>
+            <h4 style="font-size:16px;color:var(--text-main);margin-bottom:6px;">没有找到匹配的案例</h4>
+            <p style="font-size:13px;color:var(--text-muted);">请尝试更换搜索关键词或选择其他行业分类</p>
+          </div>
+        `;
+        initLucideIcons();
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="case-card">
+          <div class="case-card-top">
+            <div class="case-header-meta">
+              <span class="case-code">CASE #${item.id}</span>
+              <span class="case-cat-tag">${getCatName(item.category)}</span>
+            </div>
+            
+            <h3 class="case-title">${item.title}</h3>
+            <p class="case-desc">${item.desc}</p>
+            
+            <div class="case-tags-group">
+              ${item.tags.map(t => `<span class="case-tag-item"># ${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="case-actions">
+            <button class="btn btn-gradient" onclick="openPreviewModal('${item.id}')">
+              <i data-lucide="eye" style="width:14px;height:14px;"></i> 在线预览
+            </button>
+            <a href="${item.file}" target="_blank" class="btn btn-outline">
+              <i data-lucide="external-link" style="width:14px;height:14px;"></i> 新标签
+            </a>
+          </div>
+        </div>
+      `).join('');
+
+      initLucideIcons();
+    }
+
+    function getCatName(key) {
+      const found = CASE_CATEGORIES.find(c => c.key === key);
+      return found ? found.name : "商业系统";
+    }
+
+    function openPreviewModal(caseId) {
+      const caseItem = COMPASS_CASES_DATABASE.find(c => c.id === caseId);
+      if (!caseItem) return;
+
+      document.getElementById("modalCaseCode").innerText = `CASE #${caseItem.id}`;
+      document.getElementById("modalCaseTitle").innerText = caseItem.title;
+      document.getElementById("modalDirectLink").href = caseItem.file;
+
+      const iframe = document.getElementById("previewIframe");
+      iframe.src = caseItem.file;
+
+      document.getElementById("previewModal").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePreviewModal() {
+      document.getElementById("previewModal").classList.remove("active");
+      document.getElementById("previewIframe").src = "about:blank";
+      document.body.style.overflow = "auto";
+    }
+
+    function switchPreviewDevice(mode) {
+      const wrapper = document.getElementById("previewFrameWrapper");
+      const btnMobile = document.getElementById("btnDeviceMobile");
+      const btnDesktop = document.getElementById("btnDeviceDesktop");
+      const iframe = document.getElementById("previewIframe");
+
+      if (mode === 'mobile') {
+        wrapper.className = "preview-frame-wrapper mode-mobile";
+        btnMobile.classList.add("active");
+        btnDesktop.classList.remove("active");
+        try {
+          if (iframe.contentWindow && typeof iframe.contentWindow.toggleViewportMode === 'function') {
+            iframe.contentWindow.toggleViewportMode('mobile');
+          }
+        } catch(e){}
+      } else {
+        wrapper.className = "preview-frame-wrapper mode-desktop";
+        btnDesktop.classList.add("active");
+        btnMobile.classList.remove("active");
+        try {
+          if (iframe.contentWindow && typeof iframe.contentWindow.toggleViewportMode === 'function') {
+            iframe.contentWindow.toggleViewportMode('wide');
+          }
+        } catch(e){}
       }
     }
 
-    function handleFilter() {
-      if (activePrimaryTab !== 'miniprogram') return;
+    function selectEstimatorType(type, price, days, title) {
+      estimatorType = type;
+      estimatorBasePrice = price;
+      estimatorBaseDays = days;
+      estimatorBaseTitle = title;
 
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
-      const cards = document.querySelectorAll('.scenario-card');
-      let visibleCount = 0;
+      document.querySelectorAll('#typeSelectGrid .type-chip').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-type') === type);
+      });
 
-      cards.forEach(card => {
-        const title = card.getAttribute('data-title').toLowerCase();
-        const cat = card.getAttribute('data-cat');
-        
-        const matchSearch = !q || title.includes(q);
-        const matchCat = activeCat === 'all' || cat === activeCat;
+      recalculateEstimator();
+    }
 
-        if (matchSearch && matchCat) {
-          card.style.display = 'flex';
-          visibleCount++;
+    function toggleEstimatorModule(el) {
+      el.classList.toggle('checked');
+      const icon = el.querySelector('i');
+      if (el.classList.contains('checked')) {
+        icon.setAttribute('data-lucide', 'check-square');
+      } else {
+        icon.setAttribute('data-lucide', 'square');
+      }
+      initLucideIcons();
+      recalculateEstimator();
+    }
+
+    function recalculateEstimator() {
+      let totalCost = estimatorBasePrice;
+      let totalDays = estimatorBaseDays;
+      let selectedItems = [`• ${estimatorBaseTitle}`];
+
+      document.querySelectorAll('#modulesGrid input[type="checkbox"]').forEach(input => {
+        const parentLabel = input.closest('.mod-checkbox-label');
+        if (input.checked) {
+          if (parentLabel) parentLabel.classList.add('checked');
+          const name = input.getAttribute('data-name');
+          const price = parseInt(input.getAttribute('data-price') || "0");
+          const days = parseInt(input.getAttribute('data-days') || "0");
+
+          totalCost += price;
+          totalDays += days;
+          selectedItems.push(`• ${name}`);
         } else {
-          card.style.display = 'none';
+          if (parentLabel) parentLabel.classList.remove('checked');
         }
       });
 
-      document.getElementById('emptyState').style.display = (visibleCount === 0) ? 'block' : 'none';
+      const maxDays = totalDays + 2;
+
+      document.getElementById("estPriceVal").innerText = `¥${totalCost.toLocaleString()}`;
+      document.getElementById("estDaysVal").innerText = `预计开发周期：${totalDays} - ${maxDays} 工作日`;
+      
+      const itemsContainer = document.getElementById("estItemsList");
+      if (itemsContainer) {
+        itemsContainer.innerHTML = selectedItems.map(item => `<div>${item}</div>`).join('');
+      }
     }
 
-    function filterCategory(cat, btn) {
-      activeCat = cat;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      handleFilter();
+    function copyEstimatorToClipboard() {
+      const priceText = document.getElementById("estPriceVal").innerText;
+      const daysText = document.getElementById("estDaysVal").innerText;
+      const itemsList = Array.from(document.querySelectorAll('#estItemsList div')).map(el => el.innerText).join('\n');
+      
+      const textToCopy = `【指南针代码工作室 - 需求定制配置清单】\n${itemsList}\n-------------------------\n预估总计费用: ${priceText}\n${daysText}\n官方接单微信：${WECHAT_ID}`;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert(`已成功将估算配置清单与微信号 (${WECHAT_ID}) 复制到剪贴板！请直接打开微信粘贴发给客服即可。`);
+      }).catch(() => {
+        copyWeChatID();
+      });
     }
   </script>
 </body>
